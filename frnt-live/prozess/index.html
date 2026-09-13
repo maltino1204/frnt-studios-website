@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>So läuft das — FRNT Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230a0a0a%22/><text x=%2250%22 y=%2268%22 font-family=%22Arial Black, sans-serif%22 font-weight=%22900%22 font-size=%2262%22 fill=%22%23c6ff3d%22 text-anchor=%22middle%22>F</text></svg>">
+<style>
+:root{
+  --bg:#f4f1ea;--ink:#0a0a0a;--ink-soft:rgba(10,10,10,0.6);--ink-dim:rgba(10,10,10,0.35);
+  --acid:#c6ff3d;--pink:#ff3d6e;--blue:#3d5fff;--card:#ffffff;
+  --display:'Archivo Black',sans-serif;--sans:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;transition:background .3s,border-color .3s;}
+nav.s{background:rgba(244,241,234,0.92);backdrop-filter:blur(16px);border-bottom:2px solid var(--ink);}
+.logo{text-decoration:none;display:flex;align-items:center;gap:2px;}
+.logo-f{font-family:var(--display);font-size:22px;color:var(--ink);letter-spacing:-0.02em;}
+.logo-dot{width:8px;height:8px;background:var(--acid);border-radius:50%;margin-left:6px;}
+.nav-btn{background:var(--ink);color:var(--bg);border:2px solid var(--ink);padding:11px 22px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);text-decoration:none;display:inline-block;transition:background .2s,color .2s,transform .2s;}
+.nav-btn:hover{background:var(--acid);color:var(--ink);transform:translateY(-2px);}
+
+.hero{padding:180px 24px 100px;text-align:center;max-width:820px;margin:0 auto;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--acid);padding:8px 18px;border-radius:100px;font-family:var(--mono);font-size:12px;margin-bottom:32px;transform:rotate(-2deg);}
+.hero-tag::before{content:'●';color:var(--pink);font-size:9px;}
+.hero h1{font-family:var(--display);font-size:64px;line-height:0.98;letter-spacing:-0.02em;margin-bottom:24px;}
+.hero h1 .hl{background:var(--acid);padding:0 10px;display:inline-block;transform:rotate(-1deg);}
+.hero p{font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:480px;margin:0 auto;}
+
+.timeline{max-width:760px;margin:0 auto;padding:40px 24px 60px;position:relative;}
+.tl-line{position:absolute;left:52px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(to bottom,var(--ink) 0,var(--ink) 8px,transparent 8px,transparent 16px);}
+.step{display:flex;gap:32px;padding:56px 0;position:relative;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
+.step.visible{opacity:1;transform:translateY(0);}
+.step-num{width:104px;flex-shrink:0;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;}
+.step-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:20px;color:var(--ink);position:relative;z-index:2;border:3px solid var(--ink);}
+.step:nth-child(1) .step-circle{background:var(--acid);}
+.step:nth-child(2) .step-circle{background:var(--pink);color:#fff;}
+.step:nth-child(3) .step-circle{background:var(--blue);color:#fff;}
+.step:nth-child(4) .step-circle{background:var(--acid);}
+.step:nth-child(5) .step-circle{background:var(--pink);color:#fff;}
+.step:nth-child(6) .step-circle{background:var(--blue);color:#fff;}
+.step-body{flex:1;padding-top:2px;}
+.step-time{font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
+.step-title{font-family:var(--display);font-size:26px;letter-spacing:-0.01em;margin-bottom:10px;}
+.step-desc{font-size:15px;color:var(--ink-soft);line-height:1.7;max-width:460px;}
+
+.mockup{margin-top:24px;background:var(--ink);border-radius:14px;padding:24px 28px;max-width:440px;box-shadow:6px 6px 0 rgba(10,10,10,0.08);}
+.mockup-label{font-family:var(--mono);font-size:10px;color:var(--acid);margin-bottom:14px;letter-spacing:0.05em;}
+.mockup-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:13px;}
+.mockup-row:last-child{border-bottom:none;}
+.mockup-row span:first-child{color:rgba(255,255,255,0.5);}
+.mockup-row span:last-child{color:#fff;font-weight:500;}
+.mockup-btn{margin-top:14px;background:var(--acid);color:var(--ink);font-family:var(--mono);font-size:11px;font-weight:600;padding:8px 16px;border-radius:6px;display:inline-block;}
+
+.card-preview{margin-top:24px;background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:20px 24px;max-width:440px;display:flex;align-items:center;gap:14px;transform:rotate(-1deg);}
+.card-preview .dot{width:10px;height:10px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+.card-preview p{font-size:13px;color:var(--ink-soft);line-height:1.6;margin:0;}
+
+.divider{height:2px;max-width:100px;margin:0 auto;background:var(--ink-dim);}
+
+.cta-final{padding:100px 24px 160px;text-align:center;max-width:700px;margin:0 auto;}
+.cta-final h2{font-family:var(--display);font-size:48px;line-height:1;letter-spacing:-0.02em;margin-bottom:20px;}
+.cta-final h2 .hl{background:var(--pink);color:#fff;padding:0 12px;display:inline-block;transform:rotate(1deg);}
+.cta-final p{font-size:16px;color:var(--ink-soft);margin-bottom:36px;}
+.cta-final .nav-btn{padding:16px 32px;font-size:14px;}
+
+footer{border-top:3px solid var(--ink);padding:32px 40px;display:flex;justify-content:space-between;align-items:center;}
+.foot-l{font-family:var(--display);font-size:16px;display:flex;align-items:center;gap:6px;}
+.foot-l .d{width:6px;height:6px;background:var(--acid);border-radius:50%;}
+.foot-r{display:flex;gap:24px;}
+.foot-r a{font-family:var(--mono);font-size:12px;color:var(--ink-dim);text-decoration:none;}
+.foot-r a:hover{color:var(--ink);}
+
+@media(max-width:700px){
+  .hero{padding:140px 20px 70px;}
+  .hero h1{font-size:40px;}
+  .timeline{padding:20px 16px 40px;}
+  .tl-line{left:36px;}
+  .step{gap:20px;padding:40px 0;}
+  .step-num{width:72px;}
+  .step-circle{width:44px;height:44px;font-size:16px;}
+  .step-title{font-size:21px;}
+  .step-desc{font-size:14px;}
+  .cta-final h2{font-size:32px;}
+  footer{padding:24px 20px;flex-direction:column;gap:14px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="n">
+  <a class="logo" href="/"><span class="logo-f">FRNT</span><span class="logo-dot"></span></a>
+  <a class="nav-btn" href="/">Zurück →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">SO EINFACH IST DAS WIRKLICH</div>
+  <h1>Vom Link<br>zur <span class="hl">neuen Website.</span></h1>
+  <p>Kein Meeting. Kein Agentur-Prozess. Sechs Schritte, die wirklich so ablaufen.</p>
+</section>
+
+<div class="timeline">
+  <div class="tl-line"></div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">01</div></div>
+    <div class="step-body">
+      <div class="step-time">Tag 0 — 2 Minuten</div>
+      <div class="step-title">Ihr schickt uns einen Link</div>
+      <div class="step-desc">Eure aktuelle Website reicht. Kein Briefing, kein Fragebogen, keine Bedarfsanalyse.</div>
+      <div class="mockup">
+        <div class="mockup-label">// EINGABE</div>
+        <div class="mockup-row"><span>URL</span><span>eure-website.de</span></div>
+        <div class="mockup-btn">Vorschau anfragen →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">02</div></div>
+    <div class="step-body">
+      <div class="step-time">Tag 1 — 24 Stunden</div>
+      <div class="step-title">Wir bauen eine echte Vorschau</div>
+      <div class="step-desc">Kein Mockup, keine PDF-Skizze — eine fertige, klickbare Website mit euren echten Inhalten und Fotos.</div>
+      <div class="card-preview"><div class="dot"></div><p>Ihr bekommt einen Link. Öffnen, anschauen, entscheiden.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">03</div></div>
+    <div class="step-body">
+      <div class="step-time">Sobald ihr Zeit habt</div>
+      <div class="step-title">Ihr entscheidet — ohne Druck</div>
+      <div class="step-desc">Gefällt euch die Vorschau nicht, hat euch das nichts gekostet. Gefällt sie euch, geht's mit einem Klick weiter.</div>
+      <div class="card-preview"><div class="dot"></div><p>Kein Verkaufsgespräch. Kein Nachfassen. Ihr meldet euch, wenn ihr soweit seid.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">04</div></div>
+    <div class="step-body">
+      <div class="step-time">Nach eurer Zusage</div>
+      <div class="step-title">Wir richten alles technisch ein</div>
+      <div class="step-desc">Hosting, Sicherheit, eure eigene Verwaltungs-Oberfläche — komplett vorbereitet, ohne dass ihr etwas einrichten müsst.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">05</div></div>
+    <div class="step-body">
+      <div class="step-time">Unter einer Woche</div>
+      <div class="step-title">Eure Seite geht live</div>
+      <div class="step-desc">Eure Domain zeigt jetzt auf die neue Website. Fertig, live, für alle sichtbar.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-circle">06</div></div>
+    <div class="step-body">
+      <div class="step-time">Ab jetzt — für immer</div>
+      <div class="step-title">Ihr pflegt sie selbst</div>
+      <div class="step-desc">Öffnungszeiten, Texte, Bilder — alles ändert ihr in zwei Klicks. Kein Anruf, kein Ticket, keine Wartezeit.</div>
+      <div class="mockup">
+        <div class="mockup-label">// EUER CMS</div>
+        <div class="mockup-row"><span>Öffnungszeiten</span><span>bearbeiten</span></div>
+        <div class="mockup-row"><span>Texte</span><span>bearbeiten</span></div>
+        <div class="mockup-row"><span>Fotos</span><span>bearbeiten</span></div>
+        <div class="mockup-btn">Speichern → sofort live</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section class="cta-final">
+  <h2>Klingt gut?<br><span class="hl">Schickt uns den Link.</span></h2>
+  <p>Kostenlos, unverbindlich, in 24 Stunden bei euch im Postfach.</p>
+  <a class="nav-btn" href="/#hero">Vorschau anfragen →</a>
+</section>
+
+<footer>
+  <div class="foot-l">FRNT<span class="d"></span></div>
+  <div class="foot-r">
+    <a href="mailto:info@frnt-studios.de">info@frnt-studios.de</a>
+    <a href="/impressum/">Impressum</a>
+    <a href="/datenschutz/">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('n').classList.toggle('s',scrollY>30));
+const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.15});
+document.querySelectorAll('.step').forEach(e=>o.observe(e));
+</script>
+</body>
+</html>

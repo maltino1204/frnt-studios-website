@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /demo/
+Disallow: /angebot/
+Allow: /
+
+Sitemap: https://frnt-studios.de/sitemap.xml

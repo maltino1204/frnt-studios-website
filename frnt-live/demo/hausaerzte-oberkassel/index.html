@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hausärzte Oberkassel — Internistische Hausarztpraxis seit 1996</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#fcfaf6;--white:#ffffff;--ink:#1a1a1a;--ink-soft:#555;--ink-dim:#999;
+  --green:#2d7a5f;--green-light:#e8f5ee;--green-dark:#1e5a43;
+  --warm:#f5f0e8;--border:#e8e3d9;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --sh-sm:0 2px 12px rgba(0,0,0,0.05);
+  --sh-md:0 4px 24px rgba(0,0,0,0.06);
+  --sh-lg:0 16px 40px rgba(0,0,0,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;font-weight:400;-webkit-font-smoothing:antialiased;}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:64px;background:var(--white);box-shadow:var(--sh-sm);position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:var(--serif);font-size:17px;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:none;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-tel{display:none;}
+.nav-cta{background:var(--green);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 2px 8px rgba(45,122,95,0.25);}
+.nav-cta:hover{background:var(--green-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(45,122,95,0.35);}
+
+.hero-banner{position:relative;min-height:340px;overflow:hidden;background:#e8f0e8;display:flex;align-items:center;}
+.hero-banner-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;}
+.hero-banner-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(252,250,246,0.94) 0%,rgba(252,250,246,0.72) 55%,transparent 100%);}
+.hero-banner-bottom{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,var(--bg));}
+.hero-banner-content{position:relative;z-index:2;padding:44px 20px;max-width:520px;}
+.hero-banner-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:14px;opacity:0;transform:translateY(10px);animation:riseIn .7s .1s forwards;}
+.hero-banner h1{font-family:var(--serif);font-size:30px;line-height:1.12;color:var(--ink);margin-bottom:16px;opacity:0;transform:translateY(14px);animation:riseIn .8s .22s forwards;}
+.hero-banner h1 em{font-style:italic;color:var(--green);}
+.hero-banner-sub{font-size:14px;color:var(--ink-soft);line-height:1.7;margin-bottom:24px;opacity:0;transform:translateY(14px);animation:riseIn .8s .36s forwards;}
+.hero-banner-btns{display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(14px);animation:riseIn .8s .48s forwards;}
+@keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+
+.btn-green{background:var(--green);color:#fff;border:none;padding:14px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s,transform .2s,box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 10px rgba(45,122,95,0.25);}
+.btn-green:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 6px 18px rgba(45,122,95,0.35);}
+.btn-green i{font-size:16px;}
+.btn-outline{background:var(--white);color:var(--ink);border:none;padding:13px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-sm);}
+.btn-outline:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
+
+.hero{padding:44px 20px;display:flex;flex-direction:column;gap:20px;max-width:1200px;margin:0 auto;}
+.hero-contact-card,.hero-card{background:var(--white);border-radius:16px;padding:24px;box-shadow:var(--sh-md);transition:box-shadow .3s,transform .3s;}
+.hero-contact-card:hover,.hero-card:hover{box-shadow:var(--sh-lg);transform:translateY(-3px);}
+.hero-contact-label,.hero-card-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:16px;}
+.hero-contact-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);}
+.hero-contact-row:last-child{border-bottom:none;}
+.hero-contact-row i{color:var(--green);font-size:19px;flex-shrink:0;transition:transform .2s;}
+.hero-contact-row:hover i{transform:scale(1.15);}
+.hero-contact-row a,.hero-contact-row span{color:var(--ink);font-size:14px;font-weight:500;text-decoration:none;line-height:1.4;}
+.hours-grid{display:flex;flex-direction:column;gap:10px;}
+.hour-row{display:flex;justify-content:space-between;font-size:13px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.hour-row:last-child{border-bottom:none;padding-bottom:0;}
+.hour-day{font-weight:500;color:var(--ink);}
+.hour-time{color:var(--ink-soft);}
+.hero-card-note{margin-top:18px;font-size:12px;color:var(--ink-dim);line-height:1.6;padding:14px;background:var(--green-light);border-radius:8px;}
+.hero-card-note strong{color:var(--green);}
+
+.trust{padding:20px;background:var(--white);display:flex;justify-content:center;gap:20px 28px;flex-wrap:wrap;box-shadow:var(--sh-sm);}
+.trust-item{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--ink-soft);font-weight:500;}
+.trust-icon{width:30px;height:30px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
+.trust-item:hover .trust-icon{transform:rotate(-8deg) scale(1.1);}
+.trust-icon i{color:var(--green);font-size:15px;}
+
+.section{padding:56px 20px;max-width:1200px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
+.section.visible{opacity:1;transform:translateY(0);}
+.sec-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.sec-h2{font-family:var(--serif);font-size:28px;color:var(--ink);margin-bottom:10px;line-height:1.22;}
+.sec-sub{font-size:13px;color:var(--ink-soft);max-width:480px;line-height:1.7;margin-bottom:36px;}
+
+.actions-grid{display:flex;flex-direction:column;gap:14px;}
+.action-card{background:var(--white);border-radius:12px;padding:24px 22px;transition:transform .3s,box-shadow .3s;text-decoration:none;color:var(--ink);box-shadow:var(--sh-sm);}
+.action-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.action-icon{width:42px;height:42px;background:var(--green-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .3s;}
+.action-card:hover .action-icon{transform:scale(1.1) rotate(-4deg);}
+.action-icon i{color:var(--green);font-size:19px;}
+.action-title{font-family:var(--serif);font-size:18px;margin-bottom:8px;}
+.action-desc{font-size:13px;color:var(--ink-soft);line-height:1.6;}
+
+.team-section{background:var(--white);padding:56px 20px;}
+.team-inner{max-width:1200px;margin:0 auto;}
+.team-grid{display:flex;flex-direction:column;gap:18px;}
+.team-card{border-radius:14px;overflow:hidden;transition:transform .35s,box-shadow .35s;box-shadow:var(--sh-sm);}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);}
+.team-img{height:240px;background:linear-gradient(135deg,var(--green),var(--green-dark));display:flex;align-items:flex-end;padding:16px;position:relative;overflow:hidden;}
+.team-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .5s;}
+.team-card:hover .team-img img{transform:scale(1.05);}
+.team-badge{background:rgba(255,255,255,0.18);backdrop-filter:blur(10px);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#fff;position:relative;z-index:1;}
+.team-body{padding:20px;}
+.team-role{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;}
+.team-name{font-family:var(--serif);font-size:19px;margin-bottom:8px;}
+.team-hours{font-size:12px;color:var(--ink-dim);line-height:1.6;}
+
+.leistungen-grid{display:flex;flex-direction:column;gap:14px;}
+.leistung{background:var(--white);border-radius:12px;padding:22px;transition:transform .3s,box-shadow .3s;box-shadow:var(--sh-sm);}
+.leistung:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.leistung-icon{width:36px;height:36px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:transform .3s;}
+.leistung:hover .leistung-icon{transform:scale(1.1);}
+.leistung-icon i{color:var(--green);font-size:17px;}
+.leistung-title{font-family:var(--serif);font-size:17px;margin-bottom:6px;}
+.leistung-desc{font-size:12px;color:var(--ink-soft);line-height:1.6;}
+
+.cta-strip{background:var(--green);padding:52px 20px;text-align:center;}
+.cta-strip h2{font-family:var(--serif);font-size:26px;color:#fff;margin-bottom:12px;}
+.cta-strip p{font-size:13px;color:rgba(255,255,255,0.72);margin-bottom:26px;}
+.cta-white{background:#fff;color:var(--green);border:none;padding:14px 26px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:transform .2s,box-shadow .2s;box-shadow:0 6px 20px rgba(0,0,0,0.15);}
+.cta-white:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,0.22);}
+.cta-note{font-size:11px;color:rgba(255,255,255,0.45);margin-top:14px;}
+
+footer{background:var(--ink);padding:40px 20px;color:rgba(255,255,255,0.5);}
+.footer-grid{display:flex;flex-direction:column;gap:32px;max-width:1200px;margin:0 auto 28px;}
+.footer-brand{font-family:var(--serif);font-size:17px;color:rgba(255,255,255,0.8);margin-bottom:12px;}
+.footer-brand span{color:var(--green);}
+.footer-tagline{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;max-width:280px;}
+.footer-contact{margin-top:14px;font-size:13px;}
+.footer-contact a{color:var(--green);text-decoration:none;display:block;margin-bottom:6px;transition:opacity .2s;}
+.footer-contact a:hover{opacity:0.75;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:14px;}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,0.42);text-decoration:none;margin-bottom:9px;transition:color .2s;}
+.footer-col a:hover{color:rgba(255,255,255,0.75);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:22px;display:flex;flex-direction:column;gap:10px;max-width:1200px;margin:0 auto;font-size:11px;color:rgba(255,255,255,0.2);}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:rgba(255,255,255,0.2);text-decoration:none;transition:color .2s;}
+.footer-legal a:hover{color:rgba(255,255,255,0.5);}
+
+@media(min-width:700px){
+  nav{padding:0 32px;height:72px;}
+  .nav-logo{font-size:19px;}
+  .nav-tel{display:block;font-size:12px;color:var(--ink-dim);}
+  .nav-tel a{color:var(--green);text-decoration:none;font-weight:500;}
+  .nav-cta{padding:10px 20px;font-size:13px;}
+  .hero-banner{min-height:420px;}
+  .hero-banner-overlay{background:linear-gradient(105deg,rgba(252,250,246,0.95) 0%,rgba(252,250,246,0.85) 32%,rgba(252,250,246,0.35) 58%,transparent 72%);}
+  .hero-banner-content{padding:64px 32px;}
+  .hero-banner h1{font-size:38px;}
+  .hero-banner-btns{flex-direction:row;flex-wrap:wrap;}
+  .hero{padding:64px 32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .hero-btns{flex-direction:row;flex-wrap:wrap;}
+  .trust{padding:22px 32px;gap:32px;}
+  .section{padding:68px 32px;}
+  .sec-h2{font-size:32px;}
+  .actions-grid,.leistungen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .team-section{padding:68px 32px;}
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .cta-strip{padding:60px 32px;}
+  .cta-strip h2{font-size:30px;}
+  footer{padding:44px 32px;}
+  .footer-grid{flex-direction:row;justify-content:space-between;}
+  .footer-bottom{flex-direction:row;justify-content:space-between;}
+}
+@media(min-width:1000px){
+  nav{padding:0 48px;}
+  .nav-links{display:flex;gap:28px;font-size:13px;}
+  .nav-links a{text-decoration:none;color:var(--ink-soft);transition:color .2s;}
+  .nav-links a:hover{color:var(--green);}
+  .hero-banner{min-height:520px;}
+  .hero-banner-content{padding:80px 48px;max-width:560px;}
+  .hero-banner h1{font-size:48px;}
+  .hero-banner-sub{font-size:15px;}
+  .hero{padding:80px 48px;gap:64px;align-items:center;}
+  .hero-contact-card,.hero-card{padding:32px;}
+  .section{padding:80px 48px;}
+  .sec-h2{font-size:36px;}
+  .actions-grid,.leistungen-grid{grid-template-columns:repeat(3,1fr);}
+  .team-section{padding:80px 48px;}
+  .team-grid{grid-template-columns:repeat(3,1fr);}
+  footer{padding:48px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="n">
+  <a class="nav-logo" href="#">Hausärzte <span>Oberkassel</span></a>
+  <div class="nav-links">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#team">Ärzteteam</a>
+    <a href="#service">Service</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-tel"><a href="tel:0211578040">0211 578 040</a></span>
+    <button class="nav-cta">Termin buchen</button>
+  </div>
+</nav>
+
+<section class="hero-banner">
+  <img class="hero-banner-bg" src="team-alle.png" alt="Ärzteteam Hausärzte Oberkassel">
+  <div class="hero-banner-overlay"></div>
+  <div class="hero-banner-bottom"></div>
+  <div class="hero-banner-content">
+    <div class="hero-banner-eyebrow">Oberkassel · Seit 1996</div>
+    <h1>Ihre Gesundheit<br>nehmen wir<br><em>ganz persönlich.</em></h1>
+    <p class="hero-banner-sub">Internistische Hausarztpraxis im Herzen von Oberkassel. Fachärztliche Kompetenz und hausärztliche Versorgung für die ganze Familie.</p>
+    <div class="hero-banner-btns">
+      <a class="btn-green" href="https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f"><i class="ti ti-calendar"></i>Termin buchen</a>
+      <a class="btn-outline" href="#service"><i class="ti ti-pill"></i>Rezept bestellen</a>
+      <a class="btn-outline" href="#service"><i class="ti ti-file-text"></i>Formulare</a>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-contact-card">
+    <div class="hero-contact-label">Kontakt</div>
+    <div class="hero-contact-row"><i class="ti ti-phone"></i><a href="tel:0211578040">0211 578 040</a></div>
+    <div class="hero-contact-row"><i class="ti ti-map-pin"></i><span>Adalbertstr. 4, 40545 Düsseldorf</span></div>
+    <div class="hero-contact-row"><i class="ti ti-mail"></i><a href="mailto:praxis@hausaerzte-oberkassel.de">praxis@hausaerzte-oberkassel.de</a></div>
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-label">Öffnungszeiten</div>
+    <div class="hours-grid">
+      <div class="hour-row"><span class="hour-day">Montag</span><span class="hour-time">7:30 – 18:00</span></div>
+      <div class="hour-row"><span class="hour-day">Dienstag</span><span class="hour-time">7:30 – 19:00</span></div>
+      <div class="hour-row"><span class="hour-day">Mittwoch</span><span class="hour-time">7:30 – 13:00</span></div>
+      <div class="hour-row"><span class="hour-day">Donnerstag</span><span class="hour-time">7:30 – 19:00</span></div>
+      <div class="hour-row"><span class="hour-day">Freitag</span><span class="hour-time">7:30 – 16:00</span></div>
+    </div>
+    <div class="hero-card-note"><strong>Telefonsprechstunde:</strong> täglich 12:30 – 13:00 Uhr bei allen Ärzt:innen. In dringenden Fällen erhalten Sie noch am selben Tag einen Notfalltermin.</div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-clock"></i></div>Seit 1996 in Oberkassel</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-users"></i></div>13-köpfiges Praxisteam</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-stethoscope"></i></div>Innere Medizin & Hausarzt</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-calendar"></i></div>Kurzfristige Termine</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-home"></i></div>Hausbesuche möglich</div>
+</div>
+
+<section class="section" id="service">
+  <div class="sec-label">Schnellzugriff</div>
+  <div class="sec-h2">Was können wir für Sie tun?</div>
+  <div class="sec-sub">Die wichtigsten Services direkt erreichbar — ohne Wartezeit am Telefon.</div>
+  <div class="actions-grid">
+    <a class="action-card" href="https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f">
+      <div class="action-icon"><i class="ti ti-calendar-event"></i></div>
+      <div class="action-title">Termin buchen</div>
+      <div class="action-desc">Online-Terminbuchung über CLICKDOC — rund um die Uhr, ohne Wartezeit. Ausgewählte Terminarten sofort verfügbar.</div>
+    </a>
+    <a class="action-card" href="#">
+      <div class="action-icon"><i class="ti ti-pill"></i></div>
+      <div class="action-title">Rezept & Überweisung</div>
+      <div class="action-desc">Bestellen Sie Folgerezepte und Überweisungen online oder telefonisch. Abholung am Folgetag ab 15 Uhr.</div>
+    </a>
+    <a class="action-card" href="#">
+      <div class="action-icon"><i class="ti ti-file-download"></i></div>
+      <div class="action-title">Formulare</div>
+      <div class="action-desc">Anamnesebogen für Neupatient:innen und weitere Formulare zum Download — ausfüllen und mitbringen.</div>
+    </a>
+  </div>
+</section>
+
+<div class="team-section" id="team">
+  <div class="team-inner">
+    <div class="sec-label">Ärzteteam</div>
+    <div class="sec-h2">Drei Ärzt:innen, ein Ziel —<br>Ihre Gesundheit.</div>
+    <div class="sec-sub">Internistische Fachkompetenz und persönliche Betreuung. Bei uns kennt man sich.</div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-img">
+          <img src="dr-schulte-goebel.png" alt="Dr. med. Axel Schulte-Goebel">
+          <div class="team-badge">Innere Medizin</div>
+        </div>
+        <div class="team-body">
+          <div class="team-role">Facharzt für Innere Medizin</div>
+          <div class="team-name">Dr. med. Axel Schulte-Goebel</div>
+          <div class="team-hours">Telefonsprechstunde: Mo – Do, 12:30 – 13:00</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img">
+          <img src="dr-kleophas.png" alt="dr. med. Caroline Kleophas">
+          <div class="team-badge">Innere Medizin</div>
+        </div>
+        <div class="team-body">
+          <div class="team-role">Fachärztin für Innere Medizin</div>
+          <div class="team-name">dr. med. Caroline Kleophas</div>
+          <div class="team-hours">Telefonsprechstunde: Mo – Mi &amp; Fr, 12:30 – 13:00</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-img">
+          <img src="alexandra-hage.png" alt="Alexandra Hage">
+          <div class="team-badge">Innere Medizin</div>
+        </div>
+        <div class="team-body">
+          <div class="team-role">Fachärztin für Innere Medizin</div>
+          <div class="team-name">Alexandra Hage</div>
+          <div class="team-hours">Telefonsprechstunde: Mo – Fr, 12:30 – 13:00<br>Neu im Team seit Mai 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="leistungen">
+  <div class="sec-label">Leistungen</div>
+  <div class="sec-h2">Umfassend versorgt —<br>alles unter einem Dach.</div>
+  <div class="sec-sub">Von der Vorsorge bis zur Palliativbetreuung. Hausärztliche und internistische Versorgung für jedes Alter.</div>
+  <div class="leistungen-grid">
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-stethoscope"></i></div>
+      <div class="leistung-title">Hausarzt & Internist</div>
+      <div class="leistung-desc">Komplette hausärztlich-internistische Versorgung für die ganze Familie.</div>
+    </div>
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-heart-rate-monitor"></i></div>
+      <div class="leistung-title">Vorsorge</div>
+      <div class="leistung-desc">Check-ups, Krebsvorsorge, Impfungen — wir kümmern uns um Ihre Prävention.</div>
+    </div>
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-clipboard-heart"></i></div>
+      <div class="leistung-title">DMP Programme</div>
+      <div class="leistung-desc">Strukturierte Behandlung chronischer Erkrankungen wie Diabetes und KHK.</div>
+    </div>
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-flask"></i></div>
+      <div class="leistung-title">Labor</div>
+      <div class="leistung-desc">Umfangreicher Katalog an Laboruntersuchungen direkt in der Praxis.</div>
+    </div>
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-home-heart"></i></div>
+      <div class="leistung-title">Hausbesuche</div>
+      <div class="leistung-desc">Ärztliche Versorgung bei Ihnen zu Hause bei schwerer Erkrankung.</div>
+    </div>
+    <div class="leistung">
+      <div class="leistung-icon"><i class="ti ti-heart-handshake"></i></div>
+      <div class="leistung-title">Pflege & Palliativ</div>
+      <div class="leistung-desc">Betreuung auch bei Pflegebedürftigkeit — zu Hause oder im Pflegeheim.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip" id="kontakt">
+  <h2>Wir sind für Sie da.</h2>
+  <p>Buchen Sie Ihren Termin online oder rufen Sie uns an — wir freuen uns auf Sie.</p>
+  <button class="cta-white" onclick="window.open('https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f')">Termin buchen</button>
+  <div class="cta-note">Adalbertstr. 4, 40545 Düsseldorf · 0211 578 040 · praxis@hausaerzte-oberkassel.de</div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Hausärzte <span>Oberkassel</span></div>
+      <div class="footer-tagline">Internistische Hausarztpraxis im Herzen von Düsseldorf-Oberkassel. Seit 1996 für Sie da.</div>
+      <div class="footer-contact">
+        <a href="tel:0211578040">0211 578 040</a>
+        <a href="mailto:praxis@hausaerzte-oberkassel.de">praxis@hausaerzte-oberkassel.de</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Praxis</div>
+      <a href="#">Startseite</a><a href="#">Ärzteteam</a><a href="#">Leistungen</a><a href="#">Aktuelles</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Service</div>
+      <a href="#">Termin buchen</a><a href="#">Rezepte</a><a href="#">Formulare</a><a href="#">Newsletter</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Öffnungszeiten</div>
+      <a>Mo 7:30–18:00</a><a>Di 7:30–19:00</a><a>Mi 7:30–13:00</a><a>Do 7:30–19:00</a><a>Fr 7:30–16:00</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Hausärzte Oberkassel</div>
+    <div class="footer-legal"><a href="#">Datenschutz</a><a href="#">Impressum</a></div>
+  </div>
+  <div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);margin-top:16px;">
+    Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar
+  </div>
+</footer>
+
+<script>
+const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.08});
+document.querySelectorAll('.section').forEach(e=>o.observe(e));
+</script>
+</body>
+</html>
