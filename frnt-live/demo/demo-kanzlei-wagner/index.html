@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Kanzlei Wagner — Familienrecht, Mietrecht, Verkehrsrecht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --bg:#f9f8f6;--ink:#26303d;--ink-soft:#5f6b78;--ink-dim:#9aa4ae;
+  --blue:#3d6b8c;--blue-light:#eaf2f6;--blue-dark:#2a4d66;
+  --warm:#e8a15c;--white:#ffffff;--border:#e6e3dc;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --sh-sm:0 2px 14px rgba(38,48,61,0.05);
+  --sh-md:0 6px 26px rgba(38,48,61,0.08);
+  --sh-lg:0 18px 44px rgba(38,48,61,0.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;font-weight:400;-webkit-font-smoothing:antialiased;}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:64px;background:var(--white);box-shadow:var(--sh-sm);position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:var(--serif);font-size:16px;color:var(--ink);text-decoration:none;line-height:1.2;font-weight:600;}
+.nav-logo span{display:block;font-size:10px;color:var(--warm);letter-spacing:0.1em;text-transform:uppercase;font-family:var(--sans);margin-top:2px;font-weight:500;}
+.nav-links{display:none;}
+.nav-cta{background:var(--blue);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 2px 10px rgba(61,107,140,0.25);}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(61,107,140,0.35);}
+
+.hero{padding:48px 20px 56px;background:linear-gradient(150deg,var(--blue-light) 0%,var(--bg) 60%);position:relative;overflow:hidden;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.5s;}
+.hero-video.on{opacity:0.16;}
+.hero::before{content:'';position:absolute;top:-30%;right:-25%;width:65%;height:150%;background:radial-gradient(circle,rgba(232,161,92,0.1),transparent 65%);pointer-events:none;z-index:1;}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;position:relative;z-index:2;opacity:0;transform:translateY(10px);animation:riseIn .7s .1s forwards;}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.2;color:var(--ink);margin-bottom:16px;position:relative;z-index:2;opacity:0;transform:translateY(14px);animation:riseIn .8s .22s forwards;}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--blue);}
+.hero-sub{font-size:14px;color:var(--ink-soft);line-height:1.75;margin-bottom:26px;position:relative;z-index:2;max-width:480px;opacity:0;transform:translateY(14px);animation:riseIn .8s .36s forwards;}
+.hero-btns{display:flex;flex-direction:column;gap:10px;position:relative;z-index:2;opacity:0;transform:translateY(14px);animation:riseIn .8s .48s forwards;}
+@keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+
+.btn-blue{background:var(--blue);color:#fff;border:none;padding:14px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:transform .2s,box-shadow .2s,background .2s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 16px rgba(61,107,140,0.25);}
+.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 22px rgba(61,107,140,0.35);}
+.btn-outline{background:var(--white);color:var(--ink);border:none;padding:13px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-sm);}
+.btn-outline:hover{box-shadow:var(--sh-md);transform:translateY(-2px);}
+
+.trust{padding:28px 20px;background:var(--white);display:flex;flex-wrap:wrap;justify-content:center;gap:18px 26px;box-shadow:var(--sh-sm);}
+.trust-item{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--ink-soft);font-weight:500;}
+.trust-icon{width:32px;height:32px;background:var(--blue-light);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .3s;}
+.trust-item:hover .trust-icon{transform:rotate(-8deg) scale(1.1);}
+.trust-icon i{color:var(--blue);font-size:16px;}
+
+.section{padding:52px 20px;max-width:1100px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s;}
+.section.visible{opacity:1;transform:translateY(0);}
+.sec-label{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm);margin-bottom:10px;}
+.sec-h2{font-family:var(--serif);font-weight:600;font-size:27px;color:var(--ink);margin-bottom:12px;line-height:1.28;}
+.sec-sub{font-size:13px;color:var(--ink-soft);max-width:520px;line-height:1.75;margin-bottom:36px;}
+
+.rechtsgebiete-grid{display:flex;flex-direction:column;gap:14px;}
+.rg-card{background:var(--white);border-radius:14px;padding:24px 22px;transition:transform .3s,box-shadow .3s;box-shadow:var(--sh-sm);}
+.rg-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.rg-icon{width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .3s;}
+.rg-card:hover .rg-icon{transform:scale(1.1) rotate(-4deg);}
+.rg-icon i{color:var(--blue);font-size:20px;}
+.rg-title{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:8px;color:var(--ink);}
+.rg-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.65;}
+.rg-tag{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:600;color:var(--warm);letter-spacing:0.03em;}
+
+.standorte-section{background:var(--white);padding:52px 20px;}
+.standorte-inner{max-width:1100px;margin:0 auto;}
+.standorte-grid{display:flex;flex-direction:column;gap:16px;}
+.standort-card{background:var(--blue-light);border-radius:14px;padding:24px;transition:transform .3s,box-shadow .3s;}
+.standort-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.standort-name{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--blue-dark);margin-bottom:10px;}
+.standort-addr{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+.standort-addr a{color:var(--blue);text-decoration:none;font-weight:500;}
+
+.anwaelte-grid{display:flex;flex-direction:column;gap:14px;}
+.anwalt-card{background:var(--white);border-radius:14px;padding:22px;display:flex;gap:16px;align-items:flex-start;transition:transform .3s,box-shadow .3s;box-shadow:var(--sh-sm);}
+.anwalt-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);}
+.anwalt-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:18px;flex-shrink:0;}
+.anwalt-name{font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink);margin-bottom:4px;}
+.anwalt-title{font-size:11.5px;color:var(--blue);font-weight:600;letter-spacing:0.02em;margin-bottom:8px;}
+.anwalt-desc{font-size:12.5px;color:var(--ink-soft);line-height:1.6;}
+
+.cta-strip{background:linear-gradient(150deg,var(--blue) 0%,var(--blue-dark) 100%);padding:48px 20px;text-align:center;position:relative;overflow:hidden;}
+.cta-strip::before{content:'';position:absolute;bottom:-30%;left:-15%;width:60%;height:160%;background:radial-gradient(circle,rgba(232,161,92,0.14),transparent 65%);}
+.cta-strip h2{font-family:var(--serif);font-weight:600;font-size:25px;color:#fff;margin-bottom:12px;position:relative;}
+.cta-strip p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:26px;position:relative;}
+.cta-note{font-size:11px;color:rgba(255,255,255,0.5);margin-top:14px;position:relative;}
+.btn-warm{background:var(--warm);color:var(--blue-dark);border:none;padding:14px 26px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(0,0,0,0.15);position:relative;}
+.btn-warm:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 26px rgba(0,0,0,0.2);}
+
+footer{background:var(--ink);padding:36px 20px;color:rgba(255,255,255,0.5);}
+.footer-grid{display:flex;flex-direction:column;gap:28px;max-width:1100px;margin:0 auto 24px;}
+.footer-brand{font-family:var(--serif);font-weight:600;font-size:16px;color:rgba(255,255,255,0.85);margin-bottom:10px;}
+.footer-brand span{color:var(--warm);}
+.footer-tagline{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;max-width:280px;}
+.footer-contact{margin-top:14px;font-size:13px;}
+.footer-contact a{color:var(--warm);text-decoration:none;display:block;margin-bottom:6px;transition:opacity .2s;}
+.footer-contact a:hover{opacity:0.75;}
+.footer-col-title{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;}
+.footer-col p{font-size:12.5px;color:rgba(255,255,255,0.42);line-height:1.7;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;flex-direction:column;gap:10px;max-width:1100px;margin:0 auto;font-size:11px;color:rgba(255,255,255,0.2);}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{color:rgba(255,255,255,0.2);text-decoration:none;transition:color .2s;}
+.footer-legal a:hover{color:rgba(255,255,255,0.5);}
+
+@media(min-width:700px){
+  nav{padding:0 32px;height:76px;}
+  .nav-logo{font-size:19px;}
+  .nav-cta{padding:10px 20px;font-size:13px;}
+  .hero{padding:76px 32px 88px;}
+  .hero-eyebrow{font-size:12px;}
+  .hero h1{font-size:42px;max-width:600px;}
+  .hero-sub{font-size:15px;}
+  .hero-btns{flex-direction:row;}
+  .trust{padding:32px;gap:36px;}
+  .section{padding:64px 32px;}
+  .sec-h2{font-size:32px;}
+  .rechtsgebiete-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .standorte-section{padding:64px 32px;}
+  .standorte-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .anwaelte-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .cta-strip{padding:64px 32px;}
+  .cta-strip h2{font-size:30px;}
+  footer{padding:44px 32px;}
+  .footer-grid{flex-direction:row;justify-content:space-between;}
+  .footer-bottom{flex-direction:row;justify-content:space-between;}
+}
+@media(min-width:1000px){
+  nav{padding:0 48px;}
+  .nav-links{display:flex;gap:28px;font-size:13px;}
+  .nav-links a{text-decoration:none;color:var(--ink-soft);transition:color .2s;font-weight:500;}
+  .nav-links a:hover{color:var(--blue);}
+  .hero{padding:96px 48px 108px;}
+  .hero h1{font-size:48px;}
+  .rechtsgebiete-grid{grid-template-columns:repeat(2,1fr);}
+  .section{padding:80px 48px;}
+  .standorte-section{padding:80px 48px;}
+  footer{padding:48px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="n">
+  <a class="nav-logo" href="#">Kanzlei Wagner<span>Rechtsanwälte</span></a>
+  <div class="nav-links">
+    <a href="#rechtsgebiete">Rechtsgebiete</a>
+    <a href="#anwaelte">Anwälte</a>
+    <a href="#standorte">Standorte</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+  <button class="nav-cta">Kontakt aufnehmen</button>
+</nav>
+
+<section class="hero">
+  <video class="hero-video" id="hv" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20260914_100955_36d089d0-2386-4010-9019-bb65c31f606e.mp4" type="video/mp4">
+  </video>
+  <div class="hero-eyebrow">Meerbusch · Düsseldorf-Oberkassel</div>
+  <h1>Recht braucht<br>Nähe und<br><em>echte Erfahrung.</em></h1>
+  <p class="hero-sub">Kanzlei Wagner berät Sie in Familienrecht, Mietrecht, Wohnungseigentumsrecht und Verkehrsrecht — persönlich, klar, und mit dem Ziel einer Lösung, die für Sie funktioniert.</p>
+  <div class="hero-btns">
+    <a class="btn-blue" href="#kontakt"><i class="ti ti-phone"></i>Termin vereinbaren</a>
+    <a class="btn-outline" href="#rechtsgebiete"><i class="ti ti-scale"></i>Rechtsgebiete ansehen</a>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-certificate"></i></div>3 Fachanwaltstitel</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-map-pin"></i></div>2 Standorte</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-heart-handshake"></i></div>Persönliche Beratung</div>
+  <div class="trust-item"><div class="trust-icon"><i class="ti ti-scale"></i></div>4 Rechtsgebiete</div>
+</div>
+
+<section class="section" id="rechtsgebiete">
+  <div class="sec-label">Rechtsgebiete</div>
+  <div class="sec-h2">Vier Schwerpunkte,<br>eine klare Haltung.</div>
+  <div class="sec-sub">Wir konzentrieren uns bewusst auf die Bereiche, in denen wir wirklich zuhause sind.</div>
+  <div class="rechtsgebiete-grid">
+    <div class="rg-card">
+      <div class="rg-icon"><i class="ti ti-heart-handshake"></i></div>
+      <div class="rg-title">Familienrecht</div>
+      <div class="rg-desc">Scheidung, Unterhalt, Sorgerecht — wir begleiten Sie durch schwierige Zeiten mit Klarheit und Empathie.</div>
+      <div class="rg-tag">Fachanwaltschaft</div>
+    </div>
+    <div class="rg-card">
+      <div class="rg-icon"><i class="ti ti-home"></i></div>
+      <div class="rg-title">Mietrecht & WEG-Recht</div>
+      <div class="rg-desc">Für Mieter, Vermieter und Eigentümergemeinschaften — von der Kündigung bis zur Eigentümerversammlung.</div>
+      <div class="rg-tag">Fachanwaltschaft</div>
+    </div>
+    <div class="rg-card">
+      <div class="rg-icon"><i class="ti ti-car"></i></div>
+      <div class="rg-title">Verkehrsrecht</div>
+      <div class="rg-desc">Unfallregulierung, Bußgeldverfahren, Führerscheinangelegenheiten — schnell und durchsetzungsstark.</div>
+      <div class="rg-tag">Fachanwaltschaft</div>
+    </div>
+    <div class="rg-card">
+      <div class="rg-icon"><i class="ti ti-file-text"></i></div>
+      <div class="rg-title">Erbrecht</div>
+      <div class="rg-desc">Nachlassregelung, Testamentsgestaltung und Erbstreitigkeiten — vorausschauend beraten.</div>
+      <div class="rg-tag">Zusatzgebiet</div>
+    </div>
+  </div>
+</section>
+
+<div class="standorte-section" id="anwaelte">
+  <div class="standorte-inner">
+    <div class="sec-label">Unser Team</div>
+    <div class="sec-h2">Zwei Anwälte,<br>ein gemeinsamer Anspruch.</div>
+    <div class="anwaelte-grid">
+      <div class="anwalt-card">
+        <div class="anwalt-avatar">HW</div>
+        <div>
+          <div class="anwalt-name">Hans Rainer Wagner</div>
+          <div class="anwalt-title">Rechtsanwalt · Fachanwalt</div>
+          <div class="anwalt-desc">Langjährige Erfahrung in Familien- und Mietrecht mit Schwerpunkt auf einvernehmlichen Lösungen.</div>
+        </div>
+      </div>
+      <div class="anwalt-card">
+        <div class="anwalt-avatar">KN</div>
+        <div>
+          <div class="anwalt-name">Katharina Nawrocki</div>
+          <div class="anwalt-title">Rechtsanwältin</div>
+          <div class="anwalt-desc">Beratung in Verkehrsrecht und Wohnungseigentumsrecht mit klarem, lösungsorientiertem Ansatz.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="standorte">
+  <div class="sec-label">Standorte</div>
+  <div class="sec-h2">In Ihrer Nähe —<br>an zwei Orten.</div>
+  <div class="standorte-grid">
+    <div class="standort-card">
+      <div class="standort-name">Meerbusch-Büderich</div>
+      <div class="standort-addr">Hauptstandort<br><a href="#">Adresse auf Anfrage</a></div>
+    </div>
+    <div class="standort-card">
+      <div class="standort-name">Düsseldorf-Oberkassel</div>
+      <div class="standort-addr">Zweigstelle<br><a href="#">Adresse auf Anfrage</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip" id="kontakt">
+  <h2>Sprechen Sie mit uns.</h2>
+  <p>Ein erstes Gespräch schafft Klarheit — unverbindlich und diskret.</p>
+  <a class="btn-warm" href="#"><i class="ti ti-mail"></i>Jetzt Kontakt aufnehmen</a>
+  <div class="cta-note">Meerbusch-Büderich · Düsseldorf-Oberkassel</div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Kanzlei <span>Wagner</span></div>
+      <div class="footer-tagline">Rechtsanwälte für Familienrecht, Mietrecht, WEG-Recht und Verkehrsrecht.</div>
+      <div class="footer-contact">
+        <a href="#">Kontaktformular</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Meerbusch-Büderich</div>
+      <p>Hauptstandort</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Düsseldorf-Oberkassel</div>
+      <p>Zweigstelle</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Kanzlei Wagner</div>
+    <div class="footer-legal"><a href="#">Datenschutz</a><a href="#">Impressum</a></div>
+  </div>
+  <div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);margin-top:16px;">
+    Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('n').classList.toggle('s',scrollY>30));
+const v=document.getElementById('hv');
+if(v)v.addEventListener('canplay',()=>v.classList.add('on'));
+const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.08});
+document.querySelectorAll('.section').forEach(e=>o.observe(e));
+</script>
+</body>
+</html>
