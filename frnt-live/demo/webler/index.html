@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dr. med. Thomas Webler — Koloproktologie Düsseldorf</title>
+<meta name="description" content="Proktologische Praxis in Düsseldorf. Diagnostik und Behandlung von Hämorrhoidalleiden, Fissuren und Fisteln — diskret und mit Zeit.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%231f4d52%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 fill=%27%23ffffff%27 text-anchor=%27middle%27%3EW%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dr. med. Thomas Webler — Koloproktologie Düsseldorf">
+<meta property="og:description" content="Über manche Beschwerden spricht man nicht gern. Hier schon. Proktologische Praxis in Düsseldorf.">
+<meta property="og:image" content="hero.webp">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-italic.woff2') format('woff2-variations');
+  font-weight:300 400;font-style:italic;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+</style>
+<style>
+:root{
+  --paper:#f4f2ed;
+  --paper-2:#eceae3;
+  --ink:#14171a;
+  --ink-70:rgba(20,23,26,.68);
+  --ink-45:rgba(20,23,26,.45);
+  --ink-18:rgba(20,23,26,.18);
+  --ink-09:rgba(20,23,26,.09);
+  --akzent:#1f4d52;
+  --display:'Fraunces',Georgia,serif;
+  --mono:'Mono',ui-monospace,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --gut:clamp(20px,5vw,72px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--akzent);outline-offset:3px}
+
+/* ─────────── NAV ─────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:baseline;justify-content:space-between;
+     padding:clamp(18px,3vw,30px) var(--gut);transition:background .5s var(--ease),padding .5s var(--ease),border-color .5s}
+.nav::after{content:'';position:absolute;left:var(--gut);right:var(--gut);bottom:0;height:1px;background:var(--ink-18);
+     transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav.fixed{background:rgba(244,242,237,.92);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px}
+.nav.fixed::after{transform:scaleX(1)}
+.nav-name{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.5vw,18px);letter-spacing:-.01em;text-decoration:none}
+.nav-name span{color:var(--ink-45)}
+.nav-menu{display:none;gap:clamp(20px,2.6vw,38px);align-items:baseline}
+.nav-menu a{font-size:13px;text-decoration:none;color:var(--ink-70);position:relative;padding-bottom:3px;transition:color .18s}
+.nav-menu a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--akzent);
+     transform:scaleX(0);transform-origin:right;transition:transform .22s var(--ease-out)}
+.nav-menu a:hover{color:var(--ink)}
+.nav-menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-tel{display:none;font-size:13px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.nav-tel:hover{border-color:var(--akzent)}
+
+/* ─────────── HERO ─────────── */
+.hero{min-height:100svh;display:grid;grid-template-rows:auto auto;align-content:end;padding:0 0 clamp(28px,5vh,56px)}
+.hero-media{position:relative;width:100%;aspect-ratio:16/11;overflow:hidden;order:-1;margin-bottom:clamp(26px,5vh,48px)}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:34% 18%;filter:grayscale(1) contrast(1.06);
+     clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .15s var(--ease) forwards}
+@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+.hero-txt{padding:0 var(--gut)}
+.hero-kicker{font-family:var(--mono);display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+     color:var(--ink-45);margin-bottom:clamp(16px,2.5vh,26px)}
+.hero-kicker::before{content:'';width:clamp(24px,4vw,52px);height:1px;background:var(--akzent)}
+.hero h1{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(36px,8.4vw,92px);line-height:1.02;letter-spacing:-.025em;
+     max-width:15ch;margin-bottom:clamp(20px,3vh,30px)}
+.hero h1 em{font-style:italic;color:var(--akzent)}
+.hero-lead{text-wrap:pretty;font-size:clamp(15px,1.65vw,18px);line-height:1.7;color:var(--ink-70);max-width:46ch;margin-bottom:clamp(26px,4vh,38px)}
+.hero-acts{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,34px);align-items:center}
+.reveal{opacity:0;transform:translateY(20px);animation:up .9s var(--ease) forwards}
+.d1{animation-delay:.42s}.d2{animation-delay:.54s}.d3{animation-delay:.66s}.d4{animation-delay:.78s}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* ─────────── BUTTONS ─────────── */
+.cta{display:inline-flex;align-items:center;gap:11px;font-size:14px;font-weight:400;text-decoration:none;
+     padding:14px 26px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+     transition:background .2s var(--ease-out),color .2s var(--ease-out)}
+.cta svg{transition:transform .22s var(--ease-out)}
+.cta:hover{background:transparent;color:var(--ink)}
+.cta:hover svg{transform:translateX(5px)}
+.cta-text{display:inline-flex;align-items:center;gap:9px;font-size:14px;text-decoration:none;color:var(--ink);
+     border-bottom:1px solid var(--ink-18);padding-bottom:4px;transition:border-color .2s}
+.cta-text svg{transition:transform .22s var(--ease-out)}
+.cta-text:hover{border-color:var(--akzent)}
+.cta-text:hover svg{transform:translateX(5px)}
+
+/* ─────────── MARKEN ─────────── */
+.marken{border-top:1px solid var(--ink-09);border-bottom:1px solid var(--ink-09);padding:clamp(20px,3vh,30px) var(--gut)}
+.marken ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(16px,3.4vw,54px)}
+.marken li{font-size:12.5px;color:var(--ink-45);display:flex;align-items:baseline;gap:9px}
+.marken li::before{content:'';width:4px;height:4px;background:var(--akzent);border-radius:50%;flex-shrink:0;transform:translateY(-2px)}
+
+/* ─────────── SEKTIONSRAHMEN ─────────── */
+.sec{padding:clamp(64px,11vh,148px) var(--gut)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(30px,5vh,58px)}
+.sec-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--akzent);letter-spacing:.04em}
+.sec-name{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.sec-line{flex:1;height:1px;background:var(--ink-09)}
+h2{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(28px,5.2vw,58px);line-height:1.08;letter-spacing:-.02em;max-width:19ch}
+h2 em{font-style:italic;color:var(--akzent)}
+.sec-lead{text-wrap:pretty;font-size:clamp(14px,1.5vw,16.5px);line-height:1.75;color:var(--ink-70);max-width:50ch;margin-top:clamp(16px,2.4vh,24px)}
+
+/* ─────────── ZITAT (SIGNATURE) ─────────── */
+.zitat{background:var(--ink);color:var(--paper);padding:clamp(56px,12vh,152px) var(--gut);position:relative}
+.zitat-in{max-width:1280px;margin:0 auto;display:grid;gap:clamp(28px,5vh,52px)}
+.zitat blockquote{font-family:var(--display);font-weight:300;font-style:italic;
+     font-size:clamp(24px,4.6vw,54px);line-height:1.16;letter-spacing:-.02em;max-width:22ch}
+.zitat blockquote .mark{color:#7fb8bd;font-style:normal}
+.zitat-body{display:grid;gap:18px;max-width:54ch;font-size:clamp(14px,1.45vw,16px);line-height:1.8;color:rgba(244,242,237,.62)}
+.zitat-sig{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,237,.4);
+     padding-top:18px;border-top:1px solid rgba(244,242,237,.16)}
+
+/* ─────────── LEISTUNGEN: EDITORIAL-LISTE ─────────── */
+.liste{border-top:1px solid var(--ink-18);margin-top:clamp(28px,5vh,48px)}
+.lz{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,38px);align-items:baseline;
+    padding:clamp(20px,3.4vh,34px) 0;border-bottom:1px solid var(--ink-09);
+    transition:padding-left .24s var(--ease-out),border-color .2s}
+.lz:hover{padding-left:clamp(8px,1.6vw,22px);border-color:var(--ink-18)}
+.lz-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--ink-45);
+    letter-spacing:.06em;transition:color .2s}
+.lz:hover .lz-num{color:var(--akzent)}
+.lz-h{font-family:var(--display);font-weight:400;font-size:clamp(19px,2.5vw,29px);line-height:1.2;letter-spacing:-.015em;margin-bottom:7px}
+.lz-d{font-size:clamp(13px,1.35vw,15px);line-height:1.7;color:var(--ink-70);max-width:56ch}
+
+/* ─────────── ARZT ─────────── */
+.arzt{background:var(--paper-2)}
+.arzt-grid{display:grid;gap:clamp(30px,5vh,56px);max-width:1280px;margin:0 auto}
+.arzt-foto{position:relative;overflow:hidden;aspect-ratio:3/4;max-width:min(100%,420px)}
+.arzt-foto img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);
+     transition:transform .5s var(--ease-out)}
+.arzt-foto:hover img{transform:scale(1.035)}
+.arzt-rolle{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--akzent);margin-bottom:14px}
+.arzt-txt p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:52ch;margin-bottom:16px}
+.vita{list-style:none;margin-top:clamp(22px,3.5vh,34px);border-top:1px solid var(--ink-18)}
+.vita li{padding:14px 0;border-bottom:1px solid var(--ink-09);font-size:13.5px;color:var(--ink-70);
+     display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline}
+.vita li::before{content:'';width:14px;height:1px;background:var(--akzent);transform:translateY(-4px)}
+
+/* ─────────── KONTAKT ─────────── */
+.kontakt-grid{display:grid;gap:clamp(34px,6vh,72px);max-width:1280px;margin:0 auto}
+.kb-titel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);
+     padding-bottom:14px;border-bottom:1px solid var(--ink-18);margin-bottom:6px}
+.kb dl{display:grid}
+.kb .zeile{display:grid;grid-template-columns:minmax(88px,26%) 1fr;gap:16px;align-items:baseline;
+     padding:15px 0;border-bottom:1px solid var(--ink-09)}
+.kb dt{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-45)}
+.kb dd{font-size:clamp(14px,1.5vw,16px);color:var(--ink)}
+.kb dd a{text-decoration:none;border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.kb dd a:hover{border-color:var(--akzent)}
+.kb-note{margin-top:22px;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:44ch}
+
+/* ─────────── ABSCHLUSS ─────────── */
+.schluss{background:var(--ink);color:var(--paper);padding:clamp(60px,12vh,140px) var(--gut);text-align:left}
+.schluss-in{max-width:1280px;margin:0 auto;display:grid;gap:clamp(24px,4vh,40px)}
+.schluss h2{color:var(--paper);max-width:17ch}
+.schluss h2 em{color:#7fb8bd}
+.schluss p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:rgba(244,242,237,.62);max-width:48ch}
+.cta-hell{display:inline-flex;align-items:center;gap:11px;font-size:14px;text-decoration:none;
+     padding:15px 28px;background:var(--paper);color:var(--ink);border:1px solid var(--paper);justify-self:start;
+     transition:background .2s var(--ease-out),color .2s var(--ease-out)}
+.cta-hell svg{transition:transform .22s var(--ease-out)}
+.cta-hell:hover{background:transparent;color:var(--paper)}
+.cta-hell:hover svg{transform:translateX(5px)}
+
+/* ─────────── FOOTER ─────────── */
+footer{padding:clamp(34px,5vh,54px) var(--gut) clamp(24px,3vh,34px);border-top:1px solid var(--ink-09)}
+.f-in{max-width:1280px;margin:0 auto;display:grid;gap:26px}
+.f-name{font-family:var(--display);font-weight:400;font-size:17px}
+.f-name span{color:var(--ink-45)}
+.f-meta{font-size:13px;line-height:1.75;color:var(--ink-45)}
+.f-links{display:flex;gap:26px;flex-wrap:wrap}
+.f-links a{font-size:12.5px;color:var(--ink-45);text-decoration:none;transition:color .18s}
+.f-links a:hover{color:var(--ink)}
+.f-bot{margin-top:clamp(24px,3.5vh,38px);padding-top:20px;border-top:1px solid var(--ink-09);
+     display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:11.5px;color:var(--ink-45)}
+.vorschau{margin-top:14px;font-size:10.5px;color:var(--ink-45);opacity:.72}
+
+
+/* ─────────── MOBILES MENÜ ─────────── */
+.burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;padding:0;margin-right:-8px}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);margin-left:auto;
+  transition:transform .26s var(--ease-out),opacity .18s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:45;background:var(--paper);padding:calc(clamp(18px,3vw,30px) + 52px) var(--gut) var(--gut);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out),visibility .3s}
+.sheet.open{opacity:1;visibility:visible;transform:none}
+.sheet a{font-family:var(--display);font-weight:300;font-size:clamp(28px,8vw,44px);line-height:1.35;
+  letter-spacing:-.02em;text-decoration:none;color:var(--ink);padding:6px 0;
+  border-bottom:1px solid var(--ink-09);transition:color .18s}
+.sheet a:last-of-type{border-bottom:none}
+.sheet a:active{color:var(--akzent)}
+.sheet-tel{margin-top:clamp(28px,5vh,44px);font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  color:var(--ink-45);text-decoration:none;border-bottom:1px solid var(--ink-18);
+  padding-bottom:3px;align-self:flex-start}
+body.locked{overflow:hidden}
+@media(min-width:1080px){.burger,.sheet{display:none}}
+
+/* ─────────── SCROLL-REVEAL ─────────── */
+.r{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.on{opacity:1;transform:none}
+
+/* ─────────── TABLET ─────────── */
+@media(min-width:760px){
+  .hero{min-height:100svh;grid-template-columns:1fr;align-content:center;padding-top:clamp(90px,12vh,130px)}
+  .hero-media{aspect-ratio:21/9;margin-bottom:clamp(32px,6vh,60px)}
+  .marken ul{gap:clamp(24px,4vw,64px)}
+  .arzt-grid{grid-template-columns:minmax(260px,38%) 1fr;gap:clamp(36px,5vw,72px);align-items:start}
+  .kontakt-grid{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px)}
+  .zitat-in{grid-template-columns:1.15fr 1fr;align-items:start;gap:clamp(36px,6vw,80px)}
+  .f-in{grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,56px)}
+  .schluss-in{max-width:1280px}
+}
+
+/* ─────────── DESKTOP: HERO ZWEISPALTIG ─────────── */
+@media(min-width:1080px){
+  .nav-menu{display:flex}
+  .nav-tel{display:inline}
+  .hero{min-height:100svh;grid-template-columns:1fr 1fr;grid-template-rows:1fr;align-content:stretch;
+        align-items:center;padding:0;gap:0}
+  .hero-media{order:0;aspect-ratio:auto;height:100svh;margin:0}
+  .hero-media img{object-position:38% 16%}
+  .hero-txt{padding:0 var(--gut) 0 clamp(40px,4.5vw,76px)}
+  .hero h1{font-size:clamp(46px,4.9vw,78px);max-width:13ch}
+  .lz{grid-template-columns:auto minmax(0,1fr)}
+}
+@media(min-width:1500px){
+  .hero h1{font-size:82px}
+}
+
+/* ─────────── REDUCED MOTION ─────────── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+       transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .hero-media img{clip-path:none}
+  .reveal,.r{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav-name" href="#top">Dr. med. Thomas Webler <span>— Koloproktologie</span></a>
+  <nav class="nav-menu" aria-label="Hauptnavigation">
+    <a href="#haltung">Haltung</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#arzt">Zur Person</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a class="nav-tel" href="tel:+4921100000">Termin vereinbaren</a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+    <a href="#haltung">Haltung</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#arzt">Zur Person</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="sheet-tel" href="#kontakt">Termin vereinbaren</a>
+  </div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <img src="hero.webp" alt="Dr. med. Thomas Webler in seiner Praxis" fetchpriority="high" width="2000" height="1145">
+    </div>
+    <div class="hero-txt">
+      <p class="hero-kicker reveal d1">Koloproktologie · Düsseldorf</p>
+      <h1 class="reveal d2">Über manche Beschwerden spricht man nicht gern. <em>Hier schon.</em></h1>
+      <p class="hero-lead reveal d3">Proktologische Erkrankungen betreffen sehr viele Menschen und sind in den meisten Fällen gut behandelbar. Vorausgesetzt, jemand schaut rechtzeitig hin.</p>
+      <div class="hero-acts reveal d4">
+        <a class="cta" href="#kontakt">Termin vereinbaren
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+        </a>
+        <a class="cta-text" href="#leistungen">Behandlungsspektrum
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKEN -->
+  <div class="marken">
+    <ul>
+      <li>Facharzt für Chirurgie</li>
+      <li>Diagnostik und Operation aus einer Hand</li>
+      <li>Langjährige Oberarzttätigkeit</li>
+      <li>Termine online oder telefonisch</li>
+    </ul>
+  </div>
+
+  <!-- SIGNATURE: ZITAT -->
+  <section class="zitat r" id="haltung">
+    <div class="zitat-in">
+      <blockquote>
+        <span class="mark">„</span>Kaum jemand kommt gern zu mir. Meine Aufgabe beginnt deshalb damit, Ihnen die Scheu zu nehmen.<span class="mark">“</span>
+      </blockquote>
+      <div>
+        <div class="zitat-body">
+          <p>Hämorrhoiden, Fissuren, Fisteln: Beschwerden, über die kaum jemand spricht — und mit denen fast alle zu lange warten. Die Folge ist selten, dass es von allein besser wird. Meist wird die Behandlung nur aufwendiger.</p>
+          <p>In meiner Praxis nehmen wir uns Zeit. Ich erkläre jeden Schritt, bevor er stattfindet, und wir entscheiden gemeinsam, was sinnvoll ist. Kein Durchlauf, keine Eile, keine Formulierungen, hinter denen man sich verstecken muss.</p>
+        </div>
+        <p class="zitat-sig">Dr. med. Thomas Webler</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEISTUNGEN -->
+  <section class="sec r" id="leistungen">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-name">Behandlungsspektrum</span>
+      <span class="sec-line"></span>
+    </div>
+    <h2>Diagnostik und Eingriff bei <em>einem</em> Ansprechpartner.</h2>
+    <p class="sec-lead">Von der ersten Untersuchung bis zur Operation bleibt die Behandlung in einer Hand. Kein Weiterreichen, keine Wiederholung der eigenen Geschichte.</p>
+
+    <div class="liste">
+      <article class="lz">
+        <span class="lz-num">01</span>
+        <div>
+          <h3 class="lz-h">Proktologische Diagnostik</h3>
+          <p class="lz-d">Gründliche Untersuchung mit modernen Verfahren. Schonend, in ruhiger Atmosphäre und mit Erklärung vorab, was genau passiert.</p>
+        </div>
+      </article>
+      <article class="lz">
+        <span class="lz-num">02</span>
+        <div>
+          <h3 class="lz-h">Hämorrhoidalleiden</h3>
+          <p class="lz-d">Je nach Stadium von der konservativen Therapie bis zum minimalinvasiven Eingriff. Nicht jede Stufe braucht eine Operation.</p>
+        </div>
+      </article>
+      <article class="lz">
+        <span class="lz-num">03</span>
+        <div>
+          <h3 class="lz-h">Fissuren und Fisteln</h3>
+          <p class="lz-d">Behandlung schmerzhafter Einrisse und entzündlicher Gangbildungen — ein Bereich, in dem Erfahrung den Unterschied macht.</p>
+        </div>
+      </article>
+      <article class="lz">
+        <span class="lz-num">04</span>
+        <div>
+          <h3 class="lz-h">Ambulante Operationen</h3>
+          <p class="lz-d">Chirurgische Eingriffe in bewährter Technik, mit der Routine aus vielen Jahren Klinik im Hintergrund.</p>
+        </div>
+      </article>
+      <article class="lz">
+        <span class="lz-num">05</span>
+        <div>
+          <h3 class="lz-h">Vorsorge</h3>
+          <p class="lz-d">Früherkennung von Veränderungen im Enddarmbereich. Kurz, schmerzarm und der wirksamste Termin, den Sie hier haben können.</p>
+        </div>
+      </article>
+      <article class="lz">
+        <span class="lz-num">06</span>
+        <div>
+          <h3 class="lz-h">Zweitmeinung</h3>
+          <p class="lz-d">Unsicher nach einer Diagnose oder vor einem geplanten Eingriff? Eine zweite Einschätzung kostet wenig Zeit und schafft Klarheit.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ARZT -->
+  <section class="sec arzt r" id="arzt">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-name">Zur Person</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="arzt-grid">
+      <figure class="arzt-foto">
+        <img src="portrait.webp" alt="Porträt von Dr. med. Thomas Webler" loading="lazy" width="750" height="1211">
+      </figure>
+      <div class="arzt-txt">
+        <p class="arzt-rolle">Facharzt für Chirurgie</p>
+        <h2 style="margin-bottom:clamp(18px,2.6vh,26px)">Dr. med.<br>Thomas Webler</h2>
+        <p>Nach vielen Jahren als Oberarzt in der Klinik habe ich mich bewusst für die eigene Praxis entschieden. Nicht weil die Medizin dort eine andere wäre, sondern weil in diesem Fachgebiet die Zeit für das Gespräch mindestens so viel zählt wie der Eingriff selbst.</p>
+        <p>Was ich aus der Klinik mitgenommen habe, ist die Routine bei Eingriffen, die man nicht gelegentlich machen sollte. Was hier dazukommt, ist die Ruhe, sie richtig vorzubereiten.</p>
+        <ul class="vita">
+          <li><span>Facharzt für Chirurgie mit Schwerpunkt Koloproktologie</span></li>
+          <li><span>Langjährige Oberarzttätigkeit an drei Kliniken</span></li>
+          <li><span>Schwerpunkt auf minimalinvasiven und schonenden Verfahren</span></li>
+          <li><span>Eigene Praxis in Düsseldorf mit persönlicher Betreuung</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="sec r" id="kontakt">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-name">Praxis</span>
+      <span class="sec-line"></span>
+    </div>
+    <h2 style="margin-bottom:clamp(30px,5vh,56px)">Sprechzeiten<br>und Kontakt</h2>
+    <div class="kontakt-grid">
+      <div class="kb">
+        <p class="kb-titel">Erreichbarkeit</p>
+        <dl>
+          <div class="zeile"><dt>Telefon</dt><dd><a href="tel:+4921100000">Telefonnummer der Praxis</a></dd></div>
+          <div class="zeile"><dt>E-Mail</dt><dd><a href="mailto:kontakt@example.de">E-Mail-Adresse</a></dd></div>
+          <div class="zeile"><dt>Adresse</dt><dd>Praxisadresse<br>Düsseldorf</dd></div>
+          <div class="zeile"><dt>Online</dt><dd><a href="#">Terminbuchung über Doctolib</a></dd></div>
+        </dl>
+      </div>
+      <div class="kb">
+        <p class="kb-titel">Sprechzeiten</p>
+        <dl>
+          <div class="zeile"><dt>Mo</dt><dd>nach Vereinbarung</dd></div>
+          <div class="zeile"><dt>Di</dt><dd>nach Vereinbarung</dd></div>
+          <div class="zeile"><dt>Mi</dt><dd>nach Vereinbarung</dd></div>
+          <div class="zeile"><dt>Do</dt><dd>nach Vereinbarung</dd></div>
+          <div class="zeile"><dt>Fr</dt><dd>nach Vereinbarung</dd></div>
+        </dl>
+        <p class="kb-note">Bei akuten Beschwerden rufen Sie bitte an — wir versuchen, kurzfristig einen Platz zu finden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABSCHLUSS -->
+  <section class="schluss r">
+    <div class="schluss-in">
+      <h2>Warten Sie nicht, <em>bis es schlimmer wird.</em></h2>
+      <p>Die meisten proktologischen Beschwerden lassen sich gut behandeln — am einfachsten dann, wenn man früh damit kommt. Ein Termin dauert weniger lang als das Zögern davor.</p>
+      <a class="cta-hell" href="tel:+4921100000">Termin vereinbaren
+        <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-in">
+    <div>
+      <p class="f-name">Dr. med. Thomas Webler <span>— Koloproktologie</span></p>
+      <p class="f-meta" style="margin-top:12px">Facharzt für Chirurgie<br>Praxis in Düsseldorf</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Kontakt</p>
+      <p class="f-meta"><a href="tel:+4921100000" style="text-decoration:none;border-bottom:1px solid var(--ink-18)">Telefonnummer</a><br>Terminbuchung über Doctolib</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Rechtliches</p>
+      <div class="f-links" style="flex-direction:column;gap:9px">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-bot">
+    <span>© 2026 Praxis Dr. med. Thomas Webler</span>
+    <span>Düsseldorf</span>
+  </div>
+  <p class="vorschau">Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar</p>
+</footer>
+
+<script>
+(function(){
+
+  var bg=document.getElementById('burger'),sh=document.getElementById('sheet');
+  if(bg&&sh){
+    sh.removeAttribute('hidden');
+    var toggle=function(open){
+      bg.setAttribute('aria-expanded',open);
+      bg.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+      sh.classList.toggle('open',open);
+      document.body.classList.toggle('locked',open);
+    };
+    bg.addEventListener('click',function(){toggle(bg.getAttribute('aria-expanded')!=='true')});
+    sh.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false)})});
+    addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+  }
+  var nav=document.getElementById('nav');
+  var tick=false;
+  addEventListener('scroll',function(){
+    if(tick)return; tick=true;
+    requestAnimationFrame(function(){
+      nav.classList.toggle('fixed', scrollY>40); tick=false;
+    });
+  },{passive:true});
+
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  } else {
+    document.querySelectorAll('.r').forEach(function(el){el.classList.add('on')});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hausärzte Oberkassel — Internistische Hausarztpraxis seit 1996</title>
+<meta name="description" content="Internistische Hausarztpraxis in Düsseldorf-Oberkassel. Drei Ärzt:innen, tägliche Telefonsprechstunde und Notfalltermine am selben Tag.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%232f6b4f%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 fill=%27%23ffffff%27 text-anchor=%27middle%27%3EH%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hausärzte Oberkassel — Internistische Hausarztpraxis seit 1996">
+<meta property="og:description" content="Wenn es dringend ist, wartet niemand. Drei Ärzt:innen, tägliche Telefonsprechstunde, Notfalltermine am selben Tag.">
+<meta property="og:image" content="team-alle.webp">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-italic.woff2') format('woff2-variations');
+  font-weight:300 400;font-style:italic;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+</style>
+<style>
+:root{
+  --paper:#f7f6f1;--paper-2:#efeee7;
+  --ink:#1a201b;--ink-70:rgba(26,32,27,.68);--ink-45:rgba(26,32,27,.45);
+  --ink-18:rgba(26,32,27,.16);--ink-09:rgba(26,32,27,.08);
+  --gruen:#2f6b4f;--gruen-hell:#a6c7b4;
+  --display:'Fraunces',Georgia,serif;--mono:'Mono',ui-monospace,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --gut:clamp(20px,5vw,76px);--ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gruen);outline-offset:3px}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:baseline;justify-content:space-between;
+  padding:clamp(18px,3vw,30px) var(--gut);transition:background .5s var(--ease),padding .5s var(--ease)}
+.nav::after{content:'';position:absolute;left:var(--gut);right:var(--gut);bottom:0;height:1px;background:var(--ink-18);
+  transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav.fixed{background:rgba(247,246,241,.92);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px}
+.nav.fixed::after{transform:scaleX(1)}
+.nav-name{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.5vw,18px);letter-spacing:-.01em;text-decoration:none}
+.nav-name span{color:var(--ink-45)}
+.nav-menu{display:none;gap:clamp(20px,2.6vw,38px);align-items:baseline}
+.nav-menu a{font-size:13px;text-decoration:none;color:var(--ink-70);position:relative;padding-bottom:3px;transition:color .18s}
+.nav-menu a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--gruen);
+  transform:scaleX(0);transform-origin:right;transition:transform .22s var(--ease-out)}
+.nav-menu a:hover{color:var(--ink)}
+.nav-menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-tel{display:none;font-size:13px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.nav-tel:hover{border-color:var(--gruen)}
+
+.hero{min-height:100svh;display:grid;align-content:center;padding:clamp(92px,13vh,140px) var(--gut) clamp(40px,7vh,72px)}
+.hero-in{max-width:1320px;margin:0 auto;width:100%}
+.hero-kicker{font-family:var(--mono);display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-45);margin-bottom:clamp(16px,2.5vh,26px)}
+.hero-kicker::before{content:'';width:clamp(24px,4vw,52px);height:1px;background:var(--gruen)}
+.hero h1{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(38px,8.4vw,92px);line-height:1;letter-spacing:-.028em;
+  max-width:13ch;margin-bottom:clamp(20px,3vh,30px)}
+.hero h1 em{font-style:italic;color:var(--gruen)}
+.hero-lead{text-wrap:pretty;font-size:clamp(15px,1.65vw,18px);line-height:1.7;color:var(--ink-70);max-width:46ch;margin-bottom:clamp(26px,4vh,38px)}
+.hero-acts{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,34px);align-items:center}
+.reveal{opacity:0;transform:translateY(20px);animation:up .9s var(--ease) forwards}
+.d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.34s}.d4{animation-delay:.46s}
+@keyframes up{to{opacity:1;transform:none}}
+
+.cta{display:inline-flex;align-items:center;gap:11px;font-size:14px;font-weight:400;text-decoration:none;
+  padding:14px 26px;background:var(--gruen);color:var(--paper);border:1px solid var(--gruen);
+  transition:background .2s var(--ease-out),color .2s var(--ease-out)}
+.cta svg{transition:transform .22s var(--ease-out)}
+.cta:hover{background:transparent;color:var(--gruen)}
+.cta:hover svg{transform:translateX(5px)}
+.cta-text{display:inline-flex;align-items:center;gap:9px;font-size:14px;text-decoration:none;color:var(--ink);
+  border-bottom:1px solid var(--ink-18);padding-bottom:4px;transition:border-color .2s}
+.cta-text svg{transition:transform .22s var(--ease-out)}
+.cta-text:hover{border-color:var(--gruen)}
+.cta-text:hover svg{transform:translateX(5px)}
+
+.teamband{width:100%;overflow:hidden;background:var(--paper-2)}
+.teamband img{width:100%;height:auto;max-height:clamp(280px,48vh,560px);object-fit:cover;object-position:center 22%;
+  clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .1s var(--ease) forwards}
+@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+
+.marken{border-bottom:1px solid var(--ink-09);padding:clamp(20px,3vh,30px) var(--gut)}
+.marken ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(16px,3.4vw,54px);max-width:1320px;margin:0 auto}
+.marken li{font-size:12.5px;color:var(--ink-45);display:flex;align-items:baseline;gap:9px}
+.marken li::before{content:'';width:4px;height:4px;background:var(--gruen);border-radius:50%;flex-shrink:0;transform:translateY(-2px)}
+
+.sec{padding:clamp(64px,11vh,148px) var(--gut)}
+.sec-in{max-width:1320px;margin:0 auto}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(30px,5vh,58px)}
+.sec-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--gruen);letter-spacing:.04em}
+.sec-name{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.sec-line{flex:1;height:1px;background:var(--ink-09)}
+h2{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(30px,5.4vw,62px);line-height:1.06;letter-spacing:-.022em;max-width:18ch}
+h2 em{font-style:italic;color:var(--gruen)}
+.sec-lead{text-wrap:pretty;font-size:clamp(14px,1.5vw,16.5px);line-height:1.75;color:var(--ink-70);max-width:50ch;margin-top:clamp(16px,2.4vh,24px)}
+
+/* SIGNATURE: TELEFONSPRECHSTUNDE */
+.sprech{background:var(--gruen);color:var(--paper);padding:clamp(60px,12vh,152px) var(--gut)}
+.sprech-in{max-width:1320px;margin:0 auto}
+.sprech-h{font-family:var(--display);font-weight:300;font-size:clamp(30px,5.6vw,66px);line-height:1.04;
+  letter-spacing:-.024em;max-width:15ch;margin-bottom:clamp(14px,2.4vh,22px)}
+.sprech-h em{font-style:italic;color:var(--gruen-hell)}
+.sprech-lead{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:rgba(247,246,241,.64);max-width:50ch;
+  margin-bottom:clamp(36px,7vh,72px)}
+.sprech-liste{border-top:1px solid rgba(247,246,241,.2)}
+.sp{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(12px,2.6vw,30px);align-items:baseline;
+  padding:clamp(18px,3vh,28px) 0;border-bottom:1px solid rgba(247,246,241,.14);
+  transition:padding-left .24s var(--ease-out),border-color .2s}
+.sp:hover{padding-left:clamp(8px,1.6vw,20px);border-color:rgba(247,246,241,.34)}
+.sp-n{font-family:var(--display);font-weight:300;font-size:clamp(11px,1.1vw,13px);color:var(--gruen-hell);letter-spacing:.06em}
+.sp-name{font-family:var(--display);font-weight:400;font-size:clamp(18px,2.3vw,26px);line-height:1.2;letter-spacing:-.015em}
+.sp-rolle{font-size:12.5px;color:rgba(247,246,241,.55);margin-top:5px}
+.sp-zeit{font-size:13px;color:rgba(247,246,241,.72);white-space:nowrap;text-align:right}
+.sprech-fuss{margin-top:clamp(32px,6vh,60px);padding-top:clamp(22px,3.6vh,32px);border-top:1px solid rgba(247,246,241,.2);display:grid;gap:12px}
+.sprech-fuss-k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gruen-hell)}
+.sprech-fuss p{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(18px,2.5vw,29px);
+  line-height:1.3;max-width:34ch;color:rgba(247,246,241,.9)}
+
+/* TEAM */
+.team{background:var(--paper-2)}
+.team-grid{display:grid;gap:clamp(26px,4vh,44px);margin-top:clamp(28px,5vh,48px)}
+.tp-foto{width:100%;aspect-ratio:1;overflow:hidden;margin-bottom:16px}
+.tp-foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.tp:hover .tp-foto img{transform:scale(1.04)}
+.tp-rolle{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gruen);margin-bottom:8px}
+.tp-name{font-family:var(--display);font-weight:400;font-size:clamp(18px,2.1vw,24px);line-height:1.2;letter-spacing:-.015em;margin-bottom:8px}
+.tp-zeit{font-size:13px;line-height:1.65;color:var(--ink-45)}
+
+/* LEISTUNGEN */
+.liste{border-top:1px solid var(--ink-18);margin-top:clamp(28px,5vh,48px)}
+.lz{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,38px);align-items:baseline;
+  padding:clamp(18px,3vh,30px) 0;border-bottom:1px solid var(--ink-09);
+  transition:padding-left .24s var(--ease-out),border-color .2s}
+.lz:hover{padding-left:clamp(8px,1.6vw,22px);border-color:var(--ink-18)}
+.lz-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--ink-45);letter-spacing:.06em;transition:color .2s}
+.lz:hover .lz-num{color:var(--gruen)}
+.lz-h{font-family:var(--display);font-weight:400;font-size:clamp(19px,2.4vw,28px);line-height:1.2;letter-spacing:-.015em;margin-bottom:7px}
+.lz-d{font-size:clamp(13px,1.35vw,15px);line-height:1.7;color:var(--ink-70);max-width:56ch}
+
+/* KONTAKT */
+.kontakt-grid{display:grid;gap:clamp(34px,6vh,72px)}
+.kb-titel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);
+  padding-bottom:14px;border-bottom:1px solid var(--ink-18);margin-bottom:6px}
+.kb .zeile{display:grid;grid-template-columns:minmax(88px,26%) 1fr;gap:16px;align-items:baseline;
+  padding:15px 0;border-bottom:1px solid var(--ink-09)}
+.kb dt{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-45)}
+.kb dd{font-size:clamp(14px,1.5vw,16px);color:var(--ink);line-height:1.55}
+.kb dd a{text-decoration:none;border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.kb dd a:hover{border-color:var(--gruen)}
+.kb-note{margin-top:22px;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:44ch}
+
+.schluss{background:var(--paper-2);padding:clamp(60px,12vh,140px) var(--gut)}
+.schluss-in{max-width:1320px;margin:0 auto;display:grid;gap:clamp(24px,4vh,40px)}
+.schluss h2{max-width:16ch}
+.schluss p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:48ch}
+.schluss .cta{justify-self:start}
+
+footer{padding:clamp(34px,5vh,54px) var(--gut) clamp(24px,3vh,34px);border-top:1px solid var(--ink-09)}
+.f-in{max-width:1320px;margin:0 auto;display:grid;gap:26px}
+.f-name{font-family:var(--display);font-weight:400;font-size:17px}
+.f-name span{color:var(--ink-45)}
+.f-meta{font-size:13px;line-height:1.75;color:var(--ink-45)}
+.f-meta a{text-decoration:none;border-bottom:1px solid var(--ink-18);transition:border-color .2s}
+.f-meta a:hover{border-color:var(--gruen)}
+.f-links{display:flex;flex-direction:column;gap:9px}
+.f-links a{font-size:12.5px;color:var(--ink-45);text-decoration:none;transition:color .18s}
+.f-links a:hover{color:var(--ink)}
+.f-bot{margin-top:clamp(24px,3.5vh,38px);padding-top:20px;border-top:1px solid var(--ink-09);
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:11.5px;color:var(--ink-45);max-width:1320px;margin-left:auto;margin-right:auto}
+.vorschau{margin-top:14px;font-size:10.5px;color:var(--ink-45);opacity:.72;max-width:1320px;margin-left:auto;margin-right:auto}
+
+
+/* MOBILES MENÜ */
+.burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;padding:0;margin-right:-8px}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);margin-left:auto;
+  transition:transform .26s var(--ease-out),opacity .18s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:45;background:var(--paper);padding:calc(clamp(18px,3vw,30px) + 52px) var(--gut) var(--gut);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out),visibility .3s}
+.sheet.open{opacity:1;visibility:visible;transform:none}
+.sheet a{font-family:var(--display);font-weight:300;font-size:clamp(28px,8vw,44px);line-height:1.35;
+  letter-spacing:-.02em;text-decoration:none;color:var(--ink);padding:6px 0;
+  border-bottom:1px solid var(--ink-09);transition:color .18s}
+.sheet a:last-of-type{border-bottom:none}
+.sheet a:active{color:#2f6b4f}
+.sheet-tel{margin-top:clamp(28px,5vh,44px);font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  color:var(--ink-45);text-decoration:none;border-bottom:1px solid var(--ink-18);
+  padding-bottom:3px;align-self:flex-start}
+body.locked{overflow:hidden}
+@media(min-width:1080px){.burger,.sheet{display:none}}
+
+.r{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.on{opacity:1;transform:none}
+
+@media(min-width:760px){
+  .team-grid{grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+  .kontakt-grid{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px)}
+  .f-in{grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,56px)}
+}
+@media(min-width:1080px){
+  .nav-menu{display:flex}
+  .nav-tel{display:inline}
+  .hero h1{font-size:clamp(56px,6.2vw,92px)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .teamband img{clip-path:none}
+  .reveal,.r{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav-name" href="#top">Hausärzte <span>Oberkassel</span></a>
+  <nav class="nav-menu" aria-label="Hauptnavigation">
+    <a href="#sprechstunde">Telefonsprechstunde</a>
+    <a href="#team">Ärzteteam</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a class="nav-tel" href="tel:0211578040">0211 578 040</a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+    <a href="#sprechstunde">Telefonsprechstunde</a>
+    <a href="#team">Ärzteteam</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="sheet-tel" href="tel:0211578040">0211 578 040</a>
+  </div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-in">
+      <p class="hero-kicker reveal d1">Internistische Hausarztpraxis · Oberkassel · seit 1996</p>
+      <h1 class="reveal d2">Wenn es dringend ist, <em>wartet niemand.</em></h1>
+      <p class="hero-lead reveal d3">Drei Ärzt:innen, tägliche Telefonsprechstunde und in dringenden Fällen ein Termin noch am selben Tag. Seit fast dreißig Jahren im Viertel.</p>
+      <div class="hero-acts reveal d4">
+        <a class="cta" href="https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f" target="_blank" rel="noopener">Termin buchen
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+        <a class="cta-text" href="#sprechstunde">Telefonsprechstunde
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="teamband">
+    <img src="team-alle.webp" alt="Das Ärzteteam der Hausärzte Oberkassel" fetchpriority="high" width="1600" height="775">
+  </div>
+
+  <div class="marken">
+    <ul>
+      <li>Seit 1996 in Oberkassel</li>
+      <li>13-köpfiges Praxisteam</li>
+      <li>Innere Medizin &amp; Hausarzt</li>
+      <li>Hausbesuche möglich</li>
+    </ul>
+  </div>
+
+  <!-- SIGNATURE -->
+  <section class="sprech r" id="sprechstunde">
+    <div class="sprech-in">
+      <h2 class="sprech-h">Täglich erreichbar. <em>Persönlich.</em></h2>
+      <p class="sprech-lead">Zwischen 12:30 und 13:00 Uhr sind alle drei Ärzt:innen direkt am Telefon — nicht die Anmeldung, nicht ein Rückruf irgendwann, sondern die Person, die Sie behandelt.</p>
+      <div class="sprech-liste">
+        <article class="sp">
+          <span class="sp-n">01</span>
+          <div><h3 class="sp-name">Dr. med. Axel Schulte-Goebel</h3><p class="sp-rolle">Facharzt für Innere Medizin</p></div>
+          <span class="sp-zeit">Mo – Do</span>
+        </article>
+        <article class="sp">
+          <span class="sp-n">02</span>
+          <div><h3 class="sp-name">dr. med. Caroline Kleophas</h3><p class="sp-rolle">Fachärztin für Innere Medizin</p></div>
+          <span class="sp-zeit">Mo – Mi, Fr</span>
+        </article>
+        <article class="sp">
+          <span class="sp-n">03</span>
+          <div><h3 class="sp-name">Alexandra Hage</h3><p class="sp-rolle">Fachärztin für Innere Medizin</p></div>
+          <span class="sp-zeit">Mo – Fr</span>
+        </article>
+      </div>
+      <div class="sprech-fuss">
+        <p class="sprech-fuss-k">Und im Notfall</p>
+        <p>In dringenden Fällen bekommen Sie noch am selben Tag einen Termin.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec team r" id="team">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">01</span><span class="sec-name">Ärzteteam</span><span class="sec-line"></span></div>
+      <h2>Drei Ärzt:innen, <em>ein Ziel.</em></h2>
+      <p class="sec-lead">Internistische Fachkompetenz und persönliche Betreuung. Bei uns kennt man sich — auch nach Jahren noch.</p>
+      <div class="team-grid">
+        <article class="tp">
+          <div class="tp-foto"><img src="dr-schulte-goebel.webp" alt="Dr. med. Axel Schulte-Goebel" loading="lazy" width="750" height="750"></div>
+          <p class="tp-rolle">Innere Medizin</p>
+          <h3 class="tp-name">Dr. med. Axel Schulte-Goebel</h3>
+          <p class="tp-zeit">Telefonsprechstunde<br>Mo – Do, 12:30 – 13:00</p>
+        </article>
+        <article class="tp">
+          <div class="tp-foto"><img src="dr-kleophas.webp" alt="dr. med. Caroline Kleophas" loading="lazy" width="750" height="750"></div>
+          <p class="tp-rolle">Innere Medizin</p>
+          <h3 class="tp-name">dr. med. Caroline Kleophas</h3>
+          <p class="tp-zeit">Telefonsprechstunde<br>Mo – Mi &amp; Fr, 12:30 – 13:00</p>
+        </article>
+        <article class="tp">
+          <div class="tp-foto"><img src="alexandra-hage.webp" alt="Alexandra Hage" loading="lazy" width="1000" height="1000"></div>
+          <p class="tp-rolle">Innere Medizin</p>
+          <h3 class="tp-name">Alexandra Hage</h3>
+          <p class="tp-zeit">Telefonsprechstunde<br>Mo – Fr, 12:30 – 13:00</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="leistungen">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">02</span><span class="sec-name">Leistungen</span><span class="sec-line"></span></div>
+      <h2>Umfassend versorgt — <em>alles unter einem Dach.</em></h2>
+      <p class="sec-lead">Von der Vorsorge bis zur Palliativbetreuung. Hausärztliche und internistische Versorgung für jedes Alter.</p>
+      <div class="liste">
+        <article class="lz"><span class="lz-num">01</span><div><h3 class="lz-h">Hausarzt und Internist</h3><p class="lz-d">Komplette hausärztlich-internistische Versorgung für die ganze Familie, über Jahrzehnte hinweg.</p></div></article>
+        <article class="lz"><span class="lz-num">02</span><div><h3 class="lz-h">Vorsorge</h3><p class="lz-d">Check-ups, Krebsvorsorge und Impfungen — wir erinnern Sie, wenn etwas ansteht.</p></div></article>
+        <article class="lz"><span class="lz-num">03</span><div><h3 class="lz-h">DMP-Programme</h3><p class="lz-d">Strukturierte Behandlung chronischer Erkrankungen wie Diabetes und koronarer Herzkrankheit.</p></div></article>
+        <article class="lz"><span class="lz-num">04</span><div><h3 class="lz-h">Labor</h3><p class="lz-d">Umfangreicher Katalog an Laboruntersuchungen direkt in der Praxis.</p></div></article>
+        <article class="lz"><span class="lz-num">05</span><div><h3 class="lz-h">Hausbesuche</h3><p class="lz-d">Ärztliche Versorgung bei Ihnen zu Hause, wenn der Weg in die Praxis nicht möglich ist.</p></div></article>
+        <article class="lz"><span class="lz-num">06</span><div><h3 class="lz-h">Pflege und Palliativ</h3><p class="lz-d">Betreuung auch bei Pflegebedürftigkeit — zu Hause oder im Pflegeheim.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="kontakt">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">03</span><span class="sec-name">Praxis</span><span class="sec-line"></span></div>
+      <h2 style="margin-bottom:clamp(30px,5vh,56px)">Sprechzeiten<br>und Kontakt</h2>
+      <div class="kontakt-grid">
+        <div class="kb">
+          <p class="kb-titel">Erreichbarkeit</p>
+          <dl>
+            <div class="zeile"><dt>Telefon</dt><dd><a href="tel:0211578040">0211 578 040</a></dd></div>
+            <div class="zeile"><dt>E-Mail</dt><dd><a href="mailto:praxis@hausaerzte-oberkassel.de">praxis@hausaerzte-oberkassel.de</a></dd></div>
+            <div class="zeile"><dt>Adresse</dt><dd>Adalbertstraße 4<br>40545 Düsseldorf</dd></div>
+            <div class="zeile"><dt>Online</dt><dd><a href="https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f" target="_blank" rel="noopener">Termin über CLICKDOC</a></dd></div>
+          </dl>
+        </div>
+        <div class="kb">
+          <p class="kb-titel">Sprechzeiten</p>
+          <dl>
+            <div class="zeile"><dt>Mo</dt><dd>7:30 – 18:00</dd></div>
+            <div class="zeile"><dt>Di</dt><dd>7:30 – 19:00</dd></div>
+            <div class="zeile"><dt>Mi</dt><dd>7:30 – 13:00</dd></div>
+            <div class="zeile"><dt>Do</dt><dd>7:30 – 19:00</dd></div>
+            <div class="zeile"><dt>Fr</dt><dd>7:30 – 16:00</dd></div>
+          </dl>
+          <p class="kb-note">Telefonsprechstunde täglich 12:30 – 13:00 Uhr bei allen Ärzt:innen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="schluss r">
+    <div class="schluss-in">
+      <h2>Wir sind <em>für Sie da.</em></h2>
+      <p>Buchen Sie online oder rufen Sie an. Bei dringenden Beschwerden finden wir noch am selben Tag einen Platz.</p>
+      <a class="cta" href="https://clickdoc.de/institution/D%C3%BCsseldorf/Haus%C3%A4rzte-Oberkassel/f0173178-fbdf-492f-8075-9cccb022235f" target="_blank" rel="noopener">Termin buchen
+        <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-in">
+    <div>
+      <p class="f-name">Hausärzte <span>Oberkassel</span></p>
+      <p class="f-meta" style="margin-top:12px">Internistische Hausarztpraxis<br>Adalbertstraße 4, 40545 Düsseldorf</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Kontakt</p>
+      <p class="f-meta"><a href="tel:0211578040">0211 578 040</a><br><a href="mailto:praxis@hausaerzte-oberkassel.de">praxis@hausaerzte-oberkassel.de</a></p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Rechtliches</p>
+      <div class="f-links"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+    </div>
+  </div>
+  <div class="f-bot"><span>© 2026 Hausärzte Oberkassel</span><span>Düsseldorf-Oberkassel</span></div>
+  <p class="vorschau">Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar</p>
+</footer>
+
+<script>
+(function(){
+
+  var bg=document.getElementById('burger'),sh=document.getElementById('sheet');
+  if(bg&&sh){
+    sh.removeAttribute('hidden');
+    var toggle=function(open){
+      bg.setAttribute('aria-expanded',open);
+      bg.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+      sh.classList.toggle('open',open);
+      document.body.classList.toggle('locked',open);
+    };
+    bg.addEventListener('click',function(){toggle(bg.getAttribute('aria-expanded')!=='true')});
+    sh.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false)})});
+    addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+  }
+  var nav=document.getElementById('nav'),tick=false;
+  addEventListener('scroll',function(){if(tick)return;tick=true;
+    requestAnimationFrame(function(){nav.classList.toggle('fixed',scrollY>40);tick=false})},{passive:true});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},
+      {threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  }else{document.querySelectorAll('.r').forEach(function(el){el.classList.add('on')})}
+})();
+</script>
+</body>
+</html>

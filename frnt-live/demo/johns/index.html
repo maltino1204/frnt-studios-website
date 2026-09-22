@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dr. med. Jan Hendrik Johns — Integrative Kardiologie Düsseldorf</title>
+<meta name="description" content="Privatärztliche Praxis für Integrative Kardiologie in Düsseldorf-Oberkassel. Prävention, Kardiologie und Naturheilverfahren — mit Zeit für das Gespräch.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%232f5240%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 fill=%27%23ffffff%27 text-anchor=%27middle%27%3EJ%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dr. med. Jan Hendrik Johns — Integrative Kardiologie">
+<meta property="og:description" content="In aller Ruhe. Ganz persönlich. Privatärztliche Praxis in Düsseldorf-Oberkassel.">
+<meta property="og:image" content="hero.webp">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-italic.woff2') format('woff2-variations');
+  font-weight:300 400;font-style:italic;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+</style>
+<style>
+:root{
+  --paper:#f7f5f0;
+  --paper-2:#efece5;
+  --ink:#1b1e1a;
+  --ink-70:rgba(27,30,26,.68);
+  --ink-45:rgba(27,30,26,.45);
+  --ink-18:rgba(27,30,26,.16);
+  --ink-09:rgba(27,30,26,.08);
+  --gruen:#2f5240;
+  --gruen-hell:#a9c3b3;
+  --display:'Fraunces',Georgia,serif;
+  --mono:'Mono',ui-monospace,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --gut:clamp(20px,5vw,76px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gruen);outline-offset:3px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:baseline;justify-content:space-between;
+     padding:clamp(18px,3vw,30px) var(--gut);transition:background .5s var(--ease),padding .5s var(--ease)}
+.nav::after{content:'';position:absolute;left:var(--gut);right:var(--gut);bottom:0;height:1px;background:var(--ink-18);
+     transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav.fixed{background:rgba(247,245,240,.92);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px}
+.nav.fixed::after{transform:scaleX(1)}
+.nav-name{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.5vw,18px);letter-spacing:-.01em;text-decoration:none}
+.nav-name span{color:var(--ink-45)}
+.nav-menu{display:none;gap:clamp(20px,2.6vw,38px);align-items:baseline}
+.nav-menu a{font-size:13px;text-decoration:none;color:var(--ink-70);position:relative;padding-bottom:3px;transition:color .18s}
+.nav-menu a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--gruen);
+     transform:scaleX(0);transform-origin:right;transition:transform .22s var(--ease-out)}
+.nav-menu a:hover{color:var(--ink)}
+.nav-menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-tel{display:none;font-size:13px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.nav-tel:hover{border-color:var(--gruen)}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;align-content:end;padding-bottom:clamp(28px,5vh,56px)}
+.hero-media{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;order:-1;margin-bottom:clamp(26px,5vh,48px)}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:68% 12%;
+     clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .15s var(--ease) forwards}
+@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+.hero-txt{padding:0 var(--gut)}
+.hero-kicker{font-family:var(--mono);display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+     color:var(--ink-45);margin-bottom:clamp(16px,2.5vh,26px)}
+.hero-kicker::before{content:'';width:clamp(24px,4vw,52px);height:1px;background:var(--gruen)}
+.hero h1{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(40px,9vw,96px);line-height:1;letter-spacing:-.028em;
+     max-width:11ch;margin-bottom:clamp(20px,3vh,30px)}
+.hero h1 em{font-style:italic;color:var(--gruen)}
+.hero-lead{text-wrap:pretty;font-size:clamp(15px,1.65vw,18px);line-height:1.7;color:var(--ink-70);max-width:44ch;margin-bottom:clamp(26px,4vh,38px)}
+.hero-acts{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,34px);align-items:center}
+.reveal{opacity:0;transform:translateY(20px);animation:up .9s var(--ease) forwards}
+.d1{animation-delay:.42s}.d2{animation-delay:.54s}.d3{animation-delay:.66s}.d4{animation-delay:.78s}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* BUTTONS */
+.cta{display:inline-flex;align-items:center;gap:11px;font-size:14px;font-weight:400;text-decoration:none;
+     padding:14px 26px;background:var(--gruen);color:var(--paper);border:1px solid var(--gruen);
+     transition:background .2s var(--ease-out),color .2s var(--ease-out)}
+.cta svg{transition:transform .22s var(--ease-out)}
+.cta:hover{background:transparent;color:var(--gruen)}
+.cta:hover svg{transform:translateX(5px)}
+.cta-text{display:inline-flex;align-items:center;gap:9px;font-size:14px;text-decoration:none;color:var(--ink);
+     border-bottom:1px solid var(--ink-18);padding-bottom:4px;transition:border-color .2s}
+.cta-text svg{transition:transform .22s var(--ease-out)}
+.cta-text:hover{border-color:var(--gruen)}
+.cta-text:hover svg{transform:translateX(5px)}
+
+/* MARKEN */
+.marken{border-top:1px solid var(--ink-09);border-bottom:1px solid var(--ink-09);padding:clamp(20px,3vh,30px) var(--gut)}
+.marken ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(16px,3.4vw,54px)}
+.marken li{font-size:12.5px;color:var(--ink-45);display:flex;align-items:baseline;gap:9px}
+.marken li::before{content:'';width:4px;height:4px;background:var(--gruen);border-radius:50%;flex-shrink:0;transform:translateY(-2px)}
+
+/* SEKTION */
+.sec{padding:clamp(64px,11vh,148px) var(--gut)}
+.sec-in{max-width:1320px;margin:0 auto}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(30px,5vh,58px)}
+.sec-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--gruen);letter-spacing:.04em}
+.sec-name{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.sec-line{flex:1;height:1px;background:var(--ink-09)}
+h2{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(30px,5.4vw,62px);line-height:1.06;letter-spacing:-.022em;max-width:18ch}
+h2 em{font-style:italic;color:var(--gruen)}
+.sec-lead{text-wrap:pretty;font-size:clamp(14px,1.5vw,16.5px);line-height:1.75;color:var(--ink-70);max-width:50ch;margin-top:clamp(16px,2.4vh,24px)}
+
+/* HALTUNG */
+.haltung-grid{display:grid;gap:clamp(24px,4vh,40px)}
+.haltung-txt{display:grid;gap:18px;font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:54ch}
+
+/* SIGNATURE: ZWEI WEGE */
+.wege{background:var(--gruen);color:var(--paper);padding:clamp(60px,12vh,152px) var(--gut)}
+.wege-in{max-width:1320px;margin:0 auto}
+.wege-h{font-family:var(--display);font-weight:300;font-size:clamp(30px,5.6vw,66px);line-height:1.04;letter-spacing:-.024em;
+     max-width:16ch;margin-bottom:clamp(36px,7vh,80px)}
+.wege-h em{font-style:italic;color:var(--gruen-hell)}
+.wege-grid{display:grid;gap:clamp(34px,6vh,56px)}
+.weg{position:relative}
+.weg-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.14em;color:var(--gruen-hell);margin-bottom:14px;text-transform:uppercase}
+.weg-t{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.8vw,32px);line-height:1.15;letter-spacing:-.015em;margin-bottom:14px}
+.weg-d{font-size:clamp(14px,1.4vw,15.5px);line-height:1.8;color:rgba(247,245,240,.66);max-width:40ch}
+.wege-bruecke{margin-top:clamp(36px,7vh,80px);padding-top:clamp(24px,4vh,36px);border-top:1px solid rgba(247,245,240,.18);
+     display:grid;gap:14px}
+.wege-bruecke-k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gruen-hell)}
+.wege-bruecke p{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(19px,2.6vw,30px);line-height:1.3;max-width:34ch;color:rgba(247,245,240,.88)}
+
+/* DIAGNOSTIK: INDEX */
+.index{margin-top:clamp(28px,5vh,48px);border-top:1px solid var(--ink-18);display:grid}
+.ix{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,30px);align-items:baseline;
+    padding:clamp(16px,2.6vh,24px) 0;border-bottom:1px solid var(--ink-09);transition:padding-left .24s var(--ease-out),border-color .2s}
+.ix:hover{padding-left:clamp(8px,1.6vw,20px);border-color:var(--ink-18)}
+.ix-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--ink-45);letter-spacing:.06em;transition:color .2s}
+.ix:hover .ix-num{color:var(--gruen)}
+.ix-t{font-family:var(--display);font-weight:400;font-size:clamp(17px,2vw,23px);line-height:1.25;letter-spacing:-.01em}
+
+/* PRAXIS: OVERLAP */
+.praxis{padding:clamp(64px,11vh,148px) 0;overflow:hidden}
+.praxis-in{display:grid;gap:0}
+.praxis-media{width:100%;aspect-ratio:16/10;overflow:hidden}
+.praxis-media img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:transform .5s var(--ease-out)}
+.praxis-media:hover img{transform:scale(1.03)}
+.praxis-txt{background:var(--paper);padding:clamp(28px,5vh,52px) var(--gut) 0}
+.praxis-txt h2{margin-bottom:clamp(16px,2.6vh,24px)}
+.praxis-txt p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:50ch;margin-bottom:16px}
+
+/* KONTAKT */
+.kontakt-grid{display:grid;gap:clamp(34px,6vh,72px)}
+.kb-titel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);
+     padding-bottom:14px;border-bottom:1px solid var(--ink-18);margin-bottom:6px}
+.kb .zeile{display:grid;grid-template-columns:minmax(88px,26%) 1fr;gap:16px;align-items:baseline;
+     padding:15px 0;border-bottom:1px solid var(--ink-09)}
+.kb dt{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-45)}
+.kb dd{font-size:clamp(14px,1.5vw,16px);color:var(--ink);line-height:1.55}
+.kb dd a{text-decoration:none;border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.kb dd a:hover{border-color:var(--gruen)}
+.kb-note{margin-top:22px;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:44ch}
+
+/* SCHLUSS */
+.schluss{background:var(--paper-2);padding:clamp(60px,12vh,140px) var(--gut)}
+.schluss-in{max-width:1320px;margin:0 auto;display:grid;gap:clamp(24px,4vh,40px)}
+.schluss h2{max-width:16ch}
+.schluss p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:48ch}
+.schluss .cta{justify-self:start}
+
+/* FOOTER */
+footer{padding:clamp(34px,5vh,54px) var(--gut) clamp(24px,3vh,34px);border-top:1px solid var(--ink-09)}
+.f-in{max-width:1320px;margin:0 auto;display:grid;gap:26px}
+.f-name{font-family:var(--display);font-weight:400;font-size:17px}
+.f-name span{color:var(--ink-45)}
+.f-meta{font-size:13px;line-height:1.75;color:var(--ink-45)}
+.f-meta a{text-decoration:none;border-bottom:1px solid var(--ink-18);transition:border-color .2s}
+.f-meta a:hover{border-color:var(--gruen)}
+.f-links{display:flex;flex-direction:column;gap:9px}
+.f-links a{font-size:12.5px;color:var(--ink-45);text-decoration:none;transition:color .18s}
+.f-links a:hover{color:var(--ink)}
+.f-bot{margin-top:clamp(24px,3.5vh,38px);padding-top:20px;border-top:1px solid var(--ink-09);
+     display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:11.5px;color:var(--ink-45);max-width:1320px;margin-left:auto;margin-right:auto}
+.vorschau{margin-top:14px;font-size:10.5px;color:var(--ink-45);opacity:.72;max-width:1320px;margin-left:auto;margin-right:auto}
+
+
+/* MOBILES MENÜ */
+.burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;padding:0;margin-right:-8px}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);margin-left:auto;
+  transition:transform .26s var(--ease-out),opacity .18s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:45;background:var(--paper);padding:calc(clamp(18px,3vw,30px) + 52px) var(--gut) var(--gut);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out),visibility .3s}
+.sheet.open{opacity:1;visibility:visible;transform:none}
+.sheet a{font-family:var(--display);font-weight:300;font-size:clamp(28px,8vw,44px);line-height:1.35;
+  letter-spacing:-.02em;text-decoration:none;color:var(--ink);padding:6px 0;
+  border-bottom:1px solid var(--ink-09);transition:color .18s}
+.sheet a:last-of-type{border-bottom:none}
+.sheet a:active{color:#2f5240}
+.sheet-tel{margin-top:clamp(28px,5vh,44px);font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  color:var(--ink-45);text-decoration:none;border-bottom:1px solid var(--ink-18);
+  padding-bottom:3px;align-self:flex-start}
+body.locked{overflow:hidden}
+@media(min-width:1080px){.burger,.sheet{display:none}}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.on{opacity:1;transform:none}
+
+/* TABLET */
+@media(min-width:760px){
+  .hero{align-content:center;padding-top:clamp(90px,12vh,130px)}
+  .hero-media{aspect-ratio:21/9;margin-bottom:clamp(32px,6vh,60px)}
+  .hero-media img{object-position:70% 20%}
+  .haltung-grid{grid-template-columns:1fr 1.2fr;gap:clamp(36px,6vw,96px);align-items:start}
+  .wege-grid{grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);position:relative}
+  .wege-grid::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(247,245,240,.18)}
+  .index{grid-template-columns:1fr 1fr;column-gap:clamp(36px,6vw,96px)}
+  .praxis-in{grid-template-columns:1.25fr 1fr;align-items:end}
+  .praxis-media{aspect-ratio:auto;height:clamp(420px,58vh,640px)}
+  .praxis-txt{margin-left:calc(-1 * clamp(40px,6vw,96px));padding:clamp(36px,5vh,56px) var(--gut) clamp(36px,5vh,56px) clamp(36px,4vw,56px);position:relative;z-index:1}
+  .kontakt-grid{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px)}
+  .f-in{grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,56px)}
+}
+
+/* DESKTOP */
+@media(min-width:1080px){
+  .nav-menu{display:flex}
+  .nav-tel{display:inline}
+  .hero{grid-template-columns:1fr 1fr;grid-template-rows:1fr;align-content:stretch;align-items:center;padding:0}
+  .hero-media{order:1;aspect-ratio:auto;height:100svh;margin:0}
+  .hero-media img{object-position:66% 14%}
+  .hero-txt{order:0;padding:clamp(100px,14vh,140px) clamp(40px,4.5vw,76px) clamp(40px,6vh,64px) var(--gut)}
+  .hero h1{font-size:clamp(52px,5.4vw,88px)}
+}
+@media(min-width:1500px){.hero h1{font-size:92px}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .hero-media img{clip-path:none}
+  .reveal,.r{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav-name" href="#top">Dr. med. Johns <span>— Integrative Kardiologie</span></a>
+  <nav class="nav-menu" aria-label="Hauptnavigation">
+    <a href="#haltung">Haltung</a>
+    <a href="#wege">Ansatz</a>
+    <a href="#diagnostik">Diagnostik</a>
+    <a href="#praxis">Praxis</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a class="nav-tel" href="tel:+4921159824815">0211 59 82 48 15</a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+    <a href="#haltung">Haltung</a>
+    <a href="#wege">Ansatz</a>
+    <a href="#diagnostik">Diagnostik</a>
+    <a href="#praxis">Praxis</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="sheet-tel" href="tel:+4921159824815">0211 59 82 48 15</a>
+  </div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-txt">
+      <p class="hero-kicker reveal d1">Privatärztliche Praxis · Düsseldorf-Oberkassel</p>
+      <h1 class="reveal d2">In aller Ruhe. <em>Ganz persönlich.</em></h1>
+      <p class="hero-lead reveal d3">Kardiologie, Prävention und Naturheilverfahren in einer Praxis — und genügend Zeit für ein Gespräch, das diesen Namen verdient.</p>
+      <div class="hero-acts reveal d4">
+        <a class="cta" href="tel:+4921159824815">Termin vereinbaren
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+        </a>
+        <a class="cta-text" href="#wege">Mein Ansatz
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="hero.webp" alt="Dr. med. Jan Hendrik Johns in seiner Praxis" fetchpriority="high" width="1900" height="900">
+    </div>
+  </section>
+
+  <div class="marken">
+    <ul>
+      <li>Privatärztliche Praxis</li>
+      <li>Kardiologie · Prävention · Naturheilverfahren</li>
+      <li>Erfahrung aus führenden Herzzentren</li>
+      <li>Termine nach Vereinbarung</li>
+    </ul>
+  </div>
+
+  <section class="sec r" id="haltung">
+    <div class="sec-in">
+      <div class="sec-head">
+        <span class="sec-num">01</span><span class="sec-name">Haltung</span><span class="sec-line"></span>
+      </div>
+      <div class="haltung-grid">
+        <h2>Das Ganze betrachten. <em>Das Beste erreichen.</em></h2>
+        <div class="haltung-txt">
+          <p>Kardiovaskuläre Veränderungen haben selten nur eine Ursache. Deshalb schaue ich mir auch nicht nur eine an. Was zählt, ist die Geschichte dahinter — und dafür braucht es mehr als die üblichen zehn Minuten.</p>
+          <p>Nach Ausbildung und leitender Tätigkeit in führenden Herzzentren und Jahrzehnten in großen Praxisteams habe ich mich bewusst für die eigene Praxis entschieden. Nicht, weil die Medizin dort eine andere wäre, sondern um mich auf das Wesentliche konzentrieren zu können: auf Sie.</p>
+          <p>2012 habe ich meine Kenntnisse der Integrativen Medizin bei Prof. Dr. med. Gustav Dobos vertieft, einem der Pioniere dieses Feldes in Deutschland. Seitdem gehören beide Welten für mich zusammen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE -->
+  <section class="wege r" id="wege">
+    <div class="wege-in">
+      <h2 class="wege-h">Zwei Wege. <em>Nicht entweder, oder.</em></h2>
+      <div class="wege-grid">
+        <div class="weg">
+          <p class="weg-num">Schulmedizin</p>
+          <h3 class="weg-t">Kardiologie und Prävention</h3>
+          <p class="weg-d">Moderne apparative Diagnostik von der Echokardiographie bis zur telemedizinischen Messung. Nach Gespräch und Check-up entsteht ein Gesundheitsprogramm, das zu Ihrem Alltag passt — nicht zu einem Lehrbuch.</p>
+        </div>
+        <div class="weg">
+          <p class="weg-num">Naturheilkunde</p>
+          <h3 class="weg-t">Naturheilverfahren</h3>
+          <p class="weg-d">Phytotherapie und ernährungsmedizinische Beratung — als Alternative oder als Ergänzung zur konventionellen Behandlung. Nicht aus Prinzip, sondern dort, wo es im Einzelfall trägt.</p>
+        </div>
+      </div>
+      <div class="wege-bruecke">
+        <p class="wege-bruecke-k">Der Grundsatz</p>
+        <p>Beide Verfahren werden nicht getrennt voneinander gedacht. Entschieden wird nach dem, was hilft — nicht nach dem, woher es kommt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="diagnostik">
+    <div class="sec-in">
+      <div class="sec-head">
+        <span class="sec-num">02</span><span class="sec-name">Diagnostik</span><span class="sec-line"></span>
+      </div>
+      <h2>Was in der Praxis <em>möglich</em> ist.</h2>
+      <p class="sec-lead">Grundlage jeder Untersuchung bleibt das ausführliche Gespräch. Die Technik kommt danach — und nur so viel davon, wie nötig.</p>
+      <div class="index">
+        <div class="ix"><span class="ix-num">01</span><span class="ix-t">Echokardiographie inkl. Doppler und Farbdoppler</span></div>
+        <div class="ix"><span class="ix-num">02</span><span class="ix-t">Duplexsonographie der zentralen und peripheren Gefäße</span></div>
+        <div class="ix"><span class="ix-num">03</span><span class="ix-t">Messung der zentralen und peripheren Hämodynamik</span></div>
+        <div class="ix"><span class="ix-num">04</span><span class="ix-t">Telemedizinische Messdiagnostik per Smartphone-App</span></div>
+        <div class="ix"><span class="ix-num">05</span><span class="ix-t">Langzeit-EKG über 24 bis 72 Stunden</span></div>
+        <div class="ix"><span class="ix-num">06</span><span class="ix-t">Langzeit-Blutdruckmessung</span></div>
+        <div class="ix"><span class="ix-num">07</span><span class="ix-t">Ruhe- und Belastungs-EKG</span></div>
+        <div class="ix"><span class="ix-num">08</span><span class="ix-t">Lungenfunktions- und Labordiagnostik</span></div>
+        <div class="ix"><span class="ix-num">09</span><span class="ix-t">CT- und MRT-Diagnostik in Kooperation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="praxis r" id="praxis">
+    <div class="praxis-in">
+      <div class="praxis-media">
+        <img src="gespraech.webp" alt="Gespräch zwischen Dr. Johns und einer Patientin in der Praxis" loading="lazy" width="1900" height="900">
+      </div>
+      <div class="praxis-txt">
+        <div class="sec-head" style="margin-bottom:clamp(20px,3vh,30px)">
+          <span class="sec-num">03</span><span class="sec-name">Die Praxis</span>
+        </div>
+        <h2>Raum für das Gespräch.</h2>
+        <p>Es erwartet Sie eine ruhige Atmosphäre abseits der Alltagshektik. Ich begrüße Sie persönlich und nehme mir Zeit für ein ausführliches Gespräch und eine gründliche Untersuchung.</p>
+        <p>Sollte der Rat weiterer Spezialisten nötig sein, kümmere ich mich auf Wunsch persönlich um zeitnahe Termine bei Kolleginnen und Kollegen aus meinem Netzwerk.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="kontakt">
+    <div class="sec-in">
+      <div class="sec-head">
+        <span class="sec-num">04</span><span class="sec-name">Kontakt</span><span class="sec-line"></span>
+      </div>
+      <h2 style="margin-bottom:clamp(30px,5vh,56px)">Willkommen.<br>Zum Termin <em>nach Wunsch.</em></h2>
+      <div class="kontakt-grid">
+        <div class="kb">
+          <p class="kb-titel">Erreichbarkeit</p>
+          <dl>
+            <div class="zeile"><dt>Telefon</dt><dd><a href="tel:+4921159824815">0211 59 82 48 15</a></dd></div>
+            <div class="zeile"><dt>E-Mail</dt><dd><a href="mailto:mail@drjohns.de">mail@drjohns.de</a></dd></div>
+            <div class="zeile"><dt>Adresse</dt><dd>Sonderburgstraße 13<br>40545 Düsseldorf</dd></div>
+            <div class="zeile"><dt>Zeiten</dt><dd>Montag bis Freitag<br>nach Vereinbarung</dd></div>
+          </dl>
+        </div>
+        <div class="kb">
+          <p class="kb-titel">Anfahrt</p>
+          <dl>
+            <div class="zeile"><dt>U-Bahn</dt><dd>Haltestelle Belsenplatz</dd></div>
+            <div class="zeile"><dt>Parken</dt><dd>Park One<br>Luegallee 69, 40545 Düsseldorf</dd></div>
+          </dl>
+          <p class="kb-note">Privatärztliche Praxis. Abrechnung nach GOÄ — Privatversicherte, Beihilfeberechtigte und Selbstzahler.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="schluss r">
+    <div class="schluss-in">
+      <h2>Rufen Sie mich an.</h2>
+      <p>Wir finden einen Termin, der Ihnen passt — und nehmen uns dann die Zeit, die nötig ist.</p>
+      <a class="cta" href="tel:+4921159824815">0211 59 82 48 15
+        <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-in">
+    <div>
+      <p class="f-name">Dr. med. Jan Hendrik Johns <span>— Integrative Kardiologie</span></p>
+      <p class="f-meta" style="margin-top:12px">Privatärztliche Praxis<br>Sonderburgstraße 13, 40545 Düsseldorf</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Kontakt</p>
+      <p class="f-meta"><a href="tel:+4921159824815">0211 59 82 48 15</a><br><a href="mailto:mail@drjohns.de">mail@drjohns.de</a></p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Rechtliches</p>
+      <div class="f-links"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+    </div>
+  </div>
+  <div class="f-bot">
+    <span>© 2026 Praxis Dr. med. Jan Hendrik Johns</span>
+    <span>Düsseldorf-Oberkassel</span>
+  </div>
+  <p class="vorschau">Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar</p>
+</footer>
+
+<script>
+(function(){
+
+  var bg=document.getElementById('burger'),sh=document.getElementById('sheet');
+  if(bg&&sh){
+    sh.removeAttribute('hidden');
+    var toggle=function(open){
+      bg.setAttribute('aria-expanded',open);
+      bg.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+      sh.classList.toggle('open',open);
+      document.body.classList.toggle('locked',open);
+    };
+    bg.addEventListener('click',function(){toggle(bg.getAttribute('aria-expanded')!=='true')});
+    sh.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false)})});
+    addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+  }
+  var nav=document.getElementById('nav'),tick=false;
+  addEventListener('scroll',function(){
+    if(tick)return;tick=true;
+    requestAnimationFrame(function(){nav.classList.toggle('fixed',scrollY>40);tick=false});
+  },{passive:true});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  }else{document.querySelectorAll('.r').forEach(function(el){el.classList.add('on')})}
+})();
+</script>
+</body>
+</html>
