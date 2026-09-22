@@ -1,0 +1,7 @@
+/intern
+  Basic-Auth: frnt:8MShjLe1z33wpEQk5X
+  X-Robots-Tag: noindex, nofollow
+
+/intern/*
+  Basic-Auth: frnt:8MShjLe1z33wpEQk5X
+  X-Robots-Tag: noindex, nofollow
