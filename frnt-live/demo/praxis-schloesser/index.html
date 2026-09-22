@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Praxis Schlösser — Hausärztliche Gemeinschaftspraxis seit 1960</title>
+<meta name="description" content="Hausärztliche Gemeinschaftspraxis in Düsseldorf-Oberkassel. Seit 1960 am selben Ort, heute in zweiter Generation. Schwerpunkte Akupunktur und Sportmedizin.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%239c4f25%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 fill=%27%23ffffff%27 text-anchor=%27middle%27%3ES%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Praxis Schlösser — Hausärztliche Gemeinschaftspraxis seit 1960">
+<meta property="og:description" content="Seit 1960 dieselbe Adresse. Hausärztliche Gemeinschaftspraxis in Düsseldorf-Oberkassel, heute in zweiter Generation.">
+<meta property="og:image" content="aerzte-desktop.webp">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Fraunces';src:url('fonts/fraunces-italic.woff2') format('woff2-variations');
+  font-weight:300 400;font-style:italic;font-display:swap}
+@font-face{font-family:'Inter';src:url('fonts/inter.woff2') format('woff2-variations');
+  font-weight:300 500;font-style:normal;font-display:swap}
+@font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+</style>
+<style>
+:root{
+  --paper:#faf7f2;--paper-2:#f2ede5;
+  --ink:#231e19;--ink-70:rgba(35,30,25,.68);--ink-45:rgba(35,30,25,.45);
+  --ink-18:rgba(35,30,25,.16);--ink-09:rgba(35,30,25,.08);
+  --terra:#9c4f25;--terra-hell:#e0b79b;
+  --display:'Fraunces',Georgia,serif;--mono:'Mono',ui-monospace,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --gut:clamp(20px,5vw,76px);--ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,.84,.44,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:baseline;justify-content:space-between;
+  padding:clamp(18px,3vw,30px) var(--gut);transition:background .5s var(--ease),padding .5s var(--ease)}
+.nav::after{content:'';position:absolute;left:var(--gut);right:var(--gut);bottom:0;height:1px;background:var(--ink-18);
+  transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav.fixed{background:rgba(250,247,242,.92);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px}
+.nav.fixed::after{transform:scaleX(1)}
+.nav-name{font-family:var(--display);font-weight:400;font-size:clamp(15px,1.5vw,18px);letter-spacing:-.01em;text-decoration:none}
+.nav-name span{color:var(--ink-45)}
+.nav-menu{display:none;gap:clamp(20px,2.6vw,38px);align-items:baseline}
+.nav-menu a{font-size:13px;text-decoration:none;color:var(--ink-70);position:relative;padding-bottom:3px;transition:color .18s}
+.nav-menu a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--terra);
+  transform:scaleX(0);transform-origin:right;transition:transform .22s var(--ease-out)}
+.nav-menu a:hover{color:var(--ink)}
+.nav-menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-tel{display:none;font-size:13px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.nav-tel:hover{border-color:var(--terra)}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;align-content:end;padding-bottom:clamp(28px,5vh,56px)}
+.hero-media{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;order:-1;margin-bottom:clamp(26px,5vh,48px)}
+.hero-media picture,.hero-media img{width:100%;height:100%;display:block}
+.hero-media img{object-fit:cover;object-position:center 30%;
+  clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .12s var(--ease) forwards}
+@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+.hero-txt{padding:0 var(--gut)}
+.hero-kicker{font-family:var(--mono);display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-45);margin-bottom:clamp(16px,2.5vh,26px)}
+.hero-kicker::before{content:'';width:clamp(24px,4vw,52px);height:1px;background:var(--terra)}
+.hero h1{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(38px,8.4vw,90px);line-height:1;letter-spacing:-.028em;
+  max-width:13ch;margin-bottom:clamp(20px,3vh,30px)}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero-lead{text-wrap:pretty;font-size:clamp(15px,1.65vw,18px);line-height:1.7;color:var(--ink-70);max-width:46ch;margin-bottom:clamp(26px,4vh,38px)}
+.hero-acts{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,34px);align-items:center}
+.reveal{opacity:0;transform:translateY(20px);animation:up .9s var(--ease) forwards}
+.d1{animation-delay:.42s}.d2{animation-delay:.54s}.d3{animation-delay:.66s}.d4{animation-delay:.78s}
+@keyframes up{to{opacity:1;transform:none}}
+
+.cta{display:inline-flex;align-items:center;gap:11px;font-size:14px;font-weight:400;text-decoration:none;
+  padding:14px 26px;background:var(--terra);color:var(--paper);border:1px solid var(--terra);
+  transition:background .2s var(--ease-out),color .2s var(--ease-out)}
+.cta svg{transition:transform .22s var(--ease-out)}
+.cta:hover{background:transparent;color:var(--terra)}
+.cta:hover svg{transform:translateX(5px)}
+.cta-text{display:inline-flex;align-items:center;gap:9px;font-size:14px;text-decoration:none;color:var(--ink);
+  border-bottom:1px solid var(--ink-18);padding-bottom:4px;transition:border-color .2s}
+.cta-text svg{transition:transform .22s var(--ease-out)}
+.cta-text:hover{border-color:var(--terra)}
+.cta-text:hover svg{transform:translateX(5px)}
+
+.marken{border-top:1px solid var(--ink-09);border-bottom:1px solid var(--ink-09);padding:clamp(20px,3vh,30px) var(--gut)}
+.marken ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(16px,3.4vw,54px);max-width:1320px;margin:0 auto}
+.marken li{font-size:12.5px;color:var(--ink-45);display:flex;align-items:baseline;gap:9px}
+.marken li::before{content:'';width:4px;height:4px;background:var(--terra);border-radius:50%;flex-shrink:0;transform:translateY(-2px)}
+
+.sec{padding:clamp(64px,11vh,148px) var(--gut)}
+.sec-in{max-width:1320px;margin:0 auto}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(30px,5vh,58px)}
+.sec-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--terra);letter-spacing:.04em}
+.sec-name{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.sec-line{flex:1;height:1px;background:var(--ink-09)}
+h2{text-wrap:balance;font-family:var(--display);font-weight:300;font-size:clamp(30px,5.4vw,62px);line-height:1.06;letter-spacing:-.022em;max-width:18ch}
+h2 em{font-style:italic;color:var(--terra)}
+.sec-lead{text-wrap:pretty;font-size:clamp(14px,1.5vw,16.5px);line-height:1.75;color:var(--ink-70);max-width:50ch;margin-top:clamp(16px,2.4vh,24px)}
+
+/* SIGNATURE: ZEITLEISTE */
+.chronik{background:var(--ink);color:var(--paper);padding:clamp(60px,12vh,152px) var(--gut)}
+.chronik-in{max-width:1320px;margin:0 auto}
+.chronik-h{font-family:var(--display);font-weight:300;font-size:clamp(30px,5.6vw,66px);line-height:1.04;
+  letter-spacing:-.024em;max-width:15ch;margin-bottom:clamp(14px,2.4vh,22px)}
+.chronik-h em{font-style:italic;color:var(--terra-hell)}
+.chronik-lead{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:rgba(250,247,242,.62);max-width:48ch;
+  margin-bottom:clamp(36px,7vh,76px)}
+.chronik-liste{border-top:1px solid rgba(250,247,242,.2)}
+.ch{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,4vw,52px);align-items:baseline;
+  padding:clamp(20px,3.4vh,34px) 0;border-bottom:1px solid rgba(250,247,242,.14);
+  transition:padding-left .24s var(--ease-out),border-color .2s}
+.ch:hover{padding-left:clamp(8px,1.6vw,22px);border-color:rgba(250,247,242,.34)}
+.ch-jahr{font-family:var(--display);font-weight:300;font-size:clamp(26px,4.4vw,52px);line-height:1;
+  letter-spacing:-.02em;color:var(--terra-hell);white-space:nowrap}
+.ch-t{font-family:var(--display);font-weight:400;font-size:clamp(18px,2.3vw,26px);line-height:1.2;letter-spacing:-.015em;margin-bottom:8px}
+.ch-d{font-size:clamp(13px,1.35vw,15px);line-height:1.75;color:rgba(250,247,242,.6);max-width:52ch}
+
+/* ÄRZTE */
+.aerzte{background:var(--paper-2)}
+.aerzte-grid{display:grid;gap:clamp(28px,5vh,48px);margin-top:clamp(28px,5vh,48px)}
+.az{border-top:1px solid var(--ink-18);padding-top:clamp(20px,3vh,28px)}
+.az-schwer{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:10px}
+.az-name{font-family:var(--display);font-weight:400;font-size:clamp(20px,2.5vw,29px);line-height:1.18;letter-spacing:-.018em;margin-bottom:12px}
+.az-d{font-size:clamp(13.5px,1.4vw,15.5px);line-height:1.78;color:var(--ink-70);max-width:44ch}
+
+/* LEISTUNGEN */
+.liste{border-top:1px solid var(--ink-18);margin-top:clamp(28px,5vh,48px)}
+.lz{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,38px);align-items:baseline;
+  padding:clamp(18px,3vh,30px) 0;border-bottom:1px solid var(--ink-09);
+  transition:padding-left .24s var(--ease-out),border-color .2s}
+.lz:hover{padding-left:clamp(8px,1.6vw,22px);border-color:var(--ink-18)}
+.lz-num{font-family:var(--mono);font-size:clamp(11px,1.1vw,12.5px);color:var(--ink-45);letter-spacing:.06em;transition:color .2s}
+.lz:hover .lz-num{color:var(--terra)}
+.lz-h{font-family:var(--display);font-weight:400;font-size:clamp(19px,2.4vw,28px);line-height:1.2;letter-spacing:-.015em;margin-bottom:7px}
+.lz-d{font-size:clamp(13px,1.35vw,15px);line-height:1.7;color:var(--ink-70);max-width:56ch}
+
+.kontakt-grid{display:grid;gap:clamp(34px,6vh,72px)}
+.kb-titel{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);
+  padding-bottom:14px;border-bottom:1px solid var(--ink-18);margin-bottom:6px}
+.kb .zeile{display:grid;grid-template-columns:minmax(88px,26%) 1fr;gap:16px;align-items:baseline;
+  padding:15px 0;border-bottom:1px solid var(--ink-09)}
+.kb dt{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-45)}
+.kb dd{font-size:clamp(14px,1.5vw,16px);color:var(--ink);line-height:1.55}
+.kb dd a{text-decoration:none;border-bottom:1px solid var(--ink-18);padding-bottom:2px;transition:border-color .2s}
+.kb dd a:hover{border-color:var(--terra)}
+.kb-note{margin-top:22px;font-size:13px;line-height:1.7;color:var(--ink-45);max-width:44ch}
+
+.schluss{background:var(--paper-2);padding:clamp(60px,12vh,140px) var(--gut)}
+.schluss-in{max-width:1320px;margin:0 auto;display:grid;gap:clamp(24px,4vh,40px)}
+.schluss h2{max-width:16ch}
+.schluss p{font-size:clamp(14px,1.5vw,16.5px);line-height:1.8;color:var(--ink-70);max-width:48ch}
+.schluss .cta{justify-self:start}
+
+footer{padding:clamp(34px,5vh,54px) var(--gut) clamp(24px,3vh,34px);border-top:1px solid var(--ink-09)}
+.f-in{max-width:1320px;margin:0 auto;display:grid;gap:26px}
+.f-name{font-family:var(--display);font-weight:400;font-size:17px}
+.f-name span{color:var(--ink-45)}
+.f-meta{font-size:13px;line-height:1.75;color:var(--ink-45)}
+.f-meta a{text-decoration:none;border-bottom:1px solid var(--ink-18);transition:border-color .2s}
+.f-meta a:hover{border-color:var(--terra)}
+.f-links{display:flex;flex-direction:column;gap:9px}
+.f-links a{font-size:12.5px;color:var(--ink-45);text-decoration:none;transition:color .18s}
+.f-links a:hover{color:var(--ink)}
+.f-bot{margin-top:clamp(24px,3.5vh,38px);padding-top:20px;border-top:1px solid var(--ink-09);
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:11.5px;color:var(--ink-45);max-width:1320px;margin-left:auto;margin-right:auto}
+.vorschau{margin-top:14px;font-size:10.5px;color:var(--ink-45);opacity:.72;max-width:1320px;margin-left:auto;margin-right:auto}
+
+
+/* MOBILES MENÜ */
+.burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;
+  background:none;border:none;cursor:pointer;padding:0;margin-right:-8px}
+.burger span{display:block;width:22px;height:1px;background:var(--ink);margin-left:auto;
+  transition:transform .26s var(--ease-out),opacity .18s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:45;background:var(--paper);padding:calc(clamp(18px,3vw,30px) + 52px) var(--gut) var(--gut);
+  display:flex;flex-direction:column;justify-content:center;gap:4px;
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out),visibility .3s}
+.sheet.open{opacity:1;visibility:visible;transform:none}
+.sheet a{font-family:var(--display);font-weight:300;font-size:clamp(28px,8vw,44px);line-height:1.35;
+  letter-spacing:-.02em;text-decoration:none;color:var(--ink);padding:6px 0;
+  border-bottom:1px solid var(--ink-09);transition:color .18s}
+.sheet a:last-of-type{border-bottom:none}
+.sheet a:active{color:#9c4f25}
+.sheet-tel{margin-top:clamp(28px,5vh,44px);font-family:var(--mono);font-size:13px;letter-spacing:.04em;
+  color:var(--ink-45);text-decoration:none;border-bottom:1px solid var(--ink-18);
+  padding-bottom:3px;align-self:flex-start}
+body.locked{overflow:hidden}
+@media(min-width:1080px){.burger,.sheet{display:none}}
+
+.r{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.on{opacity:1;transform:none}
+
+@media(min-width:760px){
+  .hero{align-content:center;padding-top:clamp(90px,12vh,130px)}
+  .hero-media{aspect-ratio:21/9;margin-bottom:clamp(32px,6vh,60px)}
+  .hero-media img{object-position:center 26%}
+  .aerzte-grid{grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px)}
+  .kontakt-grid{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px)}
+  .f-in{grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,56px)}
+}
+@media(min-width:1080px){
+  .nav-menu{display:flex}
+  .nav-tel{display:inline}
+  .hero{grid-template-columns:1fr 1fr;grid-template-rows:1fr;align-content:stretch;align-items:center;padding:0}
+  .hero-media{order:1;aspect-ratio:auto;height:100svh;margin:0}
+  .hero-media img{object-position:center 24%}
+  .hero-txt{order:0;padding:clamp(100px,14vh,140px) clamp(40px,4.5vw,76px) clamp(40px,6vh,64px) var(--gut)}
+  .hero h1{font-size:clamp(50px,5.3vw,86px)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .hero-media img{clip-path:none}
+  .reveal,.r{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="nav-name" href="#top">Praxis <span>Schlösser</span></a>
+  <nav class="nav-menu" aria-label="Hauptnavigation">
+    <a href="#chronik">Geschichte</a>
+    <a href="#aerzte">Ärzte</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a class="nav-tel" href="#kontakt">Termin vereinbaren</a>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+    <a href="#chronik">Geschichte</a>
+    <a href="#aerzte">Ärzte</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="sheet-tel" href="#kontakt">Termin vereinbaren</a>
+  </div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-txt">
+      <p class="hero-kicker reveal d1">Hausärztliche Gemeinschaftspraxis · Oberkassel</p>
+      <h1 class="reveal d2">Seit 1960 <em>dieselbe Adresse.</em></h1>
+      <p class="hero-lead reveal d3">Was als Hausarztpraxis begann, ist heute in zweiter Generation eine feste Anlaufstelle für Familien im Viertel — mit Akupunktur und Sportmedizin als eigenen Schwerpunkten.</p>
+      <div class="hero-acts reveal d4">
+        <a class="cta" href="#kontakt">Termin vereinbaren
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+        <a class="cta-text" href="#chronik">Unsere Geschichte
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <picture>
+        <source media="(min-width:760px)" srcset="aerzte-desktop.webp">
+        <img src="aerzte-mobil.webp" alt="Dres. med. Christiane und Martin Schlösser" fetchpriority="high" width="1774" height="887">
+      </picture>
+    </div>
+  </section>
+
+  <div class="marken">
+    <ul>
+      <li>Gegründet 1960</li>
+      <li>Zweite Generation seit 1993</li>
+      <li>Akupunktur</li>
+      <li>Sportmedizin</li>
+    </ul>
+  </div>
+
+  <!-- SIGNATURE -->
+  <section class="chronik r" id="chronik">
+    <div class="chronik-in">
+      <h2 class="chronik-h">Fünfundsechzig Jahre, <em>ein Standort.</em></h2>
+      <p class="chronik-lead">Manche unserer Patientinnen und Patienten kamen schon als Kinder hierher. Heute bringen sie ihre Enkel mit.</p>
+      <div class="chronik-liste">
+        <article class="ch">
+          <span class="ch-jahr">1960</span>
+          <div><h3 class="ch-t">Die Gründung</h3><p class="ch-d">Eröffnung der Hausarztpraxis in Düsseldorf-Oberkassel. Dieselben Räume, in denen wir bis heute arbeiten.</p></div>
+        </article>
+        <article class="ch">
+          <span class="ch-jahr">1993</span>
+          <div><h3 class="ch-t">Die zweite Generation</h3><p class="ch-d">Dr. Christiane und Dr. Martin Schlösser übernehmen die Praxis und führen sie mit demselben Anspruch weiter: Medizin, die den Menschen kennt.</p></div>
+        </article>
+        <article class="ch">
+          <span class="ch-jahr">Heute</span>
+          <div><h3 class="ch-t">Behutsam weiterentwickelt</h3><p class="ch-d">Akupunktur und Sportmedizin sind als eigene Schwerpunkte dazugekommen. Was geblieben ist: Zeit, Nähe und die Tatsache, dass Sie Ihre Geschichte nicht jedes Mal neu erzählen müssen.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec aerzte r" id="aerzte">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">01</span><span class="sec-name">Die Ärzte</span><span class="sec-line"></span></div>
+      <h2>Zwei Ärzte, <em>zwei Schwerpunkte.</em></h2>
+      <div class="aerzte-grid">
+        <article class="az">
+          <p class="az-schwer">Schwerpunkt Akupunktur</p>
+          <h3 class="az-name">Dr. med. Christiane Schlösser</h3>
+          <p class="az-d">Hausärztin mit Zusatzqualifikation Akupunktur. Traditionelle Verfahren ergänzen die klassische Diagnostik dort, wo sie im Einzelfall helfen — nicht aus Prinzip.</p>
+        </article>
+        <article class="az">
+          <p class="az-schwer">Schwerpunkt Sportmedizin</p>
+          <h3 class="az-name">Dr. med. Martin Schlösser</h3>
+          <p class="az-d">Hausarzt mit sportmedizinischer Qualifikation. Von der Leistungsdiagnostik bis zur Frage, wie man nach Jahren Pause wieder anfängt, ohne sich zu überfordern.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="leistungen">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">02</span><span class="sec-name">Leistungen</span><span class="sec-line"></span></div>
+      <h2>Umfassende Versorgung mit <em>besonderen Schwerpunkten.</em></h2>
+      <div class="liste">
+        <article class="lz"><span class="lz-num">01</span><div><h3 class="lz-h">Hausärztliche Versorgung</h3><p class="lz-d">Komplette Betreuung für die ganze Familie, über Generationen hinweg.</p></div></article>
+        <article class="lz"><span class="lz-num">02</span><div><h3 class="lz-h">Akupunktur</h3><p class="lz-d">Traditionelle chinesische Medizin als Ergänzung zur klassischen Diagnostik.</p></div></article>
+        <article class="lz"><span class="lz-num">03</span><div><h3 class="lz-h">Sportmedizin</h3><p class="lz-d">Leistungsdiagnostik und Beratung für Sportler und aktive Patient:innen jeden Alters.</p></div></article>
+        <article class="lz"><span class="lz-num">04</span><div><h3 class="lz-h">Vorsorge und Check-up</h3><p class="lz-d">Gesundheits-Check-ups, Impfungen und Krebsvorsorge.</p></div></article>
+        <article class="lz"><span class="lz-num">05</span><div><h3 class="lz-h">Diagnostik</h3><p class="lz-d">Umfassende Labor- und Funktionsdiagnostik direkt in der Praxis.</p></div></article>
+        <article class="lz"><span class="lz-num">06</span><div><h3 class="lz-h">Hausbesuche</h3><p class="lz-d">Ärztliche Betreuung bei Ihnen zu Hause, wenn es nötig ist.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec r" id="kontakt">
+    <div class="sec-in">
+      <div class="sec-head"><span class="sec-num">03</span><span class="sec-name">Praxis</span><span class="sec-line"></span></div>
+      <h2 style="margin-bottom:clamp(30px,5vh,56px)">Sprechzeiten<br>und Kontakt</h2>
+      <div class="kontakt-grid">
+        <div class="kb">
+          <p class="kb-titel">Erreichbarkeit</p>
+          <dl>
+            <div class="zeile"><dt>Telefon</dt><dd><a href="tel:+4921100000">Telefonnummer der Praxis</a></dd></div>
+            <div class="zeile"><dt>E-Mail</dt><dd><a href="mailto:kontakt@example.de">E-Mail-Adresse</a></dd></div>
+            <div class="zeile"><dt>Adresse</dt><dd>Praxisadresse<br>Düsseldorf-Oberkassel</dd></div>
+          </dl>
+        </div>
+        <div class="kb">
+          <p class="kb-titel">Sprechzeiten</p>
+          <dl>
+            <div class="zeile"><dt>Mo</dt><dd>nach Vereinbarung</dd></div>
+            <div class="zeile"><dt>Di</dt><dd>nach Vereinbarung</dd></div>
+            <div class="zeile"><dt>Mi</dt><dd>nach Vereinbarung</dd></div>
+            <div class="zeile"><dt>Do</dt><dd>nach Vereinbarung</dd></div>
+            <div class="zeile"><dt>Fr</dt><dd>nach Vereinbarung</dd></div>
+          </dl>
+          <p class="kb-note">Termine nach telefonischer Vereinbarung. Bei akuten Beschwerden rufen Sie bitte morgens an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="schluss r">
+    <div class="schluss-in">
+      <h2>Kommen Sie <em>gerne vorbei.</em></h2>
+      <p>Neue Patientinnen und Patienten sind willkommen — auch wenn Sie noch nie hier waren.</p>
+      <a class="cta" href="#kontakt">Termin vereinbaren
+        <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-in">
+    <div>
+      <p class="f-name">Praxis <span>Schlösser</span></p>
+      <p class="f-meta" style="margin-top:12px">Hausärztliche Gemeinschaftspraxis<br>Düsseldorf-Oberkassel, seit 1960</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Schwerpunkte</p>
+      <p class="f-meta">Akupunktur<br>Sportmedizin</p>
+    </div>
+    <div>
+      <p class="kb-titel" style="border:none;padding:0;margin-bottom:12px">Rechtliches</p>
+      <div class="f-links"><a href="#">Impressum</a><a href="#">Datenschutz</a></div>
+    </div>
+  </div>
+  <div class="f-bot"><span>© 2026 Praxis Schlösser</span><span>Düsseldorf-Oberkassel</span></div>
+  <p class="vorschau">Vorschau von FRNT Studio · nicht öffentlich gelistet · nur über diesen Link erreichbar</p>
+</footer>
+
+<script>
+(function(){
+
+  var bg=document.getElementById('burger'),sh=document.getElementById('sheet');
+  if(bg&&sh){
+    sh.removeAttribute('hidden');
+    var toggle=function(open){
+      bg.setAttribute('aria-expanded',open);
+      bg.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');
+      sh.classList.toggle('open',open);
+      document.body.classList.toggle('locked',open);
+    };
+    bg.addEventListener('click',function(){toggle(bg.getAttribute('aria-expanded')!=='true')});
+    sh.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggle(false)})});
+    addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+  }
+  var nav=document.getElementById('nav'),tick=false;
+  addEventListener('scroll',function(){if(tick)return;tick=true;
+    requestAnimationFrame(function(){nav.classList.toggle('fixed',scrollY>40);tick=false})},{passive:true});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},
+      {threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.r').forEach(function(el){io.observe(el)});
+  }else{document.querySelectorAll('.r').forEach(function(el){el.classList.add('on')})}
+})();
+</script>
+</body>
+</html>
