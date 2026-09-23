@@ -216,7 +216,7 @@ body.locked{overflow:hidden}
   .nav-tel{display:inline}
   .hero{grid-template-columns:1fr 1fr;grid-template-rows:1fr;align-content:stretch;align-items:center;padding:0}
   .hero-media{order:1;aspect-ratio:auto;height:100svh;margin:0}
-  .hero-media img{object-position:center 24%}
+  .hero-media img{object-position:center 82%}
   .hero-txt{order:0;padding:clamp(100px,14vh,140px) clamp(40px,4.5vw,76px) clamp(40px,6vh,64px) var(--gut)}
   .hero h1{font-size:clamp(50px,5.3vw,86px)}
 }
@@ -264,8 +264,9 @@ body.locked{overflow:hidden}
     </div>
     <div class="hero-media">
       <picture>
+        <source media="(min-width:1080px)" srcset="aerzte-mobil.webp">
         <source media="(min-width:760px)" srcset="aerzte-desktop.webp">
-        <img src="aerzte-mobil.webp" alt="Dres. med. Christiane und Martin Schlösser" fetchpriority="high" width="1774" height="887">
+        <img src="aerzte-mobil.webp" alt="Dres. med. Christiane und Martin Schlösser" fetchpriority="high" width="1086" height="1448">
       </picture>
     </div>
   </section>
