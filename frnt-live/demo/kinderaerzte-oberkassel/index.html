@@ -14,7 +14,7 @@
 <meta property="og:locale" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" imagesrcset="hero-800.webp 800w, hero-1400.webp 1400w, hero.webp 2000w" imagesizes="100vw" fetchpriority="high">
 <style>
 @font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
   font-weight:300 500;font-style:normal;font-display:swap}
@@ -24,6 +24,10 @@
   font-weight:300 500;font-style:normal;font-display:swap}
 @font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap}
+/* QA 09/2026: Hero-Headline ist ab dem ersten Frame sichtbar (LCP), Bewegung nur per transform */
+h1.reveal{opacity:1!important}
+/* QA 09/2026: Kontrast auf Akzentflächen (WCAG AA) */
+.phasen-lead,.ph-d{color:rgba(248,247,244,.86)!important}
 </style>
 <style>
 :root{
@@ -31,7 +35,7 @@
   --paper-2:#f0eee9;
   --ink:#1c2230;
   --ink-70:rgba(28,34,48,.68);
-  --ink-45:rgba(28,34,48,.45);
+  --ink-45:rgba(28,34,48,.66);
   --ink-18:rgba(28,34,48,.16);
   --ink-09:rgba(28,34,48,.08);
   --blau:#1f4b7a;
@@ -45,7 +49,7 @@
   --ease-out:cubic-bezier(.16,.84,.44,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-padding-top:96px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -99,8 +103,8 @@ a{color:inherit}
 
 /* TEAMBAND */
 .teamband{width:100%;overflow:hidden;background:var(--paper-2)}
-.teamband img{width:100%;height:auto;max-width:2000px;margin:0 auto;display:block;clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .1s var(--ease) forwards}
-@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+.teamband img{width:100%;height:auto;max-width:2000px;margin:0 auto;display:block;transform:scale(1.04);animation:mediaIn 1.15s .1s var(--ease) forwards}
+@keyframes mediaIn{to{transform:scale(1)}}
 
 /* NOTFALL */
 .notfall{background:var(--signal);color:#fff;padding:clamp(16px,2.6vh,22px) var(--gut)}
@@ -248,7 +252,7 @@ body.locked{overflow:hidden}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .teamband img{clip-path:none}
+  .teamband img{transform:none}
   .reveal,.r{opacity:1;transform:none}
 }
 </style>
@@ -293,7 +297,7 @@ body.locked{overflow:hidden}
   </section>
 
   <div class="teamband">
-    <img src="hero.webp" alt="Das Team der Kinderärzte Oberkassel auf der Praxistreppe" fetchpriority="high" width="2000" height="971">
+    <img src="hero.webp" srcset="hero-800.webp 800w, hero-1400.webp 1400w, hero.webp 2000w" sizes="100vw" alt="Das Team der Kinderärzte Oberkassel auf der Praxistreppe" fetchpriority="high" decoding="async" width="2000" height="971">
   </div>
 
   <div class="notfall">

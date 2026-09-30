@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Kanzlei Köhler — Rechtsanwalt Wolfgang H. Köhler, Düsseldorf</title>
-<meta name="description" content="Rechtsanwalt Wolfgang H. Köhler, Düsseldorf. Über 30 Jahre Erfahrung in Handels-, Arbeits-, Familien- und Baurecht. Zulassung an allen Instanzen.">
+<meta name="description" content="Rechtsanwalt Wolfgang H. Köhler, Düsseldorf. Über 30 Jahre Erfahrung in Handels-, Arbeits-, Familien- und Baurecht. Mit besonderer Kompetenz für zivilrechtliche Berufungsverfahren.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%238a6a32%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2736%27 fill=%27%23ffffff%27 text-anchor=%27middle%27%3EK%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kanzlei Köhler — Rechtsanwalt Wolfgang H. Köhler, Düsseldorf">
-<meta property="og:description" content="Über 30 Jahre anwaltliche Praxis. Handels-, Arbeits-, Familien- und Baurecht. Zulassung an allen Instanzen.">
+<meta property="og:description" content="Über 30 Jahre anwaltliche Praxis. Handels-, Arbeits-, Familien- und Baurecht. Mit besonderer Kompetenz für zivilrechtliche Berufungsverfahren.">
 <meta property="og:image" content="koehler.webp">
 <meta property="og:locale" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,11 +24,16 @@
   font-weight:300 500;font-style:normal;font-display:swap}
 @font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap}
+/* QA 09/2026: Hero-Headline ist ab dem ersten Frame sichtbar (LCP), Bewegung nur per transform */
+h1.reveal{opacity:1!important}
+/* QA 09/2026: Kontrast auf Akzentflächen (WCAG AA) */
+.lz-num{color:rgba(25,26,28,.8)!important}
+.sec-num{color:rgb(118,90,40)!important}
 </style>
 <style>
 :root{
   --paper:#f5f4f0;--paper-2:#edebe5;
-  --ink:#191a1c;--ink-70:rgba(25,26,28,.68);--ink-45:rgba(25,26,28,.45);
+  --ink:#191a1c;--ink-70:rgba(25,26,28,.68);--ink-45:rgba(25,26,28,.66);
   --ink-18:rgba(25,26,28,.16);--ink-09:rgba(25,26,28,.08);
   --gold:#8a6a32;--gold-hell:#cdb488;
   --display:'Fraunces',Georgia,serif;--mono:'Mono',ui-monospace,monospace;
@@ -37,7 +42,7 @@
   --ease-out:cubic-bezier(.16,.84,.44,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-padding-top:96px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -76,6 +81,7 @@ a{color:inherit}
 .hero-sig img{width:56px;height:56px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.04);flex-shrink:0}
 .hero-sig-n{font-family:var(--display);font-weight:400;font-size:15px;line-height:1.3}
 .hero-sig-r{font-size:12px;color:var(--ink-45);margin-top:3px}
+.hero-src{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-45);margin:-4px 0 clamp(16px,2.4vh,24px)}
 .reveal{opacity:0;transform:translateY(20px);animation:up .9s var(--ease) forwards}
 .d1{animation-delay:.1s}.d2{animation-delay:.22s}.d3{animation-delay:.34s}.d4{animation-delay:.46s}.d5{animation-delay:.58s}
 @keyframes up{to{opacity:1;transform:none}}
@@ -246,9 +252,10 @@ body.locked{overflow:hidden}
 
   <section class="hero">
     <div class="hero-in">
-      <p class="hero-kicker reveal d1">Düsseldorf · Mönchengladbach · seit 1987</p>
+      <p class="hero-kicker reveal d1">Düsseldorf · Mönchengladbach · über 30 Jahre Praxis</p>
       <h1 class="reveal d2">Wer kämpft, kann verlieren. <em>Wer nicht kämpft, hat schon verloren.</em></h1>
-      <p class="hero-lead reveal d3">Über 30 Jahre anwaltliche Praxis, überwiegend forensisch, mit Zulassung an allen Amts-, Land- und Oberlandesgerichten. Die meisten Mandate enden trotzdem ohne Gerichtssaal — das ist Absicht.</p>
+      <p class="hero-src reveal d3">— Bertolt Brecht</p>
+      <p class="hero-lead reveal d3">Über 30 Jahre anwaltliche Praxis, überwiegend forensisch, mit besonderer Kompetenz für zivilrechtliche Berufungsverfahren. Und mit dem Ziel, Prozesse durch außergerichtliche Beratung zu vermeiden.</p>
       <div class="hero-acts reveal d4">
         <a class="cta" href="#kontakt">Unverbindlich anfragen
           <svg width="15" height="9" viewBox="0 0 15 9" fill="none" aria-hidden="true"><path d="M0 4.5h13M9.5 1 13 4.5 9.5 8" stroke="currentColor" stroke-width="1.1"/></svg></a>
@@ -268,7 +275,7 @@ body.locked{overflow:hidden}
   <div class="marken">
     <ul>
       <li>Über 30 Jahre Berufserfahrung</li>
-      <li>Zulassung an allen Instanzen</li>
+      <li>Schwerpunkt Berufungsverfahren</li>
       <li>Vier Rechtsgebiete im Fokus</li>
       <li>International vernetzt</li>
     </ul>
@@ -278,12 +285,12 @@ body.locked{overflow:hidden}
   <section class="zitat r" id="haltung">
     <div class="zitat-in">
       <div>
-        <blockquote><span class="m">„</span>Wichtig ist die außergerichtliche Beratung — mit dem Ziel der Prozessvermeidung.<span class="m">“</span></blockquote>
+        <blockquote><span class="m">„</span>Wichtig ist hierbei die außergerichtliche Beratung der Mandanten mit dem Ziel der Prozessvermeidung.<span class="m">“</span></blockquote>
         <p class="zitat-q">Wolfgang H. Köhler</p>
       </div>
       <div class="zitat-body">
         <p>Ein gewonnener Prozess ist selten das beste Ergebnis. Er kostet Zeit, Geld und in geschäftlichen Beziehungen oft mehr, als die Sache wert war. Deshalb beginnt meine Arbeit mit der Frage, wie sich ein Verfahren vermeiden lässt — und nicht damit, wie man es gewinnt.</p>
-        <p>Das setzt voraus, den Gang durch alle Instanzen zu kennen. Nach über 30 Jahren überwiegend forensischer Tätigkeit weiß ich, wie ein Fall vor Gericht ausgehen würde. Genau dieses Wissen ist die Grundlage, um außergerichtlich die Handlungsdominanz zu behalten.</p>
+        <p>Das setzt voraus, den Weg durch die Instanzen zu kennen. Nach über 30 Jahren überwiegend forensischer Tätigkeit weiß ich, wie ein Fall vor Gericht ausgehen würde. Genau dieses Wissen ist die Grundlage, um außergerichtlich die Handlungsdominanz zu behalten.</p>
         <p>Für spezialisierte Fragen arbeite ich mit Anwälten und Sachverständigen aus vielen Branchen zusammen, auch über Deutschland hinaus.</p>
       </div>
     </div>
@@ -297,7 +304,7 @@ body.locked{overflow:hidden}
       <div class="liste">
         <article class="lz"><span class="lz-num">01</span><div><h3 class="lz-h">Handels- und Vertragsrecht</h3><p class="lz-d">Gestaltung und Prüfung von Verträgen für Unternehmen — mit Fokus auf Klauseln, die im Streitfall auch halten.</p></div></article>
         <article class="lz"><span class="lz-num">02</span><div><h3 class="lz-h">Arbeitsrecht</h3><p class="lz-d">Beratung und Vertretung auf Arbeitgeber- wie auf Arbeitnehmerseite.</p></div></article>
-        <article class="lz"><span class="lz-num">03</span><div><h3 class="lz-h">Familien- und Erbrecht</h3><p class="lz-d">Unter besonderer Berücksichtigung der wirtschaftlichen Belange aller Beteiligten — gerade dann, wenn die Emotionen die Sache überlagern.</p></div></article>
+        <article class="lz"><span class="lz-num">03</span><div><h3 class="lz-h">Familien- und Erbrecht</h3><p class="lz-d">Unter besonderer Berücksichtigung der wirtschaftlichen Belange aller Beteiligten.</p></div></article>
         <article class="lz"><span class="lz-num">04</span><div><h3 class="lz-h">Baurecht</h3><p class="lz-d">Spezielle Ausrichtung auf Bauträgerprojekte und Fragen des Wohnungseigentums.</p></div></article>
       </div>
     </div>
@@ -311,7 +318,7 @@ body.locked{overflow:hidden}
         <div class="vita-txt">
           <h2 style="margin-bottom:clamp(18px,2.6vh,26px)">Wolfgang H.<br>Köhler</h2>
           <p>Studium der Rechtswissenschaften in Münster und Bonn, abgeschlossen mit zwei Prädikatsexamina. Ab 1987 Partner, zuletzt Seniorpartner, in der Sozietät Diehl, Köhler + Partner mit Spezialisierung auf Transport- und Versicherungsrecht.</p>
-          <p>Bis 1995 singuläre Zulassung beim Oberlandesgericht Düsseldorf — eine Besonderheit des damaligen Rechts, die eine eigene Prüfung und jahrelange Berufserfahrung voraussetzte.</p>
+          <p>Bis 1995 singuläre Zulassung beim Oberlandesgericht Düsseldorf.</p>
           <ul class="vita">
             <li><span>Zwei Prädikatsexamina, Studium in Münster und Bonn</span></li>
             <li><span>Ab 1987 Partner, zuletzt Seniorpartner der Sozietät Diehl, Köhler + Partner</span></li>
@@ -344,7 +351,7 @@ body.locked{overflow:hidden}
             <div class="zeile"><dt>Adresse</dt><dd>Hespersstraße 54<br>41063 Mönchengladbach</dd></div>
             <div class="zeile"><dt>Termine</dt><dd>nach Vereinbarung</dd></div>
           </dl>
-          <p class="kb-note">Ein erstes Gespräch klärt meist in wenigen Minuten, ob und wie sich ein Verfahren vermeiden lässt.</p>
+          <p class="kb-note">Ein erstes Gespräch klärt, ob und wie sich ein Verfahren vermeiden lässt.</p>
         </div>
       </div>
     </div>

@@ -24,11 +24,15 @@
   font-weight:300 500;font-style:normal;font-display:swap}
 @font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap}
+/* QA 09/2026: Hero-Headline ist ab dem ersten Frame sichtbar (LCP), Bewegung nur per transform */
+h1.reveal{opacity:1!important}
+/* QA 09/2026: Kontrast auf Akzentflächen (WCAG AA) */
+.fach-lead,.fa-d{color:rgba(246,246,243,.86)!important}.fa-n{color:rgb(208,224,234)!important}
 </style>
 <style>
 :root{
   --paper:#f6f6f3;--paper-2:#eeeeea;
-  --ink:#1a1e24;--ink-70:rgba(26,30,36,.68);--ink-45:rgba(26,30,36,.45);
+  --ink:#1a1e24;--ink-70:rgba(26,30,36,.68);--ink-45:rgba(26,30,36,.66);
   --ink-18:rgba(26,30,36,.16);--ink-09:rgba(26,30,36,.08);
   --blau:#2c5169;--blau-hell:#a7c0ce;
   --display:'Fraunces',Georgia,serif;--mono:'Mono',ui-monospace,monospace;
@@ -37,7 +41,7 @@
   --ease-out:cubic-bezier(.16,.84,.44,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-padding-top:96px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -278,7 +282,7 @@ body.locked{overflow:hidden}
   <section class="fach r" id="fachanwalt">
     <div class="fach-in">
       <h2 class="fach-h">Was ein Fachanwaltstitel <em>tatsächlich bedeutet.</em></h2>
-      <p class="fach-lead">Jeder einzelne setzt eine theoretische Zusatzausbildung, eine Prüfung und den Nachweis von mehreren hundert bearbeiteten Fällen aus diesem Gebiet voraus. Drei davon zu führen, ist die Ausnahme.</p>
+      <p class="fach-lead">Jeder einzelne setzt eine theoretische Zusatzausbildung, eine Prüfung und den Nachweis von 120 bis 160 selbst bearbeiteten Fällen aus diesem Gebiet voraus. Drei davon zu führen, ist die Ausnahme.</p>
       <div class="fach-grid">
         <div>
           <p class="fa-n">Fachanwalt I</p>

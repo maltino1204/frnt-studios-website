@@ -14,7 +14,7 @@
 <meta property="og:locale" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" imagesrcset="team-alle-800.webp 800w, team-alle-1400.webp 1400w, team-alle.webp 1600w" imagesizes="100vw" fetchpriority="high">
 <style>
 @font-face{font-family:'Fraunces';src:url('fonts/fraunces.woff2') format('woff2-variations');
   font-weight:300 500;font-style:normal;font-display:swap}
@@ -24,11 +24,16 @@
   font-weight:300 500;font-style:normal;font-display:swap}
 @font-face{font-family:'Mono';src:url('fonts/mono.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap}
+/* QA 09/2026: Hero-Headline ist ab dem ersten Frame sichtbar (LCP), Bewegung nur per transform */
+h1.reveal{opacity:1!important}
+/* QA 09/2026: Kontrast auf Akzentflächen (WCAG AA) */
+.sprech-lead,.sp-rolle,.sp-zeit{color:rgba(247,246,241,.88)!important}
+.sp-n{color:rgb(214,232,221)!important}
 </style>
 <style>
 :root{
   --paper:#f7f6f1;--paper-2:#efeee7;
-  --ink:#1a201b;--ink-70:rgba(26,32,27,.68);--ink-45:rgba(26,32,27,.45);
+  --ink:#1a201b;--ink-70:rgba(26,32,27,.68);--ink-45:rgba(26,32,27,.66);
   --ink-18:rgba(26,32,27,.16);--ink-09:rgba(26,32,27,.08);
   --gruen:#2f6b4f;--gruen-hell:#a6c7b4;
   --display:'Fraunces',Georgia,serif;--mono:'Mono',ui-monospace,monospace;
@@ -37,7 +42,7 @@
   --ease-out:cubic-bezier(.16,.84,.44,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-padding-top:96px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);font-weight:300;color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -87,8 +92,8 @@ a{color:inherit}
 .cta-text:hover svg{transform:translateX(5px)}
 
 .teamband{width:100%;overflow:hidden;background:var(--paper-2)}
-.teamband img{width:100%;height:auto;max-width:1600px;margin:0 auto;display:block;clip-path:inset(0 0 100% 0);animation:mediaIn 1.15s .1s var(--ease) forwards}
-@keyframes mediaIn{to{clip-path:inset(0 0 0 0)}}
+.teamband img{width:100%;height:auto;max-width:1600px;margin:0 auto;display:block;transform:scale(1.04);animation:mediaIn 1.15s .1s var(--ease) forwards}
+@keyframes mediaIn{to{transform:scale(1)}}
 
 .marken{border-bottom:1px solid var(--ink-09);padding:clamp(20px,3vh,30px) var(--gut)}
 .marken ul{list-style:none;display:flex;flex-wrap:wrap;gap:clamp(16px,3.4vw,54px);max-width:1320px;margin:0 auto}
@@ -220,7 +225,7 @@ body.locked{overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .teamband img{clip-path:none}
+  .teamband img{transform:none}
   .reveal,.r{opacity:1;transform:none}
 }
 </style>
@@ -263,7 +268,7 @@ body.locked{overflow:hidden}
   </section>
 
   <div class="teamband">
-    <img src="team-alle.webp" alt="Das Ärzteteam der Hausärzte Oberkassel" fetchpriority="high" width="1600" height="775">
+    <img src="team-alle.webp" srcset="team-alle-800.webp 800w, team-alle-1400.webp 1400w, team-alle.webp 1600w" sizes="100vw" alt="Das Ärzteteam der Hausärzte Oberkassel" fetchpriority="high" decoding="async" width="1600" height="775">
   </div>
 
   <div class="marken">
