@@ -137,4 +137,9 @@
     });
     targets.forEach((t) => io.observe(t));
   }
+  /* 4 — Header wordmark appears once the masthead has scrolled out of view */
+  const mast = document.querySelector('.masthead__mark');
+  if (mast && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => body.classList.toggle('past-masthead', !e.isIntersecting && e.boundingClientRect.top < 0)).observe(mast);
+  }
 })();
