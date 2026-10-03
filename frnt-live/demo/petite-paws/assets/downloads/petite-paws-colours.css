@@ -1,0 +1,9 @@
+:root {
+  --ink: #411A05; /* Brun */
+  --ink-deep: #2C1103; /* Brun profond */
+  --ink-2: #6A4B37; /* Brun doux */
+  --line-strong: #8C7564; /* Trait */
+  --paper: #FBF7F0; /* Crème */
+  --paper-2: #F4EDE2; /* Sable */
+  --on-ink: #F3E9DC; /* Crème clair */
+}
