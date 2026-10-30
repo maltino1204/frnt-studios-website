@@ -15,6 +15,7 @@ import { routes } from "@/lib/routes";
 import { addTimeOffAction, deleteTimeOffAction } from "@/server/actions/pro";
 import type { TimeOffDTO } from "@/server/dto";
 import { addDaysKey, berlinDateKey, berlinToIso, formatTimeOffRange, timeOptions } from "./time";
+import { proError } from "./labels";
 
 const REASONS = ["Urlaub", "Krank", "Fortbildung", "Privat"];
 const TIMES = timeOptions(30, 0, 24 * 60);
@@ -47,7 +48,7 @@ export function TimeOffEditor({ entries }: { entries: TimeOffDTO[] }) {
       const res = await addTimeOffAction({ start: startIso, end: endIso, reason: reason.trim() || undefined });
       if (!res.ok) {
         setFieldErrors(res.fieldErrors ?? {});
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       setConflicts(res.data.conflictingBookings);
@@ -62,7 +63,7 @@ export function TimeOffEditor({ entries }: { entries: TimeOffDTO[] }) {
     start(async () => {
       const res = await deleteTimeOffAction(id);
       setDeleting(null);
-      if (!res.ok) return toast.show(res.error, { kind: "error" });
+      if (!res.ok) return toast.show(proError(res.error), { kind: "error" });
       toast.show("Abwesenheit entfernt.");
       router.refresh();
     });

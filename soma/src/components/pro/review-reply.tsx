@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
 import { replyToReviewAction } from "@/server/actions/pro";
+import { proError } from "./labels";
 
 /** One public reply per review (replyToReviewAction). */
 export function ReviewReply({ reviewId, authorName }: { reviewId: string; authorName: string | null }) {
@@ -28,7 +29,7 @@ export function ReviewReply({ reviewId, authorName }: { reviewId: string; author
     start(async () => {
       setError(null);
       const res = await replyToReviewAction({ reviewId, reply: text.trim() });
-      if (!res.ok) return setError(res.fieldErrors?.reply ?? res.error);
+      if (!res.ok) return setError(res.fieldErrors?.reply ?? proError(res.error));
       toast.show(res.message ?? "Antwort veröffentlicht.");
       setOpen(false);
       router.refresh();

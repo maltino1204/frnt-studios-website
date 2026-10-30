@@ -8,8 +8,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
-import { Input, RadioRow, Switch, Textarea } from "@/components/ui/field";
-import { TickCheckbox as Checkbox } from "./checkout-checkbox";
+import { Checkbox, Input, RadioRow, Switch, Textarea } from "@/components/ui/field";
 import { SegmentedControl } from "@/components/ui/segmented";
 import { CheckLine, PriceBreakdown, StepIndicator, type PriceLine } from "@/components/ui/summary";
 import { Rating } from "@/components/ui/trust";
@@ -405,7 +404,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               </p>
             </div>
           </div>
-          <dl className="flex flex-col divide-y divide-line border-y border-line">
+          <dl className="flex flex-col divide-y divide-line border-t border-line">
             <div className="flex items-baseline justify-between gap-4 py-3">
               <dt className="type-body-s text-ink-muted">Behandlung</dt>
               <dd className="text-right type-body-s text-ink">{quote.serviceName}</dd>
@@ -597,7 +596,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                       AGB
                     </Link>{" "}
                     und habe die{" "}
-                    <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
+                    <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
                       Datenschutzerklärung
                     </Link>{" "}
                     gelesen.
@@ -756,7 +755,13 @@ export function CheckoutForm(props: CheckoutFormProps) {
             <p className="type-heading-m">Gesamtpreis</p>
             <p className="type-heading-m num">{formatPriceExact(price.totalCents)}</p>
           </div>
-          {freeNow && freeUntil ? <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine> : null}
+          {isRequest ? (
+            <CheckLine>Bis zur Zusage kostenlos stornierbar.</CheckLine>
+          ) : freeNow && freeUntil ? (
+            <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>
+          ) : (
+            <p className="type-caption text-ink-muted">Kurzfristiger Termin: Es gelten bereits Stornogebühren.</p>
+          )}
           {cta}
         </div>
       </aside>

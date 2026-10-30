@@ -12,9 +12,9 @@ import { ButtonLink } from "@/components/ui/button";
 import { CountPill, EmptyState, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { RebookButton } from "@/components/site/account-rebook";
-import { ACCOUNT_SECTIONS } from "@/components/site/account-nav";
+import { ACCOUNT_SECTIONS } from "@/components/site/account-sections";
 import { dayLabel, statusTone } from "@/components/site/checkout-format";
-import { formatPrice, formatPriceExact, formatRelative, formatTime } from "@/lib/format";
+import { formatPriceExact, formatRelative, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Übersicht" };
@@ -93,11 +93,11 @@ export default async function KontoPage() {
           <ul className="flex flex-col border-t border-line">
             {rebook.map((b) => (
               <li key={b.id} className="flex items-center justify-between gap-4 border-b border-line py-4">
-                <div className="flex min-w-0 items-center gap-3">
+                <div className="flex min-w-0 items-start gap-3">
                   <Avatar src={b.providerAvatarUrl} name={b.providerName} size={40} />
                   <div className="min-w-0">
-                    <p className="truncate type-label">{`${b.serviceName} bei ${b.providerName}`}</p>
-                    <p className="type-caption text-ink-muted">{`Zuletzt ${formatRelative(b.startsAt)} · ${formatPrice(b.totalCents)}`}</p>
+                    <p className="type-label">{b.serviceName}</p>
+                    <p className="mt-0.5 type-caption text-ink-muted">{`bei ${b.providerName} · zuletzt ${formatRelative(b.startsAt)}`}</p>
                   </div>
                 </div>
                 <RebookButton bookingId={b.id} size="s" label="Erneut buchen" className="shrink-0" />

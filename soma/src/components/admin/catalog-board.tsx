@@ -92,7 +92,7 @@ export function CatalogBoard({ categories }: { categories: CategoryWithServices[
                   <col className="w-[10%]" />
                   <col className="w-[9%]" />
                   <col className="w-[9%]" />
-                  <col className="w-[132px]" />
+                  <col className="w-[152px]" />
                 </colgroup>
                 <thead>
                   <tr>

@@ -10,7 +10,7 @@ import { cn } from "@/lib/cn";
 import { formatPrice } from "@/lib/format";
 import { updateServiceAreaAction } from "@/server/actions/pro";
 import type { ProProfileDTO } from "@/server/dto";
-import { centsToInput, parseEuroToCents, travelFeeFor } from "./labels";
+import { centsToInput, parseEuroToCents, travelFeeFor, proError } from "./labels";
 
 /** Service area: base PLZ, radius 3–30 km, travel fee with a live example (same formula as the server). */
 export function AreaForm({
@@ -66,7 +66,7 @@ export function AreaForm({
       });
       if (!res.ok) {
         setErrors(res.fieldErrors ?? {});
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       toast.show(res.message ?? "Einsatzgebiet gespeichert.");

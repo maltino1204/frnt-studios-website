@@ -192,7 +192,7 @@ function ActionArea({ booking: b, live, settled }: { booking: ProviderBookingDTO
           <h2 className="type-heading-m">Termin läuft</h2>
           <p className="type-body-s text-ink-muted">Gestartet um {b.startedAt ? formatTime(b.startedAt) : "—"} Uhr. Schließe ab, wenn du fertig bist.</p>
         </div>
-        <CompleteBookingButton bookingId={b.id} payoutCents={b.earnings.payoutCents} />
+        <CompleteBookingButton bookingId={b.id} payoutCents={b.earnings.payoutCents} canComplete={b.actions.canComplete} startsAt={b.startsAt} />
       </div>
     );
   }

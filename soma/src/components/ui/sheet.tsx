@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
@@ -28,6 +28,7 @@ export function Sheet({
   variant?: "sheet" | "drawer";
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
@@ -58,11 +59,11 @@ export function Sheet({
         variant === "drawer" && "md:mt-0 md:mr-0 md:ml-auto md:h-dvh md:max-h-dvh md:w-[400px] md:rounded-none",
         className,
       )}
-      aria-labelledby="sheet-title"
+      aria-labelledby={titleId}
     >
       <div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-line-strong md:hidden" aria-hidden />
       <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line pr-2 pl-5">
-        <h2 id="sheet-title" className="type-heading-m">
+        <h2 id={titleId} className="type-heading-m">
           {title}
         </h2>
         <button

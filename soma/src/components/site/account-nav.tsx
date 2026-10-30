@@ -8,6 +8,7 @@ import { CountPill } from "@/components/ui/feedback";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
+import { ACCOUNT_SECTIONS } from "./account-sections";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; match: (p: string) => boolean };
 
@@ -23,15 +24,6 @@ const ITEMS: NavItem[] = [
   },
 ];
 
-export const ACCOUNT_SECTIONS = [
-  { href: routes.account.root(), label: "Übersicht" },
-  { href: routes.account.bookings(), label: "Termine" },
-  { href: routes.account.favorites(), label: "Favoriten" },
-  { href: routes.account.addresses(), label: "Adressen" },
-  { href: routes.account.profile(), label: "Profil & Sicherheit" },
-  { href: routes.account.credits(), label: "Guthaben & Empfehlen" },
-  { href: routes.account.notifications(), label: "Benachrichtigungen" },
-];
 
 /** Compact account header; the bottom-nav items move here from lg. */
 export function AccountHeader({ unread }: { unread: number }) {

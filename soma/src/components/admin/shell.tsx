@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useTransition, type ReactNode } from "react";
+import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import {
   CalendarRange,
   CreditCard,
@@ -87,6 +87,36 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
   const pathname = usePathname() ?? routes.admin.root();
   const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [menuOpen, setMenuOpen] = useState(false);
+  const asideRef = useRef<HTMLElement>(null);
+
+  // The sticky sidebar fills the visible viewport: while content above the shell
+  // (e.g. the demo ribbon) is on screen, it is shortened by that amount so the
+  // footer (user, environment badge) never sits below the fold.
+  useEffect(() => {
+    const el = asideRef.current;
+    if (!el) return;
+    let offset = 0;
+    let raf = 0;
+    const update = () => {
+      el.style.height = `calc(100dvh - ${Math.max(0, offset - window.scrollY)}px)`;
+    };
+    const measure = () => {
+      offset = (el.parentElement?.getBoundingClientRect().top ?? 0) + window.scrollY;
+      update();
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   const toggle = () => {
     const next = !collapsed;
@@ -107,6 +137,7 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
 
       {/* Desktop sidebar */}
       <aside
+        ref={asideRef}
         aria-label="Admin-Navigation"
         className={cn(
           "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-line bg-surface-sunken lg:flex",
@@ -114,12 +145,17 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
         )}
       >
         <div className={cn("flex h-14 shrink-0 items-center border-b border-line", collapsed ? "justify-center" : "justify-between pr-2 pl-5")}>
-          {collapsed ? null : (
+          {collapsed ? (
+            <Link href={routes.admin.root()} className="flex size-10 items-center justify-center rounded-xs" aria-label="Admin-Übersicht" title="Admin">
+              <Mark className="h-6 text-ink" />
+            </Link>
+          ) : (
             <Link href={routes.admin.root()} className="flex items-center gap-3 rounded-xs" aria-label="Admin-Übersicht">
               <Mark className="h-6 text-ink" />
               <span className="type-heading-s">Admin</span>
             </Link>
           )}
+          {collapsed ? null : (
           <button
             type="button"
             onClick={toggle}
@@ -130,9 +166,24 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
           >
             <Icon icon={collapsed ? PanelLeftOpen : PanelLeftClose} />
           </button>
+          )}
         </div>
         <nav aria-label="Bereiche" className="min-h-0 flex-1 overflow-y-auto py-2">
           <NavGroups pathname={pathname} counts={counts} collapsed={collapsed} />
+          {collapsed ? (
+            <div className="mt-2 flex justify-center border-t border-line pt-2">
+              <button
+                type="button"
+                onClick={toggle}
+                aria-label="Navigation ausklappen"
+                aria-expanded={false}
+                title="Navigation ausklappen"
+                className="inline-flex size-9 items-center justify-center rounded-xs text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+              >
+                <Icon icon={PanelLeftOpen} />
+              </button>
+            </div>
+          ) : null}
         </nav>
         <SidebarFooter user={user} demo={demo} collapsed={collapsed} />
       </aside>
@@ -207,7 +258,7 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
                       count ? <span aria-hidden className="absolute top-1.5 right-2 size-1.5 rounded-full bg-accent" /> : null
                     ) : (
                       <>
-                        <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                        <span className={cn("min-w-0 flex-1 truncate", item.label.length > 20 && "condensed")}>{item.label}</span>
                         {count ? <CountPill accent>{count}</CountPill> : null}
                       </>
                     )}

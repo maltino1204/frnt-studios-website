@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import type { CityDTO } from "@/server/dto";
+import { CategoryPageSkeleton } from "@/components/site/discovery-skeletons";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
@@ -32,17 +35,25 @@ async function loadCity(stadt: string) {
 export async function generateMetadata({ params }: PageProps<"/staedte/[stadt]">): Promise<Metadata> {
   const { stadt } = await params;
   const city = await loadCity(stadt);
-  if (!city) return { title: "Stadt nicht gefunden" };
+  if (!city) notFound();
   const title = `Beauty & Wellness zu Hause in ${city.name}`;
   const description = `Massage, Maniküre, Kosmetik, Make-up und mehr in ${city.name}: geprüfte Profis kommen zu Ihnen nach Hause, ins Hotel oder ins Büro. Endpreise inklusive Anfahrt.`;
   return { title, description, alternates: { canonical: routes.city(city.slug) }, openGraph: { title, description } };
 }
 
+/** The slug is validated before anything suspends (real 404); the rest streams behind a skeleton. */
 export default async function StadtPage({ params }: PageProps<"/staedte/[stadt]">) {
   const { stadt } = await params;
   const city = await loadCity(stadt);
   if (!city) notFound();
+  return (
+    <Suspense fallback={<CategoryPageSkeleton />}>
+      <StadtContent city={city} />
+    </Suspense>
+  );
+}
 
+async function StadtContent({ city }: { city: CityDTO }) {
   const [catalog, cities, floors, providers, coverage, examples, intro] = await Promise.all([
     listCatalog(),
     listCities(),
@@ -75,7 +86,7 @@ export default async function StadtPage({ params }: PageProps<"/staedte/[stadt]"
 
       <DiscoveryHero
         size="m"
-        overline={`${city.name} · ${city.state}`}
+        overline={city.state && city.state !== city.name ? `${city.name} · ${city.state}` : `Stadt · ${city.name}`}
         title={title}
         emphasis={emphasis}
         lead={intro.body ?? `Geprüfte Profis kommen in ${city.name} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}

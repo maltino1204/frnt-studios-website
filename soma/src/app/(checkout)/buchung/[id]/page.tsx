@@ -55,7 +55,7 @@ function Hero({ b }: { b: CustomerBookingDTO }) {
       line = "draw";
       break;
     case "requested":
-      title = `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/ Uhr$/, "")}`;
+      title = `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/[\s\u00a0]Uhr$/, "")}`;
       body = `Ihre Anfrage ist bei ${first}. Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`;
       break;
     case "pending_payment":
@@ -216,14 +216,14 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
             </section>
 
             {b.canReview ? (
-              <section aria-labelledby="bewerten" className="flex flex-col gap-4 border-t border-line pt-8">
+              <section aria-labelledby="bewerten" className="flex flex-col gap-4">
                 <h2 id="bewerten" className="type-heading-m">
                   Bewerten
                 </h2>
                 <ReviewComposer bookingId={b.id} providerName={b.provider.displayName} tags={REVIEW_TAG_OPTIONS} />
               </section>
             ) : b.review ? (
-              <section aria-labelledby="bewertung" className="flex flex-col gap-2 border-t border-line pt-8">
+              <section aria-labelledby="bewertung" className="flex flex-col gap-2">
                 <h2 id="bewertung" className="type-heading-m">
                   Ihre Bewertung
                 </h2>
@@ -233,7 +233,7 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
             ) : null}
 
             {alternatives.length ? (
-              <section aria-labelledby="alternativen" className="flex flex-col gap-2 border-t border-line pt-8">
+              <section aria-labelledby="alternativen" className="flex flex-col gap-2">
                 <h2 id="alternativen" className="type-heading-m">
                   Diese Profis haben Zeit
                 </h2>
@@ -247,7 +247,7 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
             ) : null}
 
             {b.events.length ? (
-              <section aria-labelledby="verlauf" className="flex flex-col gap-4 border-t border-line pt-8">
+              <section aria-labelledby="verlauf" className="flex flex-col gap-4">
                 <h2 id="verlauf" className="type-heading-m">
                   Verlauf
                 </h2>

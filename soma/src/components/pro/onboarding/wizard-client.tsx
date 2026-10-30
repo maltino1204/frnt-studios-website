@@ -16,6 +16,7 @@ import { AreaForm } from "../area-form";
 import { ProfileForm } from "../profile-form";
 import { WeeklyHoursEditor } from "../weekly-hours-editor";
 import { stepHref, WIZARD_STEPS, type WizardSlug } from "./steps";
+import { proError } from "../labels";
 
 /** StepIndicator with links back to completed steps (konto is not revisitable). */
 export function WizardSteps({ current }: { current: number }) {
@@ -90,7 +91,7 @@ export function SubmitForReview({ canSubmit, openSteps }: { canSubmit: boolean; 
     }
     start(async () => {
       const res = await submitForReviewAction();
-      if (!res.ok) return setError(res.error);
+      if (!res.ok) return setError(proError(res.error));
       toast.show(res.message ?? "Danke! Wir prüfen dein Profil.");
       router.replace("/pro/registrieren");
       router.refresh();

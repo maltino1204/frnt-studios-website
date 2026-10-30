@@ -7,7 +7,7 @@ export type ButtonVariant = "primary" | "secondary" | "ghost" | "link" | "destru
 export type ButtonSize = "s" | "m" | "l";
 
 const base =
-  "relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-xs type-label transition-colors duration-fast ease-standard disabled:pointer-events-none aria-busy:pointer-events-none";
+  "relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-xs transition-colors duration-fast ease-standard disabled:pointer-events-none aria-busy:pointer-events-none";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-ink text-ink-inverse hover:bg-ink-hover active:opacity-92 disabled:bg-surface-sunken disabled:text-ink-disabled",
@@ -20,8 +20,8 @@ const variants: Record<ButtonVariant, string> = {
 
 const sizes: Record<ButtonSize, string> = {
   s: "h-control-s px-3 type-label-s [&_svg]:size-4",
-  m: "h-control px-5 [&_svg]:size-5",
-  l: "h-control-l px-6 [&_svg]:size-5",
+  m: "h-control px-5 type-label [&_svg]:size-5",
+  l: "h-control-l px-6 type-label [&_svg]:size-5",
 };
 
 export function buttonClasses({

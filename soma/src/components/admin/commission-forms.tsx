@@ -62,7 +62,8 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
     setErrors(next);
     return Object.keys(next).length === 0;
   };
-  const fe = { ...m.fieldErrors, ...errors };
+  const fe: Record<string, string> = { ...m.fieldErrors };
+  for (const [k, v] of Object.entries(errors)) if (v) fe[k] = v;
 
   return (
     <form
@@ -121,7 +122,10 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
             label={`${f.label} (%)`}
             inputMode="decimal"
             value={rates[f.key]}
-            onChange={(e) => setRates((r) => ({ ...r, [f.key]: e.target.value }))}
+            onChange={(e) => {
+              setRates((r) => ({ ...r, [f.key]: e.target.value }));
+              setErrors((x) => ({ ...x, [f.key]: "" }));
+            }}
             error={fe[f.key]}
             hint={f.hint}
           />
@@ -294,7 +298,10 @@ export function NumberSettingForm({
           hideLabel
           inputMode={cents ? "decimal" : "numeric"}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            setError(null);
+          }}
           error={error ?? m.fieldErrors._ ?? null}
           hint={`${show(min)}–${show(max)}`}
           className="w-36"

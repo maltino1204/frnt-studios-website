@@ -39,7 +39,8 @@ export function DisputeResolution({
   const cents = parseEuroInput(amount);
   const pending = resolve.pending || close.pending;
   const serverError = outcome === "close" ? close.error : resolve.error;
-  const fieldErrors = { ...(outcome === "close" ? close.fieldErrors : resolve.fieldErrors), ...errors };
+  const fieldErrors: Record<string, string> = { ...(outcome === "close" ? close.fieldErrors : resolve.fieldErrors) };
+  for (const [k, v] of Object.entries(errors)) if (v) fieldErrors[k] = v;
 
   const validate = () => {
     const next: Record<string, string> = {};
@@ -115,7 +116,10 @@ export function DisputeResolution({
               label="Erstattungsbetrag (€)"
               inputMode="decimal"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                setAmount(e.target.value);
+                setErrors((x) => ({ ...x, refundCents: "" }));
+              }}
               placeholder={centsToInput(refundableCents)}
               error={fieldErrors.refundCents}
               hint={`Buchung ${formatPriceExact(bookingTotalCents)} · erstattbar ${formatPriceExact(refundableCents)}`}
@@ -135,7 +139,10 @@ export function DisputeResolution({
           name="note"
           rows={3}
           value={note}
-          onChange={(e) => setNote(e.target.value)}
+          onChange={(e) => {
+            setNote(e.target.value);
+            setErrors((x) => ({ ...x, note: "" }));
+          }}
           error={fieldErrors.note}
           hint="Wird beiden Seiten mitgeteilt und im Protokoll gespeichert."
           maxLength={2000}

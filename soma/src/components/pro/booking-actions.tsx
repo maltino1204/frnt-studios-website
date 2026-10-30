@@ -21,6 +21,7 @@ import {
   startBookingAction,
 } from "@/server/actions/pro";
 import type { ProviderBookingDTO } from "@/server/dto";
+import { proError } from "./labels";
 
 const DECLINE_REASONS = [
   "Zu diesem Zeitpunkt bin ich leider nicht verfügbar.",
@@ -62,8 +63,8 @@ export function RequestActions({
         note: decision === "decline" ? reason.trim() : note.trim() || undefined,
       });
       if (!res.ok) {
-        if (decision === "decline") setReasonError(res.fieldErrors?.note ?? res.error);
-        else setError(res.error);
+        if (decision === "decline") setReasonError(res.fieldErrors?.note ?? proError(res.error));
+        else setError(proError(res.error));
         return;
       }
       setDeclineOpen(false);
@@ -171,7 +172,7 @@ export function StartBookingButton({ booking }: { booking: Pick<ProviderBookingD
     start(async () => {
       const res = await startBookingAction({ bookingId: booking.id, code });
       if (!res.ok) {
-        setError(res.fieldErrors?.code && res.error === "Bitte überprüfen Sie Ihre Eingaben." ? res.fieldErrors.code : res.error);
+        setError(res.fieldErrors?.code && res.error === "Bitte überprüfen Sie Ihre Eingaben." ? res.fieldErrors.code : proError(res.error));
         if (/zu oft|Support/.test(res.error)) setLocked(true);
         setCode("");
         return;
@@ -242,7 +243,7 @@ export function StartBookingButton({ booking }: { booking: Pick<ProviderBookingD
   );
 }
 
-export function CompleteBookingButton({ bookingId, payoutCents }: { bookingId: string; payoutCents: number }) {
+export function CompleteBookingButton({ bookingId, payoutCents, canComplete = true, startsAt }: { bookingId: string; payoutCents: number; canComplete?: boolean; startsAt?: string }) {
   const router = useRouter();
   const toast = useToast();
   const [open, setOpen] = useState(false);
@@ -252,11 +253,21 @@ export function CompleteBookingButton({ bookingId, payoutCents }: { bookingId: s
     start(async () => {
       setError(null);
       const res = await completeBookingAction(bookingId);
-      if (!res.ok) return setError(res.error);
+      if (!res.ok) return setError(proError(res.error));
       setOpen(false);
       toast.show("Termin abgeschlossen. Danke für deine Arbeit.");
       router.refresh();
     });
+  if (!canComplete) {
+    return (
+      <div className="flex flex-col gap-2">
+        <Button size="l" block disabled icon={<Icon icon={Check} />}>
+          Termin abschließen
+        </Button>
+        {startsAt ? <p className="type-caption text-ink-muted">Ab {formatTime(startsAt)} Uhr möglich, sobald der Termin begonnen hat.</p> : null}
+      </div>
+    );
+  }
   return (
     <>
       <Button size="l" block onClick={() => setOpen(true)} icon={<Icon icon={Check} />}>
@@ -296,7 +307,7 @@ export function NoShowButton({ bookingId, firstName }: { bookingId: string; firs
     start(async () => {
       setError(null);
       const res = await markNoShowAction(bookingId);
-      if (!res.ok) return setError(res.error);
+      if (!res.ok) return setError(proError(res.error));
       setOpen(false);
       toast.show(`Als nicht angetroffen gemeldet. Ausfallgebühr: ${formatPrice(res.data.feeCents)}.`);
       router.refresh();
@@ -346,7 +357,7 @@ export function CancelBookingButton({ bookingId, startsAt }: { bookingId: string
       const res = await cancelBookingAsProviderAction({ bookingId, reason: reason.trim() });
       if (!res.ok) {
         if (res.fieldErrors?.reason) setFieldError(res.fieldErrors.reason);
-        else setError(res.error);
+        else setError(proError(res.error));
         return;
       }
       setOpen(false);

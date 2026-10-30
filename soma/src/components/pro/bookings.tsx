@@ -47,7 +47,7 @@ export function AgendaRow({ booking: b, showDate = false, compact = false, now =
           <span className="type-caption text-ink-muted num">{formatTime(b.endsAt)}</span>
         </span>
         <span className="flex min-w-0 flex-col gap-0.5">
-          <span className="line-clamp-2 type-body-s font-[520] text-ink">
+          <span className="line-clamp-2 type-body-s font-[520] text-ink hyphens-none">
             {customerLabel(b.customer)} <span className="text-ink-muted">·</span> {b.serviceName}
           </span>
           <span className="truncate type-caption text-ink-muted">

@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/toast";
 import { changePasswordAction } from "@/server/actions/auth";
 import { updateProSettingsAction } from "@/server/actions/pro";
 import type { BookingMode, NotificationPreferencesDTO, ProSettingsDTO } from "@/server/dto";
+import { proError } from "./labels";
 
 const LEAD_TIMES = [60, 120, 180, 240, 360, 720, 1440, 2880];
 const BUFFERS = [15, 30, 45, 60];
@@ -47,7 +48,7 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
       const res = await updateProSettingsAction({ bookingMode: mode, leadTimeMinutes: lead, travelBufferMinutes: buffer, maxAdvanceDays: advance, notificationPreferences: prefs });
       if (!res.ok) {
         setErrors(res.fieldErrors ?? {});
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       toast.show(res.message ?? "Einstellungen gespeichert.");

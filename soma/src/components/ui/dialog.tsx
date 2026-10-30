@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 /** Modal for consequential confirmations only (e.g. "Termin stornieren?"). */
@@ -20,6 +20,7 @@ export function Modal({
   className?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
@@ -39,13 +40,13 @@ export function Modal({
   return (
     <dialog
       ref={ref}
-      aria-labelledby="modal-title"
+      aria-labelledby={titleId}
       className={cn(
         "m-auto w-[calc(100%-2.5rem)] max-w-form rounded-xs bg-surface-raised p-6 text-ink shadow-modal open:animate-dialog-in md:p-8",
         className,
       )}
     >
-      <h2 id="modal-title" className="type-heading-l">
+      <h2 id={titleId} className="type-heading-l">
         {title}
       </h2>
       {children ? <div className="mt-3 type-body-s text-ink-muted">{children}</div> : null}

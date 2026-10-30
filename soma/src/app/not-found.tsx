@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
-import { Container } from "@/components/ui/layout";
+import { Container, Overline } from "@/components/ui/layout";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { routes } from "@/lib/routes";
@@ -23,8 +23,7 @@ export default function NotFound() {
       <main id="inhalt" className="flex-1">
         <Container className="grid gap-12 py-(--space-section) lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-6 lg:col-span-7">
-            <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-            <p className="type-overline text-ink-muted num">Fehler 404</p>
+            <Overline>Fehler 404</Overline>
             <h1 className="type-display-l">
               Hier ist niemand. <em>Noch nicht.</em>
             </h1>

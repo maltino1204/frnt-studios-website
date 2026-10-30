@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import type { CategoryDTO } from "@/server/dto";
+import { CategoryPageSkeleton } from "@/components/site/discovery-skeletons";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
@@ -27,7 +30,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/behandlungen/[kategorie]">): Promise<Metadata> {
   const { kategorie } = await params;
   const category = isSlug(kategorie) ? await getCategory(kategorie) : null;
-  if (!category) return { title: "Behandlung nicht gefunden" };
+  if (!category) notFound();
   return {
     title: category.seoTitle ?? `${category.name} zu Hause buchen`,
     description: category.seoDescription ?? category.description ?? undefined,
@@ -36,11 +39,22 @@ export async function generateMetadata({ params }: PageProps<"/behandlungen/[kat
   };
 }
 
+/**
+ * The slug is validated before anything suspends, so unknown categories get a
+ * real 404; the rest of the page streams behind a skeleton of the same geometry.
+ */
 export default async function KategoriePage({ params }: PageProps<"/behandlungen/[kategorie]">) {
   const { kategorie } = await params;
   const category = isSlug(kategorie) ? await getCategory(kategorie) : null;
   if (!category) notFound();
+  return (
+    <Suspense fallback={<CategoryPageSkeleton />}>
+      <KategorieContent category={category} />
+    </Suspense>
+  );
+}
 
+async function KategorieContent({ category }: { category: CategoryDTO }) {
   const [catalog, cities, floors, providers, coverage, terms, examples] = await Promise.all([
     listCatalog(),
     listCities(),

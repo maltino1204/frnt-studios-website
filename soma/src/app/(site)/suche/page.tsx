@@ -54,6 +54,12 @@ function resolveService(catalog: CategoryWithServicesDTO[], leistung: string | n
   return { service, category };
 }
 
+/** " heute", " morgen" or " am Sa., 31. Okt." – never "am Morgen" (which would mean "in the morning"). */
+function onDay(datum: string): string {
+  const l = dayLabel(datum);
+  return l === "Heute" ? " heute" : l === "Morgen" ? " morgen" : ` am ${l}`;
+}
+
 export default async function SuchePage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
   const [catalog, session] = await Promise.all([listCatalog(), getSession()]);
@@ -177,7 +183,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
 
   const countText = empty
     ? "Keine Profis mit freien Terminen gefunden."
-    : `${plural(result.total, "Profi", "Profis")} mit freien Terminen${datum ? ` am ${dayLabel(datum)}` : " in den nächsten 7\u00a0Tagen"}`;
+    : `${plural(result.total, "Profi", "Profis")} mit freien Terminen${datum ? onDay(datum) : " in den nächsten 7\u00a0Tagen"}`;
 
   return (
     <div>

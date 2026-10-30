@@ -61,6 +61,41 @@ export function RowsSkeleton({ rows = 4, portrait }: { rows?: number; portrait?:
   );
 }
 
+/** Category and city pages: breadcrumb line + hero. */
+export function CategoryPageSkeleton() {
+  return (
+    <>
+      <Container className="pt-6 md:pt-8">
+        <Skeleton className="h-3 w-48" />
+      </Container>
+      <HeroSkeleton />
+    </>
+  );
+}
+
+/** SEO city × category page: intro, booking entry (sticky column from lg), provider rows. */
+export function SeoPageSkeleton() {
+  return (
+    <Container className="pt-6 pb-(--space-section) md:pt-8" aria-busy="true" aria-label="Wird geladen">
+      <Skeleton className="h-3 w-56" />
+      <div className="grid gap-10 pt-8 md:pt-12 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
+        <div className="flex flex-col gap-5 lg:col-span-7">
+          <Skeleton className="h-3 w-32" />
+          <Skeleton className="h-9 w-4/5 md:h-11" />
+          <SkeletonText lines={2} className="type-body-l max-w-[36rem]" />
+        </div>
+        <div className="lg:col-span-4 lg:col-start-9 lg:row-span-2">
+          <EntrySkeleton bar={false} />
+        </div>
+        <div className="lg:col-span-7 lg:pt-16">
+          <Skeleton className="mb-4 h-6 w-2/3" />
+          <RowsSkeleton rows={3} portrait />
+        </div>
+      </div>
+    </Container>
+  );
+}
+
 /** Page header block used on overview and content pages. */
 export function HeaderSkeleton() {
   return (

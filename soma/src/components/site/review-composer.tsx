@@ -22,7 +22,7 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
     <form action={action} className="flex flex-col gap-5" noValidate>
       <input type="hidden" name="bookingId" value={bookingId} />
       <fieldset className="flex flex-col gap-2">
-        <legend className="type-label-s text-ink">{`Wie war Ihr Termin bei ${providerName}?`}</legend>
+        <legend className="mb-1 type-label-s text-ink">{`Wie war Ihr Termin bei ${providerName}?`}</legend>
         <div className="flex items-center gap-3">
           <div className="flex" onMouseLeave={() => setHover(0)}>
             {[1, 2, 3, 4, 5].map((n) => (
@@ -53,7 +53,7 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
         {state && !state.ok && state.fieldErrors?.rating ? <p className="type-caption text-danger">{state.fieldErrors.rating}</p> : null}
       </fieldset>
       <fieldset className="flex flex-col gap-2">
-        <legend className="type-label-s text-ink">
+        <legend className="mb-2 type-label-s text-ink">
           Was hat gepasst? <span className="font-normal text-ink-muted">(bis zu drei)</span>
         </legend>
         <div className="flex flex-wrap gap-2">

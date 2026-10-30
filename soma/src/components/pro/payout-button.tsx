@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { startPayoutOnboardingAction } from "@/server/actions/pro";
+import { proError } from "./labels";
 
 /** Starts Stripe Connect onboarding (dev: simulated, comes straight back to /pro/einnahmen). */
 export function PayoutButton({ label = "Auszahlungen einrichten", variant = "primary" }: { label?: string; variant?: "primary" | "secondary" }) {
@@ -23,7 +24,7 @@ export function PayoutButton({ label = "Auszahlungen einrichten", variant = "pri
           start(async () => {
             setError(null);
             const res = await startPayoutOnboardingAction();
-            if (res && !res.ok) setError(res.error);
+            if (res && !res.ok) setError(proError(res.error));
           })
         }
       >

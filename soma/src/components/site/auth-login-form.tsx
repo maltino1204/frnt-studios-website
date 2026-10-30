@@ -69,7 +69,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
               Füllt die Zugangsdaten aus. Passwort für alle: <span className="code-ref text-ink">{demoPassword}</span>
             </p>
           </div>
-          <ul className="flex flex-wrap gap-2">
+          <ul className="grid grid-cols-3 gap-2">
             {demo.map((d) => (
               <li key={d.email}>
                 <button
@@ -78,11 +78,11 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
                     setEmail(d.email);
                     setPassword(demoPassword ?? "");
                   }}
-                  className="inline-flex h-touch flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3.5 text-left transition-colors duration-fast hover:border-ink"
+                  className="inline-flex h-touch w-full flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3 text-left transition-colors duration-fast hover:border-ink"
                   aria-label={`Demo-Zugang ${d.label} einsetzen (${d.email})`}
                 >
                   <span className="type-label-s text-ink">{d.label}</span>
-                  <span className="type-caption text-ink-muted">{d.email}</span>
+                  <span className="w-full truncate type-caption text-ink-muted">{d.email.replace("@soma.test", "@…")}</span>
                 </button>
               </li>
             ))}

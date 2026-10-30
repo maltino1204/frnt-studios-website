@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/toast";
 import { uploadAvatarAction } from "@/server/actions/account";
 import { deletePortfolioItemAction, uploadPortfolioImageAction } from "@/server/actions/pro";
 import type { PortfolioItemDTO } from "@/server/dto";
+import { proError } from "./labels";
 
 const IMAGE_TYPES = "image/jpeg,image/png,image/webp";
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
@@ -69,7 +70,7 @@ export function AvatarUpload({ avatarUrl, name, onSaved }: { avatarUrl: string |
         </label>
         <p className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB. Ein helles Porträt, Gesicht gut erkennbar.</p>
         <div aria-live="polite">
-          {localError || (state && !state.ok) ? <p className="type-caption text-danger">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? state.error : "")}</p> : null}
+          {localError || (state && !state.ok) ? <p className="type-caption text-danger">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? proError(state.error) : "")}</p> : null}
         </div>
       </div>
     </form>
@@ -124,7 +125,7 @@ export function PortfolioManager({
     startDelete(async () => {
       const res = await deletePortfolioItemAction(id);
       setDeletingId(null);
-      if (!res.ok) return toast.show(res.error, { kind: "error" });
+      if (!res.ok) return toast.show(proError(res.error), { kind: "error" });
       toast.show("Bild entfernt.");
       router.refresh();
     });
@@ -202,7 +203,7 @@ export function PortfolioManager({
           ) : null}
         </div>
         <div aria-live="polite">
-          {localError ? <Notice kind="danger">{localError}</Notice> : state && !state.ok ? <Notice kind="danger">{state.fieldErrors?.file ?? state.error}</Notice> : null}
+          {localError ? <Notice kind="danger">{localError}</Notice> : state && !state.ok ? <Notice kind="danger">{state.fieldErrors?.file ?? proError(state.error)}</Notice> : null}
         </div>
         <Button
           type="submit"

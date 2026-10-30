@@ -53,7 +53,8 @@ export default async function StaedtePage() {
                     <Icon icon={ArrowRight} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
                   </Link>
                   <p className="type-caption text-ink-muted num">
-                    {c.state} · {live.length} von {categories.length} Behandlungen
+                    {c.state && c.state !== c.name ? `${c.state} · ` : ""}
+                    {live.length} von {categories.length} Behandlungen
                   </p>
                 </div>
                 <div className="lg:col-span-8">

@@ -12,7 +12,7 @@ import { cn } from "@/lib/cn";
 import { formatDate } from "@/lib/format";
 import { deleteDocumentAction, uploadDocumentAction } from "@/server/actions/pro";
 import type { DocumentDTO, DocumentKind } from "@/server/dto";
-import { DOCUMENT_KIND_LABEL, DOCUMENT_STATUS_LABEL, DOCUMENT_STATUS_TONE } from "./labels";
+import { DOCUMENT_KIND_LABEL, DOCUMENT_STATUS_LABEL, DOCUMENT_STATUS_TONE, proError } from "./labels";
 
 const DOC_TYPES = "application/pdf,image/jpeg,image/png";
 const MAX_DOC_BYTES = 10 * 1024 * 1024;
@@ -80,7 +80,7 @@ function DocumentUploadButton({ kind, categoryId, label, variant = "secondary" }
         </span>
       </label>
       <div aria-live="polite">
-        {localError || (state && !state.ok) ? <p className="max-w-64 type-caption text-danger sm:text-right">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? state.error : null)}</p> : null}
+        {localError || (state && !state.ok) ? <p className="max-w-64 type-caption text-danger sm:text-right">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? proError(state.error) : null)}</p> : null}
       </div>
     </form>
   );
@@ -101,7 +101,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
     startDelete(async () => {
       const res = await deleteDocumentAction(id);
       setDeletingId(null);
-      if (!res.ok) return toast.show(res.error, { kind: "error" });
+      if (!res.ok) return toast.show(proError(res.error), { kind: "error" });
       toast.show("Dokument gelöscht.");
       router.refresh();
     });

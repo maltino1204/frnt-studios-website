@@ -5,8 +5,7 @@ import { useActionState, useEffect, useRef, useState, useTransition } from "reac
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/dialog";
 import { EmptyState, Notice } from "@/components/ui/feedback";
-import { Input } from "@/components/ui/field";
-import { TickCheckbox as Checkbox } from "./checkout-checkbox";
+import { Checkbox, Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/form";
 import { Icon } from "@/components/ui/icon";
 import { SegmentedControl } from "@/components/ui/segmented";

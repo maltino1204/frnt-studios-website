@@ -77,8 +77,8 @@ export function ProviderRow({
             <ModeLabel mode={r.bookingMode} />
           </p>
           {r.headline ? <p className="truncate type-body-s text-ink-muted">{r.headline}</p> : null}
-          <div className="flex items-end justify-between gap-4">
-            <p className="min-w-0 type-caption text-ink-muted">
+          <div className="flex items-start justify-between gap-4">
+            <p className="min-w-0 pt-0.5 type-caption text-ink-muted">
               <span className="text-ink">{r.offering.serviceName}</span>
               <span className="whitespace-nowrap">{` · ${formatDuration(r.offering.durationMinutes).replace(" ", NBSP)}`}</span>
               <span className="whitespace-nowrap">{` · ${formatDistance(r.distanceKm).replace(" ", NBSP)}`}</span>

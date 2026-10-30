@@ -14,6 +14,7 @@ export function StatTile({
   delta,
   deltaLabel = "ggü. Vorwoche",
   hint,
+  sparkline,
   className,
 }: {
   label: ReactNode;
@@ -22,6 +23,8 @@ export function StatTile({
   delta?: number | null;
   deltaLabel?: string;
   hint?: ReactNode;
+  /** optional 24px sparkline (e.g. <Sparkline values={…} />) */
+  sparkline?: ReactNode;
   className?: string;
 }) {
   return (
@@ -40,14 +43,42 @@ export function StatTile({
       ) : hint ? (
         <p className="type-caption text-ink-muted">{hint}</p>
       ) : null}
+      {sparkline ? <div className="mt-1 h-6">{sparkline}</div> : null}
     </div>
   );
 }
 
-/** Dashboard table on a raised panel. Header 40px, rows 52px (dense 40px), hairline separators. */
-export function Table({ className, dense, ...props }: ComponentProps<"table"> & { dense?: boolean }) {
+/** 24px sparkline: 1.5px ink line, no fill (design-guideline §8). Decorative; pair with a text value. */
+export function Sparkline({ values, className }: { values: number[]; className?: string }) {
+  if (values.length < 2) return null;
+  const w = 120, h = 24;
+  const min = Math.min(...values), max = Math.max(...values);
+  const span = max - min || 1;
+  const pts = values.map((v, i) => `${((i / (values.length - 1)) * w).toFixed(1)},${(h - 2 - ((v - min) / span) * (h - 4)).toFixed(1)}`).join(" ");
   return (
-    <div className="overflow-x-auto border border-line bg-surface-raised">
+    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" aria-hidden className={cn("h-6 w-full text-ink", className)}>
+      <polyline points={pts} fill="none" stroke="currentColor" strokeWidth={1.5} vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Dashboard table on a raised panel. Header 40px, rows 52px (dense 40px), hairline separators. */
+export function Table({
+  className,
+  wrapperClassName,
+  dense,
+  stickyHeader,
+  ...props
+}: ComponentProps<"table"> & { dense?: boolean; wrapperClassName?: string; stickyHeader?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "overflow-x-auto border border-line bg-surface-raised",
+        // Sticky headers need the scroll container to own vertical scrolling too.
+        stickyHeader && "max-h-[70dvh] overflow-y-auto [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-10 [&_thead_th]:bg-surface-raised",
+        wrapperClassName,
+      )}
+    >
       <table
         data-dense={dense ? "" : undefined}
         className={cn(

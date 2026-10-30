@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 import { signUpAction } from "@/server/actions/auth";
 import { initialActionState } from "@/server/actions/types";
-import { Input } from "@/components/ui/field";
-import { TickCheckbox as Checkbox } from "./checkout-checkbox";
+import { Checkbox, Input } from "@/components/ui/field";
 import { Notice } from "@/components/ui/feedback";
 import { SubmitButton } from "@/components/ui/form";
 import { routes } from "@/lib/routes";
@@ -59,7 +58,7 @@ export function RegisterForm({ next, referralCode, inviteCode }: { next?: string
                 AGB
               </Link>{" "}
               und habe die{" "}
-              <Link href={routes.privacy()} target="_blank" className="text-accent underline underline-offset-[0.2em]">
+              <Link href={routes.privacy()} target="_blank" className="text-accent underline underline-offset-[0.2em] hyphens-none">
                 Datenschutzerklärung
               </Link>{" "}
               gelesen.

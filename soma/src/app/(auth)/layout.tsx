@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="relative hidden lg:block">
         <div className="sticky top-0 h-dvh">
           <div className="absolute inset-0">
-            <Photo src={images.editorial.arrival} alt="" tone="nacht" sizes="50vw" priority className="h-full" word="Schon da." wordSize="l" />
+            <Photo src={images.editorial.arrival} alt="" tone="nacht" sizes="50vw" priority className="h-full" />
           </div>
           <p className="absolute bottom-0 left-0 bg-scrim px-7 py-5 font-display text-[1.375rem] leading-tight text-night-ink italic">
             Altbau, 3.&nbsp;OG · Berlin-Prenzlauer Berg · 19:30

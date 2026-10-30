@@ -13,7 +13,7 @@ import { useToast } from "@/components/ui/toast";
 import { formatDuration, formatPrice } from "@/lib/format";
 import { deleteProServiceAction, upsertProServiceAction } from "@/server/actions/pro";
 import type { CategoryWithServicesDTO, ProServiceDTO } from "@/server/dto";
-import { centsToInput, formatPercent, parseEuroToCents } from "./labels";
+import { centsToInput, formatPercent, parseEuroToCents, proError } from "./labels";
 
 export type CommissionRates = { rate: number; repeatClientRate: number; ownClientRate: number } | null;
 
@@ -75,7 +75,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
       if (!res.ok) {
         const fe = res.fieldErrors ?? {};
         setErrors({ price: fe.priceCents, duration: fe.durationMinutes, service: fe.serviceId });
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       setDraft(null);
@@ -89,7 +89,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
     start(async () => {
       const res = await deleteProServiceAction(draft.providerServiceId!);
       setConfirmDelete(false);
-      if (!res.ok) return setError(res.error);
+      if (!res.ok) return setError(proError(res.error));
       setDraft(null);
       toast.show(res.data.deactivated ? "Es gibt schon Buchungen für diese Leistung – sie ist jetzt pausiert statt gelöscht." : "Leistung entfernt.");
       router.refresh();

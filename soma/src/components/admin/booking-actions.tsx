@@ -102,8 +102,11 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
             label="Einbehaltene Gebühr (€)"
             inputMode="decimal"
             value={fee}
-            onChange={(e) => setFee(e.target.value)}
-            error={errors.feeCents ?? m.fieldErrors.feeCents}
+            onChange={(e) => {
+              setFee(e.target.value);
+              setErrors((x) => ({ ...x, feeCents: "" }));
+            }}
+            error={errors.feeCents || m.fieldErrors.feeCents}
             hint={`0,00 € = volle Erstattung · höchstens ${formatPriceExact(ctx.totalCents)}`}
           />
           {valid ? (
@@ -117,7 +120,10 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
             </dl>
           ) : null}
           {isAuthorizedOnly ? <p className="type-caption">Die Karte ist nur reserviert: Ohne Gebühr wird die Reservierung freigegeben, mit Gebühr wird nur die Gebühr eingezogen.</p> : null}
-          <Textarea label="Grund" name="reason" rows={3} value={reason} onChange={(e) => setReason(e.target.value)} error={errors.reason ?? m.fieldErrors.reason} hint="Wird im Buchungsverlauf und Protokoll gespeichert." maxLength={500} />
+          <Textarea label="Grund" name="reason" rows={3} value={reason} onChange={(e) => {
+            setReason(e.target.value);
+            setErrors((x) => ({ ...x, reason: "" }));
+          }} error={errors.reason || m.fieldErrors.reason} hint="Wird im Buchungsverlauf und Protokoll gespeichert." maxLength={500} />
         </form>
       )}
     </ConfirmButton>
@@ -176,9 +182,12 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
               label="Betrag (€)"
               inputMode="decimal"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                setAmount(e.target.value);
+                setErrors((x) => ({ ...x, amountCents: "" }));
+              }}
               placeholder={centsToInput(ctx.refundableCents)}
-              error={errors.amountCents ?? m.fieldErrors.amountCents}
+              error={errors.amountCents || m.fieldErrors.amountCents}
               hint={`Erstattbar: ${formatPriceExact(ctx.refundableCents)}`}
               className="flex-1"
             />
@@ -199,7 +208,10 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
           {ctx.inPayout ? (
             <Notice kind="warning">Diese Buchung ist bereits in einem Auszahlungslauf. Der Profi-Anteil der Erstattung muss mit der nächsten Auszahlung verrechnet werden.</Notice>
           ) : null}
-          <Textarea label="Grund" name="reason" rows={3} value={reason} onChange={(e) => setReason(e.target.value)} error={errors.reason ?? m.fieldErrors.reason} placeholder="z. B. Behandlung 15 Minuten kürzer als gebucht" maxLength={500} />
+          <Textarea label="Grund" name="reason" rows={3} value={reason} onChange={(e) => {
+            setReason(e.target.value);
+            setErrors((x) => ({ ...x, reason: "" }));
+          }} error={errors.reason || m.fieldErrors.reason} placeholder="z. B. Behandlung 15 Minuten kürzer als gebucht" maxLength={500} />
         </form>
       )}
     </ConfirmButton>

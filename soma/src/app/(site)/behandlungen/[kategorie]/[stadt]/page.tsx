@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import type { CategoryDTO, CityDTO } from "@/server/dto";
+import { SeoPageSkeleton } from "@/components/site/discovery-skeletons";
 import { EmptyState } from "@/components/ui/feedback";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
@@ -32,7 +35,7 @@ async function load(kategorie: string, stadt: string) {
 export async function generateMetadata({ params }: PageProps<"/behandlungen/[kategorie]/[stadt]">): Promise<Metadata> {
   const { kategorie, stadt } = await params;
   const base = await load(kategorie, stadt);
-  if (!base) return { title: "Seite nicht gefunden" };
+  if (!base) notFound();
   const { category, city } = base;
   const coverage = await getCityCategoryCoverage(city.slug, category.slug);
   const title = `${category.name} zu Hause in ${city.name}`;
@@ -50,12 +53,19 @@ export async function generateMetadata({ params }: PageProps<"/behandlungen/[kat
   };
 }
 
+/** Slugs are validated before anything suspends (real 404); the rest streams behind a skeleton. */
 export default async function KategorieStadtPage({ params }: PageProps<"/behandlungen/[kategorie]/[stadt]">) {
   const { kategorie, stadt } = await params;
   const base = await load(kategorie, stadt);
   if (!base) notFound();
-  const { category, city } = base;
+  return (
+    <Suspense fallback={<SeoPageSkeleton />}>
+      <KategorieStadtContent category={base.category} city={base.city} />
+    </Suspense>
+  );
+}
 
+async function KategorieStadtContent({ category, city }: { category: CategoryDTO; city: CityDTO }) {
   const [catalog, cityFloors, providers, coverage, terms, examples, cities] = await Promise.all([
     listCatalog(),
     getPriceFloors({ citySlug: city.slug }),
@@ -114,7 +124,7 @@ export default async function KategorieStadtPage({ params }: PageProps<"/behandl
             <p className="max-w-[36rem] type-body-l text-ink-muted">
               {n > 0
                 ? `${providerCountLabel(n)} für ${category.name} ${n === 1 ? "kommt" : "kommen"} in ${city.name} zu Ihnen – nach Hause, ins Hotel oder ins Büro.${from != null ? ` Leistungen ${fromPrice(from)}, zuzüglich Anfahrt.` : ""}`
-                : `Für ${category.name} in ${city.name} bauen wir das Angebot gerade auf. ${category.tagline ?? ""}`.trim()}
+                : `Für ${category.name} in ${city.name} bauen wir das Angebot gerade auf.`}
             </p>
           </header>
 
@@ -127,27 +137,26 @@ export default async function KategorieStadtPage({ params }: PageProps<"/behandl
           </aside>
 
           <div className="flex flex-col gap-14 md:gap-20 lg:col-span-7 lg:row-start-2 lg:pt-16">
-            <section aria-labelledby="profis-titel">
-              <h2 id="profis-titel" className="type-heading-l">
-                {n > 0 ? `Profis für ${category.name} in ${city.name}` : "Noch keine Profis in dieser Stadt"}
-              </h2>
-              {n > 0 ? (
+            {n > 0 ? (
+              <section aria-labelledby="profis-titel">
+                <h2 id="profis-titel" className="type-heading-l">
+                  Profis für {category.name} in {city.name}
+                </h2>
                 <ul className="mt-4 border-t border-line">
                   {providers.map((p) => (
                     <ProviderListRow key={p.providerId} provider={p} categorySlug={category.slug} />
                   ))}
                 </ul>
-              ) : (
-                <EmptyState title={`${category.name} in ${city.name} ist bald da.`} className="py-6">
-                  Geben Sie Ihre Postleitzahl ein: Wir zeigen Ihnen Profis, die zu Ihnen fahren, oder geben Ihnen Bescheid, sobald es in Ihrer Gegend losgeht.
-                </EmptyState>
-              )}
-              {n > 0 ? (
                 <p className="mt-4 type-caption text-ink-muted">
                   „ab“ ist das günstigste Angebot des Profis ohne Anfahrt. Freie Termine und den Endpreis für Ihre Adresse sehen Sie nach Eingabe der Postleitzahl.
                 </p>
-              ) : null}
-            </section>
+              </section>
+            ) : (
+              // EmptyState renders its own h2.
+              <EmptyState title={`${category.name} in ${city.name} ist bald da.`} className="py-0">
+                Geben Sie Ihre Postleitzahl ein: Wir zeigen Ihnen Profis, die zu Ihnen fahren, oder geben Ihnen Bescheid, sobald es in Ihrer Gegend losgeht.
+              </EmptyState>
+            )}
 
             {services.length ? (
               <section aria-labelledby="leistungen-titel">
@@ -155,7 +164,7 @@ export default async function KategorieStadtPage({ params }: PageProps<"/behandl
                   Leistungen in {city.name}
                 </h2>
                 <div className="mt-4">
-                  <ServiceList services={services} floors={fm} categorySlug={category.slug} emptyPriceLabel={`Noch nicht in ${city.name}`} />
+                  <ServiceList services={services} floors={fm} categorySlug={category.slug} emptyPriceLabel={n > 0 ? `Noch nicht in ${city.name}` : ""} />
                 </div>
               </section>
             ) : null}

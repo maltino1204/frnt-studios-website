@@ -5,8 +5,7 @@ import { changePasswordAction } from "@/server/actions/auth";
 import { updateProfileAction } from "@/server/actions/account";
 import { initialActionState } from "@/server/actions/types";
 import type { ProfileDTO } from "@/server/dto";
-import { Input } from "@/components/ui/field";
-import { TickCheckbox as Checkbox } from "./checkout-checkbox";
+import { Checkbox, Input } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
 
 /** Name, phone and marketing opt-in. E-mail is shown read-only (login identity). */

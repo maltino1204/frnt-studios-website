@@ -612,9 +612,10 @@ export function BookingEntry({
               )}
             />
             {loc.status === "ok" ? (
-              <span className="min-w-0 flex-1 truncate type-body text-ink-muted">· {loc.data.cityName}</span>
+              // text-body, not type-body: its `text-wrap: pretty` would cancel truncate's nowrap.
+              <span className="min-w-0 flex-1 truncate text-body text-ink-muted">· {loc.data.cityName}</span>
             ) : loc.status === "outside" ? (
-              <span className="min-w-0 flex-1 truncate type-body text-ink-muted">· noch nicht verfügbar</span>
+              <span className="min-w-0 flex-1 truncate text-body text-ink-muted">· noch nicht verfügbar</span>
             ) : loc.status === "checking" ? (
               <span className="flex flex-1 items-center text-ink-muted">
                 <Spinner size={16} />

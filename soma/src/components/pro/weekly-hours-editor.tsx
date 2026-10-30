@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
 import { setWeeklyHoursAction } from "@/server/actions/pro";
 import type { WeeklyHoursDTO } from "@/server/dto";
-import { WEEKDAYS } from "./labels";
+import { WEEKDAYS, proError } from "./labels";
 import { timeOptions } from "./time";
 
 type Win = { start: string; end: string };
@@ -72,7 +72,7 @@ export function WeeklyHoursEditor({
     start(async () => {
       const res = await setWeeklyHoursAction(windows);
       if (!res.ok) {
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       setDirty(false);

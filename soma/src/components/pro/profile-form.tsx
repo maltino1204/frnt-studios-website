@@ -10,7 +10,7 @@ import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
 import { updateProProfileAction } from "@/server/actions/pro";
 import type { ProProfileDTO } from "@/server/dto";
-import { LANGUAGE_OPTIONS } from "./labels";
+import { LANGUAGE_OPTIONS, proError } from "./labels";
 
 const BIO_MAX = 400;
 
@@ -49,7 +49,7 @@ export function ProfileForm({
       const res = await updateProProfileAction({ displayName: displayName.trim(), headline: headline.trim() || undefined, bio: bio.trim() || undefined, yearsExperience: y, languages });
       if (!res.ok) {
         setErrors(res.fieldErrors ?? {});
-        setError(res.error);
+        setError(proError(res.error));
         return;
       }
       toast.show(res.message ?? "Profil gespeichert.");

@@ -44,7 +44,7 @@ export const PAYMENT_STATUS: Record<PaymentStatus, Labelled> = {
   captured: { label: "Eingezogen", tone: "success" },
   partially_refunded: { label: "Teilerstattet", tone: "warning" },
   refunded: { label: "Erstattet", tone: "neutral" },
-  cancelled: { label: "Freigegeben (storniert)", tone: "neutral" },
+  cancelled: { label: "Aufgehoben", tone: "neutral" },
   failed: { label: "Fehlgeschlagen", tone: "danger" },
 };
 
