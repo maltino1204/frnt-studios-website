@@ -78,9 +78,10 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 
 ### 3.1 Latest numbers (final integration run)
 - `tsc --noEmit`: clean.
-- Vitest: **193/193** passing (unit + integration against Postgres; 20 files).
-- Playwright E2E against the production build: **96/96** passing (48 journeys × mobile + desktop, about 3 min). The suite
-  covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1.
+- Vitest: **198/198** passing (unit + integration against Postgres; 21 files).
+- Playwright E2E against the production build: **108/108** passing (54 journeys × mobile + desktop, about 4 min). The suite
+  covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1–F11
+  and the audit-4 regression tests (`tests/e2e/audit4.spec.ts`).
 - `next build`: 113 routes generated, 42 SEO city pages prerendered.
 
 **Not tested (no credentials or sandbox limits):** Stripe Connect (keys, webhook, Payment Element),
@@ -115,6 +116,7 @@ the caveats in `DEMO.md`.
 | **A4-1** seed-mode bypass of the F2 trigger | `seed_mode()` also checks the session role (inside SECURITY DEFINER triggers `current_user` is the owner) | integration test *"an API session cannot opt into seed mode"* |
 | **A4-7** evening refresh widened Selin's hours | Hours stay as they are. Outside them, the demo appointment moves to her next working start, and `demo:refresh` says when | manual run at 21:40 → *„Samstag, 31. Oktober um 09:00 Uhr“* |
 | **A4-8**, **A4-10**, F14 rest | `DEMO.md`: `APP_URL` for non-default addresses, an instant-booking pro for the guest flow, where the Start-Code is, review count. Support address configurable via `NEXT_PUBLIC_SUPPORT_EMAIL` (`check:launch` blocks the placeholder) | read-through |
+| **A4-4**, **A4-5**, **A4-6**, **A4-9** (copy and layout) | No lone *„Danach: …“* (*„Ab jetzt: …“*); after the start the Start-Code card says *„Code bestätigt um … Uhr“*, the pro sees *„Abschließen ab … Uhr (geplanter Beginn)“* and the button unlocks without a reload; an empty search without any supply says so and offers the waitlist; 3 tiles on `/konto/guthaben` | scripted clock checks, live screenshots at 390/1440, E2E |
 | **A4-12** contact-lint bypasses | Letter-spaced text joined before matching, `AT`/`DOT` in capitals, mail hosts without TLD, comma/middle-dot domains, Skype and Discord | 11 new unit cases + 6 clean-prose cases |
 
 Still open from audit 4 (low): F8 rest (seed chart spike on the seed day, regions total 411 vs 422), F12 (fonts 331 KB),

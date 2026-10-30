@@ -213,12 +213,16 @@ export function graceSentence(policy: Pick<CancellationPolicyDTO, "graceMinutes"
   return m > 0 ? `In den ersten ${m}${NBSP}Minuten nach der Buchung immer kostenlos stornierbar.` : null;
 }
 
-/** Human list of the cancellation tiers with concrete deadlines (tiers that already ended are left out). */
+/**
+ * Human list of the cancellation tiers with concrete deadlines (tiers that already ended are left out).
+ * When the last tier is the only one left, it reads "Ab jetzt: …" instead of a lone "Danach: …".
+ */
 export function scheduleLines(schedule: PolicyScheduleEntryDTO[], now: number = Date.now()): string[] {
-  return schedule.filter((e) => !e.until || Date.parse(e.until) > now).map((e) => {
+  return schedule.filter((e) => !e.until || Date.parse(e.until) > now).map((e, i) => {
     const what = `${tierFeeText(e)}${/Bedenkzeit/.test(e.label) ? " (Bedenkzeit)" : ""}`;
     if (e.until) return `Bis ${deadlineText(e.until)}: ${what}`;
-    if (e.from) return `Danach: ${what}`;
+    if (e.from && i > 0) return `Danach: ${what}`;
+    if (e.from) return Date.parse(e.from) > now ? `Ab ${deadlineText(e.from)}: ${what}` : `Ab jetzt: ${what}`;
     return what;
   });
 }

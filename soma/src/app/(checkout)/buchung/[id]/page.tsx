@@ -67,7 +67,7 @@ function Hero({ b }: { b: CustomerBookingDTO }) {
       break;
     case "in_progress":
       title = "Die Behandlung läuft.";
-      body = `${first} ist bei Ihnen. Eine gute Behandlung.`;
+      body = `${first} ist bei Ihnen. Wir wünschen Ihnen eine schöne Behandlung.`;
       break;
     case "completed":
       title = "Abgeschlossen.";
@@ -242,7 +242,14 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
               </section>
             ) : null}
 
-            {b.startCode ? (
+            {b.startCode && b.status === "in_progress" ? (
+              <section aria-labelledby="startcode" className="flex flex-col gap-2 border border-line p-5 md:p-6">
+                <p id="startcode" className="type-overline text-ink-muted">
+                  Ihr Start-Code
+                </p>
+                <CheckLine>{b.startedAt ? `Code bestätigt um ${formatTime(b.startedAt)}${NBSP}Uhr.` : "Code bestätigt."}</CheckLine>
+              </section>
+            ) : b.startCode ? (
               <section aria-labelledby="startcode" className="flex flex-col gap-3 border border-line bg-surface-raised p-5 md:p-6">
                 <p id="startcode" className="type-overline text-ink-muted">
                   Ihr Start-Code

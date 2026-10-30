@@ -38,7 +38,7 @@ export default async function GuthabenPage() {
           </p>
         </div>
         <ReferralShare code={referral.code} url={url} text={`Ich buche Beauty & Wellness bei mir zu Hause über SOMA. Mit meinem Link erhältst du ${welcome} Startguthaben:`} />
-        <StatGrid className="lg:grid-cols-3">
+        <StatGrid className="lg:grid-cols-3!">
           <StatTile label="Eingeladen" value={referral.invitedCount.toLocaleString("de-DE")} />
           <StatTile label="Erste Buchung abgeschlossen" value={referral.rewardedCount.toLocaleString("de-DE")} />
           <StatTile label="Verdient" value={formatPrice(referral.earnedCents)} className="col-span-2 lg:col-span-1" />

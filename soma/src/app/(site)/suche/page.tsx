@@ -5,6 +5,7 @@ import { getSession } from "@/server/auth/guards";
 import { isServiceError } from "@/server/errors";
 import { listCatalog } from "@/server/services/catalog";
 import { searchProviders } from "@/server/services/search";
+import { getPriceFloors } from "@/server/services/site-ext";
 import { listNearbyPostalCodes, type NearbyPostalCodeDTO } from "@/server/services/site-ext-2";
 import type { CategoryWithServicesDTO, SearchInput, SearchResultDTO, ServiceDTO } from "@/server/dto";
 import { Container, Overline } from "@/components/ui/layout";
@@ -178,9 +179,21 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   const empty = result.results.length === 0;
   const notLaunched = empty && !result.location.isLaunchCity;
 
+  // Empty in a launch city: does anyone in the city offer this at all (A4-6)? Coverage only, no slots.
+  // No supply is a different message than "booked out", whatever the day or filters.
+  let noSupply = false;
+  let categoryHasSupply = false;
+  if (empty && !notLaunched && result.location.citySlug) {
+    const floors = await getPriceFloors({ citySlug: result.location.citySlug, categorySlug: category?.slug }).catch(() => null);
+    if (floors) {
+      categoryHasSupply = floors.some((f) => f.providerCount > 0);
+      noSupply = service ? !floors.some((f) => f.serviceId === service.id && f.providerCount > 0) : !categoryHasSupply;
+    }
+  }
+
   // Booked-out day → look at the following days (real searches, not logged as demand).
   let nextDays: Array<{ date: string; total: number }> = [];
-  if (empty && datum && !notLaunched) {
+  if (empty && datum && !notLaunched && !noSupply) {
     const dates = Array.from({ length: 6 }, (_, i) => berlinDateKey(new Date(new Date(`${datum}T12:00:00Z`).getTime() + (i + 1) * 86_400_000)));
     const totals = await Promise.all(
       dates.map((d) =>
@@ -305,6 +318,20 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                     </p>
                     <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
                   </section>
+                ) : noSupply ? (
+                  <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
+                    <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+                    <h2 id="leer-titel" className="type-display-s">
+                      {`In ${city ?? plz} gibt es noch keine Profis für ${what}.`}
+                    </h2>
+                    <p className="type-body-s text-ink-muted">{`Hinterlassen Sie Ihre E-Mail-Adresse – wir melden uns, sobald ${what} in ${plz} buchbar ist.`}</p>
+                    {service && category && categoryHasSupply ? (
+                      <ButtonLink href={searchHref({ ...state, leistung: null, dauer: null })} variant="secondary">
+                        {`Alle ${category.name}-Leistungen`}
+                      </ButtonLink>
+                    ) : null}
+                    <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
+                  </section>
                 ) : datum ? (
                   <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
                     <span aria-hidden className="block h-0.5 w-6 bg-ink" />
@@ -348,7 +375,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                     <p className="type-body-s text-ink-muted">
                       {filtersActive
                         ? "Lockern Sie die Filter oder wählen Sie einen späteren Tag."
-                        : `Für ${what} haben die Profis in Ihrer Nähe derzeit keine freien Termine. Wählen Sie einen späteren Tag oder lassen Sie sich benachrichtigen.`}
+                        : `Für ${what} ist in Ihrer Nähe derzeit kein Termin frei. Wählen Sie einen späteren Tag oder lassen Sie sich benachrichtigen.`}
                     </p>
                     <div className="flex flex-wrap gap-3">
                       {filtersActive ? (

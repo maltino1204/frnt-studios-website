@@ -265,6 +265,17 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, start] = useTransition();
+  const startsAtMs = startsAt ? Date.parse(startsAt) : NaN;
+
+  // Refresh once the scheduled start has passed, so "Termin abschließen" unlocks without a manual reload.
+  useEffect(() => {
+    if (canComplete || Number.isNaN(startsAtMs)) return;
+    const wait = startsAtMs - Date.now();
+    if (wait <= 0 || wait > 12 * 3_600_000) return;
+    const t = window.setTimeout(() => router.refresh(), wait + 1_000);
+    return () => window.clearTimeout(t);
+  }, [canComplete, startsAtMs, router]);
+
   const run = () =>
     start(async () => {
       setError(null);
@@ -280,7 +291,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
         <Button size="l" block disabled icon={<Icon icon={Check} />}>
           Termin abschließen
         </Button>
-        {startsAt ? <p className="type-caption text-ink-muted">Ab {formatTime(startsAt)} Uhr möglich, sobald der Termin begonnen hat.</p> : null}
+        {startsAt ? <p className="type-caption text-ink-muted">Abschließen ab {formatTime(startsAt)} Uhr (geplanter Beginn).</p> : null}
       </div>
     );
   }
