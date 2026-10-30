@@ -386,6 +386,7 @@ export async function deleteDocument(session: Session, documentId: string): Prom
 export async function uploadPortfolioImage(session: Session, file: UploadInput, meta: { caption?: string; categoryId?: string | null } = {}): Promise<{ id: string; url: string }> {
   const s = requirePro(session);
   const caption = meta.caption ? parse(z.string().trim().max(200), meta.caption) : null;
+  assertNoContactDetails({ caption }, CONTACT_LINT_MESSAGES.providerProfile);
   const cat = meta.categoryId ? parse(zUuid, meta.categoryId) : null;
   const count = await withUser(s.userId, async (tx) => (await tx<{ n: number }[]>`select count(*)::int as n from public.provider_portfolio where provider_id = ${s.userId}`)[0].n);
   if (count >= 24) throw new ServiceError("validation", "Du kannst höchstens 24 Portfolio-Bilder hochladen.");
@@ -403,6 +404,7 @@ export async function updatePortfolioItem(session: Session, itemId: string, inpu
   const s = requirePro(session);
   const id = parse(zUuid, itemId);
   const v = parse(z.object({ caption: z.string().trim().max(200).nullable().optional(), sortOrder: z.number().int().min(0).max(100).optional(), categoryId: zUuid.nullable().optional() }), input);
+  assertNoContactDetails({ caption: v.caption }, CONTACT_LINT_MESSAGES.providerProfile);
   const rows = await withUser(s.userId, (tx) => tx`
     update public.provider_portfolio set
       caption = case when ${v.caption !== undefined} then ${v.caption ?? null} else caption end,

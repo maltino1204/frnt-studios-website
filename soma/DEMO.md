@@ -24,16 +24,21 @@ npm run dev                    # → http://localhost:3000
 Für eine Vorführung mit voller Geschwindigkeit verwenden Sie statt `npm run dev` den Produktions-Build:
 `npm run build && npm start`.
 
-**Fotos:** Die Bilder werden direkt aus der Bild-CDN geladen und brauchen eine Internetverbindung.
-Mit `npm run images:fetch` speichern Sie alle Fotos lokal, z. B. vor einer Vorführung ohne stabiles WLAN.
+**Fotos:** `npm run build` lädt alle Fotos automatisch herunter und liefert sie lokal aus. Manuell geht das mit
+`npm run images:fetch`. Ohne diesen Schritt kommen die Bilder direkt aus der Bild-CDN und brauchen eine Internetverbindung.
 
-**Zurücksetzen:** `DEMO_MODE=true npm run db:seed` stellt den Demo-Zustand jederzeit wieder her.
-Termine, Bewertungen und Anfragen liegen danach wieder relativ zu „heute“. Laufende Demo-Sitzungen werden dabei abgemeldet.
+**Vor jeder Vorführung: `npm run demo:refresh`** (höchstens eine Stunde vorher).
+Der Befehl stellt den Demo-Zustand neu her. Termine, Bewertungen und Anfragen liegen danach wieder relativ zu „jetzt“.
+Zwischen Testkunde und Testkunde B2B gibt es dann einen bestätigten Termin, der **35 Minuten später beginnt**.
+So können Sie den Start mit dem Start-Code live zeigen: Ab 30 Minuten vor Beginn lässt sich der Termin starten.
+Die offenen Anfragen haben mehrere Stunden Antwortfrist. Laufende Demo-Sitzungen werden dabei abgemeldet.
+Führen Sie die automatischen Tests (`npm run test:e2e`) nicht nach dem letzten Refresh aus, denn sie legen Testbuchungen an.
 
 ## 2. Die drei Testzugänge
 
 Das Passwort ist für alle drei Zugänge gleich: **`soma-demo-2026`**. Auf `/anmelden` gibt es im Demo-Modus außerdem
-Ein-Klick-Buttons für alle drei Zugänge.
+Ein-Klick-Buttons für alle drei Zugänge. Passwortänderung, Kontolöschung und Sperren sind für diese Zugänge
+deaktiviert. So kann niemand den gemeinsamen Testzugang versehentlich unbrauchbar machen.
 
 | Zugang | E-Mail | Wer | Startseite |
 |---|---|---|---|
@@ -68,8 +73,9 @@ Ein-Klick-Buttons für alle drei Zugänge.
    Dann „Zahlungspflichtig buchen“ (Testzahlung). Die Bestätigung zeigt den Start-Code.
 3. **Testkunde (4 Min.):** Als Julia anmelden → *Termine* (erneut buchen mit einem Tipp), *Favoriten*, *Guthaben &
    Empfehlungen*, eine Buchung öffnen und die Stornogebühr in der Vorschau zeigen.
-4. **Testkunde B2B (5 Min.):** Als Selin anmelden → *Heute* mit offenen Anfragen und Countdown. Eine Anfrage annehmen,
-   den *Kalender* zeigen, dann *Einnahmen* mit den Provisionsstufen und den Einladungslink („nur 5 % Provision mit deinem Link“).
+4. **Testkunde B2B (5 Min.):** Als Selin anmelden → *Heute* mit offenen Anfragen und Countdown. Eine Anfrage annehmen.
+   Den nächsten Termin öffnen und mit dem **Start-Code** starten: Der Code steht beim Testkunden unter *Termine*.
+   Dann *Kalender* und *Einnahmen* mit den Provisionsstufen zeigen, zuletzt den Einladungslink („nur 5 % Provision mit deinem Link“).
 5. **Testadmin (4 Min.):** *Übersicht* mit Kennzahlen und Arbeitslisten → *Profis & Verifizierung*: Freigabe ist nur
    mit geprüften Nachweisen möglich → *Regionen*: Angebot und Nachfrage pro Stadt → *Provisionen*.
 

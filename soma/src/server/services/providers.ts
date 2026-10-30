@@ -115,9 +115,22 @@ export async function getProviderProfile(slug: string, viewerId?: string | null,
       reviews,
       isFavorite: fav.length > 0,
       cancellationPolicy: policyToDTO(settings.cancellationPolicy),
+      verifiedQualifications: [],
     };
     return profile;
   });
+  if (profile) {
+    // withService: provider_documents are private; only the labels of fully approved category documents are exposed.
+    profile.verifiedQualifications = await withService((tx) => tx<Array<{ categorySlug: string; categoryName: string; label: string }>>`
+      select distinct c.slug as category_slug, c.name as category_name, req ->> 'label' as label
+      from public.provider_services ps
+      join public.services s on s.id = ps.service_id
+      join public.categories c on c.id = s.category_id
+      cross join lateral jsonb_array_elements(coalesce(c.required_documents, '[]'::jsonb)) as req
+      where ps.provider_id = ${profile.providerId} and ps.is_active and req ->> 'kind' = 'qualification'
+        and public.category_documents_complete(${profile.providerId}, c.id)
+      order by 2`);
+  }
   if (profile && opts.inviteCode) profile.inviteValid = await isValidInviteCode(profile.providerId, opts.inviteCode);
   return profile;
 }

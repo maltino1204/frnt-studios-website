@@ -146,16 +146,20 @@ export async function getTimeSeries(session: Session, opts: { days?: number } = 
   // withService: admin analytics across all users (authorised by assertAdmin).
   return withService(async (tx) => {
     await assertAdmin(tx, session);
+    // Same window as getMarketplaceKpis / getSupplyDemandByCity: the last `days` × 24 h, so the chart totals
+    // match the KPI tiles (audit-3 F8). That window touches days + 1 local dates; the first and the last
+    // (today) bucket are partial.
     const rows = await tx<Array<{ date: string; bookings: number; completed: number; gmvCents: number; searches: number }>>`
-      with d as (
-        select generate_series((now() at time zone 'Europe/Berlin')::date - ${days - 1}::int, (now() at time zone 'Europe/Berlin')::date, interval '1 day')::date as day
+      with w as (select now() - make_interval(days => ${days}) as since),
+      d as (
+        select generate_series((select (since at time zone 'Europe/Berlin')::date from w), (now() at time zone 'Europe/Berlin')::date, interval '1 day')::date as day
       )
       select to_char(d.day, 'YYYY-MM-DD') as date,
-        (select count(*)::int from public.bookings b where (b.created_at at time zone 'Europe/Berlin')::date = d.day and b.status <> 'expired') as bookings,
-        (select count(*)::int from public.bookings b where (b.completed_at at time zone 'Europe/Berlin')::date = d.day) as completed,
-        (select coalesce(sum(total_cents), 0)::int from public.bookings b where b.status = 'completed' and (b.completed_at at time zone 'Europe/Berlin')::date = d.day) as gmv_cents,
-        (select count(*)::int from public.search_events s where (s.created_at at time zone 'Europe/Berlin')::date = d.day) as searches
-      from d order by d.day`;
+        (select count(*)::int from public.bookings b where (b.created_at at time zone 'Europe/Berlin')::date = d.day and b.created_at >= w.since and b.status <> 'expired') as bookings,
+        (select count(*)::int from public.bookings b where (b.completed_at at time zone 'Europe/Berlin')::date = d.day and b.completed_at >= w.since) as completed,
+        (select coalesce(sum(total_cents), 0)::int from public.bookings b where b.status = 'completed' and (b.completed_at at time zone 'Europe/Berlin')::date = d.day and b.completed_at >= w.since) as gmv_cents,
+        (select count(*)::int from public.search_events s where (s.created_at at time zone 'Europe/Berlin')::date = d.day and s.created_at >= w.since) as searches
+      from d cross join w order by d.day`;
     return rows;
   }).catch(rethrowDb);
 }

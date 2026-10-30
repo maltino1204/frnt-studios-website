@@ -112,7 +112,7 @@ describe("verification follows the documents (audit-2 N4)", () => {
       insert into public.provider_documents (provider_id, kind, storage_path, file_name, mime_type, size_bytes)
       values (${pro.providerId}, 'insurance', ${`documents/${pro.providerId}/${crypto.randomUUID()}.pdf`}, 'neu.pdf', 'application/pdf', 100) returning id`;
     const nextYear = `${new Date().getFullYear() + 1}-12-31`;
-    expect(await reviewDocument(admin, fresh.id, "approved", undefined, nextYear)).toEqual({ providerSuspended: false });
+    expect(await reviewDocument(admin, fresh.id, "approved", undefined, nextYear)).toEqual({ providerSuspended: false, offeringsActivated: 0 });
     expect((await decideProvider(admin, pro.providerId, "reinstate")).status).toBe("approved");
     const [exp] = await sql()<{ expiresAt: Date }[]>`select expires_at from public.provider_documents where id = ${fresh.id}`;
     expect(exp.expiresAt.getTime()).toBeGreaterThan(Date.now());
@@ -124,7 +124,7 @@ describe("verification follows the documents (audit-2 N4)", () => {
     const [other] = await sql()<{ id: string }[]>`
       insert into public.provider_documents (provider_id, kind, storage_path, file_name, mime_type, size_bytes)
       values (${pro.providerId}, 'other', ${`documents/${pro.providerId}/${crypto.randomUUID()}.pdf`}, 'x.pdf', 'application/pdf', 100) returning id`;
-    expect(await reviewDocument(admin, other.id, "rejected", "Nicht lesbar")).toEqual({ providerSuspended: false });
+    expect(await reviewDocument(admin, other.id, "rejected", "Nicht lesbar")).toEqual({ providerSuspended: false, offeringsActivated: 0 });
     expect(await providerStatus(pro.providerId)).toBe("approved");
   });
 

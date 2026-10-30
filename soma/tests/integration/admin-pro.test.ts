@@ -218,6 +218,7 @@ describe("demand capture, coverage and analytics", () => {
     expect(ffm?.waitlistSignups).toBeGreaterThanOrEqual(1);
     expect(ffm?.byCategory.find((c) => c.categorySlug === "make-up")?.providers).toBeGreaterThanOrEqual(2);
     expect(ffm?.openSlotHours7d).toBeGreaterThan(0);
-    expect((await getTimeSeries(admin, { days: 7 })).length).toBe(7);
+    // the last 7 × 24 h touch 8 local dates (first and last bucket partial, audit-3 F8)
+    expect((await getTimeSeries(admin, { days: 7 })).length).toBe(8);
   });
 });

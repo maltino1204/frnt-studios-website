@@ -287,6 +287,11 @@ export interface ProviderProfileDTO extends ProviderCardDTO {
   cancellationPolicy: CancellationPolicyDTO;
   /** true when the request came with a valid `?einladung=` code */
   inviteValid?: boolean;
+  /**
+   * audit-3 F2: category qualifications actually verified (approved, valid documents) for the
+   * categories the provider offers — use this for "Was wir geprüft haben".
+   */
+  verifiedQualifications: Array<{ categorySlug: string; categoryName: string; label: string }>;
 }
 
 // ---------------------------------------------------------------------------

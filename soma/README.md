@@ -37,6 +37,7 @@ createdb -O soma soma_test            # used by the integration tests
 
 npm run db:setup -- --reset           # Supabase shim (local only) + migrations + base seed
 DEMO_MODE=true npm run db:seed        # fictional demo marketplace (never in production)
+npm run demo:refresh                  # run right before a demo: reseed + maintenance (appointment in ~35 min)
 
 npm run dev                           # http://localhost:3000
 ```
@@ -78,6 +79,7 @@ own photos.
 | `npm run test:e2e` | Playwright journeys against a running build (`npm run build` first) |
 | `npm run db:setup [-- --reset]` | apply shim + migrations + base seed |
 | `npm run db:seed` | demo seed (refuses to run unless `DEMO_MODE=true`) |
+| `npm run demo:refresh` | **run right before a demo**: demo seed + one maintenance run, all times relative to now (testkunde ↔ testkunde-b2b appointment starts in ≈ 35 min, open requests stay open ≥ 3 h); reads `.env.local` |
 | `npm run images:fetch` | store the photo set locally |
 
 ---

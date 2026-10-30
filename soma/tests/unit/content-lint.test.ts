@@ -104,3 +104,32 @@ describe("contact lint hardening (audit-2 N3, inputs from §7)", () => {
   });
 });
 
+describe("contact lint residual bypasses (audit-3 F13)", () => {
+  it("catches spaced e-mails and domains, dot words, Telegramm, more TLDs and mixed digit words", () => {
+    const cases: Array<[string, string]> = [
+      ["anna @ gmx . de", "email"],
+      ["Schreib an anna@ gmx.de", "email"],
+      ["linhnails . de", "url"],
+      ["linhnails dot de", "url"],
+      ["linhnails (dot) com", "url"],
+      ["linhnails punkt de", "url"],
+      ["Mehr auf linh-nails.fr", "url"],
+      ["Portfolio: linhnails.it und linhnails.nl", "url"],
+      ["Schreib mir per Telegramm", "messenger"],
+      ["t.me/linhnails", "messenger"],
+      ["null eins 7 0 eins 2 3 4 5 6 7", "phone"],
+    ];
+    for (const [text, kind] of cases) expect(kinds(text), text).toContain(kind);
+  });
+
+  it("keeps ordinary prose clean", () => {
+    for (const t of [
+      "Termin im Kurs. Info folgt per SOMA.",
+      "Massage am Punkt. De facto entspannt.",
+      "Ich arbeite seit 2015 – 1 bis 2 Termine pro Tag.",
+      "Zwei bis drei Wochen hält der Lack, eins ist sicher.",
+      "Danke für die Ruhe @ home – war wunderbar.",
+    ]) expect(findContactDetails(t), t).toEqual([]);
+  });
+});
+

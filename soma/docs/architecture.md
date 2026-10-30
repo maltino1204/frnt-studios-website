@@ -150,7 +150,7 @@ requireUser(next?: string): Promise<Session>          // redirect('/anmelden?nex
 requireRole(role: 'customer'|'provider'|'admin'): Promise<Session>
 ```
 
-`Session = { userId: string; role: AppRole; email: string; firstName: string | null; providerStatus?: ProviderStatus }`
+`Session = { userId: string; role: AppRole; email: string; firstName: string | null; providerStatus?: ProviderStatus; isDemoAccount: boolean }`
 
 `src/proxy.ts` (Next 16's renamed middleware) only performs an optimistic cookie check for
 `/konto`, `/pro`, `/admin` and redirects to `/anmelden`. Real authorization happens in layouts,
@@ -167,6 +167,22 @@ number only while the booking is `confirmed` / `in_progress` (view `provider_boo
 coordination. Customers never see the provider's number (in-app status and support only). E-mail
 addresses are never shown to the other party. Free-text channels are contact-linted
 (`domain/content-lint.ts`). Planned for v1.1: a phone relay with masked numbers.
+
+**Account existence at checkout, accepted trade-off (audit-3 F16):** `checkoutSignUpAction` answers
+`{ kind: "exists" }` when the e-mail is already registered, so the checkout can offer the login inline
+instead of losing the booking. This reveals that an address has an account (the same is true of every
+sign-up form). We accept it because the answer carries no session and sends no e-mail; login, password
+reset and claim e-mails stay neutral. Like the sign-up form, this check has no separate throttle in v1
+(option for v1.1: a per-IP sign-up limit or CAPTCHA). Account deletion
+re-checks the password at most 5 times per account in 15 minutes (`app_private.reauth_attempts`), so the
+re-check cannot be used to guess a password from a hijacked session.
+
+**Protected demo accounts (audit-3 F7):** with `DEMO_MODE=true`, the shared demo logins
+(`testkunde@`, `testkunde-b2b@`, `testadmin@soma.test`, `anna@kunden.soma.test`, `hanna@profis.soma.test`)
+cannot change or reset their password, delete themselves, or be blocked, anonymised, suspended or have
+documents rejected by an admin; the services answer "Im Demo-Zugang ist diese Aktion deaktiviert, damit
+alle mit denselben Zugangsdaten testen können." (`auth/demo-accounts.ts`). `Session.isDemoAccount` lets the
+UI show that notice up front. The app has no e-mail or role change.
 
 **Client IP for rate limits (audit-2 N2):** only from an explicitly trusted source —
 `TRUSTED_IP_HEADER` (a header the platform overwrites, e.g. `x-vercel-forwarded-for`,
@@ -485,6 +501,9 @@ cache; never caches authenticated HTML or API responses).
   bookings and requests. Demo logins:
   `testkunde@soma.test` (customer), `testkunde-b2b@soma.test` (provider), `testadmin@soma.test` (admin), all with
   password `soma-demo-2026`.
+- `npm run demo:refresh`: **run right before a demo** — the demo seed plus one maintenance run. All demo
+  times are relative to the seed (an appointment testkunde ↔ testkunde-b2b starts ≈ 35 minutes later, open
+  requests stay open ≥ 3 h, event stamps lie within 08:00–21:00 Europe/Berlin).
 - With `DEMO_MODE=true` the UI shows a discreet "Demo-Umgebung · Beispieldaten" ribbon. Demo content
   must never be loaded into production.
 

@@ -34,14 +34,17 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
   const maxRegion = Math.max(1, ...regions.map((r) => r.searches));
   const showAll = sp.plz === "alle";
   const regionRows = showAll ? regions : regions.slice(0, 15);
-  const totals = cities.reduce((a, c) => ({ searches: a.searches + c.searches, zero: a.zero + c.zeroResultSearches, waitlist: a.waitlist + c.waitlistSignups }), { searches: 0, zero: 0, waitlist: 0 });
+  // Totals over all searches with a valid PLZ (same count as the overview KPI, audit-3 F8); the city table
+  // only covers the launch cities, the difference is named in the description.
+  const totals = regions.reduce((a, r) => ({ searches: a.searches + r.searches, zero: a.zero + r.zeroResultSearches, waitlist: a.waitlist + r.waitlistSignups }), { searches: 0, zero: 0, waitlist: 0 });
+  const outsideCities = Math.max(0, totals.searches - cities.reduce((a, c) => a + c.searches, 0));
 
   return (
     <>
       <AdminPageHeader
         group="Marktplatz"
         title="Regionen"
-        description={`Angebot und Nachfrage, letzte ${days} Tage · ${formatInt(totals.searches)} Suchen, davon ${formatInt(totals.zero)} ohne Ergebnis · ${formatInt(totals.waitlist)} auf der Warteliste`}
+        description={`Angebot und Nachfrage, letzte ${days} Tage · ${formatInt(totals.searches)} Suchen, davon ${formatInt(totals.zero)} ohne Ergebnis${outsideCities ? ` und ${formatInt(outsideCities)} außerhalb der Startstädte` : ""} · ${formatInt(totals.waitlist)} auf der Warteliste`}
         actions={<RangeSwitch value={days} options={RANGES} />}
       />
       <div className="flex flex-col gap-12">

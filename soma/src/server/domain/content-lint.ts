@@ -44,17 +44,22 @@ export interface ContactFinding {
 }
 
 const EMAIL = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
-const TLD = "(?:de|com|net|org|info|io|me|eu|at|ch|shop|online|app|biz|co|link|page|studio|beauty|berlin|hamburg|koeln|nrw)";
+const TLD = "(?:de|com|net|org|info|io|me|eu|at|ch|fr|it|nl|es|pl|be|dk|se|uk|us|tv|xyz|store|art|salon|shop|online|app|biz|co|link|page|studio|beauty|berlin|hamburg|koeln|nrw)";
 // "linh at gmail dot com", "linh (at) gmail (punkt) com", "linh ät gmail.de", "linh [at] gmx [dot] de"
 const AT_WORD = String.raw`(?:\s*[(\[{]\s*(?:at|ät|@)\s*[)\]}]\s*|\s+(?:at|ät)\s+)`;
 const DOT_WORD = String.raw`(?:\s*[(\[{]\s*(?:dot|punkt|\.)\s*[)\]}]\s*|\s+(?:dot|punkt)\s+|\s*\.\s*)`;
 const SPELLED_EMAIL = new RegExp(String.raw`\b[a-z0-9._%+-]{2,}${AT_WORD}[a-z0-9-]{2,}(?:${DOT_WORD}[a-z0-9-]{2,})*${DOT_WORD}${TLD}\b`, "i");
+// "anna @ gmx . de", "anna@ gmx.de" — spaces around "@" and the dots (audit-3 F13)
+const SPACED_EMAIL = new RegExp(String.raw`\b[a-z0-9._%+-]{2,}\s*@\s*[a-z0-9-]{2,}(?:\s*\.\s*[a-z0-9-]{2,})*\s*\.\s*${TLD}\b`, "i");
 const HANDLE = /(?:^|[\s(,;:])@[a-z0-9_][a-z0-9._]{1,29}/i;
 const URL_PATTERN = /\b(?:https?:\/\/|www\.)\S+/i;
 const DOMAIN = new RegExp(String.raw`\b[a-z0-9][a-z0-9-]{1,62}\.${TLD}\b`, "i");
+// "linhnails . de" (space before the dot), "linhnails dot de", "linhnails (dot) com", "linhnails punkt de" (audit-3 F13).
+// A space only AFTER the dot is ordinary punctuation ("… im Kurs. Info folgt") and is not matched.
+const SPACED_DOMAIN = new RegExp(String.raw`\b[a-z0-9][a-z0-9-]{1,62}(?:\s+\.\s*|\s*[(\[{]\s*(?:dot|punkt)\s*[)\]}]\s*|\s+(?:dot|punkt)\s+)${TLD}\b`, "i");
 // Messenger / social names. "IG" only in capitals or before ":"/"@"; "Signal" only in a contact context
 // ("per Signal", "Signal: …", "Signal-Nummer"), because it is also an ordinary German word.
-const MESSENGER = /\b(?:whats\s?app|insta(?:gram{1,2})?|telegram|facebook|tik\s?tok|snapchat|threema|wa\.me)\b/i;
+const MESSENGER = /\b(?:whats\s?app|insta(?:gram{1,2})?|telegram{1,2}|facebook|tik\s?tok|snapchat|threema|wa\.me|t\.me)\b/i;
 const MESSENGER_IG = /\bIG\b|\big\s*[:@]/;
 const MESSENGER_SIGNAL = /\b(?:per|über|via|auf|bei|in)\s+signal\b|\bsignal\s*(?::|-?nummer|-?messenger|-?app\b)/i;
 // Phone numbers: +49 / 0049 / leading 0, digits separated by spaces, dashes, slashes, dots or parentheses.
@@ -63,7 +68,10 @@ const PHONE = /(?:\+|\b00)\s?\d[\d\s().\/-]{5,}\d|(?:^|[^\d,.])(0[\d\s().\/-]{5,
 const PHONE_NO_ZERO = /(?:^|[^\d,.+])(1[5-7]\d[\s\/-]?\d[\d\s\/-]{5,}\d|[1-9]\d{8,})(?![\d,])/;
 // Spelled-out digits ("null eins sieben null …"): 7 or more digit words in a row.
 const DIGIT_WORD = "(?:null|eins|zwei|zwo|drei|vier|fünf|fuenf|sechs|sieben|acht|neun)";
-const SPELLED_PHONE = new RegExp(String.raw`\b${DIGIT_WORD}(?:[\s,;.\-/]+${DIGIT_WORD}){6,}\b`, "i");
+// Mixed spelled-out words and digits ("null eins 7 0 …") count too, with at least two words.
+const DIGIT_TOKEN = String.raw`(?:${DIGIT_WORD}|\d)`;
+const SPELLED_PHONE = new RegExp(String.raw`\b${DIGIT_TOKEN}(?:[\s,;.\-/]+${DIGIT_TOKEN}){6,}\b`, "i");
+const DIGIT_WORD_RE = new RegExp(String.raw`\b${DIGIT_WORD}\b`, "gi");
 
 // Not phone numbers: dates, clock times, prices (removed before the phone patterns run).
 const NON_PHONE = [
@@ -113,7 +121,7 @@ function phoneIn(text: string): string | null {
     if (n >= 9 && n <= 15 && !plzList) return candidate;
   }
   const spelled = SPELLED_PHONE.exec(t);
-  return spelled ? spelled[0] : null;
+  return spelled && (spelled[0].match(DIGIT_WORD_RE) ?? []).length >= 2 ? spelled[0] : null;
 }
 
 /** All contact details found in `text` (empty array = clean). */
@@ -121,12 +129,15 @@ export function findContactDetails(text: string | null | undefined): ContactFind
   if (!text) return [];
   const normalized = normalizeForLint(text);
   const found: ContactFinding[] = [];
-  const email = EMAIL.exec(normalized) ?? SPELLED_EMAIL.exec(normalized);
+  const email = EMAIL.exec(normalized) ?? SPELLED_EMAIL.exec(normalized) ?? SPACED_EMAIL.exec(normalized);
   if (email) found.push({ kind: "email", match: email[0].trim() });
-  const withoutEmails = normalized.replace(new RegExp(EMAIL.source, "gi"), " ").replace(new RegExp(SPELLED_EMAIL.source, "gi"), " ");
+  const withoutEmails = normalized
+    .replace(new RegExp(EMAIL.source, "gi"), " ")
+    .replace(new RegExp(SPELLED_EMAIL.source, "gi"), " ")
+    .replace(new RegExp(SPACED_EMAIL.source, "gi"), " ");
   const handle = HANDLE.exec(withoutEmails);
   if (handle) found.push({ kind: "handle", match: handle[0].trim() });
-  const url = URL_PATTERN.exec(withoutEmails) ?? DOMAIN.exec(withoutEmails);
+  const url = URL_PATTERN.exec(withoutEmails) ?? DOMAIN.exec(withoutEmails) ?? SPACED_DOMAIN.exec(withoutEmails);
   if (url) found.push({ kind: "url", match: url[0] });
   const messenger = MESSENGER.exec(normalized) ?? MESSENGER_IG.exec(normalized) ?? MESSENGER_SIGNAL.exec(normalized);
   if (messenger) found.push({ kind: "messenger", match: messenger[0].trim() });
