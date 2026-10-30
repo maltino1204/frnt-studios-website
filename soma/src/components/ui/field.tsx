@@ -1,4 +1,4 @@
-import { CircleAlert, ChevronDown } from "lucide-react";
+import { Check, CircleAlert, ChevronDown } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { useId } from "react";
 import { cn } from "@/lib/cn";
@@ -143,7 +143,7 @@ export function Select({
   );
 }
 
-/** 20px checkbox, 2px radius, ink fill when checked. */
+/** 20px checkbox, 2px radius, ink fill when checked; the tick is an icon over the native input. */
 export function Checkbox({
   label,
   description,
@@ -157,13 +157,21 @@ export function Checkbox({
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       <label htmlFor={id} className="flex min-h-touch cursor-pointer items-start gap-3 py-2.5">
-        <input
-          id={id}
-          type="checkbox"
-          className="mt-0.5 size-5 shrink-0 appearance-none rounded-xs border border-line-strong bg-surface-raised bg-center bg-no-repeat transition-colors checked:border-ink checked:bg-ink checked:bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22><path d=%22M5 10.5l3.2 3L15 6.5%22 fill=%22none%22 stroke=%22%23F5F2EC%22 stroke-width=%221.8%22/></svg>')] aria-invalid:border-danger"
-          aria-invalid={error ? true : undefined}
-          {...props}
-        />
+        <span className="relative mt-0.5 inline-flex size-5 shrink-0">
+          <input
+            id={id}
+            type="checkbox"
+            className="peer size-5 appearance-none rounded-xs border border-line-strong bg-surface-raised transition-colors checked:border-ink checked:bg-ink aria-invalid:border-danger"
+            aria-invalid={error ? true : undefined}
+            {...props}
+          />
+          <Check
+            aria-hidden
+            size={14}
+            strokeWidth={2}
+            className="pointer-events-none absolute top-[3px] left-[3px] text-ink-inverse opacity-0 transition-opacity peer-checked:opacity-100"
+          />
+        </span>
         <span className="flex flex-col gap-0.5">
           <span className="type-body-s text-ink">{label}</span>
           {description ? <span className="type-caption text-ink-muted">{description}</span> : null}

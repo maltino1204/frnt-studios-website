@@ -1,0 +1,127 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Notice } from "@/components/ui/feedback";
+import { ContentPage, ContentSection } from "@/components/site/discovery-content-page";
+import { hoursLabel, policyRows } from "@/components/site/discovery-copy";
+import { BRAND_NAME } from "@/lib/brand";
+import { formatTime, TIME_ZONE } from "@/lib/format";
+import { routes } from "@/lib/routes";
+import { getPublicTerms } from "@/server/services/site-ext";
+
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: "Stornierung: Bedingungen und Fristen",
+  description: `So stornieren Sie bei ${BRAND_NAME}: Fristen und Gebühren auf einen Blick. Offene Anfragen und Absagen durch den Profi sind immer kostenlos.`,
+  alternates: { canonical: "/stornierung" },
+};
+
+const weekday = new Intl.DateTimeFormat("de-DE", { timeZone: TIME_ZONE, weekday: "long" });
+
+/** An illustrative appointment (a Friday, 18:30 Berlin time) to turn the tiers into concrete deadlines. */
+const EXAMPLE_START = new Date("2026-11-13T17:30:00Z");
+const at = (d: Date) => `${weekday.format(d)}, ${formatTime(d)} Uhr`;
+
+export default async function StornierungPage() {
+  const terms = await getPublicTerms();
+  const policy = terms.cancellationPolicy;
+  const rows = policyRows(policy);
+  const tiers = [...policy.tiers].sort((a, b) => b.minHoursBefore - a.minHoursBefore);
+  const sections = [
+    { id: "fristen", title: "Fristen und Gebühren" },
+    { id: "beispiel", title: "Ein Beispiel" },
+    { id: "sonderfaelle", title: "Immer kostenlos" },
+    { id: "so-gehts", title: "So stornieren Sie" },
+    { id: "widerruf", title: "Widerrufsrecht" },
+  ];
+
+  return (
+    <ContentPage
+      overline="Stornierung"
+      crumb="Stornierung"
+      path="/stornierung"
+      title={
+        <>
+          Stornieren, <em>ohne Kleingedrucktes.</em>
+        </>
+      }
+      lead={`Pläne ändern sich. Deshalb sehen Sie bei jeder Buchung die genaue Frist mit Datum und Uhrzeit – und hier, wie ${BRAND_NAME} grundsätzlich rechnet.`}
+      sections={sections}
+    >
+      <ContentSection id="fristen" title="Fristen und Gebühren">
+        <p>Maßgeblich ist der Zeitpunkt, zu dem Sie in Ihrem Konto stornieren. Die Gebühr bezieht sich auf den Gesamtpreis der Buchung, also Behandlung und Anfahrt.</p>
+        <dl className="mt-2 border-t border-line">
+          {rows.map((r) => (
+            <div key={r.when} className="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-line py-4">
+              <dt className="type-body text-ink">{r.when}</dt>
+              <dd className={r.feePercent <= 0 ? "type-label font-semibold text-success num" : "type-label font-semibold text-ink num"}>{r.fee}</dd>
+            </div>
+          ))}
+          <div className="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-line py-4">
+            <dt className="type-body text-ink">Nicht angetroffen (ohne Absage)</dt>
+            <dd className="type-label font-semibold text-ink num">{policy.noShowFeePercent}&nbsp;% des Preises</dd>
+          </div>
+        </dl>
+      </ContentSection>
+
+      <ContentSection id="beispiel" title="Ein Beispiel">
+        <p>
+          Ihr Termin ist am <strong>{at(EXAMPLE_START)}</strong>.
+        </p>
+        <ul>
+          {tiers.map((t, i) => {
+            const until = new Date(EXAMPLE_START.getTime() - t.minHoursBefore * 3_600_000);
+            const prev = tiers[i - 1];
+            if (t.minHoursBefore <= 0) {
+              return (
+                <li key={i}>
+                  Ab {prev ? at(new Date(EXAMPLE_START.getTime() - prev.minHoursBefore * 3_600_000)) : "der Buchung"}: {t.feePercent}&nbsp;% des Preises.
+                </li>
+              );
+            }
+            return (
+              <li key={i}>
+                Bis {at(until)}: {t.feePercent <= 0 ? "kostenlos" : `${t.feePercent} % des Preises`}.
+              </li>
+            );
+          })}
+        </ul>
+        <p>Diese Fristen stehen bei jeder Buchung schon vor dem Bezahlen in der Preisübersicht und später in der Buchungsbestätigung.</p>
+      </ContentSection>
+
+      <ContentSection id="sonderfaelle" title="Immer kostenlos">
+        <ul>
+          <li>
+            <strong>Offene Anfragen:</strong> Solange ein Profi Ihre Anfrage noch nicht bestätigt hat, stornieren Sie kostenlos. Ihre Karte wird erst nach der Zusage belastet.
+          </li>
+          <li>
+            <strong>Absage durch den Profi:</strong> Sagt Ihr Profi ab, erhalten Sie den vollen Betrag zurück.
+          </li>
+          <li>
+            <strong>Reservierung:</strong> Brechen Sie die Zahlung ab, wird der Termin nach {terms.holdMinutes} Minuten wieder freigegeben. Es entstehen keine Kosten.
+          </li>
+          <li>
+            <strong>Guthaben:</strong> Eingelöstes Guthaben wird bei einer Stornierung anteilig wieder gutgeschrieben.
+          </li>
+        </ul>
+      </ContentSection>
+
+      <ContentSection id="so-gehts" title="So stornieren Sie">
+        <p>
+          Öffnen Sie <Link href={routes.account.bookings()}>Ihre Termine</Link>, wählen Sie die Buchung und tippen Sie auf „Termin stornieren“. Bevor Sie bestätigen, sehen Sie, was eine
+          Stornierung in diesem Moment kostet. Die Erstattung geht auf das Zahlungsmittel, mit dem Sie bezahlt haben.
+        </p>
+        <p>
+          Eine Umbuchung ist derzeit eine Stornierung mit neuer Buchung. Stornieren Sie früher als {hoursLabel(tiers[0]?.minHoursBefore ?? 24)} vor dem Termin, bleibt das kostenlos.
+        </p>
+      </ContentSection>
+
+      <ContentSection id="widerruf" title="Widerrufsrecht">
+        <Notice kind="warning" title="Rechtliche Prüfung erforderlich">
+          Das Verhältnis dieser Gebühren zum gesetzlichen Widerrufsrecht bei online gebuchten Dienstleistungen (§§ 312g, 356 BGB) wird vor dem Start anwaltlich geprüft. Die Widerrufsbelehrung
+          folgt in den <Link href={routes.terms()}>AGB</Link>.
+        </Notice>
+      </ContentSection>
+    </ContentPage>
+  );
+}

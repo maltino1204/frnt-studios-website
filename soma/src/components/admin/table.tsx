@@ -1,0 +1,94 @@
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PaginationLabel } from "@/components/ui/data";
+import { Icon } from "@/components/ui/icon";
+import { cn } from "@/lib/cn";
+
+/**
+ * Class string for the kit <Table dense>: no wrapping (tables scroll
+ * horizontally on small screens) and a fixed first column below lg.
+ */
+export const adminTable = cn(
+  "[&_td]:whitespace-nowrap",
+  "max-lg:[&_td:first-child]:sticky max-lg:[&_td:first-child]:left-0 max-lg:[&_td:first-child]:z-[1] max-lg:[&_td:first-child]:bg-surface-raised",
+  "max-lg:[&_th:first-child]:sticky max-lg:[&_th:first-child]:left-0 max-lg:[&_th:first-child]:z-[1] max-lg:[&_th:first-child]:bg-surface-raised",
+  "max-lg:[&_td:first-child]:shadow-[1px_0_0_var(--color-line)] max-lg:[&_th:first-child]:shadow-[1px_0_0_var(--color-line)]",
+  "max-lg:[&_tbody_tr:hover_td:first-child]:bg-surface-sunken",
+);
+
+/** Right-aligned numeric header/cell helpers. */
+export const numCell = "text-right num";
+
+/** Builds a URL keeping the current filters and overriding some (undefined/"" removes). */
+export function hrefWith(base: string, current: Record<string, string | undefined>, patch: Record<string, string | number | undefined | null>): string {
+  const sp = new URLSearchParams();
+  for (const [k, v] of Object.entries({ ...current, ...patch })) {
+    if (v !== undefined && v !== null && v !== "") sp.set(k, String(v));
+  }
+  const s = sp.toString();
+  return s ? `${base}?${s}` : base;
+}
+
+/** Pagination row: "1–25 von 312" plus previous/next links. */
+export function TablePager({
+  page,
+  pageSize,
+  total,
+  href,
+  className,
+}: {
+  page: number;
+  pageSize: number;
+  total: number;
+  href: (page: number) => string;
+  className?: string;
+}) {
+  const from = total === 0 ? 0 : (page - 1) * pageSize + 1;
+  const to = Math.min(total, page * pageSize);
+  const last = Math.max(1, Math.ceil(total / pageSize));
+  const link = "inline-flex h-control-s items-center gap-1 rounded-xs border border-line-strong bg-surface-raised px-2.5 type-label-s text-ink hover:border-ink";
+  const off = "inline-flex h-control-s items-center gap-1 rounded-xs border border-line px-2.5 type-label-s text-ink-disabled";
+  return (
+    <nav aria-label="Seiten" className={cn("flex items-center justify-between gap-4 pt-3", className)}>
+      <PaginationLabel from={from} to={to} total={total} />
+      {last > 1 ? (
+        <div className="flex items-center gap-2">
+          {page > 1 ? (
+            <Link href={href(page - 1)} className={link} rel="prev">
+              <Icon icon={ChevronLeft} size={16} /> Zurück
+            </Link>
+          ) : (
+            <span className={off} aria-disabled>
+              <Icon icon={ChevronLeft} size={16} /> Zurück
+            </span>
+          )}
+          <span className="type-caption text-ink-muted num">
+            Seite {page} von {last}
+          </span>
+          {page < last ? (
+            <Link href={href(page + 1)} className={link} rel="next">
+              Weiter <Icon icon={ChevronRight} size={16} />
+            </Link>
+          ) : (
+            <span className={off} aria-disabled>
+              Weiter <Icon icon={ChevronRight} size={16} />
+            </span>
+          )}
+        </div>
+      ) : null}
+    </nav>
+  );
+}
+
+/** Primary cell content: a link in ink with an underline on hover, plus an optional muted second line. */
+export function CellLink({ href, children, sub }: { href: string; children: ReactNode; sub?: ReactNode }) {
+  return (
+    <span className="flex flex-col">
+      <Link href={href} className="w-fit rounded-xs font-[520] text-ink underline-offset-4 hover:underline">
+        {children}
+      </Link>
+      {sub ? <span className="type-caption text-ink-muted">{sub}</span> : null}
+    </span>
+  );
+}

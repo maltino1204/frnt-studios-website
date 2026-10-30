@@ -1,0 +1,746 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { ChevronDown, ChevronLeft, ChevronRight, CircleAlert, LocateFixed } from "lucide-react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useTransition,
+  type FormEvent,
+  type ReactNode,
+  type RefObject,
+} from "react";
+import { DateStrip, type DateCell } from "@/components/ui/booking";
+import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chip";
+import { Input } from "@/components/ui/field";
+import { SubmitButton } from "@/components/ui/form";
+import { Icon } from "@/components/ui/icon";
+import { Photo } from "@/components/ui/photo";
+import { Sheet } from "@/components/ui/sheet";
+import { Spinner } from "@/components/ui/spinner";
+import { cn } from "@/lib/cn";
+import { berlinDateKey, formatDayShort } from "@/lib/format";
+import { images } from "@/lib/images";
+import { routes, type SearchParams } from "@/lib/routes";
+import { joinWaitlistAction } from "@/server/actions/booking";
+import { lookupPostalCodeAction, nearestPostalCodeAction } from "@/server/actions/site-ext";
+import { initialActionState } from "@/server/actions/types";
+import type { PostalCodeDTO } from "@/server/dto";
+import { durationsLabel, fromPrice, type EntryCategory, type EntryService } from "./discovery-copy";
+
+/* ------------------------------------------------------------------------ */
+/* Types & helpers                                                          */
+/* ------------------------------------------------------------------------ */
+type TimeWindow = NonNullable<SearchParams["zeit"]>;
+type WhenMode = "asap" | "today" | "tomorrow" | "date";
+type When = { mode: WhenMode; date: string | null; window: TimeWindow | null };
+type Loc =
+  | { status: "idle" }
+  | { status: "checking" }
+  | { status: "ok"; data: PostalCodeDTO }
+  | { status: "outside"; data: PostalCodeDTO }
+  | { status: "unknown" }
+  | { status: "error"; message: string };
+
+const STORAGE_KEY = "soma:last-plz";
+const PICK_EVENT = "soma:booking-entry:set";
+const HORIZON_DAYS = 60;
+
+const WINDOWS: Array<{ value: TimeWindow; label: string; range: string }> = [
+  { value: "morgens", label: "Morgens", range: "7–12" },
+  { value: "mittags", label: "Nachmittags", range: "12–17" },
+  { value: "abends", label: "Abends", range: "17–22" },
+];
+
+function addDays(key: string, n: number): string {
+  const d = new Date(`${key}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function whenLabel(w: When): string {
+  const day =
+    w.mode === "asap" ? "So bald wie möglich" : w.mode === "today" ? "Heute" : w.mode === "tomorrow" ? "Morgen" : w.date ? formatDayShort(`${w.date}T12:00:00Z`) : "Datum wählen";
+  const win = w.window ? WINDOWS.find((x) => x.value === w.window)?.label : null;
+  return win ? `${day} · ${win}` : day;
+}
+
+function whenDate(w: When): string | undefined {
+  const today = berlinDateKey();
+  if (w.mode === "today") return today;
+  if (w.mode === "tomorrow") return addDays(today, 1);
+  if (w.mode === "date") return w.date ?? undefined;
+  return undefined;
+}
+
+function readStoredPlz(): string | null {
+  try {
+    const v = window.localStorage.getItem(STORAGE_KEY);
+    return v && /^\d{5}$/.test(v) ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+function storePlz(plz: string) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, plz);
+  } catch {
+    /* private mode / blocked storage: remembering is a convenience only */
+  }
+}
+
+function useIsDesktop(): boolean {
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 64rem)");
+    const update = () => setDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return desktop;
+}
+
+/** Lets service lists elsewhere on the page preselect the entry ("Massage wählen"). */
+export function pickInBookingEntry(detail: { categorySlug: string; serviceId?: string | null }) {
+  window.dispatchEvent(new CustomEvent(PICK_EVENT, { detail }));
+}
+
+/* ------------------------------------------------------------------------ */
+/* Popover (desktop pickers, anchored under their segment)                  */
+/* ------------------------------------------------------------------------ */
+function Popover({
+  open,
+  onClose,
+  anchorRef,
+  label,
+  children,
+  className,
+}: {
+  open: boolean;
+  onClose: () => void;
+  anchorRef: RefObject<HTMLElement | null>;
+  label: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const inside = (t: EventTarget | null) => !!t && (ref.current?.contains(t as Node) || anchorRef.current?.contains(t as Node));
+    const onDown = (e: PointerEvent) => {
+      if (!inside(e.target)) onClose();
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        anchorRef.current?.focus();
+      }
+    };
+    const onFocus = (e: FocusEvent) => {
+      if (!inside(e.target)) onClose();
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("focusin", onFocus);
+    const raf = requestAnimationFrame(() => {
+      ref.current
+        ?.querySelector<HTMLElement>("[aria-pressed='true'], [aria-checked='true'], button:not([disabled]), [href], input")
+        ?.focus({ preventScroll: true });
+    });
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("focusin", onFocus);
+    };
+  }, [open, onClose, anchorRef]);
+  if (!open) return null;
+  return (
+    <div
+      ref={ref}
+      role="dialog"
+      aria-label={label}
+      className={cn(
+        "absolute top-[calc(100%+0.5rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] flex-col overflow-hidden rounded-xs border border-line bg-surface-raised text-ink shadow-float animate-fade-in",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Was? picker: categories → services                                       */
+/* ------------------------------------------------------------------------ */
+function WasPicker({
+  catalog,
+  categorySlug,
+  serviceId,
+  onPick,
+}: {
+  catalog: EntryCategory[];
+  categorySlug: string | null;
+  serviceId: string | null;
+  onPick: (categorySlug: string | null, serviceId: string | null) => void;
+}) {
+  const [view, setView] = useState<string | null>(categorySlug);
+  const current = catalog.find((c) => c.slug === view) ?? null;
+
+  if (current) {
+    return (
+      <div className="flex flex-col">
+        <button
+          type="button"
+          onClick={() => setView(null)}
+          className="-mx-2 mb-2 inline-flex min-h-touch items-center gap-1.5 self-start rounded-xs px-2 type-label-s text-ink-muted hover:text-ink"
+        >
+          <Icon icon={ChevronLeft} size={16} />
+          Alle Behandlungen
+        </button>
+        <ul className="flex flex-col border-t border-line">
+          <li>
+            <PickRow
+              selected={categorySlug === current.slug && !serviceId}
+              onClick={() => onPick(current.slug, null)}
+              title={`${current.name}: alle Leistungen`}
+              meta={current.tagline ?? undefined}
+            />
+          </li>
+          {current.services.map((s) => (
+            <li key={s.id}>
+              <PickRow selected={serviceId === s.id} onClick={() => onPick(current.slug, s.id)} title={s.name} meta={serviceMeta(s)} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  return (
+    <ul className="flex flex-col">
+      <li>
+        <PickRow selected={!categorySlug} onClick={() => onPick(null, null)} title="Alle Behandlungen" meta="Alle verfügbaren Profis in Ihrer Nähe" />
+      </li>
+      {catalog.map((c) => (
+        <li key={c.slug}>
+          <button
+            type="button"
+            onClick={() => setView(c.slug)}
+            aria-pressed={categorySlug === c.slug}
+            className="group flex w-full items-center gap-4 border-b border-line py-3 text-left transition-colors duration-fast hover:bg-surface-sunken/60"
+          >
+            <Photo
+              src={c.imagePath ?? images.category(c.slug)}
+              alt=""
+              tone={c.slug}
+              sizes="40px"
+              className="aspect-[4/5] w-10 shrink-0"
+            />
+            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <span className={cn("type-heading-s", categorySlug === c.slug && "underline decoration-1 underline-offset-4")}>{c.name}</span>
+              {c.tagline ? <span className="type-caption text-ink-muted">{c.tagline}</span> : null}
+            </span>
+            <Icon icon={ChevronRight} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function serviceMeta(s: EntryService): string {
+  const p = fromPrice(s.fromCents);
+  return [durationsLabel(s.durations), p].filter(Boolean).join(" · ");
+}
+
+function PickRow({ selected, onClick, title, meta }: { selected: boolean; onClick: () => void; title: string; meta?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={selected}
+      className="flex min-h-14 w-full items-center justify-between gap-4 border-b border-line py-3 text-left transition-colors duration-fast hover:bg-surface-sunken/60"
+    >
+      <span className="flex min-w-0 flex-col gap-0.5">
+        <span className={cn("type-body text-ink", selected && "font-semibold")}>{title}</span>
+        {meta ? <span className="type-caption text-ink-muted num">{meta}</span> : null}
+      </span>
+      <span
+        aria-hidden
+        className={cn(
+          "size-5 shrink-0 rounded-full border transition-[border-width,border-color] duration-fast",
+          selected ? "border-[6px] border-ink" : "border-line-strong",
+        )}
+      />
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Wann? picker: day chips, optional date strip, optional time window       */
+/* ------------------------------------------------------------------------ */
+function WannPicker({ when, onChange }: { when: When; onChange: (w: When) => void }) {
+  const today = berlinDateKey();
+  const days: DateCell[] = Array.from({ length: HORIZON_DAYS }, (_, i) => {
+    const key = addDays(today, i);
+    return { key, date: `${key}T12:00:00Z`, available: true };
+  });
+  const modes: Array<{ value: WhenMode; label: string }> = [
+    { value: "asap", label: "So bald wie möglich" },
+    { value: "today", label: "Heute" },
+    { value: "tomorrow", label: "Morgen" },
+    { value: "date", label: "Datum wählen" },
+  ];
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-3">
+        <p className="type-label-s text-ink-muted" id="wann-tag">
+          Tag
+        </p>
+        <div role="group" aria-labelledby="wann-tag" className="flex flex-wrap gap-2">
+          {modes.map((m) => (
+            <Chip
+              key={m.value}
+              selected={when.mode === m.value}
+              showCheck
+              onClick={() => onChange({ ...when, mode: m.value, date: m.value === "date" ? (when.date ?? addDays(today, 2)) : null })}
+            >
+              {m.label}
+            </Chip>
+          ))}
+        </div>
+        {when.mode === "date" ? (
+          // The strip bleeds by --space-gutter; pin it to the sheet/popover padding (20px).
+          <div className="[--space-gutter:1.25rem]">
+            <DateStrip
+              className="mt-1"
+              days={days}
+              selected={when.date}
+              onSelect={(key) => onChange({ ...when, mode: "date", date: key })}
+              label="Datum wählen"
+            />
+          </div>
+        ) : null}
+      </div>
+      <div className="flex flex-col gap-3">
+        <p className="type-label-s text-ink-muted" id="wann-zeit">
+          Tageszeit <span className="font-normal">(optional)</span>
+        </p>
+        <div role="group" aria-labelledby="wann-zeit" className="flex flex-wrap gap-2">
+          {WINDOWS.map((w) => (
+            <Chip
+              key={w.value}
+              selected={when.window === w.value}
+              showCheck
+              onClick={() => onChange({ ...when, window: when.window === w.value ? null : w.value })}
+            >
+              {w.label}
+              <span className={cn("num", when.window === w.value ? "text-ink-inverse/70" : "text-ink-muted")}>{w.range}</span>
+            </Chip>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Waitlist (unserved PLZ)                                                  */
+/* ------------------------------------------------------------------------ */
+function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySlug: string | null }) {
+  const [state, action] = useActionState(joinWaitlistAction, initialActionState);
+  if (state?.ok) {
+    return (
+      <p className="type-body-s text-ink">
+        Eingetragen. Wir melden uns, sobald Profis in {postalCode} buchbar sind.
+      </p>
+    );
+  }
+  return (
+    <form action={action} noValidate className="flex flex-col gap-3 sm:flex-row sm:items-end">
+      <input type="hidden" name="postalCode" value={postalCode} />
+      {categorySlug ? <input type="hidden" name="categorySlug" value={categorySlug} /> : null}
+      <Input
+        label="E-Mail für die Benachrichtigung"
+        name="email"
+        type="email"
+        autoComplete="email"
+        inputMode="email"
+        placeholder="name@beispiel.de"
+        required
+        className="flex-1"
+        error={state && !state.ok ? (state.fieldErrors?.email ?? state.error) : null}
+      />
+      <SubmitButton variant="secondary" className="h-12 sm:shrink-0">
+        Benachrichtigen
+      </SubmitButton>
+    </form>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Booking entry                                                            */
+/* ------------------------------------------------------------------------ */
+export type BookingEntryProps = {
+  catalog: EntryCategory[];
+  defaultCategory?: string | null;
+  defaultService?: string | null;
+  /** example PLZ for the placeholder, e.g. the city's first PLZ on SEO pages */
+  postalExample?: string;
+  /** "hero": single 72px bar from lg; "compact": stacked rows at every width (side columns) */
+  variant?: "hero" | "compact";
+  id?: string;
+  className?: string;
+};
+
+/**
+ * Hero booking entry (product-spec J1 Screen 1, design-guideline §8 "Search bar").
+ * Wo? (PLZ) · Was? (category → service) · Wann? (day + window) → /suche.
+ */
+export function BookingEntry({
+  catalog,
+  defaultCategory = null,
+  defaultService = null,
+  postalExample = "10115",
+  variant = "hero",
+  id = "termin",
+  className,
+}: BookingEntryProps) {
+  const router = useRouter();
+  const uid = useId();
+  const desktop = useIsDesktop();
+  const bar = variant === "hero";
+
+  const [plz, setPlz] = useState("");
+  const [loc, setLoc] = useState<Loc>({ status: "idle" });
+  const [plzError, setPlzError] = useState<string | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [categorySlug, setCategorySlug] = useState<string | null>(defaultCategory);
+  const [serviceId, setServiceId] = useState<string | null>(defaultService);
+  const [when, setWhen] = useState<When>({ mode: "asap", date: null, window: null });
+  const [open, setOpen] = useState<null | "was" | "wann">(null);
+  const [pending, startTransition] = useTransition();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const wasRef = useRef<HTMLButtonElement>(null);
+  const wannRef = useRef<HTMLButtonElement>(null);
+  const reqRef = useRef(0);
+
+  const category = catalog.find((c) => c.slug === categorySlug) ?? null;
+  const service = category?.services.find((s) => s.id === serviceId) ?? null;
+
+  const resolve = useCallback(async (value: string) => {
+    const req = ++reqRef.current;
+    setLoc({ status: "checking" });
+    const res = await lookupPostalCodeAction(value);
+    if (req !== reqRef.current) return;
+    if (!res.ok) return setLoc({ status: "error", message: res.error });
+    if (!res.data) return setLoc({ status: "unknown" });
+    setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
+  }, []);
+
+  // Remember the last PLZ (convenience only), and honour ?plz= / ?leistung= deep links on static pages.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const fromUrl = q.get("plz");
+    const initial = fromUrl && /^\d{5}$/.test(fromUrl) ? fromUrl : readStoredPlz();
+    if (initial) {
+      setPlz(initial);
+      void resolve(initial);
+    }
+    const svc = q.get("leistung");
+    // `leistung` may be a service slug (shareable URLs) or an id.
+    const match = svc ? catalog.flatMap((c) => c.services.map((x) => ({ c, x }))).find(({ x }) => x.slug === svc || x.id === svc) : null;
+    if (match) {
+      setCategorySlug(match.c.slug);
+      setServiceId(match.x.id);
+    }
+    // Mount only: later prop changes must not overwrite the visitor's choices.
+  }, []);
+
+  // Preselection from service lists on the same page.
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const d = (e as CustomEvent<{ categorySlug: string; serviceId?: string | null }>).detail;
+      if (!d) return;
+      setCategorySlug(d.categorySlug);
+      setServiceId(d.serviceId ?? null);
+      const el = document.getElementById(id);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      if (!/^\d{5}$/.test(inputRef.current?.value ?? "")) inputRef.current?.focus({ preventScroll: true });
+    };
+    window.addEventListener(PICK_EVENT, onPick);
+    return () => window.removeEventListener(PICK_EVENT, onPick);
+  }, [id]);
+
+  const onPlzChange = (raw: string) => {
+    const v = raw.replace(/\D/g, "").slice(0, 5);
+    setPlz(v);
+    setPlzError(null);
+    if (v.length === 5) void resolve(v);
+    else {
+      reqRef.current++;
+      setLoc({ status: "idle" });
+    }
+  };
+
+  const locate = () => {
+    if (!("geolocation" in navigator)) {
+      setLoc({ status: "error", message: "Ihr Gerät gibt keinen Standort frei. Bitte geben Sie Ihre Postleitzahl ein." });
+      return;
+    }
+    setLocating(true);
+    setPlzError(null);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const res = await nearestPostalCodeAction({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setLocating(false);
+        if (!res.ok) return setLoc({ status: "error", message: res.error });
+        if (!res.data) return setLoc({ status: "error", message: "Zu Ihrem Standort kennen wir keine Postleitzahl. Bitte geben Sie sie ein." });
+        reqRef.current++;
+        setPlz(res.data.postalCode);
+        setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
+      },
+      () => {
+        setLocating(false);
+        setLoc({ status: "error", message: "Ihr Standort ist gerade nicht verfügbar. Bitte geben Sie Ihre Postleitzahl ein." });
+      },
+      { timeout: 10_000, maximumAge: 600_000 },
+    );
+  };
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!/^\d{5}$/.test(plz)) {
+      setPlzError(plz ? "Bitte geben Sie eine fünfstellige Postleitzahl ein." : "Bitte geben Sie Ihre Postleitzahl ein.");
+      inputRef.current?.focus();
+      return;
+    }
+    if (loc.status === "unknown") {
+      setPlzError("Diese Postleitzahl kennen wir nicht. Bitte prüfen Sie die Eingabe.");
+      inputRef.current?.focus();
+      return;
+    }
+    storePlz(plz);
+    const href = routes.search({
+      plz,
+      kategorie: categorySlug ?? undefined,
+      leistung: service?.slug ?? undefined,
+      datum: whenDate(when),
+      zeit: when.window ?? undefined,
+    });
+    startTransition(() => router.push(href));
+  };
+
+  const closePicker = useCallback(() => setOpen(null), []);
+  const pick = (cat: string | null, svc: string | null) => {
+    setCategorySlug(cat);
+    setServiceId(svc);
+    setOpen(null);
+  };
+
+  // Return focus to the trigger when a picker closes.
+  const lastOpen = useRef<typeof open>(null);
+  useEffect(() => {
+    const prev = lastOpen.current;
+    lastOpen.current = open;
+    if (prev && !open) (prev === "was" ? wasRef : wannRef).current?.focus({ preventScroll: true });
+  }, [open]);
+
+  const wasValue = service ? service.name : category ? category.name : null;
+  const errorId = `${uid}-plz-error`;
+  const statusId = `${uid}-status`;
+  const invalid = Boolean(plzError) || loc.status === "unknown";
+
+  /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero). */
+  const segment = cn(
+    "relative flex min-w-0 flex-col justify-center border-b border-line px-4",
+    bar ? "h-16 lg:h-full lg:border-b-0 lg:px-5" : "h-16",
+  );
+  const divider = bar ? "lg:before:absolute lg:before:inset-y-5 lg:before:left-0 lg:before:w-px lg:before:bg-line lg:before:content-['']" : "";
+  const caption = "type-caption text-ink-muted";
+  const value = cn("block type-body text-ink", bar && "lg:leading-tight");
+
+  const wasPicker = <WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />;
+  const wannPicker = <WannPicker when={when} onChange={setWhen} />;
+
+  return (
+    <div id={id} className={cn("relative w-full scroll-mt-28", bar && "lg:w-[min(55rem,calc(100vw-2*var(--space-gutter)))]", className)}>
+      <form
+        role="search"
+        aria-label="Termin finden"
+        noValidate
+        onSubmit={submit}
+        className={cn(
+          "flex flex-col rounded-xs border bg-surface-raised text-ink",
+          invalid ? "border-danger" : "border-line-strong",
+          bar && "lg:grid lg:h-[4.5rem] lg:grid-cols-[1.1fr_1.2fr_1fr_auto] lg:items-center",
+        )}
+      >
+        {/* Wo? */}
+        <div className={cn(segment, "pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:pr-2")}>
+          <label htmlFor={`${uid}-plz`} className={caption}>
+            Wo?<span className="sr-only"> Postleitzahl</span>
+          </label>
+          <div className="flex items-center gap-1">
+            <input
+              ref={inputRef}
+              id={`${uid}-plz`}
+              name="plz"
+              value={plz}
+              onChange={(e) => onPlzChange(e.target.value)}
+              inputMode="numeric"
+              autoComplete="postal-code"
+              enterKeyHint="search"
+              maxLength={5}
+              placeholder={`PLZ, z. B. ${postalExample}`}
+              aria-invalid={invalid || undefined}
+              aria-describedby={cn(plzError && errorId, statusId) || undefined}
+              className={cn(
+                "h-7 min-w-0 bg-transparent p-0 type-body num text-ink placeholder:text-ink-muted focus:outline-none",
+                loc.status === "ok" || loc.status === "outside" ? "w-[5.6ch] shrink-0" : "flex-1",
+              )}
+            />
+            {loc.status === "ok" ? (
+              <span className="min-w-0 flex-1 truncate type-body text-ink-muted">· {loc.data.cityName}</span>
+            ) : loc.status === "outside" ? (
+              <span className="min-w-0 flex-1 truncate type-body text-ink-muted">· noch nicht verfügbar</span>
+            ) : loc.status === "checking" ? (
+              <span className="flex flex-1 items-center text-ink-muted">
+                <Spinner size={16} />
+                <span className="sr-only">Postleitzahl wird geprüft</span>
+              </span>
+            ) : null}
+            <button
+              type="button"
+              onClick={locate}
+              aria-label="Standort verwenden"
+              title="Standort verwenden"
+              className="-my-2 inline-flex size-touch shrink-0 items-center justify-center rounded-xs text-ink-muted transition-colors duration-fast hover:bg-surface-sunken hover:text-ink"
+            >
+              {locating ? <Spinner size={20} /> : <Icon icon={LocateFixed} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Was? */}
+        <div className={cn(segment, divider)}>
+          <button
+            ref={wasRef}
+            type="button"
+            onClick={() => setOpen(open === "was" ? null : "was")}
+            aria-haspopup="dialog"
+            aria-expanded={open === "was"}
+            className={cn("-mx-4 flex h-full items-center justify-between gap-3 px-4 text-left transition-colors duration-fast", bar && "lg:-mx-5 lg:px-5 lg:hover:bg-surface-sunken/60")}
+          >
+            <span className="flex min-w-0 flex-col">
+              <span className={caption}>Was?</span>
+              <span className={cn(value, !wasValue && "text-ink-muted")}>{wasValue ?? "Alle Behandlungen"}</span>
+            </span>
+            <Icon icon={ChevronDown} className={cn("shrink-0 text-ink-muted transition-transform duration-base", open === "was" && "rotate-180", bar && "lg:hidden")} />
+          </button>
+          {desktop ? (
+            <Popover open={open === "was"} onClose={closePicker} anchorRef={wasRef} label="Behandlung wählen" className="w-[25rem]">
+              <div className="overflow-y-auto overscroll-contain px-5 py-3">{wasPicker}</div>
+            </Popover>
+          ) : null}
+        </div>
+
+        {/* Wann? */}
+        <div className={cn(segment, divider)}>
+          <button
+            ref={wannRef}
+            type="button"
+            onClick={() => setOpen(open === "wann" ? null : "wann")}
+            aria-haspopup="dialog"
+            aria-expanded={open === "wann"}
+            className={cn("-mx-4 flex h-full items-center justify-between gap-3 px-4 text-left transition-colors duration-fast", bar && "lg:-mx-5 lg:px-5 lg:hover:bg-surface-sunken/60")}
+          >
+            <span className="flex min-w-0 flex-col">
+              <span className={caption}>Wann?</span>
+              <span className={value}>{whenLabel(when)}</span>
+            </span>
+            <Icon icon={ChevronDown} className={cn("shrink-0 text-ink-muted transition-transform duration-base", open === "wann" && "rotate-180", bar && "lg:hidden")} />
+          </button>
+          {desktop ? (
+            <Popover open={open === "wann"} onClose={closePicker} anchorRef={wannRef} label="Zeitpunkt wählen" className="w-[29rem]">
+              <div className="overflow-y-auto overscroll-contain p-5">{wannPicker}</div>
+              <div className="flex justify-end border-t border-line px-5 py-3">
+                <Button
+                  size="s"
+                  onClick={() => {
+                    setOpen(null);
+                    wannRef.current?.focus();
+                  }}
+                >
+                  Fertig
+                </Button>
+              </div>
+            </Popover>
+          ) : null}
+        </div>
+
+        <div className={cn("p-2", bar && "lg:p-0 lg:pr-2.5")}>
+          <Button type="submit" size="l" block loading={pending}>
+            Verfügbare Profis anzeigen
+          </Button>
+        </div>
+      </form>
+
+      {/* Status & messages */}
+      <div id={statusId} aria-live="polite" className="empty:hidden">
+        {plzError ? (
+          <p id={errorId} className="mt-3 flex items-start gap-1.5 type-caption text-danger">
+            <Icon icon={CircleAlert} size={16} className="mt-px shrink-0" />
+            {plzError}
+          </p>
+        ) : loc.status === "unknown" ? (
+          <p className="mt-3 flex items-start gap-1.5 type-caption text-danger">
+            <Icon icon={CircleAlert} size={16} className="mt-px shrink-0" />
+            Diese Postleitzahl kennen wir nicht. Bitte prüfen Sie die Eingabe.
+          </p>
+        ) : loc.status === "error" ? (
+          <p className="mt-3 type-caption text-ink-muted">{loc.message}</p>
+        ) : loc.status === "outside" ? (
+          <div className="mt-4 flex flex-col gap-3 border-l-2 border-ink pl-4">
+            <p className="type-body-s text-ink">
+              In Ihrer Gegend sind wir noch nicht. Sollen wir Ihnen Bescheid geben, sobald es in {loc.data.postalCode} losgeht?
+            </p>
+            <Waitlist postalCode={loc.data.postalCode} categorySlug={categorySlug} />
+          </div>
+        ) : null}
+      </div>
+
+      {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). */}
+      {!desktop && open === "was" ? (
+        <Sheet open onClose={closePicker} title="Behandlung wählen">
+          {wasPicker}
+        </Sheet>
+      ) : null}
+      {!desktop && open === "wann" ? (
+        <Sheet
+          open
+          onClose={closePicker}
+          title="Zeitpunkt wählen"
+          footer={
+            <Button size="l" block onClick={closePicker}>
+              Fertig
+            </Button>
+          }
+        >
+          {wannPicker}
+        </Sheet>
+      ) : null}
+    </div>
+  );
+}
