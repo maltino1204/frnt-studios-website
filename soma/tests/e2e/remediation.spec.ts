@@ -121,7 +121,7 @@ test("short-notice booking is free to cancel within the 15-minute Bedenkzeit (R1
 
   await page.getByRole("button", { name: "Termin stornieren" }).click();
   const dialog = page.getByRole("dialog");
-  await expect(dialog).toContainText(/In den ersten 15\s+Minuten nach der Buchung immer kostenlos stornierbar – noch bis \d{2}:\d{2} Uhr/);
+  await expect(dialog).toContainText(/In den ersten 15\s+Minuten nach der Buchung immer kostenlos stornierbar – noch bis \d{2}:\d{2}\s+Uhr/);
   await dialog.getByRole("button", { name: "Kostenlos stornieren" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Storniert.", { timeout: 15_000 });
   await expect(page.locator("main")).toContainText("Es fallen keine Kosten an.");

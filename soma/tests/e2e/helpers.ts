@@ -66,6 +66,8 @@ export function idFromPath(href: string): string {
 export async function cancelViaUi(page: Page, bookingId: string): Promise<"cancelled" | "not-cancellable"> {
   await page.goto(`/buchung/${bookingId}`);
   const trigger = page.getByRole("button", { name: /Termin stornieren|Anfrage zurückziehen/ });
+  // The action bar is a client component: give it time to hydrate before deciding it is absent.
+  await trigger.first().waitFor({ timeout: 5_000 }).catch(() => {});
   if (!(await trigger.count())) return "not-cancellable";
   await trigger.first().click();
   const dialog = page.getByRole("dialog");
