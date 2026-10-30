@@ -172,7 +172,7 @@ export async function queryMissingCategoryDocuments(tx: Queryable, providerId: s
   const out = new Map<string, string[]>();
   for (const c of cats) {
     const labels = (Array.isArray(c.requiredDocuments) ? c.requiredDocuments : [])
-      .filter((req) => !docs.some((d) => d.kind === req.kind && (d.categoryId === c.id || d.categoryId === null)))
+      .filter((req) => !docs.some((d) => d.kind === req.kind && d.categoryId === c.id))
       .map((req) => req.label);
     if (labels.length) out.set(c.id, labels);
   }
@@ -184,6 +184,8 @@ const ProServiceSchema = z.object({
   durationMinutes: z.number().int().min(15).max(480),
   priceCents: z.number().int().min(500, "Mindestens 5 €.").max(100_000, "Höchstens 1.000 €."),
   isActive: z.boolean().optional().default(true),
+  /** "Leistung hinzufügen": refuse instead of overwriting an existing offering's price (audit-4 A4-2). */
+  createOnly: z.boolean().optional().default(false),
 });
 
 /** Create or update the offering (provider, service, duration). Duration: one of the service's durations or within ±30 % of the default, in 5-minute steps. */
@@ -199,6 +201,16 @@ export async function upsertProService(session: Session, input: z.input<typeof P
     }
     // The trigger provider_services_10_require_documents (migration 0008) stores the offering of an
     // approved provider inactive with awaiting_documents while the category's documents are incomplete.
+    if (v.createOnly) {
+      const [exists] = await tx`
+        select 1 from public.provider_services
+        where provider_id = ${s.userId} and service_id = ${v.serviceId} and duration_minutes = ${v.durationMinutes}`;
+      if (exists) {
+        throw new ServiceError("conflict", "Diese Leistung bietest du mit dieser Dauer schon an. Den Preis änderst du direkt in deiner Liste.", {
+          serviceId: "Schon in deinem Angebot.",
+        });
+      }
+    }
     await tx`
       insert into public.provider_services (provider_id, service_id, duration_minutes, price_cents, is_active)
       values (${s.userId}, ${v.serviceId}, ${v.durationMinutes}, ${v.priceCents}, ${v.isActive})
@@ -323,14 +335,18 @@ const DOCUMENT_KINDS = ["id_document", "business_registration", "qualification",
 export interface DocumentRow {
   id: string; kind: DocumentKind; fileName: string; mimeType: string; status: DocumentDTO["status"]; reviewNote: string | null;
   createdAt: Date; reviewedAt: Date | null; storagePath: string; expiresAt: Date | null;
+  categoryId: string | null; categoryName: string | null;
 }
-export const DOCUMENT_COLUMNS = "id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path, expires_at";
+export const DOCUMENT_COLUMNS =
+  "id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path, expires_at, category_id, " +
+  "(select c.name from public.categories c where c.id = provider_documents.category_id) as category_name";
 
 export function toDocument(r: DocumentRow, now = new Date()): DocumentDTO {
   return {
     id: r.id, kind: r.kind, fileName: r.fileName, mimeType: r.mimeType, status: r.status, reviewNote: r.reviewNote,
     createdAt: r.createdAt.toISOString(), reviewedAt: r.reviewedAt?.toISOString() ?? null, url: `/api/media/${r.storagePath}`,
     expiresAt: r.expiresAt?.toISOString() ?? null, expired: Boolean(r.expiresAt && r.expiresAt.getTime() <= now.getTime()),
+    categoryId: r.categoryId, categoryName: r.categoryName,
   };
 }
 
@@ -430,7 +446,7 @@ export async function deletePortfolioItem(session: Session, itemId: string): Pro
  * Missing required documents: platform-wide (setting base_required_documents)
  * plus each offered category's categories.required_documents. A requirement is
  * met by an upload of that kind that is pending or approved (category-specific
- * requirements need the document's category, or an uncategorised one).
+ * requirements need a document filed for that category — audit-4 A4-3).
  * `requireApproved` → only approved documents count (admin approval check).
  */
 export async function queryMissingDocuments(tx: Queryable, providerId: string, settings: PlatformSettings, requireApproved = false): Promise<MissingDocumentDTO[]> {
@@ -449,7 +465,7 @@ export async function queryMissingDocuments(tx: Queryable, providerId: string, s
   }
   for (const c of cats) {
     for (const req of Array.isArray(c.requiredDocuments) ? c.requiredDocuments : []) {
-      if (!valid.some((d) => d.kind === req.kind && (d.categoryId === c.id || d.categoryId === null))) {
+      if (!valid.some((d) => d.kind === req.kind && d.categoryId === c.id)) {
         missing.push({ categorySlug: c.slug, categoryName: c.name, kind: req.kind, label: req.label });
       }
     }

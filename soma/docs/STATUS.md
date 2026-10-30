@@ -94,15 +94,31 @@ observed. Reports: `docs/qa/audit-1.md` … `docs/qa/audit-4.md`.
 
 | Dimension | Audit 1 | Audit 2 | Audit 3 | Audit 4 |
 |---|---|---|---|---|
-| Visual quality | 8 | 8 | 8 | _pending_ |
-| UX & navigation | 7 | 8 | 9 | _pending_ |
-| Mobile responsiveness | 8 | 8 | 9 | _pending_ |
-| Accessibility | 8 | 9 | 9 | _pending_ |
-| Functional completeness | 8 | 9 | 9 | _pending_ |
-| Booking reliability | 9 | 9 | 9 | _pending_ |
-| Security & permissions | 7 | 7 | 7 | _pending_ |
-| Performance | 6 | 8 | 8 | _pending_ |
-| Trust & conversion | 7 | 8 | 8 | _pending_ |
+| Visual quality | 8 | 8 | 8 | 8 |
+| UX & navigation | 7 | 8 | 9 | 9 |
+| Mobile responsiveness | 8 | 8 | 9 | 9 |
+| Accessibility | 8 | 9 | 9 | 9 |
+| Functional completeness | 8 | 9 | 9 | 9 |
+| Booking reliability | 9 | 9 | 9 | 9 |
+| Security & permissions | 7 | 7 | 7 | **8** |
+| Performance | 6 | 8 | 8 | 8 |
+| Trust & conversion | 7 | 8 | 8 | 8 |
+
+All nine dimensions reach the target of ≥ 8 in audit 4. The auditor's demo verdict: ready to hand to the client, with
+the caveats in `DEMO.md`.
+
+### 4.1 Fixed after audit 4 (verified by tests, not re-scored)
+| Item | Fix | Verified by |
+|---|---|---|
+| **A4-3** (high) uncategorised qualification counted for every category | A category requirement only counts documents filed for that category (migration `0009`, `services/pro.ts`). Offerings unlocked only by an uncategorised document wait again. *Weiteres Dokument → Qualifikationsnachweis* now asks for the category. Pro and admin document lists show it (A4-11) | integration test *"an approved qualification without a category unlocks no category"*; SQL replay of the audit repro → `is_active=false, awaiting=true` |
+| **A4-2** *Leistung hinzufügen* overwrote an existing price | The dialog opens on a service not yet offered. An existing service/duration shows *„Schon in deinem Angebot“* with *Hinzufügen* disabled, and the server refuses it with `createOnly` | integration test + `tests/e2e/audit4.spec.ts` (no longer `test.fail`) |
+| **A4-1** seed-mode bypass of the F2 trigger | `seed_mode()` also checks the session role (inside SECURITY DEFINER triggers `current_user` is the owner) | integration test *"an API session cannot opt into seed mode"* |
+| **A4-7** evening refresh widened Selin's hours | Hours stay as they are. Outside them, the demo appointment moves to her next working start, and `demo:refresh` says when | manual run at 21:40 → *„Samstag, 31. Oktober um 09:00 Uhr“* |
+| **A4-8**, **A4-10**, F14 rest | `DEMO.md`: `APP_URL` for non-default addresses, an instant-booking pro for the guest flow, where the Start-Code is, review count. Support address configurable via `NEXT_PUBLIC_SUPPORT_EMAIL` (`check:launch` blocks the placeholder) | read-through |
+| **A4-12** contact-lint bypasses | Letter-spaced text joined before matching, `AT`/`DOT` in capitals, mail hosts without TLD, comma/middle-dot domains, Skype and Discord | 11 new unit cases + 6 clean-prose cases |
+
+Still open from audit 4 (low): F8 rest (seed chart spike on the seed day, regions total 411 vs 422), F12 (fonts 331 KB),
+F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
 
 ## 5. Production blockers
 
@@ -115,7 +131,7 @@ observed. Reports: `docs/qa/audit-1.md` … `docs/qa/audit-4.md`.
 | 3 | **Stripe Connect** | Platform account and Connect settings; `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`; register `/api/webhooks/stripe`; verify the Payment Element step and Express onboarding; implement SetupIntent + off-session charge for bookings more than 6 days ahead (authorisations expire after 7 days) |
 | 4 | **E-mail / SMS / push** | Resend (or Postmark) key and verified domain, German templates for every notification; SMS provider for reminders and request alerts; Web Push (VAPID) |
 | 5 | **Data and imagery** | Never run the demo seed in production; replace AI-generated portraits (illustrative only) with providers' own photos and commission or license editorial photography; run `npm run images:fetch` or self-host the final set; replace the postal-code centroid dataset with a source licensed for redistribution (see `supabase/seed-data/README.md`) |
-| 6 | **Operations** | Scheduler for `/api/cron/booking-maintenance` (expiry, auto-complete, reminders); monitoring and error tracking; backups; secrets management; per-environment `APP_URL`; edge rate limiting and `TRUSTED_PROXY_HOPS` matching the hosting platform |
+| 6 | **Operations** | Scheduler for `/api/cron/booking-maintenance` (expiry, auto-complete, reminders); monitoring and error tracking; backups; secrets management; per-environment `APP_URL`; a real support address (`NEXT_PUBLIC_SUPPORT_EMAIL`); edge rate limiting and `TRUSTED_PROXY_HOPS` matching the hosting platform |
 | 7 | **Verification operations** | A real document review process and staff; optional KYC vendor; insurance checks |
 
 ## 6. Known limitations and next steps

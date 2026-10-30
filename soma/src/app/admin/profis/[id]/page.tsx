@@ -105,6 +105,9 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                       <td>
                         <span className="flex flex-col py-1.5">
                           <span className="font-[520]">{DOCUMENT_KIND[d.kind]}</span>
+                          {d.kind === "qualification" ? (
+                            <span className="type-caption text-ink-muted">{d.categoryName ? `für ${d.categoryName}` : "ohne Kategorie – zählt für keine Kategorie"}</span>
+                          ) : null}
                           <a href={d.url} target="_blank" rel="noopener" className="inline-flex max-w-56 items-center gap-1 rounded-xs type-caption text-accent underline-offset-4 hover:underline">
                             <Icon icon={FileText} size={14} className="shrink-0" />
                             <span className="truncate">{d.fileName}</span>

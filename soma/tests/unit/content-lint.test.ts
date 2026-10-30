@@ -133,3 +133,33 @@ describe("contact lint residual bypasses (audit-3 F13)", () => {
   });
 });
 
+
+describe("contact lint bypasses from audit-4 (A4-12)", () => {
+  it("catches letter-spaced text, capital AT/DOT, mail hosts without TLD, other separators and more messengers", () => {
+    const cases: Array<[string, string]> = [
+      ["a n n a @ g m x . d e", "email"],
+      ["annaATgmxDOTde", "email"],
+      ["Ruf an: 1 5 1 1 2 3 4 5 6 7 8", "phone"],
+      ["linhnails,de", "url"],
+      ["linhnails·de", "url"],
+      ["Schreib an linh@gmail", "email"],
+      ["linh at gmail", "email"],
+      ["gmail: linh.nails", "email"],
+      ["Am besten über Skype", "messenger"],
+      ["Discord: linhnails", "messenger"],
+      ["h t t p s : / / linhnails", "url"],
+    ];
+    for (const [text, kind] of cases) expect(kinds(text), text).toContain(kind);
+  });
+
+  it("keeps ordinary prose clean", () => {
+    for (const t of [
+      "Danke, es war wunderbar – gern wieder.",
+      "Termine am 1 2 3. und 4. Tag",
+      "Ich habe die Ausbildung in Berlin, dann in Köln gemacht.",
+      "Sanfter Druck, warme Öle · 60 Minuten · ab 89 €",
+      "Ich bin um 9 Uhr da. Bis dann!",
+      "Kurz und gut: Nägel, Lack, fertig.",
+    ]) expect(findContactDetails(t), t).toEqual([]);
+  });
+});

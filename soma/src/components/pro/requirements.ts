@@ -15,6 +15,7 @@ export function buildRequirements(
     label: d.label,
     scope: "Für alle Profis",
     categoryId: null,
+    categoryName: null,
     missing: missing.some((m) => m.categorySlug === null && m.kind === d.kind),
   }));
   for (const c of offered) {
@@ -25,6 +26,7 @@ export function buildRequirements(
         label: d.label,
         scope: `Für ${c.name}`,
         categoryId: c.id,
+        categoryName: c.name,
         missing: missing.some((m) => m.categorySlug === c.slug && m.kind === d.kind),
       });
     }

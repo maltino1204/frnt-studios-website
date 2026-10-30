@@ -25,10 +25,20 @@ function loadEnvLocal(): void {
 async function main(): Promise<void> {
   loadEnvLocal();
   const started = Date.now();
-  await runDemoSeed();
+  const { demoAppointmentAt } = await runDemoSeed();
   const m = await runBookingMaintenance();
   console.log(`[demo:refresh] Wartung: ${JSON.stringify(m)}`);
-  console.log(`[demo:refresh] Fertig in ${Math.round((Date.now() - started) / 1000)} s – der Demo-Termin von testkunde mit testkunde-b2b beginnt in etwa 35 Minuten.`);
+  const secs = Math.round((Date.now() - started) / 1000);
+  const minutes = demoAppointmentAt ? Math.round((demoAppointmentAt.getTime() - Date.now()) / 60_000) : null;
+  if (minutes !== null && minutes <= 45) {
+    console.log(`[demo:refresh] Fertig in ${secs} s – der Demo-Termin von testkunde mit testkunde-b2b beginnt in etwa ${minutes} Minuten.`);
+  } else {
+    const when = demoAppointmentAt
+      ? new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).format(demoAppointmentAt)
+      : "–";
+    console.log(`[demo:refresh] Fertig in ${secs} s. Es ist gerade außerhalb von Selins Arbeitszeit, deshalb liegt der Demo-Termin am ${when} Uhr.`);
+    console.log("[demo:refresh] Für den Live-Start mit Start-Code: demo:refresh während Selins Arbeitszeit ausführen (Mo–Sa zwischen 8:30 und 18 Uhr).");
+  }
 }
 
 main()

@@ -66,6 +66,41 @@ describe("category qualification gate (audit-3 F2)", () => {
   });
 });
 
+describe("category qualification gate, audit-4 follow-ups", () => {
+  it("an approved qualification without a category unlocks no category (A4-3)", async () => {
+    const pro = await createProvider();
+    for (const kind of ["id_document", "business_registration", "insurance"]) await approvedDoc(pro.providerId, kind);
+    await approvedDoc(pro.providerId, "qualification", null);
+    const saved = await upsertProService(pro.session, { serviceId: await serviceId("herrenhaarschnitt"), durationMinutes: 30, priceCents: 4500 });
+    expect(saved).toMatchObject({ isActive: false, awaitingDocuments: true, missingDocuments: ["Meisterbrief oder Eintragung in die Handwerksrolle"] });
+    const [slug] = await sql()<{ slug: string }[]>`select slug from public.providers where id = ${pro.providerId}`;
+    expect((await getProviderProfile(slug.slug))?.verifiedQualifications.map((q) => q.categorySlug)).not.toContain("haare-styling");
+  });
+
+  it("an API session cannot opt into seed mode to skip the gate (A4-1)", async () => {
+    const pro = await createProvider();
+    const saved = await upsertProService(pro.session, { serviceId: await serviceId("wimpernlifting"), durationMinutes: 60, priceCents: 5900 });
+    expect(saved.awaitingDocuments).toBe(true);
+    await withUser(pro.providerId, async (tx) => {
+      await tx`select set_config('soma.seed_mode', 'on', true)`;
+      await tx`update public.provider_services set is_active = true where id = ${saved.providerServiceId}`;
+    }).catch(() => undefined);
+    const [row] = await sql()<{ isActive: boolean }[]>`select is_active from public.provider_services where id = ${saved.providerServiceId}`;
+    expect(row.isActive).toBe(false);
+  });
+
+  it("'Leistung hinzufügen' refuses an offering that already exists instead of overwriting its price (A4-2)", async () => {
+    const pro = await createProvider();
+    const [existing] = await sql()<{ serviceId: string; durationMinutes: number; priceCents: number }[]>`
+      select service_id, duration_minutes, price_cents from public.provider_services where id = ${pro.offerings.entspannungsmassage}`;
+    await expect(
+      upsertProService(pro.session, { serviceId: existing.serviceId, durationMinutes: existing.durationMinutes, priceCents: existing.priceCents + 1000, createOnly: true }),
+    ).rejects.toMatchObject({ code: "conflict" });
+    const [after] = await sql()<{ priceCents: number }[]>`select price_cents from public.provider_services where id = ${pro.offerings.entspannungsmassage}`;
+    expect(after.priceCents).toBe(existing.priceCents);
+  });
+});
+
 describe("rebook suggestions (audit-3 F11)", () => {
   it("returns the last completed booking per provider even when newer bookings were cancelled", async () => {
     const proA = await createProvider();

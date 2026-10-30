@@ -22,7 +22,7 @@ import { haversineKm, roundKm } from "../../src/server/domain/geo";
 import { computeRespondBy } from "../../src/server/domain/booking-state";
 import { computeCancellation, computeNoShowFee, parsePolicy } from "../../src/server/domain/cancellation";
 import { computeTravelFee, splitRetainedAmounts } from "../../src/server/domain/pricing";
-import { addDays, formatTimeOfDay, isoWeekdayOf, localDateOf, parseTimeOfDay, toWallClock, wallTimeToInstant } from "../../src/server/domain/tz";
+import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, toWallClock, wallTimeToInstant } from "../../src/server/domain/tz";
 import { DEFAULT_CANCELLATION_POLICY, PLATFORM_SETTINGS } from "./lib/base-seed-data";
 import {
   CUSTOMERS, PROVIDERS, REGULAR_VAT_PROVIDERS, REVIEWS, reviewFits, SEARCH_POSTAL_CODES, SELIN_REVIEWS,
@@ -460,7 +460,9 @@ function allocatePortfolio(pool: Map<string, PortfolioImage[]>, demands: Portfol
   return { picks, free };
 }
 
-export async function runDemoSeed(): Promise<void> {
+/** Returns the start of the testkunde ↔ testkunde-b2b demo appointment. */
+export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }> {
+  let demoAppointmentAt: Date | null = null;
   if (process.env.DEMO_MODE !== "true") {
     throw new Error("Abgebrochen: Die Demo-Daten werden nur mit DEMO_MODE=true geladen (niemals in Produktion).");
   }
@@ -868,33 +870,32 @@ export async function runDemoSeed(): Promise<void> {
         upcomingAt(providerKey, customerKey, daysAhead, daysAhead + 9, status);
 
       // testkunde ↔ testkunde-b2b: confirmed appointment starting ≈ 35 min after the seed (audit-3 F5), so
-      // "Termin starten" is available a few minutes after `npm run demo:refresh`. Selin's weekly window for
-      // that weekday is widened when the appointment falls outside it.
+      // "Termin starten" is available a few minutes after `npm run demo:refresh`. Selin's weekly hours stay as
+      // they are (audit-4 A4-7): outside them the appointment moves to the start of her next working window.
       {
         const off = selinProv.offerings[0];
-        const startsAt = new Date(Math.ceil((now.getTime() + 35 * 60_000) / (5 * 60_000)) * 5 * 60_000);
-        const w = toWallClock(startsAt);
-        const endMin = Math.min(24 * 60, w.minutes + off.duration);
-        const windows = await tx<{ id: string; start_time: string; end_time: string }[]>`
-          select id, start_time::text, end_time::text from public.provider_weekly_hours where provider_id = ${selinProv.id} and weekday = ${w.isoWeekday} order by start_time`;
-        const covered = windows.some((x) => parseTimeOfDay(x.start_time) <= w.minutes && parseTimeOfDay(x.end_time) >= endMin);
-        if (!covered) {
-          const from = Math.floor(w.minutes / 30) * 30;
-          const to = Math.min(24 * 60, Math.ceil(endMin / 30) * 30);
-          const near = windows.find((x) => parseTimeOfDay(x.start_time) <= to && parseTimeOfDay(x.end_time) >= from) ?? windows[0];
-          if (near) {
-            const s = Math.min(parseTimeOfDay(near.start_time), from);
-            const e = Math.max(parseTimeOfDay(near.end_time), to);
-            await tx`delete from public.provider_weekly_hours where provider_id = ${selinProv.id} and weekday = ${w.isoWeekday}
-                       and tsrange(date '2000-01-01' + start_time, date '2000-01-01' + end_time, '[)') && tsrange(date '2000-01-01' + ${formatTimeOfDay(s)}::time, date '2000-01-01' + ${formatTimeOfDay(e)}::time, '[)')
-                       and id <> ${near.id}`;
-            await tx`update public.provider_weekly_hours set start_time = ${formatTimeOfDay(s)}, end_time = ${formatTimeOfDay(e)} where id = ${near.id}`;
-          } else {
-            await tx`insert into public.provider_weekly_hours (provider_id, weekday, start_time, end_time, created_at)
-                     values (${selinProv.id}, ${w.isoWeekday}, ${formatTimeOfDay(from)}, ${formatTimeOfDay(to)}, ${selinProv.approvedAt ?? ago(30)})`;
+        const soon = new Date(Math.ceil((now.getTime() + 35 * 60_000) / (5 * 60_000)) * 5 * 60_000);
+        const hours = await tx<{ weekday: number; start_time: string; end_time: string }[]>`
+          select weekday, start_time::text, end_time::text from public.provider_weekly_hours where provider_id = ${selinProv.id} order by weekday, start_time`;
+        const fits = (date: string, startMin: number) =>
+          hours.some((x) => x.weekday === isoWeekdayOf(date) && parseTimeOfDay(x.start_time) <= startMin && parseTimeOfDay(x.end_time) >= startMin + off.duration);
+        let startsAt = soon;
+        const w = toWallClock(soon);
+        if (!fits(w.date, w.minutes)) {
+          let next: Date | null = null;
+          for (let d = 0; d <= 7 && !next; d++) {
+            const date = addDays(w.date, d);
+            for (const x of hours.filter((h) => h.weekday === isoWeekdayOf(date))) {
+              const from = Math.ceil(Math.max(parseTimeOfDay(x.start_time), d === 0 ? w.minutes : 0) / 5) * 5;
+              if (from + off.duration <= parseTimeOfDay(x.end_time)) {
+                next = wallTimeToInstant(date, from).instant;
+                break;
+              }
+            }
           }
-          log(`testkunde-b2b: Arbeitszeit am Wochentag ${w.isoWeekday} für den Demo-Termin erweitert`);
+          if (next) startsAt = next;
         }
+        demoAppointmentAt = startsAt;
         reserve("selin", startsAt, off.duration);
         await insertBooking(ctx, { providerKey: "selin", customerKey: "julia", offeringIndex: 0, startsAt, status: "confirmed", createdAt: upcomingCreatedAt(startsAt), notes: "Bitte kurz anrufen, wenn du unten bist – die Klingel ist leise." });
       }
@@ -1128,6 +1129,7 @@ export async function runDemoSeed(): Promise<void> {
   } finally {
     await sql.end();
   }
+  return { demoAppointmentAt };
 }
 
 // CLI entry (npm run db:seed); demo:refresh imports runDemoSeed instead.

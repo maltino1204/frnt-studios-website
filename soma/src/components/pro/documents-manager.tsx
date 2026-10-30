@@ -23,6 +23,7 @@ export type Requirement = {
   label: string;
   scope: string;
   categoryId: string | null;
+  categoryName: string | null;
   missing: boolean;
 };
 
@@ -91,6 +92,9 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
   const router = useRouter();
   const toast = useToast();
   const [otherKind, setOtherKind] = useState<DocumentKind>("other");
+  // A qualification only counts for the category it is filed for (audit-4 A4-3).
+  const categoryOptions = [...new Map(requirements.filter((r) => r.categoryId && r.categoryName).map((r) => [r.categoryId!, r.categoryName!])).entries()];
+  const [otherCategory, setOtherCategory] = useState<string>(categoryOptions[0]?.[0] ?? "");
   const [deleting, startDelete] = useTransition();
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -149,7 +153,8 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <p className="truncate type-body-s font-[520] text-ink">{d.fileName}</p>
                   <p className="type-caption text-ink-muted num">
-                    {DOCUMENT_KIND_LABEL[d.kind]} · hochgeladen am {formatDate(d.createdAt)}
+                    {DOCUMENT_KIND_LABEL[d.kind]}
+                    {d.categoryName ? ` für ${d.categoryName}` : ""} · hochgeladen am {formatDate(d.createdAt)}
                   </p>
                   <Status tone={DOCUMENT_STATUS_TONE[d.status]} className="mt-1">
                     {DOCUMENT_STATUS_LABEL[d.status]}
@@ -190,7 +195,21 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
               </option>
             ))}
           </Select>
-          <DocumentUploadButton key={otherKind} kind={otherKind} categoryId={null} label={DOCUMENT_KIND_LABEL[otherKind]} />
+          {otherKind === "qualification" && categoryOptions.length ? (
+            <Select label="Für die Kategorie" value={otherCategory} onChange={(e) => setOtherCategory(e.target.value)} className="flex-1">
+              {categoryOptions.map(([id, name]) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </Select>
+          ) : null}
+          <DocumentUploadButton
+            key={`${otherKind}-${otherCategory}`}
+            kind={otherKind}
+            categoryId={otherKind === "qualification" && otherCategory ? otherCategory : null}
+            label={DOCUMENT_KIND_LABEL[otherKind]}
+          />
         </div>
       </section>
       {requirements.every((r) => !r.missing) ? <Notice kind="success">Alle benötigten Nachweise sind hochgeladen.</Notice> : null}

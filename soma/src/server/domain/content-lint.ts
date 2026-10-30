@@ -52,16 +52,26 @@ const SPELLED_EMAIL = new RegExp(String.raw`\b[a-z0-9._%+-]{2,}${AT_WORD}[a-z0-9
 // "anna @ gmx . de", "anna@ gmx.de" — spaces around "@" and the dots (audit-3 F13)
 const SPACED_EMAIL = new RegExp(String.raw`\b[a-z0-9._%+-]{2,}\s*@\s*[a-z0-9-]{2,}(?:\s*\.\s*[a-z0-9-]{2,})*\s*\.\s*${TLD}\b`, "i");
 const HANDLE = /(?:^|[\s(,;:])@[a-z0-9_][a-z0-9._]{1,29}/i;
-const URL_PATTERN = /\b(?:https?:\/\/|www\.)\S+/i;
+const URL_PATTERN = /\b(?:https?:\/\/\s*|www\.)\S+/i;
 const DOMAIN = new RegExp(String.raw`\b[a-z0-9][a-z0-9-]{1,62}\.${TLD}\b`, "i");
 // "linhnails . de" (space before the dot), "linhnails dot de", "linhnails (dot) com", "linhnails punkt de" (audit-3 F13).
 // A space only AFTER the dot is ordinary punctuation ("… im Kurs. Info folgt") and is not matched.
 const SPACED_DOMAIN = new RegExp(String.raw`\b[a-z0-9][a-z0-9-]{1,62}(?:\s+\.\s*|\s*[(\[{]\s*(?:dot|punkt)\s*[)\]}]\s*|\s+(?:dot|punkt)\s+)${TLD}\b`, "i");
 // Messenger / social names. "IG" only in capitals or before ":"/"@"; "Signal" only in a contact context
 // ("per Signal", "Signal: …", "Signal-Nummer"), because it is also an ordinary German word.
-const MESSENGER = /\b(?:whats\s?app|insta(?:gram{1,2})?|telegram{1,2}|facebook|tik\s?tok|snapchat|threema|wa\.me|t\.me)\b/i;
+const MESSENGER = /\b(?:whats\s?app|insta(?:gram{1,2})?|telegram{1,2}|facebook|tik\s?tok|snapchat|threema|skype|discord|wa\.me|t\.me)\b/i;
 const MESSENGER_IG = /\bIG\b|\big\s*[:@]/;
 const MESSENGER_SIGNAL = /\b(?:per|über|via|auf|bei|in)\s+signal\b|\bsignal\s*(?::|-?nummer|-?messenger|-?app\b)/i;
+// "annaATgmxDOTde": AT / DOT in capitals glued into the address (audit-4 A4-12).
+const CAPS_EMAIL = new RegExp(String.raw`[A-Za-z0-9._-]{2,}AT[A-Za-z0-9-]{2,}DOT(?:${TLD}|${TLD.toUpperCase()})(?![a-z])`);
+// Known mail providers, with or without a TLD ("linh@gmail", "gmail: linh.nails", "linh at gmail") (audit-4 A4-12).
+const MAIL_HOST = /\b(?:g(?:oogle)?mail|gmx|web\s?\.\s?de|yahoo|hotmail|outlook\.\w+|icloud|t-online|posteo|freenet\.de|proton\s?mail)\b/i;
+// "linhnails,de" / "linhnails·de": comma (no space, common TLDs only) or a middle dot as the separator (audit-4 A4-12).
+const SEPARATOR_DOMAIN = new RegExp(String.raw`\b[a-z0-9][a-z0-9-]{2,62}(?:,(?:de|com|net|org|info|io|eu)|\s?[·•∙]\s?${TLD})\b`, "i");
+// Letter-spaced text ("a n n a @ g m x . d e", "1 5 1 1 2 …", "h t t p s : / /"): runs of at least five
+// single characters separated by single spaces are joined before the checks run again.
+const LETTER_SPACED = /(?<!\S)(?:\S ){4,}\S(?!\S)/g;
+
 // Phone numbers: +49 / 0049 / leading 0, digits separated by spaces, dashes, slashes, dots or parentheses.
 const PHONE = /(?:\+|\b00)\s?\d[\d\s().\/-]{5,}\d|(?:^|[^\d,.])(0[\d\s().\/-]{5,}\d)/;
 // Without the leading 0: German mobile prefixes 15x/16x/17x with separators, or ≥ 9 digits in one run.
@@ -128,8 +138,18 @@ function phoneIn(text: string): string | null {
 export function findContactDetails(text: string | null | undefined): ContactFinding[] {
   if (!text) return [];
   const normalized = normalizeForLint(text);
+  const found = scan(normalized);
+  const joined = normalized.replace(LETTER_SPACED, (m) => m.replace(/ /g, ""));
+  if (joined !== normalized) {
+    for (const f of scan(joined)) if (!found.some((x) => x.kind === f.kind)) found.push(f);
+  }
+  return found;
+}
+
+function scan(normalized: string): ContactFinding[] {
   const found: ContactFinding[] = [];
-  const email = EMAIL.exec(normalized) ?? SPELLED_EMAIL.exec(normalized) ?? SPACED_EMAIL.exec(normalized);
+  const email =
+    EMAIL.exec(normalized) ?? SPELLED_EMAIL.exec(normalized) ?? SPACED_EMAIL.exec(normalized) ?? CAPS_EMAIL.exec(normalized) ?? MAIL_HOST.exec(normalized);
   if (email) found.push({ kind: "email", match: email[0].trim() });
   const withoutEmails = normalized
     .replace(new RegExp(EMAIL.source, "gi"), " ")
@@ -137,7 +157,7 @@ export function findContactDetails(text: string | null | undefined): ContactFind
     .replace(new RegExp(SPACED_EMAIL.source, "gi"), " ");
   const handle = HANDLE.exec(withoutEmails);
   if (handle) found.push({ kind: "handle", match: handle[0].trim() });
-  const url = URL_PATTERN.exec(withoutEmails) ?? DOMAIN.exec(withoutEmails) ?? SPACED_DOMAIN.exec(withoutEmails);
+  const url = URL_PATTERN.exec(withoutEmails) ?? DOMAIN.exec(withoutEmails) ?? SPACED_DOMAIN.exec(withoutEmails) ?? SEPARATOR_DOMAIN.exec(withoutEmails);
   if (url) found.push({ kind: "url", match: url[0] });
   const messenger = MESSENGER.exec(normalized) ?? MESSENGER_IG.exec(normalized) ?? MESSENGER_SIGNAL.exec(normalized);
   if (messenger) found.push({ kind: "messenger", match: messenger[0].trim() });

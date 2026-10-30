@@ -46,9 +46,16 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
   const service = category?.services.find((s) => s.id === draft?.serviceId) ?? null;
   const priceCents = draft ? parseEuroToCents(draft.price) : null;
 
+  // "Leistung hinzufügen" starts on a service the pro does not offer yet (audit-4 A4-2).
+  const offeredServiceIds = useMemo(() => new Set(services.map((s) => s.serviceId)), [services]);
+  const firstNewService = (c: CategoryWithServicesDTO | undefined) => c?.services.find((x) => !offeredServiceIds.has(x.id)) ?? c?.services[0];
+
   const openAdd = () => {
-    const c = catalog.find((x) => offeredCategoryIds.has(x.id)) ?? catalog[0];
-    const s = c?.services[0];
+    const c =
+      catalog.find((x) => offeredCategoryIds.has(x.id) && x.services.some((y) => !offeredServiceIds.has(y.id))) ??
+      catalog.find((x) => x.services.some((y) => !offeredServiceIds.has(y.id))) ??
+      catalog[0];
+    const s = firstNewService(c);
     setErrors({});
     setError(null);
     setDraft({
@@ -73,7 +80,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
     setError(null);
     if (priceCents === null) return setErrors({ price: "Bitte gib einen Preis in Euro an, z. B. 85." });
     start(async () => {
-      const res = await upsertProServiceAction({ serviceId: draft.serviceId, durationMinutes: draft.duration, priceCents, isActive: draft.isActive });
+      const res = await upsertProServiceAction({ serviceId: draft.serviceId, durationMinutes: draft.duration, priceCents, isActive: draft.isActive, createOnly: draft.mode === "add" });
       if (!res.ok) {
         const fe = res.fieldErrors ?? {};
         setErrors({ price: fe.priceCents, duration: fe.durationMinutes, service: fe.serviceId });
@@ -99,6 +106,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
   };
 
   const isNewCategory = draft?.mode === "add" && category && !offeredCategoryIds.has(category.id);
+  const alreadyOffered = draft?.mode === "add" ? services.find((o) => o.serviceId === draft.serviceId && o.durationMinutes === draft.duration) ?? null : null;
 
   return (
     <div className="flex flex-col gap-8">
@@ -165,7 +173,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
         title={draft?.mode === "edit" ? "Leistung bearbeiten" : "Leistung hinzufügen"}
         footer={
           <div className="flex flex-col gap-2 md:flex-row-reverse md:items-center">
-            <Button size="l" block loading={pending && !confirmDelete} onClick={save} className="md:w-auto">
+            <Button size="l" block loading={pending && !confirmDelete} onClick={save} disabled={!!alreadyOffered} className="md:w-auto">
               {draft?.mode === "edit" ? "Speichern" : "Hinzufügen"}
             </Button>
             {draft?.mode === "edit" ? (
@@ -185,7 +193,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
                   value={draft.categoryId}
                   onChange={(e) => {
                     const c = catalog.find((x) => x.id === e.target.value);
-                    const s = c?.services[0];
+                    const s = firstNewService(c);
                     setDraft({ ...draft, categoryId: e.target.value, serviceId: s?.id ?? "", duration: s?.defaultDuration ?? 60, price: s?.priceHintFromCents ? centsToInput(s.priceHintFromCents) : "" });
                   }}
                 >
@@ -232,6 +240,15 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
                 Dauer: <span className="text-ink num">{formatDuration(draft.duration)}</span> – für eine andere Dauer legst du die Leistung neu an.
               </p>
             )}
+
+            {alreadyOffered ? (
+              <Notice kind="info" title="Schon in deinem Angebot">
+                {`Du bietest ${alreadyOffered.serviceName} (${formatDuration(alreadyOffered.durationMinutes)}) schon für ${formatPrice(alreadyOffered.priceCents)} an. `}
+                <button type="button" className="underline underline-offset-4" onClick={() => openEdit(alreadyOffered)}>
+                  Preis dort ändern
+                </button>
+              </Notice>
+            ) : null}
 
             <Input
               label="Preis in Euro"

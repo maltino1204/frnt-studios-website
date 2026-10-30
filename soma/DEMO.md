@@ -24,13 +24,20 @@ npm run dev                    # → http://localhost:3000
 Für eine Vorführung mit voller Geschwindigkeit verwenden Sie statt `npm run dev` den Produktions-Build:
 `npm run build && npm start`.
 
+**Adresse der Demo:** Läuft SOMA nicht unter `http://localhost:3000`, etwa auf einem anderen Port oder einem Server,
+tragen Sie die Adresse vor dem Build in `.env.local` als `APP_URL` ein, zum Beispiel `APP_URL=http://192.168.1.20:3000`.
+Sonst zeigen Einladungs- und Empfehlungslinks auf `localhost:3000`. Optional können Sie mit `NEXT_PUBLIC_SUPPORT_EMAIL` eine
+eigene Kontaktadresse für den Footer setzen. Ohne diese Angabe steht dort der Platzhalter `hallo@soma.example`.
+
 **Fotos:** `npm run build` lädt alle Fotos automatisch herunter und liefert sie lokal aus. Manuell geht das mit
 `npm run images:fetch`. Ohne diesen Schritt kommen die Bilder direkt aus der Bild-CDN und brauchen eine Internetverbindung.
 
-**Vor jeder Vorführung: `npm run demo:refresh`** (höchstens eine Stunde vorher).
+**Vor jeder Vorführung: `npm run demo:refresh`** (höchstens eine Stunde vorher, auch zwischen zwei Vorführungen).
 Der Befehl stellt den Demo-Zustand neu her. Termine, Bewertungen und Anfragen liegen danach wieder relativ zu „jetzt“.
 Zwischen Testkunde und Testkunde B2B gibt es dann einen bestätigten Termin, der **35 Minuten später beginnt**.
 So können Sie den Start mit dem Start-Code live zeigen: Ab 30 Minuten vor Beginn lässt sich der Termin starten.
+Das klappt nur während Selins Arbeitszeit, also **Mo–Sa zwischen 8:30 und 18 Uhr**. Außerhalb davon legt der Befehl den
+Termin auf ihren nächsten Arbeitsbeginn und nennt Tag und Uhrzeit. Ihre Arbeitszeiten bleiben dabei unverändert.
 Die offenen Anfragen haben mehrere Stunden Antwortfrist. Laufende Demo-Sitzungen werden dabei abgemeldet.
 Führen Sie die automatischen Tests (`npm run test:e2e`) nicht nach dem letzten Refresh aus, denn sie legen Testbuchungen an.
 
@@ -57,7 +64,7 @@ deaktiviert. So kann niemand den gemeinsamen Testzugang versehentlich unbrauchba
 - Alle Nachweise geprüft, die Berufshaftpflicht ist gültig bis 2027
 - Termine an 5 der nächsten 7 Tage, 2 offene Anfragen mit Antwortfrist
 - Einnahmen über 6 Monate mit allen Provisionsstufen (20 % neu · 12 % Stammkundschaft · 5 % über den eigenen Einladungslink), 3 Auszahlungen
-- 27 Bewertungen (Ø 4,8), viele davon mit Antwort
+- knapp 30 Bewertungen (Ø um 4,8), viele davon mit Antwort
 
 ### Testadmin
 - Verifizierung: 2 Profis warten auf Prüfung (Nora K., Paul A.)
@@ -68,13 +75,16 @@ deaktiviert. So kann niemand den gemeinsamen Testzugang versehentlich unbrauchba
 
 1. **Startseite (2 Min.):** Das Versprechen „Wellness, die zu Ihnen kommt“, Kategorien, Echtheit (Bewertungen, SOMA-Garantie).
 2. **Buchen als Gast (5 Min.):** PLZ `10115` eingeben, *Massage* wählen, „Verfügbare Profis anzeigen“. Die Preise in der
-   Liste sind Endpreise inklusive Anfahrt. Auf einen Termin tippen und die Checkout-Seite durchgehen: Ort (Zuhause, Hotel oder Büro),
-   Kontakt ohne Passwort, Preisaufstellung mit MwSt.-Hinweis, kostenlose Stornierung bis zum genannten Zeitpunkt.
-   Dann „Zahlungspflichtig buchen“ (Testzahlung). Die Bestätigung zeigt den Start-Code.
+   Liste sind Endpreise inklusive Anfahrt. Einen Termin bei einem Profi mit dem Hinweis **„Sofort bestätigt“** antippen,
+   zum Beispiel Hanna B., und die Checkout-Seite durchgehen: Ort (Zuhause, Hotel oder Büro), Kontakt ohne Passwort,
+   Preisaufstellung mit MwSt.-Hinweis, kostenlose Stornierung bis zum genannten Zeitpunkt.
+   Dann „Zahlungspflichtig buchen“ (Testzahlung). Die Bestätigung zeigt den Start-Code. Bei Profis „Auf Anfrage“ zeigt sie
+   stattdessen, bis wann der Profi antwortet. Den Start-Code gibt es dort erst nach der Zusage.
 3. **Testkunde (4 Min.):** Als Julia anmelden → *Termine* (erneut buchen mit einem Tipp), *Favoriten*, *Guthaben &
    Empfehlungen*, eine Buchung öffnen und die Stornogebühr in der Vorschau zeigen.
 4. **Testkunde B2B (5 Min.):** Als Selin anmelden → *Heute* mit offenen Anfragen und Countdown. Eine Anfrage annehmen.
-   Den nächsten Termin öffnen und mit dem **Start-Code** starten: Der Code steht beim Testkunden unter *Termine*.
+   Den nächsten Termin öffnen und mit dem **Start-Code** starten. Der Code steht beim Testkunden in der Buchung
+   (*Termine* → Termin mit Selin öffnen).
    Dann *Kalender* und *Einnahmen* mit den Provisionsstufen zeigen, zuletzt den Einladungslink („nur 5 % Provision mit deinem Link“).
 5. **Testadmin (4 Min.):** *Übersicht* mit Kennzahlen und Arbeitslisten → *Profis & Verifizierung*: Freigabe ist nur
    mit geprüften Nachweisen möglich → *Regionen*: Angebot und Nachfrage pro Stadt → *Provisionen*.

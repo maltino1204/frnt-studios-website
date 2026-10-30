@@ -36,6 +36,9 @@ for (const key of [
   if (!v) blockers.push(`${key} is not set`);
   else if (/placeholder|change-me|your-project|localhost/i.test(v) && key !== "DATABASE_URL") blockers.push(`${key} still has a placeholder value`);
 }
+if (!env.NEXT_PUBLIC_SUPPORT_EMAIL || /\.example$|placeholder/i.test(env.NEXT_PUBLIC_SUPPORT_EMAIL)) {
+  blockers.push("NEXT_PUBLIC_SUPPORT_EMAIL is not set to a real support address");
+}
 if (env.STRIPE_SECRET_KEY?.startsWith("sk_test_")) warnings.push("STRIPE_SECRET_KEY is a test key");
 
 // Client IP for the login limits (audit-2 N2): without an explicitly trusted source the

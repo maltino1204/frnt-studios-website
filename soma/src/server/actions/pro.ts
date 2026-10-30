@@ -62,7 +62,7 @@ export async function updateServiceAreaAction(raw: z.input<typeof AreaSchema>): 
   }, "Einsatzgebiet gespeichert.");
 }
 
-const ServiceSchema = z.object({ serviceId: zGuid, durationMinutes: z.number().int(), priceCents: z.number().int(), isActive: z.boolean().optional() });
+const ServiceSchema = z.object({ serviceId: zGuid, durationMinutes: z.number().int(), priceCents: z.number().int(), isActive: z.boolean().optional(), createOnly: z.boolean().optional() });
 
 export async function upsertProServiceAction(raw: z.input<typeof ServiceSchema>): Promise<ActionResult<ProServiceDTO>> {
   return withSession("provider", async (s) => {

@@ -719,6 +719,9 @@ export interface DocumentDTO {
   expiresAt: string | null;
   /** expiresAt reached: the document no longer counts */
   expired: boolean;
+  /** category the document was filed for; category requirements only count documents of that category (audit-4 A4-3) */
+  categoryId: string | null;
+  categoryName: string | null;
 }
 
 export interface ProSettingsDTO {
