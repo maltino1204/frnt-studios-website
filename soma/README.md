@@ -43,9 +43,9 @@ Demo accounts (password `soma-demo-2026`):
 
 | Role | E-mail | Start at |
 |---|---|---|
-| Customer | `kundin@soma.test` | `/konto` |
-| Professional | `profi@soma.test` | `/pro` |
-| Admin | `admin@soma.test` | `/admin` |
+| Customer (Julia H.) | `testkunde@soma.test` | `/konto` |
+| Professional (Selin A., SOMA's B2B customer) | `testkunde-b2b@soma.test` | `/pro` |
+| Admin | `testadmin@soma.test` | `/admin` |
 
 Useful postal codes for search: `10115` and `10435` (Berlin), `80331` (München), `20457` (Hamburg),
 `50667` (Köln), `60311` (Frankfurt), `40213` (Düsseldorf).

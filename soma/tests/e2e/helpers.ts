@@ -3,21 +3,23 @@ import { expect, type Browser, type BrowserContext, type Page } from "@playwrigh
 /**
  * Shared helpers for the SOMA E2E regression suite (QA, Agent 6).
  *
- * Accounts: the three documented demo logins plus two seeded accounts that
+ * Accounts: the three documented demo logins (testkunde, testkunde-b2b, testadmin) plus two seeded accounts that
  * the demo seed creates (`anna@kunden.soma.test`, `hanna@profis.soma.test`),
  * all with the demo password. Run against a freshly seeded demo database.
  */
 export const PASSWORD = process.env.E2E_DEMO_PASSWORD ?? "soma-demo-2026";
 export const USERS = {
-  customer: "kundin@soma.test",
+  customer: "testkunde@soma.test",
   otherCustomer: "anna@kunden.soma.test",
-  provider: "profi@soma.test",
+  provider: "testkunde-b2b@soma.test",
   otherProvider: "hanna@profis.soma.test",
-  admin: "admin@soma.test",
+  admin: "testadmin@soma.test",
 } as const;
 
-/** Postal code of the demo customer's default saved address (Kollwitzstraße 41, Berlin). */
-export const CUSTOMER_HOME_PLZ = "10405";
+/** Postal code of the demo customer's default saved address (Oderberger Straße 21, Berlin-Prenzlauer Berg). */
+export const CUSTOMER_HOME_PLZ = "10435";
+/** Street of that address (must never leak to other users). */
+export const CUSTOMER_HOME_STREET = "Oderberger Straße";
 
 export async function login(page: Page, email: string, password = PASSWORD): Promise<void> {
   await page.goto("/anmelden");

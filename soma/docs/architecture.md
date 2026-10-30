@@ -483,7 +483,8 @@ cache; never caches authenticated HTML or API responses).
 - `npm run db:seed`: **demo seed**, for development only (`DEMO_MODE=true`). It creates fictional providers in
   the six launch cities, demo customers, historical completed bookings with reviews, upcoming
   bookings and requests. Demo logins:
-  `kundin@soma.test`, `profi@soma.test`, `admin@soma.test`, all with password `soma-demo-2026`.
+  `testkunde@soma.test` (customer), `testkunde-b2b@soma.test` (provider), `testadmin@soma.test` (admin), all with
+  password `soma-demo-2026`.
 - With `DEMO_MODE=true` the UI shows a discreet "Demo-Umgebung · Beispieldaten" ribbon. Demo content
   must never be loaded into production.
 

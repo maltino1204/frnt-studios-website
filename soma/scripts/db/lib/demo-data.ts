@@ -585,13 +585,14 @@ export const SEARCH_POSTAL_CODES: Record<string, string[]> = {
 
 /** Captions for /images/portfolio/<category>-<n>.jpg (index 0 → -1.jpg). */
 export const PORTFOLIO_CAPTIONS: Record<string, [string, string, string, string, string]> = {
-  massage: ["Rückenmassage mit warmem Mandelöl", "Hot-Stone-Steine, vorgewärmt", "Liege, Tücher und Kerzen beim Hausbesuch", "Nacken und Schultern, 30 Minuten", "Aromaöle für die Entspannungsmassage"],
-  manikuere: ["Shellac in Taupe, kurze Mandelform", "Klassische Maniküre mit Nagelpflege", "French in Milchweiß, eckig", "Gelnägel in Beerenrot", "Nude-Lack mit Glanzfinish"],
-  pedikuere: ["Pediküre mit Fußbad und Peeling", "Shellac in Korallrot für den Sommer", "Gepflegte Füße nach der Hornhautpflege", "Fußmassage zum Abschluss", "Pediküre in Zartrosa"],
-  kosmetik: ["Gesichtsreinigung mit Dampf", "Feuchtigkeitsmaske nach der Reinigung", "Pflegeprodukte für empfindliche Haut", "Augenbrauen in Form gebracht", "Entspannende Gesichtsmassage"],
-  "make-up": ["Natürliches Braut-Make-up", "Abend-Make-up mit Smokey Eyes", "Tages-Make-up für das Fotoshooting", "Glowy Look für den Sommer", "Event-Make-up mit rotem Lippenstift"],
-  "haare-styling": ["Stufenschnitt mit Föhnfrisur", "Hochsteckfrisur zur Hochzeit", "Fade mit Übergang, kurz", "Lockenpflege und Styling", "Bob mit Pony, frisch geschnitten"],
-  "brows-lashes": ["Lash Lift mit Färbung", "Brow Lamination, natürlich gebürstet", "Brauen gezupft und gefärbt", "Wimpernlifting ohne Mascara", "Brauenform passend zur Gesichtsform"],
+  // Captions describe the actual art-directed images (docs/art-direction.md, scripts/images/sources.json).
+  massage: ["Schultern und Nacken – klassische Massage", "Leinentücher und Massageöl, mitgebracht", "Massageliege in der Hotelsuite, am Abend", "Unterarmtechnik entlang des oberen Rückens", "Nach der Behandlung: noch einen Moment liegen bleiben"],
+  manikuere: ["Maniküre in Taupe, kurze runde Form", "Nude-Gel, natürlich, Mandelform", "Micro-French auf kurzen Nägeln", "Minimalistisches Nail-Art: eine feine schwarze Linie", "Nägel in Form feilen – am Esstisch zu Hause"],
+  pedikuere: ["Pediküre in gedecktem Ziegelrot", "Werkzeug für die Pediküre, sauber vorbereitet", "Nägel polieren zum Abschluss", "Pediküre in Nude, am Fenster", "Gepflegte Füße mit Klarlack"],
+  kosmetik: ["Tonerde-Maske, mit dem Pinsel aufgetragen", "Ebenmäßige Haut direkt nach dem Facial", "Pflegeprodukte für die Behandlung im Hotel", "Gesichtsmassage an den Schläfen", "Kühlende Augenpads gegen müde Augen"],
+  "make-up": ["Natürliches Braut-Make-up", "Abend-Make-up mit Smokey Eyes in Braun", "Lippen in Terrakotta, mit dem Pinsel aufgetragen", "Das Make-up-Case für den Hausbesuch", "Editorial-Look mit warmen Bronzetönen"],
+  "haare-styling": ["Weiche Wellen auf langem Haar", "Skin Fade mit gepflegtem Bart", "Tiefer Brautdutt, locker gesteckt", "Föhnen mit Rundbürste in der Küche", "Definierte Naturlocken"],
+  "brows-lashes": ["Lash Lift mit Färbung", "Brow Lamination, natürlich gebürstet", "Brauen färben in warmem Braun", "Natürliche Wimpernverlängerung, klassisch", "Brow Mapping vor dem Formen"],
 };
 
 /** Reviews for Selin A. (testkunde-b2b@soma.test) — 25+ texts, average about 4.8. */

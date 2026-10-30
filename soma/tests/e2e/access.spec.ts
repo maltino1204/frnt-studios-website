@@ -1,5 +1,5 @@
 import { expect, test, type Browser, type TestInfo } from "@playwright/test";
-import { idFromPath, login, USERS } from "./helpers";
+import { CUSTOMER_HOME_STREET, idFromPath, login, USERS } from "./helpers";
 
 /**
  * Access control regression checks: login redirects for protected areas,
@@ -126,7 +126,8 @@ test.describe("IDOR on booking pages", () => {
     await b.page.goto(`/buchung/${id}`);
     await expect(b.page.getByRole("heading", { name: "Diese Buchung finden wir nicht." })).toBeVisible();
     const text = await b.page.locator("main").innerText();
-    expect(text).not.toContain("Kollwitzstraße");
+    expect(text).not.toContain(CUSTOMER_HOME_STREET);
+    expect(text).not.toContain("Friedrichstraße");
     if (startCode) expect(text).not.toContain(startCode);
     const cal = await b.page.request.get(`/buchung/${id}/kalender`);
     expect(cal.status(), "calendar export of a foreign booking").toBe(404);

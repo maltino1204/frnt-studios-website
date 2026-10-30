@@ -61,8 +61,8 @@ content blocks, audit log. Every page and action is admin-only and audited.
 ## 2. How to run
 
 See `README.md` → Quick start. In short: `npm install`, create the database, `npm run db:setup -- --reset`,
-`DEMO_MODE=true npm run db:seed`, `npm run dev`. Demo logins: `kundin@soma.test`, `profi@soma.test`,
-`admin@soma.test`, all with password `soma-demo-2026`.
+`DEMO_MODE=true npm run db:seed`, `npm run dev`. Demo logins: `testkunde@soma.test` (customer),
+`testkunde-b2b@soma.test` (provider), `testadmin@soma.test` (admin), all with password `soma-demo-2026`.
 
 ## 3. What was actually tested
 

@@ -462,7 +462,13 @@ npm run test:unit
 npm run test:integration
 ```
 
-Demo logins (password `soma-demo-2026`): `kundin@soma.test` (Julia H., Berlin: past bookings, one reviewable; an open request with Selin; a confirmed manicure; 10 € credit; referral), `profi@soma.test` (Selin A., Berlin massage, request mode: 3 confirmed upcoming, 2 open requests), `admin@soma.test`. The demo also contains 28 approved providers (Berlin 7, München 6, Hamburg 6, Köln 3, Frankfurt 3, Düsseldorf 3) plus 2 in the verification queue, 42 customers, ~125 completed historical bookings with ~105 German reviews, cancellations, no-shows, paid payouts, two disputes, 420 search events and 12 waitlist sign-ups. All timestamps are relative to the seed time; re-running replaces the demo data.
+Demo logins (password `soma-demo-2026`):
+
+* **`testkunde@soma.test`** (Julia H., customer): phone, 3 saved addresses (Zuhause 10435 Prenzlauer Berg, Büro 10117 Mitte, Hotel 60311 Frankfurt); 10 completed bookings over six months with 6 providers in 6 categories (rebooks with Selin, Linh, Jonas), 7 reviews (4–5 ★, 3 with replies), one recent booking still reviewable; 2 upcoming confirmed bookings (in 2–3 days at home, next week at the office); 1 open request with Selin (deadline from `computeRespondBy`); 1 cancellation with the policy fee (50 % of the treatment, travel refunded); 3 favourites; credits 15 € referral reward + 10 € goodwill, 10 € redeemed (balance 15 €); referrals 1 rewarded / 1 pending; 6 notifications (2 unread); notification preferences set.
+* **`testkunde-b2b@soma.test`** (Selin A., provider — SOMA's B2B customer): portrait, bio, 5 services, service area, Mon–Sat hours; all documents approved (insurance valid ~11 months); VAT `regular`, request mode; confirmed appointments on several of the next 7 days; 2 open requests (deadlines in business hours); six months of history with base / repeat / own-client tiers (2 own clients via `provider_client_links`), earnings pending / available / paid out, 3 paid payouts; 28+ reviews (≈ 4.85 ★, most answered); invite code.
+* **`testadmin@soma.test`**: verification queue (Nora K., Paul A.), 1 open dispute, Leyla A. automatically suspended by an expired insurance (and Charlotte J.'s expiring in 9 days) in *Dokumente & Sperren*, eligible payouts, waitlist sign-ups and zero-result searches, audit history.
+
+The demo also contains 28 approved providers (Berlin 7, München 6, Hamburg 6, Köln 3, Frankfurt 3, Düsseldorf 3; all with portraits and 4 portfolio images from `/images/portfolio/<category>-<1..5>.jpg`) plus 2 in the verification queue, 44 customers, ~200 bookings with ~130 unique German reviews, cancellations, no-shows, paid payouts, two disputes, 420 search events and 12 waitlist sign-ups. All timestamps are relative to the seed time; re-running replaces the demo data. E2E also uses `anna@kunden.soma.test` and `hanna@profis.soma.test`.
 
 ## 10. Deviations from `docs/architecture.md`
 

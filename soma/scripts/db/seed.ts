@@ -493,7 +493,7 @@ async function main(): Promise<void> {
       const selinProv = ctx.providers.get("selin");
       if (!selinProv) throw new Error("testkunde-b2b missing");
       for (const k of ["lisa", "katharina"]) ctx.ownClients.add(`selin:${k}`);
-      for (const [k, daysAgo, i] of [["lisa", 140, 0], ["katharina", 96, 2], ["lisa", 61, 4], ["katharina", 27, 0], ["lisa", 12, 1]] as const) {
+      for (const [k, daysAgo, i] of [["lisa", 61, 4], ["katharina", 27, 0]] as const) {
         const b = await insertBooking(ctx, { providerKey: "selin", customerKey: k, offeringIndex: i, startsAt: dayAt(daysAgo, "selin", dur("selin", i)), status: "completed", createdAt: new Date(now.getTime() - (daysAgo + 3) * DAY) });
         await maybeReview(ctx, b, 0.9);
       }
@@ -510,7 +510,8 @@ async function main(): Promise<void> {
         const base = ctx.plz.get(p.basePostalCode);
         const cityCustomers = CUSTOMERS.filter((c) => {
           const pt = ctx.plz.get(c.postalCode);
-          return c.city === p.city && c.key !== "julia" && !!base && !!pt && haversineKm(base, pt) <= p.radiusKm;
+          // Julia's history is curated; Selin's own clients (invite link) only have their two curated bookings.
+          return c.city === p.city && c.key !== "julia" && !(p.key === "selin" && (c.key === "lisa" || c.key === "katharina")) && !!base && !!pt && haversineKm(base, pt) <= p.radiusKm;
         }).map((c) => c.key);
         if (cityCustomers.length === 0) continue;
         const dates: string[] = [];
@@ -587,13 +588,13 @@ async function main(): Promise<void> {
 
       // testkunde-b2b (Selin): this week's agenda on several days (today too if it still fits) and two open requests
       let day = 0;
-      for (const [k, i] of [["anna", 4], ["david", 0], ["clara", 3], ["lisa", 2], ["sophie", 1]] as const) {
+      for (const [k, i] of [["anna", 4], ["david", 0], ["clara", 3], ["sophie", 2], ["olga", 1]] as const) {
         const used = await upcomingAt("selin", k, day, 7, "confirmed", { offeringIndex: i });
         if (used === null) break;
         day = used + 1;
         if (day > 7) break;
       }
-      await upcomingAt("selin", "julia", 3, 12, "requested", { offeringIndex: 1, notes: "Gern mit dem Lavendelöl vom letzten Mal." });
+      await upcomingAt("selin", "julia", 4, 12, "requested", { offeringIndex: 1, notes: "Gern mit dem Lavendelöl vom letzten Mal." });
       await upcomingAt("selin", "fatma", 4, 13, "requested", { offeringIndex: 0 });
       // testkunde (Julia): confirmed manicure in 2–3 days at home, cosmetics next week at the office
       if ((await upcomingAt("linh", "julia", 2, 3, "confirmed", { offeringIndex: 1 })) === null) {
