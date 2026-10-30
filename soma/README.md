@@ -12,6 +12,8 @@ One Next.js application serves three experiences:
 
 The interface is entirely German. Customers are addressed with *Sie*, providers in `/pro` with *du*.
 
+> **Demo:** see **[DEMO.md](DEMO.md)** (German) — start in 5 minutes, three test logins, a 20-minute demo script.
+
 > **Working title.** "SOMA" is a working name pending trademark clearance. Renaming touches
 > `src/lib/brand.ts`, the wordmark (`public/brand/*`, `src/components/brand/logo.tsx`) and the
 > manifest. See `docs/design-guideline.md` §2.
