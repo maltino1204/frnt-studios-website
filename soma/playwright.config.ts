@@ -1,4 +1,8 @@
+import fs from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
+
+// Use a preinstalled Chromium when available (containers/CI), else Playwright's managed browser.
+const executablePath = process.env.PW_CHROMIUM ?? (fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
 
 const PORT = Number(process.env.E2E_PORT ?? 3100);
 const baseURL = process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`;
@@ -20,6 +24,7 @@ export default defineConfig({
     timezoneId: "Europe/Berlin",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
+    launchOptions: { executablePath },
   },
   projects: [
     { name: "mobile", use: { ...devices["iPhone 13"], browserName: "chromium" } },

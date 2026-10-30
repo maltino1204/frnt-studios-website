@@ -18,9 +18,15 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["postgres"],
+  experimental: {
+    // Verification documents may be up to 10 MB (src/server/services/media.ts).
+    serverActions: { bodySizeLimit: "11mb" },
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [390, 640, 828, 1080, 1280, 1600, 2048],
+    // Art-directed photo set until `npm run images:fetch` stores it in /public.
+    remotePatterns: [{ protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net", pathname: "/user_3BLgL9zIBBkH931se5bWbkXZwpv/**" }],
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];

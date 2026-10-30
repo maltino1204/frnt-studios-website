@@ -12,7 +12,10 @@
     "test:e2e": "playwright test",
     "db:setup": "tsx scripts/db/setup.ts",
     "db:reset": "tsx scripts/db/setup.ts --reset",
-    "db:seed": "tsx scripts/db/seed.ts"
+    "db:seed": "tsx --conditions=react-server scripts/db/seed.ts",
+    "test:unit": "vitest run --project unit",
+    "test:integration": "vitest run --project integration",
+    "images:fetch": "node scripts/images/fetch.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

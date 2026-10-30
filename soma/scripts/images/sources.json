@@ -1,0 +1,274 @@
+[
+  {
+    "path": "/images/hero/home.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120636_c16ac315-265b-4822-8ea3-e11d1f3add4b.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "60% 55%"
+  },
+  {
+    "path": "/images/categories/massage.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120909_0dd6d534-84ca-4aef-8e78-7f2901cf7787.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%"
+  },
+  {
+    "path": "/images/categories/manikuere.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120911_fc82ace8-c613-42be-849a-9ad6c506d0c8.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 55%"
+  },
+  {
+    "path": "/images/categories/kosmetik.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120911_5a6c233d-87b9-4eaf-8df2-1aa024cf3286.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "48% 40%"
+  },
+  {
+    "path": "/images/categories/haare-styling.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120909_5c940c1e-3ed2-418a-882c-aabb685591a0.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 40%"
+  },
+  {
+    "path": "/images/categories/brows-lashes.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120910_ccf6e681-7946-42a1-92b9-8ab1c2afc267.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 42%"
+  },
+  {
+    "path": "/images/editorial/arrival.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120910_4d710036-2036-4f75-b836-e7d17e4dcd9c.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "58% 50%"
+  },
+  {
+    "path": "/images/editorial/setup.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120909_05330a85-43c8-41dd-86f6-9e6c5af0736b.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "45% 60%"
+  },
+  {
+    "path": "/images/editorial/after.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_120910_508afddd-8fdf-4b18-87aa-547a25975de1.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "35% 50%"
+  },
+  {
+    "path": "/images/categories/pedikuere.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121023_68655bc6-40d6-4717-9457-af6db51e0e4a.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 60%"
+  },
+  {
+    "path": "/images/categories/make-up.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121019_878fdff8-a094-4f82-86f7-ec3c415b5562.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "55% 38%"
+  },
+  {
+    "path": "/images/editorial/hotel.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121031_25aa5cd2-4866-421a-8862-db16da1a1850.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "62% 50%"
+  },
+  {
+    "path": "/images/editorial/office.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121019_e25c5571-7068-46f1-b88b-3f35d9b940e3.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "55% 45%"
+  },
+  {
+    "path": "/images/editorial/details.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121021_88638634-e523-481b-845d-42d904940bd4.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%"
+  },
+  {
+    "path": "/images/editorial/provider-cta.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121019_7eb175ed-b94e-46af-8f26-e45083566105.png",
+    "ratio": "16:9",
+    "width": 2880,
+    "height": 1620,
+    "focal": "68% 50%"
+  },
+  {
+    "path": "/images/og-default.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121024_b48866ec-15b5-4c62-9dbf-a9b23487989a.png",
+    "ratio": "1.91:1",
+    "width": 1200,
+    "height": 630,
+    "focal": "60% 45%"
+  },
+  {
+    "path": "/images/pros/pro-01.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121136_b602fc10-ec8d-4257-a031-57ccaef9afcd.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-02.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121137_0f15fcd8-128e-41d2-9e4b-86ca892e4470.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-03.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121132_d4c441f7-b3f1-4bdf-83d7-61ff28357d60.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-04.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121148_4e6a6a28-75b5-4a58-8154-f2fcf180a11f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-05.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121142_bf84548d-5e94-4917-8536-953f810cd9c4.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-07.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121133_6cb1c820-3197-431f-a38b-71fd380ae864.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-08.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121133_0b6c5551-4b28-4eb2-8925-5ae97103b0a7.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-06.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_3c38b697-e148-4909-8dc7-7de5e7f41bea.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-09.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121252_43aafe78-2464-4eb0-8fb7-0325f4138236.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-10.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_5f65e3c6-e9a6-4c26-922e-7f766313b481.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-11.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121254_8081ffaa-3270-43a3-a981-b7250871956e.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-12.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121254_3c275263-eaf1-4e8e-8335-9aa072d3eecf.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-13.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_7fc76ce1-15df-4eaa-be8a-e57079013c45.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-14.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121254_909444d8-e054-42de-857b-5b714cba9a82.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-15.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121252_c8cd589a-e151-44bb-8a86-0282436a1733.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-16.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121344_9ecdc59e-b52b-41d3-8d79-b133de038811.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-17.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121345_ed4fdbe2-bc1a-47c2-9afc-751be493b87f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  },
+  {
+    "path": "/images/pros/pro-18.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121346_081135d5-4a7f-49de-bb68-4121db3c6414.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 36%"
+  }
+]

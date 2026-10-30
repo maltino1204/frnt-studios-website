@@ -1,0 +1,226 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import type { BookingStatus, CategoryDTO, PayoutDTO, ProviderDecision, ProviderDecisionResult, ServiceDTO } from "../dto";
+import {
+  adjustCredits,
+  adminCancelBooking,
+  createCommissionRule,
+  createPayoutBatch,
+  deactivateCommissionRule,
+  decideProvider,
+  markPayoutPaid,
+  moderateReview,
+  refundPayment,
+  resolveDispute,
+  reviewDocument,
+  setProviderCommissionOverride,
+  setUserBlocked,
+  updateDisputeStatus,
+  updatePlatformSetting,
+  upsertCategory,
+  upsertContentBlock,
+  upsertService,
+  type CategoryInput,
+  type ServiceInput,
+} from "../services/admin";
+import { runBookingMaintenance, type MaintenanceResult } from "../services/booking-maintenance";
+import { input, withSession, zGuid } from "./_run";
+import type { ActionResult } from "./types";
+
+/**
+ * Admin actions (neutral voice). withSession("admin") checks the session role;
+ * every admin service re-verifies the role in the database and writes audit_log.
+ */
+const revalidateAdmin = () => revalidatePath("/admin", "layout");
+
+const DecisionSchema = z.object({ providerId: zGuid, decision: z.enum(["approve", "reject", "start_review", "suspend", "reinstate"]), note: z.string().optional() });
+
+export async function decideProviderAction(raw: z.input<typeof DecisionSchema>): Promise<ActionResult<ProviderDecisionResult>> {
+  return withSession("admin", async (s) => {
+    const v = input(DecisionSchema, raw);
+    const r = await decideProvider(s, v.providerId, v.decision as ProviderDecision, v.note);
+    revalidateAdmin();
+    revalidatePath("/", "layout");
+    return r;
+  });
+}
+
+const DocSchema = z.object({ documentId: zGuid, status: z.enum(["approved", "rejected"]), note: z.string().optional() });
+
+export async function reviewDocumentAction(raw: z.input<typeof DocSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(DocSchema, raw);
+    await reviewDocument(s, v.documentId, v.status, v.note);
+    revalidateAdmin();
+  });
+}
+
+const OverrideSchema = z.object({ providerId: zGuid, rate: z.number().nullable() });
+
+export async function setProviderCommissionOverrideAction(raw: z.input<typeof OverrideSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(OverrideSchema, raw);
+    await setProviderCommissionOverride(s, v.providerId, v.rate);
+    revalidateAdmin();
+  });
+}
+
+export async function upsertCategoryAction(raw: CategoryInput & { id?: string }): Promise<ActionResult<CategoryDTO>> {
+  return withSession("admin", async (s) => {
+    input(z.object({ id: zGuid.optional(), slug: z.string(), name: z.string() }).passthrough(), raw);
+    const r = await upsertCategory(s, raw);
+    revalidateAdmin();
+    revalidatePath("/", "layout");
+    return r;
+  }, "Kategorie gespeichert.");
+}
+
+export async function upsertServiceAction(raw: ServiceInput & { id?: string }): Promise<ActionResult<ServiceDTO>> {
+  return withSession("admin", async (s) => {
+    input(z.object({ id: zGuid.optional(), categoryId: zGuid, slug: z.string(), name: z.string() }).passthrough(), raw);
+    const r = await upsertService(s, raw);
+    revalidateAdmin();
+    revalidatePath("/", "layout");
+    return r;
+  }, "Leistung gespeichert.");
+}
+
+const AdminCancelSchema = z.object({ bookingId: zGuid, reason: z.string(), feeCents: z.number().int().min(0).default(0) });
+
+export async function adminCancelBookingAction(raw: z.input<typeof AdminCancelSchema>): Promise<ActionResult<{ status: BookingStatus; feeCents: number }>> {
+  return withSession("admin", async (s) => {
+    const v = input(AdminCancelSchema, raw);
+    const r = await adminCancelBooking(s, v.bookingId, v.reason, v.feeCents);
+    revalidateAdmin();
+    return r;
+  }, "Buchung storniert.");
+}
+
+const RefundSchema = z.object({ bookingId: zGuid, amountCents: z.number().int(), reason: z.string() });
+
+export async function refundPaymentAction(raw: z.input<typeof RefundSchema>): Promise<ActionResult<{ refundId: string }>> {
+  return withSession("admin", async (s) => {
+    const v = input(RefundSchema, raw);
+    const r = await refundPayment(s, v.bookingId, v.amountCents, v.reason);
+    revalidateAdmin();
+    return r;
+  }, "Erstattung ausgelöst.");
+}
+
+const DisputeStatusSchema = z.object({ disputeId: zGuid, status: z.enum(["investigating", "closed"]), note: z.string().optional() });
+
+export async function updateDisputeStatusAction(raw: z.input<typeof DisputeStatusSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(DisputeStatusSchema, raw);
+    await updateDisputeStatus(s, v.disputeId, v.status, v.note);
+    revalidateAdmin();
+  });
+}
+
+const ResolveSchema = z.object({ disputeId: zGuid, outcome: z.enum(["refund", "no_action"]), note: z.string(), refundCents: z.number().int().min(0).default(0) });
+
+export async function resolveDisputeAction(raw: z.input<typeof ResolveSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(ResolveSchema, raw);
+    await resolveDispute(s, v.disputeId, v.outcome, v.note, v.refundCents);
+    revalidateAdmin();
+  }, "Streitfall abgeschlossen.");
+}
+
+const RuleSchema = z.object({
+  scope: z.enum(["global", "category", "provider"]),
+  categoryId: zGuid.nullable().optional(),
+  providerId: zGuid.nullable().optional(),
+  rate: z.number(),
+  repeatClientRate: z.number(),
+  ownClientRate: z.number(),
+});
+
+export async function createCommissionRuleAction(raw: z.input<typeof RuleSchema>): Promise<ActionResult<{ id: string }>> {
+  return withSession("admin", async (s) => {
+    const r = await createCommissionRule(s, input(RuleSchema, raw));
+    revalidateAdmin();
+    return r;
+  }, "Provisionsregel gespeichert. Bestehende Buchungen behalten ihren Satz.");
+}
+
+export async function deactivateCommissionRuleAction(ruleId: string): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    await deactivateCommissionRule(s, input(zGuid, ruleId));
+    revalidateAdmin();
+  });
+}
+
+export async function createPayoutBatchAction(): Promise<ActionResult<{ payouts: PayoutDTO[]; totalCents: number; bookingCount: number }>> {
+  return withSession("admin", async (s) => {
+    const r = await createPayoutBatch(s);
+    revalidateAdmin();
+    return r;
+  });
+}
+
+export async function markPayoutPaidAction(payoutId: string): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    await markPayoutPaid(s, input(zGuid, payoutId));
+    revalidateAdmin();
+  });
+}
+
+const ContentSchema = z.object({ key: z.string(), value: z.json() });
+
+export async function upsertContentBlockAction(raw: z.input<typeof ContentSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(ContentSchema, raw);
+    await upsertContentBlock(s, v.key, v.value);
+    revalidateAdmin();
+    revalidatePath("/", "layout");
+  }, "Inhalt gespeichert.");
+}
+
+const SettingSchema = z.object({ key: z.string(), value: z.json() });
+
+export async function updatePlatformSettingAction(raw: z.input<typeof SettingSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(SettingSchema, raw);
+    await updatePlatformSetting(s, v.key, v.value);
+    revalidateAdmin();
+  }, "Einstellung gespeichert.");
+}
+
+const BlockSchema = z.object({ userId: zGuid, blocked: z.boolean(), reason: z.string() });
+
+export async function setUserBlockedAction(raw: z.input<typeof BlockSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(BlockSchema, raw);
+    await setUserBlocked(s, v.userId, v.blocked, v.reason);
+    revalidateAdmin();
+  });
+}
+
+const CreditSchema = z.object({ userId: zGuid, amountCents: z.number().int(), note: z.string(), reason: z.enum(["admin_adjustment", "goodwill"]).default("admin_adjustment") });
+
+export async function adjustCreditsAction(raw: z.input<typeof CreditSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(CreditSchema, raw);
+    await adjustCredits(s, v.userId, v.amountCents, v.note, v.reason);
+    revalidateAdmin();
+  }, "Guthaben gebucht.");
+}
+
+const ModerateSchema = z.object({ reviewId: zGuid, isPublished: z.boolean(), note: z.string().optional() });
+
+export async function moderateReviewAction(raw: z.input<typeof ModerateSchema>): Promise<ActionResult> {
+  return withSession("admin", async (s) => {
+    const v = input(ModerateSchema, raw);
+    await moderateReview(s, v.reviewId, v.isPublished, v.note);
+    revalidateAdmin();
+    revalidatePath("/profis", "layout");
+  });
+}
+
+/** Manual trigger of the booking maintenance job from the admin board. */
+export async function runMaintenanceAction(): Promise<ActionResult<MaintenanceResult>> {
+  return withSession("admin", async () => runBookingMaintenance());
+}

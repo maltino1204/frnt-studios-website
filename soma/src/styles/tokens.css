@@ -1,0 +1,539 @@
+/* ==========================================================================
+   SOMA — Design Tokens · Tailwind CSS v4
+   Source of truth: docs/design-guideline.md (rationale, usage, contrast table)
+
+   ── Font loading (src/app/layout.tsx) ─────────────────────────────────────
+   import { Newsreader, Instrument_Sans, DM_Mono } from "next/font/google";
+
+   const display = Newsreader({
+     subsets: ["latin", "latin-ext"],
+     style: ["normal", "italic"],
+     axes: ["opsz"],                 // optical size 6–72, follows font-size
+     display: "swap",
+     variable: "--font-display-src",
+   });
+
+   const sans = Instrument_Sans({
+     subsets: ["latin", "latin-ext"],
+     axes: ["wdth"],                 // width 75–100, used for long German labels
+     display: "swap",
+     variable: "--font-sans-src",
+   });
+
+   // Optional: booking references and IDs in /admin and /pro only
+   const mono = DM_Mono({
+     subsets: ["latin", "latin-ext"],
+     weight: ["400", "500"],
+     display: "swap",
+     preload: false,
+     variable: "--font-mono-src",
+   });
+
+   <html lang="de" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+
+   ── Import order (src/app/globals.css) ────────────────────────────────────
+   @import "tailwindcss";
+   @import "../styles/tokens.css";   // directly after tailwind, before any other @theme
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Brand primitives. Do not use these in components; use the semantic
+      tokens in @theme below. Named after materials of a lived-in Altbau.
+   -------------------------------------------------------------------------- */
+:root {
+  --soma-kalk: #f5f2ec;            /* lime-washed wall: page surface        */
+  --soma-weiss: #ffffff;           /* paper: raised surface                 */
+  --soma-leinen: #ece7de;          /* linen: sunken surface, placeholders   */
+  --soma-naht: #ddd6ca;            /* seam: hairlines (decorative)          */
+  --soma-zinn: #857e73;            /* pewter: control borders (3:1)         */
+  --soma-graphit: #6a645b;         /* graphite: secondary text              */
+  --soma-tinte: #1a1916;           /* ink: text, primary actions            */
+  --soma-tinte-hover: #33302b;
+
+  --soma-ultramarin: #2b3bd1;      /* the single accent                     */
+  --soma-ultramarin-tief: #2230b0;
+  --soma-ultramarin-hell: #e6e8fa;
+  --soma-ultramarin-licht: #8f9bff;/* accent on dark surfaces               */
+
+  --soma-nacht: #161513;           /* immersive dark surface                */
+  --soma-nacht-raised: #22201d;
+  --soma-nacht-naht: #34312c;
+  --soma-nacht-zinn: #7a7468;
+  --soma-nacht-graphit: #a8a196;
+
+  --soma-success: #1e6b43;
+  --soma-success-soft: #e3efe7;
+  --soma-success-night: #6fc59a;
+  --soma-warning: #8a5a00;
+  --soma-warning-soft: #f6ebd3;
+  --soma-warning-night: #e6b556;
+  --soma-danger: #b3261e;
+  --soma-danger-soft: #f8e4e1;
+  --soma-danger-night: #ff8a7a;
+
+  /* Layout rhythm (responsive custom properties, use as px-(--space-gutter)) */
+  --space-gutter: 1.25rem;         /* 20px  < 768   */
+  --space-section: 4rem;           /* 64px  < 768   */
+  --space-stack: 1.5rem;           /* gap between stacked blocks */
+  --header-height: 3.5rem;         /* 56px mobile   */
+  --bottom-nav-height: 4rem;       /* 64px + safe-area inset */
+
+  /* Layering */
+  --z-header: 30;
+  --z-bottom-nav: 30;
+  --z-sticky-cta: 35;
+  --z-overlay: 40;
+  --z-sheet: 50;
+  --z-modal: 60;
+  --z-toast: 70;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --space-gutter: 2rem;          /* 32px  768–1023 */
+    --space-section: 6rem;         /* 96px          */
+    --space-stack: 2rem;
+    --header-height: 4.5rem;       /* 72px          */
+  }
+}
+
+@media (width >= 64rem) {
+  :root {
+    --space-gutter: 3rem;          /* 48px  >= 1024 */
+    --space-section: 8rem;         /* 128px         */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Theme ("static": every token is emitted as a CSS variable, used or not).
+      Generates utilities (bg-surface, text-ink, border-line,
+      text-accent, font-display, text-display-xl, rounded-xs, shadow-float,
+      ease-standard, duration-base, max-w-content, ...)
+   -------------------------------------------------------------------------- */
+@theme static {
+  /* Remove Tailwind's default palette, type sizes, radii and shadows so
+     only SOMA values are available. */
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+
+  /* Colour: semantic roles */
+  --color-surface: var(--soma-kalk);
+  --color-surface-raised: var(--soma-weiss);
+  --color-surface-sunken: var(--soma-leinen);
+  --color-surface-inverse: var(--soma-tinte);
+
+  --color-ink: var(--soma-tinte);
+  --color-ink-hover: var(--soma-tinte-hover);
+  --color-ink-muted: var(--soma-graphit);
+  --color-ink-disabled: #aba69e;            /* inactive UI only (WCAG-exempt) */
+  --color-ink-inverse: var(--soma-kalk);
+
+  --color-line: var(--soma-naht);
+  --color-line-strong: var(--soma-zinn);
+
+  --color-accent: var(--soma-ultramarin);
+  --color-accent-hover: var(--soma-ultramarin-tief);
+  --color-accent-soft: var(--soma-ultramarin-hell);
+  --color-on-accent: var(--soma-weiss);
+
+  --color-success: var(--soma-success);
+  --color-success-soft: var(--soma-success-soft);
+  --color-warning: var(--soma-warning);
+  --color-warning-soft: var(--soma-warning-soft);
+  --color-danger: var(--soma-danger);
+  --color-danger-soft: var(--soma-danger-soft);
+  --color-on-danger: var(--soma-weiss);
+
+  --color-focus: var(--soma-ultramarin);
+  --color-scrim: rgb(22 21 19 / 0.64);      /* flat photo overlay, never a gradient */
+  --color-backdrop: rgb(22 21 19 / 0.48);   /* behind sheets and modals */
+
+  /* Fixed night colours, for use outside a [data-theme="night"] scope */
+  --color-night: var(--soma-nacht);
+  --color-night-raised: var(--soma-nacht-raised);
+  --color-night-ink: var(--soma-kalk);
+  --color-night-muted: var(--soma-nacht-graphit);
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Placeholder tones, keyed by category slug (fallback imagery, see docs/art-direction.md §5) */
+  --color-tone-massage: #e7e0d3;
+  --color-tone-massage-ink: #b5a994;
+  --color-tone-manikuere: #e4dcd0;
+  --color-tone-manikuere-ink: #a8957f;
+  --color-tone-pedikuere: #e9e3d1;
+  --color-tone-pedikuere-ink: #b4a783;
+  --color-tone-kosmetik: #dfe2e0;
+  --color-tone-kosmetik-ink: #a3aba7;
+  --color-tone-make-up: #d9d6d2;
+  --color-tone-make-up-ink: #9e9891;
+  --color-tone-haare-styling: #e2d8ca;
+  --color-tone-haare-styling-ink: #a99377;
+  --color-tone-brows-lashes: #2a2824;
+  --color-tone-brows-lashes-ink: #4a4640;
+  --color-tone-nacht: #161513;
+  --color-tone-nacht-ink: #2e2b27;
+
+  /* Typography: families */
+  --font-display: var(--font-display-src), "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans-src), "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: var(--font-mono-src), "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  /* Typography: weights (Newsreader 200–800, Instrument Sans 400–700).
+     Display weights (360–400) live in the --text-display-* tokens. */
+  --font-weight-regular: 400;
+  --font-weight-label: 520;
+  --font-weight-strong: 600;
+
+  /* Typography: scale. Display and heading sizes are fluid between a 360px
+     and a 1280px viewport: clamp(mobile, …, desktop). UI text is fixed. */
+  --text-display-xl: clamp(2.25rem, 1.174rem + 4.783vw, 5rem);          /* 36 → 80 */
+  --text-display-xl--line-height: 1.02;
+  --text-display-xl--letter-spacing: -0.022em;
+  --text-display-xl--font-weight: 360;
+
+  --text-display-l: clamp(2rem, 1.413rem + 2.609vw, 3.5rem);            /* 32 → 56 */
+  --text-display-l--line-height: 1.06;
+  --text-display-l--letter-spacing: -0.018em;
+  --text-display-l--font-weight: 360;
+
+  --text-display-m: clamp(1.75rem, 1.457rem + 1.304vw, 2.5rem);         /* 28 → 40 */
+  --text-display-m--line-height: 1.1;
+  --text-display-m--letter-spacing: -0.012em;
+  --text-display-m--font-weight: 380;
+
+  --text-display-s: clamp(1.375rem, 1.228rem + 0.652vw, 1.75rem);       /* 22 → 28 */
+  --text-display-s--line-height: 1.2;
+  --text-display-s--letter-spacing: -0.006em;
+  --text-display-s--font-weight: 400;
+
+  --text-heading-l: clamp(1.25rem, 1.152rem + 0.435vw, 1.5rem);         /* 20 → 24 */
+  --text-heading-l--line-height: 1.25;
+  --text-heading-l--letter-spacing: -0.012em;
+  --text-heading-l--font-weight: 600;
+
+  --text-heading-m: clamp(1.0625rem, 1.038rem + 0.109vw, 1.125rem);     /* 17 → 18 */
+  --text-heading-m--line-height: 1.3;
+  --text-heading-m--letter-spacing: -0.008em;
+  --text-heading-m--font-weight: 600;
+
+  --text-heading-s: 0.9375rem;                                          /* 15 */
+  --text-heading-s--line-height: 1.35;
+  --text-heading-s--letter-spacing: -0.004em;
+  --text-heading-s--font-weight: 600;
+
+  --text-body-l: clamp(1.0625rem, 1.014rem + 0.217vw, 1.1875rem);       /* 17 → 19 */
+  --text-body-l--line-height: 1.55;
+  --text-body-l--letter-spacing: -0.003em;
+
+  --text-body: 1rem;                                                    /* 16 */
+  --text-body--line-height: 1.5;
+
+  --text-body-s: 0.875rem;                                              /* 14 */
+  --text-body-s--line-height: 1.45;
+  --text-body-s--letter-spacing: 0.002em;
+
+  --text-label: 0.9375rem;                                              /* 15 */
+  --text-label--line-height: 1.2;
+  --text-label--font-weight: 520;
+
+  --text-label-s: 0.8125rem;                                            /* 13 */
+  --text-label-s--line-height: 1.2;
+  --text-label-s--letter-spacing: 0.005em;
+  --text-label-s--font-weight: 520;
+
+  --text-caption: 0.75rem;                                              /* 12 */
+  --text-caption--line-height: 1.35;
+  --text-caption--letter-spacing: 0.01em;
+
+  --text-overline: 0.75rem;                                             /* 12, uppercase */
+  --text-overline--line-height: 1.2;
+  --text-overline--letter-spacing: 0.09em;
+  --text-overline--font-weight: 560;
+
+  --text-stat: clamp(2rem, 1.804rem + 0.87vw, 2.5rem);                  /* 32 → 40, Newsreader numerals */
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.02em;
+  --text-stat--font-weight: 380;
+
+  /* Shape: mostly crisp. rounded-none (0) is the default for surfaces,
+     rounded-full (built in) is for people and points only. */
+  --radius: 0.125rem;
+  --radius-xs: 0.125rem;      /* 2px: buttons, inputs, slots, menus, modals, toasts */
+  --radius-sheet: 0.5rem;     /* 8px: top corners of bottom sheets only            */
+
+  /* Elevation: hairlines first; shadows only on floating layers */
+  --shadow-float: 0 1px 2px rgb(26 25 22 / 0.06), 0 8px 24px -8px rgb(26 25 22 / 0.18);
+  --shadow-sheet: 0 -1px 0 rgb(26 25 22 / 0.06), 0 -12px 32px -12px rgb(26 25 22 / 0.22);
+  --shadow-modal: 0 2px 4px rgb(26 25 22 / 0.06), 0 24px 64px -16px rgb(26 25 22 / 0.3);
+  --shadow-bar: 0 -1px 0 rgb(26 25 22 / 0.08);  /* sticky bottom bars: a hairline, not a glow */
+
+  /* Layout */
+  --container-reading: 38rem;    /* 608px reading measure: max-w-reading */
+  --container-form: 30rem;       /* 480px forms, checkout column   */
+  --container-sheet: 35rem;      /* 560px sheet → centred dialog   */
+  --container-content: 72rem;    /* 1152px booking, profile        */
+  --container-page: 86rem;       /* 1376px = 1280 content + 2×48   */
+  --container-dashboard: 90rem;  /* 1440px /pro, /admin            */
+
+  --spacing-touch: 2.75rem;      /* 44px minimum touch target: h-touch, min-w-touch */
+  --spacing-control-s: 2.25rem;  /* 36px dense desktop controls (/admin) */
+  --spacing-control: 2.75rem;    /* 44px default control height     */
+  --spacing-control-l: 3.25rem;  /* 52px primary booking actions    */
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);       /* state changes, most UI     */
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);     /* sheets, toasts, menus in   */
+  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);      /* anything leaving           */
+  --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);         /* image fades, skeleton pulse */
+
+  --transition-duration-instant: 90ms;   /* press feedback, checkbox    */
+  --transition-duration-fast: 160ms;     /* hover, focus, chips, tabs   */
+  --transition-duration-base: 240ms;     /* menus, toasts, accordions   */
+  --transition-duration-slow: 360ms;     /* sheets, modals, page panels */
+  --transition-duration-calm: 640ms;     /* image fade-in               */
+
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
+  --animate-skeleton: soma-skeleton 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-spin: spin 0.9s linear infinite;
+
+  @keyframes soma-skeleton {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Composite type utilities: family + size + leading + tracking + weight +
+      wrapping. Prefer these over assembling text-* and font-* by hand.
+   -------------------------------------------------------------------------- */
+@utility type-display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  line-height: var(--text-display-xl--line-height);
+  letter-spacing: var(--text-display-xl--letter-spacing);
+  font-weight: var(--text-display-xl--font-weight);
+  text-wrap: balance;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-display-l {
+  font-family: var(--font-display);
+  font-size: var(--text-display-l);
+  line-height: var(--text-display-l--line-height);
+  letter-spacing: var(--text-display-l--letter-spacing);
+  font-weight: var(--text-display-l--font-weight);
+  text-wrap: balance;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-display-m {
+  font-family: var(--font-display);
+  font-size: var(--text-display-m);
+  line-height: var(--text-display-m--line-height);
+  letter-spacing: var(--text-display-m--letter-spacing);
+  font-weight: var(--text-display-m--font-weight);
+  text-wrap: balance;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-display-s {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  line-height: var(--text-display-s--line-height);
+  letter-spacing: var(--text-display-s--letter-spacing);
+  font-weight: var(--text-display-s--font-weight);
+  text-wrap: balance;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-heading-l {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-l);
+  line-height: var(--text-heading-l--line-height);
+  letter-spacing: var(--text-heading-l--letter-spacing);
+  font-weight: var(--text-heading-l--font-weight);
+  text-wrap: balance;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-heading-m {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-m);
+  line-height: var(--text-heading-m--line-height);
+  letter-spacing: var(--text-heading-m--letter-spacing);
+  font-weight: var(--text-heading-m--font-weight);
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility type-heading-s {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-s);
+  line-height: var(--text-heading-s--line-height);
+  letter-spacing: var(--text-heading-s--letter-spacing);
+  font-weight: var(--text-heading-s--font-weight);
+  overflow-wrap: break-word;
+}
+@utility type-body-l {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-l);
+  line-height: var(--text-body-l--line-height);
+  letter-spacing: var(--text-body-l--letter-spacing);
+  font-weight: 400;
+  text-wrap: pretty;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+@utility type-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: 400;
+  text-wrap: pretty;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+@utility type-body-s {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-s);
+  line-height: var(--text-body-s--line-height);
+  letter-spacing: var(--text-body-s--letter-spacing);
+  font-weight: 400;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+@utility type-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  font-weight: var(--text-label--font-weight);
+  hyphens: none;
+}
+@utility type-label-s {
+  font-family: var(--font-sans);
+  font-size: var(--text-label-s);
+  line-height: var(--text-label-s--line-height);
+  letter-spacing: var(--text-label-s--letter-spacing);
+  font-weight: var(--text-label-s--font-weight);
+  hyphens: none;
+}
+@utility type-caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  letter-spacing: var(--text-caption--letter-spacing);
+  font-weight: 450;
+}
+@utility type-overline {
+  font-family: var(--font-sans);
+  font-size: var(--text-overline);
+  line-height: var(--text-overline--line-height);
+  letter-spacing: var(--text-overline--letter-spacing);
+  font-weight: var(--text-overline--font-weight);
+  text-transform: uppercase;
+}
+@utility type-stat {
+  font-family: var(--font-display);
+  font-size: var(--text-stat);
+  line-height: var(--text-stat--line-height);
+  letter-spacing: var(--text-stat--letter-spacing);
+  font-weight: var(--text-stat--font-weight);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* Prices, times, dates, counts */
+@utility num {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+/* Long German labels in tight UI (chips, tabs, table headers) */
+@utility condensed {
+  font-variation-settings: "wdth" 88;
+}
+/* Booking references, IDs */
+@utility code-ref {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* --------------------------------------------------------------------------
+   4. Night scope: immersive dark sections. Everything inside re-maps, so
+      components need no dark variants.  <section data-theme="night">
+   -------------------------------------------------------------------------- */
+[data-theme="night"] {
+  --color-surface: var(--soma-nacht);
+  --color-surface-raised: var(--soma-nacht-raised);
+  --color-surface-sunken: #1d1b18;
+  --color-surface-inverse: var(--soma-kalk);
+  --color-ink: var(--soma-kalk);
+  --color-ink-hover: #ffffff;
+  --color-ink-muted: var(--soma-nacht-graphit);
+  --color-ink-disabled: #5e594f;
+  --color-ink-inverse: var(--soma-tinte);
+  --color-line: var(--soma-nacht-naht);
+  --color-line-strong: var(--soma-nacht-zinn);
+  --color-accent: var(--soma-ultramarin-licht);
+  --color-accent-hover: #b0b8ff;
+  --color-accent-soft: #23264a;
+  --color-on-accent: var(--soma-tinte);
+  --color-success: var(--soma-success-night);
+  --color-warning: var(--soma-warning-night);
+  --color-danger: var(--soma-danger-night);
+  --color-focus: var(--soma-ultramarin-licht);
+}
+
+/* --------------------------------------------------------------------------
+   5. Base application of tokens
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    overflow-wrap: break-word;
+  }
+  [data-theme="night"] {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    color-scheme: dark;
+  }
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

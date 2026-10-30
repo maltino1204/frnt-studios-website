@@ -9,7 +9,9 @@ const [, , baseUrl = "http://localhost:3000", outDir = "screenshots", ...targets
 fs.mkdirSync(outDir, { recursive: true });
 const sizes = { mobile: { width: 390, height: 844 }, desktop: { width: 1440, height: 900 } };
 
-const browser = await chromium.launch();
+// Use a preinstalled Chromium when available (CI/containers), else Playwright's managed one.
+const executablePath = process.env.PW_CHROMIUM ?? (fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
+const browser = await chromium.launch({ executablePath });
 for (const kind of ["mobile", "desktop"]) {
   const list = targets.filter((t) => !t.includes("@") || t.endsWith(`@${kind}`));
   if (!list.length) continue;
