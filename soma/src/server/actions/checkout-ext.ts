@@ -68,8 +68,10 @@ export async function checkoutSignUpAction(raw: CheckoutSignUpInput): Promise<Ac
     if (session) await updateProfile(session, { firstName: v.firstName, lastName: v.lastName, phone: v.phone });
     let claimEmailSent = true;
     try {
-      // Same adapter path as "Passwort vergessen": a one-time link to set the password.
-      await adapter.requestPasswordReset(v.email);
+      // Same adapter path as "Passwort vergessen", but with the "Konto einrichten" claim template
+      // (longer-lived link) and the shared per-address/per-IP e-mail throttle (audit-2 N8).
+      const meta = await getRequestMeta();
+      await adapter.requestPasswordReset(v.email, { ip: meta.ip, kind: "account_claim" });
     } catch (e) {
       // The booking must not fail on the e-mail; the guest can still use "Passwort vergessen".
       claimEmailSent = false;

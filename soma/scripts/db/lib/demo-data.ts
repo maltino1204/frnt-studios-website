@@ -1,8 +1,9 @@
 /**
  * Demo data (DEMO_MODE only). All people are fictional. Portraits
- * /images/pros/pro-01 … pro-18 match first name, gender and main category
- * (mapping from the Lead); providers without a portrait have avatar = null.
- * Wellness wording only — no healing claims (HWG).
+ * /images/pros/pro-01 … pro-30 match first name, gender and main category
+ * (mapping from the Lead); every provider has a portrait.
+ * Hero logins: testkunde@soma.test (Julia H.), testkunde-b2b@soma.test (Selin A.),
+ * testadmin@soma.test. Wellness wording only — no healing claims (HWG).
  */
 
 export type Weekly = Array<{ weekday: number; start: string; end: string }>;
@@ -55,7 +56,7 @@ const pic = (n: number) => `/images/pros/pro-${String(n).padStart(2, "0")}.jpg`;
 export const PROVIDERS: DemoProvider[] = [
   // ------------------------------------------------------------------ Berlin
   {
-    key: "selin", email: "profi@soma.test", firstName: "Selin", lastName: "Aydın", displayName: "Selin A.", slug: "selin-a-berlin",
+    key: "selin", email: "testkunde-b2b@soma.test", firstName: "Selin", lastName: "Aydın", displayName: "Selin A.", slug: "selin-a-berlin",
     city: "berlin", basePostalCode: "10405", avatar: pic(1), phone: "+49 151 20304050",
     headline: "Wellnessmassagen mit Ruhe und warmen Ölen",
     bio: "Seit zwölf Jahren schenke ich Menschen eine Stunde nur für sich. Ich arbeite mit warmen Ölen, ruhigen Griffen und bringe Liege, Tücher und Musik mit. Bei mir dürfen Sie einfach loslassen – zu Hause, im Hotel oder in der Mittagspause im Büro.",
@@ -94,7 +95,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "jonas", firstName: "Jonas", lastName: "Wolff", displayName: "Jonas W.", slug: "jonas-w-berlin",
-    city: "berlin", basePostalCode: "12043", avatar: null, phone: "+49 157 33445566",
+    city: "berlin", basePostalCode: "12043", avatar: pic(23), phone: "+49 157 33445566",
     headline: "Friseurmeister – Schnitt & Styling bei Ihnen",
     bio: "Friseurmeister mit eigenem Mobil-Salon im Koffer. Ich schneide präzise und unkompliziert, berate ehrlich und hinterlasse alles so, wie ich es vorgefunden habe – nur Ihre Haare sehen besser aus.",
     yearsExperience: 11, languages: ["de", "en"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 10,
@@ -103,7 +104,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "friederike", firstName: "Friederike", lastName: "Sommer", displayName: "Friederike S.", slug: "friederike-s-berlin",
-    city: "berlin", basePostalCode: "14193", avatar: null, phone: "+49 171 2233445",
+    city: "berlin", basePostalCode: "14193", avatar: pic(21), phone: "+49 171 2233445",
     headline: "Kosmetikerin – Gesichtspflege mit Zeit und Ruhe",
     bio: "Staatlich geprüfte Kosmetikerin. Ich verbinde gründliche Reinigung mit entspannenden Massagegriffen und Produkten, die zu Ihrem Hauttyp passen. Ihr Gesicht soll sich danach einfach frisch und gepflegt anfühlen.",
     yearsExperience: 15, languages: ["de"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 14,
@@ -112,7 +113,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "mai", firstName: "Mai", lastName: "Tran", displayName: "Mai T.", slug: "mai-t-berlin",
-    city: "berlin", basePostalCode: "10827", avatar: null, phone: "+49 176 5544332",
+    city: "berlin", basePostalCode: "10827", avatar: pic(25), phone: "+49 176 5544332",
     headline: "Lashes, Brows & Nägel in einem Termin",
     bio: "Zertifizierte Lash-Stylistin mit Faible für natürliche Looks. Wimpernlifting, Brow Lamination oder eine schnelle Maniküre – vieles lässt sich gut kombinieren. Auf Wunsch mache ich vorab einen Verträglichkeitstest.",
     yearsExperience: 5, languages: ["de", "vi"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 9,
@@ -121,7 +122,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "hanna", firstName: "Hanna", lastName: "Berger", displayName: "Hanna B.", slug: "hanna-b-berlin",
-    city: "berlin", basePostalCode: "10719", avatar: null, phone: "+49 171 4455990",
+    city: "berlin", basePostalCode: "10719", avatar: pic(22), phone: "+49 171 4455990",
     headline: "Thai-Massage und Entspannung im Berliner Westen",
     bio: "Ich habe die traditionelle Thai-Massage in Chiang Mai gelernt und verbinde sie mit klassischen Wellnessgriffen. Bequeme Kleidung genügt – Matte und Tücher bringe ich mit.",
     yearsExperience: 10, languages: ["de", "en"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 15,
@@ -158,7 +159,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "maximilian", firstName: "Maximilian", lastName: "Fuchs", displayName: "Maximilian F.", slug: "maximilian-f-muenchen",
-    city: "muenchen", basePostalCode: "81369", avatar: null, phone: "+49 157 9988771",
+    city: "muenchen", basePostalCode: "81369", avatar: pic(26), phone: "+49 157 9988771",
     headline: "Haarschnitt & Hochsteckfrisur – mobil in München",
     bio: "Friseurmeister mit Herz für Hochzeiten und Wiesn-Frisuren. Ich komme mit Werkzeug und Ruhe, berate Sie in Ihrem Spiegel und lasse keine Haare liegen.",
     yearsExperience: 10, languages: ["de"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 12,
@@ -167,7 +168,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "elena", firstName: "Elena", lastName: "Romano", displayName: "Elena R.", slug: "elena-r-muenchen",
-    city: "muenchen", basePostalCode: "80636", avatar: null, phone: "+49 176 2233441",
+    city: "muenchen", basePostalCode: "80636", avatar: pic(20), phone: "+49 176 2233441",
     headline: "Nägel & Füße – gepflegt bis in die Spitzen",
     bio: "Nageldesignerin aus Leidenschaft. Ich arbeite hygienisch mit Einweg-Feilen und sterilisiertem Werkzeug, berate Sie zu Form und Farbe und sorge für ein Ergebnis, das hält.",
     yearsExperience: 8, languages: ["de", "it"], bookingMode: "instant", leadTimeMinutes: 120, bufferMinutes: 30, radiusKm: 11,
@@ -176,7 +177,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "theresa", firstName: "Theresa", lastName: "Hofmann", displayName: "Theresa H.", slug: "theresa-h-muenchen",
-    city: "muenchen", basePostalCode: "81667", avatar: null, phone: "+49 171 6677881",
+    city: "muenchen", basePostalCode: "81667", avatar: pic(30), phone: "+49 171 6677881",
     headline: "Aromaöl- und Hot-Stone-Massagen",
     bio: "Warme Steine, duftende Öle und eine ruhige Atmosphäre – meine Massagen sind eine kleine Reise. Ich arbeite bevorzugt abends und am Wochenende.",
     yearsExperience: 6, languages: ["de", "en"], bookingMode: "request", leadTimeMinutes: 240, bufferMinutes: 45, radiusKm: 10,
@@ -213,7 +214,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "charlotte", firstName: "Charlotte", lastName: "Jansen", displayName: "Charlotte J.", slug: "charlotte-j-hamburg",
-    city: "hamburg", basePostalCode: "20249", avatar: null, phone: "+49 157 4433221",
+    city: "hamburg", basePostalCode: "20249", avatar: pic(19), phone: "+49 157 4433221",
     headline: "Braut- und Event-Make-up",
     bio: "Ich begleite Bräute an ihrem großen Tag und sorge für ein Make-up, das vom Standesamt bis zum letzten Tanz hält. Für Events arbeite ich auch gern im Hotel.",
     yearsExperience: 8, languages: ["de", "en"], bookingMode: "request", leadTimeMinutes: 240, bufferMinutes: 45, radiusKm: 20,
@@ -222,7 +223,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "merle", firstName: "Merle", lastName: "Petersen", displayName: "Merle P.", slug: "merle-p-hamburg",
-    city: "hamburg", basePostalCode: "22085", avatar: null, phone: "+49 171 9988112",
+    city: "hamburg", basePostalCode: "22085", avatar: pic(27), phone: "+49 171 9988112",
     headline: "Gesichtspflege & Waxing an der Alster",
     bio: "Kosmetikerin mit Liebe zu klaren, wirksamen Routinen. Ich arbeite gründlich, erkläre, was ich tue, und gebe Ihnen Tipps für die Pflege danach mit.",
     yearsExperience: 9, languages: ["de", "en"], bookingMode: "instant", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 11,
@@ -231,7 +232,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "leyla", firstName: "Leyla", lastName: "Aksoy", displayName: "Leyla A.", slug: "leyla-a-hamburg",
-    city: "hamburg", basePostalCode: "22587", avatar: null, phone: "+49 176 7788112",
+    city: "hamburg", basePostalCode: "22587", avatar: pic(24), phone: "+49 176 7788112",
     headline: "Maniküre & Pediküre im Hamburger Westen",
     bio: "Ich mache Nägel seit sieben Jahren und liebe saubere Formen und langlebige Farben. Termine auch früh morgens vor der Arbeit.",
     yearsExperience: 7, languages: ["de", "tr"], bookingMode: "instant", leadTimeMinutes: 120, bufferMinutes: 30, radiusKm: 12,
@@ -325,7 +326,7 @@ export const PROVIDERS: DemoProvider[] = [
   // ------------------------------------------------- verification queue (not bookable)
   {
     key: "nora", firstName: "Nora", lastName: "Krause", displayName: "Nora K.", slug: "nora-k-berlin",
-    city: "berlin", basePostalCode: "10245", avatar: null, phone: "+49 157 6655443", status: "submitted",
+    city: "berlin", basePostalCode: "10245", avatar: pic(28), phone: "+49 157 6655443", status: "submitted",
     headline: "Kosmetik & Brauen in Friedrichshain",
     bio: "Frisch selbstständig nach acht Jahren im Studio. Ich freue mich auf meine ersten SOMA-Kundinnen und -Kunden.",
     yearsExperience: 8, languages: ["de", "en"], bookingMode: "request", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 8,
@@ -334,7 +335,7 @@ export const PROVIDERS: DemoProvider[] = [
   },
   {
     key: "paul", firstName: "Paul", lastName: "Albers", displayName: "Paul A.", slug: "paul-a-koeln",
-    city: "koeln", basePostalCode: "50674", avatar: null, phone: "+49 176 3311224", status: "in_review",
+    city: "koeln", basePostalCode: "50674", avatar: pic(29), phone: "+49 176 3311224", status: "in_review",
     headline: "Mobiler Friseur in der Kölner Südstadt",
     bio: "Gelernter Friseur, seit fünf Jahren mobil unterwegs. Meisterbrief folgt in Kürze.",
     yearsExperience: 5, languages: ["de"], bookingMode: "request", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 8,
@@ -367,7 +368,7 @@ const cust = (key: string, firstName: string, lastName: string, city: DemoProvid
   ({ key, email: email ?? `${key}@kunden.soma.test`, firstName, lastName, city, street, houseNumber, postalCode, phone });
 
 export const CUSTOMERS: DemoCustomer[] = [
-  cust("julia", "Julia", "Hartmann", "berlin", "Kollwitzstraße", "41", "10405", "+49 170 1112233", "kundin@soma.test"),
+  cust("julia", "Julia", "Hartmann", "berlin", "Oderberger Straße", "21", "10435", "+49 170 1112233", "testkunde@soma.test"),
   cust("sophie", "Sophie", "Brandt", "berlin", "Oranienstraße", "17", "10997", "+49 170 2223344"),
   cust("anna", "Anna", "Lehmann", "berlin", "Torstraße", "102", "10115", "+49 170 3334455"),
   cust("david", "David", "Cohen", "berlin", "Pariser Straße", "9", "10719", "+49 170 4445566"),
@@ -581,3 +582,71 @@ export const SEARCH_POSTAL_CODES: Record<string, string[]> = {
   duesseldorf: ["40477", "40545", "40211", "40219"],
   none: ["01067", "70173", "04109", "90402", "30159"],
 };
+
+/** Captions for /images/portfolio/<category>-<n>.jpg (index 0 → -1.jpg). */
+export const PORTFOLIO_CAPTIONS: Record<string, [string, string, string, string, string]> = {
+  massage: ["Rückenmassage mit warmem Mandelöl", "Hot-Stone-Steine, vorgewärmt", "Liege, Tücher und Kerzen beim Hausbesuch", "Nacken und Schultern, 30 Minuten", "Aromaöle für die Entspannungsmassage"],
+  manikuere: ["Shellac in Taupe, kurze Mandelform", "Klassische Maniküre mit Nagelpflege", "French in Milchweiß, eckig", "Gelnägel in Beerenrot", "Nude-Lack mit Glanzfinish"],
+  pedikuere: ["Pediküre mit Fußbad und Peeling", "Shellac in Korallrot für den Sommer", "Gepflegte Füße nach der Hornhautpflege", "Fußmassage zum Abschluss", "Pediküre in Zartrosa"],
+  kosmetik: ["Gesichtsreinigung mit Dampf", "Feuchtigkeitsmaske nach der Reinigung", "Pflegeprodukte für empfindliche Haut", "Augenbrauen in Form gebracht", "Entspannende Gesichtsmassage"],
+  "make-up": ["Natürliches Braut-Make-up", "Abend-Make-up mit Smokey Eyes", "Tages-Make-up für das Fotoshooting", "Glowy Look für den Sommer", "Event-Make-up mit rotem Lippenstift"],
+  "haare-styling": ["Stufenschnitt mit Föhnfrisur", "Hochsteckfrisur zur Hochzeit", "Fade mit Übergang, kurz", "Lockenpflege und Styling", "Bob mit Pony, frisch geschnitten"],
+  "brows-lashes": ["Lash Lift mit Färbung", "Brow Lamination, natürlich gebürstet", "Brauen gezupft und gefärbt", "Wimpernlifting ohne Mascara", "Brauenform passend zur Gesichtsform"],
+};
+
+/** Reviews for Selin A. (testkunde-b2b@soma.test) — 25+ texts, average about 4.8. */
+export const SELIN_REVIEWS: Array<{ rating: number; text: string; tags: string[] }> = [
+  { rating: 5, text: "Selin hat eine unglaublich ruhige Art. Nach zehn Minuten war ich weg.", tags: ["Entspannend"] },
+  { rating: 5, text: "Liege, warme Tücher, leise Musik – sie hat wirklich an alles gedacht.", tags: ["Professionell"] },
+  { rating: 5, text: "Die Hot-Stone-Massage war der perfekte Start ins Wochenende.", tags: ["Entspannend", "Wieder buchen"] },
+  { rating: 4, text: "Sehr angenehm, beim nächsten Mal wünsche ich mir etwas mehr Druck im Nacken.", tags: ["Freundlich"] },
+  { rating: 5, text: "Pünktlich, herzlich und eine Massage, an die ich noch Tage später denke.", tags: ["Pünktlich", "Entspannend"] },
+  { rating: 5, text: "Ich buche Selin jetzt jeden Monat. Jedes Mal genauso gut.", tags: ["Wieder buchen"] },
+  { rating: 5, text: "Sie hat vorher nach meinen Verspannungen gefragt und genau dort gearbeitet.", tags: ["Gute Beratung"] },
+  { rating: 5, text: "Massage im Hotelzimmer nach einem langen Messetag – Selin war ein Segen.", tags: ["Entspannend"] },
+  { rating: 4, text: "Wunderbare Aromaölmassage. Der Aufbau hat ein paar Minuten länger gedauert.", tags: ["Entspannend"] },
+  { rating: 5, text: "So entspannt war ich seit dem Urlaub nicht mehr.", tags: ["Entspannend"] },
+  { rating: 5, text: "Sehr professionell und trotzdem persönlich. Klare Empfehlung.", tags: ["Professionell", "Freundlich"] },
+  { rating: 5, text: "Meine Schultern fühlen sich wie neu an, und die Öle duften herrlich.", tags: ["Entspannend"] },
+  { rating: 5, text: "Mittagspause im Büro, 30 Minuten Rücken und Nacken – genau richtig.", tags: ["Pünktlich"] },
+  { rating: 4, text: "Tolle Massage, die Musik hätte für meinen Geschmack etwas leiser sein dürfen.", tags: ["Freundlich"] },
+  { rating: 5, text: "Selin ist zuverlässig, ruhig und sehr aufmerksam. Danke für die schöne Stunde.", tags: ["Freundlich"] },
+  { rating: 5, text: "Ich hatte das erste Mal eine Massage zu Hause und war begeistert, wie unkompliziert es war.", tags: ["Professionell"] },
+  { rating: 5, text: "90 Minuten, die sich wie zwei Stunden Urlaub angefühlt haben.", tags: ["Entspannend", "Wieder buchen"] },
+  { rating: 5, text: "Sie hat sogar die Liege neben dem Sofa so aufgebaut, dass ich danach direkt liegen bleiben konnte.", tags: ["Professionell"] },
+  { rating: 5, text: "Sehr sauber, sehr freundlich und eine wunderbar gleichmäßige Massage.", tags: ["Sauber gearbeitet"] },
+  { rating: 4, text: "Gute Massage, ich hätte gern etwas mehr Zeit für die Beine gehabt.", tags: [] },
+  { rating: 5, text: "Als Geschenk für meine Mutter gebucht – sie schwärmt noch heute davon.", tags: ["Freundlich"] },
+  { rating: 5, text: "Kräftig, wo es nötig war, sanft, wo es gut tat. Genau so soll es sein.", tags: ["Professionell"] },
+  { rating: 5, text: "Pünktlich auf die Minute und alles wieder ordentlich zusammengepackt.", tags: ["Pünktlich", "Sauber gearbeitet"] },
+  { rating: 5, text: "Ich schlafe nach ihren Massagen immer besonders gut.", tags: ["Entspannend"] },
+  { rating: 5, text: "Angenehme Gespräche am Anfang, danach ganz viel Ruhe. Perfekt.", tags: ["Freundlich", "Entspannend"] },
+  { rating: 4, text: "Sehr gute Massage, der Termin hat sich um eine Viertelstunde verschoben.", tags: ["Freundlich"] },
+  { rating: 5, text: "Die warmen Steine auf dem Rücken waren ein Traum.", tags: ["Entspannend"] },
+  { rating: 5, text: "Zum dritten Mal gebucht, und jedes Mal ein bisschen besser auf mich abgestimmt.", tags: ["Wieder buchen", "Gute Beratung"] },
+  { rating: 5, text: "Sehr empfehlenswert für alle, die viel am Schreibtisch sitzen.", tags: ["Professionell"] },
+  { rating: 5, text: "Selin hat mir zum Schluss noch zwei Dehnübungen gezeigt, die wirklich helfen.", tags: ["Gute Beratung"] },
+  { rating: 5, text: "Ruhig, warm, gut organisiert – ich freue mich schon auf den nächsten Termin.", tags: ["Wieder buchen"] },
+  { rating: 5, text: "Ich war skeptisch wegen Massage zu Hause, jetzt will ich nichts anderes mehr.", tags: ["Entspannend"] },
+];
+
+export const SELIN_REPLIES = [
+  "Danke dir, es war mir eine Freude. Bis zum nächsten Mal.",
+  "Wie schön, dass du so gut abschalten konntest.",
+  "Danke für den Hinweis mit dem Nacken – das merke ich mir für den nächsten Termin.",
+  "Vielen Dank, ich freue mich jedes Mal auf unsere Termine.",
+  "Danke für die lieben Worte. Gute Erholung weiterhin.",
+  "Freut mich sehr, dass die Hot-Stones so gut angekommen sind.",
+  "Danke, dass du mir Feedback gibst. Beim nächsten Mal plane ich mehr Zeit für die Beine ein.",
+  "Herzlichen Dank, liebe Grüße an deine Mutter.",
+  "Danke dir. Die Dehnübungen wirken am besten, wenn du sie täglich machst.",
+  "Sorry für die Verspätung und danke für deine Geduld.",
+  "Danke für das Vertrauen, bis bald.",
+  "Schön, dass es im Hotel so gut geklappt hat.",
+  "Danke, ich drehe die Musik beim nächsten Mal leiser.",
+  "Vielen Dank für die schöne Bewertung.",
+  "Ich freue mich, dass du so gut schlafen konntest.",
+  "Danke dir, bis zum nächsten Monat.",
+  "Merci für die Bewertung und bis bald.",
+  "Danke, dass du SOMA und mir eine Chance gegeben hast.",
+];
