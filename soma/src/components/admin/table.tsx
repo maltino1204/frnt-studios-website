@@ -39,7 +39,8 @@ export function AdminTable({
   return (
     <div
       role="region"
-      aria-label={label}
+      // distinct from the section heading's landmark name (axe landmark-unique)
+      aria-label={`Tabelle: ${label}`}
       tabIndex={0}
       className={cn(
         "relative max-w-full min-w-0 overflow-x-auto border border-line bg-surface-raised",

@@ -133,9 +133,9 @@ describe("booking maintenance", () => {
     const b = await createBooking(c, { providerServiceId: pro.offerings.entspannungsmassage, startsAt: slot, address: NEW_ADDRESS });
     await confirmDevPayment(c, b.bookingId);
     const [{ respondBy }] = await sql()<{ respondBy: Date }[]>`select respond_by from public.bookings where id = ${b.bookingId}`;
-    // 12 h counted within 08:00–21:00 Berlin, at the latest 2 h before the start (audit-1 R9)
+    // 4 business hours (08:00–21:00 Berlin, audit-2 N6), at the latest 2 h before the start (audit-1 R9)
     expect(respondBy.getTime()).toBeLessThanOrEqual(Date.parse(slot) - 2 * 3_600_000);
-    expect(Math.abs(respondBy.getTime() - computeRespondBy(new Date(), new Date(slot), 12).getTime())).toBeLessThan(30_000);
+    expect(Math.abs(respondBy.getTime() - computeRespondBy(new Date(), new Date(slot), 4).getTime())).toBeLessThan(30_000);
     await runBookingMaintenance(new Date(respondBy.getTime() - 60_000));
     expect((await booking(b.bookingId)).status).toBe("requested");
     const r = await runBookingMaintenance(new Date(respondBy.getTime() + 60_000));

@@ -33,9 +33,9 @@ export default async function AnmeldenPage({ searchParams }: { searchParams: Pro
         demo={
           DEMO_MODE
             ? [
-                { label: "Kundin", email: "kundin@soma.test", role: "customer" },
-                { label: "Profi", email: "profi@soma.test", role: "provider" },
-                { label: "Admin", email: "admin@soma.test", role: "admin" },
+                { label: "Testkunde", email: "testkunde@soma.test", role: "customer" },
+                { label: "Testkunde B2B (Profi)", email: "testkunde-b2b@soma.test", role: "provider" },
+                { label: "Testadmin", email: "testadmin@soma.test", role: "admin" },
               ]
             : undefined
         }
