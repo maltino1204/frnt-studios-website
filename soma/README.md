@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SOMA — Your wellness. Your place.
 
-## Getting Started
+SOMA is a premium, mobile-first marketplace for Germany. Independent beauty and wellness
+professionals ("Profis") travel to their customers, at home, in a hotel or at the office.
+One Next.js application serves three experiences:
 
-First, run the development server:
+| Experience | Entry | Who |
+|---|---|---|
+| Customer app (discovery, booking, account) | `/` | visitors and customers |
+| Professional app (business tool) | `/pro` (acquisition page: `/fuer-profis`) | providers |
+| Admin platform | `/admin` | SOMA operations |
+
+The interface is entirely German. Customers are addressed with *Sie*, providers in `/pro` with *du*.
+
+> **Working title.** "SOMA" is a working name pending trademark clearance. Renaming touches
+> `src/lib/brand.ts`, the wordmark (`public/brand/*`, `src/components/brand/logo.tsx`) and the
+> manifest. See `docs/design-guideline.md` §2.
+
+---
+
+## Quick start
+
+**Prerequisites:** Node.js ≥ 20.11 and PostgreSQL ≥ 15 with the `btree_gist` and `pgcrypto` extensions
+(any local Postgres, Postgres.app, Docker `postgres:16`, or `supabase start`).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd soma
+npm install
+cp .env.example .env.local            # defaults: local Postgres, local auth, dev payments, demo mode
+
+# create a database (example for a local Postgres superuser)
+createuser -s soma -P                 # password: soma
+createdb -O soma soma
+createdb -O soma soma_test            # used by the integration tests
+
+npm run db:setup -- --reset           # Supabase shim (local only) + migrations + base seed
+DEMO_MODE=true npm run db:seed        # fictional demo marketplace (never in production)
+
+npm run dev                           # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Demo accounts (password `soma-demo-2026`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Role | E-mail | Start at |
+|---|---|---|
+| Customer | `kundin@soma.test` | `/konto` |
+| Professional | `profi@soma.test` | `/pro` |
+| Admin | `admin@soma.test` | `/admin` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Useful postal codes for search: `10115` and `10435` (Berlin), `80331` (München), `20457` (Hamburg),
+`50667` (Köln), `60311` (Frankfurt), `40213` (Düsseldorf).
 
-## Learn More
+### Photography
 
-To learn more about Next.js, take a look at the following resources:
+The art-directed photo set (`docs/art-direction.md`) was AI-generated for this prototype and is loaded
+from its CDN until you store it locally:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run images:fetch     # downloads, crops to the documented focal points, writes public/images/**
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If an image can't load, the UI renders the designed tone-on-tone fallback panels, so every page still
+looks finished. The AI portraits are **illustrative demo material only**. Real providers upload their
+own photos.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | What it does |
+|---|---|
+| `npm run dev` | Next.js dev server (Turbopack) |
+| `npm run build` / `npm start` | production build / server |
+| `npm run typecheck` | `tsc --noEmit` (strict) |
+| `npm test` | Vitest: unit tests (domain logic) + integration tests against `TEST_DATABASE_URL` |
+| `npm run test:e2e` | Playwright journeys against a running build (`npm run build` first) |
+| `npm run db:setup [-- --reset]` | apply shim + migrations + base seed |
+| `npm run db:seed` | demo seed (refuses to run unless `DEMO_MODE=true`) |
+| `npm run images:fetch` | store the photo set locally |
+
+---
+
+## Architecture in one paragraph
+
+Server Components read through a typed service layer (`src/server/services`). Client interactions go
+through Server Actions (`src/server/actions`) that validate with zod and return `ActionResult`.
+Postgres holds the business rules that must never be wrong: row-level security on every table,
+switched per transaction exactly like Supabase (`withUser` / `withAnon`); an exclusion constraint
+that makes double bookings impossible; triggers that reject invalid slots and invalid state
+transitions. Auth, payments, storage and e-mail sit behind adapters, with fully working
+development implementations and production implementations for Supabase, Stripe Connect and Resend.
+
+## Documentation
+
+| Document | Content |
+|---|---|
+| `docs/STATUS.md` | **implementation status, what was tested, QA scores, production blockers** |
+| `docs/architecture.md` | stack decisions, security model, schema, booking engine, integration boundaries |
+| `docs/api.md` | service and Server Action reference (signatures, DTOs, roles) |
+| `docs/product-spec.md` | information architecture, journeys, taxonomy, policies, legal notes |
+| `docs/research/competitive-analysis.md` | Blys, Selfkea, jeff, EveryWayz, Welladom, Glow2Go |
+| `docs/design-guideline.md` | brand, colour, type, layout, components, motion, accessibility |
+| `docs/art-direction.md` | photographic language and shot list |
+| `docs/qa/` | independent QA audit reports |
+| `.claude/agents/` | the six specialist agent definitions used to build SOMA |
+
+## Project layout
+
+```
+soma/
+  docs/                 specs, guidelines, QA reports
+  supabase/
+    local/              Supabase shim for plain Postgres (auth schema, roles) — local only
+    migrations/         schema, booking engine, RLS (Supabase-compatible)
+    seed-data/          German postal-code centroids (+ provenance)
+  scripts/db/           setup + seed
+  scripts/images/       photo fetch pipeline
+  src/
+    app/                routes: (site) (checkout) (auth) konto pro admin api
+    components/         ui (design system), brand, site, pro, admin
+    server/             db, auth, domain (pure logic), services, actions, payments, storage, email
+    lib/                formatting (de-DE, Europe/Berlin), routes, images, brand
+    styles/tokens.css   design tokens (Tailwind v4)
+  tests/                unit, integration, e2e
+```
+
+## Production checklist (summary)
+
+Development mode needs no external accounts. Going live requires the items listed in
+`docs/STATUS.md` → *Production blockers*, notably a Supabase project (`AUTH_PROVIDER=supabase`,
+pooled `DATABASE_URL`), Stripe Connect keys and webhook, an e-mail provider, legal review of all
+customer-facing terms, and replacement of demo data and AI imagery.
