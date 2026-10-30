@@ -7,14 +7,30 @@ import { Icon } from "@/components/ui/icon";
 import { VerifiedBadge } from "@/components/ui/trust";
 import { cn } from "@/lib/cn";
 
-/** Verified badge with label; tapping opens a sheet listing the checks. */
-export function VerifiedSheetButton({ name, qualification }: { name: string; qualification: string | null }) {
+/**
+ * Verified badge with label; tapping opens a sheet listing the checks. The base checks are
+ * required for every bookable profile; qualifications come from `verifiedQualifications`, so
+ * the sheet names only the categories whose documents were actually approved.
+ */
+export function VerifiedSheetButton({
+  name,
+  qualifications,
+}: {
+  name: string;
+  qualifications: Array<{ categorySlug: string; categoryName: string; label: string }>;
+}) {
   const [open, setOpen] = useState(false);
+  const byCategory = new Map<string, { name: string; labels: string[] }>();
+  for (const q of qualifications) {
+    const e = byCategory.get(q.categorySlug) ?? { name: q.categoryName, labels: [] };
+    if (!e.labels.includes(q.label)) e.labels.push(q.label);
+    byCategory.set(q.categorySlug, e);
+  }
   const checks = [
     { title: "Identität", body: "Ausweisdokument geprüft." },
     { title: "Gewerbeanmeldung", body: `${name} arbeitet selbstständig mit angemeldetem Gewerbe.` },
     { title: "Berufshaftpflicht", body: "Versicherungsnachweis für Einsätze bei Kundschaft vor Ort." },
-    ...(qualification ? [{ title: "Qualifikation", body: qualification }] : []),
+    ...[...byCategory.values()].map((c) => ({ title: `Qualifikation ${c.name}`, body: `${c.labels.join(", ")} geprüft.` })),
   ];
   return (
     <>
@@ -44,6 +60,9 @@ export function VerifiedSheetButton({ name, qualification }: { name: string; qua
                 </li>
               ))}
             </ul>
+            {byCategory.size === 0 ? (
+              <p className="type-caption text-ink-muted">Für die angebotenen Behandlungen verlangen wir keinen gesonderten Qualifikationsnachweis.</p>
+            ) : null}
             <p className="type-caption text-ink-muted">Bewertungen stammen ausschließlich von Kundschaft mit abgeschlossener Buchung über SOMA.</p>
           </div>
         </Sheet>

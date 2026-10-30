@@ -76,8 +76,12 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 | Manual/agent journeys | every customer, provider and admin workflow listed in `docs/qa/audit-*.md` | see the audit reports |
 | Production build | `next build` (111 routes, 42 SEO pages prerendered) | passes |
 
-### 3.1 Latest numbers
-_Filled in at the end of the session — see §4._
+### 3.1 Latest numbers (final integration run)
+- `tsc --noEmit`: clean.
+- Vitest: **193/193** passing (unit + integration against Postgres; 20 files).
+- Playwright E2E against the production build: see §4 (final audit) for the latest full run; the suite
+  covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1.
+- `next build`: 113 routes generated, 42 SEO city pages prerendered.
 
 **Not tested (no credentials or sandbox limits):** Stripe Connect (keys, webhook, Payment Element),
 Supabase Auth and Storage adapters, Resend e-mail delivery, SMS and web push, real photography (the image
@@ -86,19 +90,19 @@ CDN is unreachable from the build sandbox; fallbacks were tested), iOS Safari/We
 ## 4. Independent quality scores
 
 Scores come from the independent QA agent (Agent 6). It does not implement features and scores only what it
-observed. Reports: `docs/qa/audit-1.md`, `docs/qa/audit-2.md`.
+observed. Reports: `docs/qa/audit-1.md` … `docs/qa/audit-4.md`.
 
-| Dimension | Audit 1 | Audit 2 |
-|---|---|---|
-| Visual quality | 8 | _pending_ |
-| UX & navigation | 7 | _pending_ |
-| Mobile responsiveness | 8 | _pending_ |
-| Accessibility | 8 | _pending_ |
-| Functional completeness | 8 | _pending_ |
-| Booking reliability | 9 | _pending_ |
-| Security & permissions | 7 | _pending_ |
-| Performance | 6 | _pending_ |
-| Trust & conversion | 7 | _pending_ |
+| Dimension | Audit 1 | Audit 2 | Audit 3 | Audit 4 |
+|---|---|---|---|---|
+| Visual quality | 8 | 8 | 8 | _pending_ |
+| UX & navigation | 7 | 8 | 9 | _pending_ |
+| Mobile responsiveness | 8 | 8 | 9 | _pending_ |
+| Accessibility | 8 | 9 | 9 | _pending_ |
+| Functional completeness | 8 | 9 | 9 | _pending_ |
+| Booking reliability | 9 | 9 | 9 | _pending_ |
+| Security & permissions | 7 | 7 | 7 | _pending_ |
+| Performance | 6 | 8 | 8 | _pending_ |
+| Trust & conversion | 7 | 8 | 8 | _pending_ |
 
 ## 5. Production blockers
 

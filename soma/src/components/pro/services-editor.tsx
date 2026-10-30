@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, Plus } from "lucide-react";
@@ -12,6 +13,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/toast";
 import { formatDuration, formatPrice } from "@/lib/format";
 import { deleteProServiceAction, upsertProServiceAction } from "@/server/actions/pro";
+import { routes } from "@/lib/routes";
 import type { CategoryWithServicesDTO, ProServiceDTO } from "@/server/dto";
 import { centsToInput, formatPercent, parseEuroToCents, proError } from "./labels";
 
@@ -102,9 +104,19 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
     <div className="flex flex-col gap-8">
       {groups.length ? (
         <div className="flex flex-col gap-8">
-          {groups.map(([id, g]) => (
+          {groups.map(([id, g]) => {
+            // F2/F3: offerings of a category whose documents are missing or unreviewed are not bookable yet.
+            const awaiting = g.items.filter((o) => o.awaitingDocuments);
+            const missing = [...new Set(awaiting.flatMap((o) => o.missingDocuments))];
+            return (
             <section key={id} className="flex flex-col gap-2" aria-label={g.name}>
               <h2 className="type-overline text-ink-muted">{g.name}</h2>
+              {awaiting.length ? (
+                <Notice kind="info" title="Wartet auf Nachweis">
+                  {`${missing.length ? `Es fehlt noch: ${missing.join(", ")}. ` : ""}Bis wir den Nachweis geprüft haben, ${awaiting.length === 1 ? "ist diese Leistung" : "sind diese Leistungen"} nicht buchbar. `}
+                  <Link href={routes.pro.verification()}>Zur Verifizierung</Link>
+                </Notice>
+              ) : null}
               <ul className="border-y border-line">
                 {g.items.map((o) => (
                   <li key={o.providerServiceId} className="border-b border-line last:border-b-0">
@@ -119,8 +131,13 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
                           {formatDuration(o.durationMinutes)}
                           {o.priceHintFromCents ? ` · Richtwert ab ${formatPrice(o.priceHintFromCents)}` : ""}
                         </span>
+                        {o.awaitingDocuments ? (
+                          <Status tone="warning" className="pt-1 type-caption!">
+                            Wartet auf Nachweis · nicht buchbar
+                          </Status>
+                        ) : null}
                       </span>
-                      {!o.isActive ? <Status tone="neutral">Pausiert</Status> : null}
+                      {!o.awaitingDocuments && !o.isActive ? <Status tone="neutral">Pausiert</Status> : null}
                       <span className="type-label num text-ink">{formatPrice(o.priceCents)}</span>
                       <Icon icon={ChevronRight} size={16} className="text-ink-muted" />
                       <span className="sr-only">bearbeiten</span>
@@ -129,7 +146,8 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
                 ))}
               </ul>
             </section>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <EmptyState className="py-2!" title="Noch keine Leistungen.">

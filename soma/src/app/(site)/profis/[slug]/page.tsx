@@ -5,7 +5,6 @@ import { cache } from "react";
 import { getSession } from "@/server/auth/guards";
 import { listAddresses } from "@/server/services/account";
 import { quoteBooking } from "@/server/services/bookings";
-import { listCategories } from "@/server/services/catalog";
 import { getProviderAvailability, getProviderProfile, todayBerlin } from "@/server/services/providers";
 import { listProviderReviews } from "@/server/services/reviews";
 import type { ProviderProfileDTO, SlotsByDayDTO } from "@/server/dto";
@@ -92,9 +91,8 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
     plz = addresses.find((a) => a.isDefault)?.postalCode ?? addresses[0]?.postalCode ?? null;
   }
 
-  const [days, categories, reviews] = await Promise.all([
+  const [days, reviews] = await Promise.all([
     offering ? getProviderAvailability(profile.providerId, offering.providerServiceId, today, 14).catch((): SlotsByDayDTO[] => []) : Promise.resolve([] as SlotsByDayDTO[]),
-    listCategories(),
     (async () => {
       const page = Math.max(1, Number(one(sp.bewertungen)) || 1);
       return page > 1 ? listProviderReviews(profile.providerId, page, 5) : profile.reviews;
@@ -113,13 +111,6 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
   }
 
   const cat = primaryCategory(profile);
-  const catSlugs = new Set(profile.offerings.map((o) => o.categorySlug));
-  const qualification =
-    categories
-      .filter((c) => catSlugs.has(c.slug))
-      .flatMap((c) => c.requiredDocuments.filter((d) => d.kind === "qualification").map((d) => d.label))
-      .filter((v, i, a) => a.indexOf(v) === i)
-      .join(" · ") || null;
   const firstName = profile.displayName.split(" ")[0];
   const facts = [
     profile.languages.length ? { label: "Sprachen", value: profile.languages.map(languageName).join(", ") } : null,
@@ -171,7 +162,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
           <FavoriteButton providerId={profile.providerId} providerName={profile.displayName} initial={profile.isFavorite} canToggle={isCustomer} withLabel className="-mr-3 mt-0.5" />
         </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <VerifiedSheetButton name={firstName} qualification={qualification} />
+          <VerifiedSheetButton name={firstName} qualifications={profile.verifiedQualifications ?? []} />
           <a href="#bewertungen" className="inline-flex h-touch items-center hover:underline hover:underline-offset-4">
             <Rating avg={profile.ratingAvg} count={profile.ratingCount} size={16} />
           </a>

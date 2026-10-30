@@ -3,7 +3,7 @@ import "server-only";
 import { z } from "zod";
 import { withAnon, type Queryable } from "../db/client";
 import type { CancellationPolicyDTO, CoverageDTO, PostalCodeDTO, ProviderCardDTO, RequiredDocumentDTO, Session } from "../dto";
-import { listCustomerBookings, rebookOptions } from "./bookings";
+import { listRebookSuggestions, rebookOptions } from "./bookings";
 import { queryPostalCode } from "./catalog";
 import { PROVIDER_CARD_COLUMNS, toProviderCard, type ProviderCardRow } from "./providers";
 import { loadSettings, parse, policyToDTO, requireRoleIn } from "./_shared";
@@ -213,8 +213,8 @@ export async function listPublicProviderSlugs(): Promise<Array<{ slug: string; u
  */
 export async function getRebookSuggestion(session: Session): Promise<RebookSuggestionDTO | null> {
   const s = requireRoleIn(session, "customer");
-  const past = await listCustomerBookings(s, "past", 1, 6);
-  const last = past.items.find((b) => b.status === "completed");
+  // F11: last completed booking per provider (not the newest past rows, which may all be cancelled).
+  const [last] = await listRebookSuggestions(s, 1);
   if (!last) return null;
   try {
     const opts = await rebookOptions(s, last.id);

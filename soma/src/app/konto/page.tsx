@@ -4,9 +4,8 @@ import { ArrowRight, ChevronRight, LogOut } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { signOutAction } from "@/server/actions/auth";
 import { getCreditSummary } from "@/server/services/account";
-import { listCustomerBookings } from "@/server/services/bookings";
+import { listCustomerBookings, listRebookSuggestions } from "@/server/services/bookings";
 import { countUnreadNotifications } from "@/server/services/notifications";
-import type { BookingListItemDTO } from "@/server/dto";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { CountPill, EmptyState, Status } from "@/components/ui/feedback";
@@ -26,23 +25,14 @@ function greeting(now = new Date()): string {
 
 export default async function KontoPage() {
   const session = await requireRole("customer", "/konto");
-  const [upcoming, past, credits, unread] = await Promise.all([
+  const [upcoming, rebook, credits, unread] = await Promise.all([
     listCustomerBookings(session, "upcoming", 1, 3),
-    listCustomerBookings(session, "past", 1, 30),
+    // F11: the last completed booking per provider, straight from the server.
+    listRebookSuggestions(session, 3),
     getCreditSummary(session),
     countUnreadNotifications(session).catch(() => 0),
   ]);
   const next = upcoming.items[0] ?? null;
-  // One rebook suggestion per provider, from completed appointments.
-  const seen = new Set<string>();
-  const rebook: BookingListItemDTO[] = [];
-  for (const b of past.items) {
-    if (b.status !== "completed" || seen.has(b.providerSlug)) continue;
-    seen.add(b.providerSlug);
-    rebook.push(b);
-    if (rebook.length === 3) break;
-  }
-
   return (
     <div className="flex flex-col gap-12">
       <header className="flex flex-col gap-2">
