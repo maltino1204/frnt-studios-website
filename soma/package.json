@@ -18,9 +18,11 @@
     "test:integration": "vitest run --project integration",
     "images:fetch": "node scripts/images/fetch.mjs",
     "check:launch": "node scripts/check-launch.mjs",
+    "netlify:prepare": "node scripts/netlify/prepare.mjs",
     "prebuild": "node scripts/images/fetch.mjs || true"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.13",
     "@stripe/react-stripe-js": "^7.0.1",
     "@stripe/stripe-js": "^10.2.0",
     "@supabase/ssr": "^0.12.7",

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { localDateOf } from "@/server/domain/tz";
 import type { Session } from "@/server/dto";
 import { ServiceError } from "@/server/errors";
 import { openDispute } from "@/server/services/account";
@@ -218,7 +219,11 @@ describe("demand capture, coverage and analytics", () => {
     expect(ffm?.waitlistSignups).toBeGreaterThanOrEqual(1);
     expect(ffm?.byCategory.find((c) => c.categorySlug === "make-up")?.providers).toBeGreaterThanOrEqual(2);
     expect(ffm?.openSlotHours7d).toBeGreaterThan(0);
-    // the last 7 × 24 h touch 8 local dates (first and last bucket partial, audit-3 F8)
-    expect((await getTimeSeries(admin, { days: 7 })).length).toBe(8);
+    // the last 7 × 24 h touch 8 local dates (first and last bucket partial, audit-3 F8) — 7 when a DST
+    // change inside the window shifts the start past midnight (e.g. the last hour of the day after the switch)
+    const now = new Date();
+    const firstDate = localDateOf(new Date(now.getTime() - 7 * 24 * 3_600_000));
+    const expectedDates = Math.round((Date.parse(localDateOf(now)) - Date.parse(firstDate)) / 86_400_000) + 1;
+    expect((await getTimeSeries(admin, { days: 7 })).length).toBe(expectedDates);
   });
 });

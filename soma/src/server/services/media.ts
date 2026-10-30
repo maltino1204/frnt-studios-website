@@ -1,10 +1,12 @@
 import "server-only";
 
 import { randomUUID } from "node:crypto";
+import { getConfig } from "../config";
 import { withService } from "../db/client";
 import type { Session } from "../dto";
 import { ServiceError } from "../errors";
 import { getStorageAdapter, type StoredObject } from "../storage/adapter";
+import { DEMO_PLACEHOLDER_PDF } from "../storage/demo-placeholder";
 
 /**
  * Upload validation and private/public media access.
@@ -94,6 +96,11 @@ export async function readMedia(session: Session | null, key: string): Promise<M
     }
   }
   const obj = await getStorageAdapter().get(key);
+  if (!obj && !isPublic && getConfig().DEMO_MODE) {
+    // Demo seed documents are placeholders written next to the seed run; a hosted demo (e.g. Netlify)
+    // never receives the files, so the reviewer sees the same placeholder instead of a 404.
+    return { bytes: DEMO_PLACEHOLDER_PDF, contentType: "application/pdf", isPublic };
+  }
   if (!obj) throw new ServiceError("not_found", "Datei nicht gefunden.");
   return { ...obj, isPublic };
 }

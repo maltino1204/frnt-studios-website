@@ -2,6 +2,7 @@ import "server-only";
 
 import { getConfig } from "../config";
 import { createLocalStorageAdapter } from "./local";
+import { createNetlifyStorageAdapter } from "./netlify";
 import { createSupabaseStorageAdapter } from "./supabase";
 
 /**
@@ -14,12 +15,19 @@ export interface StoredObject {
 }
 
 export interface StorageAdapter {
-  readonly id: "local" | "supabase";
+  readonly id: "local" | "supabase" | "netlify";
   put(key: string, bytes: Uint8Array, contentType: string): Promise<void>;
   get(key: string): Promise<StoredObject | null>;
   delete(key: string): Promise<void>;
 }
 
 export function getStorageAdapter(): StorageAdapter {
-  return getConfig().STORAGE_PROVIDER === "supabase" ? createSupabaseStorageAdapter() : createLocalStorageAdapter();
+  switch (getConfig().STORAGE_PROVIDER) {
+    case "supabase":
+      return createSupabaseStorageAdapter();
+    case "netlify":
+      return createNetlifyStorageAdapter();
+    default:
+      return createLocalStorageAdapter();
+  }
 }

@@ -78,7 +78,7 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 
 ### 3.1 Latest numbers (final integration run)
 - `tsc --noEmit`: clean.
-- Vitest: **198/198** passing (unit + integration against Postgres; 21 files).
+- Vitest: **200/200** passing (unit + integration against Postgres; 22 files).
 - Playwright E2E against the production build: **108/108** passing (54 journeys × mobile + desktop, about 4 min). The suite
   covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1–F11
   and the audit-4 regression tests (`tests/e2e/audit4.spec.ts`).
@@ -121,6 +121,19 @@ the caveats in `DEMO.md`.
 
 Still open from audit 4 (low): F8 rest (seed chart spike on the seed day, regions total 411 vs 422), F12 (fonts 331 KB),
 F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
+
+### 4.2 Hosted demo (Netlify + Neon)
+`netlify.toml` builds with `npm run netlify:prepare && npm run build`. The prepare step refuses a missing or localhost
+`DATABASE_URL`, applies migrations and reloads the demo data. Netlify-specific pieces: storage in Netlify Blobs
+(`STORAGE_PROVIDER=netlify`), a scheduled function for the booking maintenance, client IP from `x-nf-client-connection-ip`,
+`channel_binding` stripped from Neon URLs, and a placeholder PDF for seeded documents in demo mode. Setup steps: `DEMO.md` §5.
+- **Verified here:**
+  - against a fresh UTF-8 PostgreSQL 16 cluster whose owner has only CREATEROLE/CREATEDB, like Neon: setup, demo seed, Vitest 198/198 (all suites at the time), production build with `DATABASE_PREPARE=false` and E2E 108/108;
+  - the prepare script's guards;
+  - a Neon-style URL with `channel_binding=require`;
+  - the demo placeholder PDF (admin 200, anonymous 401).
+- **Not verifiable here** (needs a Netlify account): the Netlify runtime itself, Netlify Blobs uploads, the scheduled function, a real Neon pooler.
+  Netlify accepts about 6 MB per request, so uploads above that fail there.
 
 ## 5. Production blockers
 

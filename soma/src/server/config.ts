@@ -18,11 +18,12 @@ const EnvSchema = z.object({
   DATABASE_PREPARE: z.enum(["true", "false"]).default("true").transform((v) => v === "true"),
   AUTH_PROVIDER: z.enum(["local", "supabase"]).default("local"),
   PAYMENTS_PROVIDER: z.enum(["dev", "stripe"]).default("dev"),
-  STORAGE_PROVIDER: z.enum(["local", "supabase"]).default("local"),
+  /** netlify = Netlify Blobs (the function file system on Netlify is read-only) */
+  STORAGE_PROVIDER: z.enum(["local", "supabase", "netlify"]).default("local"),
   EMAIL_PROVIDER: z.enum(["dev", "resend"]).default("dev"),
   DEMO_MODE: boolish,
   /** Public base URL. Unset in development → derived from the request host (see resolveAppUrl). */
-  APP_URL: z.string().url().default("http://localhost:3000"),
+  APP_URL: z.string().url().default(process.env.URL || "http://localhost:3000"), // URL: Netlify's primary site URL
   /** Proxies in front of the app that append to X-Forwarded-For (0 = ignore XFF). See auth/client-ip.ts. */
   TRUSTED_PROXY_HOPS: z.coerce.number().int().min(0).max(10).default(0),
   /** Header the hosting platform sets with the client IP (e.g. x-vercel-forwarded-for, cf-connecting-ip). Unset = not trusted. */

@@ -1,6 +1,7 @@
 import "server-only";
 
 import postgres from "postgres";
+import { normalizeDatabaseUrl } from "./url";
 import { getConfig } from "../config";
 
 /**
@@ -31,7 +32,7 @@ declare global {
 
 function createPool(): postgres.Sql {
   const cfg = getConfig();
-  return postgres(process.env.DATABASE_URL ?? cfg.DATABASE_URL, {
+  return postgres(normalizeDatabaseUrl(process.env.DATABASE_URL ?? cfg.DATABASE_URL), {
     max: cfg.DATABASE_POOL_MAX,
     idle_timeout: 20,
     connect_timeout: 10,

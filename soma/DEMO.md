@@ -24,6 +24,8 @@ npm run dev                    # → http://localhost:3000
 Für eine Vorführung mit voller Geschwindigkeit verwenden Sie statt `npm run dev` den Produktions-Build:
 `npm run build && npm start`.
 
+**Online statt lokal?** Für eine Demo unter einer öffentlichen Adresse (Netlify) siehe Abschnitt 5.
+
 **Adresse der Demo:** Läuft SOMA nicht unter `http://localhost:3000`, etwa auf einem anderen Port oder einem Server,
 tragen Sie die Adresse vor dem Build in `.env.local` als `APP_URL` ein, zum Beispiel `APP_URL=http://192.168.1.20:3000`.
 Sonst zeigen Einladungs- und Empfehlungslinks auf `localhost:3000`. Optional können Sie mit `NEXT_PUBLIC_SUPPORT_EMAIL` eine
@@ -102,3 +104,55 @@ Tipp: Zeigen Sie den Ablauf auf dem Smartphone oder in der mobilen Ansicht des B
 
 Der Hinweisbalken „Demo-Umgebung“ oben auf jeder Seite macht das für Ihren Kunden transparent.
 Was vor einem echten Start noch fehlt, steht in `docs/STATUS.md` → *Production blockers*.
+
+## 5. Online-Demo auf Netlify
+
+Auf Netlify gibt es keine lokale Datenbank. SOMA braucht deshalb eine gehostete PostgreSQL-Datenbank.
+Empfohlen ist **Neon**: Der kostenlose Tarif reicht für die Demo, und das Setup ist darauf getestet.
+Supabase eignet sich für die Demo nicht, weil die Demo-Anmeldung dort mit dem Supabase-eigenen Login kollidiert.
+
+**1. Datenbank anlegen (einmalig, ca. 3 Minuten)**
+1. Unter neon.tech ein kostenloses Konto und ein Projekt anlegen. Als Region **AWS US East 2 (Ohio)** wählen.
+   Dort laufen die Netlify Functions standardmäßig, das hält die Seiten schnell. Die Demo-Daten sind fiktiv.
+2. Im Projekt auf *Connect* klicken, **Connection pooling** einschalten und die Verbindungs-URL kopieren.
+   Sie sieht so aus: `postgresql://neondb_owner:…@ep-…-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require`.
+
+**2. Umgebungsvariablen in Netlify (einmalig)**
+Netlify → Ihre Seite → *Site configuration* → *Environment variables* → *Add a variable* → *Import from a .env file*.
+Diesen Block einfügen und die drei markierten Werte ersetzen:
+
+```
+DATABASE_URL=postgresql://…-pooler….neon.tech/neondb?sslmode=require   # ← Ihre Neon-URL
+DATABASE_PREPARE=false
+DATABASE_POOL_MAX=3
+DEMO_MODE=true
+NEXT_PUBLIC_DEMO_MODE=true
+APP_URL=https://IHRE-SEITE.netlify.app                                  # ← Ihre Netlify-Adresse
+STORAGE_PROVIDER=netlify
+TRUSTED_IP_HEADER=x-nf-client-connection-ip
+CRON_SECRET=mindestens-32-zufaellige-zeichen                            # ← z. B. aus einem Passwort-Generator
+```
+
+`DATABASE_URL` und `CRON_SECRET` als *secret* markieren. Die Variablen müssen für **Builds und Functions** gelten, das ist die
+Voreinstellung. Den Kommentar ab `#` nicht mit einfügen.
+
+**3. Veröffentlichen**
+*Deploys* → *Trigger deploy* → *Clear cache and deploy site*. Der Build (ca. 3 Minuten) legt beim ersten Mal die Datenbank an,
+lädt danach bei jedem Deploy die Demo-Daten neu und speichert die Fotos lokal. Danach sind die drei Testzugänge unter Ihrer
+Netlify-Adresse aktiv.
+
+**Vor jeder Vorführung zurücksetzen:** Einfach neu deployen (*Trigger deploy* → *Deploy site*), am besten Mo–Sa zwischen
+8:30 und 18 Uhr. Das entspricht `npm run demo:refresh`, und der Demo-Termin mit Start-Code beginnt etwa 35 Minuten nach dem
+Build. Wer lieber einen Link verwendet: Unter *Site configuration* → *Build & deploy* → *Build hooks* einen Hook
+„Demo zurücksetzen“ anlegen und per `curl -X POST <Hook-URL>` auslösen. Mit `DEMO_REFRESH_ON_DEPLOY=false` bleiben die
+Demo-Daten bei einem Deploy unverändert.
+
+**Gut zu wissen**
+- Die Adresse ist öffentlich. Wer sie kennt, kann sich mit den Ein-Klick-Buttons auch als Testadmin anmelden. Alle Daten sind
+  fiktiv, und ein neuer Deploy stellt den Ausgangszustand wieder her. Suchmaschinen werden im Demo-Modus ausgeschlossen.
+- Eine zeitgesteuerte Funktion (`netlify/functions/booking-maintenance.mts`) erledigt alle 10 Minuten die Wartung:
+  Reservierungen und unbeantwortete Anfragen laufen ab, Termine werden abgeschlossen.
+- Hochgeladene Dateien landen in Netlify Blobs. Netlify nimmt pro Anfrage höchstens etwa 6 MB an, größere Dateien schlagen fehl.
+  Die Nachweise aus den Demo-Daten erscheinen als Platzhalter-PDF.
+- Nach längerer Pause braucht der erste Seitenaufruf etwa eine Sekunde länger, weil Neon die Datenbank kurz aufweckt.
+

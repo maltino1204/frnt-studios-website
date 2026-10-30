@@ -22,6 +22,8 @@ import { haversineKm, roundKm } from "../../src/server/domain/geo";
 import { computeRespondBy } from "../../src/server/domain/booking-state";
 import { computeCancellation, computeNoShowFee, parsePolicy } from "../../src/server/domain/cancellation";
 import { computeTravelFee, splitRetainedAmounts } from "../../src/server/domain/pricing";
+import { normalizeDatabaseUrl, usePreparedStatements } from "../../src/server/db/url";
+import { DEMO_PLACEHOLDER_PDF } from "../../src/server/storage/demo-placeholder";
 import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, toWallClock, wallTimeToInstant } from "../../src/server/domain/tz";
 import { DEFAULT_CANCELLATION_POLICY, PLATFORM_SETTINGS } from "./lib/base-seed-data";
 import {
@@ -467,7 +469,7 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
     throw new Error("Abgebrochen: Die Demo-Daten werden nur mit DEMO_MODE=true geladen (niemals in Produktion).");
   }
   const url = process.env.DATABASE_URL ?? "postgres://soma:soma@localhost:5432/soma";
-  const sql = postgres(url, { max: 2, onnotice: () => undefined });
+  const sql = postgres(normalizeDatabaseUrl(url), { max: 2, prepare: usePreparedStatements(), onnotice: () => undefined });
   const now = new Date();
   seedNow = now;
   const log = (m: string) => console.log(`[db:seed] ${m}`);
@@ -1096,7 +1098,7 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
 
     if ((process.env.STORAGE_PROVIDER ?? "local") === "local") {
       const root = path.resolve(ROOT, process.env.UPLOAD_DIR ?? ".data/uploads");
-      const pdf = Buffer.from("%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 obj<</Type/Pages/Count 0/Kids[]>>endobj\ntrailer<</Root 1 0 R>>\n%%EOF\n% SOMA Demo-Dokument (Platzhalter)\n");
+      const pdf = DEMO_PLACEHOLDER_PDF;
       for (const key of placeholderDocs) {
         const full = path.join(root, key);
         await mkdir(path.dirname(full), { recursive: true });
@@ -1107,7 +1109,7 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
     // Leyla's insurance expired yesterday: the real maintenance step rejects it and suspends her (audit-2 N4),
     // so the admin queue shows an automatic suspension. Runs on an app-style connection (camelCase rows),
     // stamped at a daytime moment after the expiry instead of the seed time.
-    const app = postgres(url, { max: 1, onnotice: () => undefined, transform: { column: { from: postgres.toCamel, to: postgres.fromCamel }, undefined: null } });
+    const app = postgres(normalizeDatabaseUrl(url), { max: 1, prepare: usePreparedStatements(), onnotice: () => undefined, transform: { column: { from: postgres.toCamel, to: postgres.fromCamel }, undefined: null } });
     try {
       const expiredAt = leylaExpiresAt ?? new Date(now.getTime() - DAY);
       const suspendAt = stampBetween(later(expiredAt, 5 * 60_000), minDate(later(expiredAt, 8 * HOUR), later(now, -HOUR)));

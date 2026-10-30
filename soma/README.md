@@ -12,7 +12,8 @@ One Next.js application serves three experiences:
 
 The interface is entirely German. Customers are addressed with *Sie*, providers in `/pro` with *du*.
 
-> **Demo:** see **[DEMO.md](DEMO.md)** (German) — start in 5 minutes, three test logins, a 20-minute demo script.
+> **Demo:** see **[DEMO.md](DEMO.md)** (German) — start in 5 minutes, three test logins, a 20-minute demo script,
+> and §5 for a hosted demo on **Netlify + Neon** (`netlify.toml`, `npm run netlify:prepare`).
 
 > **Working title.** "SOMA" is a working name pending trademark clearance. Renaming touches
 > `src/lib/brand.ts`, the wordmark (`public/brand/*`, `src/components/brand/logo.tsx`) and the
@@ -81,6 +82,7 @@ own photos.
 | `npm run db:seed` | demo seed (refuses to run unless `DEMO_MODE=true`) |
 | `npm run demo:refresh` | **run right before a demo**: demo seed + one maintenance run, all times relative to now (testkunde ↔ testkunde-b2b appointment starts in ≈ 35 min, open requests stay open ≥ 3 h); reads `.env.local` |
 | `npm run images:fetch` | store the photo set locally |
+| `npm run netlify:prepare` | Netlify build step: refuses a missing/localhost `DATABASE_URL`, applies migrations, reloads the demo data when `DEMO_MODE=true` |
 
 ---
 

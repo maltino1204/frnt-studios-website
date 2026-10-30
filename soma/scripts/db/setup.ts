@@ -6,6 +6,7 @@
  * --reset drops the SOMA schemas first and is refused for Supabase setups.
  */
 import postgres from "postgres";
+import { normalizeDatabaseUrl, usePreparedStatements } from "../../src/server/db/url";
 import { applyBaseSeed } from "./lib/base-seed";
 import { applySchema } from "./lib/migrate";
 
@@ -19,7 +20,7 @@ async function main(): Promise<void> {
     throw new Error("--reset ist nur für lokale Datenbanken erlaubt (AUTH_PROVIDER=local).");
   }
 
-  const sql = postgres(url, { max: 1, onnotice: () => undefined });
+  const sql = postgres(normalizeDatabaseUrl(url), { max: 1, prepare: usePreparedStatements(), onnotice: () => undefined });
   const log = (m: string) => console.log(`[db:setup] ${m}`);
   try {
     const applied = await applySchema(sql, { reset, applyShim: authProvider === "local", log });

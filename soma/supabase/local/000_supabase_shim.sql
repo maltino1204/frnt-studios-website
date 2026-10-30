@@ -30,7 +30,13 @@ begin
     create role authenticated nologin noinherit;
   end if;
   if not exists (select 1 from pg_roles where rolname = 'service_role') then
-    create role service_role nologin noinherit bypassrls;
+    -- BYPASSRLS needs superuser (or BYPASSRLS) on PostgreSQL 16+. Hosted databases such as Neon
+    -- don't grant it; SOMA never switches to service_role, so the role works without the attribute.
+    begin
+      create role service_role nologin noinherit bypassrls;
+    exception when insufficient_privilege then
+      create role service_role nologin noinherit;
+    end;
   end if;
 end
 $$;

@@ -1,0 +1,12 @@
+# Netlify deployment (hosted demo). Setup, environment variables and the reset hook: DEMO.md → „Online-Demo auf Netlify“.
+[build]
+  command = "npm run netlify:prepare && npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# netlify/functions/booking-maintenance.mts runs the booking maintenance every 10 minutes.
+[functions]
+  directory = "netlify/functions"
