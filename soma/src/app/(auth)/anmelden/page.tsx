@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSession, homeForRole } from "@/server/auth/guards";
+import { safeRelativePath } from "@/server/auth/redirect";
+import { getConfig } from "@/server/config";
 import { Notice } from "@/components/ui/feedback";
 import { Overline } from "@/components/ui/layout";
 import { LoginForm } from "@/components/site/auth-login-form";
@@ -10,11 +12,11 @@ export const metadata: Metadata = { title: "Anmelden", robots: { index: false } 
 
 type SP = Record<string, string | string[] | undefined>;
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) || null;
-const safe = (n: string | null) => (n && n.startsWith("/") && !n.startsWith("//") && !n.startsWith("/\\") ? n : null);
 
 export default async function AnmeldenPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
-  const next = safe(one(sp.next));
+  // Same guard as the login action (audit-2 N1): same-origin relative paths only, no control characters.
+  const next = safeRelativePath(one(sp.next), getConfig().APP_URL);
   const session = await getSession();
   if (session) redirect(next ?? homeForRole(session.role));
   return (

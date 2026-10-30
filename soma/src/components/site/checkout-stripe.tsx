@@ -11,7 +11,9 @@
  * access to js.stripe.com) — see docs/STATUS.md.
  */
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { loadStripe, type Stripe } from "@stripe/stripe-js";
+// "pure" defers injecting js.stripe.com until loadStripe() runs (only in the Stripe payment step).
+import { loadStripe } from "@stripe/stripe-js/pure";
+import type { Stripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";

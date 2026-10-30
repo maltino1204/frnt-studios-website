@@ -3,6 +3,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { getSession, homeForRole } from "@/server/auth/guards";
+import { safeRelativePath } from "@/server/auth/redirect";
+import { getConfig } from "@/server/config";
 import { Icon } from "@/components/ui/icon";
 import { Overline } from "@/components/ui/layout";
 import { RegisterForm } from "@/components/site/auth-register-form";
@@ -12,11 +14,11 @@ export const metadata: Metadata = { title: "Konto erstellen", robots: { index: f
 
 type SP = Record<string, string | string[] | undefined>;
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) || null;
-const safe = (n: string | null) => (n && n.startsWith("/") && !n.startsWith("//") && !n.startsWith("/\\") ? n : null);
 
 export default async function RegistrierenPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
-  const next = safe(one(sp.next));
+  // Same guard as the login action (audit-2 N1): same-origin relative paths only, no control characters.
+  const next = safeRelativePath(one(sp.next), getConfig().APP_URL);
   const session = await getSession();
   if (session) redirect(next ?? homeForRole(session.role));
   const referral = one(sp.empfehlung)?.slice(0, 16) ?? null;
