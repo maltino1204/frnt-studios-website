@@ -139,7 +139,8 @@ export function PortfolioManager({
         <ul className="grid grid-cols-3 gap-1 sm:grid-cols-4 lg:grid-cols-6" aria-label="Portfolio">
           {items.map((it) => (
             <li key={it.id} className="group relative">
-              <Photo src={it.url} alt={it.caption ?? "Portfolio-Bild"} tone={catSlug(it.categoryId)} sizes="(min-width: 1024px) 160px, 33vw" ratio="1/1" />
+              {/* The visible caption below names the image; repeating it as alt text would be read twice. */}
+              <Photo src={it.url} alt={it.caption ? "" : "Portfolio-Bild"} tone={catSlug(it.categoryId)} sizes="(min-width: 1024px) 160px, 33vw" ratio="1/1" />
               <IconButton
                 label={`Bild${it.caption ? ` „${it.caption}“` : ""} entfernen`}
                 onClick={() => remove(it.id)}

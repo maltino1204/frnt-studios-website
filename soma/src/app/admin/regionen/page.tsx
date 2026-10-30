@@ -3,7 +3,7 @@ import { InlineBar } from "@/components/admin/bars";
 import { formatInt, formatPercent } from "@/components/admin/format";
 import { AdminPageHeader, AdminSection, EMPTY, MutedLink } from "@/components/admin/page";
 import { RangeSwitch } from "@/components/admin/range-switch";
-import { adminTable, hrefWith, numCell } from "@/components/admin/table";
+import { adminTable, adminTableWrapper, hrefWith, numCell } from "@/components/admin/table";
 import { Table } from "@/components/ui/data";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { cn } from "@/lib/cn";
@@ -71,7 +71,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         </AdminSection>
 
         <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
-          <Table dense className={adminTable}>
+          <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -119,7 +119,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         </AdminSection>
 
         <AdminSection id="matrix" title="Stadt × Kategorie" description="Je Zelle: Profis · Suchen. Rot: Nachfrage ohne Profi. Gelb: unter der Indexierungs-Schwelle.">
-          <Table dense className={cn(adminTable, "[&_td]:px-3 [&_th]:px-3")}>
+          <Table dense className={cn(adminTable, "[&_td]:px-3 [&_th]:px-3")} wrapperClassName={adminTableWrapper}>
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -164,7 +164,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
           {regions.length === 0 ? (
             <EmptyState title="Noch keine Daten." className="py-4" />
           ) : (
-            <Table dense className={adminTable}>
+            <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
               <thead>
                 <tr>
                   <th scope="col">Region</th>

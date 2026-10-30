@@ -560,7 +560,10 @@ export function BookingEntry({
   const wasValue = service ? service.name : category ? category.name : null;
   const errorId = `${uid}-plz-error`;
   const statusId = `${uid}-status`;
+  const hintId = `${uid}-plz-hint`;
   const invalid = Boolean(plzError) || loc.status === "unknown";
+  // Reference the one message node that applies (the live region around it is not referenced, so it is read once).
+  const describedBy = invalid ? errorId : loc.status === "error" ? hintId : undefined;
 
   /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero). */
   const segment = cn(
@@ -605,7 +608,7 @@ export function BookingEntry({
               maxLength={5}
               placeholder={`PLZ, z. B. ${postalExample}`}
               aria-invalid={invalid || undefined}
-              aria-describedby={cn(plzError && errorId, statusId) || undefined}
+              aria-describedby={describedBy}
               className={cn(
                 "h-7 min-w-0 bg-transparent p-0 type-body num text-ink placeholder:text-ink-muted focus:outline-none",
                 loc.status === "ok" || loc.status === "outside" ? "w-[5.6ch] shrink-0" : "flex-1",
@@ -706,12 +709,12 @@ export function BookingEntry({
             {plzError}
           </p>
         ) : loc.status === "unknown" ? (
-          <p className="mt-3 flex items-start gap-1.5 type-caption text-danger">
+          <p id={errorId} className="mt-3 flex items-start gap-1.5 type-caption text-danger">
             <Icon icon={CircleAlert} size={16} className="mt-px shrink-0" />
             Diese Postleitzahl kennen wir nicht. Bitte prüfen Sie die Eingabe.
           </p>
         ) : loc.status === "error" ? (
-          <p className="mt-3 type-caption text-ink-muted">{loc.message}</p>
+          <p id={hintId} className="mt-3 type-caption text-ink-muted">{loc.message}</p>
         ) : loc.status === "outside" ? (
           <div className="mt-4 flex flex-col gap-3 border-l-2 border-ink pl-4">
             <p className="type-body-s text-ink">

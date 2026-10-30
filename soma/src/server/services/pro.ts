@@ -1,10 +1,10 @@
 import "server-only";
 
 import { z } from "zod";
-import { getConfig } from "../config";
+import { resolveAppUrl } from "../config";
 import { setActor, withService, withUser, type Queryable, type Tx } from "../db/client";
 import { rethrowDb } from "../db/errors";
-import { findHealthClaims } from "../domain/content-lint";
+import { CONTACT_LINT_MESSAGES, findHealthClaims } from "../domain/content-lint";
 import { addDays, formatTimeOfDay, isValidLocalDate, parseTimeOfDay } from "../domain/tz";
 import type {
   DocumentDTO,
@@ -29,7 +29,7 @@ import type {
 } from "../dto";
 import { ServiceError } from "../errors";
 import { getPaymentProvider } from "../payments/provider";
-import { loadSettings, mediaUrl, parse, requireRoleIn, zIsoInstant, zPostalCode, zUuid, type PlatformSettings } from "./_shared";
+import { assertNoContactDetails, loadSettings, mediaUrl, parse, requireRoleIn, zIsoInstant, zPostalCode, zUuid, type PlatformSettings } from "./_shared";
 import { getNotificationPreferences, updateNotificationPreferences } from "./account";
 import { runBookingMaintenanceLazily } from "./booking-maintenance";
 import { listProviderBookings, queryProviderBookings, toProviderBooking } from "./bookings";
@@ -111,6 +111,7 @@ export async function updateProProfile(session: Session, input: z.input<typeof P
   const v = parse(ProProfileSchema, input);
   assertNoHealthClaims("headline", v.headline);
   assertNoHealthClaims("bio", v.bio);
+  assertNoContactDetails({ displayName: v.displayName, headline: v.headline, bio: v.bio }, CONTACT_LINT_MESSAGES.providerProfile);
   await withUser(s.userId, (tx) => tx`
     update public.providers set display_name = ${v.displayName}, headline = ${v.headline}, bio = ${v.bio},
       years_experience = ${v.yearsExperience ?? null}, languages = ${v.languages}::text[]
@@ -481,7 +482,7 @@ export async function getProSettings(session: Session): Promise<ProSettingsDTO> 
   if (!p) throw new ServiceError("not_found", "Profil nicht gefunden.");
   return {
     bookingMode: p.bookingMode, leadTimeMinutes: p.leadTimeMinutes, travelBufferMinutes: p.travelBufferMinutes, maxAdvanceDays: p.maxAdvanceDays,
-    inviteCode: p.inviteCode, inviteUrl: `${getConfig().APP_URL}/profis/${p.slug}?einladung=${p.inviteCode}`, payoutsEnabled: p.payoutsEnabled,
+    inviteCode: p.inviteCode, inviteUrl: `${await resolveAppUrl()}/profis/${p.slug}?einladung=${p.inviteCode}`, payoutsEnabled: p.payoutsEnabled,
     vatMode: p.vatMode,
     notificationPreferences: await getNotificationPreferences(s),
   };
@@ -517,7 +518,7 @@ export async function getPayoutOnboardingLink(session: Session): Promise<{ url: 
   const provider = getPaymentProvider();
   // withService: stripe_account_id / payouts_enabled are not provider-writable (and not readable by API roles).
   const [p] = await withService((tx) => tx<{ stripeAccountId: string | null }[]>`select stripe_account_id from public.providers where id = ${s.userId}`);
-  const base = getConfig().APP_URL;
+  const base = await resolveAppUrl();
   const link = await provider.createConnectedAccountLink({
     providerId: s.userId, existingAccountId: p?.stripeAccountId ?? null, email: s.email,
     returnUrl: `${base}/pro/einnahmen?auszahlung=fertig`, refreshUrl: `${base}/pro/einnahmen?auszahlung=erneut`,

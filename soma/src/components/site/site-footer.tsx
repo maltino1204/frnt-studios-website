@@ -46,6 +46,7 @@ export async function SiteFooter() {
       links: [
         { href: routes.help(), label: "Hilfe & häufige Fragen" },
         { href: "/stornierung", label: "Stornierung" },
+        { href: "/ranking", label: "So sortieren wir" },
         { href: `mailto:${SUPPORT_EMAIL}`, label: SUPPORT_EMAIL },
       ],
     },
@@ -55,6 +56,7 @@ export async function SiteFooter() {
         { href: routes.imprint(), label: "Impressum" },
         { href: routes.privacy(), label: "Datenschutz" },
         { href: routes.terms(), label: "AGB" },
+        { href: "/widerruf", label: "Widerrufsbelehrung" },
         { href: `${routes.privacy()}#cookies`, label: "Cookie-Einstellungen" },
       ],
     },

@@ -17,6 +17,13 @@ export const adminTable = cn(
   "max-lg:[&_tbody_tr:hover_td:first-child]:bg-surface-sunken",
 );
 
+/**
+ * `wrapperClassName` for the kit <Table>: makes the scroll container the containing block,
+ * so absolutely positioned descendants (sr-only hints in cells) are clipped instead of
+ * widening the page (audit-1 R11).
+ */
+export const adminTableWrapper = "relative max-w-full";
+
 /** Right-aligned numeric header/cell helpers. */
 export const numCell = "text-right num";
 

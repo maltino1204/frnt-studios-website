@@ -96,7 +96,7 @@ export async function createReviewAction(_prev: ActionResult<{ reviewId: string 
     const r = await createReview(s, v.bookingId, v.rating, v.comment ?? null, v.tags);
     revalidatePath(`/buchung/${v.bookingId}`);
     return r;
-  }, "Danke für Ihre Bewertung!");
+  }, "Danke für Ihre Bewertung.");
 }
 
 const DisputeSchema = z.object({
@@ -123,5 +123,5 @@ const WaitlistSchema = z.object({
 
 /** "Benachrichtigen, sobald verfügbar" — public form action. */
 export async function joinWaitlistAction(_prev: ActionResult<{ joined: true }> | null, formData: FormData): Promise<ActionResult<{ joined: true }>> {
-  return publicAction(async () => joinWaitlist(input(WaitlistSchema, formToObject(formData))), "Danke! Wir geben Ihnen Bescheid, sobald Profis in Ihrer Nähe verfügbar sind.");
+  return publicAction(async () => joinWaitlist(input(WaitlistSchema, formToObject(formData))), "Danke, wir geben Ihnen Bescheid, sobald Profis in Ihrer Nähe verfügbar sind.");
 }

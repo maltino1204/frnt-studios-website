@@ -5,7 +5,8 @@ import { withAnon, withService, withUser, type Queryable } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import type { ReviewDTO, ReviewListDTO, Session } from "../dto";
 import { ServiceError } from "../errors";
-import { loadSettings, numOrNull, paging, parse, requireRoleIn, zUuid } from "./_shared";
+import { assertNoContactDetails, loadSettings, numOrNull, paging, parse, requireRoleIn, zUuid } from "./_shared";
+import { CONTACT_LINT_MESSAGES } from "../domain/content-lint";
 import { notify } from "./notifications";
 
 /**
@@ -62,6 +63,7 @@ const CreateReviewSchema = z.object({
 export async function createReview(session: Session, bookingId: string, rating: number, comment?: string | null, tags: string[] = []): Promise<{ reviewId: string }> {
   const s = requireRoleIn(session, "customer");
   const input = parse(CreateReviewSchema, { bookingId, rating, comment: comment ?? undefined, tags });
+  assertNoContactDetails({ comment: input.comment }, CONTACT_LINT_MESSAGES.customerReview);
   const result = await withUser(s.userId, async (tx) => {
     const settings = await loadSettings(tx);
     // RLS: the customer can only see their own bookings.
@@ -91,6 +93,7 @@ const ReplySchema = z.object({ reviewId: zUuid, reply: z.string().trim().min(2, 
 export async function replyToReview(session: Session, reviewId: string, reply: string): Promise<void> {
   const s = requireRoleIn(session, "provider");
   const input = parse(ReplySchema, { reviewId, reply });
+  assertNoContactDetails({ reply: input.reply }, CONTACT_LINT_MESSAGES.providerReply);
   await withUser(s.userId, async (tx) => {
     const rows = await tx`update public.reviews set provider_reply = ${input.reply} where id = ${input.reviewId} and provider_id = ${s.userId} returning id`;
     if (rows.length === 0) throw new ServiceError("not_found", "Bewertung nicht gefunden.");

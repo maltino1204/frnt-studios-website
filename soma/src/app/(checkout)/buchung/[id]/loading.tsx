@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/feedback";
 
 export default function BuchungLoading() {
   return (
-    <div aria-busy="true" aria-label="Buchung wird geladen" className="flex-1">
+    <div role="status" aria-busy="true" aria-label="Buchung wird geladen" className="flex-1">
       <Container width="content" className="flex flex-col gap-10 pt-8 pb-16 lg:pt-14">
         <div className="flex flex-col gap-4">
           <Skeleton className="h-4 w-48" />

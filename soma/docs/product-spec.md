@@ -291,12 +291,14 @@ For reference, Selfkea takes 5% and Blys pays pros "up to 75%". **No customer se
 |---|---|
 | ≥ 24 h before start, or within 15 min of booking ("Bedenkzeit") | **0**, full refund |
 | Request not yet accepted | 0 (nothing captured) |
-| 24 h – 3 h before | 50% of service; **travel fee refunded** |
-| < 3 h before, or `no_show` | 100% of service + travel fee |
+| < 24 h and ≥ 2 h before | 50 % of the service price; **travel fee refunded** |
+| < 2 h before, or `no_show` | 100 % of the service price + travel fee |
 
-- **Provider cancels:** full refund, plus 10 € Guthaben if < 24 h before (A). The pro takes a reliability-score hit; the 3rd cancellation in 90 days triggers ranking demotion and admin review. No financial penalty in v1, so supply isn't scared away.
+- **Fee basis** is the service price only; the travel fee is refunded unless the cancellation is < 2 h before the start or a no-show. SOMA's commission applies only to the kept service share; a kept travel fee goes in full to the pro. The Bedenkzeit wins over every tier, but never extends past the start time.
+
+- **Provider cancels:** full refund, plus 10 € Guthaben if < 24 h before (A; in v1 granted by an admin as Kulanzgutschrift). The pro takes a reliability-score hit; the 3rd cancellation in 90 days triggers ranking demotion and admin review. No financial penalty in v1, so supply isn't scared away.
 - **Reschedule:** free once if ≥ 24 h before, to the same pro. Instant pros: immediate. Approval pros: the original booking stays until the new time is accepted. Within 24 h it counts as cancel + rebook.
-- **Waivers** (illness, emergency) are an admin action, logged with a reason. On retained fees the pro gets the amount minus the booking's commission.
+- **Waivers** (illness, emergency) are an admin action, logged with a reason. On retained fees the pro gets the kept service share minus the booking's commission, plus any kept travel fee in full.
 - **Display:** always as a concrete deadline ("Kostenlos stornierbar bis Mi, 18:30 Uhr") on the slot sheet, at checkout, in the confirmation and on `/buchung/[id]`.
 - ⚖ For how this interacts with the 14-day withdrawal right, see §14.
 

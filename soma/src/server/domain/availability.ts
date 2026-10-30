@@ -1,5 +1,6 @@
 import "server-only";
 
+import { earliestRequestStart } from "./booking-state";
 import { addDays, BERLIN, parseTimeOfDay, toWallClock, wallTimeToInstant } from "./tz";
 
 /**
@@ -41,6 +42,11 @@ export interface AvailabilityRules {
   busy: Interval[];
   now: Date;
   timeZone?: string;
+  /**
+   * Request-mode providers: only offer slots that leave the provider at least
+   * 30 business minutes to answer (see computeRespondBy).
+   */
+  requestResponseHours?: number | null;
 }
 
 export interface AvailabilityInput extends AvailabilityRules {
@@ -96,8 +102,13 @@ export function slotsForDate(date: string, rules: AvailabilityRules): SlotsByDay
   const weekday = toWallClock(wallTimeToInstant(date, 12 * 60, tz).instant, tz).isoWeekday;
   const slots: string[] = [];
   const seen = new Set<number>();
-  const minStart = earliestStart(rules);
+  let minStart = earliestStart(rules);
   const maxStart = latestStart(rules);
+  if (rules.requestResponseHours != null) {
+    const earliest = earliestRequestStart(rules.now, rules.requestResponseHours);
+    if (!earliest) return { date, weekday, slots: [] };
+    minStart = Math.max(minStart, earliest.getTime());
+  }
   const step = Math.max(5, rules.stepMinutes);
 
   for (const w of windowsFor(weekday, rules.weeklyHours)) {

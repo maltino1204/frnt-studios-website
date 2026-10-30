@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/feedback";
 /** Generic account skeleton: page title, two list blocks. */
 export default function KontoLoading() {
   return (
-    <div aria-busy="true" aria-label="Wird geladen" className="flex flex-col gap-8">
+    <div role="status" aria-busy="true" aria-label="Wird geladen" className="flex flex-col gap-8">
       <div className="flex flex-col gap-3 pb-2">
         <Skeleton className="h-7 w-56" />
         <Skeleton className="h-3.5 w-72 max-w-full" />

@@ -3,6 +3,8 @@ import "server-only";
 import { unstable_rethrow } from "next/navigation";
 import { z } from "zod";
 import { authorize } from "../auth/guards";
+import { safeRelativePath } from "../auth/redirect";
+import { getConfig } from "../config";
 import { mapDbError } from "../db/errors";
 import type { AppRole, Session } from "../dto";
 import { isServiceError, ServiceError } from "../errors";
@@ -79,7 +81,7 @@ export async function fileFrom(fd: FormData, field = "file"): Promise<{ fileName
   return { fileName: f.name, contentType: f.type, bytes: new Uint8Array(await f.arrayBuffer()) };
 }
 
-/** Same-origin relative path for ?next= redirects (prevents open redirects). */
+/** Same-origin relative path for ?next= redirects (prevents open redirects, audit-1 R2). */
 export function safeNext(value: unknown): string | null {
-  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//") && !value.startsWith("/\\") ? value : null;
+  return safeRelativePath(value, getConfig().APP_URL);
 }

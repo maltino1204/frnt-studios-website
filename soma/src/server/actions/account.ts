@@ -1,8 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
+import { authorize } from "../auth/guards";
+import { getAuthAdapter } from "../auth/session";
 import type { AddressDTO, NotificationPreferencesDTO, ProfileDTO } from "../dto";
+import { ServiceError } from "../errors";
 import {
   createAddress,
   deleteAddress,
@@ -14,7 +18,8 @@ import {
   uploadAvatar,
 } from "../services/account";
 import { markNotificationsRead } from "../services/notifications";
-import { fileFrom, formToObject, input, withSession, zGuid } from "./_run";
+import { anonymizeOwnAccount, exportFileName, exportMyData } from "../services/privacy";
+import { fileFrom, formToObject, input, toActionError, withSession, zGuid } from "./_run";
 import type { ActionResult } from "./types";
 
 /** Customer account actions (voice: "Sie"). Profile/notification actions work for every role. */
@@ -106,4 +111,44 @@ export async function uploadAvatarAction(_prev: ActionResult<{ avatarUrl: string
     revalidatePath("/pro", "layout");
     return r;
   }, "Foto gespeichert.");
+}
+
+// ---------------------------------------------------------------------------
+// Datenschutz (DSGVO Art. 15/17/20) — audit-1 R20
+// ---------------------------------------------------------------------------
+
+/** "Meine Daten exportieren": JSON of profile, addresses, bookings, reviews, credits, notifications. */
+export async function requestDataExportAction(): Promise<ActionResult<{ fileName: string; json: string }>> {
+  return withSession(["customer", "provider"], async (s) => {
+    const data = await exportMyData(s);
+    return { fileName: exportFileName(s.userId), json: JSON.stringify(data, null, 2) };
+  }, "Ihr Datenexport ist bereit.");
+}
+
+const DeletionSchema = z.object({ password: z.string().min(1, "Bitte geben Sie Ihr Passwort ein.").max(200) });
+
+/**
+ * Form action — field: password. Re-confirms the password, anonymises the account
+ * (names, phone, addresses, login, sessions; bookings stay anonymised for accounting),
+ * signs out and redirects to "/?konto=geloescht".
+ */
+export async function requestAccountDeletionAction(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  try {
+    const session = await authorize(["customer", "provider"]);
+    const v = input(DeletionSchema, formToObject(formData));
+    const adapter = await getAuthAdapter();
+    if (!(await adapter.verifyPassword(session.userId, v.password))) {
+      throw new ServiceError("validation", "Das Passwort ist nicht korrekt.", { password: "Das Passwort ist nicht korrekt." });
+    }
+    await anonymizeOwnAccount(session);
+    try {
+      await adapter.signOut();
+    } catch (e) {
+      console.error("[account] sign-out after deletion failed", e);
+    }
+  } catch (e) {
+    return toActionError(e);
+  }
+  revalidatePath("/", "layout");
+  redirect("/?konto=geloescht");
 }

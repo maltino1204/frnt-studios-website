@@ -202,14 +202,17 @@ export const CATEGORIES: SeedCategory[] = [
   },
 ];
 
+/** SOMA Standard (docs/architecture.md §5.5): fee basis = service price; travel kept only < 2 h / no-show; 15-min Bedenkzeit. */
 export const DEFAULT_CANCELLATION_POLICY = {
   tiers: [
-    { min_hours_before: 24, fee_percent: 0 },
-    { min_hours_before: 2, fee_percent: 50 },
-    { min_hours_before: 0, fee_percent: 100 },
+    { min_hours_before: 24, fee_percent: 0, travel_fee_retained: false },
+    { min_hours_before: 2, fee_percent: 50, travel_fee_retained: false },
+    { min_hours_before: 0, fee_percent: 100, travel_fee_retained: true },
   ],
   no_show_fee_percent: 100,
   provider_cancellation: "full_refund",
+  grace_minutes: 15,
+  fee_basis: "service_price",
 } as const;
 
 export const PLATFORM_SETTINGS: Record<string, unknown> = {

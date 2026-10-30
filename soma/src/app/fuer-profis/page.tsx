@@ -10,7 +10,9 @@ import { BRAND_NAME } from "@/lib/brand";
 import { images } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { listCategories, listCities } from "@/server/services/catalog";
+import { cn } from "@/lib/cn";
 import { getProviderTerms } from "@/server/services/pro-ext";
+import { getDemandByCity } from "@/server/services/site-ext-2";
 
 export const revalidate = 3600;
 
@@ -23,7 +25,16 @@ export const metadata: Metadata = {
 const REGISTER = routes.pro.onboarding();
 
 export default async function ForProsPage() {
-  const [terms, categories, cities] = await Promise.all([getProviderTerms(), listCategories(), listCities()]);
+  const [terms, categories, cities, demand] = await Promise.all([
+    getProviderTerms(),
+    listCategories(),
+    listCities(),
+    // Live demand is a bonus: the page stays complete without it.
+    getDemandByCity({ days: 30 }).catch((e) => {
+      console.error("[fuer-profis] demand unavailable", e);
+      return null;
+    }),
+  ]);
   const c = terms.commission ?? { rate: 0.2, repeatClientRate: 0.12, ownClientRate: 0.05 };
   const hold = terms.payoutHoldHours;
   const tiers = [...terms.cancellationPolicy.tiers].sort((a, b) => b.minHoursBefore - a.minHoursBefore);
@@ -31,9 +42,12 @@ export default async function ForProsPage() {
   const partial = tiers.find((t) => t.feePercent > 0 && t.feePercent < 100);
   const full = tiers.find((t) => t.feePercent === 100);
   const pct = (n: number) => `${n}\u00a0%`;
-  const cancelText = `Sagt Kundschaft weniger als ${freeHours} Stunden vorher ab, wird eine Gebühr fällig${
-    partial ? ` (${pct(partial.feePercent)}${full && partial.minHoursBefore > 0 ? `, unter ${partial.minHoursBefore} Stunden ${pct(full.feePercent)}` : ""})` : ""
-  }. Bei Nichterscheinen sind es ${pct(terms.cancellationPolicy.noShowFeePercent)}.`;
+  const cancelText = `Sagt Kundschaft weniger als ${freeHours} Stunden vorher ab, wird eine Gebühr auf den Behandlungspreis fällig${
+    partial ? ` (${pct(partial.feePercent)}${full && partial.minHoursBefore > 0 ? `, unter ${partial.minHoursBefore} Stunden ${pct(full.feePercent)} plus Anfahrt` : ""})` : ""
+  }. Bei Nichterscheinen sind es ${pct(terms.cancellationPolicy.noShowFeePercent)} plus Anfahrt.`;
+  const demandRows = demand?.cities.filter((x) => x.searches > 0 || x.waitlistSignups > 0) ?? [];
+  const totalSearches = demandRows.reduce((a, x) => a + x.searches, 0);
+  const n = (v: number) => v.toLocaleString("de-DE");
   const activeCities = cities.filter((x) => x.isActive);
   const cityList = activeCities.map((x) => x.name);
   const cityText = cityList.length > 1 ? `${cityList.slice(0, -1).join(", ")} und ${cityList[cityList.length - 1]}` : cityList.join("");
@@ -76,7 +90,7 @@ export default async function ForProsPage() {
     { q: "Welche Versicherung brauche ich?", a: "Eine Berufs- bzw. Betriebshaftpflichtversicherung, die Behandlungen bei Kundschaft vor Ort abdeckt. Den Nachweis lädst du bei der Registrierung hoch." },
     {
       q: "Kann ich meine bestehende Kundschaft mitbringen?",
-      a: `Ja. Mit deinem persönlichen Einladungslink buchen deine Stammkund:innen dich über SOMA – für dauerhaft nur ${formatPercent(c.ownClientRate)} Provision. Sie bekommen Erinnerungen, sichere Zahlung und Absicherung, du sparst dir Rechnungen und Nachfragen.`,
+      a: `Ja. Mit deinem persönlichen Einladungslink bucht deine Stammkundschaft dich über SOMA – für dauerhaft nur ${formatPercent(c.ownClientRate)} Provision. Sie bekommen Erinnerungen, sichere Zahlung und Absicherung, du sparst dir Rechnungen und Nachfragen.`,
     },
     {
       q: "Wer sieht meine Adresse – und wann sehe ich die der Kundschaft?",
@@ -114,20 +128,30 @@ export default async function ForProsPage() {
                 So funktioniert’s
               </ButtonLink>
             </div>
-            <dl className="mt-4 grid grid-cols-3 border-y border-line">
-              {[
-                { value: formatPercent(c.ownClientRate), label: "Provision ab", note: "für eigene Kundschaft" },
-                { value: `${hold} Std.`, label: "Auszahlung", note: "nach dem Termin" },
-                { value: "0 €", label: "Grundgebühr", note: "keine Laufzeit" },
-              ].map((f, i) => (
-                <div key={f.label} className={i > 0 ? "flex flex-col gap-1 border-l border-line py-4 pl-4" : "flex flex-col gap-1 py-4 pr-4"}>
-                  <dt className="order-2 type-caption text-ink-muted">
-                    {f.label} <span className="hidden sm:inline">· {f.note}</span>
-                  </dt>
-                  <dd className="order-1 type-stat">{f.value}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="mt-4 flex flex-col gap-3">
+              <dl className="grid grid-cols-2 border-t border-line sm:grid-cols-4">
+                {[
+                  { value: formatPercent(c.rate), label: "nur bei neuer Kundschaft" },
+                  { value: formatPercent(c.repeatClientRate), label: "bei Stammkundschaft" },
+                  { value: formatPercent(c.ownClientRate), label: "mit deinem Link" },
+                  { value: "0\u00a0%", label: "auf Anfahrt" },
+                ].map((f, i) => (
+                  <div
+                    key={f.label}
+                    className={cn(
+                      "flex min-w-0 flex-col gap-1 border-b border-line py-4",
+                      i % 2 === 1 ? "border-l pl-4" : "pr-4",
+                      i > 0 && "sm:border-l sm:pl-4",
+                      i < 3 && "sm:pr-4",
+                    )}
+                  >
+                    <dt className="order-2 type-caption text-ink-muted hyphens-none">{f.label}</dt>
+                    <dd className="order-1 type-stat">{f.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Auszahlung ${hold}\u00a0Stunden nach dem Termin.`}</p>
+            </div>
           </div>
           <figure className="-mx-(--space-gutter) flex flex-col gap-3 lg:col-span-6 lg:mx-0 lg:-mr-(--space-gutter)">
             <Photo
@@ -263,7 +287,7 @@ export default async function ForProsPage() {
               Bring deine Stamm&shy;kundschaft mit. <em className="italic">Für {formatPercent(c.ownClientRate)}.</em>
             </h2>
             <p className="type-body-l text-ink-muted">
-              Über deinen persönlichen Link buchen deine Kund:innen dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
+              Über deinen persönlichen Link bucht deine Kundschaft dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
             </p>
             <ButtonLink href={REGISTER} size="l" className="self-start" iconRight={<Icon icon={ArrowRight} />}>
               Kostenlos registrieren
@@ -282,6 +306,57 @@ export default async function ForProsPage() {
           </figure>
         </Container>
       </Section>
+
+      {/* Live demand per launch city (R15) */}
+      {demandRows.length && demand ? (
+        <Section id="nachfrage" aria-labelledby="nachfrage-titel" className="border-t border-line">
+          <Container className="grid gap-12 lg:grid-cols-12">
+            <div className="flex flex-col gap-5 lg:col-span-5">
+              <Overline>Nachfrage</Overline>
+              <h2 id="nachfrage-titel" className="type-display-l">
+                Gesucht wird <em className="italic">schon.</em>
+              </h2>
+              <p className="max-w-reading type-body-l text-ink-muted">
+                {`${n(totalSearches)} Suchen nach Behandlungen in den letzten ${demand.days} Tagen. Auf der Warteliste stehen Menschen, die in ihrer Nähe noch niemanden gefunden haben.`}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 lg:col-span-6 lg:col-start-7">
+              <table className="w-full border-collapse text-left">
+                <caption className="sr-only">{`Suchen der letzten ${demand.days} Tage, Warteliste und Profis pro Stadt`}</caption>
+                <thead>
+                  <tr className="border-b border-line-strong">
+                    <th scope="col" className="py-2.5 pr-3 type-label-s font-normal text-ink-muted">
+                      Stadt
+                    </th>
+                    <th scope="col" className="py-2.5 px-3 text-right type-label-s font-normal text-ink-muted">
+                      Suchen
+                    </th>
+                    <th scope="col" className="py-2.5 px-3 text-right type-label-s font-normal text-ink-muted">
+                      Warteliste
+                    </th>
+                    <th scope="col" className="py-2.5 pl-3 text-right type-label-s font-normal text-ink-muted">
+                      Profis
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {demandRows.map((r) => (
+                    <tr key={r.citySlug} className="border-b border-line">
+                      <th scope="row" className="py-3.5 pr-3 type-body-s font-normal text-ink hyphens-none">
+                        {r.cityName}
+                      </th>
+                      <td className="py-3.5 px-3 text-right type-label num">{n(r.searches)}</td>
+                      <td className="py-3.5 px-3 text-right type-body-s text-ink-muted num">{n(r.waitlistSignups)}</td>
+                      <td className="py-3.5 pl-3 text-right type-body-s text-ink-muted num">{n(r.approvedProviders)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="type-caption text-ink-muted">{`Suchen der letzten ${demand.days} Tage in der ${BRAND_NAME}-Suche, stündlich aktualisiert. „Profis“ zählt freigeschaltete Profile mit Standort in der Stadt.`}</p>
+            </div>
+          </Container>
+        </Section>
+      ) : null}
 
       {/* Cities */}
       <Section className="pb-0">

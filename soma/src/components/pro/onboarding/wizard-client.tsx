@@ -96,7 +96,7 @@ export function SubmitForReview({ canSubmit, openSteps, vatMode: initialVatMode 
         if (res.fieldErrors?.termsAccepted) setCheckError(res.fieldErrors.termsAccepted);
         return setError(proError(res.error));
       }
-      toast.show(res.message ?? "Danke! Wir prüfen dein Profil.");
+      toast.show(res.message ?? "Danke. Wir prüfen dein Profil.");
       router.replace("/pro/registrieren");
       router.refresh();
     });

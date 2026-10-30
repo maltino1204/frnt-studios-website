@@ -207,8 +207,14 @@ export async function decideProvider(session: Session, providerId: string, decis
     const warnings: string[] = [];
     if (v.decision === "approve" || v.decision === "reinstate") {
       const settings = await loadSettings(tx);
-      for (const m of await queryMissingDocuments(tx, v.providerId, settings, true)) {
-        warnings.push(`Fehlendes oder ungeprüftes Dokument: ${m.label}${m.categoryName ? ` (${m.categoryName})` : ""}`);
+      // audit-1 R1: no approval without every required document (base + category) approved; no override.
+      const missing = await queryMissingDocuments(tx, v.providerId, settings, true);
+      if (missing.length > 0) {
+        const list = missing.map((m) => `${m.label}${m.categoryName ? ` (${m.categoryName})` : ""}`).join(", ");
+        throw new ServiceError(
+          "invalid_state",
+          `Freigabe nicht möglich. Folgende Pflichtdokumente fehlen oder sind noch nicht geprüft: ${list}.`,
+        );
       }
       if (!p.basePostalCode) warnings.push("Kein Einsatzgebiet hinterlegt.");
       const [{ n }] = await tx<{ n: number }[]>`select count(*)::int as n from public.provider_weekly_hours where provider_id = ${v.providerId}`;
@@ -659,9 +665,14 @@ const SETTING_SCHEMAS: Record<string, z.ZodType> = {
   search_days_ahead: z.number().int().min(1).max(14),
   coverage_min_providers: z.number().int().min(1).max(50),
   cancellation_policy: z.object({
-    tiers: z.array(z.object({ min_hours_before: z.number().min(0).max(168), fee_percent: z.number().min(0).max(100) })).min(1).max(6),
+    tiers: z
+      .array(z.object({ min_hours_before: z.number().min(0).max(168), fee_percent: z.number().min(0).max(100), travel_fee_retained: z.boolean().default(false) }))
+      .min(1)
+      .max(6),
     no_show_fee_percent: z.number().min(0).max(100),
     provider_cancellation: z.literal("full_refund"),
+    grace_minutes: z.number().int().min(0).max(120).default(15),
+    fee_basis: z.literal("service_price").default("service_price"),
   }),
   base_required_documents: z.array(z.object({ kind: z.enum(["id_document", "business_registration", "qualification", "insurance", "other"]), label: z.string().min(3).max(160) })).max(10),
 };

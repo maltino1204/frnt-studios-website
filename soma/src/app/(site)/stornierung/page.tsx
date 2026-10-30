@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Notice } from "@/components/ui/feedback";
 import { ContentPage, ContentSection } from "@/components/site/discovery-content-page";
+import { tierFeeText } from "@/components/site/checkout-format";
 import { hoursLabel, policyRows } from "@/components/site/discovery-copy";
 import { BRAND_NAME } from "@/lib/brand";
 import { formatTime, TIME_ZONE } from "@/lib/format";
@@ -27,6 +28,7 @@ export default async function StornierungPage() {
   const policy = terms.cancellationPolicy;
   const rows = policyRows(policy);
   const tiers = [...policy.tiers].sort((a, b) => b.minHoursBefore - a.minHoursBefore);
+  const graceMinutes = policy.graceMinutes ?? 0;
   const sections = [
     { id: "fristen", title: "Fristen und Gebühren" },
     { id: "beispiel", title: "Ein Beispiel" },
@@ -49,17 +51,32 @@ export default async function StornierungPage() {
       sections={sections}
     >
       <ContentSection id="fristen" title="Fristen und Gebühren">
-        <p>Maßgeblich ist der Zeitpunkt, zu dem Sie in Ihrem Konto stornieren. Die Gebühr bezieht sich auf den Gesamtpreis der Buchung, also Behandlung und Anfahrt.</p>
+        <p>
+          Maßgeblich ist der Zeitpunkt, zu dem Sie in Ihrem Konto stornieren. Die Gebühr bezieht sich auf den Preis der Behandlung; wann die Anfahrt erstattet wird, steht in jeder
+          Zeile.
+        </p>
         <dl className="mt-2 border-t border-line">
+          {graceMinutes > 0 ? (
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+              <dt className="type-body text-ink hyphens-none">In den ersten {graceMinutes}&nbsp;Minuten nach der Buchung</dt>
+              <dd className="text-right type-label font-semibold text-success num">Kostenlos</dd>
+            </div>
+          ) : null}
           {rows.map((r) => (
-            <div key={r.when} className="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-line py-4">
-              <dt className="type-body text-ink">{r.when}</dt>
-              <dd className={r.feePercent <= 0 ? "type-label font-semibold text-success num" : "type-label font-semibold text-ink num"}>{r.fee}</dd>
+            <div key={r.when} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+              <dt className="type-body text-ink hyphens-none">{r.when}</dt>
+              <dd className="text-right">
+                <span className={r.feePercent <= 0 ? "block type-label font-semibold text-success num" : "block type-label font-semibold text-ink num"}>{r.fee}</span>
+                {r.travel ? <span className="block type-caption text-ink-muted">{r.travel}</span> : null}
+              </dd>
             </div>
           ))}
-          <div className="grid grid-cols-[1fr_auto] items-baseline gap-6 border-b border-line py-4">
-            <dt className="type-body text-ink">Nicht angetroffen (ohne Absage)</dt>
-            <dd className="type-label font-semibold text-ink num">{policy.noShowFeePercent}&nbsp;% des Preises</dd>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+            <dt className="type-body text-ink hyphens-none">Nicht angetroffen (ohne Absage)</dt>
+            <dd className="text-right">
+              <span className="block type-label font-semibold text-ink num">{policy.noShowFeePercent}&nbsp;% der Behandlung</span>
+              <span className="block type-caption text-ink-muted">zzgl. Anfahrt</span>
+            </dd>
           </div>
         </dl>
       </ContentSection>
@@ -75,13 +92,13 @@ export default async function StornierungPage() {
             if (t.minHoursBefore <= 0) {
               return (
                 <li key={i}>
-                  Ab {prev ? at(new Date(EXAMPLE_START.getTime() - prev.minHoursBefore * 3_600_000)) : "der Buchung"}: {t.feePercent}&nbsp;% des Preises.
+                  Ab {prev ? at(new Date(EXAMPLE_START.getTime() - prev.minHoursBefore * 3_600_000)) : "der Buchung"}: {tierFeeText(t)}.
                 </li>
               );
             }
             return (
               <li key={i}>
-                Bis {at(until)}: {t.feePercent <= 0 ? "kostenlos" : `${t.feePercent} % des Preises`}.
+                Bis {at(until)}: {tierFeeText(t)}.
               </li>
             );
           })}
@@ -91,6 +108,11 @@ export default async function StornierungPage() {
 
       <ContentSection id="sonderfaelle" title="Immer kostenlos">
         <ul>
+          {graceMinutes > 0 ? (
+            <li>
+              <strong>Bedenkzeit:</strong> In den ersten {graceMinutes} Minuten nach der Buchung stornieren Sie immer kostenlos, auch bei kurzfristigen Terminen.
+            </li>
+          ) : null}
           <li>
             <strong>Offene Anfragen:</strong> Solange ein Profi Ihre Anfrage noch nicht bestätigt hat, stornieren Sie kostenlos. Ihre Karte wird erst nach der Zusage belastet.
           </li>
@@ -118,8 +140,8 @@ export default async function StornierungPage() {
 
       <ContentSection id="widerruf" title="Widerrufsrecht">
         <Notice kind="warning" title="Rechtliche Prüfung erforderlich">
-          Das Verhältnis dieser Gebühren zum gesetzlichen Widerrufsrecht bei online gebuchten Dienstleistungen (§§ 312g, 356 BGB) wird vor dem Start anwaltlich geprüft. Die Widerrufsbelehrung
-          folgt in den <Link href={routes.terms()}>AGB</Link>.
+          Das Verhältnis dieser Gebühren zum gesetzlichen Widerrufsrecht bei online gebuchten Dienstleistungen (§§ 312g, 356 BGB) wird vor dem Start anwaltlich geprüft. Ihre Rechte und
+          das Muster-Formular finden Sie in der <Link href="/widerruf">Widerrufsbelehrung</Link>.
         </Notice>
       </ContentSection>
     </ContentPage>

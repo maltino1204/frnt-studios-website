@@ -255,10 +255,10 @@ export function OfferingList() {
                     variant={selected ? "primary" : "secondary"}
                     size="s"
                     onClick={() => choose(o.providerServiceId)}
-                    aria-label={`${o.serviceName}, ${formatDuration(o.durationMinutes)} – Termin wählen`}
                     className="shrink-0"
                   >
                     {selected ? "Gewählt" : "Wählen"}
+                    <span className="sr-only">{`: ${o.serviceName}, ${formatDuration(o.durationMinutes)}`}</span>
                   </Button>
                 </li>
               );

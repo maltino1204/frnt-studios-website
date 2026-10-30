@@ -1,12 +1,18 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import Link from "next/link";
+import { Download } from "lucide-react";
+import { useActionState, useId, useState, useTransition } from "react";
 import { changePasswordAction } from "@/server/actions/auth";
-import { updateProfileAction } from "@/server/actions/account";
+import { requestAccountDeletionAction, requestDataExportAction, updateProfileAction } from "@/server/actions/account";
 import { initialActionState } from "@/server/actions/types";
 import type { ProfileDTO } from "@/server/dto";
+import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/dialog";
+import { Notice } from "@/components/ui/feedback";
 import { Checkbox, Input } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
+import { Icon } from "@/components/ui/icon";
 
 /** Name, phone and marketing opt-in. E-mail is shown read-only (login identity). */
 export function ProfileForm({ profile }: { profile: ProfileDTO }) {
@@ -66,5 +72,100 @@ export function PasswordForm() {
         Passwort ändern
       </SubmitButton>
     </form>
+  );
+}
+
+/**
+ * "Meine Daten exportieren" (Art. 15/20 DSGVO): asks the server for a JSON export of
+ * the account and hands it to the browser as a download.
+ */
+export function DataExportButton() {
+  const [pending, start] = useTransition();
+  const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
+  const run = () => {
+    setResult(null);
+    start(async () => {
+      const res = await requestDataExportAction();
+      if (!res.ok) {
+        setResult({ ok: false, text: res.error });
+        return;
+      }
+      const url = URL.createObjectURL(new Blob([res.data.json], { type: "application/json" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = res.data.fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
+      setResult({ ok: true, text: `Ihr Datenexport wurde heruntergeladen (${res.data.fileName}).` });
+    });
+  };
+  return (
+    <div className="flex flex-col items-start gap-3">
+      <Button variant="secondary" icon={<Icon icon={Download} />} loading={pending} onClick={run}>
+        Meine Daten exportieren
+      </Button>
+      <div aria-live="polite" className="w-full empty:hidden">
+        {result ? <Notice kind={result.ok ? "success" : "danger"}>{result.text}</Notice> : null}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * "Konto löschen" (Art. 17 DSGVO): a modal with the consequences and a password
+ * re-confirmation. On success the server signs out and redirects to the home page.
+ */
+export function DeleteAccount({ email }: { email: string }) {
+  const formId = useId();
+  const [open, setOpen] = useState(false);
+  const [state, action, pending] = useActionState(requestAccountDeletionAction, initialActionState);
+  const fe = state && !state.ok ? state.fieldErrors : undefined;
+  return (
+    <>
+      <Button variant="ghost" onClick={() => setOpen(true)} className="self-start text-danger! hover:bg-danger-soft!">
+        Konto löschen
+      </Button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Konto endgültig löschen?"
+        actions={
+          <>
+            <Button variant="ghost" onClick={() => setOpen(false)} disabled={pending}>
+              Konto behalten
+            </Button>
+            <Button type="submit" form={formId} variant="destructive" loading={pending}>
+              Endgültig löschen
+            </Button>
+          </>
+        }
+      >
+        <ul className="flex list-disc flex-col gap-1.5 pl-5">
+          <li>Name, Mobilnummer, Adressen, Favoriten und Benachrichtigungen werden gelöscht. Sie können sich nicht mehr anmelden.</li>
+          <li>Ihr Guthaben verfällt. Vergangene Buchungen bleiben ohne Adresse und Hinweise erhalten, weil wir Rechnungsdaten aufbewahren müssen. Ihre Bewertungen bleiben ohne Namen sichtbar.</li>
+          <li>Offene Termine stornieren Sie bitte vorher. Das lässt sich nicht rückgängig machen.</li>
+        </ul>
+        <form id={formId} action={action} noValidate className="mt-5 flex flex-col gap-3 text-ink">
+          <Input
+            label="Passwort zur Bestätigung"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            error={fe?.password}
+            hint={`Angemeldet als ${email}.`}
+            required
+          />
+          {state && !state.ok && !fe?.password ? <Notice kind="danger">{state.error}</Notice> : null}
+          <p className="type-caption text-ink-muted">
+            Noch kein Passwort festgelegt?{" "}
+            <Link href="/passwort-vergessen" className="text-accent underline underline-offset-[0.2em]">
+              Passwort festlegen
+            </Link>
+          </p>
+        </form>
+      </Modal>
+    </>
   );
 }

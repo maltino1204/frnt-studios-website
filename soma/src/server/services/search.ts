@@ -98,7 +98,7 @@ export async function searchProviders(raw: SearchInput, session?: Session | null
     const fromDate = input.date && input.date >= todayBerlin(now) ? input.date : todayBerlin(now);
     const days = input.date ? 1 : settings.searchDaysAhead;
     const range = rangeForDays(fromDate, days);
-    const schedules = await loadSchedules(tx, candidates.map((c) => ({ id: c.id, leadTimeMinutes: c.leadTimeMinutes, maxAdvanceDays: c.maxAdvanceDays, travelBufferMinutes: c.travelBufferMinutes })), range.from, range.to);
+    const schedules = await loadSchedules(tx, candidates.map((c) => ({ id: c.id, leadTimeMinutes: c.leadTimeMinutes, maxAdvanceDays: c.maxAdvanceDays, travelBufferMinutes: c.travelBufferMinutes, bookingMode: c.bookingMode })), range.from, range.to);
     const favorites = viewerId
       ? new Set((await tx<{ providerId: string }[]>`select provider_id from public.favorites where customer_id = ${viewerId}`).map((f) => f.providerId))
       : new Set<string>();

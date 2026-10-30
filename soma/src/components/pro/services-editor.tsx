@@ -235,7 +235,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
                     { label: "Eigene Kundschaft", rate: rates.ownClientRate },
                   ].map((t) => (
                     <div key={t.label} className="flex min-h-8 items-baseline justify-between gap-4">
-                      <dt className="type-body-s text-ink-muted">
+                      <dt className="type-body-s text-ink-muted hyphens-none">
                         {t.label} <span className="num">· {formatPercent(t.rate)}</span>
                       </dt>
                       <dd className="type-label num">{formatPrice(Math.round(priceCents * (1 - t.rate)))}</dd>

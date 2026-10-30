@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
-import { Input, Select } from "@/components/ui/field";
+import { Checkbox, Input, Select } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { SegmentedControl } from "@/components/ui/segmented";
 import { formatPriceExact } from "@/lib/format";
@@ -322,12 +322,15 @@ export function NumberSettingForm({
   );
 }
 
-type Tier = { min_hours_before: number; fee_percent: number };
+type Tier = { min_hours_before: number; fee_percent: number; travel_fee_retained?: boolean };
 
 /** Cancellation tiers (applies to new bookings only; existing bookings keep their snapshot). */
-export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent }: { tiers: Tier[]; noShowFeePercent: number }) {
-  const [tiers, setTiers] = useState(initialTiers.map((t) => ({ h: String(t.min_hours_before), p: String(t.fee_percent) })));
+export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent, graceMinutes }: { tiers: Tier[]; noShowFeePercent: number; graceMinutes: number }) {
+  const [tiers, setTiers] = useState(
+    initialTiers.map((t) => ({ h: String(t.min_hours_before), p: String(t.fee_percent), travel: t.travel_fee_retained ?? t.fee_percent >= 100 })),
+  );
   const [noShow, setNoShow] = useState(String(noShowFeePercent));
+  const [grace, setGrace] = useState(String(graceMinutes));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirming, setConfirming] = useState(false);
   const m = useMutation(updatePlatformSettingAction, { success: "Stornobedingungen gespeichert.", onSuccess: () => setConfirming(false) });
@@ -340,18 +343,22 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent }
       const p = Number(t.p.replace(",", "."));
       if (!/^\d+([.,]\d+)?$/.test(t.h.trim()) || h < 0 || h > 168) next[`h${i}`] = "0–168 Std.";
       if (!/^\d+([.,]\d+)?$/.test(t.p.trim()) || p < 0 || p > 100) next[`p${i}`] = "0–100 %";
-      out.push({ min_hours_before: h, fee_percent: p });
+      out.push({ min_hours_before: h, fee_percent: p, travel_fee_retained: t.travel });
     });
     const hours = out.map((t) => t.min_hours_before);
     if (new Set(hours).size !== hours.length) next.tiers = "Jede Staffel braucht eine eigene Stundenangabe.";
     if (!hours.includes(0)) next.tiers = "Eine Staffel muss bei 0 Std. beginnen (gilt bis zum Termin).";
     const ns = Number(noShow.replace(",", "."));
     if (!/^\d+([.,]\d+)?$/.test(noShow.trim()) || ns < 0 || ns > 100) next.noShow = "0–100 %";
+    const gm = Number(grace.trim());
+    if (!/^\d+$/.test(grace.trim()) || gm > 120) next.grace = "0–120 Min.";
     const sorted = [...out].sort((a, b) => b.min_hours_before - a.min_hours_before);
     if (sorted.some((t, i) => i > 0 && t.fee_percent < sorted[i - 1].fee_percent)) next.order = "Gebühren sollten zum Termin hin steigen.";
     setErrors(next);
     const blocking = Object.keys(next).filter((k) => k !== "order");
-    return blocking.length ? null : { tiers: sorted, no_show_fee_percent: ns, provider_cancellation: "full_refund" as const };
+    return blocking.length
+      ? null
+      : { tiers: sorted, no_show_fee_percent: ns, provider_cancellation: "full_refund" as const, grace_minutes: gm, fee_basis: "service_price" as const };
   };
   const [pendingValue, setPendingValue] = useState<ReturnType<typeof parse>>(null);
 
@@ -371,7 +378,7 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent }
     >
       <div className="flex flex-col gap-1">
         <p className="type-body-s font-[520]">Stornobedingungen</p>
-        <p className="type-caption text-ink-muted">Gebühr in Prozent des Buchungsbetrags (ohne Servicegebühr), je nachdem wie viele Stunden vor dem Termin die Kundschaft storniert. Profi-Stornierungen sind immer kostenlos für die Kundschaft.</p>
+        <p className="type-caption text-ink-muted">Gebühr in Prozent des Behandlungspreises, je nachdem wie viele Stunden vor dem Termin die Kundschaft storniert. Die Anfahrt wird nur in Staffeln mit „Anfahrt einbehalten“ berechnet und geht dann vollständig an den Profi. Profi-Stornierungen sind immer kostenlos für die Kundschaft.</p>
       </div>
       <fieldset className="flex flex-col gap-2">
         <legend className="sr-only">Staffeln</legend>
@@ -382,17 +389,24 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent }
             <span className="flex h-control-s items-center type-body-s text-ink-muted">Std. vorher</span>
             <Input dense label={`Staffel ${i + 1}: Gebühr in Prozent`} hideLabel inputMode="numeric" value={t.p} onChange={(e) => setTiers((all) => all.map((x, j) => (j === i ? { ...x, p: e.target.value } : x)))} error={errors[`p${i}`]} className="w-20" />
             <span className="flex h-control-s items-center type-body-s text-ink-muted">% Gebühr</span>
+            <Checkbox
+              label="Anfahrt einbehalten"
+              checked={t.travel}
+              onChange={(e) => setTiers((all) => all.map((x, j) => (j === i ? { ...x, travel: e.target.checked } : x)))}
+              className="[&_label]:min-h-0 [&_label]:py-1"
+            />
             <Button size="s" variant="ghost" aria-label={`Staffel ${i + 1} entfernen`} disabled={tiers.length <= 1} onClick={() => setTiers((all) => all.filter((_, j) => j !== i))} icon={<Icon icon={Minus} size={16} />} />
           </div>
         ))}
         {errors.tiers ? <p className="type-caption text-danger">{errors.tiers}</p> : null}
         <div>
-          <Button size="s" variant="ghost" disabled={tiers.length >= 6} icon={<Icon icon={Plus} size={16} />} onClick={() => setTiers((all) => [...all, { h: "", p: "" }])}>
+          <Button size="s" variant="ghost" disabled={tiers.length >= 6} icon={<Icon icon={Plus} size={16} />} onClick={() => setTiers((all) => [...all, { h: "", p: "", travel: false }])}>
             Staffel hinzufügen
           </Button>
         </div>
       </fieldset>
-      <Input dense label="Nicht angetroffen (No-Show), Gebühr in %" inputMode="numeric" value={noShow} onChange={(e) => setNoShow(e.target.value)} error={errors.noShow} className="w-56" />
+      <Input dense label="Nicht angetroffen (No-Show), Gebühr in %" hint="Die Anfahrt wird immer berechnet." inputMode="numeric" value={noShow} onChange={(e) => setNoShow(e.target.value)} error={errors.noShow} className="w-56" />
+      <Input dense label="Bedenkzeit nach der Buchung in Min." hint="So lange ist jede Stornierung kostenlos." inputMode="numeric" value={grace} onChange={(e) => setGrace(e.target.value)} error={errors.grace} className="w-56" />
       {errors.order ? <Notice kind="warning">{errors.order}</Notice> : null}
       <Notice kind="warning">Gilt nur für neue Buchungen; bestehende behalten ihre Bedingungen. Die Staffel muss zu AGB und Checkout-Text passen – Änderungen vorher rechtlich abstimmen.</Notice>
       <div>
@@ -405,10 +419,12 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent }
           <ul className="flex flex-col gap-1 type-body-s text-ink num">
             {pendingValue.tiers.map((t) => (
               <li key={t.min_hours_before}>
-                ab {t.min_hours_before} Std. vorher: {t.fee_percent === 0 ? "kostenlos" : `${t.fee_percent} % Gebühr`}
+                ab {t.min_hours_before} Std. vorher: {t.fee_percent === 0 ? "kostenlos" : `${t.fee_percent} % des Behandlungspreises`}
+                {t.travel_fee_retained ? " zzgl. Anfahrt" : t.fee_percent > 0 ? ", Anfahrt erstattet" : ""}
               </li>
             ))}
-            <li>Nicht angetroffen: {pendingValue.no_show_fee_percent} %</li>
+            <li>Nicht angetroffen: {pendingValue.no_show_fee_percent} % zzgl. Anfahrt</li>
+            <li>Bedenkzeit: {pendingValue.grace_minutes} Min. nach der Buchung</li>
           </ul>
           <p>Neue Buchungen übernehmen diese Staffel ab sofort.</p>
         </ConfirmModal>

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Ban, Check, RotateCcw, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Notice } from "@/components/ui/feedback";
 import { Input, Textarea } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
@@ -42,18 +41,38 @@ const AVAILABLE: Record<ProviderStatus, ProviderDecision[]> = {
   suspended: ["reinstate"],
 };
 
-/** Verification decisions for one provider; consequential ones go through a modal with a note. */
+/** id of the page notice that explains why approval is blocked (aria-describedby target, see admin/profis/[id]) */
+const APPROVAL_BLOCKED_ID = "approval-blocked";
+
+/**
+ * Verification decisions for one provider; consequential ones go through a modal with a note.
+ * Approve / reinstate stay disabled while required documents are missing or unreviewed
+ * (the server refuses them too, audit-1 R1).
+ */
 export function ProviderDecisions({ providerId, status, missing }: { providerId: string; status: ProviderStatus; missing: string[] }) {
   return (
     <>
-      {AVAILABLE[status].map((d) => (
-        <DecisionButton key={d} providerId={providerId} spec={SPECS[d]} missing={missing} />
-      ))}
+      {AVAILABLE[status].map((d) =>
+        (d === "approve" || d === "reinstate") && missing.length > 0 ? (
+          <Button
+            key={d}
+            variant={SPECS[d].variant}
+            disabled
+            aria-describedby={APPROVAL_BLOCKED_ID}
+            title="Erst möglich, wenn alle Pflichtdokumente geprüft sind."
+            icon={<Icon icon={SPECS[d].icon} size={16} />}
+          >
+            {SPECS[d].label}
+          </Button>
+        ) : (
+          <DecisionButton key={d} providerId={providerId} spec={SPECS[d]} />
+        ),
+      )}
     </>
   );
 }
 
-function DecisionButton({ providerId, spec, missing }: { providerId: string; spec: DecisionSpec; missing: string[] }) {
+function DecisionButton({ providerId, spec }: { providerId: string; spec: DecisionSpec }) {
   const [note, setNote] = useState("");
   const toast = useToast();
   const m = useMutation(decideProviderAction, {
@@ -63,7 +82,6 @@ function DecisionButton({ providerId, spec, missing }: { providerId: string; spe
     },
   });
   const formId = `decision-${spec.decision}`;
-  const showMissing = (spec.decision === "approve" || spec.decision === "reinstate") && missing.length > 0;
   return (
     <ConfirmButton
       label={spec.label}
@@ -96,16 +114,6 @@ function DecisionButton({ providerId, spec, missing }: { providerId: string; spe
         }}
       >
         <p>{spec.body}</p>
-        {showMissing ? (
-          <Notice kind="warning" title={missing.length === 1 ? "1 Pflichtdokument fehlt oder ist ungeprüft" : `${missing.length} Pflichtdokumente fehlen oder sind ungeprüft`}>
-            <ul className="list-disc pl-4">
-              {missing.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-            <p className="mt-1">Die Freigabe ist trotzdem möglich und wird mit diesen Hinweisen protokolliert.</p>
-          </Notice>
-        ) : null}
         <Textarea
           label={spec.noteRequired ? "Begründung für den Profi" : "Notiz"}
           optional={!spec.noteRequired}

@@ -1,3 +1,4 @@
+import type React from "react";
 import Link from "next/link";
 import { ArrowRight, CalendarCheck, Clock } from "lucide-react";
 import { cn } from "@/lib/cn";
@@ -17,6 +18,22 @@ export function ModeLabel({ mode, className }: { mode: "instant" | "request"; cl
       <Icon icon={mode === "instant" ? CalendarCheck : Clock} size={14} />
       {mode === "instant" ? "Sofort bestätigt" : "Auf Anfrage"}
     </span>
+  );
+}
+
+/**
+ * Rating + booking mode. Stacked on narrow screens and joined by "·" from sm, so a
+ * wrapped line never ends on a dangling separator.
+ */
+export function MetaLine({ children, className }: { children: [React.ReactNode, React.ReactNode]; className?: string }) {
+  return (
+    <p className={cn("flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2", className)}>
+      {children[0]}
+      <span aria-hidden className="hidden text-ink-muted sm:inline">
+        ·
+      </span>
+      {children[1]}
+    </p>
   );
 }
 
@@ -71,13 +88,10 @@ export function ProviderRow({
           </div>
           <div className="-mt-1.5 flex items-start justify-between gap-4">
             <div className="flex min-w-0 flex-col gap-1">
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <MetaLine>
                 <Rating avg={r.ratingAvg} count={r.ratingCount} />
-                <span aria-hidden className="text-ink-muted">
-                  ·
-                </span>
                 <ModeLabel mode={r.bookingMode} />
-              </p>
+              </MetaLine>
               {r.headline ? <p className="truncate type-body-s text-ink-muted">{r.headline}</p> : null}
             </div>
             <p className="shrink-0 text-right">

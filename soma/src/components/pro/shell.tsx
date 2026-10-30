@@ -140,8 +140,9 @@ export function ProShell({
             {PROVIDER_STATUS_LABEL[status]}
           </Status>
         ) : (
-          <Link href={routes.pro.profile()} aria-label="Dein Profil" className="-mr-1 inline-flex size-touch items-center justify-center">
+          <Link href={routes.pro.profile()} className="-mr-1 inline-flex size-touch items-center justify-center">
             <Avatar src={avatarUrl} name={displayName} size={32} />
+            <span className="sr-only">Dein Profil</span>
           </Link>
         )}
       </header>

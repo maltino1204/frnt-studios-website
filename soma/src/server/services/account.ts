@@ -1,7 +1,7 @@
 import "server-only";
 
 import { z } from "zod";
-import { getConfig } from "../config";
+import { resolveAppUrl } from "../config";
 import { withService, withUser } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import type {
@@ -252,7 +252,7 @@ export async function getReferralInfo(session: Session): Promise<ReferralInfoDTO
       select coalesce(sum(amount_cents), 0)::int as cents from public.credit_ledger where user_id = ${s.userId} and reason = 'referral_reward'`;
     return {
       code: p.referralCode,
-      shareUrl: `${getConfig().APP_URL}/registrieren?empfehlung=${encodeURIComponent(p.referralCode)}`,
+      shareUrl: `${await resolveAppUrl()}/registrieren?empfehlung=${encodeURIComponent(p.referralCode)}`,
       invitedCount: stats.invited,
       rewardedCount: stats.rewarded,
       earnedCents: earned.cents,

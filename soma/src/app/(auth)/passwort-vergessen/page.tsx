@@ -16,10 +16,10 @@ export default async function PasswortPage({ searchParams }: { searchParams: Pro
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         <Overline>Passwort</Overline>
-        <h1 className="type-display-m">{token ? "Neues Passwort festlegen." : "Passwort vergessen."}</h1>
+        <h1 className="type-display-m">{token ? "Passwort festlegen." : "Passwort vergessen."}</h1>
         <p className="type-body text-ink-muted">
           {token
-            ? "Wählen Sie ein neues Passwort mit mindestens 10 Zeichen."
+            ? "Wählen Sie ein Passwort mit mindestens 10 Zeichen. Damit melden Sie sich künftig an."
             : "Geben Sie Ihre E-Mail-Adresse ein. Wir schicken Ihnen einen Link, mit dem Sie ein neues Passwort festlegen."}
         </p>
       </div>

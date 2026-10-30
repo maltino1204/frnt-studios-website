@@ -96,8 +96,8 @@ export async function getSupplyDemandByCity(session: Session, opts: { days?: num
       from public.providers p join public.postal_codes pc on pc.postal_code = p.base_postal_code
       join public.provider_services ps on ps.provider_id = p.id and ps.is_active join public.services s on s.id = ps.service_id
       where p.status = 'approved' and pc.city_slug is not null group by pc.city_slug, s.category_id`;
-    const providers = await tx<{ id: string; citySlug: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number }[]>`
-      select p.id, pc.city_slug, p.lead_time_minutes, p.max_advance_days, p.travel_buffer_minutes
+    const providers = await tx<{ id: string; citySlug: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number; bookingMode: "instant" | "request" }[]>`
+      select p.id, pc.city_slug, p.lead_time_minutes, p.max_advance_days, p.travel_buffer_minutes, p.booking_mode
       from public.providers p join public.postal_codes pc on pc.postal_code = p.base_postal_code where p.status = 'approved' and pc.city_slug is not null`;
     const bookings = await tx<{ citySlug: string; n: number }[]>`
       select pc.city_slug, count(*)::int as n from public.bookings b join public.postal_codes pc on pc.postal_code = b.postal_code

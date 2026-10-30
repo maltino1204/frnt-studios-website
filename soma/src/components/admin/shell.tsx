@@ -17,6 +17,7 @@ import {
   PanelLeftOpen,
   Percent,
   Scale,
+  Star,
   UserCheck,
   Users,
   type LucideIcon,
@@ -47,6 +48,7 @@ export const ADMIN_NAV: NavGroup[] = [
     items: [
       { href: routes.admin.providers(), label: "Profis & Verifizierung", icon: UserCheck, count: "verification" },
       { href: routes.admin.users(), label: "Nutzer", icon: Users },
+      { href: "/admin/bewertungen", label: "Bewertungen", icon: Star },
       { href: routes.admin.categories(), label: "Kategorien & Leistungen", icon: ListTree },
       { href: routes.admin.regions(), label: "Regionen", icon: MapPin },
     ],
@@ -146,13 +148,14 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
       >
         <div className={cn("flex h-14 shrink-0 items-center border-b border-line", collapsed ? "justify-center" : "justify-between pr-2 pl-5")}>
           {collapsed ? (
-            <Link href={routes.admin.root()} className="flex size-10 items-center justify-center rounded-xs" aria-label="Admin-Übersicht" title="Admin">
+            <Link href={routes.admin.root()} className="flex size-10 items-center justify-center rounded-xs" aria-label="Admin – Übersicht" title="Admin – Übersicht">
               <Mark className="h-6 text-ink" />
             </Link>
           ) : (
-            <Link href={routes.admin.root()} className="flex items-center gap-3 rounded-xs" aria-label="Admin-Übersicht">
+            <Link href={routes.admin.root()} className="flex items-center gap-3 rounded-xs">
               <Mark className="h-6 text-ink" />
               <span className="type-heading-s">Admin</span>
+              <span className="sr-only"> – Übersicht</span>
             </Link>
           )}
           {collapsed ? null : (
@@ -190,12 +193,13 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
 
       {/* Mobile / tablet top bar */}
       <header className="sticky top-0 z-(--z-header) flex h-14 shrink-0 items-center justify-between gap-3 border-b border-line bg-surface-sunken pr-1 pl-4 lg:hidden">
-        <Link href={routes.admin.root()} className="flex min-w-0 items-center gap-3" aria-label="Admin-Übersicht">
+        <Link href={routes.admin.root()} className="flex min-w-0 items-center gap-3">
           <Mark className="h-5 shrink-0 text-ink" />
           <span className="type-heading-s">Admin</span>
           {current && current.href !== routes.admin.root() ? (
             <span className="truncate type-body-s text-ink-muted">· {current.label}</span>
           ) : null}
+          <span className="sr-only"> – zur Übersicht</span>
         </Link>
         <div className="flex items-center gap-1">
           {demo ? <EnvBadge compact /> : null}

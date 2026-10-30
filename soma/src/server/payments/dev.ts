@@ -1,7 +1,7 @@
 import "server-only";
 
 import { randomUUID } from "node:crypto";
-import { getConfig } from "../config";
+import { resolveAppUrl } from "../config";
 import type { PaymentProvider } from "./provider";
 
 /**
@@ -25,7 +25,7 @@ export function createDevPaymentProvider(): PaymentProvider {
       return { externalId: `dev_re_${randomUUID()}` };
     },
     async createConnectedAccountLink(input) {
-      return { url: `${getConfig().APP_URL}/pro/einnahmen?testmodus=auszahlung`, accountId: input.existingAccountId };
+      return { url: `${await resolveAppUrl()}/pro/einnahmen?testmodus=auszahlung`, accountId: input.existingAccountId };
     },
   };
 }

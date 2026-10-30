@@ -15,7 +15,8 @@ import path from "node:path";
 import postgres from "postgres";
 import { hashPassword } from "../../src/server/auth/password";
 import { haversineKm, roundKm } from "../../src/server/domain/geo";
-import { computeTravelFee } from "../../src/server/domain/pricing";
+import { computeCancellation, computeNoShowFee, parsePolicy } from "../../src/server/domain/cancellation";
+import { computeTravelFee, splitRetainedAmounts } from "../../src/server/domain/pricing";
 import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, wallTimeToInstant } from "../../src/server/domain/tz";
 import { DEFAULT_CANCELLATION_POLICY } from "./lib/base-seed-data";
 import { CUSTOMERS, PROVIDER_REPLIES, PROVIDERS, REGULAR_VAT_PROVIDERS, REVIEWS, SEARCH_POSTAL_CODES, type DemoCustomer, type DemoProvider } from "./lib/demo-data";
@@ -137,10 +138,30 @@ async function insertBooking(ctx: Ctx, spec: BookingSpec): Promise<{ id: string;
   let commissionFinal = commission;
   let cancelledAt: Date | null = null;
   if (spec.status === "cancelled" || spec.status === "no_show") {
-    fee = Math.round((total * (spec.feePercent ?? 0)) / 100);
-    commissionFinal = Math.round(fee * rate);
-    payout = fee - commissionFinal;
-    cancelledAt = spec.status === "no_show" ? new Date(spec.startsAt.getTime() + 20 * 60_000) : new Date(spec.startsAt.getTime() - int(3, 60) * HOUR);
+    // Same rules as the booking engine (domain/cancellation.ts): fee basis = service price,
+    // travel kept only < 2 h / no-show, commission only on the kept service share.
+    const policy = parsePolicy(DEFAULT_CANCELLATION_POLICY);
+    const b = {
+      status: "confirmed" as const, startsAt: spec.startsAt, createdAt: spec.createdAt, servicePriceCents: off.price, travelFeeCents: travel,
+      serviceFeeCents: 0, discountCents: discount, totalCents: total, cancellationPolicy: policy,
+    };
+    if (spec.status === "no_show") {
+      cancelledAt = new Date(spec.startsAt.getTime() + 20 * 60_000);
+    } else if ((spec.feePercent ?? 0) >= 50) {
+      cancelledAt = new Date(spec.startsAt.getTime() - int(3, 20) * HOUR); // 2–24 h tier
+    } else {
+      cancelledAt = new Date(Math.max(spec.startsAt.getTime() - int(25, 60) * HOUR, spec.createdAt.getTime() + 5 * 60_000));
+    }
+    const outcome =
+      spec.status === "no_show"
+        ? computeNoShowFee(b)
+        : spec.cancelledBy === "provider"
+          ? computeCancellation(b, cancelledAt, "provider")
+          : computeCancellation(b, cancelledAt, "customer");
+    fee = outcome.feeCents;
+    const split = splitRetainedAmounts(outcome.retainedServiceCents, outcome.retainedTravelCents, rate);
+    commissionFinal = fee > 0 ? split.commissionCents : 0;
+    payout = fee > 0 ? split.providerPayoutCents : 0;
   }
   const [row] = await tx<{ id: string }[]>`
     insert into public.bookings (
@@ -169,7 +190,7 @@ async function insertBooking(ctx: Ctx, spec: BookingSpec): Promise<{ id: string;
   const captured = spec.status === "completed" ? total : fee;
   await tx`
     insert into public.payments (booking_id, provider, status, amount_cents, captured_cents, application_fee_cents, external_id, card_brand, card_last4, created_at)
-    values (${row.id}, 'dev', ${payStatus}, ${total}, ${captured}, ${Math.max(0, total - payout)}, ${`dev_pi_${randomUUID()}`},
+    values (${row.id}, 'dev', ${payStatus}, ${total}, ${captured}, ${spec.status === "completed" ? Math.max(0, total - payout) : Math.min(fee, commissionFinal)}, ${`dev_pi_${randomUUID()}`},
             ${pick(["visa", "mastercard", "visa", "amex"])}, ${String(int(1000, 9999))}, ${spec.createdAt})`;
   if (discount > 0) {
     await tx`insert into public.credit_ledger (user_id, amount_cents, reason, booking_id, note, created_at)

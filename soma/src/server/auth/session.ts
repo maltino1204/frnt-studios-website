@@ -5,6 +5,7 @@ import { cache } from "react";
 import { getConfig } from "../config";
 import type { Session } from "../dto";
 import type { AuthAdapter, CookieJar, RequestMeta } from "./adapter";
+import { clientIpFrom } from "./client-ip";
 import { createLocalAuthAdapter } from "./local";
 import { loadSession } from "./session-store";
 import { createSupabaseAuthAdapter } from "./supabase";
@@ -22,8 +23,8 @@ export const getSession = cache(async (): Promise<Session | null> => {
   return userId ? loadSession(userId) : null;
 });
 
+/** Client IP from the trusted hop only (TRUSTED_PROXY_HOPS, see client-ip.ts) and the user agent. */
 export async function getRequestMeta(): Promise<RequestMeta> {
   const h = await headers();
-  const forwarded = h.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return { ip: forwarded || h.get("x-real-ip") || null, userAgent: h.get("user-agent") };
+  return { ip: clientIpFrom((name) => h.get(name), getConfig().TRUSTED_PROXY_HOPS), userAgent: h.get("user-agent") };
 }

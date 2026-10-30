@@ -1,8 +1,10 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
+import { getConfig } from "../config";
 import type { AppRole, Session } from "../dto";
 import { ServiceError } from "../errors";
+import { safeRelativePath } from "./redirect";
 import { getSession } from "./session";
 
 export { getSession };
@@ -12,8 +14,10 @@ export function homeForRole(role: AppRole): string {
   return role === "admin" ? "/admin" : role === "provider" ? "/pro" : "/konto";
 }
 
-function loginUrl(next?: string): string {
-  return next && next.startsWith("/") && !next.startsWith("//") ? `/anmelden?next=${encodeURIComponent(next)}` : "/anmelden";
+/** /anmelden?next=… — only for same-origin relative paths (see redirect.ts). */
+export function loginUrl(next?: string): string {
+  const safe = safeRelativePath(next, getConfig().APP_URL);
+  return safe ? `/anmelden?next=${encodeURIComponent(safe)}` : "/anmelden";
 }
 
 /** Layouts/pages: redirects to /anmelden?next=… when signed out. */

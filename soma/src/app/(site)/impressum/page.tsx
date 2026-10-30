@@ -66,7 +66,7 @@ export default function ImpressumPage() {
           Unternehmer. Die Anbieterangaben der Profis finden Sie in deren Profil und in Ihrer Buchungsbestätigung.
         </p>
         <p>
-          Wie die Reihenfolge der Suchergebnisse zustande kommt und wie Bewertungen geprüft werden, erläutern wir in den <Link href={routes.terms()}>AGB</Link>.
+          Wie die Reihenfolge der Suchergebnisse zustande kommt und wie Bewertungen geprüft werden, erläutern wir unter <Link href="/ranking">So sortieren wir</Link>.
         </p>
       </ContentSection>
       <ContentSection id="streitbeilegung" title="Verbraucherstreitbeilegung">

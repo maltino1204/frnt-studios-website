@@ -335,15 +335,38 @@ checkout shows the full breakdown and the cancellation tiers **before** confirma
 
 ```json
 { "tiers": [
-  { "min_hours_before": 24, "fee_percent": 0 },
-  { "min_hours_before": 2,  "fee_percent": 50 },
-  { "min_hours_before": 0,  "fee_percent": 100 }
-], "no_show_fee_percent": 100, "provider_cancellation": "full_refund" }
+  { "min_hours_before": 24, "fee_percent": 0,   "travel_fee_retained": false },
+  { "min_hours_before": 2,  "fee_percent": 50,  "travel_fee_retained": false },
+  { "min_hours_before": 0,  "fee_percent": 100, "travel_fee_retained": true }
+], "no_show_fee_percent": 100, "provider_cancellation": "full_refund",
+   "grace_minutes": 15, "fee_basis": "service_price" }
 ```
 
-The fee is a percentage of `total_cents − service_fee_cents`. `requested` bookings can always be
-cancelled free of charge. A pure function `computeCancellation(booking, now, actor)` returns
-`{ feeCents, refundCents, tierLabel }`, unit-tested on the tier boundaries.
+Rules (`src/server/domain/cancellation.ts`, pure; unit-tested on every boundary):
+
+| Situation | Kept from the customer | Refunded |
+|---|---|---|
+| Within `grace_minutes` (15) after the booking was made ("Bedenkzeit", inclusive, never past the start) | 0 | everything |
+| ≥ 24 h before the start (inclusive) | 0 | everything |
+| ≥ 2 h and < 24 h before | 50 % of the service price | rest of the service price + the full travel fee |
+| < 2 h before, or after the start | 100 % of the service price + the travel fee | service fee only |
+| No-show (provider marks it ≥ 15 min after the start) | `no_show_fee_percent` (100 %) of the service price + the travel fee | service fee only |
+| `pending_payment` / `requested`, provider or system cancels | 0 | everything |
+
+- **Fee basis = service price only** (`service_price_cents`). The customer service fee is never kept.
+  With redeemed credits the cash fee is the percentage of `service_price_cents − discount_cents`;
+  the same share of the credits is kept, the rest is booked back (`booking_refund`).
+- **Split:** commission is charged only on the kept service share
+  (`commission = round(retainedService × commission_rate)`); a kept travel fee goes 100 % to the
+  provider (`pricing.splitRetainedAmounts`). The captured amount's application fee = that commission.
+- Admin cancellations take an explicit fee (`feeOverrideCents`), interpreted as service share first,
+  then travel fee.
+- Snapshots written before migration 0006 lack `grace_minutes` / `travel_fee_retained`; they are read
+  as "no Bedenkzeit, travel fee kept only in 100 % tiers".
+- `computeCancellation(booking, now, actor)` returns `{ feeCents, refundCents, feePercent,
+  travelFeeRetained, retainedServiceCents, retainedTravelCents, inGracePeriod, tierLabel }`.
+  `policySchedule(policy, startsAt, createdAt?)` and `freeCancellationUntil(...)` include the
+  Bedenkzeit when it ends after the 24-h deadline (quotes pass "now" as `createdAt`).
 
 ### 5.6 Payment lifecycle (`PaymentProvider`)
 

@@ -131,4 +131,13 @@ describe("availability", () => {
     expect(firstSlot(days)).toBe("2026-11-02T08:00:00.000Z");
     expect(firstSlot([])).toBeNull();
   });
+
+  it("offers request-mode slots only with a response window of at least 30 minutes (audit-1 R9)", () => {
+    // Monday 2026-11-02 08:00 CET; earliest request start = 08:30 + 2 h = 10:30
+    const rules = base({ leadTimeMinutes: 0, now: new Date("2026-11-02T07:00:00Z") });
+    expect(slotsForDate("2026-11-02", rules).slots.map(hhmm)).toEqual(["09:00", "09:30", "10:00", "10:30", "11:00"]);
+    expect(slotsForDate("2026-11-02", { ...rules, requestResponseHours: 12 }).slots.map(hhmm)).toEqual(["10:30", "11:00"]);
+    expect(isSlotAvailable(new Date("2026-11-02T09:00:00Z"), { ...rules, requestResponseHours: 12 })).toBe(false);
+    expect(slotsForDate("2026-11-02", { ...rules, requestResponseHours: 0 }).slots).toEqual([]);
+  });
 });

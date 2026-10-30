@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/feedback";
 /** Mirrors the /suche geometry: overline, title, chip row, count line, provider rows. */
 export default function SucheLoading() {
   return (
-    <div aria-busy="true" aria-label="Suchergebnisse werden geladen">
+    <div role="status" aria-busy="true" aria-label="Suchergebnisse werden geladen">
       <Container width="page" className="pt-6 pb-16 lg:pt-10">
         <div className="lg:grid lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col lg:col-span-7">

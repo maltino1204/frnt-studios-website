@@ -32,7 +32,7 @@ export default async function GuthabenPage() {
       <section aria-labelledby="empfehlen" className="flex flex-col gap-6 border border-line bg-surface-raised p-5 md:p-8">
         <div className="flex flex-col gap-3">
           <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-          <h2 id="empfehlen" className="type-display-s">{`Empfehlen Sie SOMA: ${reward} für Sie, ${welcome} für Ihre Freund:innen.`}</h2>
+          <h2 id="empfehlen" className="type-display-s">{`Empfehlen Sie SOMA: ${reward} für Sie, ${welcome} für alle, die Sie einladen.`}</h2>
           <p className="max-w-reading type-body-s text-ink-muted">
             {`Wer sich mit Ihrem Link registriert, erhält ${welcome} Startguthaben. Sie bekommen ${reward}, sobald die erste Buchung abgeschlossen ist.`}
           </p>

@@ -67,10 +67,20 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
         }
       />
 
-      {inQueue && p.missingDocuments.length > 0 ? (
-        <Notice kind="warning" title={p.missingDocuments.length === 1 ? "1 Pflichtdokument fehlt oder ist ungeprüft." : `${p.missingDocuments.length} Pflichtdokumente fehlen oder sind ungeprüft.`} className="mb-8">
-          Dokumente unten prüfen. Eine Freigabe ist trotzdem möglich und wird mit Hinweisen protokolliert.
-        </Notice>
+      {(inQueue || p.profile.status === "suspended" || p.profile.status === "rejected" || p.profile.status === "draft") && p.missingDocuments.length > 0 ? (
+        <div id="approval-blocked" className="mb-8">
+          <Notice
+            kind="warning"
+            title={p.missingDocuments.length === 1 ? "1 Pflichtdokument fehlt oder ist ungeprüft." : `${p.missingDocuments.length} Pflichtdokumente fehlen oder sind ungeprüft.`}
+          >
+            <p>Eine Freigabe ist erst möglich, wenn alle Pflichtdokumente vorliegen und geprüft sind:</p>
+            <ul className="mt-1 list-disc pl-4">
+              {missingLabels.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          </Notice>
+        </div>
       ) : null}
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">

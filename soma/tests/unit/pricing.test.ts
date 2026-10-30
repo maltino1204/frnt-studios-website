@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computePrice, computeTravelFee, resolveCommission, roundToFiftyCents, splitRetainedFee, type CommissionRule } from "@/server/domain/pricing";
+import { computePrice, computeTravelFee, resolveCommission, roundToFiftyCents, splitRetainedAmounts, type CommissionRule } from "@/server/domain/pricing";
 
 const rule = (over: Partial<CommissionRule>): CommissionRule => ({
   scope: "global", categoryId: null, providerId: null, rate: 0.2, repeatClientRate: 0.12, ownClientRate: 0.05, isActive: true, ...over,
@@ -43,8 +43,9 @@ describe("price breakdown", () => {
     expect(computePrice({ servicePriceCents: 4525, travelFeeCents: 0, serviceFeeCents: 0, availableCreditsCents: 0, useCredits: false, commissionRate: 0.2 }).commissionCents).toBe(905);
     expect(computePrice({ servicePriceCents: 4513, travelFeeCents: 0, serviceFeeCents: 0, availableCreditsCents: 0, useCredits: false, commissionRate: 0.12 }).commissionCents).toBe(542);
   });
-  it("splits retained fees by the commission rate", () => {
-    expect(splitRetainedFee(5000, 0.2)).toEqual({ commissionCents: 1000, providerPayoutCents: 4000 });
+  it("splits retained amounts: commission on the service share only, travel to the provider", () => {
+    expect(splitRetainedAmounts(5000, 0, 0.2)).toEqual({ commissionCents: 1000, providerPayoutCents: 4000 });
+    expect(splitRetainedAmounts(5000, 1200, 0.2)).toEqual({ commissionCents: 1000, providerPayoutCents: 5200 });
   });
 });
 

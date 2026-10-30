@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import type { BookingStatus, CategoryDTO, PayoutDTO, ProviderDecision, ProviderDecisionResult, ServiceDTO } from "../dto";
+import type { AnonymizeResultDTO, BookingStatus, CategoryDTO, PayoutDTO, ProviderDecision, ProviderDecisionResult, ServiceDTO } from "../dto";
 import {
   adjustCredits,
   adminCancelBooking,
@@ -26,6 +26,7 @@ import {
   type ServiceInput,
 } from "../services/admin";
 import { runBookingMaintenance, type MaintenanceResult } from "../services/booking-maintenance";
+import { anonymizeUser, exportFileName, exportUserData } from "../services/privacy";
 import { input, withSession, zGuid } from "./_run";
 import type { ActionResult } from "./types";
 
@@ -209,7 +210,7 @@ export async function adjustCreditsAction(raw: z.input<typeof CreditSchema>): Pr
   }, "Guthaben gebucht.");
 }
 
-const ModerateSchema = z.object({ reviewId: zGuid, isPublished: z.boolean(), note: z.string().optional() });
+const ModerateSchema = z.object({ reviewId: zGuid, isPublished: z.boolean(), note: z.string().trim().max(500).optional() });
 
 export async function moderateReviewAction(raw: z.input<typeof ModerateSchema>): Promise<ActionResult> {
   return withSession("admin", async (s) => {
@@ -217,7 +218,31 @@ export async function moderateReviewAction(raw: z.input<typeof ModerateSchema>):
     await moderateReview(s, v.reviewId, v.isPublished, v.note);
     revalidateAdmin();
     revalidatePath("/profis", "layout");
-  });
+  }, raw.isPublished ? "Bewertung wieder sichtbar." : "Bewertung ausgeblendet.");
+}
+
+const UserIdSchema = z.object({ userId: zGuid });
+
+/** DSGVO export for one user (audited); the client offers `json` as a download named `fileName`. */
+export async function exportUserDataAction(raw: z.input<typeof UserIdSchema>): Promise<ActionResult<{ fileName: string; json: string }>> {
+  return withSession("admin", async (s) => {
+    const v = input(UserIdSchema, raw);
+    const data = await exportUserData(s, v.userId);
+    revalidatePath("/admin/protokoll");
+    return { fileName: exportFileName(v.userId), json: JSON.stringify(data, null, 2) };
+  }, "Datenexport erstellt.");
+}
+
+const AnonymizeSchema = z.object({ userId: zGuid, reason: z.string() });
+
+/** "Konto anonymisieren" (customers without open bookings/disputes); audited, sessions revoked. */
+export async function anonymizeUserAction(raw: z.input<typeof AnonymizeSchema>): Promise<ActionResult<AnonymizeResultDTO>> {
+  return withSession("admin", async (s) => {
+    const v = input(AnonymizeSchema, raw);
+    const r = await anonymizeUser(s, v.userId, v.reason);
+    revalidateAdmin();
+    return r;
+  }, "Konto anonymisiert.");
 }
 
 /** Manual trigger of the booking maintenance job from the admin board. */

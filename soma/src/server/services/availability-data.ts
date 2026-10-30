@@ -13,6 +13,9 @@ import { addDays, localDateOf } from "../domain/tz";
 
 export interface ProviderSchedule {
   providerId: string;
+  bookingMode: "instant" | "request";
+  /** platform setting request_response_hours (used for request-mode providers) */
+  requestResponseHours: number;
   leadTimeMinutes: number;
   maxAdvanceDays: number;
   travelBufferMinutes: number;
@@ -23,16 +26,23 @@ export interface ProviderSchedule {
 
 export async function loadSchedules(
   tx: Queryable,
-  providers: Array<{ id: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number }>,
+  providers: Array<{ id: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number; bookingMode?: "instant" | "request" }>,
   from: Date,
   to: Date,
 ): Promise<Map<string, ProviderSchedule>> {
   const out = new Map<string, ProviderSchedule>();
   if (providers.length === 0) return out;
   const ids = providers.map((p) => p.id);
+  let responseHours = 12;
+  if (providers.some((p) => p.bookingMode === "request")) {
+    const [row] = await tx<{ value: unknown }[]>`select value from public.platform_settings where key = 'request_response_hours'`;
+    if (typeof row?.value === "number" && Number.isFinite(row.value)) responseHours = row.value;
+  }
   for (const p of providers) {
     out.set(p.id, {
       providerId: p.id,
+      bookingMode: p.bookingMode ?? "instant",
+      requestResponseHours: responseHours,
       leadTimeMinutes: p.leadTimeMinutes,
       maxAdvanceDays: p.maxAdvanceDays,
       travelBufferMinutes: p.travelBufferMinutes,
@@ -68,6 +78,8 @@ export function rulesFor(schedule: ProviderSchedule, durationMinutes: number, st
     timeOff: schedule.timeOff,
     busy: schedule.busy,
     now,
+    // Request mode: only slots that leave the provider ≥ 30 business minutes to answer (R9).
+    requestResponseHours: schedule.bookingMode === "request" ? schedule.requestResponseHours : null,
   };
 }
 

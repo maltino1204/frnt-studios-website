@@ -81,7 +81,10 @@ export function hoursLabel(h: number): string {
   return plural(h, "Stunde", "Stunden");
 }
 
-export type PolicyRow = { when: string; fee: string; feePercent: number };
+export type PolicyRow = { when: string; fee: string; feePercent: number; /** what happens to the travel fee, null when free */ travel: string | null };
+
+/** Older policy snapshots carry no travel flag: the travel fee was kept only in 100 % tiers. */
+const travelKept = (t: { feePercent: number; travelFeeRetained?: boolean }) => t.travelFeeRetained ?? t.feePercent >= 100;
 
 /** Tiers sorted from the most generous; each row: "Bis 24 Stunden vorher" → "kostenlos". */
 export function policyRows(policy: CancellationPolicyDTO): PolicyRow[] {
@@ -92,13 +95,20 @@ export function policyRows(policy: CancellationPolicyDTO): PolicyRow[] {
     if (i === 0 && t.minHoursBefore > 0) when = `Bis ${hoursLabel(t.minHoursBefore)} vor dem Termin`;
     else if (t.minHoursBefore <= 0) when = prev ? `Weniger als ${hoursLabel(prev.minHoursBefore)} vor dem Termin` : "Jederzeit";
     else when = prev ? `Zwischen ${prev.minHoursBefore} und ${hoursLabel(t.minHoursBefore)} vor dem Termin` : `Ab ${hoursLabel(t.minHoursBefore)} vorher`;
-    return { when, fee: t.feePercent <= 0 ? "Kostenlos" : `${t.feePercent} % des Preises`, feePercent: t.feePercent };
+    const kept = travelKept(t);
+    const free = t.feePercent <= 0 && !kept;
+    return {
+      when,
+      fee: free ? "Kostenlos" : t.feePercent <= 0 ? "Nur Anfahrt" : `${t.feePercent}\u00a0% der Behandlung`,
+      feePercent: free ? 0 : Math.max(1, t.feePercent),
+      travel: free ? null : kept ? "zzgl. Anfahrt" : "Anfahrt wird erstattet",
+    };
   });
 }
 
 /** Hours before the start until which cancelling is free (null when there is no free tier). */
 export function freeCancellationHours(policy: CancellationPolicyDTO): number | null {
-  const free = policy.tiers.filter((t) => t.feePercent <= 0).sort((a, b) => a.minHoursBefore - b.minHoursBefore)[0];
+  const free = policy.tiers.filter((t) => t.feePercent <= 0 && !travelKept(t)).sort((a, b) => a.minHoursBefore - b.minHoursBefore)[0];
   return free ? free.minHoursBefore : null;
 }
 

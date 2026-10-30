@@ -128,12 +128,19 @@ export interface ContentBlockDTO {
 
 export interface CancellationTierDTO {
   minHoursBefore: number;
+  /** percent of the service price (fee basis = service price only) */
   feePercent: number;
+  /** true: the travel fee is kept in this tier (< 2 h); false: refunded */
+  travelFeeRetained: boolean;
 }
 
 export interface CancellationPolicyDTO {
   tiers: CancellationTierDTO[];
+  /** percent of the service price on no-show; the travel fee is always kept */
   noShowFeePercent: number;
+  /** Bedenkzeit: free cancellation within this many minutes after booking (15) */
+  graceMinutes: number;
+  feeBasis: "service_price";
 }
 
 export interface PolicyScheduleEntryDTO {
@@ -142,6 +149,8 @@ export interface PolicyScheduleEntryDTO {
   /** … until this instant (null = and afterwards) */
   until: string | null;
   feePercent: number;
+  /** travel fee kept in this period */
+  travelFeeRetained: boolean;
   label: string;
 }
 
@@ -497,6 +506,16 @@ export interface ProviderBookingDTO {
     canMarkNoShow: boolean;
     canCancel: boolean;
   };
+  /** time-based (audit-1 R18): true from startsAt − 30 min while confirmed */
+  canStart: boolean;
+  /** true from startsAt while confirmed / in progress */
+  canComplete: boolean;
+  /** true from startsAt + 15 min while confirmed */
+  canNoShow: boolean;
+  /** ISO instant from which "Termin starten" works (startsAt − 30 min); null unless confirmed */
+  startAvailableAt: string | null;
+  /** ISO instant from which "Nicht angetroffen" works (startsAt + 15 min); null unless confirmed */
+  noShowAvailableAt: string | null;
 }
 
 export type ProviderBookingFilter = "requests" | "upcoming" | "past" | "today" | "all";
@@ -947,4 +966,147 @@ export interface TimeSeriesPointDTO {
   completed: number;
   gmvCents: number;
   searches: number;
+}
+
+// ---------------------------------------------------------------------------
+// Moderation & privacy (audit-1 R20)
+// ---------------------------------------------------------------------------
+export interface AdminReviewDTO {
+  id: string;
+  bookingId: string;
+  bookingReference: string;
+  rating: number;
+  comment: string | null;
+  tags: string[];
+  serviceName: string;
+  providerId: string;
+  providerName: string;
+  providerSlug: string;
+  customerId: string;
+  /** "Vorname N." or null after anonymisation */
+  customerName: string | null;
+  providerReply: string | null;
+  providerRepliedAt: string | null;
+  isPublished: boolean;
+  createdAt: string;
+  /** contact details found in comment / reply (moderation hint) */
+  contactFlags: string[];
+}
+
+export type AdminReviewVisibility = "published" | "hidden";
+
+export interface AdminReviewFilter {
+  visibility?: AdminReviewVisibility;
+  /** 1–5 = exact; "critical" = 1–2 stars */
+  rating?: number | "critical";
+  /** search in comment, reply, provider name, booking reference */
+  q?: string;
+  providerId?: string;
+  flagged?: boolean;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface AdminUserBookingDTO {
+  id: string;
+  reference: string;
+  status: BookingStatus;
+  statusLabel: string;
+  startsAt: string;
+  serviceName: string;
+  /** provider name for customers, customer name for providers */
+  counterpartName: string | null;
+  totalCents: number;
+  asRole: "customer" | "provider";
+}
+
+export interface AdminCreditEntryDTO extends CreditLedgerEntryDTO {
+  bookingReference: string | null;
+  createdByName: string | null;
+}
+
+export interface AdminUserDetailDTO {
+  user: AdminUserDTO;
+  avatarUrl: string | null;
+  marketingOptIn: boolean;
+  referralCode: string;
+  lastSignInAt: string | null;
+  anonymizedAt: string | null;
+  providerSlug: string | null;
+  addressesCount: number;
+  reviewsCount: number;
+  credits: { balanceCents: number; entries: AdminCreditEntryDTO[] };
+  /** latest 20 bookings as customer or provider */
+  bookings: AdminUserBookingDTO[];
+  activeBookings: number;
+  openDisputes: number;
+  /** German reasons why "Konto anonymisieren" is not possible right now (empty = possible) */
+  anonymizeBlockers: string[];
+}
+
+/** DSGVO Art. 15/20 export: everything SOMA stores about the account (never other users' contact data). */
+export interface UserDataExportDTO {
+  exportedAt: string;
+  format: "soma-user-export/v1";
+  profile: {
+    userId: string;
+    email: string;
+    role: AppRole;
+    firstName: string | null;
+    lastName: string | null;
+    phone: string | null;
+    referralCode: string;
+    marketingOptIn: boolean;
+    createdAt: string;
+    blockedAt: string | null;
+    anonymizedAt: string | null;
+  };
+  notificationPreferences: NotificationPreferencesDTO | null;
+  addresses: AddressDTO[];
+  bookings: Array<{
+    reference: string;
+    status: BookingStatus;
+    serviceName: string;
+    providerName: string;
+    startsAt: string;
+    endsAt: string;
+    address: { line: string; postalCode: string; city: string; details: string | null };
+    notes: string | null;
+    servicePriceCents: number;
+    travelFeeCents: number;
+    serviceFeeCents: number;
+    discountCents: number;
+    totalCents: number;
+    cancellationFeeCents: number;
+    refundCents: number;
+    cancelledBy: ActorRole | null;
+    cancellationReason: string | null;
+    createdAt: string;
+    payment: { status: PaymentStatus; amountCents: number; capturedCents: number; refundedCents: number; cardBrand: string | null; cardLast4: string | null } | null;
+  }>;
+  reviews: Array<{ bookingReference: string; providerName: string; rating: number; comment: string | null; tags: string[]; providerReply: string | null; isPublished: boolean; createdAt: string }>;
+  credits: { balanceCents: number; entries: Array<{ amountCents: number; reason: CreditReason; reasonLabel: string; note: string | null; createdAt: string }> };
+  referrals: Array<{ role: "referrer" | "referred"; status: string; createdAt: string }>;
+  favorites: Array<{ providerName: string; createdAt: string }>;
+  disputes: Array<{ bookingReference: string; reason: DisputeReason; status: DisputeStatus; description: string; createdAt: string }>;
+  notifications: Array<{ type: string; title: string; body: string | null; readAt: string | null; createdAt: string }>;
+  /** provider accounts only: the public profile and documents metadata */
+  provider: {
+    slug: string;
+    displayName: string;
+    headline: string | null;
+    bio: string | null;
+    status: ProviderStatus;
+    basePostalCode: string | null;
+    documents: Array<{ kind: DocumentKind; status: DocumentStatus; fileName: string | null; createdAt: string }>;
+    payouts: Array<{ amountCents: number; status: string; createdAt: string }>;
+  } | null;
+}
+
+export interface AnonymizeResultDTO {
+  userId: string;
+  anonymizedAt: string;
+  /** bookings kept for accounting with scrubbed personal snapshots */
+  bookingsScrubbed: number;
+  addressesDeleted: number;
 }

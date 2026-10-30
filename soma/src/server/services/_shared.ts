@@ -3,11 +3,57 @@ import "server-only";
 import { z } from "zod";
 import type { Queryable, Tx } from "../db/client";
 import { parsePolicy, type CancellationPolicy } from "../domain/cancellation";
+import { hasContactDetails } from "../domain/content-lint";
 import type { AppRole, CancellationPolicyDTO, RequiredDocumentDTO, Session } from "../dto";
 import { ServiceError } from "../errors";
 
 // German default messages for every zod schema in the server layer.
 z.config(z.locales.de());
+
+const deNumber = (n: number | bigint) => (typeof n === "bigint" ? n.toString() : n.toLocaleString("de-DE"));
+
+/**
+ * Human German messages for the common issues (audit-1 R17), neutral voice so they fit
+ * customers ("Sie") and providers ("du"). Schema-level messages still win; anything not
+ * handled here falls back to the zod German locale.
+ */
+export function germanIssueMessage(iss: z.core.$ZodRawIssue): string | undefined {
+  switch (iss.code) {
+    case "too_small": {
+      const min = iss.minimum;
+      if (iss.origin === "string") return Number(min) <= 1 ? "Bitte ausfüllen." : `Bitte mindestens ${deNumber(min)} Zeichen.`;
+      if (iss.origin === "array" || iss.origin === "set") return Number(min) <= 1 ? "Bitte mindestens einen Eintrag wählen." : `Bitte mindestens ${deNumber(min)} Einträge wählen.`;
+      if (iss.origin === "number" || iss.origin === "int" || iss.origin === "bigint") {
+        return iss.inclusive === false ? `Bitte einen Wert größer als ${deNumber(min)} angeben.` : `Bitte mindestens ${deNumber(min)} angeben.`;
+      }
+      return undefined;
+    }
+    case "too_big": {
+      const max = iss.maximum;
+      if (iss.origin === "string") return `Bitte höchstens ${deNumber(max)} Zeichen.`;
+      if (iss.origin === "array" || iss.origin === "set") return `Bitte höchstens ${deNumber(max)} Einträge wählen.`;
+      if (iss.origin === "number" || iss.origin === "int" || iss.origin === "bigint") {
+        return iss.inclusive === false ? `Bitte einen Wert kleiner als ${deNumber(max)} angeben.` : `Bitte höchstens ${deNumber(max)} angeben.`;
+      }
+      return undefined;
+    }
+    case "invalid_type":
+      return iss.input === undefined || iss.input === null ? "Bitte ausfüllen." : "Ungültige Eingabe.";
+    case "invalid_format":
+      return iss.format === "email" ? "Bitte eine gültige E-Mail-Adresse angeben." : "Ungültiges Format.";
+    case "invalid_value":
+      return "Bitte einen gültigen Wert wählen.";
+    default:
+      return undefined;
+  }
+}
+
+z.config({ customError: germanIssueMessage });
+
+/** Appends a period unless the text already ends with one ("Hanna B." stays "Hanna B."). */
+export function endSentence(text: string): string {
+  return /[.!?…]$/.test(text.trimEnd()) ? text.trimEnd() : `${text.trimEnd()}.`;
+}
 
 /** Validates `input` and throws a German ServiceError with field errors. */
 export function parse<S extends z.ZodType>(schema: S, input: unknown): z.output<S> {
@@ -19,6 +65,17 @@ export function parse<S extends z.ZodType>(schema: S, input: unknown): z.output<
     if (!fieldErrors[key]) fieldErrors[key] = issue.message;
   }
   throw new ServiceError("validation", "Bitte überprüfen Sie Ihre Eingaben.", fieldErrors);
+}
+
+/**
+ * Contact lint (audit-1 R7): rejects free texts that carry phone numbers, e-mail
+ * addresses, handles, URLs/domains or messenger names. `message` comes from
+ * CONTACT_LINT_MESSAGES (audience-specific voice); every offending field gets it.
+ */
+export function assertNoContactDetails(fields: Record<string, string | null | undefined>, message: string): void {
+  const fieldErrors: Record<string, string> = {};
+  for (const [field, text] of Object.entries(fields)) if (hasContactDetails(text)) fieldErrors[field] = message;
+  if (Object.keys(fieldErrors).length) throw new ServiceError("validation", message, fieldErrors);
 }
 
 export const zUuid = z.guid("Ungültige ID.");
@@ -92,12 +149,14 @@ export interface PlatformSettings {
 
 const DEFAULT_POLICY = {
   tiers: [
-    { min_hours_before: 24, fee_percent: 0 },
-    { min_hours_before: 2, fee_percent: 50 },
-    { min_hours_before: 0, fee_percent: 100 },
+    { min_hours_before: 24, fee_percent: 0, travel_fee_retained: false },
+    { min_hours_before: 2, fee_percent: 50, travel_fee_retained: false },
+    { min_hours_before: 0, fee_percent: 100, travel_fee_retained: true },
   ],
   no_show_fee_percent: 100,
   provider_cancellation: "full_refund",
+  grace_minutes: 15,
+  fee_basis: "service_price",
 };
 
 export async function loadSettings(tx: Queryable): Promise<PlatformSettings> {
@@ -128,8 +187,10 @@ export async function loadSettings(tx: Queryable): Promise<PlatformSettings> {
 
 export function policyToDTO(p: CancellationPolicy): CancellationPolicyDTO {
   return {
-    tiers: p.tiers.map((t) => ({ minHoursBefore: t.min_hours_before, feePercent: t.fee_percent })),
+    tiers: p.tiers.map((t) => ({ minHoursBefore: t.min_hours_before, feePercent: t.fee_percent, travelFeeRetained: t.travel_fee_retained })),
     noShowFeePercent: p.no_show_fee_percent,
+    graceMinutes: p.grace_minutes,
+    feeBasis: p.fee_basis,
   };
 }
 

@@ -115,18 +115,19 @@ export function BookingListRow({ booking: b, now = Date.now() }: { booking: Prov
 }
 
 /** Open request with countdown and the large Annehmen / Ablehnen buttons. */
-export function RequestPanel({ booking: b }: { booking: ProviderBookingDTO }) {
+export function RequestPanel({ booking: b, headingLevel = "h3" }: { booking: ProviderBookingDTO; headingLevel?: "h2" | "h3" }) {
+  const H = headingLevel;
   return (
     <article className="flex flex-col gap-5 border border-line bg-surface-raised p-5 lg:p-6" aria-labelledby={`req-${b.id}`}>
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 flex-col gap-1">
             <p className="type-overline text-ink-muted">Neue Anfrage</p>
-            <h3 id={`req-${b.id}`} className="type-heading-m">
+            <H id={`req-${b.id}`} className="type-heading-m">
               <Link href={routes.pro.booking(b.id)} className="hover:underline hover:decoration-1 hover:underline-offset-4">
                 {b.serviceName}
               </Link>
-            </h3>
+            </H>
             <p className="type-body num text-ink">
               {formatDayShort(b.startsAt)} · {formatTime(b.startsAt)}–{formatTime(b.endsAt)}
             </p>

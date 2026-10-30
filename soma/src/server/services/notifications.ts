@@ -1,7 +1,7 @@
 import "server-only";
 
 import { z } from "zod";
-import { getConfig } from "../config";
+import { resolveAppUrl } from "../config";
 import { withService, withUser, type Tx } from "../db/client";
 import type { NotificationDTO, Session } from "../dto";
 import { getEmailAdapter } from "../email/adapter";
@@ -160,7 +160,7 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
       }
       break;
     case "provider.approved":
-      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Du bist freigeschaltet!", body: "Dein Profil ist jetzt sichtbar und buchbar. Viel Erfolg mit deinen ersten Terminen.", href: "/pro", topic: "account" });
+      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Du bist freigeschaltet", body: "Dein Profil ist jetzt sichtbar und buchbar. Viel Erfolg mit deinen ersten Terminen.", href: "/pro", topic: "account" });
       break;
     case "provider.rejected":
       if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Deine Verifizierung braucht noch etwas", body: ctx.note ? `Hinweis vom SOMA-Team: ${ctx.note}` : "Bitte prüfe deine Unterlagen in der Verifizierung.", href: "/pro/verifizierung", topic: "account" });
@@ -202,6 +202,7 @@ const PREF_COLUMN: Record<Topic, "email_bookings" | "email_reminders" | null> = 
 
 export async function notify(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Promise<number> {
   const messages = await buildMessages(tx, event, ctx);
+  const appUrl = await resolveAppUrl();
   for (const m of messages) {
     await tx`
       insert into public.notifications (user_id, type, title, body, href, data)
@@ -214,7 +215,7 @@ export async function notify(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
       await tx`
         insert into public.email_outbox (to_user_id, template, subject, payload)
         values (${m.userId}, ${m.type}, ${m.title},
-                ${tx.json({ title: m.title, body: m.body, url: `${getConfig().APP_URL}${m.href}` })})`;
+                ${tx.json({ title: m.title, body: m.body, url: `${appUrl}${m.href}` })})`;
     }
   }
   return messages.length;

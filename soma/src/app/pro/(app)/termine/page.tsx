@@ -58,7 +58,7 @@ export default async function ProBookingsPage({ searchParams }: PageProps<"/pro/
         ) : current.tab === "requests" ? (
           <div className="flex flex-col gap-3">
             {list.items.map((b) => (
-              <RequestPanel key={b.id} booking={b} />
+              <RequestPanel key={b.id} booking={b} headingLevel="h2" />
             ))}
           </div>
         ) : (

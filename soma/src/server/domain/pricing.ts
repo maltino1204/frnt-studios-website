@@ -115,12 +115,17 @@ export function computePrice(input: QuoteInput): PriceBreakdown {
 }
 
 /**
- * Split of a retained cancellation / no-show fee: the provider receives the
- * kept amount minus the booking's commission rate (travel portion included).
+ * Split of a retained cancellation / no-show amount (policy R21): commission is
+ * taken only on the kept SERVICE share at the booking's rate; a kept travel fee
+ * goes 100 % to the provider.
  */
-export function splitRetainedFee(feeCents: number, commissionRate: number): { commissionCents: number; providerPayoutCents: number } {
-  const commission = Math.round(feeCents * commissionRate);
-  return { commissionCents: commission, providerPayoutCents: feeCents - commission };
+export function splitRetainedAmounts(
+  retainedServiceCents: number,
+  retainedTravelCents: number,
+  commissionRate: number,
+): { commissionCents: number; providerPayoutCents: number } {
+  const commission = Math.round(Math.max(0, retainedServiceCents) * commissionRate);
+  return { commissionCents: commission, providerPayoutCents: Math.max(0, retainedServiceCents) - commission + Math.max(0, retainedTravelCents) };
 }
 
 // ---------------------------------------------------------------------------

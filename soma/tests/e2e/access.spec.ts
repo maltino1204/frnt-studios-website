@@ -66,9 +66,7 @@ test.describe("open redirect protection on /anmelden?next=", () => {
 
   // Known bug (audit-1 R2): a TAB/CR/LF after the leading slash passes safeNext() and the browser
   // strips it, turning "/\t/evil.example" into the protocol-relative "//evil.example".
-  // Marked as an expected failure so the suite stays green; remove test.fail() once R2 is fixed.
   test("next=/%09/evil.example (control character) stays on the SOMA origin", async ({ page, baseURL }) => {
-    test.fail(true, "audit-1 R2: open redirect via control characters in next=");
     const offOrigin: string[] = [];
     page.on("request", (r) => {
       if (!r.url().startsWith(new URL(baseURL!).origin)) offOrigin.push(r.url());

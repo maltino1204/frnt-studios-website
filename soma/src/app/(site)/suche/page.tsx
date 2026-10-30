@@ -303,22 +303,22 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                   <p className="type-overline text-ink-muted">Ihre Suche</p>
                   <dl className="flex flex-col divide-y divide-line">
                     <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="type-body-s text-ink-muted">Ort</dt>
+                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Ort</dt>
                       <dd className="text-right type-body-s num">{`${plz}${city ? ` ${city}` : ""}`}</dd>
                     </div>
                     <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="type-body-s text-ink-muted">Behandlung</dt>
+                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
                       <dd className="text-right type-body-s">{what}</dd>
                     </div>
                     <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="type-body-s text-ink-muted">Wann</dt>
+                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wann</dt>
                       <dd className="text-right type-body-s">
                         {`${datum ? dayLabel(datum) : "So bald wie möglich"}${zeit ? ` · ${TIME_OF_DAY_LABEL[zeit]}` : ""}`}
                       </dd>
                     </div>
                     {sprache ? (
                       <div className="flex justify-between gap-4 py-2.5">
-                        <dt className="type-body-s text-ink-muted">Sprache</dt>
+                        <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Sprache</dt>
                         <dd className="text-right type-body-s">{languageName(sprache)}</dd>
                       </div>
                     ) : null}

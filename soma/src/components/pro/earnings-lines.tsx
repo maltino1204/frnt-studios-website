@@ -18,7 +18,7 @@ export function EarningsLines({
     return (
       <dl className={cn("flex flex-col", className)}>
         <div className="flex min-h-9 items-baseline justify-between gap-4 py-1.5">
-          <dt className="type-body-s text-ink-muted">
+          <dt className="type-body-s text-ink-muted hyphens-none">
             Ausfallgebühr
             <span className="block type-caption">abzüglich {formatPercent(earnings.commissionRate)} Provision</span>
           </dt>
@@ -44,7 +44,7 @@ export function EarningsLines({
     <dl className={cn("flex flex-col", className)}>
       {rows.map((r) => (
         <div key={r.label} className="flex min-h-9 items-baseline justify-between gap-4 py-1.5">
-          <dt className="type-body-s text-ink-muted">
+          <dt className="type-body-s text-ink-muted hyphens-none">
             {r.label}
             {r.detail ? <span className="block type-caption">{r.detail}</span> : null}
           </dt>

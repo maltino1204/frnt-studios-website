@@ -79,10 +79,14 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
                     setPassword(demoPassword ?? "");
                   }}
                   className="inline-flex h-touch w-full flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3 text-left transition-colors duration-fast hover:border-ink"
-                  aria-label={`Demo-Zugang ${d.label} einsetzen (${d.email})`}
                 >
-                  <span className="type-label-s text-ink">{d.label}</span>
-                  <span className="w-full truncate type-caption text-ink-muted">{d.email.replace("@soma.test", "@…")}</span>
+                  <span className="type-label-s text-ink">
+                    {d.label}
+                    <span className="sr-only">{`: Demo-Zugang einsetzen (${d.email})`}</span>
+                  </span>
+                  <span aria-hidden className="w-full truncate type-caption text-ink-muted">
+                    {d.email.replace("@soma.test", "@…")}
+                  </span>
                 </button>
               </li>
             ))}

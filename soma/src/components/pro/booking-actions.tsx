@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, useTransition } from "react";
+import { useEffect, useId, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, KeyRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -152,8 +152,15 @@ export function RequestActions({
   );
 }
 
-/** "Termin starten": requires the customer's 4-digit Start-Code. */
-export function StartBookingButton({ booking }: { booking: Pick<ProviderBookingDTO, "id" | "startsAt" | "actions" | "customer"> }) {
+/**
+ * "Termin starten": requires the customer's 4-digit Start-Code. The button exists only
+ * from startsAt − 30 min (server flag `canStart`); before that a calm note says when.
+ */
+export function StartBookingButton({
+  booking,
+}: {
+  booking: Pick<ProviderBookingDTO, "id" | "startsAt" | "actions" | "customer"> & Partial<Pick<ProviderBookingDTO, "canStart" | "startAvailableAt">>;
+}) {
   const router = useRouter();
   const toast = useToast();
   const [open, setOpen] = useState(false);
@@ -161,7 +168,18 @@ export function StartBookingButton({ booking }: { booking: Pick<ProviderBookingD
   const [error, setError] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [pending, start] = useTransition();
-  const earliest = new Date(Date.parse(booking.startsAt) - 30 * 60_000);
+  const canStart = booking.canStart ?? booking.actions.canStart;
+  const earliest = booking.startAvailableAt ? new Date(booking.startAvailableAt) : new Date(Date.parse(booking.startsAt) - 30 * 60_000);
+  const earliestMs = earliest.getTime();
+
+  // Refresh once the start window opens, so the button appears without a manual reload.
+  useEffect(() => {
+    if (canStart) return;
+    const wait = earliestMs - Date.now();
+    if (wait <= 0 || wait > 12 * 3_600_000) return;
+    const t = window.setTimeout(() => router.refresh(), wait + 1_000);
+    return () => window.clearTimeout(t);
+  }, [canStart, earliestMs, router]);
 
   const submit = () => {
     setError(null);
@@ -183,16 +201,14 @@ export function StartBookingButton({ booking }: { booking: Pick<ProviderBookingD
     });
   };
 
-  if (!booking.actions.canStart) {
+  if (!canStart) {
     return (
-      <div className="flex flex-col gap-2">
-        <Button size="l" block disabled icon={<Icon icon={KeyRound} />}>
-          Termin starten
-        </Button>
-        <p className="type-caption text-ink-muted" suppressHydrationWarning>
-          Ab {berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}
-          {formatTime(earliest)} Uhr möglich – 30 Minuten vor Beginn.
+      <div className="flex flex-col gap-1 border-y border-line py-3">
+        <p className="flex items-center gap-2 type-label text-ink" suppressHydrationWarning>
+          <Icon icon={KeyRound} size={16} className="shrink-0 text-ink-muted" />
+          {`Start ab ${berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}${formatTime(earliest)} Uhr möglich`}
         </p>
+        <p className="type-caption text-ink-muted">„Termin starten“ erscheint hier 30 Minuten vor Beginn.</p>
       </div>
     );
   }

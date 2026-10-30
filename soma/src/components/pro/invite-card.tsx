@@ -50,7 +50,7 @@ export function InviteCard({
       <div className="flex flex-col gap-2">
         <span aria-hidden className="block h-0.5 w-6 bg-ink" />
         <h2 id="invite-title" className="type-heading-m">
-          Bring deine Stammkund:innen mit – nur {ownClientRateLabel} Provision
+          Bring deine Stammkundschaft mit – nur {ownClientRateLabel} Provision
         </h2>
         {!compact ? (
           <p className="type-body-s text-ink-muted">

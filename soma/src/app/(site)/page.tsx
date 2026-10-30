@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
@@ -23,6 +23,8 @@ import { DiscoveryHero } from "@/components/site/discovery-hero";
 import { absoluteUrl, JsonLd } from "@/components/site/discovery-json-ld";
 import { LinkGrid } from "@/components/site/discovery-links";
 import { Rail } from "@/components/site/discovery-rail";
+import { AccountDeletedToast } from "@/components/site/account-deleted-toast";
+import { ProofBand } from "@/components/site/discovery-proof";
 import { RebookRow } from "@/components/site/discovery-rebook";
 import { CategoryTile, ProviderPortraitCard } from "@/components/site/discovery-tiles";
 import { BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE } from "@/lib/brand";
@@ -30,6 +32,7 @@ import { images } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { listCatalog, listCities } from "@/server/services/catalog";
 import { getCoverageMatrix, getPriceFloors, getPublicTerms, listCityPostalExamples, listDiscoveryProviders } from "@/server/services/site-ext";
+import { getSocialProof } from "@/server/services/site-ext-2";
 
 export const revalidate = 3600;
 
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [catalog, cities, featuredAll, floors, coverage, terms, examples, hero, steps, faq] = await Promise.all([
+  const [catalog, cities, featuredAll, floors, coverage, terms, examples, hero, steps, faq, proof] = await Promise.all([
     listCatalog(),
     listCities(),
     listDiscoveryProviders({ limit: 16 }),
@@ -49,6 +52,11 @@ export default async function HomePage() {
     getHeroCopy(),
     getHowItWorks(),
     getHomeFaq(),
+    // The proof band must never take the home page down: render the guarantee alone.
+    getSocialProof().catch((e) => {
+      console.error("[home] social proof unavailable", e);
+      return null;
+    }),
   ]);
 
   const [heroTitle, heroEmphasis] = splitHeadline(hero.title);
@@ -91,6 +99,13 @@ export default async function HomePage() {
         <RebookRow />
         <BookingEntry catalog={entryCatalog} postalExample={(firstCity && examples[firstCity]) || "10115"} />
       </DiscoveryHero>
+
+      <Suspense fallback={null}>
+        <AccountDeletedToast />
+      </Suspense>
+
+      {/* Proof band (R14): real numbers, real quotes, SOMA-Garantie */}
+      <ProofBand proof={proof} disputeWindowHours={terms.disputeWindowHours} />
 
       {/* Categories */}
       <Section aria-labelledby="behandlungen-titel">
@@ -232,8 +247,8 @@ export default async function HomePage() {
                 </Link>
               </TrustItem>
               <TrustItem title={`Bezahlt wird nur über ${BRAND_NAME}.`}>
-                Ihre Karte wird bei der Buchung reserviert und erst nach dem Termin belastet. Stimmt etwas nicht, melden Sie sich innerhalb von{" "}
-                {terms.disputeWindowHours} Stunden – so lange halten wir die Auszahlung zurück.
+                Ihre Karte wird bei der Buchung reserviert und erst nach dem Termin belastet. Bis {terms.disputeWindowHours} Stunden danach halten wir die Auszahlung an den
+                Profi zurück – so greift die {BRAND_NAME}-Garantie, wenn etwas nicht stimmt.
               </TrustItem>
             </ul>
           </div>

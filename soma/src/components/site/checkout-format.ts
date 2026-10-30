@@ -161,12 +161,31 @@ export function withStop(text: string): string {
   return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
+/** Older policy snapshots carry no travel flag: the travel fee was kept only in 100 % tiers. */
+const travelKept = (t: { feePercent: number; travelFeeRetained?: boolean }) => t.travelFeeRetained ?? t.feePercent >= 100;
+
+/**
+ * What a cancellation costs in one tier. The fee is a share of the treatment price;
+ * the travel fee is either refunded or kept ("50 % der Behandlung, Anfahrt wird erstattet").
+ */
+export function tierFeeText(t: { feePercent: number; travelFeeRetained?: boolean }): string {
+  const kept = travelKept(t);
+  if (t.feePercent <= 0 && !kept) return "kostenlos";
+  if (t.feePercent <= 0) return "nur die Anfahrt";
+  return `${t.feePercent}${NBSP}% der Behandlung${kept ? " zzgl. Anfahrt" : ", Anfahrt wird erstattet"}`;
+}
+
+/** The free 15-minute window after booking ("Bedenkzeit"), or null when the policy has none. */
+export function graceSentence(policy: Pick<CancellationPolicyDTO, "graceMinutes"> | null | undefined): string | null {
+  const m = policy?.graceMinutes ?? 0;
+  return m > 0 ? `In den ersten ${m}${NBSP}Minuten nach der Buchung immer kostenlos stornierbar.` : null;
+}
+
 /** Human list of the cancellation tiers with concrete deadlines (tiers that already ended are left out). */
 export function scheduleLines(schedule: PolicyScheduleEntryDTO[], now: number = Date.now()): string[] {
   return schedule.filter((e) => !e.until || Date.parse(e.until) > now).map((e) => {
-    const what = e.feePercent === 0 ? "kostenlos" : `${e.feePercent}${NBSP}% Stornogebühr`;
-    if (e.until && !e.from) return `Bis ${deadlineText(e.until)}: ${what}`;
-    if (e.until && e.from) return `Bis ${deadlineText(e.until)}: ${what}`;
+    const what = `${tierFeeText(e)}${/Bedenkzeit/.test(e.label) ? " (Bedenkzeit)" : ""}`;
+    if (e.until) return `Bis ${deadlineText(e.until)}: ${what}`;
     if (e.from) return `Danach: ${what}`;
     return what;
   });
@@ -175,18 +194,20 @@ export function scheduleLines(schedule: PolicyScheduleEntryDTO[], now: number = 
 /** Generic tier summary (no concrete date), e.g. on profiles. */
 export function policySummary(policy: CancellationPolicyDTO): string[] {
   const tiers = [...policy.tiers].sort((a, b) => b.minHoursBefore - a.minHoursBefore);
-  return tiers.map((t, i) => {
-    const what = t.feePercent === 0 ? "kostenlos" : `${t.feePercent}${NBSP}% Stornogebühr`;
+  const lines = tiers.map((t, i) => {
+    const what = tierFeeText(t);
     if (i === 0) return `Bis ${t.minHoursBefore}${NBSP}Std. vor Beginn: ${what}`;
     const prev = tiers[i - 1].minHoursBefore;
     if (t.minHoursBefore > 0) return `${prev}–${t.minHoursBefore}${NBSP}Std. vorher: ${what}`;
     return `Weniger als ${prev}${NBSP}Std. vorher: ${what}`;
   });
+  const grace = graceSentence(policy);
+  return grace ? [...lines, grace] : lines;
 }
 
-/** Free-cancellation deadline for a slot (client-side preview from the public policy). */
+/** Free-cancellation deadline for a slot by tier (client-side preview from the public policy; without the Bedenkzeit). */
 export function freeUntilFor(policy: CancellationPolicyDTO, startsAt: string): string | null {
-  const free = policy.tiers.filter((t) => t.feePercent === 0).sort((a, b) => a.minHoursBefore - b.minHoursBefore)[0];
+  const free = policy.tiers.filter((t) => t.feePercent === 0 && !travelKept(t)).sort((a, b) => a.minHoursBefore - b.minHoursBefore)[0];
   if (!free) return null;
   return new Date(new Date(startsAt).getTime() - free.minHoursBefore * 3_600_000).toISOString();
 }

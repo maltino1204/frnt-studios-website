@@ -166,8 +166,8 @@ export async function getProviderAvailability(providerId: string, providerServic
 }
 
 export async function queryAvailability(tx: Queryable, providerId: string, providerServiceId: string, from: string, days: number, now: Date): Promise<SlotsByDay[]> {
-  const rows = await tx<{ id: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number; durationMinutes: number }[]>`
-    select p.id, p.lead_time_minutes, p.max_advance_days, p.travel_buffer_minutes, ps.duration_minutes
+  const rows = await tx<{ id: string; leadTimeMinutes: number; maxAdvanceDays: number; travelBufferMinutes: number; durationMinutes: number; bookingMode: "instant" | "request" }[]>`
+    select p.id, p.lead_time_minutes, p.max_advance_days, p.travel_buffer_minutes, ps.duration_minutes, p.booking_mode
     from public.providers p
     join public.provider_services ps on ps.provider_id = p.id and ps.id = ${providerServiceId} and ps.is_active
     where p.id = ${providerId}`;

@@ -55,8 +55,9 @@ describe("database guards (triggers + exclusion constraint)", () => {
   it("makes overlapping bookings impossible (exclusion constraint incl. travel buffer)", async () => {
     const p = await createProvider();
     const c = await createCustomer();
-    const start = new Date(Date.now() + 30 * 3_600_000);
-    start.setUTCMinutes(0, 0, 0);
+    // 09:00 UTC (10/11 Berlin) two days ahead: both bookings stay inside one local day whatever the time of the run
+    const start = new Date(Date.now() + 48 * 3_600_000);
+    start.setUTCHours(9, 0, 0, 0);
     await rawInsertBooking(p, c, start);
     // starts 15 min after the first ends → inside the 30 min travel buffer
     await expect(rawInsertBooking(p, c, new Date(start.getTime() + 75 * 60_000))).rejects.toMatchObject({ code: "23P01" });

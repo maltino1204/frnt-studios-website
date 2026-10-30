@@ -1,7 +1,7 @@
 import "server-only";
 
 import { createHash, randomBytes } from "node:crypto";
-import { getConfig } from "../config";
+import { getConfig, resolveAppUrl } from "../config";
 import { withService, type Tx } from "../db/client";
 import { isPostgresError } from "../db/errors";
 import { ServiceError } from "../errors";
@@ -153,7 +153,7 @@ export async function requestLocalPasswordReset(emailRaw: string): Promise<strin
       toUserId: user.id,
       template: "auth.password_reset",
       subject: "Passwort zurücksetzen",
-      payload: { url: `${getConfig().APP_URL}/passwort-vergessen?token=${token}`, validMinutes: RESET_TTL_MINUTES },
+      payload: { url: `${await resolveAppUrl()}/passwort-vergessen?token=${token}`, validMinutes: RESET_TTL_MINUTES },
     });
     return user.id;
   });
@@ -186,6 +186,14 @@ export async function changeLocalPassword(userId: string, current: string, next:
   const hash = await hashPassword(next);
   // withService: see above.
   await withService((tx) => tx`update auth.users set encrypted_password = ${hash}, updated_at = now() where id = ${userId}`);
+}
+
+/** Password re-confirmation (no session, no login attempt recorded). */
+export async function verifyLocalPassword(userId: string, password: string): Promise<boolean> {
+  if (!password) return false;
+  // withService: password hashes live in auth.users.
+  const [user] = await withService((tx) => tx<{ encryptedPassword: string | null }[]>`select encrypted_password from auth.users where id = ${userId}`);
+  return Boolean(user && (await verifyPassword(password, user.encryptedPassword)));
 }
 
 function sessionCookieOptions() {
@@ -229,6 +237,9 @@ export function createLocalAuthAdapter(cookies: CookieJar): AuthAdapter {
     },
     async resetPassword(token, newPassword) {
       await resetLocalPassword(token, newPassword);
+    },
+    async verifyPassword(userId, password) {
+      return verifyLocalPassword(userId, password);
     },
     async changePassword(userId, current, next) {
       await changeLocalPassword(userId, current, next);

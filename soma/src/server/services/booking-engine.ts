@@ -9,7 +9,7 @@ import {
   type BookingStatus,
 } from "../domain/booking-state";
 import { computeCancellation, computeNoShowFee, parsePolicy, type CancellationOutcome } from "../domain/cancellation";
-import { splitRetainedFee } from "../domain/pricing";
+import { splitRetainedAmounts } from "../domain/pricing";
 import type { PaymentProviderId } from "../dto";
 import { ServiceError } from "../errors";
 import { createDevPaymentProvider } from "../payments/dev";
@@ -54,6 +54,7 @@ export interface BookingRow {
   respondBy: Date | null;
   completedAt: Date | null;
   cancelledAt: Date | null;
+  createdAt: Date;
 }
 
 export interface PaymentRow {
@@ -76,7 +77,7 @@ export async function lockBooking(tx: Tx, id: string, scope?: { customerId?: str
     select id, reference, customer_id, provider_id, provider_service_id, service_id, category_id, service_name, duration_minutes,
            starts_at, ends_at, status, booking_mode, postal_code, service_price_cents, travel_fee_cents, service_fee_cents,
            discount_cents, total_cents, commission_rate::text as commission_rate, commission_cents, provider_payout_cents,
-           cancellation_policy, start_code, start_code_attempts, hold_expires_at, respond_by, completed_at, cancelled_at
+           cancellation_policy, start_code, start_code_attempts, hold_expires_at, respond_by, completed_at, cancelled_at, created_at
     from public.bookings
     where id = ${id}
       ${scope?.customerId ? tx`and customer_id = ${scope.customerId}` : tx``}
@@ -125,6 +126,35 @@ export async function applyTransition(
 
 export function policyOf(b: BookingRow) {
   return parsePolicy(b.cancellationPolicy);
+}
+
+export function cancellable(b: BookingRow) {
+  return {
+    status: b.status, startsAt: b.startsAt, createdAt: b.createdAt, servicePriceCents: b.servicePriceCents, travelFeeCents: b.travelFeeCents,
+    serviceFeeCents: b.serviceFeeCents, discountCents: b.discountCents, totalCents: b.totalCents, cancellationPolicy: policyOf(b),
+  };
+}
+
+/**
+ * Admin-chosen fee (cash). Interpreted as service share first (up to the cash
+ * service price), then travel fee — so a kept travel fee stays commission-free.
+ */
+function overrideOutcome(b: BookingRow, feeOverrideCents: number): CancellationOutcome {
+  const fee = Math.min(b.totalCents, Math.max(0, Math.round(feeOverrideCents)));
+  const cashService = Math.max(0, b.servicePriceCents - b.discountCents);
+  const serviceCash = Math.min(fee, cashService);
+  const travel = Math.min(b.travelFeeCents, fee - serviceCash);
+  const pct = cashService > 0 ? Math.round((serviceCash / cashService) * 100) : 0;
+  return {
+    feeCents: fee,
+    refundCents: b.totalCents - fee,
+    feePercent: pct,
+    travelFeeRetained: travel > 0,
+    retainedServiceCents: cashService > 0 ? Math.round((b.servicePriceCents * serviceCash) / cashService) : 0,
+    retainedTravelCents: travel,
+    inGracePeriod: false,
+    tierLabel: "Individuell (SOMA)",
+  };
 }
 
 /** Gives back (a share of) the credits redeemed on this booking. */
@@ -177,16 +207,12 @@ export async function cancelInTx(tx: Tx, b: BookingRow, opts: CancelOptions): Pr
   const to = opts.to ?? "cancelled";
   const now = opts.now ?? new Date();
   guardTransition(b.status, to, opts.actor);
-  const base = computeCancellation(
-    { status: b.status, startsAt: b.startsAt, totalCents: b.totalCents, serviceFeeCents: b.serviceFeeCents, cancellationPolicy: policyOf(b) },
-    now,
-    opts.actor,
-  );
-  const outcome: CancellationOutcome =
-    opts.feeOverrideCents != null
-      ? { ...base, feeCents: Math.min(b.totalCents, Math.max(0, opts.feeOverrideCents)), refundCents: b.totalCents - Math.min(b.totalCents, Math.max(0, opts.feeOverrideCents)), feePercent: b.totalCents > 0 ? Math.round((Math.max(0, opts.feeOverrideCents) / b.totalCents) * 100) : 0, tierLabel: "Individuell (SOMA)" }
-      : base;
-  const split = outcome.feeCents > 0 ? splitRetainedFee(outcome.feeCents, Number(b.commissionRate)) : { commissionCents: 0, providerPayoutCents: 0 };
+  const base = computeCancellation(cancellable(b), now, opts.actor);
+  const outcome: CancellationOutcome = opts.feeOverrideCents != null ? overrideOutcome(b, opts.feeOverrideCents) : base;
+  const split =
+    outcome.feeCents > 0
+      ? splitRetainedAmounts(outcome.retainedServiceCents, outcome.retainedTravelCents, Number(b.commissionRate))
+      : { commissionCents: 0, providerPayoutCents: 0 };
   const op = await settlePayment(tx, b, outcome.feeCents, split.commissionCents);
   await applyTransition(
     tx, b, to, opts.actor, opts.actorId,
@@ -209,8 +235,8 @@ export async function cancelInTx(tx: Tx, b: BookingRow, opts: CancelOptions): Pr
 /** No-show: 100 % fee (policy), partial capture, provider share. */
 export async function noShowInTx(tx: Tx, b: BookingRow, actor: Actor, actorId: string | null): Promise<CancelResult> {
   guardTransition(b.status, "no_show", actor);
-  const outcome = computeNoShowFee({ totalCents: b.totalCents, serviceFeeCents: b.serviceFeeCents, cancellationPolicy: policyOf(b) });
-  const split = splitRetainedFee(outcome.feeCents, Number(b.commissionRate));
+  const outcome = computeNoShowFee(cancellable(b));
+  const split = splitRetainedAmounts(outcome.retainedServiceCents, outcome.retainedTravelCents, Number(b.commissionRate));
   const op = await settlePayment(tx, b, outcome.feeCents, split.commissionCents);
   await applyTransition(tx, b, "no_show", actor, actorId, {
     cancellationFeeCents: outcome.feeCents,

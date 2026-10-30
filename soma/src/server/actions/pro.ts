@@ -169,7 +169,7 @@ export async function submitForReviewAction(raw: z.input<typeof SubmitSchema>): 
     const r = await submitForReview(s, input(SubmitSchema, raw ?? {}));
     revalidatePro();
     return r;
-  }, "Danke! Wir prüfen dein Profil innerhalb von 48 Stunden.");
+  }, "Danke, wir prüfen dein Profil innerhalb von 48 Stunden.");
 }
 
 const SettingsSchema = z.object({
@@ -223,7 +223,7 @@ export async function startBookingAction(raw: z.input<typeof StartSchema>): Prom
     const r = await startBooking(s, v.bookingId, v.code);
     revalidatePro();
     return r;
-  }, "Termin gestartet. Viel Freude!");
+  }, "Termin gestartet. Viel Freude beim Termin.");
 }
 
 export async function completeBookingAction(bookingId: string): Promise<ActionResult<{ status: BookingStatus }>> {

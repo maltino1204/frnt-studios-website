@@ -8,7 +8,7 @@ import { EmptyState } from "@/components/ui/feedback";
 import { PageHeader } from "@/components/ui/layout";
 import { Rating, VerifiedBadge } from "@/components/ui/trust";
 import { FavoriteButton } from "@/components/site/favorite-button";
-import { ModeLabel } from "@/components/site/provider-row";
+import { MetaLine, ModeLabel } from "@/components/site/provider-row";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Favoriten" };
@@ -36,13 +36,10 @@ export default async function FavoritenPage() {
                   </h2>
                   <FavoriteButton providerId={f.providerId} providerName={f.displayName} initial canToggle />
                 </div>
-                <p className="-mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <MetaLine className="-mt-1.5">
                   <Rating avg={f.ratingAvg} count={f.ratingCount} />
-                  <span aria-hidden className="text-ink-muted">
-                    ·
-                  </span>
                   <ModeLabel mode={f.bookingMode} />
-                </p>
+                </MetaLine>
                 {f.headline ? <p className="truncate type-body-s text-ink-muted">{f.headline}</p> : null}
                 <div className="flex items-center justify-between gap-4 pt-1">
                   <p className="type-caption text-ink-muted">{f.cityName ?? ""}</p>

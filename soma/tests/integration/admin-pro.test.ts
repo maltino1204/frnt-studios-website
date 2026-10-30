@@ -50,7 +50,7 @@ describe("admin authorisation", () => {
 });
 
 describe("provider onboarding → verification", () => {
-  it("lists missing documents per category (Haare & Styling needs Meisterbrief/Handwerksrolle) and warns on approval", async () => {
+  it("lists missing documents per category (Haare & Styling needs Meisterbrief/Handwerksrolle) and refuses approval until all are approved", async () => {
     const admin = await createAdmin();
     const pro = await createProvider({ status: "draft", services: [{ slug: "damenhaarschnitt" }, { slug: "entspannungsmassage" }] });
     await updateProProfile(pro.session, { displayName: "Kiran S.", headline: "Schnitt & Styling", bio: "Seit zehn Jahren schneide und style ich Haare – mit Ruhe, Präzision und viel Gefühl für Typ und Alltag.", languages: ["de", "en"] });
@@ -88,17 +88,29 @@ describe("provider onboarding → verification", () => {
     expect(vat.vatMode).toBe("regular");
     expect((await listVerificationQueue(admin)).map((p) => p.providerId)).toContain(pro.providerId);
 
-    // documents are pending → approval warns but is allowed
+    // documents are pending → approval is refused, listing every missing document (audit-1 R1)
+    const refused = decideProvider(admin, pro.providerId, "approve");
+    await expect(refused).rejects.toMatchObject({ code: "invalid_state" });
+    await expect(decideProvider(admin, pro.providerId, "approve")).rejects.toThrow(/Meisterbrief oder Eintragung in die Handwerksrolle \(Haare & Styling\)/);
+    await expect(decideProvider(admin, pro.providerId, "approve")).rejects.toThrow(/Gewerbeanmeldung/);
+    const [still] = await sql()<{ status: string }[]>`select status from public.providers where id = ${pro.providerId}`;
+    expect(still.status).toBe("submitted");
+
+    // one document still pending → still refused
+    const docs = await sql()<{ id: string; kind: string; categoryId: string | null }[]>`
+      select id, kind, category_id from public.provider_documents where provider_id = ${pro.providerId}`;
+    for (const d of docs) if (d.categoryId !== massage.id) await reviewDocument(admin, d.id, "approved");
+    await expect(decideProvider(admin, pro.providerId, "approve")).rejects.toThrow(/Massage/);
+    for (const d of docs) if (d.categoryId === massage.id) await reviewDocument(admin, d.id, "approved");
+
     const result = await decideProvider(admin, pro.providerId, "approve");
     expect(result.status).toBe("approved");
-    expect(result.warnings.some((w) => w.includes("Meisterbrief"))).toBe(true);
+    expect(result.warnings).toEqual([]);
     const [evt] = await sql()<{ toStatus: string; actorId: string }[]>`select to_status, actor_id from public.provider_status_events where provider_id = ${pro.providerId} order by created_at desc limit 1`;
     expect(evt).toEqual({ toStatus: "approved", actorId: admin.userId });
     const [audit] = await sql()<{ n: number }[]>`select count(*)::int as n from public.audit_log where entity_id = ${pro.providerId} and action = 'provider.approve'`;
     expect(audit.n).toBe(1);
 
-    const docs = await sql()<{ id: string }[]>`select id from public.provider_documents where provider_id = ${pro.providerId}`;
-    for (const d of docs) await reviewDocument(admin, d.id, "approved");
     await decideProvider(admin, pro.providerId, "suspend", "Kurzzeitige Prüfung");
     expect((await decideProvider(admin, pro.providerId, "reinstate")).warnings).toEqual([]);
   });

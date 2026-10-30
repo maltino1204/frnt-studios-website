@@ -220,12 +220,12 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
                   <span className="text-ink-muted num">
                     {t.until ? `bis ${formatDayShort(t.until)}, ${formatDateTime(t.until).slice(-5)}` : t.from ? `ab ${formatDayShort(t.from)}, ${formatDateTime(t.from).slice(-5)}` : "jederzeit"}
                   </span>
-                  <span className="shrink-0 num">{t.feePercent === 0 ? "kostenlos" : `${t.feePercent} % Gebühr`}</span>
+                  <span className="min-w-0 text-right num">{t.label}</span>
                 </li>
               ))}
               <li className="flex items-baseline justify-between gap-4 border-t border-line py-1.5 type-body-s">
                 <span className="text-ink-muted">Nicht angetroffen</span>
-                <span className="num">{ops.policy.noShowFeePercent} % Gebühr</span>
+                <span className="text-right num">{ops.policy.noShowFeePercent} % zzgl. Anfahrt</span>
               </li>
             </ul>
           </PanelCard>

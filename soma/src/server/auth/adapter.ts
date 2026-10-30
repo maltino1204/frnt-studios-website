@@ -53,6 +53,8 @@ export interface AuthAdapter {
   requestPasswordReset(email: string): Promise<void>;
   resetPassword(token: string, newPassword: string): Promise<void>;
   changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void>;
+  /** re-confirmation for sensitive actions (account deletion); never records a login */
+  verifyPassword(userId: string, password: string): Promise<boolean>;
 }
 
 export const SESSION_COOKIE = "soma_session";

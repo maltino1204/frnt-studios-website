@@ -315,7 +315,7 @@ async function AccountAside() {
       <dl className="border-y border-line">
         {rows.map((r) => (
           <div key={r.label} className="flex items-baseline justify-between gap-4 border-b border-line py-2.5 last:border-b-0">
-            <dt className="type-body-s text-ink-muted">{r.label}</dt>
+            <dt className="type-body-s text-ink-muted hyphens-none">{r.label}</dt>
             <dd className="type-label num">{r.value}</dd>
           </div>
         ))}

@@ -51,11 +51,48 @@ describe("local auth adapter", () => {
     await expect(createLocalUser({ email: email.toUpperCase(), password: PASSWORD, firstName: "A", lastName: "B", role: "customer" })).rejects.toThrow(/bereits ein Konto/);
   });
 
-  it("rate-limits failed logins per e-mail", async () => {
+  // Moves the recorded failures back in time so the exponential back-off has elapsed.
+  const ageFailures = (email: string, seconds = 90) =>
+    sql()`update app_private.login_attempts set created_at = created_at - make_interval(secs => ${seconds}) where email = ${email}`;
+
+  it("rate-limits failed logins per e-mail (hard lock after 5 within 15 min)", async () => {
     const email = uniqueEmail("rl");
     await createLocalUser({ email, password: PASSWORD, firstName: "R", lastName: "L", role: "customer" });
-    for (let i = 0; i < 5; i += 1) await expect(verifyLocalCredentials(email, "falsches-passwort", { ip: null, userAgent: null })).rejects.toThrow(/falsch/);
+    for (let i = 0; i < 5; i += 1) {
+      await expect(verifyLocalCredentials(email, "falsches-passwort", { ip: null, userAgent: null })).rejects.toThrow(/falsch/);
+      await ageFailures(email);
+    }
     await expect(verifyLocalCredentials(email, PASSWORD, { ip: null, userAgent: null })).rejects.toThrow(/Zu viele/);
+  });
+
+  it("backs off exponentially per e-mail from the second failure (audit-1 R6)", async () => {
+    const email = uniqueEmail("backoff");
+    const id = await createLocalUser({ email, password: PASSWORD, firstName: "B", lastName: "O", role: "customer" });
+    await expect(verifyLocalCredentials(email, "falsches-passwort", meta)).rejects.toThrow(/falsch/);
+    // one typo: the immediate retry is allowed
+    await expect(verifyLocalCredentials(email, "falsches-passwort", meta)).rejects.toThrow(/falsch/);
+    // second failure → 2 s back-off, even with the right password
+    await expect(verifyLocalCredentials(email, PASSWORD, meta)).rejects.toMatchObject({ code: "rate_limited", message: expect.stringMatching(/Bitte warten Sie \d Sekunden?/) });
+    await ageFailures(email, 3);
+    expect(await verifyLocalCredentials(email, PASSWORD, meta)).toBe(id);
+    // success clears the streak
+    const [{ n }] = await sql()<{ n: number }[]>`select count(*)::int as n from app_private.login_attempts where email = ${email} and not success`;
+    expect(n).toBe(0);
+  });
+
+  it("locks an IP after 20 failures across e-mails, but never pools unknown IPs", async () => {
+    const ip = `198.51.100.${Math.floor(Math.random() * 200) + 20}`;
+    await sql()`
+      insert into app_private.login_attempts (email, ip, success)
+      select 'spray-' || g || '@soma.test', ${ip}, false from generate_series(1, 20) g`;
+    const email = uniqueEmail("ipvictim");
+    await createLocalUser({ email, password: PASSWORD, firstName: "I", lastName: "P", role: "customer" });
+    await expect(verifyLocalCredentials(email, PASSWORD, { ip, userAgent: null })).rejects.toThrow(/Zu viele/);
+    await sql()`
+      insert into app_private.login_attempts (email, ip, success)
+      select 'spray-u' || g || '@soma.test', 'unknown', false from generate_series(1, 25) g`;
+    expect(await verifyLocalCredentials(email, PASSWORD, { ip: "unknown", userAgent: null })).toBeTruthy();
+    await sql()`delete from app_private.login_attempts where email like 'spray-%@soma.test'`;
   });
 
   it("issues opaque session tokens stored only as hashes; revocation works", async () => {

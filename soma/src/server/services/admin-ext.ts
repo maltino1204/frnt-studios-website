@@ -3,11 +3,17 @@ import "server-only";
 import { z } from "zod";
 import { withService, type Fragment, type Queryable, type Tx } from "../db/client";
 import { rethrowDb } from "../db/errors";
+import { STATUS_LABELS_DE } from "../domain/booking-state";
 import { computeCancellation, parsePolicy, policySchedule } from "../domain/cancellation";
+import { findContactDetails } from "../domain/content-lint";
 import type {
   AdminBookingListItemDTO,
   AdminPaymentDTO,
+  AdminReviewDTO,
+  AdminReviewFilter,
+  AdminUserDetailDTO,
   AdminUserDTO,
+  CreditLedgerEntryDTO,
   AppRole,
   AuditLogEntryDTO,
   BookingStatus,
@@ -18,7 +24,8 @@ import type {
   PolicyScheduleEntryDTO,
   Session,
 } from "../dto";
-import { assertAdmin, loadSettings, paging, parse, policyToDTO, zLocalDate, zUuid } from "./_shared";
+import { assertAdmin, CREDIT_REASON_LABELS, loadSettings, mediaUrl, paging, parse, policyToDTO, zLocalDate, zUuid } from "./_shared";
+import { queryAnonymizeBlockers } from "./privacy";
 
 /**
  * Admin read models that the admin console needs beyond services/admin.ts
@@ -131,11 +138,13 @@ export async function getAdminBookingOps(session: Session, bookingId: string): P
   const id = parse(zUuid, bookingId);
   return asAdmin(session, async (tx) => {
     const [b] = await tx<Array<{
-      id: string; status: BookingStatus; startsAt: Date; totalCents: number; serviceFeeCents: number; cancellationPolicy: unknown;
+      id: string; status: BookingStatus; startsAt: Date; createdAt: Date; servicePriceCents: number; travelFeeCents: number; discountCents: number;
+      totalCents: number; serviceFeeCents: number; cancellationPolicy: unknown;
       respondBy: Date | null; holdExpiresAt: Date | null; confirmedAt: Date | null; startedAt: Date | null; completedAt: Date | null; cancelledAt: Date | null;
       cancellationFeeCents: number; providerPayoutCents: number; payoutId: string | null; payoutStatus: string | null; citySlug: string | null; disputed: boolean;
     }>>`
-      select b.id, b.status, b.starts_at, b.total_cents, b.service_fee_cents, b.cancellation_policy, b.respond_by, b.hold_expires_at,
+      select b.id, b.status, b.starts_at, b.created_at, b.service_price_cents, b.travel_fee_cents, b.discount_cents,
+             b.total_cents, b.service_fee_cents, b.cancellation_policy, b.respond_by, b.hold_expires_at,
              b.confirmed_at, b.started_at, b.completed_at, b.cancelled_at, b.cancellation_fee_cents, b.provider_payout_cents, b.payout_id,
              po.status as payout_status, pc.city_slug,
              exists (select 1 from public.disputes d where d.booking_id = b.id and d.status in ('open', 'investigating')) as disputed
@@ -151,7 +160,14 @@ export async function getAdminBookingOps(session: Session, bookingId: string): P
     const now = new Date();
     const customerCancelNow = b.status === "confirmed" || b.status === "requested" || b.status === "pending_payment"
       ? (() => {
-          const o = computeCancellation({ status: b.status, startsAt: b.startsAt, totalCents: b.totalCents, serviceFeeCents: b.serviceFeeCents, cancellationPolicy: policy }, now, "customer");
+          const o = computeCancellation(
+            {
+              status: b.status, startsAt: b.startsAt, createdAt: b.createdAt, servicePriceCents: b.servicePriceCents, travelFeeCents: b.travelFeeCents,
+              serviceFeeCents: b.serviceFeeCents, discountCents: b.discountCents, totalCents: b.totalCents, cancellationPolicy: policy,
+            },
+            now,
+            "customer",
+          );
           return { feeCents: o.feeCents, refundCents: o.refundCents, feePercent: o.feePercent, tierLabel: o.tierLabel };
         })()
       : null;
@@ -175,7 +191,7 @@ export async function getAdminBookingOps(session: Session, bookingId: string): P
       completedAt: iso(b.completedAt),
       cancelledAt: iso(b.cancelledAt),
       policy: policyToDTO(policy),
-      schedule: policySchedule(policy, b.startsAt),
+      schedule: policySchedule(policy, b.startsAt, b.createdAt),
       customerCancelNow,
       adminCancellable: ADMIN_CANCELLABLE.includes(b.status),
       refundableCents: p && (p.status === "captured" || p.status === "partially_refunded") ? Math.max(0, p.capturedCents - p.refundedCents) : 0,
@@ -457,4 +473,130 @@ export async function listAuditFacets(session: Session): Promise<{ entities: str
       from public.audit_log a join public.profiles p on p.id = a.actor_id where a.actor_id is not null order by 2`;
     return { entities: entities.map((e) => e.entity), actions: actions.map((a) => a.action), actors };
   });
+}
+
+// ---------------------------------------------------------------------------
+// Review moderation list (audit-1 R20); writes go through admin.moderateReview
+// ---------------------------------------------------------------------------
+const ReviewFilterSchema = z.object({
+  visibility: z.enum(["published", "hidden"]).optional(),
+  rating: z.union([z.number().int().min(1).max(5), z.literal("critical")]).optional(),
+  q: z.string().trim().max(100).optional(),
+  providerId: zUuid.optional(),
+  flagged: z.boolean().optional(),
+});
+
+export async function listReviewsAdmin(session: Session, opts: AdminReviewFilter = {}): Promise<Paginated<AdminReviewDTO>> {
+  const v = parse(ReviewFilterSchema, { visibility: opts.visibility, rating: opts.rating, q: opts.q || undefined, providerId: opts.providerId, flagged: opts.flagged });
+  const pg = paging(opts.page, opts.pageSize, 25);
+  return asAdmin(session, async (tx) => {
+    const cond = (t: Queryable): Fragment => t`true
+      ${v.visibility === "published" ? t`and r.is_published` : v.visibility === "hidden" ? t`and not r.is_published` : t``}
+      ${v.rating === "critical" ? t`and r.rating <= 2` : typeof v.rating === "number" ? t`and r.rating = ${v.rating}` : t``}
+      ${v.providerId ? t`and r.provider_id = ${v.providerId}` : t``}
+      ${v.q ? t`and (r.comment ilike ${`%${v.q}%`} or r.provider_reply ilike ${`%${v.q}%`} or pr.display_name ilike ${`%${v.q}%`} or b.reference ilike ${`%${v.q}%`})` : t``}`;
+    type Row = Omit<AdminReviewDTO, "createdAt" | "providerRepliedAt" | "contactFlags" | "customerName"> & {
+      createdAt: Date; providerRepliedAt: Date | null; customerFirstName: string | null; customerLastName: string | null;
+    };
+    const select = (t: Queryable, limit: Fragment) => t<Row[]>`
+      select r.id, r.booking_id, b.reference as booking_reference, r.rating, r.comment, r.tags, b.service_name,
+             r.provider_id, pr.display_name as provider_name, pr.slug as provider_slug, r.customer_id,
+             cp.first_name as customer_first_name, cp.last_name as customer_last_name,
+             r.provider_reply, r.provider_replied_at, r.is_published, r.created_at
+      from public.reviews r
+      join public.bookings b on b.id = r.booking_id
+      join public.providers pr on pr.id = r.provider_id
+      join public.profiles cp on cp.id = r.customer_id
+      where ${cond(t)}
+      order by r.created_at desc ${limit}`;
+    const toDto = (r: Row): AdminReviewDTO => {
+      const { customerFirstName, customerLastName, ...rest } = r;
+      const flags = [...findContactDetails(r.comment), ...findContactDetails(r.providerReply)].map((f) => f.match);
+      return {
+        ...rest,
+        tags: [...r.tags],
+        customerName: customerFirstName ? `${customerFirstName}${customerLastName ? ` ${customerLastName.charAt(0)}.` : ""}` : null,
+        providerRepliedAt: iso(r.providerRepliedAt),
+        createdAt: r.createdAt.toISOString(),
+        contactFlags: [...new Set(flags)],
+      };
+    };
+    if (v.flagged) {
+      // Contact lint runs in TypeScript: scan the (bounded) filtered set, then page in memory.
+      const all = (await select(tx, tx`limit 2000`)).map(toDto).filter((r) => r.contactFlags.length > 0);
+      return { items: all.slice(pg.offset, pg.offset + pg.pageSize), total: all.length, page: pg.page, pageSize: pg.pageSize };
+    }
+    const rows = await select(tx, tx`limit ${pg.pageSize} offset ${pg.offset}`);
+    const [{ total }] = await tx<{ total: number }[]>`
+      select count(*)::int as total from public.reviews r join public.bookings b on b.id = r.booking_id join public.providers pr on pr.id = r.provider_id
+      where ${cond(tx)}`;
+    return { items: rows.map(toDto), total, page: pg.page, pageSize: pg.pageSize };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// User detail (credits, bookings, privacy actions) — audit-1 R20
+// ---------------------------------------------------------------------------
+export async function getUserForAdmin(session: Session, userId: string): Promise<AdminUserDetailDTO | null> {
+  const id = parse(zUuid, userId);
+  return withService(async (tx) => {
+    // withService: admin read model across users, authorised by assertAdmin() in the same transaction.
+    const admin = await assertAdmin(tx, session);
+    const [u] = await tx<Array<Omit<AdminUserDTO, "createdAt" | "blockedAt"> & {
+      createdAt: Date; blockedAt: Date | null; avatarPath: string | null; marketingOptIn: boolean; referralCode: string; lastSignInAt: Date | null;
+      anonymizedAt: Date | null; providerSlug: string | null;
+    }>>`
+      select p.id, u.email, p.role, p.first_name, p.last_name, p.phone, p.created_at, p.blocked_at, p.avatar_path, p.marketing_opt_in,
+             p.referral_code, u.last_sign_in_at, p.anonymized_at, pr.slug as provider_slug,
+             (select count(*)::int from public.bookings b where b.customer_id = p.id or b.provider_id = p.id) as bookings_count,
+             pr.status as provider_status
+      from public.profiles p join auth.users u on u.id = p.id left join public.providers pr on pr.id = p.id
+      where p.id = ${id}`;
+    if (!u) return null;
+    const ledger = await tx<Array<{ id: string; amountCents: number; reason: CreditLedgerEntryDTO["reason"]; bookingId: string | null; bookingReference: string | null; note: string | null; createdAt: Date; createdByName: string | null }>>`
+      select l.id, l.amount_cents, l.reason, l.booking_id, b.reference as booking_reference, l.note, l.created_at,
+             nullif(trim(coalesce(cb.first_name, '') || ' ' || coalesce(cb.last_name, '')), '') as created_by_name
+      from public.credit_ledger l
+      left join public.bookings b on b.id = l.booking_id
+      left join public.profiles cb on cb.id = l.created_by
+      where l.user_id = ${id} order by l.created_at desc limit 100`;
+    const [{ balance }] = await tx<{ balance: number }[]>`select coalesce(sum(amount_cents), 0)::int as balance from public.credit_ledger where user_id = ${id}`;
+    const bookings = await tx<Array<{ id: string; reference: string; status: BookingStatus; startsAt: Date; serviceName: string; totalCents: number; asRole: "customer" | "provider"; counterpartName: string | null }>>`
+      select b.id, b.reference, b.status, b.starts_at, b.service_name, b.total_cents,
+             case when b.customer_id = ${id} then 'customer' else 'provider' end as as_role,
+             case when b.customer_id = ${id} then pr.display_name
+                  else nullif(trim(coalesce(cp.first_name, '') || ' ' || coalesce(left(cp.last_name, 1) || '.', '')), '') end as counterpart_name
+      from public.bookings b
+      join public.providers pr on pr.id = b.provider_id
+      join public.profiles cp on cp.id = b.customer_id
+      where b.customer_id = ${id} or b.provider_id = ${id}
+      order by b.starts_at desc limit 20`;
+    const [counts] = await tx<{ addresses: number; reviews: number; active: number; disputes: number }[]>`
+      select (select count(*)::int from public.addresses where user_id = ${id}) as addresses,
+             (select count(*)::int from public.reviews where customer_id = ${id} or provider_id = ${id}) as reviews,
+             (select count(*)::int from public.bookings where (customer_id = ${id} or provider_id = ${id})
+                and status in ('pending_payment', 'requested', 'confirmed', 'in_progress')) as active,
+             (select count(*)::int from public.disputes d join public.bookings b on b.id = d.booking_id
+                where (b.customer_id = ${id} or b.provider_id = ${id}) and d.status in ('open', 'investigating')) as disputes`;
+    const { avatarPath, marketingOptIn, referralCode, lastSignInAt, anonymizedAt, providerSlug, ...user } = u;
+    return {
+      user: { ...user, createdAt: user.createdAt.toISOString(), blockedAt: iso(user.blockedAt) },
+      avatarUrl: mediaUrl(avatarPath),
+      marketingOptIn,
+      referralCode,
+      lastSignInAt: iso(lastSignInAt),
+      anonymizedAt: iso(anonymizedAt),
+      providerSlug,
+      addressesCount: counts.addresses,
+      reviewsCount: counts.reviews,
+      credits: {
+        balanceCents: balance,
+        entries: ledger.map((l) => ({ ...l, reasonLabel: CREDIT_REASON_LABELS[l.reason] ?? l.reason, createdAt: l.createdAt.toISOString() })),
+      },
+      bookings: bookings.map((b) => ({ ...b, statusLabel: STATUS_LABELS_DE[b.status], startsAt: b.startsAt.toISOString() })),
+      activeBookings: counts.active,
+      openDisputes: counts.disputes,
+      anonymizeBlockers: await queryAnonymizeBlockers(tx, id, { isSelf: id === admin.userId }),
+    };
+  }).catch(rethrowDb);
 }

@@ -20,8 +20,8 @@ import { updateProfileAction } from "@/server/actions/account";
 import { confirmDevPaymentAction, createBookingAction, loadAvailabilityAction, quoteBookingAction } from "@/server/actions/booking";
 import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/checkout-ext";
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
-import { dayLabel, deadlineText, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
-import { ModeLabel } from "./provider-row";
+import { dayLabel, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
+import { MetaLine, ModeLabel } from "./provider-row";
 import { StripePaymentSheet } from "./checkout-stripe";
 
 export type CheckoutCustomer = { firstName: string | null; lastName: string | null; email: string; phone: string | null };
@@ -82,6 +82,11 @@ function composeDetails(kind: LocationKind, a: AddrFields): string | undefined {
   return s || undefined;
 }
 
+/** Confirmation URL; `?konto=neu` tells a fresh guest that the "Passwort festlegen" e-mail is on its way. */
+function bookingUrl(bookingId: string, guest: { claimEmailSent: boolean } | null): string {
+  return guest?.claimEmailSent ? `${routes.booking(bookingId)}?konto=neu` : routes.booking(bookingId);
+}
+
 function Section({ id, title, description, children, aside }: { id: string; title: string; description?: ReactNode; children: ReactNode; aside?: ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-titel`} className={cn("flex scroll-mt-24 flex-col gap-5", id !== "uebersicht" && "border-t border-line pt-8")}>
@@ -135,9 +140,13 @@ export function CheckoutForm(props: CheckoutFormProps) {
   }, [addresses, props.initialAddressId, choice, addr.street, addr.houseNumber]);
 
   const [mode, setMode] = useState<"signup" | "login">("signup");
-  const [contact, setContact] = useState({ firstName: "", lastName: "", email: "", phone: "", password: "", acceptTerms: false, marketing: false });
+  const [contact, setContact] = useState({ firstName: "", lastName: "", email: "", phone: "" });
   const [login, setLogin] = useState({ email: "", password: "" });
   const [loginError, setLoginError] = useState<string | null>(null);
+  /** an account that already exists for the guest's e-mail (R16: offer the inline login) */
+  const [existingEmail, setExistingEmail] = useState<string | null>(null);
+  /** guest account created in this checkout (kept if the booking itself has to be retried) */
+  const [guest, setGuest] = useState<{ email: string; claimEmailSent: boolean } | null>(null);
   const [loggingIn, startLogin] = useTransition();
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
@@ -145,13 +154,16 @@ export function CheckoutForm(props: CheckoutFormProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [taken, setTaken] = useState<string[] | null>(null);
-  const [stripeStep, setStripeStep] = useState<{ bookingId: string; clientSecret: string | null } | null>(null);
+  const [stripeStep, setStripeStep] = useState<{ bookingId: string; clientSecret: string | null; guest: { claimEmailSent: boolean } | null } | null>(null);
 
   const isMassage = props.categorySlug === "massage";
   const price = quote.price;
   const endsAt = quote.endsAt;
-  const freeUntil = quote.cancellation.freeUntil;
+  // Tier deadline (24 h before) and the Bedenkzeit after booking are shown separately:
+  // the quote's freeUntil already includes the Bedenkzeit for short-notice slots.
+  const freeUntil = freeUntilFor(quote.cancellation.policy, quote.startsAt);
   const freeNow = !!freeUntil && new Date(freeUntil).getTime() > Date.now();
+  const grace = quote.bookingMode === "instant" ? graceSentence(quote.cancellation.policy) : null;
   const isRequest = quote.bookingMode === "request";
   const savedChosen = choice !== "new" ? addresses.find((a) => a.id === choice) ?? null : null;
 
@@ -181,23 +193,21 @@ export function CheckoutForm(props: CheckoutFormProps) {
       if (kind === "office" && !addr.company.trim()) e.company = "Bitte geben Sie die Firma an.";
     }
     if (!quote.withinServiceArea) e.area = withStop(`Diese Adresse liegt außerhalb des Einsatzgebiets von ${provider.name}`);
-    if (!customer) {
+    if (!customer && !guest) {
       if (mode === "login") e.login = "Bitte melden Sie sich an oder legen Sie ein neues Konto an.";
       else {
         if (!contact.firstName.trim()) e.firstName = "Bitte geben Sie Ihren Vornamen an.";
         if (!contact.lastName.trim()) e.lastName = "Bitte geben Sie Ihren Nachnamen an.";
         if (!EMAIL.test(contact.email.trim())) e.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
         if (!PHONE.test(contact.phone.trim())) e.phone = "Bitte geben Sie eine gültige Mobilnummer an.";
-        if (contact.password.length < 10) e.password = "Mindestens 10 Zeichen.";
-        if (!contact.acceptTerms) e.acceptTerms = "Bitte akzeptieren Sie die AGB und die Datenschutzerklärung.";
       }
     } else if (phone.trim() && !PHONE.test(phone.trim())) e.customerPhone = "Bitte geben Sie eine gültige Mobilnummer an.";
     if (!consent) e.consent = "Bitte bestätigen Sie, dass die Behandlung vor Ablauf der Widerrufsfrist beginnen darf.";
     return e;
-  }, [choice, addr, kind, quote.withinServiceArea, provider.name, customer, mode, contact, phone, consent]);
+  }, [choice, addr, kind, quote.withinServiceArea, provider.name, customer, guest, mode, contact, phone, consent]);
 
   const ORT_KEYS = ["street", "houseNumber", "city", "hotel", "company", "area"];
-  const KONTAKT_KEYS = ["login", "firstName", "lastName", "email", "phone", "password", "acceptTerms", "customerPhone"];
+  const KONTAKT_KEYS = ["login", "firstName", "lastName", "email", "phone", "customerPhone"];
   const valid = [true, !ORT_KEYS.some((k) => errors[k]), !KONTAKT_KEYS.some((k) => errors[k]), !errors.consent];
   const current = valid.indexOf(false) === -1 ? STEPS.length - 1 : valid.indexOf(false);
   const err = (k: string) => (showErrors ? (errors[k] ?? fieldErrors[k] ?? null) : (fieldErrors[k] ?? null));
@@ -260,10 +270,10 @@ export function CheckoutForm(props: CheckoutFormProps) {
       return;
     }
     startSubmit(async () => {
-      if (!customer) {
+      let createdGuest = guest;
+      if (!customer && !guest) {
         const r = await checkoutSignUpAction({
-          firstName: contact.firstName, lastName: contact.lastName, email: contact.email, phone: contact.phone,
-          password: contact.password, acceptTerms: contact.acceptTerms, marketingOptIn: contact.marketing, inviteCode,
+          firstName: contact.firstName, lastName: contact.lastName, email: contact.email, phone: contact.phone, inviteCode,
         });
         if (!r.ok) {
           setServerError(r.error);
@@ -271,7 +281,18 @@ export function CheckoutForm(props: CheckoutFormProps) {
           scrollTo("kontakt");
           return;
         }
-      } else if (phone.trim()) {
+        if (r.data.kind === "exists") {
+          // Known e-mail: switch to the inline login, keep everything typed so far.
+          setExistingEmail(r.data.email);
+          setLogin({ email: r.data.email, password: "" });
+          setLoginError(null);
+          setMode("login");
+          scrollTo("kontakt");
+          return;
+        }
+        createdGuest = { email: r.data.email, claimEmailSent: r.data.claimEmailSent };
+        setGuest(createdGuest);
+      } else if (customer && phone.trim()) {
         const fd = new FormData();
         fd.set("firstName", customer.firstName ?? "");
         fd.set("lastName", customer.lastName ?? "");
@@ -306,12 +327,12 @@ export function CheckoutForm(props: CheckoutFormProps) {
       }
       if (res.data.paymentProvider === "stripe") {
         // Production: collect the card in Stripe's Payment Element; the webhook confirms the booking.
-        setStripeStep({ bookingId: res.data.bookingId, clientSecret: res.data.paymentClientSecret });
+        setStripeStep({ bookingId: res.data.bookingId, clientSecret: res.data.paymentClientSecret, guest: createdGuest });
         return;
       }
       const paid = await confirmDevPaymentAction(res.data.bookingId);
       if (!paid.ok) toast.show(paid.error, { kind: "error" });
-      router.push(routes.booking(res.data.bookingId));
+      router.push(bookingUrl(res.data.bookingId, createdGuest));
     });
   };
 
@@ -322,10 +343,10 @@ export function CheckoutForm(props: CheckoutFormProps) {
       : `${postalCode}${props.cityName ? ` ${props.cityName}` : ""}`;
 
   const lines: PriceLine[] = [
-    { label: "Behandlung", detail: `${quote.serviceName} · ${formatDuration(quote.durationMinutes)}`, cents: price.servicePriceCents },
-    { label: "Anfahrt", detail: quote.withinServiceArea ? formatDistance(quote.distanceKm) : undefined, cents: price.travelFeeCents },
-    ...(price.serviceFeeCents > 0 ? [{ label: "Servicegebühr", cents: price.serviceFeeCents }] : []),
-    ...(price.discountCents > 0 ? [{ label: "Guthaben", cents: price.discountCents, kind: "credit" as const }] : []),
+    { label: <span className="hyphens-none">Behandlung</span>, detail: `${quote.serviceName} · ${formatDuration(quote.durationMinutes)}`, cents: price.servicePriceCents },
+    { label: <span className="hyphens-none">Anfahrt</span>, detail: quote.withinServiceArea ? formatDistance(quote.distanceKm) : undefined, cents: price.travelFeeCents },
+    ...(price.serviceFeeCents > 0 ? [{ label: <span className="hyphens-none">Servicegebühr</span>, cents: price.serviceFeeCents }] : []),
+    ...(price.discountCents > 0 ? [{ label: <span className="hyphens-none">Guthaben</span>, cents: price.discountCents, kind: "credit" as const }] : []),
   ];
 
   const cta = (
@@ -400,26 +421,23 @@ export function CheckoutForm(props: CheckoutFormProps) {
                   Ändern
                 </Link>
               </div>
-              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <MetaLine>
                 <Rating avg={provider.ratingAvg} count={provider.ratingCount} />
-                <span aria-hidden className="text-ink-muted">
-                  ·
-                </span>
                 <ModeLabel mode={quote.bookingMode} />
-              </p>
+              </MetaLine>
             </div>
           </div>
           <dl className="flex flex-col divide-y divide-line border-t border-line">
             <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="type-body-s text-ink-muted">Behandlung</dt>
+              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
               <dd className="text-right type-body-s text-ink">{quote.serviceName}</dd>
             </div>
             <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="type-body-s text-ink-muted">Termin</dt>
+              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Termin</dt>
               <dd className="text-right type-body-s text-ink num">{`${dayLabel(quote.startsAt)} · ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</dd>
             </div>
             <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="type-body-s text-ink-muted">Dauer</dt>
+              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Dauer</dt>
               <dd className="text-right type-body-s text-ink num">{formatDuration(quote.durationMinutes)}</dd>
             </div>
           </dl>
@@ -508,7 +526,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                   <Input label="Empfang oder Etage" optional value={addr.desk} onChange={(e) => set("desk", e.target.value)} maxLength={60} />
                 </div>
               )}
-              {customer || mode === "signup" ? (
+              {customer || guest || mode === "signup" ? (
                 <Checkbox label="Adresse für künftige Buchungen speichern" checked={addr.save} onChange={(e) => set("save", e.target.checked)} />
               ) : null}
             </div>
@@ -541,7 +559,11 @@ export function CheckoutForm(props: CheckoutFormProps) {
         </Section>
 
         {/* Kontakt */}
-        <Section id="kontakt" title="Kontakt" description={customer ? undefined : "Mit Ihrem Konto sehen Sie Ihre Termine jederzeit und können sie selbst verwalten."}>
+        <Section
+          id="kontakt"
+          title="Kontakt"
+          description={customer || guest ? undefined : mode === "signup" ? "Für Ihre Bestätigung und Rückfragen am Termintag. Ein Passwort brauchen Sie dafür nicht." : undefined}
+        >
           {customer ? (
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-0.5 border-y border-line py-3">
@@ -563,13 +585,27 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 />
               ) : null}
             </div>
+          ) : guest ? (
+            <div className="flex flex-col gap-0.5 border-y border-line py-3">
+              <p className="type-body-s text-ink">{`Konto angelegt für ${[contact.firstName, contact.lastName].filter(Boolean).join(" ")}`}</p>
+              <p className="type-caption text-ink-muted">{`${guest.email}${contact.phone ? ` · ${contact.phone}` : ""}`}</p>
+            </div>
           ) : mode === "signup" ? (
             <div className="flex flex-col gap-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <Input label="Vorname" autoComplete="given-name" value={contact.firstName} onChange={(e) => setContact({ ...contact, firstName: e.target.value })} error={err("firstName")} />
                 <Input label="Nachname" autoComplete="family-name" value={contact.lastName} onChange={(e) => setContact({ ...contact, lastName: e.target.value })} error={err("lastName")} />
               </div>
-              <Input label="E-Mail" type="email" autoComplete="email" inputMode="email" value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} error={err("email")} />
+              <Input
+                label="E-Mail"
+                type="email"
+                autoComplete="email"
+                inputMode="email"
+                hint="Hierhin schicken wir die Bestätigung und den Link, mit dem Sie später ein Passwort festlegen."
+                value={contact.email}
+                onChange={(e) => setContact({ ...contact, email: e.target.value })}
+                error={err("email")}
+              />
               <Input
                 label="Mobilnummer"
                 type="tel"
@@ -581,39 +617,17 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                 error={err("phone")}
               />
-              <Input
-                label="Passwort"
-                type="password"
-                autoComplete="new-password"
-                hint="Mindestens 10 Zeichen."
-                value={contact.password}
-                onChange={(e) => setContact({ ...contact, password: e.target.value })}
-                error={err("password")}
-              />
-              <Checkbox
-                checked={contact.acceptTerms}
-                onChange={(e) => setContact({ ...contact, acceptTerms: e.target.checked })}
-                error={err("acceptTerms")}
-                label={
-                  <>
-                    Ich akzeptiere die{" "}
-                    <Link href={routes.terms()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
-                      AGB
-                    </Link>{" "}
-                    und habe die{" "}
-                    <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
-                      Datenschutzerklärung
-                    </Link>{" "}
-                    gelesen.
-                  </>
-                }
-              />
-              <Checkbox
-                checked={contact.marketing}
-                onChange={(e) => setContact({ ...contact, marketing: e.target.checked })}
-                label="Ich möchte gelegentlich Neuigkeiten und Angebote von SOMA erhalten."
-                description="Optional, per Newsletter. Jederzeit abbestellbar."
-              />
+              <p className="type-caption text-ink-muted">
+                Mit der Buchung legen wir ein Kundenkonto für Sie an. Es gelten die{" "}
+                <Link href={routes.terms()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
+                  AGB
+                </Link>
+                ; wie wir Ihre Daten verarbeiten, steht in der{" "}
+                <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
+                  Datenschutzerklärung
+                </Link>
+                .
+              </p>
               <div className="flex flex-wrap items-center gap-x-2 border-t border-line pt-4">
                 <span className="type-body-s text-ink-muted">Schon Kundin oder Kunde?</span>
                 <Button variant="link" className="type-label-s" onClick={() => setMode("login")}>
@@ -623,6 +637,11 @@ export function CheckoutForm(props: CheckoutFormProps) {
             </div>
           ) : (
             <div className="flex flex-col gap-4">
+              {existingEmail ? (
+                <Notice kind="info" title="Sie haben schon ein Konto.">
+                  {`Mit ${existingEmail} gibt es bereits ein Kundenkonto. Bitte melden Sie sich an – Ihre Auswahl bleibt erhalten.`}
+                </Notice>
+              ) : null}
               <Input label="E-Mail" type="email" autoComplete="email" inputMode="email" value={login.email} onChange={(e) => setLogin({ ...login, email: e.target.value })} />
               <Input label="Passwort" type="password" autoComplete="current-password" value={login.password} onChange={(e) => setLogin({ ...login, password: e.target.value })} />
               {loginError ? <Notice kind="danger">{loginError}</Notice> : showErrors && errors.login ? <Notice kind="warning">{errors.login}</Notice> : null}
@@ -636,7 +655,14 @@ export function CheckoutForm(props: CheckoutFormProps) {
               </div>
               <div className="flex flex-wrap items-center gap-x-2 border-t border-line pt-4">
                 <span className="type-body-s text-ink-muted">Neu bei SOMA?</span>
-                <Button variant="link" className="type-label-s" onClick={() => setMode("signup")}>
+                <Button
+                  variant="link"
+                  className="type-label-s"
+                  onClick={() => {
+                    setExistingEmail(null);
+                    setMode("signup");
+                  }}
+                >
                   Konto beim Buchen anlegen
                 </Button>
               </div>
@@ -684,11 +710,15 @@ export function CheckoutForm(props: CheckoutFormProps) {
               totalCents={price.totalCents}
               notes={[
                 ...(isRequest ? [<CheckLine key="req">{`Bis zur Zusage von ${provider.name} jederzeit kostenlos stornierbar.`}</CheckLine>] : []),
-                freeNow && freeUntil ? (
-                  <CheckLine key="free">{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>
-                ) : (
-                  <span key="nofree" className="text-ink">Für diesen kurzfristigen Termin gelten bereits Stornogebühren.</span>
-                ),
+                ...(freeNow && freeUntil ? [<CheckLine key="free">{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>] : []),
+                ...(grace ? [<CheckLine key="grace">{grace}</CheckLine>] : []),
+                ...(!freeNow
+                  ? [
+                      <span key="nofree" className="text-ink">
+                        {grace ? "Danach gelten für diesen kurzfristigen Termin bereits Stornogebühren." : "Für diesen kurzfristigen Termin gelten bereits Stornogebühren."}
+                      </span>,
+                    ]
+                  : []),
                 <span key="vat">{quote.vatNote}</span>,
                 <span key="agent">{`SOMA vermittelt; Vertragspartner ist ${provider.name} (selbstständige Fachkraft).`}</span>,
               ]}
@@ -746,11 +776,11 @@ export function CheckoutForm(props: CheckoutFormProps) {
           </div>
           <dl className="flex flex-col divide-y divide-line border-y border-line">
             <div className="flex justify-between gap-4 py-2.5">
-              <dt className="type-body-s text-ink-muted">Termin</dt>
+              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Termin</dt>
               <dd className="text-right type-body-s num">{`${dayLabel(quote.startsAt)}, ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</dd>
             </div>
             <div className="flex justify-between gap-4 py-2.5">
-              <dt className="type-body-s text-ink-muted">Ort</dt>
+              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Ort</dt>
               <dd className="min-w-0 text-right type-body-s">
                 <span className="block">{LOCATION_LABELS[savedChosen?.kind ?? kind]}</span>
                 <span className="block truncate text-ink-muted">{summaryAddress}</span>
@@ -763,10 +793,12 @@ export function CheckoutForm(props: CheckoutFormProps) {
           </div>
           {isRequest ? (
             <CheckLine>Bis zur Zusage kostenlos stornierbar.</CheckLine>
-          ) : freeNow && freeUntil ? (
-            <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>
           ) : (
-            <p className="type-caption text-ink-muted">Kurzfristiger Termin: Es gelten bereits Stornogebühren.</p>
+            <div className="flex flex-col gap-1.5">
+              {freeNow && freeUntil ? <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine> : null}
+              {grace ? <CheckLine>{grace}</CheckLine> : null}
+              {!freeNow ? <p className="type-caption text-ink-muted">{grace ? "Danach gelten für diesen kurzfristigen Termin bereits Stornogebühren." : "Kurzfristiger Termin: Es gelten bereits Stornogebühren."}</p> : null}
+            </div>
           )}
           {cta}
         </div>
@@ -780,9 +812,9 @@ export function CheckoutForm(props: CheckoutFormProps) {
       {stripeStep ? (
         <StripePaymentSheet
           clientSecret={stripeStep.clientSecret}
-          bookingUrl={routes.booking(stripeStep.bookingId)}
+          bookingUrl={bookingUrl(stripeStep.bookingId, stripeStep.guest)}
           ctaLabel={ctaLabel}
-          onClose={() => router.push(routes.booking(stripeStep.bookingId))}
+          onClose={() => router.push(bookingUrl(stripeStep.bookingId, stripeStep.guest))}
         />
       ) : null}
     </div>

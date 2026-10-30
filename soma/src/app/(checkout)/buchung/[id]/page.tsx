@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CalendarPlus } from "lucide-react";
+import { ArrowRight, CalendarPlus } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { getBookingForCustomer } from "@/server/services/bookings";
 import { REVIEW_TAG_OPTIONS } from "@/server/services/reviews";
 import { searchProviders } from "@/server/services/search";
-import type { CustomerBookingDTO, ProviderSearchResult, Session } from "@/server/dto";
+import type { CustomerBookingDTO, ProviderSearchResult, SearchInput, Session } from "@/server/dto";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
@@ -108,21 +108,74 @@ function Hero({ b }: { b: CustomerBookingDTO }) {
   );
 }
 
-async function alternativesFor(session: Session, b: CustomerBookingDTO): Promise<ProviderSearchResult[]> {
-  if (!["declined", "expired"].includes(b.status)) return [];
-  const base = { postalCode: b.location.postalCode, serviceId: b.serviceId, pageSize: 6 } as const;
-  try {
-    const sameDay = new Date(b.startsAt).getTime() > Date.now() ? await searchProviders({ ...base, date: berlinDateKey(b.startsAt) }, session, { logDemand: false }) : null;
-    let list = sameDay?.results.filter((r) => r.providerId !== b.provider.id) ?? [];
-    if (list.length === 0) list = (await searchProviders(base, session, { logDemand: false })).results.filter((r) => r.providerId !== b.provider.id);
-    return list.slice(0, 3);
-  } catch {
-    return [];
-  }
+type Alternatives = {
+  results: ProviderSearchResult[];
+  /** what the shown rows offer: the same service, similar ones in the category, or both */
+  scope: "service" | "category" | "mixed";
+  /** every row is for the booking's day */
+  sameDay: boolean;
+  searchHref: string;
+  date: string | null;
+};
+
+/** Declined, expired or cancelled by the provider: the customer still needs a treatment. */
+function needsAlternatives(b: CustomerBookingDTO): boolean {
+  return b.status === "declined" || b.status === "expired" || (b.status === "cancelled" && b.cancelledBy === "provider");
 }
 
-export default async function BuchungPage({ params }: { params: Promise<{ id: string }> }) {
+const MAX_ALTERNATIVES = 3;
+
+/**
+ * Alternatives after a dead end (R8), filled in this order up to three providers: same
+ * service on the same day, same service within the next days, same category on the same
+ * day, same category within the next days. Always returns the search link (plz,
+ * kategorie, datum) for the "Andere Profis finden" CTA.
+ */
+async function alternativesFor(session: Session, b: CustomerBookingDTO): Promise<Alternatives | null> {
+  if (!needsAlternatives(b)) return null;
+  const date = Date.parse(b.startsAt) > Date.now() ? berlinDateKey(b.startsAt) : null;
+  const searchHref = routes.search({ plz: b.location.postalCode, kategorie: b.categorySlug, datum: date ?? undefined });
+  const attempts: Array<{ scope: "service" | "category"; sameDay: boolean; input: SearchInput }> = [];
+  const base = { postalCode: b.location.postalCode, pageSize: 6 } as const;
+  for (const scope of ["service", "category"] as const) {
+    const what = scope === "service" ? { serviceId: b.serviceId } : { categorySlug: b.categorySlug };
+    if (date) attempts.push({ scope, sameDay: true, input: { ...base, ...what, date } });
+    attempts.push({ scope, sameDay: false, input: { ...base, ...what } });
+  }
+  const results: ProviderSearchResult[] = [];
+  const scopes = new Set<"service" | "category">();
+  let sameDay = true;
+  for (const a of attempts) {
+    if (results.length >= MAX_ALTERNATIVES) break;
+    try {
+      const res = await searchProviders(a.input, session, { logDemand: false });
+      for (const r of res.results) {
+        if (results.length >= MAX_ALTERNATIVES) break;
+        if (r.providerId === b.provider.id || results.some((x) => x.providerId === r.providerId)) continue;
+        results.push(r);
+        scopes.add(a.scope);
+        if (!a.sameDay) sameDay = false;
+      }
+    } catch (e) {
+      console.error("[buchung] alternatives search failed", e);
+    }
+  }
+  const scope = scopes.size > 1 ? "mixed" : scopes.has("category") ? "category" : "service";
+  return { results, scope, sameDay: results.length > 0 && sameDay, searchHref, date: results.length > 0 && sameDay ? date : null };
+}
+
+function alternativesCaption(alt: Alternatives, b: CustomerBookingDTO): string {
+  const label = alt.sameDay && alt.date ? dayLabel(alt.date) : null;
+  const when = label === "Heute" ? "heute" : label === "Morgen" ? "morgen" : label ? `am ${label}` : "in den nächsten Tagen";
+  const what = alt.scope === "service" ? b.serviceName : alt.scope === "mixed" ? `${b.serviceName} und ähnliche Behandlungen` : "Ähnliche Behandlungen";
+  return `${what} in ${b.location.postalCode}, ${when} – mit einem Tipp direkt buchen.`;
+}
+
+export default async function BuchungPage({ params, searchParams }: PageProps<"/buchung/[id]">) {
   const { id } = await params;
+  const sp = await searchParams;
+  // Set by the checkout after a passwordless guest sign-up (R16).
+  const newAccount = sp.konto === "neu";
   const session = await requireRole("customer", routes.booking(id));
   const b = await getBookingForCustomer(session, id).catch(() => null);
   if (!b) notFound();
@@ -130,14 +183,19 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
   const renderedAt = Date.now();
 
   const lines: PriceLine[] = [
-    { label: "Behandlung", detail: `${b.serviceName} · ${formatDuration(b.durationMinutes)}`, cents: b.price.servicePriceCents },
-    { label: "Anfahrt", cents: b.price.travelFeeCents },
-    ...(b.price.serviceFeeCents > 0 ? [{ label: "Servicegebühr", cents: b.price.serviceFeeCents }] : []),
-    ...(b.price.discountCents > 0 ? [{ label: "Guthaben", cents: b.price.discountCents, kind: "credit" as const }] : []),
+    { label: <span className="hyphens-none">Behandlung</span>, detail: `${b.serviceName} · ${formatDuration(b.durationMinutes)}`, cents: b.price.servicePriceCents },
+    { label: <span className="hyphens-none">Anfahrt</span>, cents: b.price.travelFeeCents },
+    ...(b.price.serviceFeeCents > 0 ? [{ label: <span className="hyphens-none">Servicegebühr</span>, cents: b.price.serviceFeeCents }] : []),
+    ...(b.price.discountCents > 0 ? [{ label: <span className="hyphens-none">Guthaben</span>, cents: b.price.discountCents, kind: "credit" as const }] : []),
   ];
   const active = ["requested", "confirmed", "pending_payment"].includes(b.status);
   const freeUntil = b.cancellation.freeUntil;
   const freeNow = !!freeUntil && Date.parse(freeUntil) > Date.now();
+  // Bedenkzeit (R10): free within graceMinutes after booking; the booking time is its first event.
+  const graceMinutes = b.cancellation.policy.graceMinutes ?? 0;
+  const bookedAt = b.events.length ? Math.min(...b.events.map((e) => Date.parse(e.createdAt))) : null;
+  const graceUntil = graceMinutes > 0 && bookedAt !== null ? new Date(Math.min(bookedAt + graceMinutes * 60_000, Date.parse(b.startsAt))).toISOString() : null;
+  const inGrace = b.status === "confirmed" && !!graceUntil && Date.parse(graceUntil) > renderedAt;
   const profileHref = routes.provider(b.provider.slug);
 
   return (
@@ -145,17 +203,49 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
       <Container width="content" className="flex flex-col gap-10 pt-8 pb-16 lg:gap-14 lg:pt-14 lg:pb-24">
         <Hero b={b} />
 
+        {newAccount ? (
+          <Notice kind="info" title="Ihr Kundenkonto ist angelegt." className="max-w-reading">
+            {`Wir haben Ihnen eine E-Mail geschickt, um ein Passwort festzulegen. Bis dahin bleiben Sie auf diesem Gerät angemeldet und finden die Buchung unter „Meine Termine“.`}
+          </Notice>
+        ) : null}
+
         {b.status === "pending_payment" && b.canPay && b.payment?.provider === "dev" ? <DevPayButton bookingId={b.id} /> : null}
 
         <div className="flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-6">
           <div className="flex min-w-0 flex-col gap-10 lg:col-span-7">
+            {alternatives ? (
+              <section aria-labelledby="alternativen" className="flex flex-col gap-2">
+                <h2 id="alternativen" className="type-heading-m">
+                  {alternatives.results.length ? "Diese Profis haben Zeit" : "Andere Profis in Ihrer Nähe"}
+                </h2>
+                <p className="type-body-s text-ink-muted">
+                  {alternatives.results.length
+                    ? alternativesCaption(alternatives, b)
+                    : `Für ${b.serviceName} in ${b.location.postalCode} finden wir gerade keinen freien Termin. In der Suche sehen Sie alle Profis und Tage.`}
+                </p>
+                {alternatives.results.length ? (
+                  <div className="mt-2 flex flex-col border-t border-line">
+                    {alternatives.results.map((r) => (
+                      <ProviderRow key={r.providerId} result={r} postalCode={b.location.postalCode} date={alternatives.date} canFavorite headingLevel="h3" />
+                    ))}
+                  </div>
+                ) : null}
+                <div className="pt-4">
+                  <ButtonLink href={alternatives.searchHref} variant={alternatives.results.length ? "secondary" : "primary"} size="l" iconRight={<Icon icon={ArrowRight} />}>
+                    Andere Profis finden
+                  </ButtonLink>
+                </div>
+              </section>
+            ) : null}
+
             {b.startCode ? (
               <section aria-labelledby="startcode" className="flex flex-col gap-3 border border-line bg-surface-raised p-5 md:p-6">
                 <p id="startcode" className="type-overline text-ink-muted">
                   Ihr Start-Code
                 </p>
-                <p className="font-display text-[3.5rem] leading-none font-[380] tracking-[0.18em] num" aria-label={`Start-Code ${b.startCode.split("").join(" ")}`}>
-                  {b.startCode}
+                <p className="font-display text-[3.5rem] leading-none font-[380] tracking-[0.18em] num">
+                  <span aria-hidden>{b.startCode}</span>
+                  <span className="sr-only">{b.startCode.split("").join(" ")}</span>
                 </p>
                 <p className="type-body-s text-ink-muted">
                   Nennen Sie diesen Code Ihrer Fachkraft bei Ankunft. Erst mit dem Code beginnt der Termin – so wissen Sie, dass die richtige Person vor Ihnen steht.
@@ -180,18 +270,18 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
               </div>
               <dl className="flex flex-col divide-y divide-line border-b border-line">
                 <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="type-body-s text-ink-muted">Behandlung</dt>
+                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
                   <dd className="text-right type-body-s">{b.serviceName}</dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="type-body-s text-ink-muted">Wann</dt>
+                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wann</dt>
                   <dd className="text-right type-body-s num">
                     {`${formatDayShort(b.startsAt)} · ${formatTime(b.startsAt)}–${formatTime(b.endsAt)}`}
                     <span className="block text-ink-muted">{formatDuration(b.durationMinutes)}</span>
                   </dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="type-body-s text-ink-muted">Wo</dt>
+                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wo</dt>
                   <dd className="min-w-0 text-right type-body-s">
                     <span className="block">{LOCATION_LABELS[b.location.kind]}</span>
                     <span className="block">{b.location.addressLine}</span>
@@ -201,7 +291,7 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
                 </div>
                 {b.notes ? (
                   <div className="flex items-baseline justify-between gap-6 py-3">
-                    <dt className="shrink-0 type-body-s text-ink-muted">Hinweise</dt>
+                    <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Hinweise</dt>
                     <dd className="text-right type-body-s whitespace-pre-line">{b.notes}</dd>
                   </div>
                 ) : null}
@@ -229,20 +319,6 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
                 </h2>
                 <Stars value={b.review.rating} />
                 {b.review.comment ? <p className="type-body text-ink">{b.review.comment}</p> : null}
-              </section>
-            ) : null}
-
-            {alternatives.length ? (
-              <section aria-labelledby="alternativen" className="flex flex-col gap-2">
-                <h2 id="alternativen" className="type-heading-m">
-                  Diese Profis haben Zeit
-                </h2>
-                <p className="type-body-s text-ink-muted">{`Gleiche Leistung in ${b.location.postalCode} – mit einem Tipp direkt buchen.`}</p>
-                <div className="mt-2 flex flex-col border-t border-line">
-                  {alternatives.map((r) => (
-                    <ProviderRow key={r.providerId} result={r} postalCode={b.location.postalCode} date={null} canFavorite headingLevel="h3" />
-                  ))}
-                </div>
               </section>
             ) : null}
 
@@ -298,6 +374,7 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
                 ) : freeNow && freeUntil ? (
                   <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>
                 ) : null}
+                {inGrace ? <p className="type-caption text-ink-muted">{`In den ersten ${graceMinutes}${NBSP}Minuten nach der Buchung immer kostenlos stornierbar.`}</p> : null}
                 {b.status === "confirmed" ? (
                   <ul className="flex flex-col gap-1">
                     {scheduleLines(b.cancellation.schedule).map((l) => (
@@ -315,6 +392,8 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
                     schedule={b.cancellation.schedule}
                     renderedAt={renderedAt}
                     providerName={b.provider.displayName}
+                    graceUntil={graceUntil}
+                    graceMinutes={graceMinutes}
                   />
                 ) : null}
               </div>

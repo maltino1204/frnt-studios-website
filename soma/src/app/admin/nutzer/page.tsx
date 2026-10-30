@@ -3,7 +3,7 @@ import { formatDate } from "@/lib/format";
 import { formatInt, fullName } from "@/components/admin/format";
 import { PROVIDER_STATUS, ROLE } from "@/components/admin/labels";
 import { AdminPageHeader } from "@/components/admin/page";
-import { adminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
+import { adminTable, adminTableWrapper, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
 import { ChipFilter, FilterForm } from "@/components/admin/toolbar";
 import { UserBlockButton } from "@/components/admin/user-actions";
 import { ChipLink } from "@/components/ui/chip";
@@ -63,7 +63,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
           <EmptyState title="Keine Konten gefunden.">{q ? `Niemand passt zu „${q}“.` : "Für diese Filter gibt es keine Konten."}</EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable}>
+            <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -83,7 +83,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
                   return (
                     <tr key={u.id}>
                       <td>
-                        {u.role === "provider" ? <CellLink href={routes.admin.provider(u.id)}>{name}</CellLink> : <span className="font-[520]">{name}</span>}
+                        <CellLink href={`/admin/nutzer/${u.id}`}>{name}</CellLink>
                       </td>
                       <td className="max-w-64 truncate text-ink-muted" title={u.email}>
                         {u.email}

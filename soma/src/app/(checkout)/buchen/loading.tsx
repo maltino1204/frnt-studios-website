@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/feedback";
 /** Mirrors the checkout geometry: title, step indicator, sections; summary column on desktop. */
 export default function BuchenLoading() {
   return (
-    <div aria-busy="true" aria-label="Buchung wird vorbereitet" className="flex-1">
+    <div role="status" aria-busy="true" aria-label="Buchung wird vorbereitet" className="flex-1">
       <Container width="content" className="pt-6 pb-16 lg:pt-12">
         <div className="lg:grid lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-8 lg:col-span-7">

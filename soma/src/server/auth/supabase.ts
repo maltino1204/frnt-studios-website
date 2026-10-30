@@ -1,7 +1,7 @@
 import "server-only";
 
 import { createServerClient, type CookieOptions as SupabaseCookieOptions } from "@supabase/ssr";
-import { getConfig } from "../config";
+import { getConfig, resolveAppUrl } from "../config";
 import { ServiceError } from "../errors";
 import { assertPasswordPolicy } from "./local";
 import { normalizeEmail, type AuthAdapter, type CookieJar, type CookieOptions } from "./adapter";
@@ -54,7 +54,7 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
         email: normalizeEmail(input.email),
         password: input.password,
         options: {
-          emailRedirectTo: `${getConfig().APP_URL}/anmelden`,
+          emailRedirectTo: `${await resolveAppUrl()}/anmelden`,
           data: {
             role: input.role,
             first_name: input.firstName,
@@ -88,7 +88,7 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       return data.user?.id ?? null;
     },
     async requestPasswordReset(email) {
-      await client().auth.resetPasswordForEmail(normalizeEmail(email), { redirectTo: `${getConfig().APP_URL}/passwort-vergessen` });
+      await client().auth.resetPasswordForEmail(normalizeEmail(email), { redirectTo: `${await resolveAppUrl()}/passwort-vergessen` });
     },
     async resetPassword(code, newPassword) {
       assertPasswordPolicy(newPassword);
@@ -97,6 +97,13 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       if (exErr) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.");
       const { error } = await sb.auth.updateUser({ password: newPassword });
       if (error) throw new ServiceError("internal", "Das Passwort konnte nicht geändert werden.");
+    },
+    async verifyPassword(_userId, password) {
+      const sb = client();
+      const { data } = await sb.auth.getUser();
+      if (!data.user?.email || !password) return false;
+      const check = await sb.auth.signInWithPassword({ email: data.user.email, password });
+      return !check.error;
     },
     async changePassword(_userId, current, next) {
       assertPasswordPolicy(next);

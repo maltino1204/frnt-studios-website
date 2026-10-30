@@ -34,23 +34,29 @@ export function ReviewList({
           <Stars value={ratingAvg ?? 0} size={14} />
           <p className="type-caption text-ink-muted">{plural(ratingCount, "Bewertung", "Bewertungen")}</p>
         </div>
-        <dl className="flex flex-col gap-1.5" aria-label="Verteilung der Bewertungen">
-          {(["5", "4", "3", "2", "1"] as const).map((k) => {
-            const n = distribution[k] ?? 0;
-            const pct = ratingCount ? Math.round((n / ratingCount) * 100) : 0;
-            return (
-              <div key={k} className="grid grid-cols-[1.25rem_minmax(0,1fr)_2rem] items-center gap-2">
-                <dt className="type-caption text-ink-muted num">{k}</dt>
-                <dd className="h-1 bg-surface-sunken" aria-label={`${k} Sterne: ${n}`}>
-                  <span className="block h-full bg-ink" style={{ width: `${pct}%` }} />
-                </dd>
-                <dd aria-hidden className="text-right type-caption text-ink-muted num">
-                  {n}
-                </dd>
-              </div>
-            );
-          })}
-        </dl>
+        <div role="group" aria-label="Verteilung der Bewertungen">
+          <dl className="flex flex-col gap-1.5">
+            {(["5", "4", "3", "2", "1"] as const).map((k) => {
+              const n = distribution[k] ?? 0;
+              const pct = ratingCount ? Math.round((n / ratingCount) * 100) : 0;
+              return (
+                <div key={k} className="grid grid-cols-[1.25rem_minmax(0,1fr)_2rem] items-center gap-2">
+                  <dt className="type-caption text-ink-muted num">
+                    {k}
+                    <span className="sr-only"> Sterne</span>
+                  </dt>
+                  <dd aria-hidden className="h-1 bg-surface-sunken">
+                    <span className="block h-full bg-ink" style={{ width: `${pct}%` }} />
+                  </dd>
+                  <dd className="text-right type-caption text-ink-muted num">
+                    {n}
+                    <span className="sr-only">{n === 1 ? " Bewertung" : " Bewertungen"}</span>
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </div>
       </div>
 
       <ul className="flex flex-col border-t border-line">

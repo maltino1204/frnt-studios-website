@@ -4,7 +4,7 @@ import { HeaderSkeleton, RowsSkeleton } from "@/components/site/discovery-skelet
 
 export default function Loading() {
   return (
-    <Container className="pt-6 pb-(--space-section) md:pt-10" aria-busy="true" aria-label="Wird geladen">
+    <Container className="pt-6 pb-(--space-section) md:pt-10" role="status" aria-busy="true" aria-label="Wird geladen">
       <Skeleton className="h-3 w-40" />
       <HeaderSkeleton />
       <div className="grid gap-8 border-t border-line pt-10 lg:grid-cols-12 lg:gap-6">

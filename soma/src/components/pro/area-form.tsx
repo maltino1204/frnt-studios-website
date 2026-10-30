@@ -154,7 +154,7 @@ export function AreaForm({
             />
           </div>
           <p className="type-heading-m">
-            Für <span className="num">{ex}&nbsp;km</span> Entfernung zahlen Kund:innen <span className="num">{formatPrice(exampleFee)}</span> Anfahrt.
+            Für <span className="num">{ex}&nbsp;km</span> Entfernung zahlt die Kundschaft <span className="num">{formatPrice(exampleFee)}</span> Anfahrt.
           </p>
           <dl className="grid grid-cols-3 gap-px border border-line bg-line sm:grid-cols-6">
             {marks.map((d) => (

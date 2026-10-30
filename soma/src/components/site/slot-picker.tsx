@@ -179,7 +179,7 @@ export function SlotPicker({
 
       <div aria-live="polite" aria-busy={loading || undefined} className="flex flex-col gap-6">
         {loading && !days ? (
-          <div className="flex flex-col gap-6" aria-label="Termine werden geladen">
+          <div role="status" className="flex flex-col gap-6" aria-label="Termine werden geladen">
             <div className="flex gap-1 pt-5">
               {Array.from({ length: 6 }, (_, i) => (
                 <Skeleton key={i} className="h-[72px] w-14 shrink-0" />

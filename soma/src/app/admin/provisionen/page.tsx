@@ -32,7 +32,11 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
     const v = setting(key);
     return typeof v === "number" ? v : fallback;
   };
-  const policy = (setting("cancellation_policy") ?? {}) as { tiers?: Array<{ min_hours_before: number; fee_percent: number }>; no_show_fee_percent?: number };
+  const policy = (setting("cancellation_policy") ?? {}) as {
+    tiers?: Array<{ min_hours_before: number; fee_percent: number; travel_fee_retained?: boolean }>;
+    no_show_fee_percent?: number;
+    grace_minutes?: number;
+  };
 
   return (
     <>
@@ -109,7 +113,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
 
           <AdminSection id="settings" title="Plattform-Einstellungen" description="Nur Werte, die gefahrlos im Betrieb geändert werden können. Alle Änderungen werden protokolliert.">
             <div className="divide-y divide-line border border-line bg-surface-raised">
-              <CancellationPolicyForm tiers={policy.tiers ?? []} noShowFeePercent={policy.no_show_fee_percent ?? 100} />
+              <CancellationPolicyForm tiers={policy.tiers ?? []} noShowFeePercent={policy.no_show_fee_percent ?? 100} graceMinutes={policy.grace_minutes ?? 0} />
               <NumberSettingForm
                 settingKey="hold_minutes"
                 label="Reservierung im Checkout"

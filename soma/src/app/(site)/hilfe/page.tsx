@@ -39,7 +39,7 @@ export default async function HilfePage() {
         },
         {
           q: "Brauche ich ein Kundenkonto?",
-          a: "Ja. Im Konto sehen Sie Ihre Termine, den Start-Code für den Termin und Ihr Guthaben. Die Registrierung dauert etwa eine Minute.",
+          a: "Ja, aber Sie legen es nebenbei an: Bei der ersten Buchung genügen Name, E-Mail-Adresse und Mobilnummer. Ein Passwort legen Sie später über den Link in unserer E-Mail fest. Im Konto sehen Sie Ihre Termine, den Start-Code und Ihr Guthaben.",
         },
         {
           q: "Kann ich ins Hotel oder ins Büro buchen?",
@@ -115,7 +115,7 @@ export default async function HilfePage() {
         },
         {
           q: "Etwas war nicht in Ordnung. Was nun?",
-          a: `Melden Sie das Problem innerhalb von ${terms.disputeWindowHours} Stunden über Ihre Buchung. Bis zur Klärung halten wir die Auszahlung an den Profi zurück.`,
+          a: `Melden Sie das Problem innerhalb von ${terms.disputeWindowHours} Stunden über Ihre Buchung. Bis zur Klärung halten wir die Auszahlung an den Profi zurück und finden mit Ihnen eine Lösung: Nachbesserung, Gutschrift oder Erstattung.`,
         },
       ],
     },
@@ -135,7 +135,8 @@ export default async function HilfePage() {
     },
   ];
 
-  const sections = [...groups.map((g) => ({ id: g.id, title: g.title })), { id: "kontakt", title: "Kontakt" }];
+  const guarantee = `${BRAND_NAME}-Garantie`;
+  const sections = [...groups.map((g) => ({ id: g.id, title: g.title })), { id: "garantie", title: guarantee }, { id: "kontakt", title: "Kontakt" }];
   const all = groups.flatMap((g) => g.items);
 
   return (
@@ -160,6 +161,18 @@ export default async function HilfePage() {
           <FaqList items={g.items} />
         </section>
       ))}
+      <ContentSection id="garantie" title={guarantee}>
+        <p>
+          Wenn etwas nicht stimmt, melden Sie es innerhalb von {terms.disputeWindowHours} Stunden – wir finden eine Lösung: Nachbesserung, Gutschrift oder Erstattung.
+        </p>
+        <ul>
+          <li>Die Garantie gilt für alle Termine, die Sie über {BRAND_NAME} gebucht und bezahlt haben.</li>
+          <li>
+            Melden Sie das Problem in Ihrer Buchung über „Problem melden“. Bis zur Klärung halten wir die Auszahlung an den Profi zurück.
+          </li>
+          <li>Wir hören beide Seiten an. Bei Schäden vermitteln wir zwischen Ihnen und der Haftpflichtversicherung des Profis.</li>
+        </ul>
+      </ContentSection>
       <ContentSection id="kontakt" title="Kontakt">
         <p>
           Schreiben Sie uns an <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. Bei Fragen zu einer bestimmten Buchung nennen Sie bitte die Buchungsnummer aus Ihrer Bestätigung.

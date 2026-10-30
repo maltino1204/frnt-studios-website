@@ -74,8 +74,9 @@ export default async function AgbPage() {
       </ContentSection>
       <ContentSection id="widerruf" title={sections[5].title}>
         <p>
-          [Widerrufsbelehrung und Muster-Widerrufsformular nach §§ 312g, 355, 356 BGB. Anwaltlich zu klären: Anwendbarkeit der Ausnahme nach § 312g Abs. 2 Nr. 9 BGB sowie das Verhältnis
-          zu den Stornogebühren.]
+          Verbraucherinnen und Verbrauchern steht ein gesetzliches Widerrufsrecht zu. Belehrung, Muster-Widerrufsformular und die Folgen eines vorzeitigen Beginns (§ 356 Abs. 4 BGB)
+          finden Sie in der <Link href="/widerruf">Widerrufsbelehrung</Link>. [Anwaltlich zu klären: Anwendbarkeit der Ausnahme nach § 312g Abs. 2 Nr. 9 BGB sowie das Verhältnis zu
+          den Stornogebühren.]
         </p>
       </ContentSection>
       <ContentSection id="pflichten" title={sections[6].title}>
@@ -89,7 +90,8 @@ export default async function AgbPage() {
       <ContentSection id="ranking" title={sections[7].title}>
         <p>
           Die Reihenfolge „Empfohlen“ berücksichtigt vor allem, wie gut freie Zeiten zu Ihrer Suche passen, die Bewertungen, die Zuverlässigkeit, die sofortige Bestätigung, die Entfernung
-          sowie neue Profis und vollständige Profile. Bezahlte Platzierungen gibt es nicht. Bewertungen können nur nach einem tatsächlich wahrgenommenen Termin abgegeben werden.
+          sowie neue Profis und vollständige Profile. Bezahlte Platzierungen gibt es nicht. Bewertungen können nur nach einem tatsächlich wahrgenommenen Termin abgegeben werden. Die
+          Parameter und ihre Gewichtung erläutern wir unter <Link href="/ranking">So sortieren wir</Link>.
         </p>
       </ContentSection>
       <ContentSection id="probleme" title={sections[8].title}>

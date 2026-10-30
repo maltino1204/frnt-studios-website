@@ -44,6 +44,8 @@ export interface PublicTermsDTO {
   customerServiceFeeCents: number;
   baseRequiredDocuments: RequiredDocumentDTO[];
   coverageMinProviders: number;
+  /** days searched when no date is picked ("So bald wie möglich") */
+  searchDaysAhead: number;
 }
 
 export interface RebookSuggestionDTO {
@@ -173,6 +175,7 @@ export async function getPublicTerms(): Promise<PublicTermsDTO> {
       customerServiceFeeCents: s.customerServiceFeeCents,
       baseRequiredDocuments: s.baseRequiredDocuments,
       coverageMinProviders: s.coverageMinProviders,
+      searchDaysAhead: s.searchDaysAhead,
     };
   });
 }

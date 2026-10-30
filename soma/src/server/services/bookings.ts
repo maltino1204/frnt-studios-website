@@ -6,8 +6,9 @@ import { getConfig } from "../config";
 import { setActor, withService, withUser, withViewer, type Fragment, type Queryable } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import { isSlotAvailable } from "../domain/availability";
-import { canTransition, STATUS_LABELS_DE, type BookingStatus } from "../domain/booking-state";
+import { canTransition, hasSufficientResponseWindow, NO_SHOW_AFTER_MINUTES, START_WINDOW_MINUTES, STATUS_LABELS_DE, type BookingStatus } from "../domain/booking-state";
 import { computeCancellation, freeCancellationUntil, parsePolicy, policySchedule } from "../domain/cancellation";
+import { CONTACT_LINT_MESSAGES } from "../domain/content-lint";
 import { haversineKm, roundKm } from "../domain/geo";
 import { computePrice, computeTravelFee, resolveCommission, vatNote, type CommissionRule, type VatMode } from "../domain/pricing";
 import { generateBookingReference, generateStartCode } from "../domain/reference";
@@ -29,7 +30,7 @@ import type {
 } from "../dto";
 import { ServiceError } from "../errors";
 import { getPaymentProvider } from "../payments/provider";
-import { loadSettings, mediaUrl, num, numOrNull, paging, parse, policyToDTO, requireRoleIn, zIsoInstant, zPostalCode, zUuid } from "./_shared";
+import { assertNoContactDetails, endSentence, loadSettings, mediaUrl, num, numOrNull, paging, parse, policyToDTO, requireRoleIn, zIsoInstant, zPostalCode, zUuid } from "./_shared";
 import { loadSchedules, rangeForDays, rulesFor, todayBerlin } from "./availability-data";
 import {
   applyTransition,
@@ -98,7 +99,7 @@ async function loadOffering(tx: Queryable, providerServiceId: string): Promise<O
 async function slotIsFree(tx: Queryable, o: OfferingContext, startsAt: Date, stepMinutes: number, now: Date): Promise<boolean> {
   const day = localDateOf(startsAt);
   const range = rangeForDays(day, 1);
-  const schedules = await loadSchedules(tx, [{ id: o.providerId, leadTimeMinutes: o.leadTimeMinutes, maxAdvanceDays: o.maxAdvanceDays, travelBufferMinutes: o.travelBufferMinutes }], range.from, range.to);
+  const schedules = await loadSchedules(tx, [{ id: o.providerId, leadTimeMinutes: o.leadTimeMinutes, maxAdvanceDays: o.maxAdvanceDays, travelBufferMinutes: o.travelBufferMinutes, bookingMode: o.bookingMode }], range.from, range.to);
   const s = schedules.get(o.providerId);
   return Boolean(s && isSlotAvailable(startsAt, rulesFor(s, o.durationMinutes, stepMinutes, now)));
 }
@@ -181,8 +182,9 @@ export async function quoteBooking(input: QuoteInput, session?: Session | null):
       creditsAvailableCents: credits,
       cancellation: {
         policy: policyToDTO(settings.cancellationPolicy),
-        schedule: policySchedule(settings.cancellationPolicy, startsAt),
-        freeUntil: freeCancellationUntil(settings.cancellationPolicy, startsAt),
+        // A quote is a booking made now: the Bedenkzeit starts now.
+        schedule: policySchedule(settings.cancellationPolicy, startsAt, now),
+        freeUntil: freeCancellationUntil(settings.cancellationPolicy, startsAt, now),
       },
       holdMinutes: settings.holdMinutes,
       requestResponseHours: settings.requestResponseHours,
@@ -234,6 +236,7 @@ interface ResolvedAddress {
 export async function createBooking(session: Session, raw: CreateBookingInput): Promise<CreateBookingResult> {
   const s = requireRoleIn(session, "customer");
   const input = parse(CreateBookingInputSchema, raw);
+  assertNoContactDetails({ notes: input.notes }, CONTACT_LINT_MESSAGES.customerNotes);
   await runBookingMaintenanceLazily();
   const startsAt = new Date(input.startsAt);
   const payments = getPaymentProvider();
@@ -266,9 +269,12 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
 
     const point = await postalPoint(tx, address.postalCode);
     const t = travel(o, point);
-    if (!t.within) throw new ServiceError("unavailable", `Diese Adresse liegt leider außerhalb des Einsatzgebiets von ${o.providerName}.`, { address: "Außerhalb des Einsatzgebiets." });
+    if (!t.within) throw new ServiceError("unavailable", `Diese Adresse liegt leider außerhalb des Einsatzgebiets von ${endSentence(o.providerName)}`, { address: "Außerhalb des Einsatzgebiets." });
 
     const settings = await loadSettings(tx);
+    if (o.bookingMode === "request" && !hasSufficientResponseWindow(now, startsAt, settings.requestResponseHours)) {
+      throw new ServiceError("unavailable", "Für diesen Termin bliebe zu wenig Zeit für die Antwort des Profis. Bitte wählen Sie einen späteren Termin.");
+    }
     if (!(await slotIsFree(tx, o, startsAt, settings.slotStepMinutes, now))) {
       throw new ServiceError("unavailable", "Dieser Termin ist leider nicht mehr verfügbar. Bitte wählen Sie eine andere Uhrzeit.");
     }
@@ -606,6 +612,7 @@ interface CustomerBookingRow {
   providerRatingAvg: string | null;
   providerRatingCount: number | null;
   vatMode: VatMode;
+  createdAt: Date;
 }
 
 async function queryCustomerBookings(tx: Queryable, extra: (t: Queryable) => Fragment): Promise<CustomerBookingRow[]> {
@@ -615,7 +622,7 @@ async function queryCustomerBookings(tx: Queryable, extra: (t: Queryable) => Fra
            b.address_details, b.customer_notes, b.service_price_cents, b.travel_fee_cents, b.service_fee_cents,
            b.discount_cents, b.total_cents, b.cancellation_policy, b.start_code, b.hold_expires_at, b.respond_by,
            b.confirmed_at, b.started_at, b.completed_at, b.cancelled_at, b.cancelled_by, b.cancellation_reason,
-           b.cancellation_fee_cents, b.refund_cents, b.vat_mode,
+           b.cancellation_fee_cents, b.refund_cents, b.vat_mode, b.created_at,
            c.slug as category_slug, p.slug as provider_slug, p.display_name as provider_name, p.avatar_path as provider_avatar_path,
            p.rating_avg::text as provider_rating_avg, p.rating_count as provider_rating_count
     from public.bookings b
@@ -653,7 +660,11 @@ export async function getBookingForCustomer(session: Session, bookingId: string)
     const policy = parsePolicy(r.cancellationPolicy);
     const ifCancelledNow = flags.canCancel
       ? (({ feeCents, refundCents, tierLabel }) => ({ feeCents, refundCents, tierLabel }))(
-          computeCancellation({ status: r.status, startsAt: r.startsAt, totalCents: r.totalCents, serviceFeeCents: r.serviceFeeCents, cancellationPolicy: policy }, now, "customer"),
+          computeCancellation(
+            { status: r.status, startsAt: r.startsAt, createdAt: r.createdAt, servicePriceCents: r.servicePriceCents, travelFeeCents: r.travelFeeCents, serviceFeeCents: r.serviceFeeCents, discountCents: r.discountCents, totalCents: r.totalCents, cancellationPolicy: policy },
+            now,
+            "customer",
+          ),
         )
       : null;
     return {
@@ -678,7 +689,7 @@ export async function getBookingForCustomer(session: Session, bookingId: string)
       price: { servicePriceCents: r.servicePriceCents, travelFeeCents: r.travelFeeCents, serviceFeeCents: r.serviceFeeCents, discountCents: r.discountCents, totalCents: r.totalCents },
       vatMode: r.vatMode,
       vatNote: vatNote(r.vatMode, r.totalCents),
-      cancellation: { policy: policyToDTO(policy), schedule: policySchedule(policy, r.startsAt), freeUntil: freeCancellationUntil(policy, r.startsAt), ifCancelledNow },
+      cancellation: { policy: policyToDTO(policy), schedule: policySchedule(policy, r.startsAt, r.createdAt), freeUntil: freeCancellationUntil(policy, r.startsAt, r.createdAt), ifCancelledNow },
       startCode: r.status === "confirmed" || r.status === "in_progress" ? r.startCode : null,
       holdExpiresAt: r.holdExpiresAt?.toISOString() ?? null,
       respondBy: r.respondBy?.toISOString() ?? null,
@@ -787,6 +798,11 @@ const PROVIDER_BOOKING_COLUMNS = `id, reference, status, booking_mode, starts_at
 export function toProviderBooking(r: ProviderBookingRow, now = new Date()): ProviderBookingDTO {
   const t = now.getTime();
   const start = r.startsAt.getTime();
+  const startFrom = start - START_WINDOW_MINUTES * 60_000;
+  const noShowFrom = start + NO_SHOW_AFTER_MINUTES * 60_000;
+  const canStart = canTransition(r.status, "in_progress", "provider") && t >= startFrom;
+  const canComplete = (r.status === "confirmed" || r.status === "in_progress") && t >= start;
+  const canNoShow = r.status === "confirmed" && t >= noShowFrom;
   return {
     id: r.id,
     reference: r.reference,
@@ -815,11 +831,16 @@ export function toProviderBooking(r: ProviderBookingRow, now = new Date()): Prov
     actions: {
       canAccept: r.status === "requested" && (!r.respondBy || r.respondBy.getTime() > t),
       canDecline: r.status === "requested" && (!r.respondBy || r.respondBy.getTime() > t),
-      canStart: canTransition(r.status, "in_progress", "provider") && t >= start - 30 * 60_000,
-      canComplete: (r.status === "confirmed" || r.status === "in_progress") && t >= start,
-      canMarkNoShow: r.status === "confirmed" && t >= start + 15 * 60_000,
+      canStart,
+      canComplete,
+      canMarkNoShow: canNoShow,
       canCancel: r.status === "confirmed" && t < start,
     },
+    canStart,
+    canComplete,
+    canNoShow,
+    startAvailableAt: r.status === "confirmed" ? new Date(startFrom).toISOString() : null,
+    noShowAvailableAt: r.status === "confirmed" ? new Date(noShowFrom).toISOString() : null,
   };
 }
 

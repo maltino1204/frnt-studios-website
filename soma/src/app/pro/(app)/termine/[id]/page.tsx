@@ -95,7 +95,7 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
                 },
               ]}
             />
-            <p className="type-caption text-ink-muted">Kontaktdaten sind nur rund um bestätigte Termine sichtbar. Bitte vereinbart Termine immer über SOMA – so bleiben Zahlung und Absicherung bestehen.</p>
+            <p className="type-caption text-ink-muted">Kontaktdaten sind nur rund um bestätigte Termine sichtbar. Bitte vereinbare Termine immer über SOMA – so bleiben Zahlung und Absicherung bestehen.</p>
           </section>
 
           <section className="flex flex-col gap-3" aria-labelledby="ort">

@@ -7,7 +7,8 @@ import { Modal } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/field";
 import { Notice } from "@/components/ui/feedback";
 import { useToast } from "@/components/ui/toast";
-import { formatPriceExact } from "@/lib/format";
+import { CheckLine } from "@/components/ui/summary";
+import { formatPriceExact, formatTime } from "@/lib/format";
 import { cancelBookingAction } from "@/server/actions/booking";
 import type { BookingStatus, PolicyScheduleEntryDTO } from "@/server/dto";
 
@@ -27,6 +28,8 @@ export function CancelBooking({
   schedule,
   renderedAt,
   providerName,
+  graceUntil = null,
+  graceMinutes = 0,
 }: {
   bookingId: string;
   status: BookingStatus;
@@ -34,6 +37,9 @@ export function CancelBooking({
   schedule: PolicyScheduleEntryDTO[];
   renderedAt: number;
   providerName: string;
+  /** end of the Bedenkzeit (booking time + graceMinutes), null when the booking's policy has none */
+  graceUntil?: string | null;
+  graceMinutes?: number;
 }) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
@@ -45,10 +51,17 @@ export function CancelBooking({
   const free = preview.feeCents === 0;
   const isRequest = status === "requested" || status === "pending_payment";
 
+  const graceEnd = graceUntil ? Date.parse(graceUntil) : null;
+  const [now, setNow] = useState(renderedAt);
+  const inGrace = status === "confirmed" && graceEnd !== null && now < graceEnd;
+
   const openModal = () => {
     setError(null);
     setOpen(true);
-    if (status === "confirmed" && tierIndex(schedule, Date.now()) !== tierIndex(schedule, renderedAt)) {
+    const t = Date.now();
+    setNow(t);
+    const graceEnded = graceEnd !== null && renderedAt < graceEnd && t >= graceEnd;
+    if (status === "confirmed" && (graceEnded || tierIndex(schedule, t) !== tierIndex(schedule, renderedAt))) {
       startRefresh(() => router.refresh());
     }
   };
@@ -97,6 +110,11 @@ export function CancelBooking({
           <div aria-live="polite" className="flex flex-col gap-4">
             {isRequest ? (
               <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
+            ) : inGrace && graceEnd !== null ? (
+              <>
+                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
+                <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
+              </>
             ) : free ? (
               <p>{`Die Stornierung ist jetzt noch kostenlos. Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
             ) : (

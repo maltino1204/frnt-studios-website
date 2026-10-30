@@ -103,7 +103,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
         <dl className="grid gap-px border border-line bg-line sm:grid-cols-3">
           {(["base", "repeat", "own_client"] as CommissionTier[]).map((t) => (
             <div key={t} className="flex flex-col gap-1 bg-surface-raised p-5">
-              <dt className="type-label-s text-ink-muted">{TIER_LABEL[t]}</dt>
+              <dt className="type-label-s text-ink-muted hyphens-none">{TIER_LABEL[t]}</dt>
               <dd className="type-stat">{tierRate[t] != null ? formatPercent(tierRate[t]!) : "—"}</dd>
               <dd className="type-caption text-ink-muted">{TIER_DESCRIPTION[t]}</dd>
             </div>

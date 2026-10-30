@@ -1,5 +1,7 @@
 import "server-only";
 
+import { addDays, BERLIN, toWallClock, wallTimeToInstant } from "./tz";
+
 /**
  * Booking state machine (docs/architecture.md §5.2) — pure.
  * Mirrored in Postgres by public.booking_transition_allowed() + the
@@ -102,11 +104,109 @@ export function assertTransitionTiming(from: BookingStatus, to: BookingStatus, a
   }
 }
 
-/** respond_by = now + response hours, capped at starts_at − 1 h (never before now). */
-export function computeRespondBy(now: Date, startsAt: Date, responseHours: number): Date {
-  const byHours = now.getTime() + responseHours * 3_600_000;
-  const cap = startsAt.getTime() - 3_600_000;
-  return new Date(Math.max(now.getTime(), Math.min(byHours, cap)));
+// ---------------------------------------------------------------------------
+// Response deadline for request-mode bookings (product spec §7, audit-1 R9)
+// ---------------------------------------------------------------------------
+export interface ResponseWindowOptions {
+  /** local business hours in minutes since midnight (default 08:00–21:00) */
+  dayStartMinutes?: number;
+  dayEndMinutes?: number;
+  /** deadline is at the latest this long before the start (default 2 h) */
+  startBufferMinutes?: number;
+  timeZone?: string;
+}
+
+export const RESPONSE_DAY_START = 8 * 60;
+export const RESPONSE_DAY_END = 21 * 60;
+export const RESPONSE_START_BUFFER_MINUTES = 120;
+/** Request-mode slots whose response window would be shorter are not offered. */
+export const MIN_RESPONSE_WINDOW_MINUTES = 30;
+
+function businessDay(date: string, o: Required<ResponseWindowOptions>): { start: number; end: number } {
+  return {
+    start: wallTimeToInstant(date, o.dayStartMinutes, o.timeZone).instant.getTime(),
+    end: wallTimeToInstant(date, o.dayEndMinutes, o.timeZone).instant.getTime(),
+  };
+}
+
+function withDefaults(o: ResponseWindowOptions = {}): Required<ResponseWindowOptions> {
+  return {
+    dayStartMinutes: o.dayStartMinutes ?? RESPONSE_DAY_START,
+    dayEndMinutes: o.dayEndMinutes ?? RESPONSE_DAY_END,
+    startBufferMinutes: o.startBufferMinutes ?? RESPONSE_START_BUFFER_MINUTES,
+    timeZone: o.timeZone ?? BERLIN,
+  };
+}
+
+/** `from` + `minutes`, counting only local business hours (DST-safe). */
+export function addBusinessMinutes(from: Date, minutes: number, opts?: ResponseWindowOptions): Date {
+  const o = withDefaults(opts);
+  let t = from.getTime();
+  let remaining = Math.max(0, minutes) * 60_000;
+  let date = toWallClock(from, o.timeZone).date;
+  for (let i = 0; i < 400; i += 1) {
+    const day = businessDay(date, o);
+    if (t < day.start) t = day.start;
+    if (t < day.end) {
+      const available = day.end - t;
+      if (remaining <= available) return new Date(t + remaining);
+      remaining -= available;
+    }
+    date = addDays(date, 1);
+    t = businessDay(date, o).start;
+  }
+  return new Date(t + remaining);
+}
+
+/** Minutes of local business hours inside [a, b). */
+export function businessMinutesBetween(a: Date, b: Date, opts?: ResponseWindowOptions): number {
+  const o = withDefaults(opts);
+  if (b.getTime() <= a.getTime()) return 0;
+  let total = 0;
+  let date = toWallClock(a, o.timeZone).date;
+  const end = b.getTime();
+  for (let i = 0; i < 400; i += 1) {
+    const day = businessDay(date, o);
+    if (day.start >= end) break;
+    total += Math.max(0, Math.min(day.end, end) - Math.max(day.start, a.getTime()));
+    date = addDays(date, 1);
+  }
+  return Math.floor(total / 60_000);
+}
+
+/**
+ * respond_by = the earlier of
+ *   (a) requestedAt + responseHours, counted only within 08:00–21:00 Europe/Berlin, and
+ *   (b) startsAt − 2 h,
+ * never before requestedAt.
+ */
+export function computeRespondBy(requestedAt: Date, startsAt: Date, responseHours: number, opts?: ResponseWindowOptions): Date {
+  const o = withDefaults(opts);
+  const byBusinessHours = addBusinessMinutes(requestedAt, responseHours * 60, o).getTime();
+  const cap = startsAt.getTime() - o.startBufferMinutes * 60_000;
+  return new Date(Math.max(requestedAt.getTime(), Math.min(byBusinessHours, cap)));
+}
+
+/** Business minutes the provider has to answer a request made at `requestedAt`. */
+export function responseWindowMinutes(requestedAt: Date, startsAt: Date, responseHours: number, opts?: ResponseWindowOptions): number {
+  return businessMinutesBetween(requestedAt, computeRespondBy(requestedAt, startsAt, responseHours, opts), opts);
+}
+
+/**
+ * Earliest slot start that still leaves MIN_RESPONSE_WINDOW_MINUTES business
+ * minutes to answer: (requestedAt + 30 business minutes) + 2 h. Equivalent to
+ * responseWindowMinutes(...) >= 30, but O(1) per slot. null = no slot possible
+ * (response time setting below 30 minutes).
+ */
+export function earliestRequestStart(requestedAt: Date, responseHours: number, opts?: ResponseWindowOptions): Date | null {
+  const o = withDefaults(opts);
+  if (responseHours * 60 < MIN_RESPONSE_WINDOW_MINUTES) return null;
+  return new Date(addBusinessMinutes(requestedAt, MIN_RESPONSE_WINDOW_MINUTES, o).getTime() + o.startBufferMinutes * 60_000);
+}
+
+export function hasSufficientResponseWindow(requestedAt: Date, startsAt: Date, responseHours: number, opts?: ResponseWindowOptions): boolean {
+  const earliest = earliestRequestStart(requestedAt, responseHours, opts);
+  return earliest !== null && startsAt.getTime() >= earliest.getTime();
 }
 
 /** German status labels for UI badges. */

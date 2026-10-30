@@ -54,11 +54,15 @@ export function AccountHeader({ unread }: { unread: number }) {
         </nav>
         <Link
           href={routes.account.notifications()}
-          aria-label={unread ? `Benachrichtigungen, ${unread} ungelesen` : "Benachrichtigungen"}
           className="relative -mr-3 inline-flex size-touch items-center justify-center rounded-xs text-ink hover:bg-surface-sunken"
         >
           <Bell size={22} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
-          {unread ? <CountPill accent className="absolute top-1 right-0.5">{unread > 9 ? "9+" : unread}</CountPill> : null}
+          <span className="sr-only">{unread ? `Benachrichtigungen, ${unread} ungelesen` : "Benachrichtigungen"}</span>
+          {unread ? (
+            <span aria-hidden className="absolute top-1 right-0.5">
+              <CountPill accent>{unread > 9 ? "9+" : unread}</CountPill>
+            </span>
+          ) : null}
         </Link>
       </div>
     </header>

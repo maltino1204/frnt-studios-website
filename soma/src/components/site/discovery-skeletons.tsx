@@ -23,7 +23,7 @@ export function EntrySkeleton({ bar = true }: { bar?: boolean }) {
 /** Hero: overline, display headline, lead, entry; image 4:5 below on mobile, right half from lg. */
 export function HeroSkeleton() {
   return (
-    <div aria-busy="true" aria-label="Wird geladen">
+    <div role="status" aria-busy="true" aria-label="Wird geladen">
       <section className="relative lg:flex lg:min-h-[min(calc(100svh-var(--header-height)),52rem)] lg:items-center">
         <Container className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-8 pt-8 pb-10 md:pt-14 md:pb-14 lg:col-span-6 lg:py-24">
@@ -76,7 +76,7 @@ export function CategoryPageSkeleton() {
 /** SEO city × category page: intro, booking entry (sticky column from lg), provider rows. */
 export function SeoPageSkeleton() {
   return (
-    <Container className="pt-6 pb-(--space-section) md:pt-8" aria-busy="true" aria-label="Wird geladen">
+    <Container className="pt-6 pb-(--space-section) md:pt-8" role="status" aria-busy="true" aria-label="Wird geladen">
       <Skeleton className="h-3 w-56" />
       <div className="grid gap-10 pt-8 md:pt-12 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
         <div className="flex flex-col gap-5 lg:col-span-7">
