@@ -15,7 +15,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/layout";
-import { formatDateLong, formatTime } from "@/lib/format";
+import { formatDateLong, formatPrice, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
 import { getSession } from "@/server/auth/guards";
@@ -217,6 +217,17 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
 
   // pruefen
   const openSteps = onboarding.steps.filter((s) => !s.done && s.key !== "payout").map((s) => s.label);
+  const [services, hours, documents, settings] = await Promise.all([listProServices(session), getWeeklyHours(session), listDocuments(session), getProSettings(session)]);
+  const activeServices = services.filter((x) => x.isActive);
+  const days = new Set(hours.map((h) => h.weekday)).size;
+  const meta: Record<keyof typeof STEP_SLUG, string> = {
+    profile: [profile.displayName, profile.headline].filter(Boolean).join(" · "),
+    services: activeServices.length ? activeServices.map((x) => `${x.serviceName} ${formatPrice(x.priceCents)}`).join(", ") : "Noch keine Leistung",
+    area: profile.basePostalCode ? `${profile.basePostalCode} · ${profile.serviceRadiusKm} km Radius` : "Noch kein Standort",
+    hours: days ? `${days} ${days === 1 ? "Tag" : "Tage"} pro Woche` : "Noch keine Zeiten",
+    documents: `${documents.length} ${documents.length === 1 ? "Dokument" : "Dokumente"} hochgeladen`,
+    payout: settings.payoutsEnabled ? "Eingerichtet" : "Noch nicht eingerichtet",
+  };
   return (
     <WizardFrame current={index} title="Alles bereit?" lead="Prüf deine Angaben und reiche dein Profil ein." tip={TIPS.pruefen} notice={rejectedNote}>
       <div className="flex flex-col gap-10">
@@ -226,6 +237,7 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
               <Link href={stepHref(STEP_SLUG[s.key])} className="flex min-h-16 items-center gap-4 py-3 pr-1 hover:bg-surface-sunken">
                 <span className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="type-body-s font-[520] text-ink">{s.label}</span>
+                  <span className="line-clamp-2 type-caption text-ink-muted">{meta[s.key]}</span>
                   <Status tone={s.done ? "success" : s.key === "payout" ? "neutral" : "warning"}>
                     {s.done ? "Erledigt" : s.key === "payout" ? "Optional – kann später folgen" : "Offen"}
                   </Status>

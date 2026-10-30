@@ -65,42 +65,49 @@ export function AgendaRow({ booking: b, showDate = false, compact = false, now =
   );
 }
 
-/** List row for the "Termine" tabs: date + time, client, treatment, area, payout and status. */
+/** List row for the "Termine" tabs: date + time, client, treatment, area, payout and status. Stacked below md. */
 export function BookingListRow({ booking: b, now = Date.now() }: { booking: ProviderBookingDTO; now?: number }) {
   const st = proStatus(b, now);
   const live = isLive(b, now);
+  const status = <Status tone={live ? "accent" : st.tone}>{live ? "Läuft jetzt" : st.label}</Status>;
+  const who = `${customerLabel(b.customer)}${b.isRepeatClient ? " · Stammkundschaft" : ""} · ${areaLine(b)}`;
   return (
     <li className="border-b border-line last:border-b-0">
-      <Link
-        href={routes.pro.booking(b.id)}
-        className="relative flex items-start gap-4 py-4 pr-1 pl-3 transition-colors duration-fast hover:bg-surface-sunken md:items-center"
-      >
+      <Link href={routes.pro.booking(b.id)} className="relative block py-4 pr-1 pl-3 transition-colors duration-fast hover:bg-surface-sunken">
         {live ? <span aria-hidden className="absolute inset-y-0 left-0 w-0.5 bg-accent" /> : null}
-        <span className="flex w-20 shrink-0 flex-col gap-0.5 md:w-28">
-          <span className="type-caption text-ink-muted">{formatDayShort(b.startsAt)}</span>
-          <span className="type-label num">
-            {formatTime(b.startsAt)}
-            <span className="text-ink-muted">–{formatTime(b.endsAt)}</span>
+        {/* mobile */}
+        <span className="flex flex-col gap-1 md:hidden">
+          <span className="flex items-baseline justify-between gap-4">
+            <span className="type-label num whitespace-nowrap">
+              {formatDayShort(b.startsAt)} · {formatTime(b.startsAt)}–{formatTime(b.endsAt)}
+            </span>
+            <span className="type-label num">{formatPrice(b.earnings.payoutCents)}</span>
           </span>
+          <span className="type-body-s font-[520] text-ink hyphens-none">
+            {b.serviceName} <span className="font-normal whitespace-nowrap text-ink-muted">· {formatDuration(b.durationMinutes)}</span>
+          </span>
+          <span className="type-caption text-ink-muted">{who}</span>
+          <span className="pt-1">{status}</span>
         </span>
-        <span className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="type-body-s font-[520] text-ink">
-            {b.serviceName} <span className="font-normal text-ink-muted">· {formatDuration(b.durationMinutes)}</span>
+        {/* md+ */}
+        <span className="hidden items-center gap-4 md:flex">
+          <span className="flex w-28 shrink-0 flex-col gap-0.5">
+            <span className="type-caption text-ink-muted">{formatDayShort(b.startsAt)}</span>
+            <span className="type-label num whitespace-nowrap">
+              {formatTime(b.startsAt)}–{formatTime(b.endsAt)}
+            </span>
           </span>
-          <span className="type-caption text-ink-muted">
-            {customerLabel(b.customer)}
-            {b.isRepeatClient ? " · Stammkundschaft" : ""} · {areaLine(b)}
+          <span className="flex min-w-0 flex-1 flex-col gap-1">
+            <span className="type-body-s font-[520] text-ink hyphens-none">
+              {b.serviceName} <span className="font-normal text-ink-muted">· {formatDuration(b.durationMinutes)}</span>
+            </span>
+            <span className="type-caption text-ink-muted">{who}</span>
           </span>
-          <span className="md:hidden">
-            <Status tone={live ? "accent" : st.tone}>{live ? "Läuft jetzt" : st.label}</Status>
+          <span className="w-36 shrink-0">{status}</span>
+          <span className="flex shrink-0 flex-col items-end gap-0.5 text-right">
+            <span className="type-label num">{formatPrice(b.earnings.payoutCents)}</span>
+            <span className="type-caption text-ink-muted">für dich</span>
           </span>
-        </span>
-        <span className="hidden w-36 shrink-0 md:block">
-          <Status tone={live ? "accent" : st.tone}>{live ? "Läuft jetzt" : st.label}</Status>
-        </span>
-        <span className="flex shrink-0 flex-col items-end gap-0.5 text-right">
-          <span className="type-label num">{formatPrice(b.earnings.payoutCents)}</span>
-          <span className="type-caption text-ink-muted">für dich</span>
         </span>
       </Link>
     </li>

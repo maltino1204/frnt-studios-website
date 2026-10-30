@@ -43,7 +43,7 @@ function DocumentUploadButton({ kind, categoryId, label, variant = "secondary" }
     }
   }, [state, toast, router]);
   return (
-    <form ref={formRef} action={action} className="flex flex-col items-start gap-1.5 sm:items-end">
+    <form ref={formRef} action={action} className="flex flex-col items-start sm:items-end">
       <input type="hidden" name="kind" value={kind} />
       {categoryId ? <input type="hidden" name="categoryId" value={categoryId} /> : null}
       <label className="inline-flex">
@@ -80,7 +80,7 @@ function DocumentUploadButton({ kind, categoryId, label, variant = "secondary" }
         </span>
       </label>
       <div aria-live="polite">
-        {localError || (state && !state.ok) ? <p className="max-w-64 type-caption text-danger sm:text-right">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? proError(state.error) : null)}</p> : null}
+        {localError || (state && !state.ok) ? <p className="mt-1.5 max-w-64 type-caption text-danger sm:text-right">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? proError(state.error) : null)}</p> : null}
       </div>
     </form>
   );

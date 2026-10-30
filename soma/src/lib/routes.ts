@@ -9,7 +9,7 @@ export type SearchParams = {
   dauer?: number;
   datum?: string; // YYYY-MM-DD (Europe/Berlin)
   zeit?: "morgens" | "mittags" | "abends";
-  sort?: "empfohlen" | "preis" | "bewertung" | "entfernung";
+  sort?: "empfohlen" | "frueheste" | "preis" | "bewertung" | "entfernung";
 };
 
 function qs(params: Record<string, string | number | undefined | null>): string {

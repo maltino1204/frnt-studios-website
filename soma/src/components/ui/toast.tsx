@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, CircleAlert, X } from "lucide-react";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Icon } from "./icon";
 
 type ToastKind = "success" | "error" | "info";
@@ -19,8 +19,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     const id = nextId.current++;
     setToasts((t) => [...t.slice(-2), { id, message, kind: opts?.kind ?? "success", action: opts?.action }]);
   }, []);
+  const api = useMemo<ToastApi>(() => ({ show }), [show]);
   return (
-    <ToastContext.Provider value={{ show }}>
+    <ToastContext.Provider value={api}>
       {children}
       <div
         data-theme="night"

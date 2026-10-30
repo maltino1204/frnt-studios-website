@@ -56,7 +56,7 @@ function Hero({ b }: { b: CustomerBookingDTO }) {
       break;
     case "requested":
       title = `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/[\s\u00a0]Uhr$/, "")}`;
-      body = `Ihre Anfrage ist bei ${first}. Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`;
+      body = `${withStop(`Ihre Anfrage ist bei ${first}`)} Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`;
       break;
     case "pending_payment":
       title = b.canPay ? "Zahlung ausstehend." : "Reservierung abgelaufen.";
@@ -66,7 +66,7 @@ function Hero({ b }: { b: CustomerBookingDTO }) {
       break;
     case "in_progress":
       title = "Die Behandlung läuft.";
-      body = `${first} ist bei Ihnen. Wir wünschen eine gute Zeit.`;
+      body = `${first} ist bei Ihnen. Eine gute Behandlung.`;
       break;
     case "completed":
       title = "Abgeschlossen.";

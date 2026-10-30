@@ -50,7 +50,7 @@ export function DateStrip({
         role="radiogroup"
         aria-label={label}
         onKeyDown={onKey}
-        className="-mx-(--space-gutter) flex snap-x gap-1 overflow-x-auto px-(--space-gutter) pt-5 pb-1 scrollbar-none lg:mx-0 lg:px-0"
+        className="-mx-(--space-gutter) flex snap-x scroll-px-(--space-gutter) gap-1 overflow-x-auto px-(--space-gutter) pt-5 pb-1 scrollbar-none lg:mx-0 lg:scroll-px-0 lg:px-0"
       >
         {days.map((d) => {
           const p = dateParts(d.date);

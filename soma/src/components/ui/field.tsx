@@ -66,20 +66,43 @@ export function Input({
   className,
   dense,
   hideLabel,
+  suffix,
+  trailing,
   id: idProp,
   ...props
-}: FieldProps & Omit<ComponentProps<"input">, "size">) {
+}: FieldProps &
+  Omit<ComponentProps<"input">, "size"> & {
+    /** static text inside the field's right edge, e.g. "€" or "km" */
+    suffix?: ReactNode;
+    /** interactive element at the right edge, e.g. a password visibility toggle */
+    trailing?: ReactNode;
+  }) {
   const auto = useId();
   const id = idProp ?? auto;
+  const input = (
+    <input
+      id={id}
+      className={cn(control, dense ? "h-control-s text-[15px]" : "h-12", (suffix || trailing) && "pr-12")}
+      aria-invalid={error ? true : undefined}
+      aria-describedby={describedBy(id, error, hint)}
+      {...props}
+    />
+  );
   return (
     <FieldShell id={id} label={label} hint={hint} error={error} optional={optional} className={className} hideLabel={hideLabel}>
-      <input
-        id={id}
-        className={cn(control, dense ? "h-control-s text-[15px]" : "h-12")}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy(id, error, hint)}
-        {...props}
-      />
+      {suffix || trailing ? (
+        <div className="relative">
+          {input}
+          {suffix ? (
+            <span aria-hidden className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 type-body-s text-ink-muted">
+              {suffix}
+            </span>
+          ) : null}
+          {trailing ? <span className="absolute top-1/2 right-0.5 -translate-y-1/2">{trailing}</span> : null}
+        </div>
+      ) : (
+        input
+      )}
     </FieldShell>
   );
 }
