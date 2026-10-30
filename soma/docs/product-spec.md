@@ -264,7 +264,7 @@ All bookings are **single offerings**. Combos are modelled as their own services
 | `cancelled` | `by ∈ {customer, provider, admin, system}` plus a reason | Refund per policy (§8) | — |
 | `no_show` | Customer absent ≥ 15 min after arrival, with 2 contact attempts logged | Charged under the 100% tier | Disputable within 48 h |
 
-**Request response deadline:** the earlier of (a) 2 h, counting only 08:00–21:00 local time, after the request and (b) `start − 2 h`. This is an admin setting.
+**Request response deadline (Lead decision, audit-2 N6):** the earlier of (a) **4 business hours** after the request, counting only 08:00–21:00 Europe/Berlin (a request at 20:00 is due at 11:00 the next day), and (b) `start − 2 h`. The hours are an admin setting (`request_response_hours`, default 4). Slots that would leave the pro less than 30 business minutes are not offered. Checkout shows the concrete deadline (`QuoteDTO.respondByPreview`, *„antwortet bis Sa., 11:00 Uhr“*), the same time as in the e-mail.
 
 **Provider no-show:** if the pro hasn't arrived 15 min after the start time, the customer can tap *"Profi nicht erschienen"*. The result is `cancelled` with `by=provider, reason=provider_no_show`: full refund plus 15 € Guthaben (A).
 
@@ -375,7 +375,7 @@ For reference, Selfkea takes 5% and Blys pays pros "up to 75%". **No customer se
 
 | Mechanic | Detail |
 |---|---|
-| Masked contact | No phone or email exchanged; chat opens on confirmation. Before that, numbers, emails and @handles are replaced with a notice. v1.1: phone relay |
+| Masked contact | **v1 decision (Lead):** no e-mail is ever exchanged. After confirmation, and only while the booking is confirmed or in progress, the pro sees the customer's **mobile number for arrival coordination** (tel link on the appointment). The customer never sees the pro's number: status ("unterwegs") is shown in the app, everything else goes through SOMA support. Free texts (profile, reviews, replies, booking notes, decline/acceptance notes, cancellation reasons, dispute descriptions) are linted and refused when they contain phone numbers, e-mails, handles, URLs or messenger names. **v1.1:** phone relay (masked numbers) replaces the direct mobile number. |
 | Address reveal | Only after confirmation; hidden again 24 h after completion |
 | Cheaper repeats on-platform | Repeat commission 12% vs 20%; own-client link 5% (A) |
 | Lock-in value for the pro | Guaranteed payment, enforced no-show fees, invoices and DAC7 summaries, reviews and ranking |

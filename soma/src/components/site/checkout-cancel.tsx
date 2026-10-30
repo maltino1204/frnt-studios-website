@@ -30,6 +30,7 @@ export function CancelBooking({
   providerName,
   graceUntil = null,
   graceMinutes = 0,
+  tierFreeUntil = null,
 }: {
   bookingId: string;
   status: BookingStatus;
@@ -40,6 +41,8 @@ export function CancelBooking({
   /** end of the Bedenkzeit (booking time + graceMinutes), null when the booking's policy has none */
   graceUntil?: string | null;
   graceMinutes?: number;
+  /** end of the regular free tier (24 h before), without the Bedenkzeit */
+  tierFreeUntil?: string | null;
 }) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
@@ -53,7 +56,10 @@ export function CancelBooking({
 
   const graceEnd = graceUntil ? Date.parse(graceUntil) : null;
   const [now, setNow] = useState(renderedAt);
-  const inGrace = status === "confirmed" && graceEnd !== null && now < graceEnd;
+  // N10: the Bedenkzeit line only matters while the tier alone would already charge a fee.
+  const tierFreeEnd = tierFreeUntil ? Date.parse(tierFreeUntil) : null;
+  const tierWouldCharge = tierFreeEnd === null || now >= tierFreeEnd;
+  const inGrace = status === "confirmed" && graceEnd !== null && now < graceEnd && tierWouldCharge;
 
   const openModal = () => {
     setError(null);

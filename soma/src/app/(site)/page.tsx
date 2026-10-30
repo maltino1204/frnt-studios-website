@@ -108,7 +108,7 @@ export default async function HomePage() {
       <ProofBand proof={proof} disputeWindowHours={terms.disputeWindowHours} />
 
       {/* Categories */}
-      <Section aria-labelledby="behandlungen-titel">
+      <Section aria-labelledby="behandlungen-titel" className="max-md:py-12">
         <Container>
           <Rail
             label="Behandlungen"
@@ -134,7 +134,7 @@ export default async function HomePage() {
       </Section>
 
       {/* How it works */}
-      <Section aria-labelledby="ablauf-titel" className="pt-0">
+      <Section aria-labelledby="ablauf-titel" className="pt-0 max-md:pb-12">
         <Container>
           <div className="flex max-w-reading flex-col gap-4">
             <Overline>So funktioniert&apos;s</Overline>
@@ -142,16 +142,16 @@ export default async function HomePage() {
               {capitalize(numberWord(steps.length))} Schritte. <em>Kein Weg.</em>
             </h2>
           </div>
-          <ol className="mt-12 grid gap-14 md:grid-cols-3 md:gap-5 lg:mt-16 lg:gap-6">
+          <ol className="mt-8 grid gap-8 md:mt-12 md:grid-cols-3 md:gap-5 lg:mt-16 lg:gap-6">
             {steps.map((s, i) => {
               const ph = stepPhotos[i % stepPhotos.length];
               return (
                 <li key={s.title} className={i === 1 ? "md:mt-16 lg:mt-24" : i === 2 ? "md:mt-32 lg:mt-48" : undefined}>
-                  <figure className="flex flex-col gap-3">
+                  <figure className="hidden flex-col gap-3 md:flex">
                     <Photo src={ph.src} alt={ph.alt} tone={ph.tone} word={ph.word} wordSize="s" sizes="(min-width: 768px) 32vw, 100vw" className="aspect-[3/2] w-full" />
                     <figcaption className="type-caption text-ink-muted">{ph.place}</figcaption>
                   </figure>
-                  <div className="mt-6 flex flex-col gap-3">
+                  <div className="flex flex-col gap-3 md:mt-6">
                     <p className="type-overline text-ink-muted num">Schritt {i + 1}</p>
                     <h3 className="type-heading-l">{s.title}</h3>
                     <p className="max-w-[26rem] type-body text-ink-muted">{s.body}</p>
@@ -164,7 +164,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Places: home, hotel, office */}
-      <Section night aria-labelledby="orte-titel">
+      <Section night aria-labelledby="orte-titel" className="max-md:py-12">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
             <div className="flex flex-col gap-5 lg:col-span-5 lg:pt-8">
@@ -181,7 +181,7 @@ export default async function HomePage() {
                   { k: "Im Hotel", v: "Hotel, Zimmernummer und der Name an der Rezeption – Ihr Profi kommt direkt zu Ihnen." },
                   { k: "Im Büro", v: "Firma und Empfang angeben. Ideal für die Mittagspause." },
                 ].map((row) => (
-                  <div key={row.k} className="grid grid-cols-[7rem_1fr] gap-4 border-b border-line py-4">
+                  <div key={row.k} className="grid grid-cols-[7rem_1fr] gap-4 border-b border-line py-3 md:py-4">
                     <dt className="type-heading-s text-ink">{row.k}</dt>
                     <dd className="type-body-s text-ink-muted">{row.v}</dd>
                   </div>
@@ -201,7 +201,7 @@ export default async function HomePage() {
                 />
                 <figcaption className="type-caption text-ink-muted">{PLACE_LINES.hotel}</figcaption>
               </figure>
-              <figure className="flex flex-col gap-3 md:ml-auto md:w-2/3">
+              <figure className="hidden flex-col gap-3 md:ml-auto md:flex md:w-2/3">
                 <Photo
                   src={images.editorial.office}
                   alt="Schulter- und Nackenmassage auf einem Massagestuhl in einem Hamburger Besprechungsraum"
@@ -219,7 +219,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Trust */}
-      <Section aria-labelledby="vertrauen-titel">
+      <Section aria-labelledby="vertrauen-titel" className="max-md:py-12">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
             <div className="flex flex-col gap-5 lg:col-span-5">
@@ -257,7 +257,7 @@ export default async function HomePage() {
 
       {/* Featured professionals */}
       {featured.length > 0 ? (
-        <Section aria-labelledby="profis-titel" className="pt-0">
+        <Section aria-labelledby="profis-titel" className="pt-0 max-md:pb-12">
           <Container>
             <Rail
               label="Ausgewählte Profis"
@@ -283,9 +283,9 @@ export default async function HomePage() {
 
       {/* Cities */}
       {cities.length > 0 ? (
-        <Section aria-labelledby="staedte-titel" className="pt-0">
+        <Section aria-labelledby="staedte-titel" className="pt-0 max-md:pb-12">
           <Container>
-            <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
+            <div className="grid gap-8 md:gap-12 lg:grid-cols-12 lg:gap-6">
               <div className="flex flex-col gap-5 lg:col-span-4">
                 <Overline>Städte</Overline>
                 <h2 id="staedte-titel" className="type-display-l">
@@ -296,7 +296,7 @@ export default async function HomePage() {
                 </p>
               </div>
               <LinkGrid
-                className="lg:col-span-8"
+                className="max-md:grid-cols-2 max-md:gap-x-4 lg:col-span-8"
                 items={cities.map((c) => {
                   const live = coverage.filter((x) => x.citySlug === c.slug && x.providerCount > 0).length;
                   return {
@@ -327,7 +327,7 @@ export default async function HomePage() {
             {PLACE_LINES.pros}
           </figcaption>
         </figure>
-        <Container className="relative py-(--space-section) lg:grid lg:grid-cols-12 lg:gap-6">
+        <Container className="relative py-(--space-section) max-md:py-12 lg:grid lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-5 lg:col-span-5">
             <Overline>Für Profis</Overline>
             <h2 id="fuer-profis-titel" className="type-display-l">
@@ -348,10 +348,11 @@ export default async function HomePage() {
 
       {/* FAQ */}
       {faq.length > 0 ? (
-        <Section aria-label="Häufige Fragen">
+        <Section aria-label="Häufige Fragen" className="max-md:py-12">
           <Container>
             <FaqSection
               items={faq}
+              mobileLimit={4}
               aside={
                 <Link href={routes.help()} className="inline-flex min-h-touch items-center gap-2 type-label text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
                   Alle Fragen und Antworten
@@ -368,12 +369,12 @@ export default async function HomePage() {
 
 function TrustItem({ title, badge, children }: { title: string; badge?: boolean; children: ReactNode }) {
   return (
-    <li className="grid gap-3 border-b border-line py-6 md:grid-cols-[14rem_1fr] md:gap-6 md:py-7">
+    <li className="grid gap-3 border-b border-line py-4 md:grid-cols-[14rem_1fr] md:gap-6 md:py-7">
       <h3 className="flex flex-wrap items-center gap-2 type-heading-m text-ink">
         {title}
         {badge ? <VerifiedBadge /> : null}
       </h3>
-      <p className="type-body text-ink-muted">{children}</p>
+      <p className="type-body-s text-ink-muted md:type-body">{children}</p>
     </li>
   );
 }

@@ -3,11 +3,10 @@ import { formatDate } from "@/lib/format";
 import { formatInt, fullName } from "@/components/admin/format";
 import { PROVIDER_STATUS, ROLE } from "@/components/admin/labels";
 import { AdminPageHeader } from "@/components/admin/page";
-import { adminTable, adminTableWrapper, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
+import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
 import { ChipFilter, FilterForm } from "@/components/admin/toolbar";
 import { UserBlockButton } from "@/components/admin/user-actions";
 import { ChipLink } from "@/components/ui/chip";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { Input } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
@@ -63,7 +62,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
           <EmptyState title="Keine Konten gefunden.">{q ? `Niemand passt zu „${q}“.` : "Für diese Filter gibt es keine Konten."}</EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+            <AdminTable label="Nutzer">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -110,7 +109,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
                   );
                 })}
               </tbody>
-            </Table>
+            </AdminTable>
             <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.users(), current, { seite: n })} />
           </div>
         )}

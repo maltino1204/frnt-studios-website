@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Minus, Pencil, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { Input, Select, Switch, Textarea } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
@@ -14,7 +13,7 @@ import type { CategoryDTO, DocumentKind, RequiredDocumentDTO, ServiceDTO } from 
 import { ConfirmModal } from "./confirm";
 import { centsToInput, parseEuroInput } from "./format";
 import { DOCUMENT_KIND } from "./labels";
-import { adminTable, numCell } from "./table";
+import { AdminTable, numCell } from "./table";
 import { useMutation } from "./use-mutation";
 
 type CategoryWithServices = CategoryDTO & { services: ServiceDTO[] };
@@ -84,7 +83,7 @@ export function CatalogBoard({ categories }: { categories: CategoryWithServices[
             {c.services.length === 0 ? (
               <p className="border border-dashed border-line-strong px-4 py-4 type-body-s text-ink-muted">Noch keine Leistungen. Ohne Leistungen ist die Kategorie für Kundschaft nicht buchbar.</p>
             ) : (
-              <Table dense className={`${adminTable} min-w-[860px] table-fixed`}>
+              <AdminTable label={`Leistungen: ${c.name}`} className={`min-w-[860px] table-fixed`}>
                 <colgroup>
                   <col className="w-[30%]" />
                   <col className="w-[24%]" />
@@ -135,7 +134,7 @@ export function CatalogBoard({ categories }: { categories: CategoryWithServices[
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+              </AdminTable>
             )}
           </section>
         ))

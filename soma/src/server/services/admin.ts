@@ -30,10 +30,11 @@ import { ServiceError } from "../errors";
 import { getPaymentProvider } from "../payments/provider";
 import { createDevPaymentProvider } from "../payments/dev";
 import { createStripePaymentProvider } from "../payments/stripe";
-import { assertAdmin, audit, loadSettings, paging, parse, zUuid } from "./_shared";
+import { assertAdmin, audit, loadSettings, paging, parse, zLocalDate, zUuid } from "./_shared";
 import { cancelInTx, lockBooking, runPaymentOps, type PaymentOp } from "./booking-engine";
 import { notify } from "./notifications";
-import { queryMissingDocuments, queryProProfile } from "./pro";
+import { DOCUMENT_COLUMNS, queryMissingDocuments, queryProProfile, toDocument, validUntilToExpiry, type DocumentRow } from "./pro";
+import { DOCUMENT_KIND_LABELS, suspendIfDocumentsIncomplete } from "./verification";
 
 /**
  * Admin platform. Every function: assertAdmin (session role + DB re-check)
@@ -157,8 +158,8 @@ export async function getProviderForAdmin(session: Session, providerId: string):
       where ps.provider_id = ${id} order by c.sort_order, s.sort_order`;
     const hours = await tx<{ id: string; weekday: number; startTime: string; endTime: string }[]>`
       select id, weekday, start_time::text as start_time, end_time::text as end_time from public.provider_weekly_hours where provider_id = ${id} order by weekday, start_time`;
-    const docs = await tx<Array<{ id: string; kind: AdminProviderDetailDTO["documents"][number]["kind"]; fileName: string; mimeType: string; status: AdminProviderDetailDTO["documents"][number]["status"]; reviewNote: string | null; createdAt: Date; reviewedAt: Date | null; storagePath: string }>>`
-      select id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path from public.provider_documents where provider_id = ${id} order by created_at desc`;
+    const docs = await tx<DocumentRow[]>`
+      select ${tx.unsafe(DOCUMENT_COLUMNS)} from public.provider_documents where provider_id = ${id} order by created_at desc`;
     const events = await tx<Array<{ fromStatus: ProviderStatus | null; toStatus: ProviderStatus; note: string | null; createdAt: Date }>>`
       select from_status, to_status, note, created_at from public.provider_status_events where provider_id = ${id} order by created_at desc`;
     return {
@@ -172,10 +173,7 @@ export async function getProviderForAdmin(session: Session, providerId: string):
       termsAcceptedAt: iso(extra.termsAcceptedAt),
       services: services.map((s) => ({ ...s, serviceDurations: [...s.serviceDurations] })),
       weeklyHours: hours.map((h) => ({ id: h.id, weekday: h.weekday, start: h.startTime.slice(0, 5), end: h.endTime.startsWith("24") ? "24:00" : h.endTime.slice(0, 5) })),
-      documents: docs.map((d) => ({
-        id: d.id, providerId: id, kind: d.kind, fileName: d.fileName, mimeType: d.mimeType, status: d.status, reviewNote: d.reviewNote,
-        createdAt: d.createdAt.toISOString(), reviewedAt: iso(d.reviewedAt), url: `/api/media/${d.storagePath}`,
-      })),
+      documents: docs.map((d) => ({ ...toDocument(d), providerId: id })),
       missingDocuments: await queryMissingDocuments(tx, id, settings, true),
       statusEvents: events.map((e) => ({ ...e, createdAt: e.createdAt.toISOString() })),
       ratingAvg: extra.ratingAvg == null ? null : Number(extra.ratingAvg),
@@ -229,15 +227,31 @@ export async function decideProvider(session: Session, providerId: string, decis
   });
 }
 
-export async function reviewDocument(session: Session, documentId: string, status: "approved" | "rejected", note?: string): Promise<void> {
-  const v = parse(z.object({ documentId: zUuid, status: z.enum(["approved", "rejected"]), note: z.string().trim().max(500).optional() })
-    .refine((x) => x.status === "approved" || (x.note && x.note.length >= 3), { message: "Bitte einen Hinweis für den Profi angeben.", path: ["note"] }), { documentId, status, note });
-  await asAdmin(session, async (tx, admin) => {
-    const rows = await tx<{ providerId: string }[]>`
-      update public.provider_documents set status = ${v.status}, review_note = ${v.note ?? null}, reviewed_by = ${admin.userId}, reviewed_at = now()
-      where id = ${v.documentId} returning provider_id`;
+/**
+ * Approve / reject one document. `validUntil` ("YYYY-MM-DD", inclusive) sets the expiry on approval.
+ * Rejecting a required document of an approved provider suspends them automatically (audit-2 N4).
+ */
+export async function reviewDocument(session: Session, documentId: string, status: "approved" | "rejected", note?: string, validUntil?: string | null): Promise<{ providerSuspended: boolean }> {
+  const v = parse(z.object({
+    documentId: zUuid, status: z.enum(["approved", "rejected"]), note: z.string().trim().max(500).optional(),
+    validUntil: zLocalDate.nullable().optional(),
+  }).refine((x) => x.status === "approved" || (x.note && x.note.length >= 3), { message: "Bitte einen Hinweis für den Profi angeben.", path: ["note"] }), { documentId, status, note, validUntil });
+  const expiresAt = v.status === "approved" ? validUntilToExpiry(v.validUntil) : null;
+  if (expiresAt && expiresAt.getTime() <= Date.now()) {
+    throw new ServiceError("validation", "Das Gültigkeitsdatum liegt in der Vergangenheit.", { validUntil: "Das Datum liegt in der Vergangenheit." });
+  }
+  return asAdmin(session, async (tx, admin) => {
+    const rows = await tx<{ providerId: string; kind: DocumentRow["kind"] }[]>`
+      update public.provider_documents
+      set status = ${v.status}, review_note = ${v.note ?? null}, reviewed_by = ${admin.userId}, reviewed_at = now(),
+          expires_at = case when ${v.status} = 'approved' then coalesce(${expiresAt}::timestamptz, expires_at) else expires_at end
+      where id = ${v.documentId} returning provider_id, kind`;
     if (!rows[0]) throw new ServiceError("not_found", "Dokument nicht gefunden.");
-    await audit(tx, admin.userId, `document.${v.status}`, "provider_document", v.documentId, { providerId: rows[0].providerId, note: v.note ?? null });
+    await audit(tx, admin.userId, `document.${v.status}`, "provider_document", v.documentId, { providerId: rows[0].providerId, note: v.note ?? null, validUntil: v.validUntil ?? null });
+    const providerSuspended = v.status === "rejected"
+      ? await suspendIfDocumentsIncomplete(tx, rows[0].providerId, `${DOCUMENT_KIND_LABELS[rows[0].kind]} abgelehnt${v.note ? ` („${v.note}“)` : ""}`)
+      : false;
+    return { providerSuspended };
   });
 }
 

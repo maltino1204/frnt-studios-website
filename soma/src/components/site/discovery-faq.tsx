@@ -33,12 +33,15 @@ export function FaqSection({
   title = "Gut zu wissen.",
   aside,
   id = "fragen",
+  mobileLimit,
 }: {
   items: FaqItem[];
   overline?: string;
   title?: ReactNode;
   aside?: ReactNode;
   id?: string;
+  /** below md, show only the first n questions (the aside links to all of them) */
+  mobileLimit?: 3 | 4;
 }) {
   if (items.length === 0) return null;
   return (
@@ -48,7 +51,14 @@ export function FaqSection({
         <h2 className="type-display-l text-ink">{title}</h2>
         {aside ? <div className="pt-2 type-body-s text-ink-muted">{aside}</div> : null}
       </div>
-      <FaqList items={items} className="lg:col-span-7 lg:col-start-6" />
+      <FaqList
+        items={items}
+        className={cn(
+          "lg:col-span-7 lg:col-start-6",
+          mobileLimit === 3 && "max-md:[&>details:nth-of-type(n+4)]:hidden",
+          mobileLimit === 4 && "max-md:[&>details:nth-of-type(n+5)]:hidden",
+        )}
+      />
       <JsonLd data={faqLd(items)} />
     </div>
   );

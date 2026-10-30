@@ -6,7 +6,7 @@ import { getConfig } from "../config";
 import { setActor, withService, withUser, withViewer, type Fragment, type Queryable } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import { isSlotAvailable } from "../domain/availability";
-import { canTransition, hasSufficientResponseWindow, NO_SHOW_AFTER_MINUTES, START_WINDOW_MINUTES, STATUS_LABELS_DE, type BookingStatus } from "../domain/booking-state";
+import { canTransition, computeRespondBy, hasSufficientResponseWindow, NO_SHOW_AFTER_MINUTES, START_WINDOW_MINUTES, STATUS_LABELS_DE, type BookingStatus } from "../domain/booking-state";
 import { computeCancellation, freeCancellationUntil, parsePolicy, policySchedule } from "../domain/cancellation";
 import { CONTACT_LINT_MESSAGES } from "../domain/content-lint";
 import { haversineKm, roundKm } from "../domain/geo";
@@ -188,6 +188,8 @@ export async function quoteBooking(input: QuoteInput, session?: Session | null):
       },
       holdMinutes: settings.holdMinutes,
       requestResponseHours: settings.requestResponseHours,
+      // Request mode: the deadline the provider would get if the request were sent now (audit-2 N6).
+      respondByPreview: o.bookingMode === "request" ? computeRespondBy(now, startsAt, settings.requestResponseHours).toISOString() : null,
       paymentProvider: getConfig().PAYMENTS_PROVIDER,
       vatMode: o.vatMode,
       vatNote: vatNote(o.vatMode, price.totalCents),
@@ -450,6 +452,7 @@ const RespondSchema = z
 export async function providerRespond(session: Session, bookingId: string, decision: "accept" | "decline", note?: string): Promise<{ status: BookingStatus }> {
   const s = requireRoleIn(session, "provider");
   const input = parse(RespondSchema, { bookingId, decision, note });
+  assertNoContactDetails({ note: input.note }, CONTACT_LINT_MESSAGES.providerMessage);
   const ops: Array<PaymentOp | null> = [];
   // withService: booking-engine write path; provider ownership enforced by provider_id in lockBooking.
   const result = await withService(async (tx) => {
@@ -546,6 +549,7 @@ const CancelSchema = z.object({ bookingId: zUuid, reason: z.string().trim().max(
 export async function cancelBooking(session: Session, bookingId: string, reason?: string): Promise<{ status: BookingStatus; feeCents: number; refundCents: number }> {
   const s = requireRoleIn(session, "customer", "provider");
   const input = parse(CancelSchema, { bookingId, reason });
+  assertNoContactDetails({ reason: input.reason }, s.role === "provider" ? CONTACT_LINT_MESSAGES.providerMessage : CONTACT_LINT_MESSAGES.customerMessage);
   const ops: Array<PaymentOp | null> = [];
   // withService: booking-engine write path; ownership enforced via customer_id / provider_id in lockBooking.
   const out = await withService(async (tx) => {

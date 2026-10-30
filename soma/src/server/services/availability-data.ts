@@ -33,7 +33,7 @@ export async function loadSchedules(
   const out = new Map<string, ProviderSchedule>();
   if (providers.length === 0) return out;
   const ids = providers.map((p) => p.id);
-  let responseHours = 12;
+  let responseHours = 4;
   if (providers.some((p) => p.bookingMode === "request")) {
     const [row] = await tx<{ value: unknown }[]>`select value from public.platform_settings where key = 'request_response_hours'`;
     if (typeof row?.value === "number" && Number.isFinite(row.value)) responseHours = row.value;

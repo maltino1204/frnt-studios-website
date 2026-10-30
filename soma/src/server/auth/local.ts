@@ -16,6 +16,8 @@ import {
   type SignUpInput,
 } from "./adapter";
 import { burnPasswordCheck, hashPassword, MIN_PASSWORD_LENGTH, verifyPassword } from "./password";
+import { allowAuthEmail, type AuthEmailKind } from "./email-throttle";
+import { currentRequestIp } from "./request-ip";
 import { assertLoginAllowed, recordLoginAttempt } from "./rate-limit";
 
 /**
@@ -76,14 +78,16 @@ export async function createLocalUser(input: SignUpInput): Promise<string> {
 export async function verifyLocalCredentials(emailRaw: string, password: string, meta: RequestMeta): Promise<string> {
   const email = normalizeEmail(emailRaw);
   // withService: login attempts and password hashes live outside the API roles' reach.
-  const user = await withService(async (tx) => {
-    await assertLoginAllowed(tx, email, meta.ip);
+  const { user, delayMs } = await withService(async (tx) => {
+    const gate = await assertLoginAllowed(tx, email, meta.ip);
     const [u] = await tx<{ id: string; encryptedPassword: string | null; blockedAt: Date | null }[]>`
       select u.id, u.encrypted_password, p.blocked_at
       from auth.users u left join public.profiles p on p.id = u.id
       where lower(u.email) = ${email}`;
-    return u ?? null;
+    return { user: u ?? null, delayMs: gate.delayMs };
   });
+  // Global failure budget exceeded (credential stuffing): slow every attempt down, outside the transaction.
+  if (delayMs > 0) await new Promise((resolve) => setTimeout(resolve, delayMs));
   const ok = user ? await verifyPassword(password, user.encryptedPassword) : (await burnPasswordCheck(password), false);
   // Recorded in its own transaction so failures are counted even though we throw below.
   // withService: app_private.login_attempts / auth.users.
@@ -137,12 +141,16 @@ export async function revokeAllLocalSessions(userId: string): Promise<void> {
   await withService((tx) => tx`delete from app_private.local_sessions where user_id = ${userId}`);
 }
 
-/** Creates a reset token and queues the e-mail. Silent for unknown addresses. */
-export async function requestLocalPasswordReset(emailRaw: string): Promise<string | null> {
+/**
+ * Creates a reset token and queues the e-mail. Silent for unknown addresses and when
+ * the auth e-mail throttle (3/h per address, 20/h per trusted IP) suppresses it.
+ */
+export async function requestLocalPasswordReset(emailRaw: string, opts: { ip?: string | null; kind?: AuthEmailKind } = {}): Promise<string | null> {
   const email = normalizeEmail(emailRaw);
   const token = newToken();
-  // withService: password reset tokens live in app_private; reads auth.users.
+  // withService: password reset tokens and the throttle live in app_private; reads auth.users.
   const userId = await withService(async (tx) => {
+    if (!(await allowAuthEmail(tx, { email, ip: opts.ip ?? null, kind: opts.kind ?? "password_reset" }))) return null;
     const [user] = await tx<{ id: string }[]>`select id from auth.users where lower(email) = ${email}`;
     if (!user) return null;
     await tx`delete from app_private.password_resets where user_id = ${user.id}`;
@@ -232,8 +240,8 @@ export function createLocalAuthAdapter(cookies: CookieJar): AuthAdapter {
     async getUserId() {
       return resolveLocalSession(cookies.get(SESSION_COOKIE)?.value);
     },
-    async requestPasswordReset(email) {
-      await requestLocalPasswordReset(email);
+    async requestPasswordReset(email, opts) {
+      await requestLocalPasswordReset(email, { ip: opts?.ip !== undefined ? opts.ip : await currentRequestIp(), kind: opts?.kind });
     },
     async resetPassword(token, newPassword) {
       await resetLocalPassword(token, newPassword);

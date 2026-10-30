@@ -3,10 +3,9 @@ import { formatDate } from "@/lib/format";
 import { formatInt } from "@/components/admin/format";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
 import { ReviewModerationButton } from "@/components/admin/review-actions";
-import { adminTable, adminTableWrapper, CellLink, hrefWith, TablePager } from "@/components/admin/table";
+import { AdminTable, CellLink, hrefWith, TablePager } from "@/components/admin/table";
 import { ChipFilter, FilterForm } from "@/components/admin/toolbar";
 import { ChipLink } from "@/components/ui/chip";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { Input } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
@@ -87,7 +86,7 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
           <EmptyState title="Keine Bewertungen gefunden.">{q ? `Nichts passt zu „${q}“.` : "Für diese Filter gibt es keine Bewertungen."}</EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+            <AdminTable label="Bewertungen">
               <thead>
                 <tr>
                   <th scope="col">Datum</th>
@@ -135,7 +134,7 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </AdminTable>
             <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(BASE, current, { seite: n })} />
           </div>
         )}

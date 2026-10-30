@@ -95,6 +95,56 @@ describe("local auth adapter", () => {
     await sql()`delete from app_private.login_attempts where email like 'spray-%@soma.test'`;
   });
 
+  it("slows every login down once more than 200 failures happened across all accounts (audit-2 N2)", async () => {
+    const email = uniqueEmail("budget");
+    const id = await createLocalUser({ email, password: PASSWORD, firstName: "G", lastName: "B", role: "customer" });
+    try {
+      await sql()`
+        insert into app_private.login_attempts (email, ip, success)
+        select 'stuffing-' || g || '@soma.test', null, false from generate_series(1, 205) g`;
+      const t0 = Date.now();
+      expect(await verifyLocalCredentials(email, PASSWORD, { ip: null, userAgent: null })).toBe(id);
+      expect(Date.now() - t0).toBeGreaterThanOrEqual(950);
+      // wrong password: same neutral message, also delayed
+      const t1 = Date.now();
+      await expect(verifyLocalCredentials(email, "falsches-passwort", { ip: null, userAgent: null })).rejects.toThrow("E-Mail-Adresse oder Passwort ist falsch.");
+      expect(Date.now() - t1).toBeGreaterThanOrEqual(950);
+    } finally {
+      await sql()`delete from app_private.login_attempts where email like 'stuffing-%@soma.test' or email = ${email}`;
+    }
+    const t2 = Date.now();
+    expect(await verifyLocalCredentials(email, PASSWORD, { ip: null, userAgent: null })).toBe(id);
+    expect(Date.now() - t2).toBeLessThan(900);
+  });
+
+  it("throttles password-reset / claim e-mails: 3 per address and 20 per trusted IP per hour (audit-2 N8)", async () => {
+    const email = uniqueEmail("throttle");
+    await createLocalUser({ email, password: PASSWORD, firstName: "T", lastName: "H", role: "customer" });
+    const tokens: Array<string | null> = [];
+    for (let i = 0; i < 6; i += 1) tokens.push(await requestLocalPasswordReset(email, { ip: null }));
+    expect(tokens.filter(Boolean)).toHaveLength(3);
+    const [{ queued }] = await sql()<{ queued: number }[]>`
+      select count(*)::int as queued from public.email_outbox o join auth.users u on u.id = o.to_user_id
+      where lower(u.email) = ${email} and o.template = 'auth.password_reset'`;
+    expect(queued).toBe(3);
+    const [{ suppressed }] = await sql()<{ suppressed: number }[]>`
+      select count(*)::int as suppressed from app_private.auth_email_requests where email = ${email} and not sent`;
+    expect(suppressed).toBe(3);
+
+    // per IP: 20 sent e-mails (different addresses) from one trusted IP, then silence; other IPs are unaffected
+    const ip = `203.0.113.${Math.floor(Math.random() * 200) + 20}`;
+    await sql()`
+      insert into app_private.auth_email_requests (email, ip, kind, sent)
+      select 'spray-' || g || '@soma.test', ${ip}, 'account_claim', true from generate_series(1, 20) g`;
+    const other = uniqueEmail("throttle-ip");
+    await createLocalUser({ email: other, password: PASSWORD, firstName: "T", lastName: "I", role: "customer" });
+    expect(await requestLocalPasswordReset(other, { ip })).toBeNull();
+    expect(await requestLocalPasswordReset(other, { ip: "198.51.100.77", kind: "account_claim" })).toBeTruthy();
+    // unknown IPs are not pooled
+    expect(await requestLocalPasswordReset(other, { ip: "unknown" })).toBeTruthy();
+    await sql()`delete from app_private.auth_email_requests where email like 'spray-%@soma.test'`;
+  });
+
   it("issues opaque session tokens stored only as hashes; revocation works", async () => {
     const id = await createLocalUser({ email: uniqueEmail("sess"), password: PASSWORD, firstName: "S", lastName: "T", role: "customer" });
     const token = await createLocalSession(id, meta);

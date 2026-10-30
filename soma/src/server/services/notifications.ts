@@ -27,6 +27,7 @@ export type NotifyEvent =
   | "review.received"
   | "provider.approved"
   | "provider.rejected"
+  | "provider.suspended_documents"
   | "payout.paid"
   | "dispute.opened"
   | "dispute.resolved"
@@ -164,6 +165,15 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
       break;
     case "provider.rejected":
       if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Deine Verifizierung braucht noch etwas", body: ctx.note ? `Hinweis vom SOMA-Team: ${ctx.note}` : "Bitte prüfe deine Unterlagen in der Verifizierung.", href: "/pro/verifizierung", topic: "account" });
+      break;
+    case "provider.suspended_documents":
+      if (ctx.providerId) {
+        out.push({
+          userId: ctx.providerId, type: event, title: "Dein Profil ist pausiert",
+          body: `${ctx.note ?? "Ein Pflichtdokument fehlt oder ist abgelaufen."} Nach der Prüfung schalten wir dich wieder frei.`,
+          href: "/pro/verifizierung", topic: "account",
+        });
+      }
       break;
     case "payout.paid":
       if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: `Auszahlung unterwegs: ${formatEuro(ctx.amountCents ?? 0)}`, body: "Das Geld ist in 1–3 Werktagen auf deinem Konto.", href: "/pro/einnahmen", topic: "account" });

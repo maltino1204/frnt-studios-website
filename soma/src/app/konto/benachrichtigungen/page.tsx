@@ -17,7 +17,7 @@ export default async function BenachrichtigungenPage() {
         <h2 id="eingang" className="type-heading-m">
           Mitteilungen
         </h2>
-        <NotificationInbox items={items} />
+        <NotificationInbox items={items} renderedAt={Date.now()} />
       </section>
       <section aria-labelledby="einstellungen" className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">

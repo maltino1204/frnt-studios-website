@@ -32,7 +32,7 @@ export function CheckoutHeader({ signedIn }: { signedIn: boolean }) {
             </button>
           )}
         </div>
-        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="justify-self-center text-ink">
+        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="inline-flex min-h-touch items-center justify-self-center px-2 text-ink">
           <Wordmark />
         </Link>
         <p className="inline-flex items-center gap-1.5 justify-self-end type-caption text-ink-muted">

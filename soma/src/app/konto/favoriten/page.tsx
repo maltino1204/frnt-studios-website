@@ -29,7 +29,7 @@ export default async function FavoritenPage() {
               <div className="flex min-w-0 flex-col gap-1">
                 <div className="-mt-2.5 -mr-2.5 flex items-start justify-between gap-2">
                   <h2 className="flex min-w-0 items-center gap-1.5 pt-2.5 type-heading-m">
-                    <Link href={routes.provider(f.slug)} className="truncate hover:underline hover:underline-offset-4">
+                    <Link href={routes.provider(f.slug)} className="-my-1 truncate py-1 hover:underline hover:underline-offset-4">
                       {f.displayName}
                     </Link>
                     <VerifiedBadge className="shrink-0" />

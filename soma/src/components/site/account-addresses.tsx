@@ -15,9 +15,10 @@ import { deleteAddressAction, saveAddressAction, setDefaultAddressAction } from 
 import { initialActionState } from "@/server/actions/types";
 import type { AddressDTO, LocationKind } from "@/server/dto";
 import { LOCATION_LABELS } from "./checkout-format";
+import { keepValuesOnSubmit } from "./keep-values";
 
 function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null; onDone: () => void; isFirst: boolean }) {
-  const [state, action] = useActionState(saveAddressAction, initialActionState);
+  const [state, action, pending] = useActionState(saveAddressAction, initialActionState);
   const [kind, setKind] = useState<LocationKind>(address?.kind === "other" ? "home" : (address?.kind ?? "home"));
   const toast = useToast();
   const handled = useRef<unknown>(null);
@@ -30,8 +31,11 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
     // eslint-disable-next-line react-hooks/exhaustive-deps -- react to a new action result only
   }, [state]);
   const fe = state && !state.ok ? state.fieldErrors : undefined;
+  // Field errors we can show next to a field; anything else goes into the notice.
+  const shownOnField = !!fe && ["label", "street", "houseNumber", "postalCode", "city", "details"].some((k) => fe[k]);
   return (
-    <form action={action} noValidate className="flex flex-col gap-5">
+    // Submitted without React's form reset (N5): every typed value survives a server error.
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-5">
       {address ? <input type="hidden" name="id" value={address.id} /> : null}
       <SegmentedControl
         name="kind"
@@ -62,8 +66,8 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
         error={fe?.details}
       />
       {!isFirst ? <Checkbox name="isDefault" label="Als Standardadresse verwenden" defaultChecked={address?.isDefault ?? false} /> : null}
-      {state && !state.ok && !fe ? <Notice kind="danger">{state.error}</Notice> : null}
-      <SubmitButton size="l" block>
+      {state && !state.ok && !shownOnField ? <Notice kind="danger">{state.error}</Notice> : null}
+      <SubmitButton size="l" block loading={pending}>
         Adresse speichern
       </SubmitButton>
     </form>

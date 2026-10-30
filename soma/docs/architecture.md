@@ -157,10 +157,23 @@ requireRole(role: 'customer'|'provider'|'admin'): Promise<Session>
 actions and services.
 
 Other rules: Server Actions rely on Next's built-in origin check; route handlers that mutate check
-`Origin`. Login is rate-limited (per email + IP, DB-backed counter). Passwords need at least 10 characters.
+`Origin`. Login is rate-limited (per email + trusted IP + global failure budget, DB-backed counters); password-reset and account-claim e-mails are throttled (3/h per address, 20/h per trusted IP). Passwords need at least 10 characters.
 Session cookie `soma_session`: httpOnly, `secure` in production, `sameSite=lax`, 30 days, rotated on
 login, revoked on logout. Customer contact data (phone, email) is never sent to provider views before
 a booking is `confirmed`, and email addresses are never exposed (anti-disintermediation + DSGVO data minimisation).
+
+**Phone exchange, deliberate v1 decision (audit-2 N12):** the provider sees the customer's mobile
+number only while the booking is `confirmed` / `in_progress` (view `provider_bookings`), for arrival
+coordination. Customers never see the provider's number (in-app status and support only). E-mail
+addresses are never shown to the other party. Free-text channels are contact-linted
+(`domain/content-lint.ts`). Planned for v1.1: a phone relay with masked numbers.
+
+**Client IP for rate limits (audit-2 N2):** only from an explicitly trusted source —
+`TRUSTED_IP_HEADER` (a header the platform overwrites, e.g. `x-vercel-forwarded-for`,
+`cf-connecting-ip`) or `TRUSTED_PROXY_HOPS` (N-th `X-Forwarded-For` entry from the right). With
+neither, no client header is used and only the per-e-mail limits plus a global failure budget
+(> 200 failures / 15 min → 1–3 s delay on every login) apply; `npm run check:launch` blocks that
+configuration.
 
 ---
 
@@ -204,7 +217,7 @@ rules (weekly hours) are interpreted in **Europe/Berlin**.
 | `credit_ledger` | `user_id`, `amount_cents` (+/−), `reason` (`referral_reward`,`referral_welcome`,`booking_redemption`,`booking_refund`,`admin_adjustment`,`goodwill`), `booking_id`; balance = sum |
 | `referrals` | `referrer_id`, `referred_id` unique, `status` (`pending`,`qualified`,`rewarded`), `rewarded_at` |
 | `commission_rules` | `scope` (`global`,`category`,`provider`), `category_id`, `provider_id`, `rate` (e.g. 0.2000), `repeat_client_rate` (e.g. 0.1000), `is_active`. Resolution order: provider → category → global |
-| `platform_settings` | `key` PK, `value jsonb`: `cancellation_policy`, `hold_minutes` (10), `request_response_hours` (12), `slot_step_minutes` (30), `referral_reward_cents` (1500), `referral_welcome_cents` (1500), `customer_service_fee_cents` (0) |
+| `platform_settings` | `key` PK, `value jsonb`: `cancellation_policy`, `hold_minutes` (10), `request_response_hours` (4 business hours, 08:00–21:00 Europe/Berlin), `slot_step_minutes` (30), `referral_reward_cents` (1500), `referral_welcome_cents` (1500), `customer_service_fee_cents` (0) |
 | `disputes` | `booking_id`, `opened_by`, `reason` (`quality`,`provider_no_show`,`customer_no_show`,`damage`,`payment`,`safety`,`other`), `description`, `status` (`open`,`investigating`,`resolved_refund`,`resolved_no_action`,`closed`), `refund_cents`, `resolution_note`, `resolved_by`, `resolved_at` |
 | `search_events` | demand analytics without PII: `postal_code`, `city_slug`, `category_id`, `service_id`, `requested_date`, `results_count`, `created_at` |
 | `content_blocks` | CMS: `key` PK (`home.hero`, `home.faq`, `city.berlin.intro`, `announcement`), `value jsonb`, `updated_by` |
@@ -261,7 +274,7 @@ pending_payment ─────┼──► requested ──► confirmed ──
 
 | From → To | Actor | Guard / side effects |
 |---|---|---|
-| `pending_payment → requested` | system | payment authorized and provider in `request` mode; set `respond_by = now + request_response_hours` (capped at `starts_at − 1h`) |
+| `pending_payment → requested` | system | payment authorized and provider in `request` mode; set `respond_by = computeRespondBy(now, starts_at, request_response_hours)`: the earlier of now + 4 h counted only within 08:00–21:00 Europe/Berlin (DST-safe) and `starts_at − 2 h`. Request slots that would leave < 30 business minutes are neither offered nor accepted |
 | `pending_payment → confirmed` | system | payment authorized, `instant` mode |
 | `pending_payment → expired` | system | `hold_expires_at < now()`; release payment |
 | `pending_payment → cancelled` | customer | abandons checkout |

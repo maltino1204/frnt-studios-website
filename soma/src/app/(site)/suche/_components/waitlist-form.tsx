@@ -5,11 +5,12 @@ import { joinWaitlistAction } from "@/server/actions/booking";
 import { initialActionState } from "@/server/actions/types";
 import { Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "@/components/site/keep-values";
 import { CheckLine } from "@/components/ui/summary";
 
 /** "Benachrichtigen, sobald verfügbar" – logged as demand for the city/category. */
 export function WaitlistForm({ postalCode, categorySlug, cta = "Benachrichtigen" }: { postalCode: string; categorySlug?: string | null; cta?: string }) {
-  const [state, action] = useActionState(joinWaitlistAction, initialActionState);
+  const [state, action, pending] = useActionState(joinWaitlistAction, initialActionState);
   if (state?.ok) {
     return (
       <div role="status" className="flex flex-col gap-2">
@@ -18,7 +19,7 @@ export function WaitlistForm({ postalCode, categorySlug, cta = "Benachrichtigen"
     );
   }
   return (
-    <form action={action} noValidate className="flex w-full max-w-form flex-col gap-3 sm:flex-row sm:items-start">
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex w-full max-w-form flex-col gap-3 sm:flex-row sm:items-start">
       <input type="hidden" name="postalCode" value={postalCode} />
       {categorySlug ? <input type="hidden" name="categorySlug" value={categorySlug} /> : null}
       <Input
@@ -31,7 +32,7 @@ export function WaitlistForm({ postalCode, categorySlug, cta = "Benachrichtigen"
         className="flex-1"
         error={state && !state.ok ? (state.fieldErrors?.email ?? state.error) : null}
       />
-      <SubmitButton className="sm:mt-6">{cta}</SubmitButton>
+      <SubmitButton className="sm:mt-6" loading={pending}>{cta}</SubmitButton>
     </form>
   );
 }

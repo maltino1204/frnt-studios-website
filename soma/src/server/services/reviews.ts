@@ -52,9 +52,11 @@ export async function listProviderReviews(providerId: string, page = 1, pageSize
 const REVIEW_TAGS = ["Pünktlich", "Professionell", "Freundlich", "Entspannend", "Sauber gearbeitet", "Gute Beratung", "Wieder buchen"] as const;
 export const REVIEW_TAG_OPTIONS: readonly string[] = REVIEW_TAGS;
 
+const RATING_ERROR = "Bitte vergeben Sie 1 bis 5 Sterne.";
+
 const CreateReviewSchema = z.object({
   bookingId: zUuid,
-  rating: z.number().int().min(1, "Bitte vergeben Sie 1 bis 5 Sterne.").max(5, "Bitte vergeben Sie 1 bis 5 Sterne."),
+  rating: z.number({ error: RATING_ERROR }).int({ error: RATING_ERROR }).min(1, RATING_ERROR).max(5, RATING_ERROR),
   comment: z.string().trim().max(2000, "Höchstens 2000 Zeichen.").optional().transform((v) => (v ? v : null)),
   tags: z.array(z.enum(REVIEW_TAGS)).max(3, "Höchstens drei Schlagworte.").optional().default([]),
 });

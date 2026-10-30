@@ -110,13 +110,15 @@ export async function deleteTimeOffAction(timeOffId: string): Promise<ActionResu
 const DocumentFormSchema = z.object({
   kind: z.enum(["id_document", "business_registration", "qualification", "insurance", "other"]),
   categoryId: zGuid.optional(),
+  /** "YYYY-MM-DD", inclusive (e.g. end of the insurance period) */
+  validUntil: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Bitte ein gültiges Datum angeben.").optional(),
 });
 
-/** Form action — fields: file (pdf/jpg/png ≤ 10 MB), kind, categoryId (optional). */
+/** Form action — fields: file (pdf/jpg/png ≤ 10 MB), kind, categoryId (optional), validUntil (optional, YYYY-MM-DD). */
 export async function uploadDocumentAction(_prev: ActionResult<DocumentDTO> | null, formData: FormData): Promise<ActionResult<DocumentDTO>> {
   return withSession("provider", async (s) => {
     const v = input(DocumentFormSchema, formToObject(formData));
-    const r = await uploadDocument(s, v.kind as DocumentKind, await fileFrom(formData), v.categoryId ?? null);
+    const r = await uploadDocument(s, v.kind as DocumentKind, await fileFrom(formData), v.categoryId ?? null, v.validUntil ?? null);
     revalidatePro();
     return r;
   }, "Dokument hochgeladen. Wir prüfen es innerhalb von 48 Stunden.");

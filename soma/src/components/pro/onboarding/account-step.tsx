@@ -6,6 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { Notice } from "@/components/ui/feedback";
 import { Checkbox, Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "@/components/site/keep-values";
 import { Icon } from "@/components/ui/icon";
 import { routes } from "@/lib/routes";
 import { signUpAction } from "@/server/actions/auth";
@@ -27,14 +28,14 @@ function duError(message: string): string {
 
 /** Step 1 "Konto": creates a provider account (signUpAction, role = provider) and continues with step 2. */
 export function AccountStep() {
-  const [state, action] = useActionState(signUpAction, null);
+  const [state, action, pending] = useActionState(signUpAction, null);
   const [show, setShow] = useState(false);
   const fe = state && !state.ok ? state.fieldErrors ?? {} : {};
   const err = (k: string) => (fe[k] ? DU_FIELD_MESSAGES[k] ?? fe[k] : undefined);
   const general = state && !state.ok && !Object.keys(fe).length ? duError(state.error) : state && !state.ok && Object.keys(fe).length ? "Bitte prüfe die markierten Felder." : null;
 
   return (
-    <form action={action} className="flex flex-col gap-5" noValidate>
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5" noValidate>
       <input type="hidden" name="role" value="provider" />
       <input type="hidden" name="next" value={stepHref("profil")} />
       <div className="grid gap-5 sm:grid-cols-2">
@@ -69,7 +70,7 @@ export function AccountStep() {
         <Checkbox name="marketingOptIn" label="Schick mir Tipps und Neuigkeiten für Profis." description="Höchstens zweimal im Monat, jederzeit abbestellbar." />
       </div>
       <div aria-live="polite">{general ? <Notice kind="danger">{general}</Notice> : null}</div>
-      <SubmitButton size="l" className="self-start">
+      <SubmitButton size="l" className="self-start" loading={pending}>
         Konto erstellen
       </SubmitButton>
       <p className="type-body-s text-ink-muted">

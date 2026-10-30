@@ -23,8 +23,16 @@ const EnvSchema = z.object({
   DEMO_MODE: boolish,
   /** Public base URL. Unset in development → derived from the request host (see resolveAppUrl). */
   APP_URL: z.string().url().default("http://localhost:3000"),
-  /** Proxies in front of the app that append to X-Forwarded-For (0 = ignore XFF, use x-real-ip). */
+  /** Proxies in front of the app that append to X-Forwarded-For (0 = ignore XFF). See auth/client-ip.ts. */
   TRUSTED_PROXY_HOPS: z.coerce.number().int().min(0).max(10).default(0),
+  /** Header the hosting platform sets with the client IP (e.g. x-vercel-forwarded-for, cf-connecting-ip). Unset = not trusted. */
+  TRUSTED_IP_HEADER: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .optional()
+    .transform((v) => (v ? v : undefined))
+    .pipe(z.string().regex(/^[a-z0-9-]{1,64}$/).optional()),
   CRON_SECRET: z.string().optional(),
   UPLOAD_DIR: z.string().default(".data/uploads"),
   NEXT_PUBLIC_SUPABASE_URL: z.string().optional(),

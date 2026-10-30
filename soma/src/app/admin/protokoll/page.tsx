@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { formatDateTime, tzName } from "@/components/admin/format";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
-import { adminTable, hrefWith, TablePager } from "@/components/admin/table";
+import { AdminTable, hrefWith, TablePager } from "@/components/admin/table";
 import { FilterForm } from "@/components/admin/toolbar";
-import { Table } from "@/components/ui/data";
 import { EmptyState } from "@/components/ui/feedback";
 import { Select } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
@@ -128,7 +127,7 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
           <EmptyState title="Keine Einträge.">{active ? "Für diese Filter gibt es keine Einträge." : "Sobald Admins etwas ändern, erscheint es hier."}</EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable}>
+            <AdminTable label="Protokoll">
               <thead>
                 <tr>
                   <th scope="col">Zeitpunkt</th>
@@ -184,7 +183,7 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
                   );
                 })}
               </tbody>
-            </Table>
+            </AdminTable>
             <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.audit(), current, { seite: n })} />
           </div>
         )}

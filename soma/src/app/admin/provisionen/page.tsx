@@ -3,8 +3,7 @@ import Link from "next/link";
 import { CancellationPolicyForm, CommissionRuleForm, DeactivateRuleButton, NumberSettingForm } from "@/components/admin/commission-forms";
 import { formatDateTime, formatPercent } from "@/components/admin/format";
 import { AdminPageHeader, AdminSection, MutedLink } from "@/components/admin/page";
-import { adminTable, hrefWith, numCell } from "@/components/admin/table";
-import { Table } from "@/components/ui/data";
+import { AdminTable, hrefWith, numCell } from "@/components/admin/table";
 import { Status } from "@/components/ui/feedback";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
@@ -54,7 +53,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
             <MutedLink href={hrefWith(routes.admin.commissions(), {}, { verlauf: history ? undefined : "1" })}>{history ? "Nur aktive Regeln" : "Verlauf anzeigen"}</MutedLink>
           }
         >
-          <Table dense className={adminTable}>
+          <AdminTable label="Provisionsregeln">
             <thead>
               <tr>
                 <th scope="col">Geltung</th>
@@ -95,7 +94,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </AdminTable>
         </AdminSection>
 
         <div className="grid gap-10 xl:grid-cols-2 xl:gap-8">
@@ -127,8 +126,8 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
               <NumberSettingForm
                 settingKey="request_response_hours"
                 label="Antwortfrist für Anfragen"
-                description="So lange haben Profis Zeit, eine Anfrage anzunehmen. Danach verfällt sie und die Reservierung wird freigegeben."
-                value={num("request_response_hours", 12)}
+                description="Geschäftsstunden (8–21 Uhr), die Profis für eine Antwort haben, spätestens bis 2 Stunden vor dem Termin. Danach verfällt die Anfrage und die Reservierung wird freigegeben."
+                value={num("request_response_hours", 4)}
                 min={1}
                 max={48}
                 unit="Std."

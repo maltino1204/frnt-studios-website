@@ -5,6 +5,7 @@ import { getSession } from "@/server/auth/guards";
 import { isServiceError } from "@/server/errors";
 import { listCatalog } from "@/server/services/catalog";
 import { searchProviders } from "@/server/services/search";
+import { listNearbyPostalCodes, type NearbyPostalCodeDTO } from "@/server/services/site-ext-2";
 import type { CategoryWithServicesDTO, SearchInput, SearchResultDTO, ServiceDTO } from "@/server/dto";
 import { Container, Overline } from "@/components/ui/layout";
 import { ButtonLink } from "@/components/ui/button";
@@ -181,6 +182,28 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     nextDays = totals.filter((t) => t.total > 0).slice(0, 4);
   }
 
+  // Thin supply (1–2 results, N13): at most one extra search (other days, only when a day was
+  // picked) plus one cheap coverage query for neighbouring PLZ. Both are hints and never fail the page.
+  const thin = !empty && result.total < 3 && result.location.isLaunchCity;
+  let moreDays: string[] = [];
+  let nearby: NearbyPostalCodeDTO[] = [];
+  if (thin) {
+    const [week, near] = await Promise.all([
+      datum ? searchProviders({ ...input, date: undefined, pageSize: 50 }, session, { logDemand: false }).catch(() => null) : Promise.resolve(null),
+      listNearbyPostalCodes({ postalCode: plz, serviceId: service?.id, categorySlug: service ? undefined : category?.slug }).catch(() => []),
+    ]);
+    nearby = near;
+    if (week && datum) {
+      // Distinct providers per day from the week's first free slots; only days with more choice than now.
+      const perDay = new Map<string, Set<string>>();
+      for (const r of week.results) for (const slot of r.nextSlots) {
+        const d = berlinDateKey(slot);
+        if (d !== datum) perDay.set(d, (perDay.get(d) ?? new Set()).add(r.providerId));
+      }
+      moreDays = [...perDay.entries()].filter(([, ids]) => ids.size > result.total).sort(([a], [b]) => a.localeCompare(b)).slice(0, 2).map(([d]) => d);
+    }
+  }
+
   const countText = empty
     ? "Keine Profis mit freien Terminen gefunden."
     : `${plural(result.total, "Profi", "Profis")} mit freien Terminen${datum ? onDay(datum) : " in den nächsten 7\u00a0Tagen"}`;
@@ -215,6 +238,44 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                         <ProviderRow key={r.providerId} result={r} postalCode={plz} date={datum} canFavorite={canFavorite} priority={i < 3} />
                       ))}
                     </div>
+                    {thin && (moreDays.length || nearby.length || filtersActive) ? (
+                      <div className="mt-6 flex flex-col gap-3 border-l-2 border-ink pl-4">
+                        <p className="type-body-s text-ink">So finden Sie mehr Auswahl:</p>
+                        {moreDays.length ? (
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="type-body-s text-ink-muted">An anderen Tagen</span>
+                            {moreDays.map((d) => (
+                              <Link
+                                key={d}
+                                href={searchHref({ ...state, datum: d })}
+                                scroll={false}
+                                className="inline-flex h-touch items-center rounded-xs border border-line bg-surface-raised px-4 type-label-s num text-ink transition-colors duration-fast hover:border-ink"
+                              >
+                                {dayLabel(d)}
+                              </Link>
+                            ))}
+                          </div>
+                        ) : null}
+                        {nearby.length ? (
+                          <p className="type-body-s text-ink-muted">
+                            {"Wenn Sie auch an einem anderen Ort sein können, etwa im Büro: auch in der Nähe "}
+                            {nearby.map((n, i) => (
+                              <span key={n.postalCode}>
+                                {i > 0 ? " · " : null}
+                                <Link href={searchHref({ ...state, plz: n.postalCode })} className="text-accent underline underline-offset-[0.2em] num hover:text-accent-hover">
+                                  {n.postalCode}
+                                </Link>
+                              </span>
+                            ))}
+                          </p>
+                        ) : null}
+                        {filtersActive ? (
+                          <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null })} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
+                            Ohne Filter suchen
+                          </Link>
+                        ) : null}
+                      </div>
+                    ) : null}
                     {result.total > result.results.length && seite < 4 ? (
                       <div className="pt-6">
                         <ButtonLink href={searchHref(state, { seite: seite + 1 })} variant="secondary" scroll={false}>

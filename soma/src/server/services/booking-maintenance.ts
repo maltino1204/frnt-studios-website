@@ -4,6 +4,7 @@ import { withService } from "../db/client";
 import { loadSettings } from "./_shared";
 import { cancelInTx, completeInTx, lockBooking, runPaymentOps, type PaymentOp } from "./booking-engine";
 import { deliverQueuedEmails, notify } from "./notifications";
+import { expireDocumentsInTx } from "./verification";
 
 /**
  * Booking maintenance (docs/architecture.md §5.2):
@@ -11,6 +12,7 @@ import { deliverQueuedEmails, notify } from "./notifications";
  *   - expire unanswered requests (requested past respond_by)       → expired, release, notify
  *   - auto-complete confirmed/in_progress 24 h after ends_at       → completed, capture
  *   - 24 h reminders
+ *   - expire provider documents past expires_at → auto-suspend incomplete providers (audit-2 N4)
  *   - deliver queued e-mails
  * Called lazily by booking operations/dashboards and by POST /api/cron/booking-maintenance.
  * Every step runs as the system (withService) — it is a maintenance job by definition.
@@ -21,6 +23,8 @@ export interface MaintenanceResult {
   expiredRequests: number;
   autoCompleted: number;
   reminders: number;
+  expiredDocuments: number;
+  suspendedProviders: number;
   emailsSent: number;
 }
 
@@ -30,7 +34,7 @@ async function dueIds(query: (tx: Parameters<Parameters<typeof withService>[0]>[
 }
 
 export async function runBookingMaintenance(now: Date = new Date()): Promise<MaintenanceResult> {
-  const result: MaintenanceResult = { expiredHolds: 0, expiredRequests: 0, autoCompleted: 0, reminders: 0, emailsSent: 0 };
+  const result: MaintenanceResult = { expiredHolds: 0, expiredRequests: 0, autoCompleted: 0, reminders: 0, expiredDocuments: 0, suspendedProviders: 0, emailsSent: 0 };
   const ops: Array<PaymentOp | null> = [];
 
   const holds = await dueIds((tx) => tx<{ id: string }[]>`
@@ -93,6 +97,11 @@ export async function runBookingMaintenance(now: Date = new Date()): Promise<Mai
     });
     result.reminders += 1;
   }
+
+  // withService: maintenance job — document expiry and automatic suspension across providers.
+  const docs = await withService((tx) => expireDocumentsInTx(tx, now));
+  result.expiredDocuments = docs.expiredDocuments;
+  result.suspendedProviders = docs.suspendedProviders;
 
   await runPaymentOps(ops);
   result.emailsSent = await deliverQueuedEmails(100);

@@ -48,13 +48,22 @@ export async function decideProviderAction(raw: z.input<typeof DecisionSchema>):
   });
 }
 
-const DocSchema = z.object({ documentId: zGuid, status: z.enum(["approved", "rejected"]), note: z.string().optional() });
+const DocSchema = z.object({
+  documentId: zGuid,
+  status: z.enum(["approved", "rejected"]),
+  note: z.string().optional(),
+  /** "YYYY-MM-DD", inclusive; sets expires_at on approval (insurance mainly) */
+  validUntil: z.string().optional(),
+});
 
-export async function reviewDocumentAction(raw: z.input<typeof DocSchema>): Promise<ActionResult> {
+/** Returns `providerSuspended: true` when a rejection paused an approved provider (audit-2 N4). */
+export async function reviewDocumentAction(raw: z.input<typeof DocSchema>): Promise<ActionResult<{ providerSuspended: boolean }>> {
   return withSession("admin", async (s) => {
     const v = input(DocSchema, raw);
-    await reviewDocument(s, v.documentId, v.status, v.note);
+    const r = await reviewDocument(s, v.documentId, v.status, v.note, v.validUntil || null);
     revalidateAdmin();
+    if (r.providerSuspended) revalidatePath("/profis", "layout");
+    return r;
   });
 }
 

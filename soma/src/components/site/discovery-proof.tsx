@@ -40,7 +40,7 @@ export function ProofBand({ proof, disputeWindowHours }: { proof: SocialProofDTO
   const guarantee = `${BRAND_NAME}-Garantie`;
 
   return (
-    <Section aria-labelledby="stimmen-titel" className="pb-0">
+    <Section aria-labelledby="stimmen-titel" className="pb-0 max-md:pt-12">
       <Container className="flex flex-col gap-12 md:gap-16">
         {stats.length || quotes.length ? (
           <div className="flex flex-col gap-10 md:gap-12">
@@ -60,9 +60,13 @@ export function ProofBand({ proof, disputeWindowHours }: { proof: SocialProofDTO
               ) : null}
             </div>
             {quotes.length ? (
-              <ul className="grid gap-10 md:grid-cols-3 md:gap-0">
+              // Phones: one swipeable row (no auto-advance) instead of stacked quotes; from md three columns.
+              <ul
+                aria-label="Stimmen aus verifizierten Bewertungen"
+                className="-mx-(--space-gutter) flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-6 overflow-x-auto px-(--space-gutter) scrollbar-none md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-0 md:overflow-visible md:px-0"
+              >
                 {quotes.map((q, i) => (
-                  <li key={q.id} className={cn("min-w-0 md:pr-6", i > 0 && "md:pl-6", i > 1 && "hidden md:block")}>
+                  <li key={q.id} className={cn("w-[82%] shrink-0 snap-start md:w-auto md:min-w-0 md:pr-6", i > 0 && "md:pl-6")}>
                     <figure className="flex flex-col gap-4">
                       <blockquote className="type-display-s text-ink">
                         <p>{`„${q.comment}“`}</p>

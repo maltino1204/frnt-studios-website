@@ -43,7 +43,7 @@ export function SiteHeader() {
       )}
     >
       <Container className="flex h-full items-center justify-between gap-6">
-        <Link href="/" aria-label="SOMA, zur Startseite" className="-m-2 rounded-xs p-2">
+        <Link href="/" aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-xs px-2">
           <Wordmark />
         </Link>
 

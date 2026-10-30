@@ -131,18 +131,49 @@ function DecisionButton({ providerId, spec }: { providerId: string; spec: Decisi
   );
 }
 
-/** Approve / reject one uploaded document. */
-export function DocumentReview({ documentId, status, label }: { documentId: string; status: DocumentStatus; label: string }) {
+/** Approve (optionally with a validity end) / reject one uploaded document. */
+export function DocumentReview({ documentId, status, label, expires }: { documentId: string; status: DocumentStatus; label: string; expires?: boolean }) {
   const [note, setNote] = useState("");
+  const [validUntil, setValidUntil] = useState("");
   const approve = useMutation(reviewDocumentAction, { success: `${label}: als geprüft markiert.` });
-  const reject = useMutation(reviewDocumentAction, { success: `${label}: abgelehnt.` });
+  const reject = useMutation(reviewDocumentAction, {
+    success: (r) => (r.providerSuspended ? `${label}: abgelehnt. Der Profi wurde automatisch pausiert.` : `${label}: abgelehnt.`),
+  });
   const formId = `doc-reject-${documentId}`;
+  const approveFormId = `doc-approve-${documentId}`;
   return (
     <div className="flex items-center justify-end gap-1">
       {status !== "approved" ? (
-        <Button size="s" variant="ghost" loading={approve.pending} onClick={() => approve.run({ documentId, status: "approved" })} icon={<Icon icon={Check} size={16} />}>
-          Geprüft
-        </Button>
+        <ConfirmButton
+          label="Geprüft"
+          variant="ghost"
+          icon={<Icon icon={Check} size={16} />}
+          title={`${label} als geprüft markieren?`}
+          confirmLabel="Als geprüft markieren"
+          pending={approve.pending}
+          error={approve.error && !approve.fieldErrors.validUntil ? approve.error : null}
+          formId={approveFormId}
+          onOpen={() => {
+            setValidUntil("");
+            approve.reset();
+          }}
+        >
+          {({ close }) => (
+            <form
+              id={approveFormId}
+              noValidate
+              className="flex flex-col gap-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const res = await approve.run({ documentId, status: "approved", validUntil: validUntil || undefined });
+                if (res.ok) close();
+              }}
+            >
+              <p>Das Dokument zählt danach als Nachweis. {expires ? "Bei Versicherungen bitte das Ende der Laufzeit eintragen: " : ""}Läuft es ab, wird der Profi automatisch pausiert, bis ein neues Dokument geprüft ist.</p>
+              <Input dense type="date" label="Gültig bis" optional value={validUntil} onChange={(e) => setValidUntil(e.target.value)} error={approve.fieldErrors.validUntil} className="w-48" />
+            </form>
+          )}
+        </ConfirmButton>
       ) : null}
       {status !== "rejected" ? (
         <ConfirmButton
@@ -175,7 +206,7 @@ export function DocumentReview({ documentId, status, label }: { documentId: stri
               if (res.ok) close();
             }}
           >
-            <p>„{label}“ wird abgelehnt. Der Profi sieht den Hinweis und kann ein neues Dokument hochladen.</p>
+            <p>„{label}“ wird abgelehnt. Der Profi sieht den Hinweis und kann ein neues Dokument hochladen. Ist der Profi freigegeben und fehlt damit ein Pflichtdokument, wird das Profil automatisch pausiert.</p>
             <Textarea label="Hinweis für den Profi" name="note" rows={3} value={note} onChange={(e) => setNote(e.target.value)} error={reject.fieldErrors.note} placeholder="z. B. Ablaufdatum nicht lesbar" maxLength={500} />
           </form>
           )}

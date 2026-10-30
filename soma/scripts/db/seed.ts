@@ -15,10 +15,11 @@ import path from "node:path";
 import postgres from "postgres";
 import { hashPassword } from "../../src/server/auth/password";
 import { haversineKm, roundKm } from "../../src/server/domain/geo";
+import { computeRespondBy } from "../../src/server/domain/booking-state";
 import { computeCancellation, computeNoShowFee, parsePolicy } from "../../src/server/domain/cancellation";
 import { computeTravelFee, splitRetainedAmounts } from "../../src/server/domain/pricing";
 import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, wallTimeToInstant } from "../../src/server/domain/tz";
-import { DEFAULT_CANCELLATION_POLICY } from "./lib/base-seed-data";
+import { DEFAULT_CANCELLATION_POLICY, PLATFORM_SETTINGS } from "./lib/base-seed-data";
 import { CUSTOMERS, PROVIDER_REPLIES, PROVIDERS, REGULAR_VAT_PROVIDERS, REVIEWS, SEARCH_POSTAL_CODES, type DemoCustomer, type DemoProvider } from "./lib/demo-data";
 import { ROOT } from "./lib/migrate";
 
@@ -207,14 +208,21 @@ function cityName(slug: DemoProvider["city"]): string {
 }
 
 const reviewCursor = new Map<string, number>();
+const usedReviewTexts = new Set<string>();
+const replyCursor = { next: 0 };
 async function maybeReview(ctx: Ctx, b: { id: string; completedAt: Date | null; categorySlug: string }, p = 0.8, forced?: { rating: number; text: string }, minRating = 1): Promise<void> {
   if (!b.completedAt || (!forced && !chance(p))) return;
-  const list = (REVIEWS[b.categorySlug] ?? REVIEWS.massage).filter((r) => r.rating >= minRating);
-  const i = reviewCursor.get(b.categorySlug) ?? int(0, list.length - 1);
-  reviewCursor.set(b.categorySlug, i + 1);
-  const r = forced ? { rating: forced.rating, text: forced.text, tags: [] as string[] } : list[i % list.length];
+  // Each review sentence and reply is used at most once (audit-2 N14); when a category runs out,
+  // the review is stars + tags only.
+  const all = REVIEWS[b.categorySlug] ?? REVIEWS.massage;
+  const fresh = all.filter((r) => r.rating >= minRating && (r.text === null || !usedReviewTexts.has(r.text)));
+  const start = reviewCursor.get(b.categorySlug) ?? int(0, Math.max(0, all.length - 1));
+  reviewCursor.set(b.categorySlug, start + 1);
+  const picked = fresh.length ? fresh[start % fresh.length] : { rating: Math.max(minRating, 5), text: null, tags: ["Wieder buchen"] };
+  const r = forced ? { rating: forced.rating, text: forced.text, tags: [] as string[] } : picked;
+  if (r.text) usedReviewTexts.add(r.text);
   const createdAt = new Date(b.completedAt.getTime() + int(2, 60) * HOUR);
-  const reply = !forced && chance(0.3) ? pick(PROVIDER_REPLIES) : null;
+  const reply = !forced && chance(0.3) && replyCursor.next < PROVIDER_REPLIES.length ? PROVIDER_REPLIES[replyCursor.next++] : null;
   await ctx.tx`
     insert into public.reviews (booking_id, customer_id, provider_id, rating, comment, tags, provider_reply, provider_replied_at, created_at, updated_at)
     select id, customer_id, provider_id, ${r.rating}, ${r.text}, ${r.tags}::text[], ${reply}, ${reply ? new Date(createdAt.getTime() + 6 * HOUR) : null}, ${createdAt}, ${createdAt}
@@ -421,7 +429,7 @@ async function main(): Promise<void> {
       }
 
       // --- upcoming bookings --------------------------------------------------
-      const upcoming = async (providerKey: string, customerKey: string, daysAhead: number, status: "confirmed" | "requested", respondInHours?: number) => {
+      const upcoming = async (providerKey: string, customerKey: string, daysAhead: number, status: "confirmed" | "requested") => {
         const prov = ctx.providers.get(providerKey);
         if (!prov) return;
         for (let d = daysAhead; d < daysAhead + 10; d += 1) {
@@ -437,9 +445,11 @@ async function main(): Promise<void> {
             if (overlaps(list, s - prov.p.bufferMinutes * 60_000, e)) continue;
             list.push([s, e]);
             ctx.busy.set(providerKey, list);
+            // Open requests were made recently; respond_by follows the engine (business hours 08–21, ≤ start − 2 h).
+            const createdAt = status === "requested" ? new Date(now.getTime() - int(10, 90) * 60_000) : new Date(now.getTime() - int(1, 30) * HOUR);
             await insertBooking(ctx, {
-              providerKey, customerKey, offeringIndex, startsAt, status, createdAt: new Date(now.getTime() - int(1, 30) * HOUR),
-              respondBy: status === "requested" ? new Date(Math.min(now.getTime() + (respondInHours ?? 8) * HOUR, s - HOUR)) : null,
+              providerKey, customerKey, offeringIndex, startsAt, status, createdAt,
+              respondBy: status === "requested" ? computeRespondBy(createdAt, startsAt, Number(PLATFORM_SETTINGS.request_response_hours)) : null,
             });
             return;
           }
@@ -449,8 +459,8 @@ async function main(): Promise<void> {
       await upcoming("selin", "anna", 1, "confirmed");
       await upcoming("selin", "david", 2, "confirmed");
       await upcoming("selin", "clara", 4, "confirmed");
-      await upcoming("selin", "julia", 3, "requested", 11);
-      await upcoming("selin", "fatma", 5, "requested", 10);
+      await upcoming("selin", "julia", 3, "requested");
+      await upcoming("selin", "fatma", 5, "requested");
       // kundin@soma.test: confirmed manicure in two days
       await upcoming("linh", "julia", 2, "confirmed");
       // general load across the cities
@@ -464,7 +474,7 @@ async function main(): Promise<void> {
         }).map((c) => c.key);
         if (cityCustomers.length === 0) continue;
         for (let i = 0; i < n; i += 1) {
-          await upcoming(p.key, pick(cityCustomers), int(1, 12), p.bookingMode === "request" && chance(0.4) ? "requested" : "confirmed", int(3, 11));
+          await upcoming(p.key, pick(cityCustomers), int(1, 12), p.bookingMode === "request" && chance(0.4) ? "requested" : "confirmed");
         }
       }
 

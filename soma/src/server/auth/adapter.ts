@@ -49,8 +49,12 @@ export interface AuthAdapter {
   signOut(): Promise<void>;
   /** user id of the current request, or null */
   getUserId(): Promise<string | null>;
-  /** always resolves (no account enumeration) */
-  requestPasswordReset(email: string): Promise<void>;
+  /**
+   * Always resolves (no account enumeration). Throttled to 3 e-mails per address and 20 per
+   * trusted IP per hour (auth/email-throttle.ts); `ip` defaults to the current request's
+   * trusted client IP, `kind` to "password_reset" (the checkout claim e-mail may pass "account_claim").
+   */
+  requestPasswordReset(email: string, opts?: { ip?: string | null; kind?: "password_reset" | "account_claim" }): Promise<void>;
   resetPassword(token: string, newPassword: string): Promise<void>;
   changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void>;
   /** re-confirmation for sensitive actions (account deletion); never records a login */

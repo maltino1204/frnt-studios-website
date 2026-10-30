@@ -31,7 +31,7 @@ export function AccountHeader({ unread }: { unread: number }) {
   return (
     <header className="sticky top-0 z-(--z-header) border-b border-line bg-surface">
       <div className="mx-auto flex h-(--header-height) w-full max-w-content items-center justify-between gap-6 px-(--space-gutter)">
-        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="text-ink">
+        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="-mx-2 inline-flex min-h-touch items-center px-2 text-ink">
           <Wordmark />
         </Link>
         <nav aria-label="Konto" className="hidden h-full items-stretch gap-8 lg:flex">

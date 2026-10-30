@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, Textarea } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "./keep-values";
 import { Sheet } from "@/components/ui/sheet";
 import { openDisputeAction } from "@/server/actions/booking";
 import { initialActionState } from "@/server/actions/types";
@@ -20,7 +21,7 @@ const REASONS: Array<[string, string]> = [
 /** "Problem melden" (dispute) within the dispute window. Holds the provider payout. */
 export function ReportProblem({ bookingId }: { bookingId: string }) {
   const [open, setOpen] = useState(false);
-  const [state, action] = useActionState(openDisputeAction, initialActionState);
+  const [state, action, pending] = useActionState(openDisputeAction, initialActionState);
   return (
     <>
       <Button variant="ghost" onClick={() => setOpen(true)} className="-ml-5 sm:ml-0">
@@ -36,7 +37,7 @@ export function ReportProblem({ bookingId }: { bookingId: string }) {
               </Button>
             </div>
           ) : (
-            <form action={action} className="flex flex-col gap-5" noValidate>
+            <form action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5" noValidate>
               <input type="hidden" name="bookingId" value={bookingId} />
               <p className="type-body-s text-ink-muted">
                 Wir melden uns innerhalb von 72 Stunden. Bis zur Klärung zahlen wir den Betrag nicht an die Fachkraft aus.
@@ -59,7 +60,7 @@ export function ReportProblem({ bookingId }: { bookingId: string }) {
                 error={state && !state.ok ? (state.fieldErrors?.description ?? null) : null}
               />
               {state && !state.ok && !state.fieldErrors ? <FormMessage state={state} /> : null}
-              <SubmitButton size="l" block>
+              <SubmitButton size="l" block loading={pending}>
                 Problem senden
               </SubmitButton>
             </form>

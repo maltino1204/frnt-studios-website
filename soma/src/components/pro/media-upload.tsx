@@ -14,6 +14,7 @@ import { uploadAvatarAction } from "@/server/actions/account";
 import { deletePortfolioItemAction, uploadPortfolioImageAction } from "@/server/actions/pro";
 import type { PortfolioItemDTO } from "@/server/dto";
 import { proError } from "./labels";
+import { keepValuesOnSubmit } from "@/components/site/keep-values";
 
 const IMAGE_TYPES = "image/jpeg,image/png,image/webp";
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
@@ -159,7 +160,8 @@ export function PortfolioManager({
         </EmptyState>
       )}
 
-      <form ref={formRef} action={action} className="flex flex-col gap-4 border border-line bg-surface-raised p-5" noValidate>
+      {/* Submitted without React's form reset: file, caption and category survive a rejected upload (N5). */}
+      <form ref={formRef} action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-4 border border-line bg-surface-raised p-5" noValidate>
         <h3 className="type-heading-s">Bild hinzufügen</h3>
         <label className="flex cursor-pointer flex-col items-start gap-2">
           <input
@@ -189,7 +191,14 @@ export function PortfolioManager({
           <span className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB · {items.length} von 24 Bildern</span>
         </label>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Input name="caption" label="Bildunterschrift" optional maxLength={200} placeholder="z. B. Shellac in Nude, Kreuzberg" />
+          <Input
+            name="caption"
+            label="Bildunterschrift"
+            optional
+            maxLength={200}
+            placeholder="z. B. Shellac in Nude, Kreuzberg"
+            error={state && !state.ok && state.fieldErrors?.caption ? proError(state.fieldErrors.caption) : undefined}
+          />
           {categories.length > 1 ? (
             <Select name="categoryId" label="Kategorie" optional defaultValue="">
               <option value="">Keine Angabe</option>
@@ -204,7 +213,11 @@ export function PortfolioManager({
           ) : null}
         </div>
         <div aria-live="polite">
-          {localError ? <Notice kind="danger">{localError}</Notice> : state && !state.ok ? <Notice kind="danger">{state.fieldErrors?.file ?? proError(state.error)}</Notice> : null}
+          {localError ? (
+            <Notice kind="danger">{localError}</Notice>
+          ) : state && !state.ok && !state.fieldErrors?.caption ? (
+            <Notice kind="danger">{state.fieldErrors?.file ?? proError(state.error)}</Notice>
+          ) : null}
         </div>
         <Button
           type="submit"

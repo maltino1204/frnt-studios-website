@@ -4,7 +4,10 @@ import { createServerClient, type CookieOptions as SupabaseCookieOptions } from 
 import { getConfig, resolveAppUrl } from "../config";
 import { ServiceError } from "../errors";
 import { assertPasswordPolicy } from "./local";
+import { withService } from "../db/client";
 import { normalizeEmail, type AuthAdapter, type CookieJar, type CookieOptions } from "./adapter";
+import { allowAuthEmail } from "./email-throttle";
+import { currentRequestIp } from "./request-ip";
 
 /**
  * Supabase Auth adapter (production). Implemented against @supabase/ssr.
@@ -87,8 +90,13 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       const { data } = await client().auth.getUser();
       return data.user?.id ?? null;
     },
-    async requestPasswordReset(email) {
-      await client().auth.resetPasswordForEmail(normalizeEmail(email), { redirectTo: `${await resolveAppUrl()}/passwort-vergessen` });
+    async requestPasswordReset(email, opts) {
+      const normalized = normalizeEmail(email);
+      const ip = opts?.ip !== undefined ? opts.ip : await currentRequestIp();
+      // withService: the throttle table lives in app_private (migration 0007).
+      const allowed = await withService((tx) => allowAuthEmail(tx, { email: normalized, ip, kind: opts?.kind ?? "password_reset" }));
+      if (!allowed) return;
+      await client().auth.resetPasswordForEmail(normalized, { redirectTo: `${await resolveAppUrl()}/passwort-vergessen` });
     },
     async resetPassword(code, newPassword) {
       assertPasswordPolicy(newPassword);

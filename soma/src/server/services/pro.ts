@@ -5,7 +5,7 @@ import { resolveAppUrl } from "../config";
 import { setActor, withService, withUser, type Queryable, type Tx } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import { CONTACT_LINT_MESSAGES, findHealthClaims } from "../domain/content-lint";
-import { addDays, formatTimeOfDay, isValidLocalDate, parseTimeOfDay } from "../domain/tz";
+import { addDays, formatTimeOfDay, isValidLocalDate, parseTimeOfDay, wallTimeToInstant } from "../domain/tz";
 import type {
   DocumentDTO,
   DocumentKind,
@@ -293,33 +293,52 @@ export async function deleteTimeOff(session: Session, timeOffId: string): Promis
 // ---------------------------------------------------------------------------
 const DOCUMENT_KINDS = ["id_document", "business_registration", "qualification", "insurance", "other"] as const;
 
-function toDocument(r: { id: string; kind: DocumentKind; fileName: string; mimeType: string; status: DocumentDTO["status"]; reviewNote: string | null; createdAt: Date; reviewedAt: Date | null; storagePath: string }): DocumentDTO {
+export interface DocumentRow {
+  id: string; kind: DocumentKind; fileName: string; mimeType: string; status: DocumentDTO["status"]; reviewNote: string | null;
+  createdAt: Date; reviewedAt: Date | null; storagePath: string; expiresAt: Date | null;
+}
+export const DOCUMENT_COLUMNS = "id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path, expires_at";
+
+export function toDocument(r: DocumentRow, now = new Date()): DocumentDTO {
   return {
     id: r.id, kind: r.kind, fileName: r.fileName, mimeType: r.mimeType, status: r.status, reviewNote: r.reviewNote,
     createdAt: r.createdAt.toISOString(), reviewedAt: r.reviewedAt?.toISOString() ?? null, url: `/api/media/${r.storagePath}`,
+    expiresAt: r.expiresAt?.toISOString() ?? null, expired: Boolean(r.expiresAt && r.expiresAt.getTime() <= now.getTime()),
   };
+}
+
+/** "Gültig bis" date (local, inclusive) → instant at the following local midnight (Europe/Berlin). */
+export function validUntilToExpiry(localDate: string | null | undefined): Date | null {
+  if (!localDate) return null;
+  if (!isValidLocalDate(localDate)) throw new ServiceError("validation", "Bitte ein gültiges Datum angeben.", { expiresAt: "Ungültiges Datum." });
+  return wallTimeToInstant(addDays(localDate, 1), 0).instant;
 }
 
 export async function listDocuments(session: Session): Promise<DocumentDTO[]> {
   const s = requirePro(session);
   return withUser(s.userId, async (tx) =>
-    (await tx<Parameters<typeof toDocument>[0][]>`
-      select id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path
-      from public.provider_documents where provider_id = ${s.userId} order by created_at desc`).map(toDocument),
+    (await tx<DocumentRow[]>`
+      select ${tx.unsafe(DOCUMENT_COLUMNS)}
+      from public.provider_documents where provider_id = ${s.userId} order by created_at desc`).map((r) => toDocument(r)),
   );
 }
 
-export async function uploadDocument(session: Session, kind: DocumentKind, file: UploadInput, categoryId?: string | null): Promise<DocumentDTO> {
+/** `validUntil` (optional, "YYYY-MM-DD", inclusive): e.g. the end of the insurance period. */
+export async function uploadDocument(session: Session, kind: DocumentKind, file: UploadInput, categoryId?: string | null, validUntil?: string | null): Promise<DocumentDTO> {
   const s = requirePro(session);
   const k = parse(z.enum(DOCUMENT_KINDS), kind);
   const cat = categoryId ? parse(zUuid, categoryId) : null;
+  const expiresAt = validUntilToExpiry(validUntil);
+  if (expiresAt && expiresAt.getTime() <= Date.now()) {
+    throw new ServiceError("validation", "Dieses Dokument ist bereits abgelaufen. Bitte lade ein aktuelles hoch.", { expiresAt: "Das Datum liegt in der Vergangenheit." });
+  }
   const stored = await storeUpload("documents", s.userId, file);
   try {
     return await withUser(s.userId, async (tx) => {
-      const [row] = await tx<Parameters<typeof toDocument>[0][]>`
-        insert into public.provider_documents (provider_id, kind, category_id, storage_path, file_name, mime_type, size_bytes)
-        values (${s.userId}, ${k}, ${cat}, ${stored.key}, ${file.fileName.slice(0, 200) || "dokument"}, ${stored.mime}, ${stored.size})
-        returning id, kind, file_name, mime_type, status, review_note, created_at, reviewed_at, storage_path`;
+      const [row] = await tx<DocumentRow[]>`
+        insert into public.provider_documents (provider_id, kind, category_id, storage_path, file_name, mime_type, size_bytes, expires_at)
+        values (${s.userId}, ${k}, ${cat}, ${stored.key}, ${file.fileName.slice(0, 200) || "dokument"}, ${stored.mime}, ${stored.size}, ${expiresAt})
+        returning ${tx.unsafe(DOCUMENT_COLUMNS)}`;
       return toDocument(row);
     });
   } catch (e) {
@@ -386,9 +405,11 @@ export async function deletePortfolioItem(session: Session, itemId: string): Pro
  * `requireApproved` → only approved documents count (admin approval check).
  */
 export async function queryMissingDocuments(tx: Queryable, providerId: string, settings: PlatformSettings, requireApproved = false): Promise<MissingDocumentDTO[]> {
-  const docs = await tx<{ kind: DocumentKind; categoryId: string | null; status: string }[]>`
-    select kind, category_id, status from public.provider_documents where provider_id = ${providerId}`;
-  const valid = docs.filter((d) => (requireApproved ? d.status === "approved" : d.status !== "rejected"));
+  const docs = await tx<{ kind: DocumentKind; categoryId: string | null; status: string; expired: boolean }[]>`
+    select kind, category_id, status, coalesce(expires_at <= now(), false) as expired
+    from public.provider_documents where provider_id = ${providerId}`;
+  // Expired documents (expires_at reached) never count (audit-2 N4).
+  const valid = docs.filter((d) => !d.expired && (requireApproved ? d.status === "approved" : d.status !== "rejected"));
   const cats = await tx<{ id: string; slug: string; name: string; requiredDocuments: RequiredDocumentDTO[] }[]>`
     select distinct c.id, c.slug, c.name, c.required_documents
     from public.provider_services ps join public.services s on s.id = ps.service_id join public.categories c on c.id = s.category_id

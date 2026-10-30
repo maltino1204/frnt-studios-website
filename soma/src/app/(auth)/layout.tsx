@@ -16,7 +16,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </a>
       <div className="flex flex-col">
         <header className="flex h-(--header-height) items-center px-(--space-gutter)">
-          <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="text-ink">
+          <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="-mx-2 inline-flex min-h-touch items-center px-2 text-ink">
             <Wordmark />
           </Link>
         </header>

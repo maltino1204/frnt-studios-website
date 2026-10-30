@@ -24,6 +24,32 @@ const TRIGGER_MESSAGES: Record<string, [ServiceError["code"], string]> = {
   SOMA_CREDIT_INSUFFICIENT: ["conflict", "Ihr Guthaben reicht dafür nicht aus."],
 };
 
+/**
+ * Foreign-key violations (audit-2 N5): unknown references get a field-specific German message
+ * (matched on the column in the constraint name / detail), deletes of referenced rows a neutral one.
+ */
+const FK_MESSAGES: Array<{ column: RegExp; field?: string; message: string }> = [
+  { column: /postal_code/, field: "postalCode", message: "Diese Postleitzahl kennen wir nicht." },
+  { column: /category_id/, field: "categoryId", message: "Diese Kategorie gibt es nicht mehr." },
+  { column: /service_id/, field: "serviceId", message: "Diese Leistung gibt es nicht mehr." },
+  { column: /provider_service_id/, field: "providerServiceId", message: "Dieses Angebot gibt es nicht mehr." },
+  { column: /provider_id/, field: "providerId", message: "Dieser Profi wurde nicht gefunden." },
+  { column: /booking_id|rebooked_from_id/, field: "bookingId", message: "Diese Buchung wurde nicht gefunden." },
+  { column: /city_slug/, field: "citySlug", message: "Diese Stadt kennen wir nicht." },
+  { column: /customer_id|user_id|referred_by|created_by|reviewed_by|actor_id|opened_by|referrer_id|referred_id/, message: "Dieses Konto wurde nicht gefunden." },
+];
+
+export function foreignKeyError(e: postgres.PostgresError): ServiceError {
+  const detail = e.detail ?? "";
+  if (/still referenced/i.test(detail)) {
+    return new ServiceError("conflict", "Dieser Eintrag wird noch verwendet und kann nicht gelöscht werden.");
+  }
+  const column = /Key \(([^)]+)\)/.exec(detail)?.[1] ?? e.column_name ?? e.constraint_name ?? "";
+  const hit = FK_MESSAGES.find((m) => m.column.test(column));
+  if (hit) return new ServiceError("validation", hit.message, hit.field ? { [hit.field]: hit.message } : undefined);
+  return new ServiceError("validation", "Ein ausgewählter Eintrag existiert nicht mehr. Bitte laden Sie die Seite neu und versuchen Sie es erneut.");
+}
+
 export const SLOT_TAKEN_MESSAGE = "Dieser Termin wurde gerade vergeben. Bitte wählen Sie eine andere Uhrzeit.";
 
 export function isPostgresError(e: unknown): e is postgres.PostgresError {
@@ -51,7 +77,7 @@ export function mapDbError(e: unknown): ServiceError | null {
     case "23505":
       return new ServiceError("conflict", "Dieser Eintrag existiert bereits.");
     case "23503":
-      return new ServiceError("validation", "Ein verknüpfter Eintrag wurde nicht gefunden.");
+      return foreignKeyError(e);
     case "23514":
     case "22P02":
     case "22007":

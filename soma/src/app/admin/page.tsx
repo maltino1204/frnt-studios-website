@@ -213,6 +213,31 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
             <PanelCard
               title={
                 <>
+                  Dokumente &amp; Sperren {ops.documentAlertsTotal ? <CountPill accent>{ops.documentAlertsTotal}</CountPill> : null}
+                </>
+              }
+              action={<MutedLink href={`${routes.admin.providers()}?status=gesperrt`}>Gesperrte Profis</MutedLink>}
+            >
+              {ops.documentAlerts.length === 0 ? (
+                <QueueEmpty>Keine abgelaufenen oder abgelehnten Pflichtdokumente.</QueueEmpty>
+              ) : (
+                <ul className="divide-y divide-line">
+                  {ops.documentAlerts.map((a) => (
+                    <QueueRow
+                      key={`${a.providerId}-${a.at}`}
+                      href={routes.admin.provider(a.providerId)}
+                      title={a.displayName}
+                      meta={[a.note, a.status === "suspended" ? `seit ${formatRelative(a.at, now)}` : `am ${formatShortDateTime(a.at)}`]}
+                      aside={<Status tone={a.status === "suspended" ? "danger" : "warning"}>{a.status === "suspended" ? "Automatisch pausiert" : "Läuft bald ab"}</Status>}
+                    />
+                  ))}
+                </ul>
+              )}
+            </PanelCard>
+
+            <PanelCard
+              title={
+                <>
                   Fehlgeschlagene Zahlungen {ops.failedPaymentsTotal ? <CountPill accent>{ops.failedPaymentsTotal}</CountPill> : null}
                 </>
               }

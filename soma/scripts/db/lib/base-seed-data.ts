@@ -218,7 +218,7 @@ export const DEFAULT_CANCELLATION_POLICY = {
 export const PLATFORM_SETTINGS: Record<string, unknown> = {
   cancellation_policy: DEFAULT_CANCELLATION_POLICY,
   hold_minutes: 10,
-  request_response_hours: 12,
+  request_response_hours: 4,
   slot_step_minutes: 30,
   referral_reward_cents: 1500,
   referral_welcome_cents: 1500,

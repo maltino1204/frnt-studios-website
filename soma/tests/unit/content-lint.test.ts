@@ -37,3 +37,70 @@ describe("contact lint (R7)", () => {
     expect(hasContactDetails(null)).toBe(false);
   });
 });
+
+describe("contact lint hardening (audit-2 N3, inputs from §7)", () => {
+  it("still refuses the inputs audit 2 confirmed", () => {
+    for (const t of [
+      "0170 1234567",
+      "+49 170 1234567",
+      "0170/123 45 67",
+      "0 1 7 0 1 2 3 4 5 6 7",
+      "linh@example.com",
+      "@linh.nails",
+      "www.linh-nails.de",
+      "linh-nails.de",
+      "WhatsApp",
+      "Insta … linhnails",
+      "Signal: 0170 1234567",
+    ]) expect(hasContactDetails(t), t).toBe(true);
+  });
+
+  it("closes the bypasses: spelled e-mails, letter O, no leading 0, format characters, full-width digits, IG, Instagramm", () => {
+    const cases: Array<[string, string]> = [
+      ["null eins sieben null, eins zwei drei vier fünf sechs sieben", "phone"],
+      ["linh at gmail dot com", "email"],
+      ["linh (at) gmail (punkt) com", "email"],
+      ["linh [at] gmx [dot] de", "email"],
+      ["schreib an linh ät web punkt de", "email"],
+      ["O17O 1234567", "phone"],
+      ["o170 1234567", "phone"],
+      ["1701234567", "phone"],
+      ["170 1234567", "phone"],
+      ["Ruf an: 0170\u20601234567", "phone"],
+      ["0\u200b1\u200b7\u200b0 1234567", "phone"],
+      ["\uff10\uff11\uff17\uff10 \uff11\uff12\uff13\uff14\uff15\uff16\uff17", "phone"],
+      ["linh\uff20example.com", "email"],
+      ["IG: linh.nails", "messenger"],
+      ["mehr auf IG", "messenger"],
+      ["linh.nails auf Instagramm", "messenger"],
+      ["such mich auf insta", "messenger"],
+      ["Videos auf TikTok", "messenger"],
+      ["Schreib mir per Telegram", "messenger"],
+      ["Am besten per Signal", "messenger"],
+      ["Signal-Nummer gern auf Anfrage", "messenger"],
+    ];
+    for (const [raw, kind] of cases) {
+      const text = raw.replace(/\\u([0-9a-f]{4})/gi, (_, h: string) => String.fromCharCode(parseInt(h, 16)));
+      expect(kinds(text), raw).toContain(kind);
+    }
+  });
+
+  it("does not treat dates, clock times, prices or durations as phone numbers", () => {
+    for (const t of [
+      "Seit 01.03.2019 selbstständig in Berlin.",
+      "Bitte beachten: Ich bin seit 01.01.2020 hier.",
+      "Neu ab 1.3.19 und am 24.12.2026 geschlossen.",
+      "Termine 09:00–18:00, Preise ab 45,00 €",
+      "Termine 09.00 - 18.00 Uhr, Sa 10.00 - 14.00 Uhr",
+      "0,5 bis 1,5 Stunden",
+      "Paket für 1.234,56 € statt € 1.500",
+      "Einsatzgebiet 10405 10115 10119",
+      "Seit 2009, 2015 Meisterin, 2020 eigene Praxis",
+      "Ein gutes Signal für die Haut: weniger Rötungen.",
+      "Ich freue mich auf Ihren Besuch, bis bald.",
+      "Bio-Öle, 60 Minuten, ab 89 €",
+      "Lotto ist nicht mein Ding, Massage schon.",
+    ]) expect(findContactDetails(t), t).toEqual([]);
+  });
+});
+

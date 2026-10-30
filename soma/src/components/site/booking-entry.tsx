@@ -32,6 +32,7 @@ import { lookupPostalCodeAction, nearestPostalCodeAction } from "@/server/action
 import { initialActionState } from "@/server/actions/types";
 import type { PostalCodeDTO } from "@/server/dto";
 import { durationsLabel, fromPrice, type EntryCategory, type EntryService } from "./discovery-copy";
+import { keepValuesOnSubmit } from "./keep-values";
 
 /* ------------------------------------------------------------------------ */
 /* Types & helpers                                                          */
@@ -357,7 +358,7 @@ function WannPicker({ when, onChange }: { when: When; onChange: (w: When) => voi
 /* Waitlist (unserved PLZ)                                                  */
 /* ------------------------------------------------------------------------ */
 function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySlug: string | null }) {
-  const [state, action] = useActionState(joinWaitlistAction, initialActionState);
+  const [state, action, pending] = useActionState(joinWaitlistAction, initialActionState);
   if (state?.ok) {
     return (
       <p className="type-body-s text-ink">
@@ -366,7 +367,7 @@ function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySl
     );
   }
   return (
-    <form action={action} noValidate className="flex flex-col gap-3 sm:flex-row sm:items-end">
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-3 sm:flex-row sm:items-end">
       <input type="hidden" name="postalCode" value={postalCode} />
       {categorySlug ? <input type="hidden" name="categorySlug" value={categorySlug} /> : null}
       <Input
@@ -380,7 +381,7 @@ function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySl
         className="flex-1"
         error={state && !state.ok ? (state.fieldErrors?.email ?? state.error) : null}
       />
-      <SubmitButton variant="secondary" className="h-12 sm:shrink-0">
+      <SubmitButton variant="secondary" className="h-12 sm:shrink-0" loading={pending}>
         Benachrichtigen
       </SubmitButton>
     </form>

@@ -82,9 +82,12 @@ export async function rebookOptionsAction(bookingId: string): Promise<ActionResu
   return withSession("customer", async (s) => rebookOptions(s, input(zGuid, bookingId)));
 }
 
+const RATING_ERROR = "Bitte vergeben Sie 1 bis 5 Sterne.";
+
 const ReviewSchema = z.object({
   bookingId: zGuid,
-  rating: z.coerce.number().int().min(1, "Bitte vergeben Sie 1 bis 5 Sterne.").max(5, "Bitte vergeben Sie 1 bis 5 Sterne."),
+  // missing / non-numeric / out of range → one clear field error (audit-2 N5)
+  rating: z.coerce.number({ error: RATING_ERROR }).int({ error: RATING_ERROR }).min(1, RATING_ERROR).max(5, RATING_ERROR),
   comment: z.string().trim().max(2000).optional(),
   tags: z.union([z.string(), z.array(z.string())]).optional().transform((t) => (t === undefined ? [] : Array.isArray(t) ? t : [t])),
 });

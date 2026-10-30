@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/feedback";
 import { Switch } from "@/components/ui/field";
@@ -46,9 +46,19 @@ export function NotificationPrefs({ initial }: { initial: NotificationPreference
   );
 }
 
-/** In-app inbox with mark-as-read. */
-export function NotificationInbox({ items }: { items: NotificationDTO[] }) {
+/**
+ * In-app inbox with mark-as-read. Relative times ("vor 5 Minuten") start from the
+ * server's render time, so server HTML and hydration agree (N11), and move to the
+ * client clock only after mount (then once a minute).
+ */
+export function NotificationInbox({ items, renderedAt }: { items: NotificationDTO[]; renderedAt: number }) {
   const [list, setList] = useState(items);
+  const [now, setNow] = useState(renderedAt);
+  useEffect(() => {
+    setNow(Date.now());
+    const t = window.setInterval(() => setNow(Date.now()), 60_000);
+    return () => window.clearInterval(t);
+  }, []);
   const [pending, start] = useTransition();
   const router = useRouter();
   const unread = list.filter((n) => !n.readAt).length;
@@ -89,7 +99,7 @@ export function NotificationInbox({ items }: { items: NotificationDTO[] }) {
             <>
               <span className="flex items-start justify-between gap-3">
                 <span className={cn("type-body-s text-ink", !n.readAt && "font-semibold")}>{n.title}</span>
-                <span className="shrink-0 type-caption text-ink-muted">{formatRelative(n.createdAt)}</span>
+                <span className="shrink-0 type-caption text-ink-muted">{formatRelative(n.createdAt, new Date(now))}</span>
               </span>
               {n.body ? <span className="block type-body-s text-ink-muted">{n.body}</span> : null}
             </>

@@ -38,6 +38,15 @@ for (const key of [
 }
 if (env.STRIPE_SECRET_KEY?.startsWith("sk_test_")) warnings.push("STRIPE_SECRET_KEY is a test key");
 
+// Client IP for the login limits (audit-2 N2): without an explicitly trusted source the
+// per-IP limit is off (only per-e-mail limits and the global failure budget apply).
+const ipHeader = (env.TRUSTED_IP_HEADER ?? "").trim();
+const hops = Number(env.TRUSTED_PROXY_HOPS ?? 0);
+if (ipHeader && !/^[a-z0-9-]{1,64}$/i.test(ipHeader)) blockers.push(`TRUSTED_IP_HEADER "${ipHeader}" is not a valid header name`);
+if (!ipHeader && !(Number.isInteger(hops) && hops > 0)) {
+  blockers.push("Neither TRUSTED_IP_HEADER (e.g. x-vercel-forwarded-for, cf-connecting-ip) nor TRUSTED_PROXY_HOPS > 0 is set — the per-IP login limit would be off");
+}
+
 // Legal texts: the pages render a "Platzhalter – rechtliche Prüfung erforderlich" notice via
 // the `placeholder` prop and contain [bracketed] stand-ins until a lawyer supplies final texts.
 const legal = ["impressum", "datenschutz", "agb", "agb-profis", "widerruf", "stornierung"];

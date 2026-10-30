@@ -79,7 +79,7 @@ export function ProviderRow({
         <div className="flex min-w-0 flex-col gap-1">
           <div className="-mt-2.5 -mr-2.5 flex items-start justify-between gap-2">
             <H id={`pr-${r.providerId}`} className="flex min-w-0 items-center gap-1.5 pt-2.5 type-heading-m">
-              <Link href={profileHref} className="truncate hover:underline hover:underline-offset-4">
+              <Link href={profileHref} className="-my-1 truncate py-1 hover:underline hover:underline-offset-4">
                 {r.displayName}
               </Link>
               <VerifiedBadge className="shrink-0" />

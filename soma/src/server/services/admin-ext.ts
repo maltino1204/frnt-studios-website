@@ -26,6 +26,7 @@ import type {
 } from "../dto";
 import { assertAdmin, CREDIT_REASON_LABELS, loadSettings, mediaUrl, paging, parse, policyToDTO, zLocalDate, zUuid } from "./_shared";
 import { queryAnonymizeBlockers } from "./privacy";
+import { AUTO_SUSPEND_PREFIX, DOCUMENT_KIND_LABELS } from "./verification";
 
 /**
  * Admin read models that the admin console needs beyond services/admin.ts
@@ -224,11 +225,24 @@ export interface FailedPaymentDTO {
   createdAt: string;
 }
 
+export interface DocumentAlertDTO {
+  providerId: string;
+  displayName: string;
+  status: "suspended" | "approved";
+  /** suspended: the automatic suspension note; approved: which document expires soon */
+  note: string;
+  /** suspended: when; approved: the expiry */
+  at: string;
+}
+
 export interface OpsQueuesDTO {
   expiringRequests: ExpiringRequestDTO[];
   openRequests: number;
   failedPayments: FailedPaymentDTO[];
   failedPaymentsTotal: number;
+  /** audit-2 N4: providers paused automatically for documents, plus approved documents expiring within 14 days */
+  documentAlerts: DocumentAlertDTO[];
+  documentAlertsTotal: number;
 }
 
 export async function getOpsQueues(session: Session, opts: { limit?: number } = {}): Promise<OpsQueuesDTO> {
@@ -246,7 +260,28 @@ export async function getOpsQueues(session: Session, opts: { limit?: number } = 
       from public.payments p join public.bookings b on b.id = p.booking_id join public.profiles cp on cp.id = b.customer_id
       where p.status = 'failed' order by p.created_at desc limit ${limit}`;
     const [{ failedTotal }] = await tx<{ failedTotal: number }[]>`select count(*)::int as failed_total from public.payments where status = 'failed'`;
+    const alerts = await tx<Array<{ providerId: string; displayName: string; status: "suspended" | "approved"; note: string; at: Date }>>`
+      select * from (
+        select p.id as provider_id, p.display_name, 'suspended'::text as status, e.note, e.created_at as at
+        from public.providers p
+        join lateral (
+          select note, created_at from public.provider_status_events where provider_id = p.id order by created_at desc limit 1
+        ) e on true
+        where p.status = 'suspended' and e.note like ${`${AUTO_SUSPEND_PREFIX}%`}
+        union all
+        select p.id, p.display_name, 'approved', d.kind::text, d.expires_at
+        from public.provider_documents d join public.providers p on p.id = d.provider_id
+        where p.status = 'approved' and d.status = 'approved' and d.expires_at is not null
+          and d.expires_at > now() and d.expires_at <= now() + interval '14 days'
+      ) x
+      order by (status = 'suspended') desc, at`;
     return {
+      documentAlerts: alerts.slice(0, limit).map((a) => ({
+        ...a,
+        note: a.status === "approved" ? `${DOCUMENT_KIND_LABELS[a.note as keyof typeof DOCUMENT_KIND_LABELS] ?? a.note} läuft ab` : a.note,
+        at: a.at.toISOString(),
+      })),
+      documentAlertsTotal: alerts.length,
       expiringRequests: requests.map((r) => ({ ...r, startsAt: r.startsAt.toISOString(), respondBy: iso(r.respondBy) })),
       openRequests: open,
       failedPayments: failed.map((f) => ({ ...f, createdAt: f.createdAt.toISOString() })),

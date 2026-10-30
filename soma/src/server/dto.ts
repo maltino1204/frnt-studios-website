@@ -328,7 +328,10 @@ export interface QuoteDTO {
   creditsAvailableCents: number;
   cancellation: { policy: CancellationPolicyDTO; schedule: PolicyScheduleEntryDTO[]; freeUntil: string | null };
   holdMinutes: number;
+  /** business hours (08:00–21:00 Europe/Berlin) the provider has to answer a request */
   requestResponseHours: number;
+  /** request mode only: ISO deadline the provider would get if the request were sent now (≤ start − 2 h); null for instant */
+  respondByPreview: string | null;
   paymentProvider: PaymentProviderId;
   /** provider's current VAT mode */
   vatMode: VatMode;
@@ -701,6 +704,10 @@ export interface DocumentDTO {
   reviewedAt: string | null;
   /** authorised download URL (/api/media/documents/…) */
   url: string;
+  /** validity end (ISO) or null; insurance mainly (audit-2 N4) */
+  expiresAt: string | null;
+  /** expiresAt reached: the document no longer counts */
+  expired: boolean;
 }
 
 export interface ProSettingsDTO {

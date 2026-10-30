@@ -7,15 +7,16 @@ import { initialActionState } from "@/server/actions/types";
 import { Checkbox, Input } from "@/components/ui/field";
 import { Notice } from "@/components/ui/feedback";
 import { SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "./keep-values";
 import { routes } from "@/lib/routes";
 
 /** Customer registration (role = customer). Providers register under /pro/registrieren. */
 export function RegisterForm({ next, referralCode, inviteCode }: { next?: string | null; referralCode?: string | null; inviteCode?: string | null }) {
-  const [state, action] = useActionState(signUpAction, initialActionState);
+  const [state, action, pending] = useActionState(signUpAction, initialActionState);
   const [v, setV] = useState({ firstName: "", lastName: "", email: "", password: "", referral: referralCode ?? "", terms: false, marketing: false });
   const fe = state && !state.ok ? state.fieldErrors : undefined;
   return (
-    <form action={action} noValidate className="flex flex-col gap-5">
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-5">
       <input type="hidden" name="role" value="customer" />
       {next ? <input type="hidden" name="next" value={next} /> : null}
       {inviteCode ? <input type="hidden" name="inviteCode" value={inviteCode} /> : null}
@@ -74,7 +75,7 @@ export function RegisterForm({ next, referralCode, inviteCode }: { next?: string
         />
       </div>
       {state && !state.ok && !fe ? <Notice kind="danger">{state.error}</Notice> : null}
-      <SubmitButton size="l" block>
+      <SubmitButton size="l" block loading={pending}>
         Konto erstellen
       </SubmitButton>
       <p className="type-body-s text-ink-muted">

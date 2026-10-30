@@ -23,8 +23,9 @@ export const getSession = cache(async (): Promise<Session | null> => {
   return userId ? loadSession(userId) : null;
 });
 
-/** Client IP from the trusted hop only (TRUSTED_PROXY_HOPS, see client-ip.ts) and the user agent. */
+/** Client IP from an explicitly trusted source only (TRUSTED_IP_HEADER / TRUSTED_PROXY_HOPS, see client-ip.ts) and the user agent. */
 export async function getRequestMeta(): Promise<RequestMeta> {
   const h = await headers();
-  return { ip: clientIpFrom((name) => h.get(name), getConfig().TRUSTED_PROXY_HOPS), userAgent: h.get("user-agent") };
+  const cfg = getConfig();
+  return { ip: clientIpFrom((name) => h.get(name), { header: cfg.TRUSTED_IP_HEADER, hops: cfg.TRUSTED_PROXY_HOPS }), userAgent: h.get("user-agent") };
 }

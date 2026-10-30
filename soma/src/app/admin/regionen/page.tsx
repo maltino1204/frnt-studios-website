@@ -3,8 +3,7 @@ import { InlineBar } from "@/components/admin/bars";
 import { formatInt, formatPercent } from "@/components/admin/format";
 import { AdminPageHeader, AdminSection, EMPTY, MutedLink } from "@/components/admin/page";
 import { RangeSwitch } from "@/components/admin/range-switch";
-import { adminTable, adminTableWrapper, hrefWith, numCell } from "@/components/admin/table";
-import { Table } from "@/components/ui/data";
+import { AdminTable, hrefWith, numCell } from "@/components/admin/table";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
@@ -71,7 +70,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         </AdminSection>
 
         <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
-          <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+          <AdminTable label="Städte">
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -115,11 +114,11 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
                 );
               })}
             </tbody>
-          </Table>
+          </AdminTable>
         </AdminSection>
 
         <AdminSection id="matrix" title="Stadt × Kategorie" description="Je Zelle: Profis · Suchen. Rot: Nachfrage ohne Profi. Gelb: unter der Indexierungs-Schwelle.">
-          <Table dense className={cn(adminTable, "[&_td]:px-3 [&_th]:px-3")} wrapperClassName={adminTableWrapper}>
+          <AdminTable label="Stadt × Kategorie" className={cn("[&_td]:px-3 [&_th]:px-3")}>
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -152,7 +151,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </AdminTable>
         </AdminSection>
 
         <AdminSection
@@ -164,7 +163,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
           {regions.length === 0 ? (
             <EmptyState title="Noch keine Daten." className="py-4" />
           ) : (
-            <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+            <AdminTable label="PLZ-Regionen">
               <thead>
                 <tr>
                   <th scope="col">Region</th>
@@ -196,7 +195,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </AdminTable>
           )}
         </AdminSection>
       </div>

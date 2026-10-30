@@ -15,9 +15,15 @@ export default async function ProOnboardingLayout({ children }: LayoutProps<"/pr
   const session = await getSession();
   return (
     <div className="flex min-h-dvh flex-1 flex-col">
+      <a
+        href="#inhalt"
+        className="sr-only z-(--z-toast) rounded-xs bg-ink px-4 py-3 type-label text-ink-inverse focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+      >
+        Zum Inhalt springen
+      </a>
       <header className="border-b border-line bg-surface">
         <div className="mx-auto flex h-14 w-full max-w-content items-center justify-between gap-4 px-(--space-gutter) md:h-18">
-          <Link href={routes.forPros()} className="inline-flex items-center gap-3 text-ink" aria-label="SOMA für Profis">
+          <Link href={routes.forPros()} className="inline-flex min-h-touch items-center gap-3 text-ink" aria-label="SOMA für Profis">
             <Wordmark className="h-[18px]! w-auto lg:h-5!" />
             <span className="border-l border-line-strong pl-3 type-label-s text-ink-muted">Für Profis</span>
           </Link>
@@ -30,7 +36,7 @@ export default async function ProOnboardingLayout({ children }: LayoutProps<"/pr
           ) : null}
         </div>
       </header>
-      <main id="inhalt" className="flex flex-1 flex-col pb-16">
+      <main id="inhalt" tabIndex={-1} className="flex flex-1 flex-col pb-16 focus:outline-none">
         {children}
       </main>
     </div>

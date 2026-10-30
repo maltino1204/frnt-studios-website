@@ -138,6 +138,8 @@ create table if not exists app_private.login_attempts (
 );
 create index if not exists login_attempts_email_idx on app_private.login_attempts (email, created_at desc);
 create index if not exists login_attempts_ip_idx on app_private.login_attempts (ip, created_at desc);
+-- global failure budget (audit-2 N2): count of all failures in the window
+create index if not exists login_attempts_failures_idx on app_private.login_attempts (created_at desc) where not success;
 
 create table if not exists app_private.password_resets (
   token_hash  text primary key,

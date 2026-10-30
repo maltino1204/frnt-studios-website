@@ -2,7 +2,7 @@ import "server-only";
 
 import { z } from "zod";
 import { resolveAppUrl } from "../config";
-import { withService, withUser } from "../db/client";
+import { withService, withUser, type Queryable } from "../db/client";
 import { rethrowDb } from "../db/errors";
 import type {
   AddressDTO,
@@ -16,7 +16,8 @@ import type {
   Session,
 } from "../dto";
 import { ServiceError } from "../errors";
-import { CREDIT_REASON_LABELS, loadSettings, mediaUrl, parse, requireRoleIn, zPostalCode, zUuid } from "./_shared";
+import { CONTACT_LINT_MESSAGES } from "../domain/content-lint";
+import { assertNoContactDetails, CREDIT_REASON_LABELS, loadSettings, mediaUrl, parse, requireRoleIn, zPostalCode, zUuid } from "./_shared";
 import { deleteStoredFile, storeUpload, type UploadInput } from "./media";
 import { notify } from "./notifications";
 import { PROVIDER_CARD_COLUMNS, toProviderCard, type ProviderCardRow } from "./providers";
@@ -95,6 +96,14 @@ const AddressSchema = z.object({
 });
 export type AddressInput = z.input<typeof AddressSchema>;
 
+const UNKNOWN_PLZ = "Diese Postleitzahl kennen wir nicht.";
+
+/** The PLZ must exist in postal_codes (coordinates and service areas are derived from it). */
+async function assertKnownPostalCode(tx: Queryable, postalCode: string): Promise<void> {
+  const [pc] = await tx<{ postalCode: string }[]>`select postal_code from public.postal_codes where postal_code = ${postalCode}`;
+  if (!pc) throw new ServiceError("validation", UNKNOWN_PLZ, { postalCode: UNKNOWN_PLZ });
+}
+
 const toAddress = (r: AddressDTO): AddressDTO => ({ ...r });
 
 export async function listAddresses(session: Session): Promise<AddressDTO[]> {
@@ -110,6 +119,7 @@ export async function createAddress(session: Session, input: AddressInput): Prom
   const s = requireRoleIn(session, "customer");
   const v = parse(AddressSchema, input);
   return withUser(s.userId, async (tx) => {
+    await assertKnownPostalCode(tx, v.postalCode);
     const [{ n }] = await tx<{ n: number }[]>`select count(*)::int as n from public.addresses where user_id = ${s.userId}`;
     if (n >= 20) throw new ServiceError("validation", "Sie können höchstens 20 Adressen speichern.");
     const makeDefault = v.isDefault || n === 0;
@@ -127,6 +137,7 @@ export async function updateAddress(session: Session, addressId: string, input: 
   const id = parse(zUuid, addressId);
   const v = parse(AddressSchema, input);
   return withUser(s.userId, async (tx) => {
+    await assertKnownPostalCode(tx, v.postalCode);
     if (v.isDefault) await tx`update public.addresses set is_default = false where user_id = ${s.userId} and is_default and id <> ${id}`;
     const [row] = await tx<AddressDTO[]>`
       update public.addresses set label = ${v.label}, kind = ${v.kind}, street = ${v.street}, house_number = ${v.houseNumber},
@@ -275,6 +286,7 @@ const DisputeSchema = z.object({
 export async function openDispute(session: Session, bookingId: string, reason: DisputeReason, description: string): Promise<{ disputeId: string }> {
   const s = requireRoleIn(session, "customer", "provider");
   const v = parse(DisputeSchema, { bookingId, reason, description });
+  assertNoContactDetails({ description: v.description }, s.role === "provider" ? CONTACT_LINT_MESSAGES.providerDispute : CONTACT_LINT_MESSAGES.customerDispute);
   // withService: disputes have no API insert grant; participation and the time window are verified here first.
   return withService(async (tx) => {
     const settings = await loadSettings(tx);

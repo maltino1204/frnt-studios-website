@@ -79,14 +79,15 @@ export default async function AgbProfisPage() {
       </ContentSection>
       <ContentSection id="absagen" title={sections[5].title}>
         <p>
-          Anfragen beantwortest du innerhalb von {terms.requestResponseHours} Stunden. Bestätigte Termine sagst du nur aus wichtigem Grund ab; die Kundschaft erhält dann den vollen Betrag
+          Anfragen beantwortest du innerhalb von {terms.requestResponseHours} Stunden, gezählt zwischen 8 und 21 Uhr, spätestens aber 2 Stunden vor dem Termin. Bestätigte Termine sagst du nur aus wichtigem Grund ab; die Kundschaft erhält dann den vollen Betrag
           zurück. Den Termin startest du vor Ort mit dem vierstelligen Start-Code der Kundschaft – er belegt, dass die Behandlung stattgefunden hat.
         </p>
       </ContentSection>
       <ContentSection id="plattform" title={sections[6].title}>
         <p>
           Buchungen, Zahlungen und Kommunikation zu über {BRAND_NAME} vermittelter Kundschaft laufen über die Plattform. Nur so gelten Zahlungsgarantie, Stornoregeln und
-          Problemklärung. [Rechtlich zu prüfen: Zulässigkeit und Umfang einer Umgehungsklausel.]
+          Problemklärung. Nach der Bestätigung siehst du die Mobilnummer deiner Kundschaft ausschließlich, um die Anfahrt abzustimmen; für andere Zwecke darfst du sie nicht nutzen.
+          [Rechtlich zu prüfen: Zulässigkeit und Umfang einer Umgehungsklausel.]
         </p>
       </ContentSection>
       <ContentSection id="qualitaet" title={sections[7].title}>

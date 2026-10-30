@@ -5,14 +5,15 @@ import { requestPasswordResetAction, resetPasswordAction } from "@/server/action
 import { initialActionState } from "@/server/actions/types";
 import { Input } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "./keep-values";
 
 /** Step 1: request a reset link (same answer for every address – no account enumeration). */
 export function ResetRequestForm() {
-  const [state, action] = useActionState(requestPasswordResetAction, initialActionState);
+  const [state, action, pending] = useActionState(requestPasswordResetAction, initialActionState);
   const [email, setEmail] = useState("");
   if (state?.ok) return <FormMessage state={state} />;
   return (
-    <form action={action} noValidate className="flex flex-col gap-5">
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-5">
       <Input
         label="E-Mail"
         name="email"
@@ -25,7 +26,7 @@ export function ResetRequestForm() {
         required
       />
       {state && !state.ok && !state.fieldErrors ? <FormMessage state={state} /> : null}
-      <SubmitButton size="l" block>
+      <SubmitButton size="l" block loading={pending}>
         Link anfordern
       </SubmitButton>
     </form>
@@ -34,11 +35,11 @@ export function ResetRequestForm() {
 
 /** Step 2: set a new password with the token from the e-mail. */
 export function ResetPasswordForm({ token }: { token: string }) {
-  const [state, action] = useActionState(resetPasswordAction, initialActionState);
+  const [state, action, pending] = useActionState(resetPasswordAction, initialActionState);
   const [v, setV] = useState({ password: "", passwordConfirm: "" });
   const fe = state && !state.ok ? state.fieldErrors : undefined;
   return (
-    <form action={action} noValidate className="flex flex-col gap-5">
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-5">
       <input type="hidden" name="token" value={token} />
       <Input
         label="Neues Passwort"
@@ -62,7 +63,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
         required
       />
       {state && !state.ok && !fe ? <FormMessage state={state} /> : state && !state.ok && fe?.token ? <FormMessage state={{ ok: false, error: fe.token }} /> : null}
-      <SubmitButton size="l" block>
+      <SubmitButton size="l" block loading={pending}>
         Passwort speichern
       </SubmitButton>
     </form>

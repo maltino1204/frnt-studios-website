@@ -67,7 +67,7 @@ export async function SiteFooter() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-5 lg:col-span-4">
-            <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-m-2 self-start p-2">
+            <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start px-2">
               <Wordmark className="h-6 lg:h-6" />
             </Link>
             <p className="type-display-s italic text-ink">{BRAND_TAGLINE}</p>

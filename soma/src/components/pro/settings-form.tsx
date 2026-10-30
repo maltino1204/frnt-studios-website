@@ -1,11 +1,12 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
 import { Input, RadioRow, Select, Switch } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "@/components/site/keep-values";
 import { useToast } from "@/components/ui/toast";
 import { changePasswordAction } from "@/server/actions/auth";
 import { updateProSettingsAction } from "@/server/actions/pro";
@@ -156,10 +157,15 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
 
 /** Password change (changePasswordAction, form action). */
 export function PasswordForm() {
-  const [state, action] = useActionState(changePasswordAction, null);
+  const [state, action, pending] = useActionState(changePasswordAction, null);
   const fe = state && !state.ok ? state.fieldErrors ?? {} : {};
+  // Cleared only after a successful change; errors keep what was typed (N5).
+  const [resets, setResets] = useState(0);
+  useEffect(() => {
+    if (state?.ok) setResets((n) => n + 1);
+  }, [state]);
   return (
-    <form action={action} className="flex flex-col gap-5" noValidate>
+    <form key={resets} action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5" noValidate>
       <Input name="currentPassword" type="password" label="Aktuelles Passwort" autoComplete="current-password" error={fe.currentPassword} />
       <div className="grid gap-5 sm:grid-cols-2">
         <Input name="newPassword" type="password" label="Neues Passwort" autoComplete="new-password" hint="Mindestens 10 Zeichen" error={fe.newPassword} />
@@ -168,7 +174,7 @@ export function PasswordForm() {
       <div aria-live="polite">
         {state?.ok ? <Notice kind="success">Dein Passwort wurde geändert.</Notice> : <FormMessage state={state} />}
       </div>
-      <SubmitButton variant="secondary" className="self-start">
+      <SubmitButton variant="secondary" className="self-start" loading={pending}>
         Passwort ändern
       </SubmitButton>
     </form>

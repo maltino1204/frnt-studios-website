@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ExternalLink, FileText } from "lucide-react";
-import { formatDuration, formatPrice, formatRating } from "@/lib/format";
+import { formatDate, formatDuration, formatPrice, formatRating } from "@/lib/format";
 import { formatDateTime, formatPercent } from "@/components/admin/format";
 import { DOCUMENT_KIND, DOCUMENT_STATUS, PROVIDER_STATUS } from "@/components/admin/labels";
 import { AdminPageHeader, AdminSection, EMPTY, MutedLink, PanelCard } from "@/components/admin/page";
 import { CommissionOverrideForm, DocumentReview, ProviderDecisions } from "@/components/admin/provider-actions";
-import { adminTable, numCell } from "@/components/admin/table";
+import { AdminTable, numCell } from "@/components/admin/table";
 import { ButtonLink } from "@/components/ui/button";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { FactList } from "@/components/ui/layout";
@@ -89,7 +88,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
             {p.documents.length === 0 ? (
               <EmptyState title="Noch keine Dokumente." className="py-4">Der Profi hat bisher nichts hochgeladen.</EmptyState>
             ) : (
-              <Table dense className={adminTable}>
+              <AdminTable label="Dokumente">
                 <thead>
                   <tr>
                     <th scope="col">Dokument</th>
@@ -118,15 +117,20 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                         <span className="flex flex-col">
                           <Status tone={DOCUMENT_STATUS[d.status].tone}>{DOCUMENT_STATUS[d.status].label}</Status>
                           {d.reviewNote ? <span className="max-w-48 truncate type-caption text-ink-muted" title={d.reviewNote}>{d.reviewNote}</span> : null}
+                          {d.expiresAt ? (
+                            <span className={`type-caption num ${d.expired ? "text-danger" : "text-ink-muted"}`}>
+                              {d.expired ? "abgelaufen" : `gültig bis ${formatDate(new Date(new Date(d.expiresAt).getTime() - 1000))}`}
+                            </span>
+                          ) : null}
                         </span>
                       </td>
                       <td className="text-right">
-                        <DocumentReview documentId={d.id} status={d.status} label={DOCUMENT_KIND[d.kind]} />
+                        <DocumentReview documentId={d.id} status={d.status} label={DOCUMENT_KIND[d.kind]} expires={d.kind === "insurance"} />
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+              </AdminTable>
             )}
           </AdminSection>
 
@@ -157,7 +161,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
             {p.services.length === 0 ? (
               <EmptyState title="Keine Leistungen angelegt." className="py-4" />
             ) : (
-              <Table dense className={adminTable}>
+              <AdminTable label="Leistungen">
                 <thead>
                   <tr>
                     <th scope="col">Leistung</th>
@@ -180,7 +184,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+              </AdminTable>
             )}
           </AdminSection>
 

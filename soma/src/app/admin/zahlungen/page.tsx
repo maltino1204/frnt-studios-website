@@ -4,10 +4,10 @@ import { formatDateTime, formatInt } from "@/components/admin/format";
 import { PAYMENT_STATUS, PAYOUT_STATUS } from "@/components/admin/labels";
 import { AdminPageHeader, AdminSection, EMPTY } from "@/components/admin/page";
 import { CreatePayoutBatchButton, MarkPayoutPaidButton } from "@/components/admin/payout-actions";
-import { adminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
+import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
 import { ChipFilter } from "@/components/admin/toolbar";
 import { ChipLink } from "@/components/ui/chip";
-import { StatGrid, StatTile, Table } from "@/components/ui/data";
+import { StatGrid, StatTile } from "@/components/ui/data";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { TabLinks } from "@/components/ui/tabs";
 import { routes } from "@/lib/routes";
@@ -93,7 +93,7 @@ async function PaymentsView({ session, page, status, provider }: { session: S; p
         <EmptyState title="Keine Zahlungen.">{status || provider ? "Für diese Filter gibt es keine Zahlungen." : "Zahlungen entstehen mit jeder Buchung."}</EmptyState>
       ) : (
         <div>
-          <Table dense className={adminTable}>
+          <AdminTable label="Zahlungen">
             <thead>
               <tr>
                 <th scope="col">Buchung</th>
@@ -128,7 +128,7 @@ async function PaymentsView({ session, page, status, provider }: { session: S; p
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </AdminTable>
           <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.payments(), current, { seite: n })} />
         </div>
       )}
@@ -143,7 +143,7 @@ async function RefundsView({ session, page }: { session: S; page: number }) {
   }
   return (
     <div>
-      <Table dense className={adminTable}>
+      <AdminTable label="Erstattungen">
         <thead>
           <tr>
             <th scope="col">Buchung</th>
@@ -176,7 +176,7 @@ async function RefundsView({ session, page }: { session: S; page: number }) {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </AdminTable>
       <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.payments(), { ansicht: "erstattungen" }, { seite: n })} />
     </div>
   );
@@ -207,7 +207,7 @@ async function PayoutsView({ session }: { session: S }) {
             Derzeit gibt es keine offenen Profi-Anteile.
           </EmptyState>
         ) : (
-          <Table dense className={adminTable}>
+          <AdminTable label="Guthaben je Profi">
             <thead>
               <tr>
                 <th scope="col">Profi</th>
@@ -236,7 +236,7 @@ async function PayoutsView({ session }: { session: S }) {
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </AdminTable>
         )}
       </AdminSection>
 
@@ -244,7 +244,7 @@ async function PayoutsView({ session }: { session: S }) {
         {payouts.length === 0 ? (
           <EmptyState title="Noch keine Auszahlungen." className="py-4" />
         ) : (
-          <Table dense className={adminTable}>
+          <AdminTable label="Auszahlungen">
             <thead>
               <tr>
                 <th scope="col">Profi</th>
@@ -279,7 +279,7 @@ async function PayoutsView({ session }: { session: S }) {
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </AdminTable>
         )}
       </AdminSection>
     </div>

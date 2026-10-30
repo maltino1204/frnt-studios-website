@@ -3,9 +3,8 @@ import { formatDate, formatPrice, formatTime } from "@/lib/format";
 import { formatInt } from "@/components/admin/format";
 import { BOOKING_STATUS, BOOKING_STATUS_ORDER } from "@/components/admin/labels";
 import { AdminPageHeader } from "@/components/admin/page";
-import { adminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
+import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
 import { FilterForm } from "@/components/admin/toolbar";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { Input, Select } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
@@ -74,7 +73,7 @@ export default async function BookingsPage({ searchParams }: { searchParams: Pro
           <EmptyState title="Keine Buchungen gefunden.">{active ? "Für diese Filter gibt es keine Buchungen. Filter lockern oder zurücksetzen." : "Sobald Kundschaft bucht, erscheinen Buchungen hier."}</EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable}>
+            <AdminTable label="Buchungen">
               <thead>
                 <tr>
                   <th scope="col">Referenz</th>
@@ -114,7 +113,7 @@ export default async function BookingsPage({ searchParams }: { searchParams: Pro
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </AdminTable>
             <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.bookings(), current, { seite: n })} />
           </div>
         )}

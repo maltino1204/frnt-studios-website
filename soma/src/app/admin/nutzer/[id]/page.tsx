@@ -4,9 +4,8 @@ import { formatDate, formatPriceExact } from "@/lib/format";
 import { formatDateTime, formatInt, fullName } from "@/components/admin/format";
 import { BOOKING_STATUS, PROVIDER_STATUS, ROLE } from "@/components/admin/labels";
 import { AdminPageHeader, AdminSection, EMPTY, PanelCard } from "@/components/admin/page";
-import { adminTable, adminTableWrapper, CellLink, numCell } from "@/components/admin/table";
+import { AdminTable, CellLink, numCell } from "@/components/admin/table";
 import { CreditAdjustForm, UserAnonymizeButton, UserBlockButton, UserExportButton } from "@/components/admin/user-actions";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { FactList } from "@/components/ui/layout";
 import { routes } from "@/lib/routes";
@@ -57,7 +56,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
             {d.bookings.length === 0 ? (
               <EmptyState title="Noch keine Buchungen." className="py-4" />
             ) : (
-              <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+              <AdminTable label="Buchungen">
                 <thead>
                   <tr>
                     <th scope="col">Buchung</th>
@@ -86,7 +85,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+              </AdminTable>
             )}
           </AdminSection>
 
@@ -100,7 +99,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
               {d.credits.entries.length === 0 ? (
                 <EmptyState title="Noch keine Guthabenbewegungen." className="py-4" />
               ) : (
-                <Table dense className={adminTable} wrapperClassName={adminTableWrapper}>
+                <AdminTable label="Guthabenbewegungen">
                   <thead>
                     <tr>
                       <th scope="col">Datum</th>
@@ -128,7 +127,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
                       </tr>
                     ))}
                   </tbody>
-                </Table>
+                </AdminTable>
               )}
             </AdminSection>
           ) : null}

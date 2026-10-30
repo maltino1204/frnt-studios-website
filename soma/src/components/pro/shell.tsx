@@ -81,7 +81,7 @@ export function ProShell({
       <div className="hidden w-60 shrink-0 border-r border-line bg-surface-sunken lg:block">
       <aside className="sticky top-0 flex h-dvh flex-col" aria-label="Profi-Navigation">
         <div className="flex h-18 items-center gap-3 px-6">
-          <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex items-center gap-3 text-ink">
+          <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-3 text-ink">
             <Wordmark className="h-5! w-auto" />
             <span className="border-l border-line-strong pl-3 type-label-s text-ink-muted">Pro</span>
           </Link>
@@ -131,7 +131,7 @@ export function ProShell({
 
       {/* Mobile top bar */}
       <header className="sticky top-0 z-(--z-header) flex h-14 items-center justify-between border-b border-line bg-surface px-(--space-gutter) lg:hidden">
-        <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex items-center gap-3 text-ink">
+        <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-3 text-ink">
           <Wordmark className="h-[18px]! w-auto" />
           <span className="border-l border-line-strong pl-3 type-label-s text-ink-muted">Pro</span>
         </Link>

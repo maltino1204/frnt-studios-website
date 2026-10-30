@@ -3,9 +3,8 @@ import { formatDate } from "@/lib/format";
 import { formatInt } from "@/components/admin/format";
 import { PROVIDER_STATUS } from "@/components/admin/labels";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
-import { adminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
+import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
 import { FilterForm } from "@/components/admin/toolbar";
-import { Table } from "@/components/ui/data";
 import { EmptyState, Status } from "@/components/ui/feedback";
 import { Input } from "@/components/ui/field";
 import { TabLinks } from "@/components/ui/tabs";
@@ -72,7 +71,7 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
           </EmptyState>
         ) : (
           <div>
-            <Table dense className={adminTable}>
+            <AdminTable label="Profis">
               <thead>
                 <tr>
                   <th scope="col">Profi</th>
@@ -109,7 +108,7 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </AdminTable>
             <TablePager page={list.page} pageSize={list.pageSize} total={list.total} href={(n) => hrefWith(routes.admin.providers(), current, { seite: n })} />
           </div>
         )}

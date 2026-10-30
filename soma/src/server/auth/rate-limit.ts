@@ -8,13 +8,28 @@ import { UNKNOWN_IP } from "./client-ip";
  * DB-backed login rate limit (sliding 15-minute window):
  *   - per e-mail: exponential back-off from the 2nd failure (2 s, 4 s, 8 s …),
  *     hard lock after 5 failures;
- *   - per client IP (trusted hop only, see client-ip.ts): lock after 20 failures;
- *     skipped when the IP is "unknown" (no trusted hop configured).
+ *   - per client IP (trusted source only, see client-ip.ts): lock after 20 failures;
+ *     skipped when the IP is "unknown" (no trusted header / hops configured);
+ *   - global failure budget (audit-2 N2): more than 200 failures across all accounts
+ *     slow every login attempt down by 1–3 s (progressive). Error messages stay neutral.
  */
 export const LOGIN_WINDOW_MINUTES = 15;
 export const MAX_FAILURES_PER_EMAIL = 5;
 export const MAX_FAILURES_PER_IP = 20;
+export const GLOBAL_FAILURE_BUDGET = 200;
 const MAX_BACKOFF_SECONDS = 60;
+const MAX_GLOBAL_DELAY_MS = 3000;
+
+/** Delay for every login attempt while the global budget is exceeded: 1 s, +1 s per further 100 failures, max 3 s. */
+export function globalLoginDelayMs(globalFailures: number): number {
+  if (globalFailures <= GLOBAL_FAILURE_BUDGET) return 0;
+  return Math.min(MAX_GLOBAL_DELAY_MS, 1000 + Math.floor((globalFailures - GLOBAL_FAILURE_BUDGET - 1) / 100) * 1000);
+}
+
+export interface LoginGate {
+  /** wait this long before checking the password (global budget exceeded) */
+  delayMs: number;
+}
 
 /** Seconds to wait after `failures` consecutive failures: 0, 0, 2, 4, 8, 16 … (capped at 60). */
 export function loginBackoffSeconds(failures: number): number {
@@ -22,7 +37,7 @@ export function loginBackoffSeconds(failures: number): number {
   return Math.min(MAX_BACKOFF_SECONDS, 2 ** (failures - 1));
 }
 
-export async function assertLoginAllowed(tx: Tx, email: string, ipRaw: string | null, now: Date = new Date()): Promise<void> {
+export async function assertLoginAllowed(tx: Tx, email: string, ipRaw: string | null, now: Date = new Date()): Promise<LoginGate> {
   // "unknown" (no trusted hop) is not used as an IP bucket: one shared bucket would let a single
   // client lock everybody out. The per-e-mail back-off and lock still apply.
   const ip = ipRaw && ipRaw !== UNKNOWN_IP ? ipRaw : null;
@@ -51,6 +66,10 @@ export async function assertLoginAllowed(tx: Tx, email: string, ipRaw: string | 
       );
     }
   }
+  const [global] = await tx<{ n: number }[]>`
+    select count(*)::int as n from app_private.login_attempts
+    where not success and created_at > now() - make_interval(mins => ${LOGIN_WINDOW_MINUTES})`;
+  return { delayMs: globalLoginDelayMs(global.n) };
 }
 
 export async function recordLoginAttempt(tx: Tx, email: string, ip: string | null, success: boolean): Promise<void> {

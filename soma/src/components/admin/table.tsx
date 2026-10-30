@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PaginationLabel } from "@/components/ui/data";
 import { Icon } from "@/components/ui/icon";
@@ -23,6 +23,45 @@ export const adminTable = cn(
  * widening the page (audit-1 R11).
  */
 export const adminTableWrapper = "relative max-w-full";
+
+/**
+ * Admin data table (audit-2 N7): the kit table styling inside a scroll region that is
+ * keyboard-focusable and named (`role="region"`, `tabIndex={0}`, `aria-label`; axe
+ * scrollable-region-focusable). The region is `relative` and `max-w-full`, so wide tables
+ * scroll inside it and never widen the page; the first column stays sticky below lg.
+ */
+export function AdminTable({
+  label,
+  className,
+  regionClassName,
+  ...props
+}: ComponentProps<"table"> & { label: string; regionClassName?: string }) {
+  return (
+    <div
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+      className={cn(
+        "relative max-w-full min-w-0 overflow-x-auto border border-line bg-surface-raised",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+        regionClassName,
+      )}
+    >
+      <table
+        data-dense=""
+        className={cn(
+          "w-full border-collapse text-left type-body-s",
+          "[&_th]:h-10 [&_th]:border-b [&_th]:border-line-strong [&_th]:px-4 [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted",
+          "[&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_tr:last-child_td]:border-b-0 [&_td]:h-10",
+          "[&_tbody_tr]:transition-colors [&_tbody_tr:hover]:bg-surface-sunken",
+          adminTable,
+          className,
+        )}
+        {...props}
+      />
+    </div>
+  );
+}
 
 /** Right-aligned numeric header/cell helpers. */
 export const numCell = "text-right num";

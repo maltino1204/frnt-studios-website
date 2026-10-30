@@ -7,21 +7,27 @@ import { createReviewAction } from "@/server/actions/booking";
 import { initialActionState } from "@/server/actions/types";
 import { Textarea } from "@/components/ui/field";
 import { FormMessage, SubmitButton } from "@/components/ui/form";
+import { keepValuesOnSubmit } from "./keep-values";
 
 const LABELS = ["", "Nicht gut", "Geht so", "In Ordnung", "Sehr gut", "Hervorragend"];
 
 /** Review composer for completed bookings: five-star row, up to three tags, text. */
 export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: string; providerName: string; tags: readonly string[] }) {
-  const [state, action] = useActionState(createReviewAction, initialActionState);
+  const [state, action, pending] = useActionState(createReviewAction, initialActionState);
+  // All fields are controlled and the form is submitted without React's reset (N5),
+  // so stars, tags and text survive a rejected review.
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [chosen, setChosen] = useState<string[]>([]);
+  const [comment, setComment] = useState("");
   if (state?.ok) return <FormMessage state={state} />;
   const shown = hover || rating;
+  const fe = state && !state.ok ? state.fieldErrors : undefined;
+  const ratingErrorId = `review-${bookingId}-rating-error`;
   return (
-    <form action={action} className="flex flex-col gap-5" noValidate>
+    <form action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5" noValidate>
       <input type="hidden" name="bookingId" value={bookingId} />
-      <fieldset className="flex flex-col gap-2">
+      <fieldset className="flex flex-col gap-2" aria-describedby={fe?.rating ? ratingErrorId : undefined}>
         <legend className="mb-1 type-label-s text-ink">{`Wie war Ihr Termin bei ${providerName}?`}</legend>
         <div className="flex items-center gap-3">
           <div className="flex" onMouseLeave={() => setHover(0)}>
@@ -50,7 +56,11 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
             {LABELS[shown]}
           </span>
         </div>
-        {state && !state.ok && state.fieldErrors?.rating ? <p className="type-caption text-danger">{state.fieldErrors.rating}</p> : null}
+        {fe?.rating ? (
+          <p id={ratingErrorId} className="type-caption text-danger">
+            {fe.rating}
+          </p>
+        ) : null}
       </fieldset>
       <fieldset className="flex flex-col gap-2">
         <legend className="mb-2 type-label-s text-ink">
@@ -84,11 +94,24 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
           })}
         </div>
       </fieldset>
-      <Textarea label="Ihre Worte" name="comment" optional rows={4} maxLength={2000} hint="Ihre Bewertung erscheint mit Vorname und erstem Buchstaben des Nachnamens." />
-      {state && !state.ok ? <FormMessage state={state} /> : null}
-      <SubmitButton disabled={rating === 0} className="self-start">
-        Bewertung senden
-      </SubmitButton>
+      <Textarea
+        label="Ihre Worte"
+        name="comment"
+        optional
+        rows={4}
+        maxLength={2000}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        error={fe?.comment}
+        hint="Ihre Bewertung erscheint mit Vorname und erstem Buchstaben des Nachnamens."
+      />
+      {state && !state.ok && !fe?.comment && !fe?.rating ? <FormMessage state={state} /> : null}
+      <div className="flex flex-col items-start gap-2">
+        <SubmitButton disabled={rating === 0} loading={pending}>
+          Bewertung senden
+        </SubmitButton>
+        {rating === 0 ? <p className="type-caption text-ink-muted">Wählen Sie zuerst 1 bis 5 Sterne.</p> : null}
+      </div>
     </form>
   );
 }

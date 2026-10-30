@@ -170,7 +170,7 @@ export async function loadSettings(tx: Queryable): Promise<PlatformSettings> {
   return {
     cancellationPolicy: parsePolicy(m.get("cancellation_policy") ?? DEFAULT_POLICY),
     holdMinutes: n("hold_minutes", 10),
-    requestResponseHours: n("request_response_hours", 12),
+    requestResponseHours: n("request_response_hours", 4),
     slotStepMinutes: n("slot_step_minutes", 30),
     referralRewardCents: n("referral_reward_cents", 1500),
     referralWelcomeCents: n("referral_welcome_cents", 1500),

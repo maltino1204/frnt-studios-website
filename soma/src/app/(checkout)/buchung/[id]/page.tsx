@@ -25,6 +25,7 @@ import {
   dayLabel,
   deadlineText,
   EVENT_LABELS,
+  freeUntilFor,
   LOCATION_LABELS,
   NBSP,
   paymentLabel,
@@ -195,7 +196,10 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
   const graceMinutes = b.cancellation.policy.graceMinutes ?? 0;
   const bookedAt = b.events.length ? Math.min(...b.events.map((e) => Date.parse(e.createdAt))) : null;
   const graceUntil = graceMinutes > 0 && bookedAt !== null ? new Date(Math.min(bookedAt + graceMinutes * 60_000, Date.parse(b.startsAt))).toISOString() : null;
-  const inGrace = b.status === "confirmed" && !!graceUntil && Date.parse(graceUntil) > renderedAt;
+  // Regular free tier (24 h before) without the Bedenkzeit; the Bedenkzeit is only worth a line while the tier would charge (N10).
+  const tierFreeUntil = freeUntilFor(b.cancellation.policy, b.startsAt);
+  const tierWouldCharge = !tierFreeUntil || Date.parse(tierFreeUntil) <= renderedAt;
+  const inGrace = b.status === "confirmed" && !!graceUntil && Date.parse(graceUntil) > renderedAt && tierWouldCharge;
   const profileHref = routes.provider(b.provider.slug);
 
   return (
@@ -260,7 +264,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
               <div className="flex items-center gap-4 border-y border-line py-4">
                 <Avatar src={b.provider.avatarUrl} name={b.provider.displayName} size={48} />
                 <div className="min-w-0 flex-1">
-                  <Link href={profileHref} className="type-heading-m hover:underline hover:underline-offset-4">
+                  <Link href={profileHref} className="-my-1 inline-block py-1 type-heading-m hover:underline hover:underline-offset-4">
                     {b.provider.displayName}
                   </Link>
                   <p>
@@ -394,6 +398,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                     providerName={b.provider.displayName}
                     graceUntil={graceUntil}
                     graceMinutes={graceMinutes}
+                    tierFreeUntil={tierFreeUntil}
                   />
                 ) : null}
               </div>

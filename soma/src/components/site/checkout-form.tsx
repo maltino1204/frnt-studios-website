@@ -20,7 +20,7 @@ import { updateProfileAction } from "@/server/actions/account";
 import { confirmDevPaymentAction, createBookingAction, loadAvailabilityAction, quoteBookingAction } from "@/server/actions/booking";
 import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/checkout-ext";
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
-import { dayLabel, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
+import { dayLabel, deadlineShort, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
 import { MetaLine, ModeLabel } from "./provider-row";
 import { StripePaymentSheet } from "./checkout-stripe";
 
@@ -80,6 +80,18 @@ function composeDetails(kind: LocationKind, a: AddrFields): string | undefined {
   }
   const s = parts.join(" · ").slice(0, 300);
   return s || undefined;
+}
+
+/**
+ * Request mode (N6): the concrete answer deadline when the server previews it
+ * (`respondByPreview`, same rule as the booking: business hours 08–21), otherwise the window.
+ */
+function requestIntro(providerName: string, quote: QuoteDTO): string {
+  const preview = quote.respondByPreview ?? null;
+  const when = preview
+    ? `bis ${deadlineShort(preview)}`
+    : `innerhalb von ${quote.requestResponseHours}${NBSP}${quote.requestResponseHours === 1 ? "Stunde" : "Stunden"} (zwischen 8 und 21${NBSP}Uhr)`;
+  return `${providerName} antwortet ${when} – belastet wird erst nach der Zusage. Bis dahin ist der Termin für Sie reserviert.`;
 }
 
 /** Confirmation URL; `?konto=neu` tells a fresh guest that the "Passwort festlegen" e-mail is on its way. */
@@ -371,9 +383,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
         <div className="flex flex-col gap-3">
           <h1 className="type-display-s">{isRequest ? "Termin anfragen." : "Termin buchen."}</h1>
           <p className="type-body-s text-ink-muted">
-            {isRequest
-              ? `${provider.name} antwortet spätestens innerhalb von ${quote.requestResponseHours}${NBSP}Stunden, bei kurzfristigen Terminen früher. Bis dahin ist der Termin für Sie reserviert.`
-              : "Prüfen Sie Ihre Angaben. Der Termin ist sofort bestätigt."}
+            {isRequest ? requestIntro(provider.name, quote) : "Prüfen Sie Ihre Angaben. Der Termin ist sofort bestätigt."}
           </p>
         </div>
         <div className="lg:sticky lg:top-0 lg:z-10 lg:-mx-1 lg:bg-surface lg:px-1 lg:py-3">

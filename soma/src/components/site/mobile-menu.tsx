@@ -72,7 +72,7 @@ export function MobileMenu({
         className="m-0 h-dvh max-h-none w-full max-w-none bg-surface p-0 text-ink open:flex open:animate-fade-in open:flex-col"
       >
         <div className="flex h-(--header-height) shrink-0 items-center justify-between px-(--space-gutter)">
-          <Link href="/" onClick={close} aria-label="SOMA, zur Startseite" className="-m-2 p-2">
+          <Link href="/" onClick={close} aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center px-2">
             <Wordmark />
           </Link>
           <IconButton label="Menü schließen" onClick={close} className="-mr-2.5">

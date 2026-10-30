@@ -72,6 +72,14 @@ export const LANGUAGE_LABELS: Record<string, string> = {
 };
 export const languageName = (code: string) => LANGUAGE_LABELS[code] ?? code.toUpperCase();
 
+/**
+ * Non-breaking spaces inside dates (design-guideline §5): "1.\u00a0November", "Sa.,\u00a031.\u00a0Okt.",
+ * so a line never breaks between the day and the month.
+ */
+export function nbspDate(s: string): string {
+  return s.replace(/(\d{1,2}\.) (?=\p{L})/gu, `$1${NBSP}`).replace(/(^|\s)(\p{L}{2,3}\.,) (?=\d)/gu, `$1$2${NBSP}`);
+}
+
 /** "Heute", "Morgen", "Do., 6. Nov." for an instant or a local date key. */
 export function dayLabel(d: string | Date, now: Date = new Date()): string {
   const key = typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : berlinDateKey(d);
@@ -79,7 +87,7 @@ export function dayLabel(d: string | Date, now: Date = new Date()): string {
   const tomorrow = berlinDateKey(new Date(now.getTime() + 86_400_000));
   if (key === today) return "Heute";
   if (key === tomorrow) return "Morgen";
-  return formatDayShort(localNoon(key));
+  return nbspDate(formatDayShort(localNoon(key)));
 }
 
 /** Noon in Berlin for a local date key – safe anchor for date formatting. */
@@ -96,7 +104,14 @@ export function slotChipLabel(iso: string, withDay: boolean, now: Date = new Dat
 
 /** "Mittwoch, 4. November, 18:30 Uhr" */
 export function deadlineText(iso: string): string {
-  return `${formatDay(iso)}, ${formatTime(iso)}${NBSP}Uhr`;
+  return `${nbspDate(formatDay(iso))}, ${formatTime(iso)}${NBSP}Uhr`;
+}
+
+/** Mid-sentence deadline: "heute, 16:30 Uhr" / "morgen, 09:00 Uhr" / "Sa., 31. Okt., 12:30 Uhr" */
+export function deadlineShort(iso: string, now: Date = new Date()): string {
+  const d = dayLabel(iso, now);
+  const day = d === "Heute" ? "heute" : d === "Morgen" ? "morgen" : d;
+  return `${day}, ${formatTime(iso)}${NBSP}Uhr`;
 }
 
 /** "Heute, 14:30" / "Morgen, 09:00" / "Do., 6. Nov., 14:30" */
