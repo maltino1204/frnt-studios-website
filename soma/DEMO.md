@@ -108,21 +108,34 @@ Was vor einem echten Start noch fehlt, steht in `docs/STATUS.md` → *Production
 ## 5. Online-Demo auf Netlify
 
 Auf Netlify gibt es keine lokale Datenbank. SOMA braucht deshalb eine gehostete PostgreSQL-Datenbank.
-Empfohlen ist **Neon**: Der kostenlose Tarif reicht für die Demo, und das Setup ist darauf getestet.
-Supabase eignet sich für die Demo nicht, weil die Demo-Anmeldung dort mit dem Supabase-eigenen Login kollidiert.
+**Supabase** und **Neon** funktionieren beide, der kostenlose Tarif reicht jeweils. SOMA nutzt bei Supabase nur die
+Datenbank. Die Demo-Logins laufen über SOMAs eigene Anmeldung, Supabase Auth wird nicht gebraucht.
 
 **1. Datenbank anlegen (einmalig, ca. 3 Minuten)**
-1. Unter neon.tech ein kostenloses Konto und ein Projekt anlegen. Als Region **AWS US East 2 (Ohio)** wählen.
-   Dort laufen die Netlify Functions standardmäßig, das hält die Seiten schnell. Die Demo-Daten sind fiktiv.
-2. Im Projekt auf *Connect* klicken, **Connection pooling** einschalten und die Verbindungs-URL kopieren.
-   Sie sieht so aus: `postgresql://neondb_owner:…@ep-…-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require`.
+
+*Variante A: Supabase*
+1. Ein **neues, leeres Projekt** anlegen, nicht ein bestehendes mit anderen Daten. SOMA legt im Schema `public` eigene Tabellen an
+   und setzt dort strenge Zugriffsrechte. Als Region **East US (Ohio)** wählen, denn dort laufen die Netlify Functions
+   standardmäßig, das hält die Seiten schnell. Das Datenbank-Passwort notieren.
+2. Oben auf *Connect* klicken und unter *Connection String* den **Transaction pooler** wählen (Port `6543`).
+   Die URL kopieren und `[YOUR-PASSWORD]` durch das Passwort ersetzen. Sie sieht so aus:
+   `postgresql://postgres.abcdefgh:PASSWORT@aws-0-us-east-2.pooler.supabase.com:6543/postgres`.
+   Die *Direct connection* funktioniert auf Netlify nicht (nur IPv6). Enthält das Passwort Sonderzeichen wie `@ # / ? %`,
+   vergeben Sie unter *Project Settings* → *Database* ein neues aus Buchstaben und Ziffern, sonst ist die URL ungültig.
+3. Hinweis: Kostenlose Supabase-Projekte pausieren nach einer Woche ohne Nutzung. Im Supabase-Dashboard lässt sich das Projekt
+   mit einem Klick wieder starten.
+
+*Variante B: Neon*
+1. Unter neon.tech ein kostenloses Projekt anlegen, Region **AWS US East 2 (Ohio)**.
+2. Auf *Connect* klicken, **Connection pooling** einschalten und die URL kopieren:
+   `postgresql://neondb_owner:…@ep-…-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require`.
 
 **2. Umgebungsvariablen in Netlify (einmalig)**
 Netlify → Ihre Seite → *Site configuration* → *Environment variables* → *Add a variable* → *Import from a .env file*.
 Diesen Block einfügen und die drei markierten Werte ersetzen:
 
 ```
-DATABASE_URL=postgresql://…-pooler….neon.tech/neondb?sslmode=require   # ← Ihre Neon-URL
+DATABASE_URL=postgresql://…pooler…                                     # ← Ihre Supabase- oder Neon-URL
 DATABASE_PREPARE=false
 DATABASE_POOL_MAX=3
 DEMO_MODE=true
@@ -154,5 +167,7 @@ Demo-Daten bei einem Deploy unverändert.
   Reservierungen und unbeantwortete Anfragen laufen ab, Termine werden abgeschlossen.
 - Hochgeladene Dateien landen in Netlify Blobs. Netlify nimmt pro Anfrage höchstens etwa 6 MB an, größere Dateien schlagen fehl.
   Die Nachweise aus den Demo-Daten erscheinen als Platzhalter-PDF.
-- Nach längerer Pause braucht der erste Seitenaufruf etwa eine Sekunde länger, weil Neon die Datenbank kurz aufweckt.
+- Nach längerer Pause kann der erste Seitenaufruf etwas länger dauern, bis die Datenbank aufgewacht ist.
+- Liegt die Datenbank in einer anderen Region als die Netlify Functions (z. B. Frankfurt statt Ohio), funktioniert alles,
+  die Seiten laden aber spürbar langsamer.
 

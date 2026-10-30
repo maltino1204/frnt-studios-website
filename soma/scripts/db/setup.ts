@@ -19,6 +19,11 @@ async function main(): Promise<void> {
   if (reset && authProvider !== "local" && !args.has("--force")) {
     throw new Error("--reset ist nur für lokale Datenbanken erlaubt (AUTH_PROVIDER=local).");
   }
+  // --reset drops whole schemas: never against a hosted database (Neon, Supabase) by accident.
+  const host = (() => { try { return new URL(url).hostname; } catch { return ""; } })();
+  if (reset && !["localhost", "127.0.0.1", "::1", "[::1]"].includes(host) && !args.has("--force")) {
+    throw new Error(`--reset ist nur für lokale Datenbanken erlaubt (Host: ${host || "unbekannt"}).`);
+  }
 
   const sql = postgres(normalizeDatabaseUrl(url), { max: 1, prepare: usePreparedStatements(), onnotice: () => undefined });
   const log = (m: string) => console.log(`[db:setup] ${m}`);

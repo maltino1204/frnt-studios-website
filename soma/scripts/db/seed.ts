@@ -122,8 +122,8 @@ interface Ctx {
 
 async function createUser(tx: postgres.TransactionSql, email: string, hash: string, meta: Record<string, unknown>, createdAt: Date): Promise<string> {
   const [row] = await tx<{ id: string }[]>`
-    insert into auth.users (email, encrypted_password, email_confirmed_at, raw_user_meta_data, created_at, updated_at)
-    values (${email}, ${hash}, ${createdAt}, ${tx.json(meta as postgres.JSONValue)}, ${createdAt}, ${createdAt}) returning id`;
+    insert into auth.users (id, aud, role, email, encrypted_password, email_confirmed_at, raw_user_meta_data, created_at, updated_at)
+    values (gen_random_uuid(), 'authenticated', 'authenticated', ${email}, ${hash}, ${createdAt}, ${tx.json(meta as postgres.JSONValue)}, ${createdAt}, ${createdAt}) returning id`;
   await tx`update public.profiles set created_at = ${createdAt} where id = ${row.id}`;
   return row.id;
 }

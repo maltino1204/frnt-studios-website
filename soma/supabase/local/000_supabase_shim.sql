@@ -43,22 +43,49 @@ $$;
 
 -- The application connects as the database owner (postgres on Supabase) and
 -- drops privileges per transaction with SET LOCAL ROLE. The owner must be a
--- member of the API roles for that (Supabase grants the same).
+-- member of the API roles for that. On Supabase it already is (and may not
+-- grant the roles itself), so only missing memberships are granted.
+do $$
+declare
+  r text;
+begin
+  foreach r in array array['anon', 'authenticated', 'service_role'] loop
+    if not pg_has_role(current_user, r, 'MEMBER') then
+      begin
+        execute format('grant %I to %I', r, current_user);
+      exception when insufficient_privilege then
+        raise exception 'SOMA braucht die Mitgliedschaft von % in der Rolle %, darf sie aber nicht selbst vergeben.', current_user, r;
+      end;
+    end if;
+  end loop;
+end
+$$;
+
+-- On a hosted Supabase database the auth schema, auth.users and auth.uid()/role()/jwt() already
+-- exist and belong to Supabase Auth. The local auth adapter then uses them as they are: the
+-- statements below only create what is missing and skip grants this role may not give.
 do $$
 begin
-  execute format('grant anon, authenticated, service_role to %I', current_user);
+  if to_regnamespace('extensions') is null then
+    create schema extensions;
+  end if;
+  if to_regnamespace('auth') is null then
+    create schema auth;
+  end if;
+end
+$$;
+do $$
+begin
+  grant usage on schema extensions to anon, authenticated, service_role;
+  grant usage on schema auth to anon, authenticated, service_role;
+exception when insufficient_privilege then
+  raise notice 'Schema grants übersprungen (vom Hosting verwaltet).';
 end
 $$;
 
 -- ---------------------------------------------------------------------------
--- Schemas
+-- Schema public
 -- ---------------------------------------------------------------------------
-create schema if not exists extensions;
-grant usage on schema extensions to anon, authenticated, service_role;
-
-create schema if not exists auth;
-grant usage on schema auth to anon, authenticated, service_role;
-
 -- Supabase: API roles can use schema public; new objects get ALL by default.
 grant usage on schema public to anon, authenticated, service_role;
 alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
@@ -68,7 +95,10 @@ alter default privileges in schema public grant all on functions to anon, authen
 -- ---------------------------------------------------------------------------
 -- auth.users (subset of the Supabase table that SOMA relies on)
 -- ---------------------------------------------------------------------------
-create table if not exists auth.users (
+do $shim$
+begin
+if to_regclass('auth.users') is null then
+create table auth.users (
   id                  uuid primary key default gen_random_uuid(),
   aud                 text default 'authenticated',
   role                text default 'authenticated',
@@ -82,40 +112,73 @@ create table if not exists auth.users (
   created_at          timestamptz not null default now(),
   updated_at          timestamptz not null default now()
 );
-create unique index if not exists users_email_key on auth.users (lower(email));
+create unique index users_email_key on auth.users (lower(email));
 revoke all on auth.users from anon, authenticated;
+end if;
+end
+$shim$;
 
 -- ---------------------------------------------------------------------------
 -- auth.uid() / auth.role() / auth.jwt() — same definitions as Supabase
 -- ---------------------------------------------------------------------------
+do $shim$
+begin
+if to_regprocedure('auth.uid()') is null then
+execute $def$
 create or replace function auth.uid() returns uuid
 language sql stable
-as $$
+as $f$
   select coalesce(
     nullif(current_setting('request.jwt.claim.sub', true), ''),
     (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub')
   )::uuid
-$$;
+$f$
+$def$;
+end if;
+end
+$shim$;
 
+do $shim$
+begin
+if to_regprocedure('auth.role()') is null then
+execute $def$
 create or replace function auth.role() returns text
 language sql stable
-as $$
+as $f$
   select coalesce(
     nullif(current_setting('request.jwt.claim.role', true), ''),
     (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role')
   )::text
-$$;
+$f$
+$def$;
+end if;
+end
+$shim$;
 
+do $shim$
+begin
+if to_regprocedure('auth.jwt()') is null then
+execute $def$
 create or replace function auth.jwt() returns jsonb
 language sql stable
-as $$
+as $f$
   select coalesce(
     nullif(current_setting('request.jwt.claim', true), ''),
     nullif(current_setting('request.jwt.claims', true), '')
   )::jsonb
-$$;
+$f$
+$def$;
+end if;
+end
+$shim$;
 
-grant execute on function auth.uid(), auth.role(), auth.jwt() to anon, authenticated, service_role;
+do $$
+begin
+  grant execute on function auth.uid(), auth.role(), auth.jwt() to anon, authenticated, service_role;
+exception when insufficient_privilege then
+  raise notice 'auth.*() grants übersprungen (vom Hosting verwaltet).';
+end
+$$;
 
 -- ---------------------------------------------------------------------------
 -- app_private — local auth adapter state (never reachable by API roles)

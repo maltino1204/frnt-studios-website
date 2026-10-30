@@ -122,7 +122,7 @@ the caveats in `DEMO.md`.
 Still open from audit 4 (low): F8 rest (seed chart spike on the seed day, regions total 411 vs 422), F12 (fonts 331 KB),
 F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
 
-### 4.2 Hosted demo (Netlify + Neon)
+### 4.2 Hosted demo (Netlify + Neon or Supabase)
 `netlify.toml` builds with `npm run netlify:prepare && npm run build`. The prepare step refuses a missing or localhost
 `DATABASE_URL`, applies migrations and reloads the demo data. Netlify-specific pieces: storage in Netlify Blobs
 (`STORAGE_PROVIDER=netlify`), a scheduled function for the booking maintenance, client IP from `x-nf-client-connection-ip`,
@@ -132,7 +132,12 @@ F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
   - the prepare script's guards;
   - a Neon-style URL with `channel_binding=require`;
   - the demo placeholder PDF (admin 200, anonymous 401).
-- **Not verifiable here** (needs a Netlify account): the Netlify runtime itself, Netlify Blobs uploads, the scheduled function, a real Neon pooler.
+- **Supabase as the database** (with SOMA's local auth): the shim reuses Supabase's `auth` schema, `auth.users` and
+  `auth.uid()/role()/jwt()` instead of creating them. It grants only missing role memberships and inserts users with an
+  explicit id. `--reset` is refused for non-local hosts. Verified against a Supabase-like cluster, where Auth owns `auth.users`
+  and its functions, the users table has Supabase's columns and no id default, and the app role is not the database owner:
+  setup, a second deploy (idempotent), demo seed, production build and E2E 108/108. The Supabase-owned objects stayed untouched.
+- **Not verifiable here** (needs a Netlify account): the Netlify runtime itself, Netlify Blobs uploads, the scheduled function, a real Neon or Supabase pooler.
   Netlify accepts about 6 MB per request, so uploads above that fail there.
 
 ## 5. Production blockers

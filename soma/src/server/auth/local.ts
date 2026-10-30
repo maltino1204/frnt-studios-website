@@ -60,8 +60,8 @@ export async function createLocalUser(input: SignUpInput): Promise<string> {
     // withService: auth.users is owned by the auth system and not granted to API roles.
     const [row] = await withService(
       (tx) => tx<{ id: string }[]>`
-        insert into auth.users (email, encrypted_password, email_confirmed_at, raw_user_meta_data)
-        values (${email}, ${hash}, now(), ${tx.json(meta)})
+        insert into auth.users (id, aud, role, email, encrypted_password, email_confirmed_at, raw_user_meta_data)
+        values (gen_random_uuid(), 'authenticated', 'authenticated', ${email}, ${hash}, now(), ${tx.json(meta)})
         returning id`,
     );
     return row.id;
