@@ -79,7 +79,7 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 ### 3.1 Latest numbers (final integration run)
 - `tsc --noEmit`: clean.
 - Vitest: **193/193** passing (unit + integration against Postgres; 20 files).
-- Playwright E2E against the production build: see §4 (final audit) for the latest full run; the suite
+- Playwright E2E against the production build: **96/96** passing (48 journeys × mobile + desktop, about 3 min). The suite
   covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1.
 - `next build`: 113 routes generated, 42 SEO city pages prerendered.
 
