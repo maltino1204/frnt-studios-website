@@ -8,11 +8,42 @@ import type { NextConfig } from "next";
  * default model keeps those views predictable; public marketing/SEO pages opt
  * into static rendering + revalidation explicitly. See docs/architecture.md.
  */
+const isProd = process.env.NODE_ENV === "production";
+const IMAGE_CDN = "https://d8j0ntlcm91z4.cloudfront.net";
+
+/**
+ * Content-Security-Policy (QA R5). Marketing/SEO pages are statically rendered,
+ * so per-request nonces are not possible; inline scripts (Next.js hydration
+ * payloads) are therefore allowed via 'unsafe-inline' while every external
+ * script origin except Stripe is blocked. Applied in production only (the dev
+ * server needs 'unsafe-eval' for Fast Refresh). See docs/architecture.md §3.3.
+ */
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://js.stripe.com",
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: ${IMAGE_CDN} https://*.stripe.com`,
+  "font-src 'self'",
+  "connect-src 'self' https://api.stripe.com https://*.stripe.com",
+  "frame-src https://js.stripe.com https://hooks.stripe.com",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self), payment=(self)" },
+  ...(isProd
+    ? [
+        { key: "Content-Security-Policy", value: csp },
+        { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+      ]
+    : []),
 ];
 
 const nextConfig: NextConfig = {

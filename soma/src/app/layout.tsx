@@ -7,23 +7,31 @@ import { DemoRibbon } from "@/components/ui/demo-ribbon";
 import { ServiceWorker } from "@/components/ui/service-worker";
 import "./globals.css";
 
+/*
+ * Font loading budget (QA R4): only the Instrument Sans latin file (~57 KB) is
+ * preloaded. Newsreader keeps its optical-size axis for display quality but is
+ * not preloaded: headlines paint immediately in the metric-matched fallback and
+ * swap without layout shift. latin-ext/vietnamese faces stay available through
+ * unicode-range and download only when such glyphs appear (e.g. "Doğan").
+ */
 const display = Newsreader({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   style: ["normal", "italic"],
   axes: ["opsz"],
   display: "swap",
+  preload: false,
   variable: "--font-display-src",
 });
 
 const sans = Instrument_Sans({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   axes: ["wdth"],
   display: "swap",
   variable: "--font-sans-src",
 });
 
 const mono = DM_Mono({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
   preload: false,

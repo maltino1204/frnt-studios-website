@@ -15,7 +15,8 @@
     "db:seed": "tsx --conditions=react-server scripts/db/seed.ts",
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
-    "images:fetch": "node scripts/images/fetch.mjs"
+    "images:fetch": "node scripts/images/fetch.mjs",
+    "check:launch": "node scripts/check-launch.mjs"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^7.0.1",

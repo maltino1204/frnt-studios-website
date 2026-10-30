@@ -19,6 +19,8 @@ import { Icon } from "@/components/ui/icon";
 import { KitInteractive } from "./interactive";
 
 export const metadata = { title: "UI-Kit", robots: { index: false } };
+// Evaluated at request time so DEMO_MODE=false in production always yields 404 (QA R19).
+export const dynamic = "force-dynamic";
 
 /** Internal component preview (demo/dev only). */
 export default function KitPage() {
