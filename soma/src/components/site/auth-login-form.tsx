@@ -70,7 +70,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
               Füllt die Zugangsdaten aus. Passwort für alle: <span className="code-ref text-ink">{demoPassword}</span>
             </p>
           </div>
-          <ul className="grid grid-cols-3 gap-2">
+          <ul className="grid gap-2 sm:grid-cols-3">
             {demo.map((d) => (
               <li key={d.email}>
                 <button
@@ -79,7 +79,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
                     setEmail(d.email);
                     setPassword(demoPassword ?? "");
                   }}
-                  className="inline-flex h-touch w-full flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3 text-left transition-colors duration-fast hover:border-ink"
+                  className="inline-flex min-h-touch w-full flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3 py-2 text-left transition-colors duration-fast hover:border-ink"
                 >
                   <span className="type-label-s text-ink">
                     {d.label}

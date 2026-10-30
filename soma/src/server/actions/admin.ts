@@ -57,7 +57,7 @@ const DocSchema = z.object({
 });
 
 /** Returns `providerSuspended: true` when a rejection paused an approved provider (audit-2 N4). */
-export async function reviewDocumentAction(raw: z.input<typeof DocSchema>): Promise<ActionResult<{ providerSuspended: boolean }>> {
+export async function reviewDocumentAction(raw: z.input<typeof DocSchema>): Promise<ActionResult<{ providerSuspended: boolean; offeringsActivated: number }>> {
   return withSession("admin", async (s) => {
     const v = input(DocSchema, raw);
     const r = await reviewDocument(s, v.documentId, v.status, v.note, v.validUntil || null);

@@ -56,6 +56,9 @@ const ACTION: Record<string, string> = {
   "credits.adjust": "Guthaben gebucht",
   "review.publish": "Bewertung veröffentlicht",
   "review.unpublish": "Bewertung ausgeblendet",
+  "provider.auto_suspend": "Profi automatisch pausiert (Dokumente)",
+  "user.export": "Datenexport erstellt",
+  "user.anonymize": "Konto anonymisiert",
 };
 
 function entityHref(entity: string, id: string | null): string | null {
@@ -73,7 +76,8 @@ function summary(data: unknown): string {
   if (!data || typeof data !== "object") return "";
   const parts: string[] = [];
   for (const [k, v] of Object.entries(data as Record<string, unknown>)) {
-    if (v == null || (Array.isArray(v) && v.length === 0)) continue;
+    // "demo" marks seed rows for cleanup; it is not shown (audit-3 F8)
+    if (k === "demo" || v == null || (Array.isArray(v) && v.length === 0)) continue;
     const s = typeof v === "object" ? JSON.stringify(v) : String(v);
     parts.push(`${k}: ${s.length > 60 ? `${s.slice(0, 57)}…` : s}`);
   }

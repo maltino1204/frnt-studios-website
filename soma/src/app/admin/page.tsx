@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BarList } from "@/components/admin/bars";
-import { delta, formatDateTime, formatInt, formatPercent, formatShortDateTime } from "@/components/admin/format";
+import { delta, formatDateTime, formatInt, formatPercent, formatShortDateTime, formatSince } from "@/components/admin/format";
 import { BOOKING_STATUS, BOOKING_STATUS_ORDER, DISPUTE_REASON, DISPUTE_STATUS, PAYMENT_STATUS, PROVIDER_STATUS } from "@/components/admin/labels";
 import { LineChart } from "@/components/admin/line-chart";
 import { AdminPageHeader, AdminSection, MutedLink, PanelCard } from "@/components/admin/page";
@@ -160,7 +160,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
                           <span className="code-ref">{d.bookingReference}</span> · {DISPUTE_REASON[d.reason]}
                         </>
                       }
-                      meta={[`${d.customerName} ↔ ${d.providerName}`, `seit ${formatRelative(d.createdAt)}`]}
+                      meta={[`${d.customerName} ↔ ${d.providerName}`, formatSince(d.createdAt, now)]}
                       aside={<Status tone={DISPUTE_STATUS[d.status].tone}>{DISPUTE_STATUS[d.status].label}</Status>}
                     />
                   ))}
@@ -227,8 +227,12 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
                       key={`${a.providerId}-${a.at}`}
                       href={routes.admin.provider(a.providerId)}
                       title={a.displayName}
-                      meta={[a.note, a.status === "suspended" ? `seit ${formatRelative(a.at, now)}` : `am ${formatShortDateTime(a.at)}`]}
-                      aside={<Status tone={a.status === "suspended" ? "danger" : "warning"}>{a.status === "suspended" ? "Automatisch pausiert" : "Läuft bald ab"}</Status>}
+                      meta={[a.note, a.status === "approved" ? `am ${formatShortDateTime(a.at)}` : formatSince(a.at, now)]}
+                      aside={
+                        <Status tone={a.status === "suspended" ? "danger" : "warning"}>
+                          {a.status === "suspended" ? "Automatisch pausiert" : a.status === "awaiting" ? "Wartet auf Nachweis" : "Läuft bald ab"}
+                        </Status>
+                      }
                     />
                   ))}
                 </ul>

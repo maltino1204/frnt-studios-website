@@ -427,7 +427,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
             <div className="flex min-w-0 flex-1 flex-col gap-1">
               <div className="flex items-baseline justify-between gap-3">
                 <p className="type-heading-m">{provider.name}</p>
-                <Link href={props.changeHref} className="type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover">
+                <Link href={props.changeHref} className="-my-1 inline-block py-1 type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover">
                   Ändern
                 </Link>
               </div>
@@ -514,7 +514,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 <Input label="Nr." autoComplete="address-line2" value={addr.houseNumber} onChange={(e) => set("houseNumber", e.target.value)} error={err("houseNumber")} maxLength={12} />
               </div>
               <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3">
-                <Input label="PLZ" value={postalCode} readOnly aria-readonly className="[&_input]:bg-surface-sunken" hint={<Link href={props.changePlzHref} className="text-accent underline underline-offset-[0.2em]">Ändern</Link>} />
+                <Input label="PLZ" value={postalCode} readOnly aria-readonly className="[&_input]:bg-surface-sunken" hint={<Link href={props.changePlzHref} className="-my-1 inline-block py-1 text-accent underline underline-offset-[0.2em]">Ändern</Link>} />
                 <Input label="Ort" autoComplete="address-level2" value={addr.city} onChange={(e) => set("city", e.target.value)} error={err("city")} maxLength={80} />
               </div>
               {kind === "home" ? (

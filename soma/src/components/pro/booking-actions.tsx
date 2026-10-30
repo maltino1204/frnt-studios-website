@@ -206,7 +206,7 @@ export function StartBookingButton({
       <div className="flex flex-col gap-1 border-y border-line py-3">
         <p className="flex items-center gap-2 type-label text-ink" suppressHydrationWarning>
           <Icon icon={KeyRound} size={16} className="shrink-0 text-ink-muted" />
-          {`Start ab ${berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}${formatTime(earliest)} Uhr möglich`}
+          {`Start ab ${berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}${formatTime(earliest)} Uhr möglich`}
         </p>
         <p className="type-caption text-ink-muted">„Termin starten“ erscheint hier 30 Minuten vor Beginn.</p>
       </div>
@@ -280,7 +280,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
         <Button size="l" block disabled icon={<Icon icon={Check} />}>
           Termin abschließen
         </Button>
-        {startsAt ? <p className="type-caption text-ink-muted">Ab {formatTime(startsAt)} Uhr möglich, sobald der Termin begonnen hat.</p> : null}
+        {startsAt ? <p className="type-caption text-ink-muted">Ab {formatTime(startsAt)} Uhr möglich, sobald der Termin begonnen hat.</p> : null}
       </div>
     );
   }

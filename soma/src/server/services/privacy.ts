@@ -19,6 +19,7 @@ import type {
   Session,
   UserDataExportDTO,
 } from "../dto";
+import { assertNotDemoAccount } from "../auth/demo-accounts";
 import { ServiceError } from "../errors";
 import { assertAdmin, audit, CREDIT_REASON_LABELS, iso, isoReq, parse, requireRoleIn, zUuid } from "./_shared";
 import { deleteStoredFile } from "./media";
@@ -266,6 +267,7 @@ export async function anonymizeUser(session: Session, userId: string, reason: st
   // withService: admin use case, authorised by assertAdmin() in the same transaction.
   const result = await withService(async (tx) => {
     const admin = await assertAdmin(tx, session);
+    await assertNotDemoAccount(id, tx);
     const blockers = await queryAnonymizeBlockers(tx, id, { isSelf: id === admin.userId });
     if (blockers.length) throw new ServiceError("invalid_state", `Anonymisierung nicht möglich. ${blockers.join(" ")}`);
     const r = await anonymizeInTx(tx, id);
@@ -294,6 +296,7 @@ export async function anonymizeOwnAccount(session: Session): Promise<AnonymizeRe
   const s = requireRoleIn(session, "customer", "provider");
   // withService: deletes the caller's own login, sessions and addresses (auth.*, app_private.*).
   const result = await withService(async (tx) => {
+    await assertNotDemoAccount(s.userId, tx);
     const f = await blockerFacts(tx, s.userId);
     if (!f) throw new ServiceError("not_found", "Konto nicht gefunden.");
     const blocked = customerBlockerMessage(f);

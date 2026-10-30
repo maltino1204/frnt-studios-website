@@ -2,6 +2,7 @@ import "server-only";
 
 import { withService } from "../db/client";
 import type { AppRole, ProviderStatus, Session } from "../dto";
+import { isDemoAccountEmail } from "./demo-accounts";
 
 /**
  * Builds the Session for a user id (no cookies involved, used by both auth
@@ -19,7 +20,7 @@ export async function loadSession(userId: string): Promise<Session | null> {
   );
   const r = rows[0];
   if (!r || r.blockedAt) return null;
-  const session: Session = { userId: r.id, role: r.role, email: r.email, firstName: r.firstName };
+  const session: Session = { userId: r.id, role: r.role, email: r.email, firstName: r.firstName, isDemoAccount: isDemoAccountEmail(r.email) };
   if (r.providerStatus) session.providerStatus = r.providerStatus;
   return session;
 }

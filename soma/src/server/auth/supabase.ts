@@ -6,6 +6,7 @@ import { ServiceError } from "../errors";
 import { assertPasswordPolicy } from "./local";
 import { withService } from "../db/client";
 import { normalizeEmail, type AuthAdapter, type CookieJar, type CookieOptions } from "./adapter";
+import { assertNotDemoAccount } from "./demo-accounts";
 import { allowAuthEmail } from "./email-throttle";
 import { currentRequestIp } from "./request-ip";
 
@@ -113,7 +114,8 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       const check = await sb.auth.signInWithPassword({ email: data.user.email, password });
       return !check.error;
     },
-    async changePassword(_userId, current, next) {
+    async changePassword(userId, current, next) {
+      await assertNotDemoAccount(userId);
       assertPasswordPolicy(next);
       const sb = client();
       const { data } = await sb.auth.getUser();

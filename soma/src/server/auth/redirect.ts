@@ -22,5 +22,11 @@ export function safeRelativePath(next: unknown, appUrl: string): string | null {
     return null;
   }
   if (resolved.origin !== base.origin) return null;
+  // Dot segments can collapse into a protocol-relative path ("/.//evil.example" → "//evil.example"),
+  // which a browser would treat as another host (audit-3 F1). Reject any normalised path that
+  // starts with two slashes or contains a backslash.
+  if (resolved.pathname.startsWith("//") || resolved.pathname.includes("\\")) return null;
+  // An encoded slash right after the first one ("/./%2Fevil") is decoded by some proxies into "//evil".
+  if (/^\/%2f/i.test(resolved.pathname)) return null;
   return `${resolved.pathname}${resolved.search}${resolved.hash}`;
 }

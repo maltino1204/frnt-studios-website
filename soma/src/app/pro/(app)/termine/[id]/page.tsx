@@ -190,7 +190,7 @@ function ActionArea({ booking: b, live, settled }: { booking: ProviderBookingDTO
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="type-heading-m">Termin läuft</h2>
-          <p className="type-body-s text-ink-muted">Gestartet um {b.startedAt ? formatTime(b.startedAt) : "—"} Uhr. Schließe ab, wenn du fertig bist.</p>
+          <p className="type-body-s text-ink-muted">Gestartet um {b.startedAt ? formatTime(b.startedAt) : "—"} Uhr. Schließe ab, wenn du fertig bist.</p>
         </div>
         <CompleteBookingButton bookingId={b.id} payoutCents={b.earnings.payoutCents} canComplete={b.actions.canComplete} startsAt={b.startsAt} />
       </div>
@@ -219,7 +219,7 @@ function ActionArea({ booking: b, live, settled }: { booking: ProviderBookingDTO
       <div className="flex flex-col gap-1">
         <h2 className="type-heading-m">Abgeschlossen</h2>
         <p className="type-body-s text-ink-muted">
-          {b.completedAt ? `Am ${formatDayShort(b.completedAt)} um ${formatTime(b.completedAt)} Uhr.` : null} Danke für deine Arbeit.
+          {b.completedAt ? `Am ${formatDayShort(b.completedAt)} um ${formatTime(b.completedAt)} Uhr.` : null} Danke für deine Arbeit.
         </p>
       </div>
     );
@@ -233,7 +233,7 @@ function ActionArea({ booking: b, live, settled }: { booking: ProviderBookingDTO
           {b.status === "expired"
             ? "Die Anfrage wurde nicht rechtzeitig beantwortet. Die Kundschaft wurde nicht belastet."
             : b.cancelledAt
-              ? `${title}${b.cancelledBy ? ` ${CANCELLED_BY[b.cancelledBy] ?? ""}` : ""} am ${formatDayShort(b.cancelledAt)} um ${formatTime(b.cancelledAt)} Uhr.`
+              ? `${title}${b.cancelledBy ? ` ${CANCELLED_BY[b.cancelledBy] ?? ""}` : ""} am ${formatDayShort(b.cancelledAt)} um ${formatTime(b.cancelledAt)} Uhr.`
               : null}
         </p>
         {b.cancellationReason ? <Notice kind="info" title="Grund">{b.cancellationReason}</Notice> : null}

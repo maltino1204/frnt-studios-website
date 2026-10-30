@@ -69,7 +69,16 @@ export async function upsertProServiceAction(raw: z.input<typeof ServiceSchema>)
     const r = await upsertProService(s, input(ServiceSchema, raw));
     revalidatePro();
     return r;
-  }, "Leistung gespeichert.");
+  }).then((res) =>
+    res.ok
+      ? {
+          ...res,
+          message: res.data.awaitingDocuments
+            ? `Leistung gespeichert. Sie wird freigeschaltet, sobald dein Nachweis geprüft ist: ${res.data.missingDocuments.join(", ") || "Qualifikationsnachweis"}. Lade ihn unter „Verifizierung“ hoch.`
+            : "Leistung gespeichert.",
+        }
+      : res,
+  );
 }
 
 export async function deleteProServiceAction(providerServiceId: string): Promise<ActionResult<{ deleted: boolean; deactivated: boolean }>> {

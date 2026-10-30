@@ -25,6 +25,14 @@ describe("safeRelativePath (audit-1 R2)", () => {
     }
   });
 
+  it("rejects dot segments that collapse into a protocol-relative path (audit-3 F1)", () => {
+    for (const v of ["/.//evil.example", "/.//evil.example/phish", "/a/..//evil.example", "/%2E//evil.example", "/%2e%2e//evil.example", "/./%2Fevil.example", "/x/../%2fevil"]) {
+      expect(safe(v), v).toBeNull();
+    }
+    expect(safe("/./konto")).toBe("/konto");
+    expect(safe("/a/../konto?tab=1")).toBe("/konto?tab=1");
+  });
+
   it("rejects control characters, raw and percent-encoded (%09 %0A %0D)", () => {
     for (const v of ["/\t/evil.example", "/\n/evil.example", "/\r/evil.example", "/%09/evil.example", "/%0A/evil.example", "/%0d/evil.example", "/%5C/evil.example", "/konto\u0000", "/x\u007f"]) {
       expect(safe(v), JSON.stringify(v)).toBeNull();

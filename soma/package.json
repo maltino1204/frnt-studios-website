@@ -16,7 +16,8 @@
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
     "images:fetch": "node scripts/images/fetch.mjs",
-    "check:launch": "node scripts/check-launch.mjs"
+    "check:launch": "node scripts/check-launch.mjs",
+    "prebuild": "node scripts/images/fetch.mjs || true"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^7.0.1",

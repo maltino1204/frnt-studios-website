@@ -50,6 +50,8 @@ export interface Session {
   email: string;
   firstName: string | null;
   providerStatus?: ProviderStatus;
+  /** DEMO_MODE shared login (audit-3 F7): password, e-mail, deletion and admin blocking are disabled */
+  isDemoAccount: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -674,6 +676,10 @@ export interface ProProfileDTO {
 
 export interface ProServiceDTO extends OfferingDTO {
   isActive: boolean;
+  /** audit-3 F2: inactive until the category's required documents are approved ("wartet auf Nachweis") */
+  awaitingDocuments: boolean;
+  /** labels of the missing / unreviewed category documents while awaitingDocuments */
+  missingDocuments: string[];
   serviceDurations: number[];
   priceHintFromCents: number | null;
 }

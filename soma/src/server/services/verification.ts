@@ -61,3 +61,16 @@ export async function expireDocumentsInTx(tx: Tx, now: Date): Promise<{ expiredD
   }
   return { expiredDocuments: rows.length, suspendedProviders: suspended };
 }
+
+/**
+ * audit-3 F2: offerings stored "wartet auf Nachweis" are re-checked after a document approval or
+ * a (re)approval of the provider; the trigger provider_services_10_require_documents activates
+ * the ones whose category documents are now complete. Returns the number activated.
+ */
+export async function activateAwaitingOfferings(tx: Tx, providerId: string): Promise<number> {
+  const rows = await tx<{ id: string; isActive: boolean }[]>`
+    update public.provider_services set is_active = true
+    where provider_id = ${providerId} and awaiting_documents
+    returning id, is_active`;
+  return rows.filter((r) => r.isActive).length;
+}

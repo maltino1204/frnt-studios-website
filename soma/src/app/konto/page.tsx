@@ -13,8 +13,8 @@ import { CountPill, EmptyState, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { RebookButton } from "@/components/site/account-rebook";
 import { ACCOUNT_SECTIONS } from "@/components/site/account-sections";
-import { dayLabel, statusTone } from "@/components/site/checkout-format";
-import { formatPriceExact, formatRelative, formatTime } from "@/lib/format";
+import { dayLabel, lastTimeText, statusTone } from "@/components/site/checkout-format";
+import { formatPriceExact, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Übersicht" };
@@ -97,7 +97,7 @@ export default async function KontoPage() {
                   <Avatar src={b.providerAvatarUrl} name={b.providerName} size={40} />
                   <div className="min-w-0">
                     <p className="type-label">{b.serviceName}</p>
-                    <p className="mt-0.5 type-caption text-ink-muted">{`bei ${b.providerName} · zuletzt ${formatRelative(b.startsAt)}`}</p>
+                    <p className="mt-0.5 type-caption text-ink-muted">{`bei ${b.providerName} · zuletzt ${lastTimeText(b.startsAt)}`}</p>
                   </div>
                 </div>
                 <RebookButton bookingId={b.id} size="s" label="Erneut buchen" className="shrink-0" />

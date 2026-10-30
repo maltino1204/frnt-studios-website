@@ -21,7 +21,7 @@ const weekday = new Intl.DateTimeFormat("de-DE", { timeZone: TIME_ZONE, weekday:
 
 /** An illustrative appointment (a Friday, 18:30 Berlin time) to turn the tiers into concrete deadlines. */
 const EXAMPLE_START = new Date("2026-11-13T17:30:00Z");
-const at = (d: Date) => `${weekday.format(d)}, ${formatTime(d)} Uhr`;
+const at = (d: Date) => `${weekday.format(d)}, ${formatTime(d)} Uhr`;
 
 export default async function StornierungPage() {
   const terms = await getPublicTerms();

@@ -60,3 +60,19 @@ export function ratioToInput(ratio: number): string {
 export function fullName(first: string | null, last: string | null): string {
   return [first, last].filter(Boolean).join(" ") || "—";
 }
+
+/** "seit 20 Stunden", "seit 3 Tagen", "gerade eben" (audit-3 F14: never "seit vor …"). */
+export function formatSince(d: string | Date, now: Date = new Date()): string {
+  const ms = Math.max(0, now.getTime() - new Date(d).getTime());
+  const min = Math.floor(ms / 60_000);
+  if (min < 1) return "gerade eben";
+  const unit = (n: number, one: string, many: string) => `seit ${n.toLocaleString(LOCALE)} ${n === 1 ? one : many}`;
+  if (min < 60) return unit(min, "Minute", "Minuten");
+  const h = Math.floor(min / 60);
+  if (h < 24) return unit(h, "Stunde", "Stunden");
+  const days = Math.floor(h / 24);
+  if (days < 30) return unit(days, "Tag", "Tagen");
+  const months = Math.floor(days / 30);
+  if (months < 12) return unit(months, "Monat", "Monaten");
+  return unit(Math.floor(months / 12), "Jahr", "Jahren");
+}

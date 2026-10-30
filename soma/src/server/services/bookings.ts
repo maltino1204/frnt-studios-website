@@ -753,6 +753,39 @@ export async function listCustomerBookings(session: Session, scope: "upcoming" |
   });
 }
 
+/**
+ * "Erneut buchen" (audit-3 F11): the last COMPLETED booking per provider, newest first, at most
+ * `limit` providers. Queried distinct per provider directly, so cancellations or declines among the
+ * recent bookings cannot hide suggestions. Only providers that are still bookable (approved).
+ */
+export async function listRebookSuggestions(session: Session, limit = 3): Promise<BookingListItemDTO[]> {
+  const s = requireRoleIn(session, "customer");
+  const n = parse(z.number().int().min(1).max(12), limit);
+  return withUser(s.userId, async (tx) => {
+    const settings = await loadSettings(tx);
+    const ids = await tx<{ id: string }[]>`
+      select id from (
+        select distinct on (b.provider_id) b.id, b.starts_at
+        from public.bookings b
+        join public.providers p on p.id = b.provider_id and p.status = 'approved'
+        where b.customer_id = ${s.userId} and b.status = 'completed'
+        order by b.provider_id, b.starts_at desc
+      ) last order by starts_at desc limit ${n}`;
+    if (ids.length === 0) return [];
+    const rows = await queryCustomerBookings(tx, (t) => t`where b.id = any(${ids.map((r) => r.id)}::uuid[]) order by b.starts_at desc`);
+    const reviewed = new Set(
+      (await tx<{ bookingId: string }[]>`select booking_id from public.reviews where customer_id = ${s.userId}`).map((r) => r.bookingId),
+    );
+    const now = new Date();
+    return rows.map((r) => ({
+      id: r.id, reference: r.reference, status: r.status, statusLabel: STATUS_LABELS_DE[r.status], startsAt: r.startsAt.toISOString(),
+      endsAt: r.endsAt.toISOString(), serviceName: r.serviceName, providerName: r.providerName ?? "Profi", providerSlug: r.providerSlug ?? "",
+      providerAvatarUrl: mediaUrl(r.providerAvatarPath), totalCents: r.totalCents, city: r.city,
+      canReview: customerFlags(r, now, settings.reviewWindowDays, settings.disputeWindowHours, reviewed.has(r.id), false).canReview,
+    }));
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Provider reads (provider_bookings view: no e-mail, address only after confirmation, never the Start-Code)
 // ---------------------------------------------------------------------------

@@ -123,13 +123,16 @@ export function RequestPanel({ booking: b, headingLevel = "h3" }: { booking: Pro
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 flex-col gap-1">
             <p className="type-overline text-ink-muted">Neue Anfrage</p>
-            <H id={`req-${b.id}`} className="type-heading-m">
+            {/* Long one-word services ("Entspannungsmassage") may hyphenate so the card never exceeds 320 px (F9). */}
+            <H id={`req-${b.id}`} className="type-heading-m hyphens-auto break-words">
               <Link href={routes.pro.booking(b.id)} className="hover:underline hover:decoration-1 hover:underline-offset-4">
                 {b.serviceName}
               </Link>
             </H>
+            {/* Comma instead of "·": on narrow cards the line may wrap after the date without a dangling separator. */}
             <p className="type-body num text-ink">
-              {formatDayShort(b.startsAt)} · {formatTime(b.startsAt)}–{formatTime(b.endsAt)}
+              <span className="whitespace-nowrap">{`${formatDayShort(b.startsAt)},`}</span>{" "}
+              <span className="whitespace-nowrap">{`${formatTime(b.startsAt)}–${formatTime(b.endsAt)}`}</span>
             </p>
           </div>
           <div className="flex shrink-0 flex-col items-end text-right">
@@ -141,7 +144,9 @@ export function RequestPanel({ booking: b, headingLevel = "h3" }: { booking: Pro
           {b.customer.firstName ?? "Kundschaft"} · {b.isRepeatClient ? "Stammkundschaft" : b.customer.completedBookings > 0 ? `${b.customer.completedBookings} Termine auf SOMA` : "Neu auf SOMA"} · {areaLine(b)}
         </p>
         <p className="type-caption text-ink-muted">
-          {TIER_LABEL[b.earnings.commissionTier]} · {formatPercent(b.earnings.commissionRate)} Provision
+          {/* The client line already says "Stammkundschaft"; don't repeat it here (F14). */}
+          {b.isRepeatClient && b.earnings.commissionTier === "repeat" ? "" : `${TIER_LABEL[b.earnings.commissionTier]} · `}
+          {formatPercent(b.earnings.commissionRate)} Provision
           {b.earnings.travelFeeCents > 0 ? ` · inkl. ${formatPrice(b.earnings.travelFeeCents)} Anfahrt (provisionsfrei)` : ""}
         </p>
         {b.notes ? <p className="border-l-2 border-line pl-3 type-body-s text-ink">„{b.notes}“</p> : null}

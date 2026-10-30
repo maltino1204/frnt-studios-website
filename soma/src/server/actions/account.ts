@@ -3,7 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { assertNotDemoAccount } from "../auth/demo-accounts";
 import { authorize } from "../auth/guards";
+import { verifyPasswordWithLimit } from "../auth/reauth";
 import { getAuthAdapter } from "../auth/session";
 import type { AddressDTO, NotificationPreferencesDTO, ProfileDTO } from "../dto";
 import { ServiceError } from "../errors";
@@ -135,9 +137,10 @@ const DeletionSchema = z.object({ password: z.string().min(1, "Bitte geben Sie I
 export async function requestAccountDeletionAction(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
   try {
     const session = await authorize(["customer", "provider"]);
+    await assertNotDemoAccount(session.userId);
     const v = input(DeletionSchema, formToObject(formData));
     const adapter = await getAuthAdapter();
-    if (!(await adapter.verifyPassword(session.userId, v.password))) {
+    if (!(await verifyPasswordWithLimit(session.userId, v.password, (id, pw) => adapter.verifyPassword(id, pw)))) {
       throw new ServiceError("validation", "Das Passwort ist nicht korrekt.", { password: "Das Passwort ist nicht korrekt." });
     }
     await anonymizeOwnAccount(session);

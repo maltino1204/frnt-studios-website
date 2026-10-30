@@ -2,6 +2,7 @@ import { InviteCard } from "@/components/pro/invite-card";
 import { formatPercent } from "@/components/pro/labels";
 import { ProHeader, ProPage, ProSection } from "@/components/pro/page";
 import { PasswordForm, SettingsForm } from "@/components/pro/settings-form";
+import { Notice } from "@/components/ui/feedback";
 import { FactList } from "@/components/ui/layout";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -26,7 +27,14 @@ export default async function ProSettingsPage() {
       />
       <ProSection id="konto" title="Konto">
         <FactList className="border-y border-line" items={[{ label: "E-Mail", value: session.email }, { label: "Einladungscode", value: <span className="code-ref">{settings.inviteCode}</span> }]} />
-        <PasswordForm />
+        {session.isDemoAccount ? (
+          // F7: shared demo logins stay usable for the next tester (the server refuses these actions too).
+          <Notice kind="info" title="Passwort ändern">
+            Im Demo-Zugang deaktiviert – so können alle mit denselben Zugangsdaten testen.
+          </Notice>
+        ) : (
+          <PasswordForm />
+        )}
         <form action={signOutAction} className="pt-2">
           <button type="submit" className="inline-flex h-touch items-center type-label text-ink underline decoration-1 underline-offset-[0.2em] hover:text-ink-muted">
             Abmelden

@@ -1,4 +1,4 @@
-// npm run images:fetch
+// npm run images:fetch   (also runs automatically before `npm run build`; failures never break a build)
 // Downloads the art-directed photo set (docs/art-direction.md) from its source CDN,
 // crops each image to its target ratio around the documented focal point,
 // writes optimized sRGB JPEGs (q85) to public/images/**, and records which
@@ -15,6 +15,7 @@ const done = new Set(JSON.parse(fs.readFileSync(localManifest, "utf8")));
 
 const parseFocal = (f) => f.split(" ").map((v) => parseFloat(v) / 100);
 
+let failures = 0;
 for (const src of sources) {
   const out = path.join(root, "public", src.path);
   if (fs.existsSync(out) && done.has(src.path) && !process.argv.includes("--force")) {
@@ -22,7 +23,7 @@ for (const src of sources) {
     continue;
   }
   try {
-    const res = await fetch(src.remote);
+    const res = await fetch(src.remote, { signal: AbortSignal.timeout(30_000) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const input = Buffer.from(await res.arrayBuffer());
     const meta = await sharp(input).metadata();
@@ -43,8 +44,10 @@ for (const src of sources) {
     done.add(src.path);
     console.log(`ok    ${src.path}`);
   } catch (err) {
-    console.error(`fail  ${src.path}: ${err.message}`);
+    failures++;
+    if (failures <= 3) console.error(`fail  ${src.path}: ${err.message}`);
   }
 }
 fs.writeFileSync(localManifest, JSON.stringify([...done].sort(), null, 2) + "\n");
+if (failures > 3) console.error(`… ${failures - 3} more failed (network?). Remote URLs stay in use for those.`);
 console.log(`${done.size}/${sources.length} images available locally.`);

@@ -37,18 +37,19 @@ export function StatsSkeleton({ tiles = 4 }: { tiles?: number }) {
   );
 }
 
+/** Loading table: clipped to the available width (never widens the page, audit-3 F10). */
 export function TableSkeleton({ rows = 10, cols = 6 }: { rows?: number; cols?: number }) {
   return (
-    <div className="border border-line bg-surface-raised">
-      <div className="flex h-10 items-center gap-6 border-b border-line-strong px-4">
+    <div aria-hidden className="relative max-w-full min-w-0 overflow-hidden border border-line bg-surface-raised">
+      <div className="flex h-10 min-w-0 items-center gap-6 overflow-hidden border-b border-line-strong px-4">
         {Array.from({ length: cols }, (_, i) => (
-          <Skeleton key={i} className={cn("h-3", i === 0 ? "w-24" : "w-16")} />
+          <Skeleton key={i} className={cn("h-3 min-w-0", i === 0 ? "w-24" : "w-16")} />
         ))}
       </div>
       {Array.from({ length: rows }, (_, r) => (
-        <div key={r} className="flex h-10 items-center gap-6 border-b border-line px-4 last:border-b-0">
+        <div key={r} className="flex h-10 min-w-0 items-center gap-6 overflow-hidden border-b border-line px-4 last:border-b-0">
           {Array.from({ length: cols }, (_, i) => (
-            <Skeleton key={i} className={cn("h-3", i === 0 ? "w-24" : i % 3 === 1 ? "w-28" : "w-14")} />
+            <Skeleton key={i} className={cn("h-3 min-w-0", i === 0 ? "w-24" : i % 3 === 1 ? "w-28" : "w-14")} />
           ))}
         </div>
       ))}
@@ -98,7 +99,7 @@ export function ListPageSkeleton({ tabs, fields = 1, cols = 7, stats }: { tabs?:
   return (
     <Delay>
       <HeaderSkeleton />
-      <div className="flex flex-col gap-4">
+      <div className="flex min-w-0 flex-col gap-4">
         {tabs ? <TabsSkeleton /> : null}
         {stats ? <StatsSkeleton tiles={stats} /> : null}
         <ToolbarSkeleton fields={fields} />
@@ -113,13 +114,13 @@ export function DetailPageSkeleton() {
   return (
     <Delay>
       <HeaderSkeleton back />
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">
-        <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">
+        <div className="flex min-w-0 flex-col gap-6">
           <TableSkeleton rows={4} cols={4} />
           <PanelSkeleton rows={3} />
           <TableSkeleton rows={3} cols={5} />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           <PanelSkeleton rows={6} />
           <PanelSkeleton rows={2} />
         </div>
@@ -165,9 +166,9 @@ export function FormsPageSkeleton() {
   return (
     <Delay>
       <HeaderSkeleton />
-      <div className="flex flex-col gap-12">
+      <div className="flex min-w-0 flex-col gap-12">
         <TableSkeleton rows={2} cols={6} />
-        <div className="grid gap-8 xl:grid-cols-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-8 xl:grid-cols-2">
           <PanelSkeleton rows={7} />
           <PanelSkeleton rows={7} />
         </div>

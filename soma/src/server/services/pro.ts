@@ -147,17 +147,36 @@ export async function updateServiceArea(session: Session, input: z.input<typeof 
 // ---------------------------------------------------------------------------
 export async function listProServices(session: Session): Promise<ProServiceDTO[]> {
   const s = requirePro(session);
-  return withUser(s.userId, async (tx) =>
-    (await tx<Array<ProServiceDTO & { serviceDurations: number[] }>>`
+  return withUser(s.userId, async (tx) => {
+    const rows = await tx<Array<Omit<ProServiceDTO, "missingDocuments"> & { serviceDurations: number[] }>>`
       select ps.id as provider_service_id, s.id as service_id, s.slug as service_slug, s.name as service_name,
              c.id as category_id, c.slug as category_slug, c.name as category_name, ps.duration_minutes, ps.price_cents,
-             ps.is_active, s.durations as service_durations, s.price_hint_from_cents
+             ps.is_active, ps.awaiting_documents, s.durations as service_durations, s.price_hint_from_cents
       from public.provider_services ps
       join public.services s on s.id = ps.service_id
       join public.categories c on c.id = s.category_id
       where ps.provider_id = ${s.userId}
-      order by c.sort_order, s.sort_order, ps.duration_minutes`).map((r) => ({ ...r, serviceDurations: [...r.serviceDurations] })),
-  );
+      order by c.sort_order, s.sort_order, ps.duration_minutes`;
+    const missing = rows.some((r) => r.awaitingDocuments) ? await queryMissingCategoryDocuments(tx, s.userId) : new Map<string, string[]>();
+    return rows.map((r) => ({ ...r, serviceDurations: [...r.serviceDurations], missingDocuments: r.awaitingDocuments ? missing.get(r.categoryId) ?? [] : [] }));
+  });
+}
+
+/** Category id → labels of required category documents that are missing, unreviewed or expired (audit-3 F2). */
+export async function queryMissingCategoryDocuments(tx: Queryable, providerId: string, categoryIds?: string[]): Promise<Map<string, string[]>> {
+  const docs = await tx<{ kind: DocumentKind; categoryId: string | null }[]>`
+    select kind, category_id from public.provider_documents
+    where provider_id = ${providerId} and status = 'approved' and (expires_at is null or expires_at > now())`;
+  const cats = await tx<{ id: string; requiredDocuments: RequiredDocumentDTO[] }[]>`
+    select id, required_documents from public.categories ${categoryIds ? tx`where id = any(${categoryIds}::uuid[])` : tx``}`;
+  const out = new Map<string, string[]>();
+  for (const c of cats) {
+    const labels = (Array.isArray(c.requiredDocuments) ? c.requiredDocuments : [])
+      .filter((req) => !docs.some((d) => d.kind === req.kind && (d.categoryId === c.id || d.categoryId === null)))
+      .map((req) => req.label);
+    if (labels.length) out.set(c.id, labels);
+  }
+  return out;
 }
 
 const ProServiceSchema = z.object({
@@ -178,12 +197,20 @@ export async function upsertProService(session: Session, input: z.input<typeof P
     if (!svc.durations.includes(v.durationMinutes) && !within) {
       throw new ServiceError("validation", `Die Dauer muss zu dieser Leistung passen (${svc.durations.join(" / ")} Min. oder ±30 %).`, { durationMinutes: "Unpassende Dauer." });
     }
+    // The trigger provider_services_10_require_documents (migration 0008) stores the offering of an
+    // approved provider inactive with awaiting_documents while the category's documents are incomplete.
     await tx`
       insert into public.provider_services (provider_id, service_id, duration_minutes, price_cents, is_active)
       values (${s.userId}, ${v.serviceId}, ${v.durationMinutes}, ${v.priceCents}, ${v.isActive})
       on conflict (provider_id, service_id, duration_minutes)
       do update set price_cents = excluded.price_cents, is_active = excluded.is_active`;
   }).catch(rethrowDb);
+  if (!v.isActive) {
+    // withService: the provider switched the offering off — it no longer waits for documents (flag has no API grant).
+    await withService((tx) => tx`
+      update public.provider_services set awaiting_documents = false
+      where provider_id = ${s.userId} and service_id = ${v.serviceId} and duration_minutes = ${v.durationMinutes} and awaiting_documents`);
+  }
   const all = await listProServices(s);
   const found = all.find((o) => o.serviceId === v.serviceId && o.durationMinutes === v.durationMinutes);
   if (!found) throw new ServiceError("internal", "Die Leistung konnte nicht gespeichert werden.");

@@ -19,7 +19,7 @@ export function ResponseCountdown({ until, className }: { until: string | null; 
     return () => clearInterval(t);
   }, []);
   if (!until) return null;
-  const deadline = `${formatDayShort(until)}, ${formatTime(until)} Uhr`;
+  const deadline = `${formatDayShort(until)}, ${formatTime(until)}\u00a0Uhr`;
   if (now === null) {
     return (
       <p className={cn("flex items-start gap-2 type-body-s text-warning", className)}>
@@ -36,7 +36,7 @@ export function ResponseCountdown({ until, className }: { until: string | null; 
       {left > 0 ? (
         <span>
           Du hast noch <span className="font-semibold num">{formatRemaining(left)}</span> Zeit zu antworten (bis {berlinDateKey(until) === berlinDateKey(now) ? "" : `${formatDayShort(until)}, `}
-          {formatTime(until)} Uhr).
+          {`${formatTime(until)}\u00a0Uhr`}).
         </span>
       ) : (
         <span>Die Antwortfrist ist abgelaufen.</span>

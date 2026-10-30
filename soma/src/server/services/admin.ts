@@ -26,6 +26,7 @@ import type {
   ServiceDTO,
   Session,
 } from "../dto";
+import { assertNotDemoAccount } from "../auth/demo-accounts";
 import { ServiceError } from "../errors";
 import { getPaymentProvider } from "../payments/provider";
 import { createDevPaymentProvider } from "../payments/dev";
@@ -34,7 +35,7 @@ import { assertAdmin, audit, loadSettings, paging, parse, zLocalDate, zUuid } fr
 import { cancelInTx, lockBooking, runPaymentOps, type PaymentOp } from "./booking-engine";
 import { notify } from "./notifications";
 import { DOCUMENT_COLUMNS, queryMissingDocuments, queryProProfile, toDocument, validUntilToExpiry, type DocumentRow } from "./pro";
-import { DOCUMENT_KIND_LABELS, suspendIfDocumentsIncomplete } from "./verification";
+import { activateAwaitingOfferings, DOCUMENT_KIND_LABELS, suspendIfDocumentsIncomplete } from "./verification";
 
 /**
  * Admin platform. Every function: assertAdmin (session role + DB re-check)
@@ -79,6 +80,7 @@ export async function setUserBlocked(session: Session, userId: string, blocked: 
   const r = parse(z.string().trim().min(3, "Bitte einen Grund angeben.").max(500), reason);
   await asAdmin(session, async (tx, admin) => {
     if (id === admin.userId) throw new ServiceError("validation", "Das eigene Konto kann nicht gesperrt werden.");
+    if (blocked) await assertNotDemoAccount(id, tx);
     const rows = await tx`update public.profiles set blocked_at = ${blocked ? new Date() : null} where id = ${id} returning id`;
     if (rows.length === 0) throw new ServiceError("not_found", "Nutzer nicht gefunden.");
     if (blocked) {
@@ -201,6 +203,7 @@ export async function decideProvider(session: Session, providerId: string, decis
     const [p] = await tx<{ status: ProviderStatus; basePostalCode: string | null }[]>`select status, base_postal_code from public.providers where id = ${v.providerId} for update`;
     if (!p) throw new ServiceError("not_found", "Profi nicht gefunden.");
     const target = DECISION_TARGET[v.decision];
+    if (v.decision === "suspend" || v.decision === "reject") await assertNotDemoAccount(v.providerId, tx);
     if (!target.from.includes(p.status)) throw new ServiceError("invalid_state", `Aus dem Status „${p.status}“ ist diese Entscheidung nicht möglich.`);
     const warnings: string[] = [];
     if (v.decision === "approve" || v.decision === "reinstate") {
@@ -220,6 +223,7 @@ export async function decideProvider(session: Session, providerId: string, decis
     }
     await setActor(tx, { actorId: admin.userId, actorRole: "admin", note: v.note ?? null });
     await tx`update public.providers set status = ${target.to} where id = ${v.providerId}`;
+    if (target.to === "approved") await activateAwaitingOfferings(tx, v.providerId);
     await audit(tx, admin.userId, `provider.${v.decision}`, "provider", v.providerId, { from: p.status, to: target.to, note: v.note ?? null, warnings });
     if (target.to === "approved") await notify(tx, "provider.approved", { providerId: v.providerId });
     if (target.to === "rejected" || target.to === "suspended") await notify(tx, "provider.rejected", { providerId: v.providerId, note: v.note ?? null });
@@ -231,7 +235,7 @@ export async function decideProvider(session: Session, providerId: string, decis
  * Approve / reject one document. `validUntil` ("YYYY-MM-DD", inclusive) sets the expiry on approval.
  * Rejecting a required document of an approved provider suspends them automatically (audit-2 N4).
  */
-export async function reviewDocument(session: Session, documentId: string, status: "approved" | "rejected", note?: string, validUntil?: string | null): Promise<{ providerSuspended: boolean }> {
+export async function reviewDocument(session: Session, documentId: string, status: "approved" | "rejected", note?: string, validUntil?: string | null): Promise<{ providerSuspended: boolean; offeringsActivated: number }> {
   const v = parse(z.object({
     documentId: zUuid, status: z.enum(["approved", "rejected"]), note: z.string().trim().max(500).optional(),
     validUntil: zLocalDate.nullable().optional(),
@@ -241,6 +245,10 @@ export async function reviewDocument(session: Session, documentId: string, statu
     throw new ServiceError("validation", "Das Gültigkeitsdatum liegt in der Vergangenheit.", { validUntil: "Das Datum liegt in der Vergangenheit." });
   }
   return asAdmin(session, async (tx, admin) => {
+    if (v.status === "rejected") {
+      const [doc] = await tx<{ providerId: string }[]>`select provider_id from public.provider_documents where id = ${v.documentId}`;
+      if (doc) await assertNotDemoAccount(doc.providerId, tx);
+    }
     const rows = await tx<{ providerId: string; kind: DocumentRow["kind"] }[]>`
       update public.provider_documents
       set status = ${v.status}, review_note = ${v.note ?? null}, reviewed_by = ${admin.userId}, reviewed_at = now(),
@@ -251,7 +259,8 @@ export async function reviewDocument(session: Session, documentId: string, statu
     const providerSuspended = v.status === "rejected"
       ? await suspendIfDocumentsIncomplete(tx, rows[0].providerId, `${DOCUMENT_KIND_LABELS[rows[0].kind]} abgelehnt${v.note ? ` („${v.note}“)` : ""}`)
       : false;
-    return { providerSuspended };
+    const offeringsActivated = v.status === "approved" ? await activateAwaitingOfferings(tx, rows[0].providerId) : 0;
+    return { providerSuspended, offeringsActivated };
   });
 }
 

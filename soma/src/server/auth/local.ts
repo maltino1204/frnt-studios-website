@@ -16,6 +16,7 @@ import {
   type SignUpInput,
 } from "./adapter";
 import { burnPasswordCheck, hashPassword, MIN_PASSWORD_LENGTH, verifyPassword } from "./password";
+import { assertNotDemoAccount, isDemoAccountEmail } from "./demo-accounts";
 import { allowAuthEmail, type AuthEmailKind } from "./email-throttle";
 import { currentRequestIp } from "./request-ip";
 import { assertLoginAllowed, recordLoginAttempt } from "./rate-limit";
@@ -150,6 +151,8 @@ export async function requestLocalPasswordReset(emailRaw: string, opts: { ip?: s
   const token = newToken();
   // withService: password reset tokens and the throttle live in app_private; reads auth.users.
   const userId = await withService(async (tx) => {
+    // Shared demo logins never get reset links (same neutral answer).
+    if (isDemoAccountEmail(email)) return null;
     if (!(await allowAuthEmail(tx, { email, ip: opts.ip ?? null, kind: opts.kind ?? "password_reset" }))) return null;
     const [user] = await tx<{ id: string }[]>`select id from auth.users where lower(email) = ${email}`;
     if (!user) return null;
@@ -178,6 +181,7 @@ export async function resetLocalPassword(token: string, newPassword: string): Pr
       where token_hash = ${sha256(token)} and used_at is null and expires_at > now()
       returning user_id`;
     if (!row) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.");
+    await assertNotDemoAccount(row.userId, tx);
     await tx`update auth.users set encrypted_password = ${hash}, updated_at = now() where id = ${row.userId}`;
     await tx`delete from app_private.local_sessions where user_id = ${row.userId}`;
     return row.userId;
@@ -185,6 +189,7 @@ export async function resetLocalPassword(token: string, newPassword: string): Pr
 }
 
 export async function changeLocalPassword(userId: string, current: string, next: string): Promise<void> {
+  await assertNotDemoAccount(userId);
   assertPasswordPolicy(next);
   // withService: password hashes live in auth.users.
   const [user] = await withService((tx) => tx<{ encryptedPassword: string | null }[]>`select encrypted_password from auth.users where id = ${userId}`);

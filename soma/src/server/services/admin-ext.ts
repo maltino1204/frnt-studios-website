@@ -228,8 +228,9 @@ export interface FailedPaymentDTO {
 export interface DocumentAlertDTO {
   providerId: string;
   displayName: string;
-  status: "suspended" | "approved";
-  /** suspended: the automatic suspension note; approved: which document expires soon */
+  /** suspended: paused automatically · approved: a document expires soon · awaiting: an offering waits for a category document (F2) */
+  status: "suspended" | "approved" | "awaiting";
+  /** suspended: the automatic suspension note; approved: which document expires soon; awaiting: which offering */
   note: string;
   /** suspended: when; approved: the expiry */
   at: string;
@@ -260,7 +261,7 @@ export async function getOpsQueues(session: Session, opts: { limit?: number } = 
       from public.payments p join public.bookings b on b.id = p.booking_id join public.profiles cp on cp.id = b.customer_id
       where p.status = 'failed' order by p.created_at desc limit ${limit}`;
     const [{ failedTotal }] = await tx<{ failedTotal: number }[]>`select count(*)::int as failed_total from public.payments where status = 'failed'`;
-    const alerts = await tx<Array<{ providerId: string; displayName: string; status: "suspended" | "approved"; note: string; at: Date }>>`
+    const alerts = await tx<Array<{ providerId: string; displayName: string; status: DocumentAlertDTO["status"]; note: string; at: Date }>>`
       select * from (
         select p.id as provider_id, p.display_name, 'suspended'::text as status, e.note, e.created_at as at
         from public.providers p
@@ -269,12 +270,17 @@ export async function getOpsQueues(session: Session, opts: { limit?: number } = 
         ) e on true
         where p.status = 'suspended' and e.note like ${`${AUTO_SUSPEND_PREFIX}%`}
         union all
+        select p.id, p.display_name, 'awaiting', 'Wartet auf Nachweis: ' || string_agg(distinct s.name, ', '), max(ps.created_at)
+        from public.provider_services ps join public.providers p on p.id = ps.provider_id join public.services s on s.id = ps.service_id
+        where ps.awaiting_documents and p.status = 'approved'
+        group by p.id, p.display_name
+        union all
         select p.id, p.display_name, 'approved', d.kind::text, d.expires_at
         from public.provider_documents d join public.providers p on p.id = d.provider_id
         where p.status = 'approved' and d.status = 'approved' and d.expires_at is not null
           and d.expires_at > now() and d.expires_at <= now() + interval '14 days'
       ) x
-      order by (status = 'suspended') desc, at`;
+      order by (status = 'suspended') desc, (status = 'awaiting') desc, at`;
     return {
       documentAlerts: alerts.slice(0, limit).map((a) => ({
         ...a,

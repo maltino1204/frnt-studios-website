@@ -358,7 +358,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
               {suspended
                 ? onboarding.lastDecisionNote ?? "Bei Fragen hilft dir der SOMA-Support."
                 : onboarding.submittedAt
-                  ? `Eingereicht am ${formatDateLong(onboarding.submittedAt)} um ${formatTime(onboarding.submittedAt)} Uhr.`
+                  ? `Eingereicht am ${formatDateLong(onboarding.submittedAt)} um ${formatTime(onboarding.submittedAt)} Uhr.`
                   : "Dein Profil ist eingereicht."}
             </p>
           </div>

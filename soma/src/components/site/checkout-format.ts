@@ -80,6 +80,23 @@ export function nbspDate(s: string): string {
   return s.replace(/(\d{1,2}\.) (?=\p{L})/gu, `$1${NBSP}`).replace(/(^|\s)(\p{L}{2,3}\.,) (?=\d)/gu, `$1$2${NBSP}`);
 }
 
+const monthLong = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", month: "long" });
+const monthYear = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", month: "long", year: "numeric" });
+
+/**
+ * When something last happened, for "zuletzt …" (F14): "heute", "gestern", "vor 5 Tagen",
+ * "vor 3 Wochen", then "im September" (with the year when it differs).
+ */
+export function lastTimeText(iso: string, now: Date = new Date()): string {
+  const days = Math.round((Date.parse(`${berlinDateKey(now)}T12:00:00Z`) - Date.parse(`${berlinDateKey(iso)}T12:00:00Z`)) / 86_400_000);
+  if (days <= 0) return "heute";
+  if (days === 1) return "gestern";
+  if (days < 14) return `vor ${days}${NBSP}Tagen`;
+  if (days < 60) return `vor ${Math.round(days / 7)}${NBSP}Wochen`;
+  const d = new Date(iso);
+  return `im ${d.getUTCFullYear() === now.getUTCFullYear() ? monthLong.format(d) : monthYear.format(d)}`;
+}
+
 /** "Heute", "Morgen", "Do., 6. Nov." for an instant or a local date key. */
 export function dayLabel(d: string | Date, now: Date = new Date()): string {
   const key = typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : berlinDateKey(d);

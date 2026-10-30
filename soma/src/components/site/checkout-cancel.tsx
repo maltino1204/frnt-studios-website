@@ -118,7 +118,7 @@ export function CancelBooking({
               <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
             ) : inGrace && graceEnd !== null ? (
               <>
-                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
+                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
                 <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
               </>
             ) : free ? (

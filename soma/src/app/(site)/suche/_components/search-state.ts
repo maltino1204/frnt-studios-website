@@ -12,7 +12,12 @@ export type SearchState = {
   sofort: boolean;
   bewertung: boolean;
   sprache: string | null;
+  /** price cap in euros incl. travel (F15): 60, 90 or 120 */
+  preis: number | null;
 };
+
+/** Price caps offered as filter chips (euros, total incl. travel). */
+export const PRICE_CAPS = [60, 90, 120] as const;
 
 export type CatalogLite = Array<{
   slug: string;
@@ -37,11 +42,12 @@ export function searchHref(s: Partial<SearchState>, extra: Record<string, string
   set("sofort", s.sofort);
   if (s.bewertung) sp.set("bewertung", "4.5");
   set("sprache", s.sprache);
+  set("preis", s.preis);
   for (const [k, v] of Object.entries(extra)) set(k, v);
   const q = sp.toString();
   return `/suche${q ? `?${q}` : ""}`;
 }
 
 export function activeFilterCount(s: SearchState): number {
-  return (s.sort !== "empfohlen" ? 1 : 0) + (s.sofort ? 1 : 0) + (s.bewertung ? 1 : 0) + (s.sprache ? 1 : 0);
+  return (s.sort !== "empfohlen" ? 1 : 0) + (s.sofort ? 1 : 0) + (s.bewertung ? 1 : 0) + (s.sprache ? 1 : 0) + (s.preis ? 1 : 0);
 }

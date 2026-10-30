@@ -20,7 +20,7 @@ import {
   TIME_OF_DAY_LABEL,
   TIME_OF_DAY_RANGE,
 } from "@/components/site/checkout-format";
-import { activeFilterCount, searchHref, type CatalogLite, type SearchState } from "./search-state";
+import { activeFilterCount, PRICE_CAPS, searchHref, type CatalogLite, type SearchState } from "./search-state";
 
 /* ------------------------------------------------------------------------- */
 /* Navigation context: every control navigates via a transition so the list  */
@@ -315,7 +315,7 @@ function DateSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
 /* ------------------------------------------------------------------------- */
 /* Filters: drawer on mobile (apply on submit), inline aside on desktop       */
 /* ------------------------------------------------------------------------- */
-type FilterValues = Pick<SearchState, "sort" | "sofort" | "bewertung" | "sprache" | "zeit">;
+type FilterValues = Pick<SearchState, "sort" | "sofort" | "bewertung" | "sprache" | "zeit" | "preis">;
 const LANGS = ["de", "en", "tr", "fr", "es", "it", "pl", "ru", "ar"];
 
 function FilterFields({
@@ -372,6 +372,21 @@ function FilterFields({
           </div>
         </div>
       ) : null}
+      <div className="flex flex-col gap-2">
+        <p className={compact ? "type-label-s text-ink" : "type-overline text-ink-muted"} id={`${idPrefix}-preis-label`}>
+          Preis inkl. Anfahrt
+        </p>
+        <div className="flex flex-wrap gap-2" role="group" aria-labelledby={`${idPrefix}-preis-label`}>
+          <Chip selected={!value.preis} onClick={() => onChange({ ...value, preis: null })}>
+            Alle Preise
+          </Chip>
+          {PRICE_CAPS.map((p) => (
+            <Chip key={p} selected={value.preis === p} onClick={() => onChange({ ...value, preis: p })} className="num">
+              {`bis ${p}\u00a0€`}
+            </Chip>
+          ))}
+        </div>
+      </div>
       <fieldset className="flex flex-col divide-y divide-line border-y border-line">
         <legend className={cn("mb-1 type-overline text-ink-muted", compact && "sr-only")}>Filter</legend>
         <Switch
@@ -405,8 +420,8 @@ function FilterFields({
   );
 }
 
-const pickFilters = (s: SearchState): FilterValues => ({ sort: s.sort, sofort: s.sofort, bewertung: s.bewertung, sprache: s.sprache, zeit: s.zeit });
-const NO_FILTERS: Omit<FilterValues, "zeit"> = { sort: "empfohlen", sofort: false, bewertung: false, sprache: null };
+const pickFilters = (s: SearchState): FilterValues => ({ sort: s.sort, sofort: s.sofort, bewertung: s.bewertung, sprache: s.sprache, zeit: s.zeit, preis: s.preis });
+const NO_FILTERS: Omit<FilterValues, "zeit"> = { sort: "empfohlen", sofort: false, bewertung: false, sprache: null, preis: null };
 
 function FilterSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { state, go } = useNav();

@@ -24,7 +24,7 @@ import { berlinDateKey, formatDay, formatDuration, plural } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { InlineFilters, SearchChips, SearchDateStrip, SearchNavProvider, SearchResultsRegion } from "./_components/search-controls";
 import { SearchPrompt } from "./_components/search-prompt";
-import { searchHref, type CatalogLite, type SearchState } from "./_components/search-state";
+import { PRICE_CAPS, searchHref, type CatalogLite, type SearchState } from "./_components/search-state";
 import { WaitlistForm } from "./_components/waitlist-form";
 
 export const metadata: Metadata = {
@@ -83,6 +83,9 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   const sprache = one(sp.sprache)?.slice(0, 5) ?? null;
   const seite = Math.max(1, Math.min(4, Number(one(sp.seite)) || 1));
   const plz = one(sp.plz);
+  // F15: price cap incl. travel, applied to the ranked list on this page (no extra search).
+  const preisN = Number(one(sp.preis));
+  const preis = (PRICE_CAPS as readonly number[]).includes(preisN) ? preisN : null;
 
   const state: SearchState = {
     plz,
@@ -96,6 +99,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     sofort: one(sp.sofort) === "1",
     bewertung: !!one(sp.bewertung),
     sprache,
+    preis,
   };
 
   // --- No PLZ yet / malformed PLZ: compact booking prompt ----------------------
@@ -131,7 +135,8 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     timeOfDay: zeit ? TIME_OF_DAY_PARAM[zeit] : undefined,
     sort: SORT_PARAM[sort],
     page: 1,
-    pageSize: Math.min(50, 15 * seite),
+    // With a price cap the page filters the ranked list itself, so it asks for the maximum.
+    pageSize: preis ? 50 : Math.min(50, 15 * seite),
     instantOnly: state.sofort || undefined,
     minRating: state.bewertung ? 4.5 : undefined,
     language: sprache ?? undefined,
@@ -142,6 +147,11 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     result = await searchProviders(input, session);
   } catch (e) {
     if (!(isServiceError(e) && e.code === "validation")) throw e;
+  }
+  const withinCap = <T extends { totalPriceCents: number }>(list: T[]): T[] => (preis ? list.filter((r) => r.totalPriceCents <= preis * 100) : list);
+  if (result && preis) {
+    const within = withinCap(result.results);
+    result = { ...result, results: within.slice(0, 15 * seite), total: within.length };
   }
 
   // --- Unknown PLZ --------------------------------------------------------------
@@ -164,7 +174,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   const city = result.location.cityName;
   const what = service ? service.name : category ? category.name : "Beauty & Wellness";
   const canFavorite = session?.role === "customer";
-  const filtersActive = state.sofort || state.bewertung || !!state.sprache || !!state.zeit;
+  const filtersActive = state.sofort || state.bewertung || !!state.sprache || !!state.zeit || !!state.preis;
   const empty = result.results.length === 0;
   const notLaunched = empty && !result.location.isLaunchCity;
 
@@ -174,8 +184,8 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     const dates = Array.from({ length: 6 }, (_, i) => berlinDateKey(new Date(new Date(`${datum}T12:00:00Z`).getTime() + (i + 1) * 86_400_000)));
     const totals = await Promise.all(
       dates.map((d) =>
-        searchProviders({ ...input, date: d, pageSize: 1 }, session, { logDemand: false })
-          .then((r) => ({ date: d, total: r.total }))
+        searchProviders({ ...input, date: d, pageSize: preis ? 50 : 1 }, session, { logDemand: false })
+          .then((r) => ({ date: d, total: preis ? withinCap(r.results).length : r.total }))
           .catch(() => ({ date: d, total: 0 })),
       ),
     );
@@ -196,7 +206,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     if (week && datum) {
       // Distinct providers per day from the week's first free slots; only days with more choice than now.
       const perDay = new Map<string, Set<string>>();
-      for (const r of week.results) for (const slot of r.nextSlots) {
+      for (const r of withinCap(week.results)) for (const slot of r.nextSlots) {
         const d = berlinDateKey(slot);
         if (d !== datum) perDay.set(d, (perDay.get(d) ?? new Set()).add(r.providerId));
       }
@@ -270,7 +280,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                           </p>
                         ) : null}
                         {filtersActive ? (
-                          <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null })} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
+                          <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
                             Ohne Filter suchen
                           </Link>
                         ) : null}
@@ -323,7 +333,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       <p className="type-body-s text-ink-muted">Auch an den Folgetagen ist nichts frei. Lassen Sie sich benachrichtigen, sobald ein Termin frei wird.</p>
                     )}
                     {filtersActive ? (
-                      <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null })} className="type-label-s text-accent underline underline-offset-[0.2em]">
+                      <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} className="type-label-s text-accent underline underline-offset-[0.2em]">
                         Ohne Filter suchen
                       </Link>
                     ) : null}
@@ -342,7 +352,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                     </p>
                     <div className="flex flex-wrap gap-3">
                       {filtersActive ? (
-                        <ButtonLink href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null })} variant="secondary">
+                        <ButtonLink href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} variant="secondary">
                           Filter zurücksetzen
                         </ButtonLink>
                       ) : null}
@@ -377,6 +387,12 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                         {`${datum ? dayLabel(datum) : "So bald wie möglich"}${zeit ? ` · ${TIME_OF_DAY_LABEL[zeit]}` : ""}`}
                       </dd>
                     </div>
+                    {preis ? (
+                      <div className="flex justify-between gap-4 py-2.5">
+                        <dt className="type-body-s text-ink-muted">Preis</dt>
+                        <dd className="text-right type-body-s num">{`bis ${preis}${NBSP}€ inkl. Anfahrt`}</dd>
+                      </div>
+                    ) : null}
                     {sprache ? (
                       <div className="flex justify-between gap-4 py-2.5">
                         <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Sprache</dt>
