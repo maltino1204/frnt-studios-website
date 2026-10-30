@@ -18,7 +18,7 @@ import { haversineKm, roundKm } from "../../src/server/domain/geo";
 import { computeTravelFee } from "../../src/server/domain/pricing";
 import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, wallTimeToInstant } from "../../src/server/domain/tz";
 import { DEFAULT_CANCELLATION_POLICY } from "./lib/base-seed-data";
-import { CUSTOMERS, PROVIDER_REPLIES, PROVIDERS, REVIEWS, SEARCH_POSTAL_CODES, type DemoCustomer, type DemoProvider } from "./lib/demo-data";
+import { CUSTOMERS, PROVIDER_REPLIES, PROVIDERS, REGULAR_VAT_PROVIDERS, REVIEWS, SEARCH_POSTAL_CODES, type DemoCustomer, type DemoProvider } from "./lib/demo-data";
 import { ROOT } from "./lib/migrate";
 
 const DEMO_PASSWORD = "soma-demo-2026";
@@ -149,7 +149,7 @@ async function insertBooking(ctx: Ctx, spec: BookingSpec): Promise<{ id: string;
       lat, lng, customer_notes, distance_km, service_price_cents, travel_fee_cents, service_fee_cents, discount_cents, total_cents,
       commission_rate, commission_tier, commission_cents, provider_payout_cents, is_repeat_client, cancellation_policy, start_code,
       respond_by, confirmed_at, started_at, completed_at, cancelled_at, cancelled_by, cancellation_reason,
-      cancellation_fee_cents, refund_cents, created_at, updated_at
+      cancellation_fee_cents, refund_cents, created_at, updated_at, vat_mode
     ) values (
       ${`SM-${code(6)}`}, ${cust.id}, ${prov.id}, ${off.id}, ${svc.id}, ${svc.categoryId}, ${svc.name}, ${off.duration},
       ${spec.startsAt}, ${endsAt}, tstzrange(${spec.startsAt}, ${new Date(endsAt.getTime() + prov.p.bufferMinutes * 60_000)}),
@@ -161,7 +161,8 @@ async function insertBooking(ctx: Ctx, spec: BookingSpec): Promise<{ id: string;
       ${spec.respondBy ?? null}, ${confirmedAt}, ${spec.status === "completed" ? spec.startsAt : null}, ${completedAt}, ${cancelledAt},
       ${spec.status === "cancelled" ? spec.cancelledBy ?? "customer" : spec.status === "no_show" ? null : null},
       ${spec.status === "cancelled" ? (spec.cancelledBy === "provider" ? "Krankheit" : pick(["Termin kollidiert mit der Arbeit", "Bin leider krank", "Reise verschoben"])) : null},
-      ${fee}, ${spec.status === "cancelled" || spec.status === "no_show" ? total - fee : 0}, ${spec.createdAt}, ${completedAt ?? cancelledAt ?? spec.createdAt}
+      ${fee}, ${spec.status === "cancelled" || spec.status === "no_show" ? total - fee : 0}, ${spec.createdAt}, ${completedAt ?? cancelledAt ?? spec.createdAt},
+      ${REGULAR_VAT_PROVIDERS.has(prov.p.key) ? "regular" : "small_business"}
     ) returning id`;
   const payStatus =
     spec.status === "completed" ? "captured" : spec.status === "confirmed" || spec.status === "requested" ? "authorized" : fee > 0 ? "captured" : "cancelled";
@@ -255,7 +256,9 @@ async function main(): Promise<void> {
             booking_mode = ${p.bookingMode}, lead_time_minutes = ${p.leadTimeMinutes}, travel_buffer_minutes = ${p.bufferMinutes},
             base_postal_code = ${p.basePostalCode}, service_radius_km = ${p.radiusKm}, travel_fee_base_cents = ${p.travelFee.baseCents},
             travel_fee_included_km = ${p.travelFee.includedKm}, travel_fee_per_km_cents = ${p.travelFee.perKmCents},
-            payouts_enabled = ${!p.status}, created_at = ${createdAt}
+            payouts_enabled = ${!p.status}, created_at = ${createdAt},
+            vat_mode = ${REGULAR_VAT_PROVIDERS.has(p.key) ? "regular" : "small_business"},
+            terms_accepted_at = ${new Date(createdAt.getTime() + (p.status ? 1 : 2) * DAY)}
           where id = ${id}`;
         for (const w of p.hours) {
           await tx`insert into public.provider_weekly_hours (provider_id, weekday, start_time, end_time) values (${id}, ${w.weekday}, ${w.start}, ${w.end})`;

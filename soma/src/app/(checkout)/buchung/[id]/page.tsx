@@ -284,6 +284,7 @@ export default async function BuchungPage({ params }: { params: Promise<{ id: st
                   ...(b.status === "cancelled" && (b.cancellationFeeCents > 0 || b.refundCents > 0)
                     ? [<span key="refund" className="num">{`Stornogebühr ${formatPriceExact(b.cancellationFeeCents)} · Erstattung ${formatPriceExact(b.refundCents)}`}</span>]
                     : []),
+                  <span key="vat">{b.vatNote}</span>,
                   <span key="agent">{withStop(`SOMA vermittelt; Vertragspartner ist ${b.provider.displayName}`)}</span>,
                 ]}
               />

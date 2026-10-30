@@ -76,7 +76,16 @@ describe("provider onboarding → verification", () => {
     state = await getOnboardingState(pro.session);
     expect(state.missingDocuments).toEqual([]);
     expect(state.canSubmit).toBe(true);
-    expect((await submitForReview(pro.session)).status).toBe("submitted");
+    await expect(submitForReview(pro.session, { termsAccepted: false })).rejects.toMatchObject({
+      code: "validation",
+      fieldErrors: { termsAccepted: "Bitte bestätige die AGB für Profis und den SOMA-Verhaltenskodex." },
+    });
+    expect((await getOnboardingState(pro.session)).termsAcceptedAt).toBeNull();
+    const submitted = await submitForReview(pro.session, { termsAccepted: true, vatMode: "regular" });
+    expect(submitted.status).toBe("submitted");
+    expect(submitted.termsAcceptedAt).not.toBeNull();
+    const [vat] = await sql()<{ vatMode: string }[]>`select vat_mode from public.providers where id = ${pro.providerId}`;
+    expect(vat.vatMode).toBe("regular");
     expect((await listVerificationQueue(admin)).map((p) => p.providerId)).toContain(pro.providerId);
 
     // documents are pending → approval warns but is allowed

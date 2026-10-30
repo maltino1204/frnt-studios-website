@@ -80,3 +80,27 @@ describe("commission resolution", () => {
     expect(() => resolveCommission([], ctx)).toThrow();
   });
 });
+
+import { formatEuroCents, includedVatCents, vatNote } from "@/server/domain/pricing";
+
+describe("VAT notes (PAngV / § 19 UStG)", () => {
+  const nb = (s: string) => s.replace(/ /g, " ");
+  it("computes the contained 19 % VAT on the gross total, rounded to cents", () => {
+    expect(includedVatCents(7917)).toBe(1264); // 79,17 € → 12,64 €
+    expect(includedVatCents(11900)).toBe(1900);
+    expect(includedVatCents(9500)).toBe(1517); // 95 − 79,83… = 15,168 → 15,17
+    expect(includedVatCents(1)).toBe(0);
+    expect(includedVatCents(0)).toBe(0);
+    expect(includedVatCents(-500)).toBe(0);
+  });
+  it("formats euro amounts the German way", () => {
+    expect(formatEuroCents(1264)).toBe(nb("12,64 €"));
+    expect(formatEuroCents(123456)).toBe(nb("1.234,56 €"));
+    expect(formatEuroCents(5)).toBe(nb("0,05 €"));
+  });
+  it("builds the note per VAT mode", () => {
+    expect(vatNote("regular", 7917)).toBe("inkl. 19 % MwSt. (enthalten: 12,64 €)");
+    expect(vatNote("small_business", 7917)).toBe("Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.");
+    expect(vatNote("regular", 0)).toBe("inkl. 19 % MwSt. (enthalten: 0,00 €)");
+  });
+});

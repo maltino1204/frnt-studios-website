@@ -684,6 +684,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 ) : (
                   <span key="nofree" className="text-ink">Für diesen kurzfristigen Termin gelten bereits Stornogebühren.</span>
                 ),
+                <span key="vat">{quote.vatNote}</span>,
                 <span key="agent">{`SOMA vermittelt; Vertragspartner ist ${provider.name} (selbstständige Fachkraft).`}</span>,
               ]}
             />

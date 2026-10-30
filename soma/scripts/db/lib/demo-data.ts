@@ -343,6 +343,14 @@ export const PROVIDERS: DemoProvider[] = [
   },
 ];
 
+/**
+ * Providers that charge 19 % USt ("regular", ~40 %); everyone else is
+ * Kleinunternehmer per § 19 UStG ("small_business").
+ */
+export const REGULAR_VAT_PROVIDERS = new Set([
+  "selin", "abena", "jonas", "friederike", "thomas", "gabriele", "marcia", "senait", "luca", "bernd", "katrin", "natalja",
+]);
+
 export interface DemoCustomer {
   key: string;
   email: string;

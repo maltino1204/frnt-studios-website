@@ -31,6 +31,8 @@ export type DisputeReason = "quality" | "provider_no_show" | "customer_no_show" 
 export type DisputeStatus = "open" | "investigating" | "resolved_refund" | "resolved_no_action" | "closed";
 export type SearchSort = "recommended" | "earliest" | "price_asc" | "rating";
 export type TimeOfDay = "morning" | "afternoon" | "evening";
+/** "regular" = prices include 19 % USt; "small_business" = Kleinunternehmer (§ 19 UStG) */
+export type VatMode = "regular" | "small_business";
 
 export interface Paginated<T> {
   items: T[];
@@ -319,6 +321,10 @@ export interface QuoteDTO {
   holdMinutes: number;
   requestResponseHours: number;
   paymentProvider: PaymentProviderId;
+  /** provider's current VAT mode */
+  vatMode: VatMode;
+  /** PAngV note for the total: "inkl. 19 % MwSt. (enthalten: 12,64 €)" or "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." */
+  vatNote: string;
 }
 
 export interface NewAddressInput {
@@ -389,6 +395,10 @@ export interface CustomerBookingDTO {
   location: { kind: LocationKind; addressLine: string; postalCode: string; city: string; details: string | null };
   notes: string | null;
   price: PriceBreakdownDTO;
+  /** VAT mode snapshotted at booking time */
+  vatMode: VatMode;
+  /** price note from the snapshot (same wording as QuoteDTO.vatNote) */
+  vatNote: string;
   cancellation: {
     policy: CancellationPolicyDTO;
     schedule: PolicyScheduleEntryDTO[];
@@ -619,6 +629,8 @@ export interface ProOnboardingDTO {
   canSubmit: boolean;
   submittedAt: string | null;
   lastDecisionNote: string | null;
+  /** when the provider accepted the AGB für Profis + Verhaltenskodex (set on submit) */
+  termsAcceptedAt: string | null;
 }
 
 export interface ProProfileDTO {
@@ -680,6 +692,7 @@ export interface ProSettingsDTO {
   inviteCode: string;
   inviteUrl: string;
   payoutsEnabled: boolean;
+  vatMode: VatMode;
   notificationPreferences: NotificationPreferencesDTO;
 }
 
@@ -792,6 +805,8 @@ export interface AdminProviderDetailDTO {
   bookingMode: BookingMode;
   commissionRateOverride: number | null;
   payoutsEnabled: boolean;
+  vatMode: VatMode;
+  termsAcceptedAt: string | null;
   services: ProServiceDTO[];
   weeklyHours: WeeklyHoursDTO[];
   documents: AdminDocumentDTO[];

@@ -1,7 +1,13 @@
-import type { BookingStatus, CommissionTier, DocumentKind, DocumentStatus, LocationKind, PayoutState, PayoutStatus, ProviderStatus } from "@/server/dto";
+import type { BookingStatus, CommissionTier, DocumentKind, DocumentStatus, LocationKind, PayoutState, PayoutStatus, ProviderStatus, VatMode } from "@/server/dto";
 import type { StatusTone } from "@/components/ui/feedback";
 
 /** Shared labels and tones for the provider app (voice: du). Isomorphic. */
+
+/** Umsatzsteuer select (PAngV / § 19 UStG). */
+export const VAT_MODE_OPTIONS: { value: VatMode; label: string }[] = [
+  { value: "regular", label: "Regelbesteuert – Preise inkl. 19\u00a0% MwSt." },
+  { value: "small_business", label: "Kleinunternehmer nach §\u00a019 UStG" },
+];
 
 export const BOOKING_TONE: Record<BookingStatus, StatusTone> = {
   pending_payment: "neutral",

@@ -179,7 +179,7 @@ interface SearchInput {
 
 | Function | Role | Returns / notes |
 |---|---|---|
-| `quoteBooking(input: QuoteInput, session?: Session \| null)` | public (credits / saved addresses need a customer session) | `Promise<QuoteDTO>`: price breakdown, `slotAvailable`, `withinServiceArea`, `distanceKm`, policy + concrete `schedule` + `freeUntil`, `holdMinutes`, `paymentProvider`. Show it **before** confirmation (PAngV). |
+| `quoteBooking(input: QuoteInput, session?: Session \| null)` | public (credits / saved addresses need a customer session) | `Promise<QuoteDTO>`: price breakdown, `slotAvailable`, `withinServiceArea`, `distanceKm`, policy + concrete `schedule` + `freeUntil`, `holdMinutes`, `paymentProvider`, `vatMode`, **`vatNote`** (see §8, VAT notes). Show it **before** confirmation (PAngV). |
 | `createBooking(session, input: CreateBookingInput)` | customer | `Promise<CreateBookingResult>` `{ bookingId, reference, status: "pending_payment", holdExpiresAt, totalCents, paymentProvider, paymentClientSecret }`. Holds the slot for `hold_minutes` (10). Checks service area, slot validity (same function as the slot list), commission tier, credits. Concurrent attempts: exactly one wins, the other gets `slot_taken` ("Dieser Termin wurde gerade vergeben. Bitte wählen Sie eine andere Uhrzeit."). |
 | `confirmDevPayment(session, bookingId: string)` | customer, `PAYMENTS_PROVIDER=dev` | `Promise<{ status }>`: `requested` (request mode, sets `respondBy`) or `confirmed` (instant). Expired hold → `invalid_state`. |
 | `providerRespond(session, bookingId: string, decision: "accept" \| "decline", note?: string)` | provider | `Promise<{ status }>`. Decline needs a reason (≥ 3 chars); releases the authorization. |
@@ -187,7 +187,7 @@ interface SearchInput {
 | `completeBooking(session, bookingId: string)` | provider | `Promise<{ status: "completed" }>`: from `startsAt`; captures the payment, triggers the review request and the referral reward. |
 | `markNoShow(session, bookingId: string)` | provider | `Promise<{ status: "no_show"; feeCents }>`: from `startsAt + 15 min`, 100 % fee. |
 | `cancelBooking(session, bookingId: string, reason?: string)` | customer (own) / provider (own, reason required, `confirmed` only) | `Promise<{ status: "cancelled"; feeCents; refundCents }>`. Fee per snapshotted policy (≥ 24 h free, ≥ 2 h 50 %, < 2 h 100 % of `total − serviceFee`); `requested`/holds are free; provider cancellations are a full refund. Redeemed credits come back proportionally. |
-| `getBookingForCustomer(session, bookingId: string)` | customer (own) | `Promise<CustomerBookingDTO \| null>`: includes `startCode` (only while `confirmed`/`in_progress`), `cancellation.ifCancelledNow`, `payment`, `events`, flags `canPay`, `canCancel`, `canReview`, `canDispute`, `canRebook`. |
+| `getBookingForCustomer(session, bookingId: string)` | customer (own) | `Promise<CustomerBookingDTO \| null>`: includes `startCode` (only while `confirmed`/`in_progress`), `vatMode` + `vatNote` from the booking's snapshot, `cancellation.ifCancelledNow`, `payment`, `events`, flags `canPay`, `canCancel`, `canReview`, `canDispute`, `canRebook`. |
 | `listCustomerBookings(session, scope: "upcoming" \| "past", page = 1, pageSize = 20)` | customer | `Promise<Paginated<BookingListItemDTO>>` |
 | `getBookingForProvider(session, bookingId: string)` | provider (own) | `Promise<ProviderBookingDTO \| null>`: **never** contains the Start-Code or any e-mail; last name, street address and phone are `null` until the booking is confirmed (address hidden again 24 h after completion). `actions.*` flags tell the UI which buttons to show. |
 | `listProviderBookings(session, filter: "requests" \| "upcoming" \| "past" \| "today" \| "all" = "upcoming", page = 1, pageSize = 30)` | provider | `Promise<Paginated<ProviderBookingDTO>>` |
@@ -234,8 +234,8 @@ Booking states: `pending_payment → requested | confirmed | expired | cancelled
 | Function | Returns / notes |
 |---|---|
 | `getProDashboard(session)` | `Promise<ProDashboardDTO>`: today, open requests (with `respondBy`), upcoming count, week earnings, rating, onboarding state, unread notifications |
-| `getOnboardingState(session)` | `Promise<ProOnboardingDTO>`: `steps[]` (`profile`, `services`, `area`, `hours`, `documents`, `payout`), `missingDocuments[]` per offered category (e.g. Haare & Styling: "Meisterbrief oder Eintragung in die Handwerksrolle") plus platform-wide ones, `canSubmit`, `lastDecisionNote` |
-| `submitForReview(session)` | `Promise<ProOnboardingDTO>`: `draft`/`rejected` → `submitted` (all steps except payout done) |
+| `getOnboardingState(session)` | `Promise<ProOnboardingDTO>`: `steps[]` (`profile`, `services`, `area`, `hours`, `documents`, `payout`), `missingDocuments[]` per offered category (e.g. Haare & Styling: "Meisterbrief oder Eintragung in die Handwerksrolle") plus platform-wide ones, `canSubmit`, `lastDecisionNote`, `termsAcceptedAt` |
+| `submitForReview(session, { termsAccepted: true, vatMode?: VatMode })` | `Promise<ProOnboardingDTO>`: `draft`/`rejected` → `submitted` (all steps except payout done). `termsAccepted` must be `true` (AGB für Profis + Verhaltenskodex), otherwise `validation` with `fieldErrors.termsAccepted` = "Bitte bestätige die AGB für Profis und den SOMA-Verhaltenskodex.". Sets `terms_accepted_at`; stores `vatMode` when given. |
 | `getProProfile(session)` / `updateProProfile(session, { displayName, headline?, bio? (≤ 400), yearsExperience?, languages: string[] })` | `Promise<ProProfileDTO>`. Healing or medical claims (HWG) are rejected with a hint. |
 | `updateServiceArea(session, { basePostalCode, serviceRadiusKm (3–30), travelFeeBaseCents (0–3000), travelFeeIncludedKm, travelFeePerKmCents })` | `Promise<ProProfileDTO>` |
 | `listProServices(session)` | `Promise<ProServiceDTO[]>` (incl. inactive) |
@@ -247,8 +247,8 @@ Booking states: `pending_payment → requested | confirmed | expired | cancelled
 | `uploadDocument(session, kind: DocumentKind, file: UploadInput, categoryId?: string \| null)` | `Promise<DocumentDTO>` (pdf/jpeg/png ≤ 10 MB; pass `categoryId` for category qualifications) |
 | `deleteDocument(session, documentId)` | `Promise<void>` (pending documents only) |
 | `uploadPortfolioImage(session, file, { caption?, categoryId? })` / `updatePortfolioItem(session, itemId, { caption?, sortOrder?, categoryId? })` / `deletePortfolioItem(session, itemId)` | max. 24 images |
-| `getProSettings(session)` | `Promise<ProSettingsDTO>`: booking mode, lead time, buffer, max advance, **`inviteCode` + `inviteUrl`** (`/profis/<slug>?einladung=<code>`), `payoutsEnabled`, notification preferences |
-| `updateProSettings(session, { bookingMode, leadTimeMinutes (60–2880), travelBufferMinutes (15–60), maxAdvanceDays (7–180), notificationPreferences? })` | `Promise<ProSettingsDTO>` |
+| `getProSettings(session)` | `Promise<ProSettingsDTO>`: booking mode, lead time, buffer, max advance, **`inviteCode` + `inviteUrl`** (`/profis/<slug>?einladung=<code>`), `payoutsEnabled`, `vatMode`, notification preferences |
+| `updateProSettings(session, { bookingMode, leadTimeMinutes (60–2880), travelBufferMinutes (15–60), maxAdvanceDays (7–180), vatMode?: "regular" \| "small_business", notificationPreferences? })` | `Promise<ProSettingsDTO>` (`vatMode` omitted → unchanged; existing bookings keep their snapshot) |
 | `getPayoutOnboardingLink(session)` | `Promise<{ url }>`: Stripe Connect Express link; dev: enables payouts immediately and returns `/pro/einnahmen?testmodus=auszahlung` |
 | `getEarnings(session, { limit? })` | `Promise<EarningsDTO>`: per booking `payoutState`: `pending` (completed < 48 h ago **or** open dispute), `available`, `paid_out` (in a payout batch); totals `pendingCents`, `availableCents`, `paidOutCents`, `monthCents`, `yearCents`; `payouts[]` |
 | `getProCalendar(session, from: string, days = 7)` | `Promise<ProCalendarDTO>`: weekly hours, time off, bookings |
@@ -362,8 +362,8 @@ All actions are in `"use server"` files and return `ActionResult<T>`. **Form** =
 | `deleteDocumentAction(documentId)` | call | — |
 | `uploadPortfolioImageAction` | form | `file`, `caption?`, `categoryId?` → `{ id, url }` |
 | `updatePortfolioItemAction({ itemId, caption?, sortOrder?, categoryId? })` / `deletePortfolioItemAction(itemId)` | call | — |
-| `submitForReviewAction()` | call | → `ProOnboardingDTO` |
-| `updateProSettingsAction(input)` | call | → `ProSettingsDTO` |
+| `submitForReviewAction({ termsAccepted: true, vatMode? })` | call | → `ProOnboardingDTO` (pass the "Prüfen" checkbox as `termsAccepted`) |
+| `updateProSettingsAction({ bookingMode, leadTimeMinutes, travelBufferMinutes, maxAdvanceDays, vatMode?, notificationPreferences? })` | call | → `ProSettingsDTO` |
 | `startPayoutOnboardingAction()` | call | redirects to Stripe (dev: back to `/pro/einnahmen`) |
 | `respondToRequestAction({ bookingId, decision: "accept" \| "decline", note? })` | call | → `{ status }` |
 | `startBookingAction({ bookingId, code })` | call | → `{ status }` |
@@ -388,7 +388,7 @@ Admin reads (lists, KPIs) are plain service calls from Server Components under `
 
 ## 7. Database notes for reviewers
 
-* Migrations: `supabase/migrations/0001_core.sql` (tables, constraints), `0002_booking_engine.sql` (triggers), `0003_auth_and_helpers.sql` (`handle_new_user`, `is_admin()`, `provider_busy_ranges()`), `0004_rls.sql` (RLS, grants, views). Local-only shim: `supabase/local/000_supabase_shim.sql` (also replicates Supabase's default `GRANT ALL` to API roles, which `0004` revokes).
+* Migrations: `supabase/migrations/0001_core.sql` (tables, constraints), `0002_booking_engine.sql` (triggers), `0003_auth_and_helpers.sql` (`handle_new_user`, `is_admin()`, `provider_busy_ranges()`), `0004_rls.sql` (RLS, grants, views), `0005_vat_and_terms.sql` (`providers.vat_mode`, `providers.terms_accepted_at`, `bookings.vat_mode` snapshot trigger, grants, `provider_bookings.vat_mode`). Local-only shim: `supabase/local/000_supabase_shim.sql` (also replicates Supabase's default `GRANT ALL` to API roles, which `0004` revokes).
 * Final guards in Postgres: exclusion constraint `bookings_no_overlap` on `blocked_range = [start, end + travel_buffer)`; `validate_booking_slot` (approved provider, active owned offering, Europe/Berlin weekly hours, time off incl. buffer, lead time, max advance, booking-mode snapshot); `enforce_booking_transition` (state graph, timing for start/no-show/complete, immutable price/time snapshot incl. Start-Code); `log_booking_event`; review validation and rating aggregates; non-negative credit balance; coordinates derived from the PLZ.
 * Trigger errors are raised as `SOMA_*` codes and mapped to German messages in `src/server/db/errors.ts`.
 * Providers read bookings only through the view `public.provider_bookings` (first name always; last name, address, coordinates after confirmation and up to 24 h after completion; phone only while confirmed/in progress; never e-mail or Start-Code). Public reviews come from `public.public_reviews` (no customer ids).
@@ -405,6 +405,8 @@ Admin reads (lists, KPIs) are plain service calls from Server Components under `
 | Category documents | `categories.required_documents jsonb` (`[{ kind, label }]`) + platform setting `base_required_documents`. `provider_documents.category_id` ties a qualification to a category. |
 | Waitlist | `waitlist_signups` (citext e-mail, PLZ, category, city), insert only through `joinWaitlist`; counted in analytics. |
 | SEO coverage | `getCityCategoryCoverage` → `indexable = providerCount >= 2`. |
+| VAT notes (PAngV / § 19 UStG) | `providers.vat_mode`: `regular` (prices include 19 % USt) or `small_business` (Kleinunternehmer, default). Provider-editable (settings, onboarding submit). `bookings.vat_mode` is set **by a trigger** from the provider at insert and is immutable. `vatNote(mode, totalCents)` (`domain/pricing.ts`) on the total incl. travel fee: regular → `inkl. 19 % MwSt. (enthalten: 12,64 €)` with VAT = `round(total − total / 1.19)`; small_business → `Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.` (non-breaking spaces in `19 %`, `12,64 €`, `§ 19`). Shown in `QuoteDTO.vatNote` (checkout) and `CustomerBookingDTO.vatNote` (booking detail, from the snapshot). |
+| Provider terms | `providers.terms_accepted_at`, set only by `submitForReview` (no provider UPDATE grant); exposed as `ProOnboardingDTO.termsAcceptedAt` and `AdminProviderDetailDTO.termsAcceptedAt` (admin also sees `vatMode`). |
 
 ## 9. Setup, seed, tests
 
@@ -437,6 +439,8 @@ Demo logins (password `soma-demo-2026`): `kundin@soma.test` (Julia H., Berlin: p
 | Status `in_progress → cancelled` allowed for admins | Needed to settle disputes during an appointment. |
 
 ## 11. Open items / not covered by automated tests
+
+* **Migration 0005 must be applied before the next build/restart** against an existing database: `npm run db:setup` (without `--reset`) applies pending migrations only. The code reads `providers.vat_mode` / `bookings.vat_mode`; without 0005 quotes and bookings fail. Existing rows default to `small_business` and `terms_accepted_at = null`; re-running the demo seed (`DEMO_MODE=true npm run db:seed`) gives the ~40 % regular mix.
 
 * **Stripe** provider + webhook and **Supabase** auth/storage adapters are implemented against the SDKs but cannot be tested here (no keys). Missing for Stripe: SetupIntent + off-session PaymentIntent for bookings more than 6 days ahead (authorizations expire after 7 days); Payment Element UI. With destination charges the provider receives funds at capture; the `payouts` table then mirrors Stripe payouts (dev: batches created in admin).
 * **Lead config request:** uploads go through Server Actions, so `next.config.ts` needs `experimental: { serverActions: { bodySizeLimit: "11mb" } }` (documents ≤ 10 MB). Until then, uploads above 1 MB are rejected by Next.

@@ -252,7 +252,7 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
             {onboarding.missingDocuments.map((d) => d.label).join(", ")}
           </Notice>
         ) : null}
-        <SubmitForReview canSubmit={onboarding.canSubmit} openSteps={openSteps} />
+        <SubmitForReview canSubmit={onboarding.canSubmit} openSteps={openSteps} vatMode={settings.vatMode} />
       </div>
     </WizardFrame>
   );

@@ -158,9 +158,15 @@ export async function deletePortfolioItemAction(itemId: string): Promise<ActionR
   });
 }
 
-export async function submitForReviewAction(): Promise<ActionResult<ProOnboardingDTO>> {
+const SubmitSchema = z.object({
+  termsAccepted: z.literal(true, { error: "Bitte bestätige die AGB für Profis und den SOMA-Verhaltenskodex." }),
+  vatMode: z.enum(["regular", "small_business"]).optional(),
+});
+
+/** Requires `termsAccepted: true` (onboarding "Prüfen" checkbox); optional `vatMode`. */
+export async function submitForReviewAction(raw: z.input<typeof SubmitSchema>): Promise<ActionResult<ProOnboardingDTO>> {
   return withSession("provider", async (s) => {
-    const r = await submitForReview(s);
+    const r = await submitForReview(s, input(SubmitSchema, raw ?? {}));
     revalidatePro();
     return r;
   }, "Danke! Wir prüfen dein Profil innerhalb von 48 Stunden.");
@@ -171,6 +177,7 @@ const SettingsSchema = z.object({
   leadTimeMinutes: z.number().int(),
   travelBufferMinutes: z.number().int(),
   maxAdvanceDays: z.number().int(),
+  vatMode: z.enum(["regular", "small_business"]).optional(),
   notificationPreferences: z.object({ emailBookings: z.boolean(), emailReminders: z.boolean(), emailMarketing: z.boolean(), smsReminders: z.boolean(), pushBookings: z.boolean() }).optional(),
 });
 

@@ -6,17 +6,17 @@ import { useState, useTransition } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
-import { Checkbox } from "@/components/ui/field";
+import { Checkbox, Select } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { StepIndicator } from "@/components/ui/summary";
 import { useToast } from "@/components/ui/toast";
 import { submitForReviewAction } from "@/server/actions/pro";
-import type { ProProfileDTO, WeeklyHoursDTO } from "@/server/dto";
+import type { ProProfileDTO, VatMode, WeeklyHoursDTO } from "@/server/dto";
 import { AreaForm } from "../area-form";
 import { ProfileForm } from "../profile-form";
 import { WeeklyHoursEditor } from "../weekly-hours-editor";
 import { stepHref, WIZARD_STEPS, type WizardSlug } from "./steps";
-import { proError } from "../labels";
+import { proError, VAT_MODE_OPTIONS } from "../labels";
 
 /** StepIndicator with links back to completed steps (konto is not revisitable). */
 export function WizardSteps({ current }: { current: number }) {
@@ -74,11 +74,12 @@ export function HoursStep({ initial, next }: { initial: WeeklyHoursDTO[]; next: 
   return <WeeklyHoursEditor initial={initial} submitLabel="Speichern und weiter" stickySave={false} onSaved={() => router.push(stepHref(next))} />;
 }
 
-/** Final confirmation + submitForReviewAction. */
-export function SubmitForReview({ canSubmit, openSteps }: { canSubmit: boolean; openSteps: string[] }) {
+/** Final confirmation (terms) + VAT mode + submitForReviewAction. */
+export function SubmitForReview({ canSubmit, openSteps, vatMode: initialVatMode }: { canSubmit: boolean; openSteps: string[]; vatMode: VatMode }) {
   const router = useRouter();
   const toast = useToast();
   const [confirmed, setConfirmed] = useState(false);
+  const [vatMode, setVatMode] = useState<VatMode>(initialVatMode);
   const [error, setError] = useState<string | null>(null);
   const [checkError, setCheckError] = useState<string | null>(null);
   const [pending, start] = useTransition();
@@ -90,8 +91,11 @@ export function SubmitForReview({ canSubmit, openSteps }: { canSubmit: boolean; 
       return;
     }
     start(async () => {
-      const res = await submitForReviewAction();
-      if (!res.ok) return setError(proError(res.error));
+      const res = await submitForReviewAction({ termsAccepted: true, vatMode });
+      if (!res.ok) {
+        if (res.fieldErrors?.termsAccepted) setCheckError(res.fieldErrors.termsAccepted);
+        return setError(proError(res.error));
+      }
       toast.show(res.message ?? "Danke! Wir prüfen dein Profil.");
       router.replace("/pro/registrieren");
       router.refresh();
@@ -104,6 +108,18 @@ export function SubmitForReview({ canSubmit, openSteps }: { canSubmit: boolean; 
           Bitte schließe zuerst ab: {openSteps.join(", ")}.
         </Notice>
       ) : null}
+      <Select
+        label="Umsatzsteuer"
+        value={vatMode}
+        onChange={(e) => setVatMode(e.target.value as VatMode)}
+        hint="Bestimmt den Preishinweis für deine Kundschaft. Du kannst das später in den Einstellungen ändern."
+      >
+        {VAT_MODE_OPTIONS.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </Select>
       <Checkbox
         checked={confirmed}
         onChange={(e) => setConfirmed(e.target.checked)}

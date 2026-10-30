@@ -9,7 +9,7 @@ import { isSlotAvailable } from "../domain/availability";
 import { canTransition, STATUS_LABELS_DE, type BookingStatus } from "../domain/booking-state";
 import { computeCancellation, freeCancellationUntil, parsePolicy, policySchedule } from "../domain/cancellation";
 import { haversineKm, roundKm } from "../domain/geo";
-import { computePrice, computeTravelFee, resolveCommission, type CommissionRule } from "../domain/pricing";
+import { computePrice, computeTravelFee, resolveCommission, vatNote, type CommissionRule, type VatMode } from "../domain/pricing";
 import { generateBookingReference, generateStartCode } from "../domain/reference";
 import { localDateOf } from "../domain/tz";
 import type {
@@ -77,6 +77,7 @@ interface OfferingContext {
   travelFeeBaseCents: number;
   travelFeeIncludedKm: string;
   travelFeePerKmCents: number;
+  vatMode: VatMode;
 }
 
 async function loadOffering(tx: Queryable, providerServiceId: string): Promise<OfferingContext | null> {
@@ -85,7 +86,7 @@ async function loadOffering(tx: Queryable, providerServiceId: string): Promise<O
            p.status as provider_status, s.id as service_id, s.category_id, s.name as service_name, ps.duration_minutes,
            ps.price_cents, p.booking_mode, p.lead_time_minutes, p.max_advance_days, p.travel_buffer_minutes,
            p.base_lat, p.base_lng, p.service_radius_km::text as service_radius_km, p.travel_fee_base_cents,
-           p.travel_fee_included_km::text as travel_fee_included_km, p.travel_fee_per_km_cents
+           p.travel_fee_included_km::text as travel_fee_included_km, p.travel_fee_per_km_cents, p.vat_mode
     from public.provider_services ps
     join public.providers p on p.id = ps.provider_id
     join public.services s on s.id = ps.service_id and s.is_active
@@ -186,6 +187,8 @@ export async function quoteBooking(input: QuoteInput, session?: Session | null):
       holdMinutes: settings.holdMinutes,
       requestResponseHours: settings.requestResponseHours,
       paymentProvider: getConfig().PAYMENTS_PROVIDER,
+      vatMode: o.vatMode,
+      vatNote: vatNote(o.vatMode, price.totalCents),
     };
   });
 }
@@ -311,7 +314,7 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
           starts_at, ends_at, blocked_range, status, booking_mode, location_kind, address_line, postal_code, city, address_details,
           lat, lng, customer_notes, distance_km, service_price_cents, travel_fee_cents, service_fee_cents, discount_cents,
           total_cents, commission_rate, commission_tier, commission_cents, provider_payout_cents, is_repeat_client,
-          cancellation_policy, start_code, hold_expires_at, rebooked_from_id
+          cancellation_policy, start_code, hold_expires_at, rebooked_from_id, vat_mode
         ) values (
           ${reference}, ${s.userId}, ${o.providerId}, ${o.providerServiceId}, ${o.serviceId}, ${o.categoryId}, ${o.serviceName},
           ${o.durationMinutes}, ${startsAt}, ${endsAt}, tstzrange(${startsAt}, ${endsAt}), 'pending_payment', ${o.bookingMode},
@@ -319,7 +322,7 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
           ${input.notes ?? null}, ${t.distanceKm}, ${price.servicePriceCents}, ${price.travelFeeCents}, ${price.serviceFeeCents},
           ${price.discountCents}, ${price.totalCents}, ${commission.rate}, ${commission.tier}, ${price.commissionCents},
           ${price.providerPayoutCents}, ${repeat}, ${tx.json(JSON.parse(JSON.stringify(settings.cancellationPolicy)))},
-          ${generateStartCode()}, ${holdExpiresAt}, ${input.rebookedFromId ?? null}
+          ${generateStartCode()}, ${holdExpiresAt}, ${input.rebookedFromId ?? null}, ${o.vatMode}
         )
         on conflict (reference) do nothing
         returning id`;
@@ -602,6 +605,7 @@ interface CustomerBookingRow {
   providerAvatarPath: string | null;
   providerRatingAvg: string | null;
   providerRatingCount: number | null;
+  vatMode: VatMode;
 }
 
 async function queryCustomerBookings(tx: Queryable, extra: (t: Queryable) => Fragment): Promise<CustomerBookingRow[]> {
@@ -611,7 +615,7 @@ async function queryCustomerBookings(tx: Queryable, extra: (t: Queryable) => Fra
            b.address_details, b.customer_notes, b.service_price_cents, b.travel_fee_cents, b.service_fee_cents,
            b.discount_cents, b.total_cents, b.cancellation_policy, b.start_code, b.hold_expires_at, b.respond_by,
            b.confirmed_at, b.started_at, b.completed_at, b.cancelled_at, b.cancelled_by, b.cancellation_reason,
-           b.cancellation_fee_cents, b.refund_cents,
+           b.cancellation_fee_cents, b.refund_cents, b.vat_mode,
            c.slug as category_slug, p.slug as provider_slug, p.display_name as provider_name, p.avatar_path as provider_avatar_path,
            p.rating_avg::text as provider_rating_avg, p.rating_count as provider_rating_count
     from public.bookings b
@@ -672,6 +676,8 @@ export async function getBookingForCustomer(session: Session, bookingId: string)
       location: { kind: r.locationKind, addressLine: r.addressLine, postalCode: r.postalCode, city: r.city, details: r.addressDetails },
       notes: r.customerNotes,
       price: { servicePriceCents: r.servicePriceCents, travelFeeCents: r.travelFeeCents, serviceFeeCents: r.serviceFeeCents, discountCents: r.discountCents, totalCents: r.totalCents },
+      vatMode: r.vatMode,
+      vatNote: vatNote(r.vatMode, r.totalCents),
       cancellation: { policy: policyToDTO(policy), schedule: policySchedule(policy, r.startsAt), freeUntil: freeCancellationUntil(policy, r.startsAt), ifCancelledNow },
       startCode: r.status === "confirmed" || r.status === "in_progress" ? r.startCode : null,
       holdExpiresAt: r.holdExpiresAt?.toISOString() ?? null,

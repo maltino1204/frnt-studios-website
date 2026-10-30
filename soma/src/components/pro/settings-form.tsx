@@ -9,8 +9,8 @@ import { FormMessage, SubmitButton } from "@/components/ui/form";
 import { useToast } from "@/components/ui/toast";
 import { changePasswordAction } from "@/server/actions/auth";
 import { updateProSettingsAction } from "@/server/actions/pro";
-import type { BookingMode, NotificationPreferencesDTO, ProSettingsDTO } from "@/server/dto";
-import { proError } from "./labels";
+import type { BookingMode, NotificationPreferencesDTO, ProSettingsDTO, VatMode } from "@/server/dto";
+import { proError, VAT_MODE_OPTIONS } from "./labels";
 
 const LEAD_TIMES = [60, 120, 180, 240, 360, 720, 1440, 2880];
 const BUFFERS = [15, 30, 45, 60];
@@ -34,6 +34,7 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
   const [lead, setLead] = useState(settings.leadTimeMinutes);
   const [buffer, setBuffer] = useState(settings.travelBufferMinutes);
   const [advance, setAdvance] = useState(settings.maxAdvanceDays);
+  const [vatMode, setVatMode] = useState<VatMode>(settings.vatMode);
   const [prefs, setPrefs] = useState<NotificationPreferencesDTO>(settings.notificationPreferences);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
     start(async () => {
       setErrors({});
       setError(null);
-      const res = await updateProSettingsAction({ bookingMode: mode, leadTimeMinutes: lead, travelBufferMinutes: buffer, maxAdvanceDays: advance, notificationPreferences: prefs });
+      const res = await updateProSettingsAction({ bookingMode: mode, leadTimeMinutes: lead, travelBufferMinutes: buffer, maxAdvanceDays: advance, vatMode, notificationPreferences: prefs });
       if (!res.ok) {
         setErrors(res.fieldErrors ?? {});
         setError(proError(res.error));
@@ -117,6 +118,23 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
             ))}
           </Select>
         </div>
+      </fieldset>
+
+      <fieldset className="flex flex-col gap-5">
+        <legend className="mb-2 type-heading-m">Umsatzsteuer</legend>
+        <Select
+          label="Umsatzsteuer"
+          value={vatMode}
+          onChange={(e) => setVatMode(e.target.value as VatMode)}
+          error={errors.vatMode}
+          hint="Bestimmt den Preishinweis für deine Kundschaft. Bestehende Buchungen behalten ihren Hinweis."
+        >
+          {VAT_MODE_OPTIONS.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </Select>
       </fieldset>
 
       <fieldset className="flex flex-col">

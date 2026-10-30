@@ -24,6 +24,7 @@ import type {
   ReviewListDTO,
   Session,
   TimeOffDTO,
+  VatMode,
   WeeklyHoursDTO,
 } from "../dto";
 import { ServiceError } from "../errors";
@@ -406,8 +407,8 @@ export async function queryMissingDocuments(tx: Queryable, providerId: string, s
 }
 
 async function queryOnboarding(tx: Queryable, providerId: string, settings: PlatformSettings): Promise<ProOnboardingDTO> {
-  const [p] = await tx<{ status: ProOnboardingDTO["status"]; displayName: string; bio: string | null; basePostalCode: string | null; payoutsEnabled: boolean; submittedAt: Date | null }[]>`
-    select status, display_name, bio, base_postal_code, payouts_enabled, submitted_at from public.providers where id = ${providerId}`;
+  const [p] = await tx<{ status: ProOnboardingDTO["status"]; displayName: string; bio: string | null; basePostalCode: string | null; payoutsEnabled: boolean; submittedAt: Date | null; termsAcceptedAt: Date | null }[]>`
+    select status, display_name, bio, base_postal_code, payouts_enabled, submitted_at, terms_accepted_at from public.providers where id = ${providerId}`;
   if (!p) throw new ServiceError("not_found", "Profil nicht gefunden.");
   const [{ services }] = await tx<{ services: number }[]>`select count(*)::int as services from public.provider_services where provider_id = ${providerId} and is_active`;
   const [{ hours }] = await tx<{ hours: number }[]>`select count(*)::int as hours from public.provider_weekly_hours where provider_id = ${providerId}`;
@@ -431,6 +432,7 @@ async function queryOnboarding(tx: Queryable, providerId: string, settings: Plat
     canSubmit: (p.status === "draft" || p.status === "rejected") && required.every((st) => st.done),
     submittedAt: p.submittedAt?.toISOString() ?? null,
     lastDecisionNote: note?.note ?? null,
+    termsAcceptedAt: p.termsAcceptedAt?.toISOString() ?? null,
   };
 }
 
@@ -439,17 +441,30 @@ export async function getOnboardingState(session: Session): Promise<ProOnboardin
   return withUser(s.userId, async (tx) => queryOnboarding(tx, s.userId, await loadSettings(tx)));
 }
 
-export async function submitForReview(session: Session): Promise<ProOnboardingDTO> {
+const SubmitSchema = z.object({
+  termsAccepted: z.literal(true, { error: "Bitte bestätige die AGB für Profis und den SOMA-Verhaltenskodex." }),
+  vatMode: z.enum(["regular", "small_business"]).optional(),
+});
+
+/**
+ * draft/rejected → submitted. Requires `termsAccepted: true` (AGB für Profis +
+ * Verhaltenskodex) and records terms_accepted_at; optionally stores the VAT mode.
+ */
+export async function submitForReview(session: Session, input: { termsAccepted: boolean; vatMode?: VatMode }): Promise<ProOnboardingDTO> {
   const s = requirePro(session);
+  const v = parse(SubmitSchema, input);
   const state = await getOnboardingState(s);
   if (!state.canSubmit) {
     const open = state.steps.filter((st) => !st.done && st.key !== "payout").map((st) => st.label);
     throw new ServiceError("validation", open.length ? `Bitte schließe zuerst ab: ${open.join(", ")}.` : "Dein Profil wurde bereits eingereicht.");
   }
-  // withService: providers.status is not column-granted to providers; readiness was verified above.
+  // withService: providers.status / terms_accepted_at are not column-granted to providers; readiness and consent were verified above.
   await withService(async (tx) => {
     await setActor(tx, { actorId: s.userId, actorRole: "provider", note: "Zur Prüfung eingereicht" });
-    await tx`update public.providers set status = 'submitted' where id = ${s.userId} and status in ('draft', 'rejected')`;
+    await tx`
+      update public.providers
+      set status = 'submitted', terms_accepted_at = now(), vat_mode = coalesce(${v.vatMode ?? null}, vat_mode)
+      where id = ${s.userId} and status in ('draft', 'rejected')`;
   });
   return getOnboardingState(s);
 }
@@ -460,13 +475,14 @@ export async function submitForReview(session: Session): Promise<ProOnboardingDT
 export async function getProSettings(session: Session): Promise<ProSettingsDTO> {
   const s = requirePro(session);
   // withService: invite_code is not column-granted (other users must not read it); only the owner's row is read.
-  const [p] = await withService((tx) => tx<{ bookingMode: "instant" | "request"; leadTimeMinutes: number; travelBufferMinutes: number; maxAdvanceDays: number; inviteCode: string; slug: string; payoutsEnabled: boolean }[]>`
-    select booking_mode, lead_time_minutes, travel_buffer_minutes, max_advance_days, invite_code, slug, payouts_enabled
+  const [p] = await withService((tx) => tx<{ bookingMode: "instant" | "request"; leadTimeMinutes: number; travelBufferMinutes: number; maxAdvanceDays: number; inviteCode: string; slug: string; payoutsEnabled: boolean; vatMode: VatMode }[]>`
+    select booking_mode, lead_time_minutes, travel_buffer_minutes, max_advance_days, invite_code, slug, payouts_enabled, vat_mode
     from public.providers where id = ${s.userId}`);
   if (!p) throw new ServiceError("not_found", "Profil nicht gefunden.");
   return {
     bookingMode: p.bookingMode, leadTimeMinutes: p.leadTimeMinutes, travelBufferMinutes: p.travelBufferMinutes, maxAdvanceDays: p.maxAdvanceDays,
     inviteCode: p.inviteCode, inviteUrl: `${getConfig().APP_URL}/profis/${p.slug}?einladung=${p.inviteCode}`, payoutsEnabled: p.payoutsEnabled,
+    vatMode: p.vatMode,
     notificationPreferences: await getNotificationPreferences(s),
   };
 }
@@ -476,6 +492,8 @@ const SettingsSchema = z.object({
   leadTimeMinutes: z.number().int().min(60, "Mindestens 1 Stunde Vorlauf.").max(2880),
   travelBufferMinutes: z.number().int().min(15, "Mindestens 15 Minuten Puffer.").max(60, "Höchstens 60 Minuten Puffer."),
   maxAdvanceDays: z.number().int().min(7).max(180),
+  /** omitted → unchanged */
+  vatMode: z.enum(["regular", "small_business"]).optional(),
   notificationPreferences: z.object({
     emailBookings: z.boolean(), emailReminders: z.boolean(), emailMarketing: z.boolean(), smsReminders: z.boolean(), pushBookings: z.boolean(),
   }).optional(),
@@ -486,7 +504,8 @@ export async function updateProSettings(session: Session, input: z.input<typeof 
   const v = parse(SettingsSchema, input);
   await withUser(s.userId, (tx) => tx`
     update public.providers set booking_mode = ${v.bookingMode}, lead_time_minutes = ${v.leadTimeMinutes},
-      travel_buffer_minutes = ${v.travelBufferMinutes}, max_advance_days = ${v.maxAdvanceDays}
+      travel_buffer_minutes = ${v.travelBufferMinutes}, max_advance_days = ${v.maxAdvanceDays},
+      vat_mode = coalesce(${v.vatMode ?? null}, vat_mode)
     where id = ${s.userId}`).catch(rethrowDb);
   if (v.notificationPreferences) await updateNotificationPreferences(s, v.notificationPreferences);
   return getProSettings(s);

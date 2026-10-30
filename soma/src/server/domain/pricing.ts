@@ -122,3 +122,38 @@ export function splitRetainedFee(feeCents: number, commissionRate: number): { co
   const commission = Math.round(feeCents * commissionRate);
   return { commissionCents: commission, providerPayoutCents: feeCents - commission };
 }
+
+// ---------------------------------------------------------------------------
+// VAT notes (PAngV Endpreis / § 19 UStG)
+// ---------------------------------------------------------------------------
+export type VatMode = "regular" | "small_business";
+
+export const VAT_RATE = 0.19;
+const NBSP = " ";
+
+/** VAT contained in a gross amount: round(total − total / 1.19), in cents. */
+export function includedVatCents(totalCents: number, rate: number = VAT_RATE): number {
+  if (!Number.isFinite(totalCents) || totalCents <= 0) return 0;
+  return Math.round(totalCents - totalCents / (1 + rate));
+}
+
+/** "1.234,56 €" (de-DE, non-breaking space before €), deterministic without Intl. */
+export function formatEuroCents(cents: number): string {
+  const sign = cents < 0 ? "-" : "";
+  const abs = Math.abs(Math.round(cents));
+  const euros = Math.floor(abs / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return `${sign}${euros},${String(abs % 100).padStart(2, "0")}${NBSP}€`;
+}
+
+/**
+ * Customer-facing price note for the total (incl. travel fee):
+ *   regular        → "inkl. 19 % MwSt. (enthalten: 12,64 €)"
+ *   small_business → "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet."
+ * Uses non-breaking spaces in "19 %", "12,64 €" and "§ 19".
+ */
+export function vatNote(mode: VatMode, totalCents: number): string {
+  if (mode === "regular") {
+    return `inkl. 19${NBSP}% MwSt. (enthalten: ${formatEuroCents(includedVatCents(totalCents))})`;
+  }
+  return `Gemäß §${NBSP}19 UStG wird keine Umsatzsteuer berechnet.`;
+}

@@ -144,8 +144,9 @@ export async function getProviderForAdmin(session: Session, providerId: string):
     const profile = await queryProProfile(tx, id);
     if (!profile) return null;
     const settings = await loadSettings(tx);
-    const [extra] = await tx<{ email: string; phone: string | null; bookingMode: "instant" | "request"; commissionRateOverride: number | null; payoutsEnabled: boolean; ratingAvg: string | null; ratingCount: number; completedCount: number }[]>`
+    const [extra] = await tx<{ email: string; phone: string | null; bookingMode: "instant" | "request"; commissionRateOverride: number | null; payoutsEnabled: boolean; vatMode: AdminProviderDetailDTO["vatMode"]; termsAcceptedAt: Date | null; ratingAvg: string | null; ratingCount: number; completedCount: number }[]>`
       select u.email, pf.phone, p.booking_mode, p.commission_rate_override::float8 as commission_rate_override, p.payouts_enabled,
+             p.vat_mode, p.terms_accepted_at,
              p.rating_avg::text as rating_avg, p.rating_count, p.completed_count
       from public.providers p join public.profiles pf on pf.id = p.id join auth.users u on u.id = p.id where p.id = ${id}`;
     const services = await tx<Array<AdminProviderDetailDTO["services"][number]>>`
@@ -167,6 +168,8 @@ export async function getProviderForAdmin(session: Session, providerId: string):
       bookingMode: extra.bookingMode,
       commissionRateOverride: extra.commissionRateOverride,
       payoutsEnabled: extra.payoutsEnabled,
+      vatMode: extra.vatMode,
+      termsAcceptedAt: iso(extra.termsAcceptedAt),
       services: services.map((s) => ({ ...s, serviceDurations: [...s.serviceDurations] })),
       weeklyHours: hours.map((h) => ({ id: h.id, weekday: h.weekday, start: h.startTime.slice(0, 5), end: h.endTime.startsWith("24") ? "24:00" : h.endTime.slice(0, 5) })),
       documents: docs.map((d) => ({
