@@ -145,25 +145,28 @@ export function SlotPicker({
     for (const d of days) if (d.date > (date ?? "") && d.slots.length) return { date: d.date, slot: d.slots[0] };
     return null;
   })();
-  const priceOf = (o: OfferingDTO) =>
-    travelFeeCents == null ? `${formatPrice(o.priceCents)} zzgl. Anfahrt` : `${formatPrice(o.priceCents + travelFeeCents)} inkl. Anfahrt`;
+  const priceOf = (o: OfferingDTO, short = false) =>
+    travelFeeCents == null
+      ? `${formatPrice(o.priceCents)} zzgl. Anfahrt`
+      : `${formatPrice(o.priceCents + travelFeeCents)}${short ? "" : " inkl. Anfahrt"}`;
   const end = slot ? new Date(new Date(slot).getTime() + offering.durationMinutes * 60_000).toISOString() : null;
   const freeUntil = slot && policy ? freeUntilFor(policy, slot) : null;
   // Inside a sheet the content padding is 20px at every width, so the strip bleeds by exactly that much.
   const style = inSheet ? ({ "--space-gutter": "1.25rem" } as CSSProperties) : undefined;
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} style={style}>
+    <div className={cn("flex flex-col gap-6 [&_[role=radiogroup]]:scroll-px-(--space-gutter) lg:[&_[role=radiogroup]]:scroll-px-0", className)} style={style}>
       {offerings.length > 1 ? (
         <Select
           id={`${idPrefix}-service`}
           label="Leistung"
           value={state.offeringId}
           onChange={(e) => state.selectOffering(e.target.value)}
+          hint={travelFeeCents != null ? "Endpreise inklusive Anfahrt." : undefined}
         >
           {offerings.map((o) => (
             <option key={o.providerServiceId} value={o.providerServiceId}>
-              {`${o.serviceName} · ${formatDuration(o.durationMinutes)} · ${priceOf(o)}`}
+              {`${o.serviceName} · ${formatDuration(o.durationMinutes)} · ${priceOf(o, true)}`}
             </option>
           ))}
         </Select>

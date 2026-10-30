@@ -228,15 +228,15 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
             {rates && priceCents ? (
               <div className="flex flex-col gap-1 bg-surface-sunken px-4 py-3">
                 <p className="type-label-s text-ink">Das bleibt dir (ohne Anfahrt, die ist provisionsfrei)</p>
-                <dl className="grid grid-cols-3 gap-2 pt-1">
+                <dl className="flex flex-col pt-1">
                   {[
                     { label: "Neukundschaft", rate: rates.rate },
                     { label: "Stammkundschaft", rate: rates.repeatClientRate },
                     { label: "Eigene Kundschaft", rate: rates.ownClientRate },
                   ].map((t) => (
-                    <div key={t.label} className="flex flex-col gap-0.5">
-                      <dt className="type-caption text-ink-muted">
-                        {t.label} · {formatPercent(t.rate)}
+                    <div key={t.label} className="flex min-h-8 items-baseline justify-between gap-4">
+                      <dt className="type-body-s text-ink-muted">
+                        {t.label} <span className="num">· {formatPercent(t.rate)}</span>
                       </dt>
                       <dd className="type-label num">{formatPrice(Math.round(priceCents * (1 - t.rate)))}</dd>
                     </div>

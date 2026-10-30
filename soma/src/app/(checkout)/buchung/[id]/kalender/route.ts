@@ -38,7 +38,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const url = `${SITE_URL}${routes.booking(b.id)}`;
   const location = `${b.location.addressLine}, ${b.location.postalCode} ${b.location.city}`;
   const description = [
-    `${b.serviceName} (${b.durationMinutes} Min.) mit ${b.provider.displayName}.`,
+    `${b.serviceName} (${b.durationMinutes} Min.) mit ${b.provider.displayName}${b.provider.displayName.endsWith(".") ? "" : "."}`,
     b.status === "requested" ? "Status: angefragt – noch nicht bestätigt." : "Status: bestätigt.",
     `Buchung ${b.reference}. Ihren Start-Code finden Sie in der Buchung: ${url}`,
   ].join("\n");

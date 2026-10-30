@@ -13,11 +13,14 @@ export function InviteCard({
   ownClientRateLabel,
   className,
   compact = false,
+  inactiveNote,
 }: {
   inviteUrl: string;
   ownClientRateLabel: string;
   className?: string;
   compact?: boolean;
+  /** shown instead of the share buttons while the public profile is not live yet */
+  inactiveNote?: string;
 }) {
   const toast = useToast();
   const [copied, setCopied] = useState(false);
@@ -67,7 +70,8 @@ export function InviteCard({
           className="h-12 w-full truncate rounded-xs border border-line-strong bg-surface px-3.5 text-[15px] text-ink num"
         />
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      {inactiveNote ? <p className="type-caption text-ink-muted">{inactiveNote}</p> : null}
+      <div className={cn("grid grid-cols-2 gap-2", inactiveNote && "hidden")}>
         <Button variant="secondary" onClick={copy} icon={<Icon icon={copied ? Check : Copy} />}>
           {copied ? "Kopiert" : "Kopieren"}
         </Button>

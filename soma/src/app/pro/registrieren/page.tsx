@@ -332,7 +332,16 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
           <div className="flex flex-col gap-4">
             <span aria-hidden className="block h-0.5 w-6 bg-ink" />
             <Status tone={PROVIDER_STATUS_TONE[onboarding.status]}>{PROVIDER_STATUS_LABEL[onboarding.status]}</Status>
-            <h1 className="type-display-m">{suspended ? "Dein Profil ist pausiert." : `Danke, ${first}. Wir prüfen dein Profil.`}</h1>
+            <h1 className="type-display-m">
+              {suspended ? (
+                "Dein Profil ist pausiert."
+              ) : (
+                <>
+                  Danke, {first}.<br />
+                  <em className="italic">Wir prüfen dein Profil.</em>
+                </>
+              )}
+            </h1>
             <p className="type-body text-ink-muted">
               {suspended
                 ? onboarding.lastDecisionNote ?? "Bei Fragen hilft dir der SOMA-Support."
@@ -376,7 +385,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
           ) : null}
           <div className="flex flex-col gap-2">
             <h2 className="type-heading-s">Bis dahin</h2>
-            <p className="type-body-s text-ink-muted">Pflege Portfolio und Abwesenheiten und teile deinen Einladungslink schon mit deiner Stammkundschaft{ownClientRate ? ` – über ihn zahlst du nur ${ownClientRate} Provision` : ""}.</p>
+            <p className="type-body-s text-ink-muted">Pflege Portfolio und Abwesenheiten. Sobald du freigeschaltet bist, teilst du deinen Einladungslink mit deiner Stammkundschaft{ownClientRate ? ` – für sie zahlst du nur ${ownClientRate} Provision` : ""}.</p>
           </div>
         </aside>
       </div>

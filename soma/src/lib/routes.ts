@@ -26,6 +26,7 @@ export const routes = {
   categories: () => "/behandlungen",
   category: (slug: string) => `/behandlungen/${slug}`,
   categoryCity: (slug: string, city: string) => `/behandlungen/${slug}/${city}`,
+  cities: () => "/staedte",
   city: (slug: string) => `/staedte/${slug}`,
   search: (p: SearchParams = {}) => `/suche${qs(p)}`,
   provider: (slug: string, p: { leistung?: string; dauer?: number; plz?: string; datum?: string } = {}) =>

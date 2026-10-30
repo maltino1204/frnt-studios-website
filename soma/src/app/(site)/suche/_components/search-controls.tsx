@@ -264,7 +264,7 @@ function DateSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
         </Button>
       }
     >
-      <div className="flex flex-col gap-6" style={{ ["--space-gutter" as string]: "1.25rem" }}>
+      <div className="flex flex-col gap-6 [&_[role=radiogroup]]:scroll-px-(--space-gutter)" style={{ ["--space-gutter" as string]: "1.25rem" }}>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Tag">
           <Chip selected={!datum && !custom} showCheck onClick={() => { setDatum(null); setCustom(false); }}>
             So bald wie möglich
@@ -461,7 +461,7 @@ export function SearchDateStrip() {
   const { state, go } = useNav();
   const days = useMemo(next14, []);
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 [&_[role=radiogroup]]:scroll-px-(--space-gutter) lg:[&_[role=radiogroup]]:scroll-px-0">
       <DateStrip days={days} selected={state.datum} onSelect={(d) => go({ datum: d })} label="Tag wählen" />
       {state.datum ? (
         <button type="button" onClick={() => go({ datum: null })} className="inline-flex h-touch items-center self-start type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">

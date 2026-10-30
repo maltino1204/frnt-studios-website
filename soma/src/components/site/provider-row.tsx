@@ -69,25 +69,27 @@ export function ProviderRow({
             </H>
             <FavoriteButton providerId={r.providerId} providerName={r.displayName} initial={r.isFavorite} canToggle={canFavorite} />
           </div>
-          <p className="-mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
-            <Rating avg={r.ratingAvg} count={r.ratingCount} />
-            <span aria-hidden className="text-ink-muted">
-              ·
-            </span>
-            <ModeLabel mode={r.bookingMode} />
-          </p>
-          {r.headline ? <p className="truncate type-body-s text-ink-muted">{r.headline}</p> : null}
-          <div className="flex items-start justify-between gap-4">
-            <p className="min-w-0 pt-0.5 type-caption text-ink-muted">
-              <span className="text-ink">{r.offering.serviceName}</span>
-              <span className="whitespace-nowrap">{` · ${formatDuration(r.offering.durationMinutes).replace(" ", NBSP)}`}</span>
-              <span className="whitespace-nowrap">{` · ${formatDistance(r.distanceKm).replace(" ", NBSP)}`}</span>
-            </p>
+          <div className="-mt-1.5 flex items-start justify-between gap-4">
+            <div className="flex min-w-0 flex-col gap-1">
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <Rating avg={r.ratingAvg} count={r.ratingCount} />
+                <span aria-hidden className="text-ink-muted">
+                  ·
+                </span>
+                <ModeLabel mode={r.bookingMode} />
+              </p>
+              {r.headline ? <p className="truncate type-body-s text-ink-muted">{r.headline}</p> : null}
+            </div>
             <p className="shrink-0 text-right">
               <span className="block type-label font-semibold num">{formatPrice(r.totalPriceCents)}</span>
               <span className="block type-caption whitespace-nowrap text-ink-muted">inkl. Anfahrt</span>
             </p>
           </div>
+          <p className="type-caption text-ink-muted">
+            <span className="text-ink">{r.offering.serviceName}</span>
+            <span className="whitespace-nowrap">{` · ${formatDuration(r.offering.durationMinutes).replace(" ", NBSP)}`}</span>
+            <span className="whitespace-nowrap">{` · ${formatDistance(r.distanceKm).replace(" ", NBSP)}`}</span>
+          </p>
         </div>
       </div>
       {slots.length ? (

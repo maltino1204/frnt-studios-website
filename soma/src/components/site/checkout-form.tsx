@@ -20,7 +20,7 @@ import { updateProfileAction } from "@/server/actions/account";
 import { confirmDevPaymentAction, createBookingAction, loadAvailabilityAction, quoteBookingAction } from "@/server/actions/booking";
 import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/checkout-ext";
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
-import { dayLabel, deadlineText, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel } from "./checkout-format";
+import { dayLabel, deadlineText, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
 import { ModeLabel } from "./provider-row";
 
 export type CheckoutCustomer = { firstName: string | null; lastName: string | null; email: string; phone: string | null };
@@ -178,7 +178,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
       if (kind === "hotel" && !addr.hotel.trim()) e.hotel = "Bitte geben Sie den Namen des Hotels an.";
       if (kind === "office" && !addr.company.trim()) e.company = "Bitte geben Sie die Firma an.";
     }
-    if (!quote.withinServiceArea) e.area = `Diese Adresse liegt außerhalb des Einsatzgebiets von ${provider.name}.`;
+    if (!quote.withinServiceArea) e.area = withStop(`Diese Adresse liegt außerhalb des Einsatzgebiets von ${provider.name}`);
     if (!customer) {
       if (mode === "login") e.login = "Bitte melden Sie sich an oder legen Sie ein neues Konto an.";
       else {
@@ -334,7 +334,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
         {ctaLabel}
       </Button>
       <p className="text-center type-caption text-ink-muted">
-        {isRequest ? `Belastung erst nach Bestätigung durch ${provider.name}.` : "Sofort bestätigt. Sie erhalten die Bestätigung per E-Mail."}
+        {isRequest ? withStop(`Belastung erst nach Bestätigung durch ${provider.name}`) : "Sofort bestätigt. Sie erhalten die Bestätigung per E-Mail."}
       </p>
     </div>
   );
@@ -346,7 +346,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
           <h1 className="type-display-s">{isRequest ? "Termin anfragen." : "Termin buchen."}</h1>
           <p className="type-body-s text-ink-muted">
             {isRequest
-              ? `${provider.name} bestätigt Anfragen in der Regel innerhalb weniger Stunden. Bis dahin ist der Termin für Sie reserviert.`
+              ? `${provider.name} antwortet spätestens innerhalb von ${quote.requestResponseHours}${NBSP}Stunden, bei kurzfristigen Terminen früher. Bis dahin ist der Termin für Sie reserviert.`
               : "Prüfen Sie Ihre Angaben. Der Termin ist sofort bestätigt."}
           </p>
         </div>

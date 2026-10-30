@@ -63,7 +63,7 @@ export default async function ProTodayPage() {
           {greetingFor()}
           {first ? `, ${first}.` : "."}
         </h1>
-        <p className="type-body-s text-ink-muted">{summary.join(" · ")}</p>
+        <p className="type-body-s text-ink-muted">{summary.join(" · ").replace(/^./, (c) => c.toUpperCase())}</p>
       </header>
 
       {!approved ? (
@@ -173,7 +173,7 @@ export default async function ProTodayPage() {
             )}
           </section>
 
-          <InviteCard inviteUrl={settings.inviteUrl} ownClientRateLabel={terms.commission ? formatPercent(terms.commission.ownClientRate) : "5 %"} compact />
+          {approved ? <InviteCard inviteUrl={settings.inviteUrl} ownClientRateLabel={terms.commission ? formatPercent(terms.commission.ownClientRate) : "5\u00a0%"} compact /> : null}
         </aside>
       </div>
     </ProPage>

@@ -19,7 +19,11 @@ export default async function ProSettingsPage() {
     <ProPage width="narrow">
       <ProHeader back={{ href: routes.pro.profile(), label: "Profil" }} title="Einstellungen" description="Wie Kundschaft dich buchen kann und worüber wir dich informieren." />
       <SettingsForm settings={settings} canUseInstant={canUseInstant} />
-      <InviteCard inviteUrl={settings.inviteUrl} ownClientRateLabel={terms.commission ? formatPercent(terms.commission.ownClientRate) : "5 %"} />
+      <InviteCard
+        inviteUrl={settings.inviteUrl}
+        ownClientRateLabel={terms.commission ? formatPercent(terms.commission.ownClientRate) : "5\u00a0%"}
+        inactiveNote={dash.status === "approved" ? undefined : "Dein Link funktioniert, sobald dein Profil freigeschaltet ist."}
+      />
       <ProSection id="konto" title="Konto">
         <FactList className="border-y border-line" items={[{ label: "E-Mail", value: session.email }, { label: "Einladungscode", value: <span className="code-ref">{settings.inviteCode}</span> }]} />
         <PasswordForm />
