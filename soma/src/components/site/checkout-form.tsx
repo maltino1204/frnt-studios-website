@@ -22,6 +22,7 @@ import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/che
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
 import { dayLabel, deadlineText, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
 import { ModeLabel } from "./provider-row";
+import { StripePaymentSheet } from "./checkout-stripe";
 
 export type CheckoutCustomer = { firstName: string | null; lastName: string | null; email: string; phone: string | null };
 
@@ -144,6 +145,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [taken, setTaken] = useState<string[] | null>(null);
+  const [stripeStep, setStripeStep] = useState<{ bookingId: string; clientSecret: string | null } | null>(null);
 
   const isMassage = props.categorySlug === "massage";
   const price = quote.price;
@@ -302,10 +304,13 @@ export function CheckoutForm(props: CheckoutFormProps) {
         await handleFailure(res.error, res.fieldErrors);
         return;
       }
-      if (res.data.paymentProvider === "dev") {
-        const paid = await confirmDevPaymentAction(res.data.bookingId);
-        if (!paid.ok) toast.show(paid.error, { kind: "error" });
+      if (res.data.paymentProvider === "stripe") {
+        // Production: collect the card in Stripe's Payment Element; the webhook confirms the booking.
+        setStripeStep({ bookingId: res.data.bookingId, clientSecret: res.data.paymentClientSecret });
+        return;
       }
+      const paid = await confirmDevPaymentAction(res.data.bookingId);
+      if (!paid.ok) toast.show(paid.error, { kind: "error" });
       router.push(routes.booking(res.data.bookingId));
     });
   };
@@ -771,6 +776,15 @@ export function CheckoutForm(props: CheckoutFormProps) {
       <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) bg-surface-raised px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
         {cta}
       </div>
+
+      {stripeStep ? (
+        <StripePaymentSheet
+          clientSecret={stripeStep.clientSecret}
+          bookingUrl={routes.booking(stripeStep.bookingId)}
+          ctaLabel={ctaLabel}
+          onClose={() => router.push(routes.booking(stripeStep.bookingId))}
+        />
+      ) : null}
     </div>
   );
 }
