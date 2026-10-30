@@ -45,6 +45,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page(routes.forPros(), 0.6, "monthly"),
     page(routes.help(), 0.5, "monthly"),
     page("/stornierung", 0.4, "monthly"),
+    page("/widerruf", 0.2, "yearly"),
+    page("/ranking", 0.2, "yearly"),
     page(routes.imprint(), 0.1, "yearly"),
     page(routes.privacy(), 0.1, "yearly"),
     page(routes.terms(), 0.1, "yearly"),

@@ -8,7 +8,7 @@ import { lookupPostalCode } from "@/server/services/catalog";
 import { getProviderAvailability, getProviderProfile, todayBerlin } from "@/server/services/providers";
 import type { AddressDTO, QuoteDTO } from "@/server/dto";
 import { ButtonLink } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/feedback";
+import { NotFoundState } from "@/components/site/not-found-state";
 import { Container } from "@/components/ui/layout";
 import { CheckoutForm, type CheckoutCustomer } from "@/components/site/checkout-form";
 import { CheckoutPlzForm } from "@/components/site/checkout-plz-form";
@@ -53,9 +53,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
   if (!angebot || !UUID.test(angebot) || !start || Number.isNaN(Date.parse(start))) {
     return (
       <Shell>
-        <EmptyState title="Kein Termin ausgewählt." action={<ButtonLink href={routes.search()}>Termin finden</ButtonLink>}>
+        <NotFoundState title="Kein Termin ausgewählt." action={<ButtonLink href={routes.search()}>Termin finden</ButtonLink>}>
           Wählen Sie zuerst eine Fachkraft und eine freie Uhrzeit.
-        </EmptyState>
+        </NotFoundState>
       </Shell>
     );
   }
@@ -65,9 +65,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
   if (session && session.role !== "customer") {
     return (
       <Shell>
-        <EmptyState title="Mit diesem Konto ist keine Buchung möglich." action={<ButtonLink href={routes.home()}>Zur Startseite</ButtonLink>}>
+        <NotFoundState title="Mit diesem Konto ist keine Buchung möglich." action={<ButtonLink href={routes.home()}>Zur Startseite</ButtonLink>}>
           Sie sind mit einem Profi- oder Admin-Konto angemeldet. Buchungen sind nur mit einem Kundenkonto möglich.
-        </EmptyState>
+        </NotFoundState>
       </Shell>
     );
   }
@@ -115,9 +115,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     if (isServiceError(e)) {
       return (
         <Shell>
-          <EmptyState title="Dieses Angebot ist nicht mehr verfügbar." action={<ButtonLink href={routes.search({ plz })}>Andere Profis finden</ButtonLink>}>
-            {e.message}
-          </EmptyState>
+          <NotFoundState title="Dieses Angebot ist nicht mehr verfügbar." action={<ButtonLink href={routes.search({ plz })}>Andere Profis finden</ButtonLink>}>
+            {/^Dieses Angebot ist nicht mehr verfügbar\.?$/.test(e.message) ? "Vielleicht hat die Fachkraft es geändert. In der Suche finden Sie freie Termine in Ihrer Nähe." : e.message}
+          </NotFoundState>
         </Shell>
       );
     }
@@ -135,9 +135,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     if (own) {
       return (
         <Shell>
-          <EmptyState title="Diesen Termin haben Sie bereits." action={<ButtonLink href={routes.booking(own.id)}>Zur Buchung</ButtonLink>}>
+          <NotFoundState title="Diesen Termin haben Sie bereits." action={<ButtonLink href={routes.booking(own.id)}>Zur Buchung</ButtonLink>}>
             {`${own.serviceName} bei ${own.providerName} – ${own.statusLabel.toLowerCase()}.`}
-          </EmptyState>
+          </NotFoundState>
         </Shell>
       );
     }

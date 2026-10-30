@@ -84,7 +84,8 @@ test("instant booking: search → checkout → confirmation → free cancellatio
   await page.goto(`/buchung/${bookingId}`);
   await page.getByRole("button", { name: "Termin stornieren" }).click();
   const dialog = page.getByRole("dialog");
-  await expect(dialog).toContainText("Die Stornierung ist jetzt noch kostenlos.");
+  // Free either by tier (≥ 24 h) or by the 15-minute Bedenkzeit right after booking (audit-1 R10).
+  await expect(dialog).toContainText(/Die Stornierung ist jetzt noch kostenlos\.|In den ersten 15 Minuten nach der Buchung immer kostenlos stornierbar/);
   await dialog.getByRole("button", { name: "Kostenlos stornieren" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Storniert.", { timeout: 15_000 });
   await expect(page.locator("main")).toContainText("Es fallen keine Kosten an.");

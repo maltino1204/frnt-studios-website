@@ -86,9 +86,10 @@ export function ProofBand({ proof, disputeWindowHours }: { proof: SocialProofDTO
           </h2>
         )}
 
-        <div className="grid gap-4 border-t border-line pt-8 lg:grid-cols-12 lg:gap-6 lg:pt-10">
-          <h3 className="type-overline text-ink lg:col-span-4">{guarantee}</h3>
-          <div className="flex flex-col gap-4 lg:col-span-8">
+        {/* Same three columns as the figures above, so the promise lines up with the second column. */}
+        <div className="grid gap-4 border-t border-line pt-8 md:grid-cols-3 md:gap-0 lg:pt-10">
+          <h3 className="type-overline text-ink md:pr-6">{guarantee}</h3>
+          <div className="flex flex-col gap-4 md:col-span-2 md:pl-6">
             <p className="max-w-[40rem] type-display-s text-ink">
               {`Wenn etwas nicht stimmt, melden Sie es innerhalb von ${disputeWindowHours}${NBSP}Stunden – wir finden eine Lösung: Nachbesserung, Gutschrift oder Erstattung.`}
             </p>

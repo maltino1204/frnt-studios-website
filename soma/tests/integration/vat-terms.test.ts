@@ -54,7 +54,9 @@ describe("VAT mode (PAngV / § 19 UStG)", () => {
     const c = await createCustomer();
     await setVat(pro.providerId, "regular");
     // raw owner insert without vat_mode (column default small_business) → trigger takes the provider's mode
-    const id = await rawInsertBooking(pro, c, new Date(Date.now() + 30 * 3_600_000));
+    // a real slot (inside the fixture's weekly hours, beyond the lead time) keeps this test independent of the time of day
+    const startsAt = new Date(await slotAtLeast(pro.providerId, pro.offerings.entspannungsmassage, 25));
+    const id = await rawInsertBooking(pro, c, startsAt);
     const [row] = await sql()<{ vatMode: string }[]>`select vat_mode from public.bookings where id = ${id}`;
     expect(row.vatMode).toBe("regular");
     await expect(sql()`update public.bookings set vat_mode = 'small_business' where id = ${id}`).rejects.toThrow(/SOMA_BOOKING_IMMUTABLE/);
