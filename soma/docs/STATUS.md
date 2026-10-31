@@ -91,19 +91,28 @@ CDN is unreachable from the build sandbox; fallbacks were tested), iOS Safari/We
 ## 4. Independent quality scores
 
 Scores come from the independent QA agent (Agent 6). It does not implement features and scores only what it
-observed. Reports: `docs/qa/audit-1.md` … `docs/qa/audit-4.md`.
+observed. Reports: `docs/qa/audit-1.md` … `docs/qa/audit-5.md`.
 
-| Dimension | Audit 1 | Audit 2 | Audit 3 | Audit 4 |
-|---|---|---|---|---|
-| Visual quality | 8 | 8 | 8 | 8 |
-| UX & navigation | 7 | 8 | 9 | 9 |
-| Mobile responsiveness | 8 | 8 | 9 | 9 |
-| Accessibility | 8 | 9 | 9 | 9 |
-| Functional completeness | 8 | 9 | 9 | 9 |
-| Booking reliability | 9 | 9 | 9 | 9 |
-| Security & permissions | 7 | 7 | 7 | **8** |
-| Performance | 6 | 8 | 8 | 8 |
-| Trust & conversion | 7 | 8 | 8 | 8 |
+| Dimension | Audit 1 | Audit 2 | Audit 3 | Audit 4 | Audit 5 (Design v2) |
+|---|---|---|---|---|---|
+| Visual quality | 8 | 8 | 8 | 8 | **9** |
+| UX & navigation | 7 | 8 | 9 | 9 | 9 |
+| Mobile responsiveness | 8 | 8 | 9 | 9 | 8 |
+| Accessibility | 8 | 9 | 9 | 9 | 8 |
+| Functional completeness | 8 | 9 | 9 | 9 | 9 |
+| Booking reliability | 9 | 9 | 9 | 9 | 9 |
+| Security & permissions | 7 | 7 | 7 | 8 | **9** |
+| Performance | 6 | 8 | 8 | 8 | 8 |
+| Trust & conversion | 7 | 8 | 8 | 8 | 8 |
+| Premium-Anmutung (High-End-Produkt) | – | – | – | – | **9** (Kunde 9 · Profi 9 · Admin 9) |
+
+**Design v2** (client request: lighter colours, a "$100M SaaS" look, better haptics, "Bewegung und Ruhe"; brief:
+`docs/design-v2-brief.md`, guideline v2: `docs/design-guideline.md`). In audit 5 every dimension is ≥ 8 and the new tenth
+dimension *Premium-Anmutung* scores 9. The audit measured:
+- fonts down from 331 KB to 96 KB;
+- CLS 0.000, 0 hydration errors in 184 page loads;
+- reduced motion fully respected;
+- E2E 108/108.
 
 All nine dimensions reach the target of ≥ 8 in audit 4. The auditor's demo verdict: ready to hand to the client, with
 the caveats in `DEMO.md`.
