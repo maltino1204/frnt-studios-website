@@ -71,7 +71,7 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
           </EmptyState>
         ) : (
           <div>
-            <AdminTable label="Profis" stickyHeader>
+            <AdminTable label="Profis" stickyHeader compact>
               <thead>
                 <tr>
                   <th scope="col">Profi</th>
@@ -100,7 +100,7 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
                       <Status tone={PROVIDER_STATUS[p.status].tone}>{PROVIDER_STATUS[p.status].label}</Status>
                     </td>
                     <td>{cityName(p.citySlug)}</td>
-                    <td className="max-w-64 truncate text-ink-muted" title={p.categories.map(catName).join(", ")}>
+                    <td className="max-w-52 truncate text-ink-muted" title={p.categories.map(catName).join(", ")}>
                       {p.categories.length ? p.categories.map(catName).join(", ") : EMPTY}
                     </td>
                     <td className="num text-ink-muted">{p.submittedAt ? formatDate(p.submittedAt) : EMPTY}</td>

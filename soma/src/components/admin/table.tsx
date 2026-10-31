@@ -41,8 +41,15 @@ export function AdminTable({
   className,
   regionClassName,
   stickyHeader,
+  compact,
   ...props
-}: ComponentProps<"table"> & { label: string; regionClassName?: string; stickyHeader?: boolean }) {
+}: ComponentProps<"table"> & {
+  label: string;
+  regionClassName?: string;
+  stickyHeader?: boolean;
+  /** 12px instead of 16px cell padding (wide tables with many columns) */
+  compact?: boolean;
+}) {
   return (
     <div
       role="region"
@@ -61,11 +68,12 @@ export function AdminTable({
         className={cn(
           "w-full border-separate border-spacing-0 text-left type-body-s",
           // header band
-          "[&_th]:h-10 [&_th]:bg-surface [&_th]:px-4 [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted [&_th]:shadow-[inset_0_-1px_0_var(--color-line)]",
+          compact ? "[&_td]:px-3 [&_th]:px-3" : "[&_td]:px-4 [&_th]:px-4",
+          "[&_th]:h-10 [&_th]:bg-surface [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted [&_th]:shadow-[inset_0_-1px_0_var(--color-line)]",
           "[&_th:first-child]:pl-5 [&_th:last-child]:pr-5 [&_td:first-child]:pl-5 [&_td:last-child]:pr-5",
           stickyHeader && "lg:[&_thead_th]:sticky lg:[&_thead_th]:top-0 lg:[&_thead_th]:z-[2] lg:[&_thead_th]:bg-surface/85 lg:[&_thead_th]:backdrop-blur-md lg:[&_thead_th]:backdrop-saturate-150",
           // rows
-          "[&_td]:h-10 [&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_tbody_tr:last-child_td]:border-b-0",
+          "[&_td]:h-10 [&_td]:border-b [&_td]:border-line [&_tbody_tr:last-child_td]:border-b-0",
           "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-accent-tint",
           adminTable,
           className,

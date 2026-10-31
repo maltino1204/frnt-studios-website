@@ -4,7 +4,7 @@ import { formatInt, formatPercent } from "@/components/admin/format";
 import { AdminPageHeader, AdminSection, Card, EMPTY, MutedLink, SectionEmpty } from "@/components/admin/page";
 import { RangeSwitch } from "@/components/admin/range-switch";
 import { AdminTable, hrefWith, numCell } from "@/components/admin/table";
-import { EmptyState, Status } from "@/components/ui/feedback";
+import { Status } from "@/components/ui/feedback";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
@@ -86,7 +86,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         </AdminSection>
 
         <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
-          <AdminTable label="Städte" className="[&_td]:px-3 [&_th]:px-3">
+          <AdminTable label="Städte" compact>
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -134,7 +134,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         </AdminSection>
 
         <AdminSection id="matrix" title="Stadt × Kategorie" description="Je Zelle: Profis · Suchen. Rot: Nachfrage ohne Profi. Gelb: unter der Indexierungs-Schwelle.">
-          <AdminTable label="Stadt × Kategorie" className={cn("[&_td]:px-3 [&_th]:px-3")}>
+          <AdminTable label="Stadt × Kategorie" compact>
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
