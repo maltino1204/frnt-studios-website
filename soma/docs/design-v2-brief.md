@@ -62,6 +62,29 @@ tactile, alive.
 10. **Details.** Focus rings (accent glow), selection colour, scrollbar styling where sensible, favicon and OG consistency,
     loading and empty states for every async view, 44 px touch targets, safe areas, and no hydration warnings.
 
+11. **Haptics: "Bewegung und Ruhe".** Client requirement: *„Auch die Haptik muss viel besser sein. Bring Effekte rein.
+    Bewegung und Ruhe."*
+    - **Every interactive element responds tactilely:**
+      - spring-like press (scale ≈ 0.97), hover lift, focus glow;
+      - animated checkbox, switch and radio (the check draws in, the knob springs);
+      - slot and chip selection that "settles";
+      - loading states that morph instead of jumping.
+    - **Ambient calm:** aura gradients drift and breathe very slowly (20–40 s loops, transform/opacity only). They pause
+      offscreen and are off with reduced motion.
+    - **Subtle, expensive effects:**
+      - a pointer-following spotlight on large cards and hero panels (pointer: fine only);
+      - small scroll parallax on the floating hero cards;
+      - shimmer skeletons;
+      - route transitions (View Transitions API with a cross-fade fallback).
+    - **Moments of delight:**
+      - the checkmark draws in on *Bestätigt*/*Gespeichert*;
+      - staggered Start-Code reveal and count-up stats;
+      - spring toasts and sheets with a drag feel.
+    - **Device haptics:** `haptic()` uses `navigator.vibrate` where supported, on key confirmations such as booking,
+      accepting and starting. It is feature-detected and off with reduced motion.
+    - **Rhythm:** interactions answer within 120–200 ms; ambient motion is slow and quiet. Nothing frantic, no motion that
+      delays content, no layout shift.
+
 ## Technical standards (must hold after v2)
 - **Core Web Vitals on the production build:** LCP < 2.5 s (mobile, throttled), CLS < 0.05, no long tasks from decoration.
   JS added for visuals stays small; prefer CSS (no heavy animation libraries).
