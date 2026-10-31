@@ -1,33 +1,39 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Instrument_Sans, DM_Mono } from "next/font/google";
+import { Inter, DM_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE, DEMO_MODE, SITE_URL } from "@/lib/brand";
 import { images, resolveImage } from "@/lib/images";
 import { ToastProvider } from "@/components/ui/toast";
 import { DemoRibbon } from "@/components/ui/demo-ribbon";
+import { MotionRoot } from "@/components/ui/motion";
 import { ServiceWorker } from "@/components/ui/service-worker";
 import "./globals.css";
 
 /*
- * Font loading budget (QA R4): only the Instrument Sans latin file (~57 KB) is
- * preloaded. Newsreader keeps its optical-size axis for display quality but is
- * not preloaded: headlines paint immediately in the metric-matched fallback and
- * swap without layout shift. latin-ext/vietnamese faces stay available through
- * unicode-range and download only when such glyphs appear (e.g. "Doğan").
+ * Type system v2 (design-guideline §5). Font budget on "/": 2 preloaded files,
+ * ~96 KB in total.
+ * - Inter (variable: wght + opsz 14–32) is the UI and display face. Its optical
+ *   size axis follows font-size, so headlines get the tighter display cut.
+ *   Latin is preloaded (~73 KB); latin-ext downloads only for names like "Doğan".
+ * - Newsreader Italic is the emotional accent (<em> in display headlines, the
+ *   tagline, quotes). It is self-hosted as the static display cut (opsz 72,
+ *   wght 400, latin, 23 KB, SIL OFL: src/styles/fonts/OFL-Newsreader.txt).
+ * - DM Mono is for booking references in /pro and /admin only, never preloaded.
  */
-const display = Newsreader({
+const sans = Inter({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   axes: ["opsz"],
   display: "swap",
-  preload: false,
-  variable: "--font-display-src",
+  variable: "--font-sans-src",
 });
 
-const sans = Instrument_Sans({
-  subsets: ["latin"],
-  axes: ["wdth"],
+const accent = localFont({
+  src: "../styles/fonts/newsreader-display-italic.woff2",
+  style: "italic",
+  weight: "400",
   display: "swap",
-  variable: "--font-sans-src",
+  variable: "--font-accent-src",
+  adjustFontFallback: "Times New Roman",
 });
 
 const mono = DM_Mono({
@@ -62,7 +68,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F5F2EC",
+  themeColor: "#FAF9F7",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -70,12 +77,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="de" className={`${sans.variable} ${accent.variable} ${mono.variable}`}>
       <body className="flex min-h-dvh flex-col bg-surface text-ink">
         <ToastProvider>
           {DEMO_MODE ? <DemoRibbon /> : null}
           {children}
         </ToastProvider>
+        <MotionRoot />
         <ServiceWorker />
       </body>
     </html>

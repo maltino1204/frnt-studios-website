@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { requireRole } from "@/server/auth/guards";
 import { countUnreadNotifications } from "@/server/services/notifications";
 import { AccountBottomNav, AccountHeader, AccountRail } from "@/components/site/account-nav";
+import { RouteTransition } from "@/components/ui/motion";
 
 export const metadata: Metadata = { title: { default: "Ihr Konto", template: "%s · Konto · SOMA" }, robots: { index: false, follow: false } };
 
@@ -19,9 +20,9 @@ export default async function KontoLayout({ children }: { children: React.ReactN
         <div className="hidden lg:col-span-3 lg:block">
           <AccountRail />
         </div>
-        <main id="inhalt" className="min-w-0 lg:col-span-9">
+        <RouteTransition as="main" id="inhalt" className="min-w-0 lg:col-span-9">
           {children}
-        </main>
+        </RouteTransition>
       </div>
       <AccountBottomNav />
     </>

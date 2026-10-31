@@ -21,6 +21,8 @@ import {
 import { Wordmark } from "@/components/brand/logo";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill, Status } from "@/components/ui/feedback";
+import { RouteTransition } from "@/components/ui/motion";
+import { BottomNav } from "@/components/ui/nav";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -73,20 +75,20 @@ export function ProShell({
 
   return (
     <div className="flex min-h-dvh flex-1 flex-col lg:flex-row">
-      <a href="#pro-main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--z-toast) focus:bg-surface-raised focus:px-4 focus:py-3 focus:type-label">
+      <a href="#pro-main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--z-toast) focus:rounded-full focus:bg-surface-raised focus:px-4 focus:py-3 focus:type-label focus:shadow-float">
         Zum Inhalt springen
       </a>
 
       {/* Desktop sidebar (240px) */}
-      <div className="hidden w-60 shrink-0 border-r border-line bg-surface-sunken lg:block">
+      <div className="hidden w-60 shrink-0 border-r border-line bg-surface lg:block">
       <aside className="sticky top-0 flex h-dvh flex-col" aria-label="Profi-Navigation">
         <div className="flex h-18 items-center gap-3 px-6">
-          <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-3 text-ink">
+          <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-2.5 rounded-control text-ink focus-ring">
             <Wordmark className="h-5! w-auto" />
-            <span className="border-l border-line-strong pl-3 type-label-s text-ink-muted">Pro</span>
+            <ProBadge />
           </Link>
         </div>
-        <nav className="flex min-h-0 flex-1 flex-col gap-8 overflow-y-auto px-3 pt-4 pb-6">
+        <nav className="flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-3 pt-3 pb-6">
           <ul className="flex flex-col gap-0.5">
             {main.map((it) => (
               <SidebarLink key={it.href} item={it} active={it.match(pathname)} />
@@ -101,25 +103,25 @@ export function ProShell({
             </ul>
           </div>
         </nav>
-        <div className="flex flex-col gap-3 border-t border-line px-6 py-5">
+        <div className="m-3 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised">
           <div className="flex items-center gap-3">
-            <Avatar src={avatarUrl} name={displayName} size={40} className="bg-surface-raised!" />
+            <Avatar src={avatarUrl} name={displayName} size={40} />
             <div className="flex min-w-0 flex-col gap-1">
               <span className="truncate type-label text-ink">{displayName}</span>
-              <Status tone={PROVIDER_STATUS_TONE[status]} className="type-caption!">
+              <Status tone={PROVIDER_STATUS_TONE[status]} className="min-h-5! self-start px-2! py-0.5! type-caption!">
                 {PROVIDER_STATUS_LABEL[status]}
               </Status>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col border-t border-line pt-2">
             {publicHref ? (
-              <Link href={publicHref} className="inline-flex min-h-9 items-center gap-2 type-label-s text-ink-muted hover:text-ink">
+              <Link href={publicHref} className="inline-flex min-h-9 items-center gap-2 rounded-control type-label-s text-ink-muted transition-colors hover:text-ink focus-ring">
                 <ExternalLink size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
                 Öffentliches Profil
               </Link>
             ) : null}
             <form action={signOutAction}>
-              <button type="submit" className="inline-flex min-h-9 items-center gap-2 type-label-s text-ink-muted hover:text-ink">
+              <button type="submit" className="inline-flex min-h-9 items-center gap-2 rounded-control type-label-s text-ink-muted transition-colors hover:text-ink focus-ring">
                 <LogOut size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
                 Abmelden
               </button>
@@ -129,64 +131,41 @@ export function ProShell({
       </aside>
       </div>
 
-      {/* Mobile top bar */}
-      <header className="sticky top-0 z-(--z-header) flex h-14 items-center justify-between border-b border-line bg-surface px-(--space-gutter) lg:hidden">
-        <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-3 text-ink">
+      {/* Mobile top bar (glass) */}
+      <header className="sticky top-0 z-(--z-header) flex h-14 items-center justify-between glass-strong px-(--space-gutter) shadow-[0_1px_0_var(--glass-hairline)] lg:hidden">
+        <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-2.5 rounded-control text-ink focus-ring">
           <Wordmark className="h-[18px]! w-auto" />
-          <span className="border-l border-line-strong pl-3 type-label-s text-ink-muted">Pro</span>
+          <ProBadge />
         </Link>
         {status !== "approved" ? (
           <Status tone={PROVIDER_STATUS_TONE[status]} className="type-caption!">
             {PROVIDER_STATUS_LABEL[status]}
           </Status>
         ) : (
-          <Link href={routes.pro.profile()} className="-mr-1 inline-flex size-touch items-center justify-center">
+          <Link href={routes.pro.profile()} className="-mr-1 inline-flex size-touch items-center justify-center rounded-full pressable focus-ring">
             <Avatar src={avatarUrl} name={displayName} size={32} />
             <span className="sr-only">Dein Profil</span>
           </Link>
         )}
       </header>
 
-      <main id="pro-main" className="flex min-w-0 flex-1 flex-col pb-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom)+2rem)] lg:pb-16">
+      <RouteTransition as="main" id="pro-main" className="flex min-w-0 flex-1 flex-col pb-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom)+2rem)] lg:pb-16">
         {children}
-      </main>
+      </RouteTransition>
 
-      {/* Mobile bottom navigation */}
-      <nav
-        aria-label="Hauptnavigation"
-        className="fixed inset-x-0 bottom-0 z-(--z-bottom-nav) border-t border-line bg-surface-raised pb-[env(safe-area-inset-bottom)] lg:hidden"
-      >
-        <ul className="grid h-(--bottom-nav-height) grid-cols-5">
-          {bottom.map((it) => {
-            const active = it.match(pathname);
-            return (
-              <li key={it.label} className="flex">
-                <Link
-                  href={it.href}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "relative flex flex-1 flex-col items-center justify-center gap-1 transition-colors duration-fast",
-                    active ? "text-ink" : "text-ink-muted hover:text-ink",
-                  )}
-                >
-                  {active ? <span aria-hidden className="absolute top-0 h-0.5 w-4 bg-ink" /> : null}
-                  <span className="relative">
-                    <it.icon size={24} strokeWidth={active ? 1.75 : 1.5} absoluteStrokeWidth aria-hidden />
-                    {it.count ? (
-                      <CountPill accent className="absolute -top-1.5 -right-2.5">
-                        {it.count}
-                      </CountPill>
-                    ) : null}
-                  </span>
-                  <span className="type-caption">{it.label}</span>
-                  {it.count ? <span className="sr-only">, {it.count} offen</span> : null}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      {/* Mobile bottom navigation (glass) */}
+      <BottomNav items={bottom.map((it) => ({ href: it.href, label: it.label, icon: it.icon, active: it.match(pathname), count: it.count }))} />
     </div>
+  );
+}
+
+/** "Pro" marker next to the wordmark: a small ink pill with an aura dot. */
+function ProBadge() {
+  return (
+    <span className="inline-flex h-5 items-center gap-1 rounded-full bg-ink px-2 text-[11px] leading-none font-[620] tracking-[0.02em] text-ink-inverse">
+      <span aria-hidden className="size-1.5 rounded-full bg-aura" />
+      Pro
+    </span>
   );
 }
 
@@ -197,12 +176,11 @@ function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
         href={item.href}
         aria-current={active ? "page" : undefined}
         className={cn(
-          "relative flex h-11 items-center gap-3 rounded-xs px-3 type-body-s font-[520] transition-colors duration-fast",
-          active ? "bg-surface-raised text-ink" : "text-ink-muted hover:bg-surface-raised/60 hover:text-ink",
+          "group relative flex h-10 items-center gap-3 rounded-control px-3 type-body-s font-[520] transition-[background-color,color,box-shadow] duration-fast pressable focus-ring",
+          active ? "bg-surface-raised text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
         )}
       >
-        {active ? <span aria-hidden className="absolute inset-y-2 left-0 w-0.5 bg-ink" /> : null}
-        <item.icon size={20} strokeWidth={active ? 1.75 : 1.5} absoluteStrokeWidth aria-hidden />
+        <item.icon size={18} strokeWidth={active ? 1.9 : 1.5} absoluteStrokeWidth aria-hidden className={cn("shrink-0", active && "text-accent")} />
         <span className="flex-1">{item.label}</span>
         {item.count ? <CountPill accent>{item.count}</CountPill> : null}
       </Link>

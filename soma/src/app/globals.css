@@ -1,11 +1,17 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
-/* App-level base rules that complement the design tokens. */
+/* App-level base rules that complement the design tokens (guideline v2 §12). */
 @layer base {
   html {
     scroll-padding-top: calc(var(--header-height) + 1rem);
+    /* Thin, warm scrollbars (Firefox + Chromium); WebKit rules below. */
+    scrollbar-color: var(--color-line-mid) transparent;
+    scrollbar-width: thin;
   }
+  /* Smooth scrolling is applied to same-page anchor links by <MotionRoot>
+     (reduced-motion aware), not globally: a global scroll-behavior also
+     animates programmatic scrolls (router, tests, focus) and makes them racy. */
   body {
     min-height: 100dvh;
     background-color: var(--color-surface);
@@ -21,6 +27,7 @@
   textarea,
   button {
     font: inherit;
+    letter-spacing: inherit;
   }
   /* 16px minimum in form fields prevents iOS zoom on focus */
   input,
@@ -28,11 +35,48 @@
   textarea {
     font-size: max(16px, 1em);
   }
+  img,
+  svg,
+  video {
+    -webkit-user-drag: none;
+  }
   dialog {
     color: inherit;
   }
   dialog::backdrop {
     background: var(--color-backdrop);
+    -webkit-backdrop-filter: blur(6px) saturate(1.2);
+    backdrop-filter: blur(6px) saturate(1.2);
+    animation: soma-fade-in var(--transition-duration-base) var(--ease-standard) both;
+  }
+  :where(h1, h2, h3, h4) {
+    text-wrap-style: balance;
+  }
+  :where(p, li, dd, blockquote, figcaption) {
+    text-wrap-style: pretty;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-mid);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-line-strong);
+  }
+  /* Windows high contrast: keep a system-coloured focus indicator. */
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline: 2px solid CanvasText !important;
+      outline-offset: 2px;
+    }
   }
 }
 
@@ -47,32 +91,202 @@
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Sheet & dialog motion (see design-guideline §10) */
-@keyframes soma-sheet-in {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+/* --------------------------------------------------------------------------
+   Scroll reveal (see <Reveal>): set by JS only for content below the fold,
+   so nothing above the fold is ever hidden and no-JS shows everything.
+   -------------------------------------------------------------------------- */
+[data-reveal="hidden"] {
+  opacity: 0;
+  translate: 0 10px;
 }
-@keyframes soma-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+[data-reveal="in"] {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--transition-duration-calm) var(--ease-enter),
+    translate var(--transition-duration-calm) var(--ease-enter);
+  transition-delay: var(--reveal-delay, 0ms);
 }
-@keyframes soma-dialog-in {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+[data-reveal-stagger="hidden"] > * {
+  opacity: 0;
+  translate: 0 10px;
 }
-@keyframes soma-toast-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+[data-reveal-stagger="in"] > * {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity var(--transition-duration-calm) var(--ease-enter),
+    translate var(--transition-duration-calm) var(--ease-enter);
 }
-@utility animate-sheet-in {
-  animation: soma-sheet-in var(--transition-duration-slow) var(--ease-enter) both;
+[data-reveal-stagger="in"] > :nth-child(2) { transition-delay: 60ms; }
+[data-reveal-stagger="in"] > :nth-child(3) { transition-delay: 120ms; }
+[data-reveal-stagger="in"] > :nth-child(4) { transition-delay: 180ms; }
+[data-reveal-stagger="in"] > :nth-child(5) { transition-delay: 240ms; }
+[data-reveal-stagger="in"] > :nth-child(6) { transition-delay: 300ms; }
+[data-reveal-stagger="in"] > :nth-child(n + 7) { transition-delay: 360ms; }
+
+/* Staggered entrance for small groups where the stagger is the point
+   (Start-Code digits, a confirmation summary). Not for LCP content. */
+.stagger-rise > * {
+  animation: soma-rise var(--transition-duration-calm) var(--ease-enter) both;
 }
-@utility animate-dialog-in {
-  animation: soma-dialog-in var(--transition-duration-base) var(--ease-enter) both;
+.stagger-rise > :nth-child(2) { animation-delay: 50ms; }
+.stagger-rise > :nth-child(3) { animation-delay: 100ms; }
+.stagger-rise > :nth-child(4) { animation-delay: 150ms; }
+.stagger-rise > :nth-child(5) { animation-delay: 200ms; }
+.stagger-rise > :nth-child(6) { animation-delay: 250ms; }
+.stagger-rise > :nth-child(n + 7) { animation-delay: 300ms; }
+
+/* Scroll-linked parallax depth (see <Parallax>), CSS-only where supported. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      animation: soma-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
 }
-@utility animate-fade-in {
+@keyframes soma-parallax {
+  from { translate: 0 calc(var(--depth, 16px) * 1); }
+  to { translate: 0 calc(var(--depth, 16px) * -1); }
+}
+
+/* --------------------------------------------------------------------------
+   UI kit structure that needs :has() (see components/ui/segmented.tsx)
+   -------------------------------------------------------------------------- */
+.segmented-thumb {
+  width: calc((100% - 6px) / var(--n, 2));
+  translate: calc(var(--i, 0) * 100%) 0;
+  opacity: 0;
+  transition:
+    translate var(--transition-duration-spring) var(--ease-settle),
+    opacity var(--transition-duration-fast) var(--ease-standard);
+}
+.segmented:has(input:checked) > .segmented-thumb { opacity: 1; }
+.segmented:has(> label:nth-of-type(2) input:checked) { --i: 1; }
+.segmented:has(> label:nth-of-type(3) input:checked) { --i: 2; }
+.segmented:has(> label:nth-of-type(4) input:checked) { --i: 3; }
+.segmented:has(> label:nth-of-type(5) input:checked) { --i: 4; }
+.segmented:has(> label:nth-of-type(6) input:checked) { --i: 5; }
+
+/* Overlay exits and drag (see components/ui/sheet.tsx useDialogMotion). */
+.soma-sheet {
+  transition: translate var(--transition-duration-spring) var(--ease-spring);
+}
+.soma-sheet[data-dragging] {
+  transition: none;
+}
+.soma-sheet[data-closing] {
+  animation: soma-sheet-out 200ms var(--ease-exit) both;
+}
+.soma-modal[data-closing] {
+  animation: soma-dialog-out 180ms var(--ease-exit) both;
+}
+dialog[data-closing]::backdrop {
+  animation: soma-fade-out 200ms var(--ease-exit) both;
+}
+@media (width >= 48rem) {
+  .soma-sheet:not(.soma-drawer)[data-closing] {
+    animation: soma-dialog-out 180ms var(--ease-exit) both;
+  }
+  .soma-drawer[open] {
+    animation: soma-drawer-in var(--transition-duration-slow) var(--ease-enter) both;
+  }
+  .soma-drawer[data-closing] {
+    animation: soma-drawer-out 200ms var(--ease-exit) both;
+  }
+}
+@keyframes soma-sheet-out {
+  to { transform: translateY(100%); }
+}
+@keyframes soma-dialog-out {
+  to { opacity: 0; transform: translateY(6px) scale(0.98); }
+}
+@keyframes soma-drawer-in {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes soma-drawer-out {
+  to { transform: translateX(100%); }
+}
+@keyframes soma-fade-out {
+  to { opacity: 0; }
+}
+@keyframes soma-toast-out {
+  to { opacity: 0; transform: translateY(8px) scale(0.97); }
+}
+.toast-leave {
+  animation: soma-toast-out 180ms var(--ease-exit) both;
+}
+
+/* --------------------------------------------------------------------------
+   Route transitions (View Transitions API). Same-document navigations use
+   React's <ViewTransition> (see <RouteTransition>); full page loads use the
+   cross-document opt-in. Unsupported browsers simply swap.
+   -------------------------------------------------------------------------- */
+@view-transition {
+  navigation: auto;
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--transition-duration-base);
+  animation-timing-function: var(--ease-standard);
+}
+::view-transition-old(.soma-page) {
+  animation: soma-vt-out 140ms var(--ease-exit) both;
+}
+::view-transition-new(.soma-page) {
+  animation: soma-vt-in 260ms var(--ease-enter) 60ms both;
+}
+::view-transition-group(soma-chrome) {
+  animation: none;
+  z-index: 50;
+}
+::view-transition-old(soma-chrome) {
+  display: none;
+}
+::view-transition-new(soma-chrome) {
+  animation: none;
+}
+/* Shared elements that morph between states (tab indicator, nav pill). */
+::view-transition-group(.soma-morph) {
+  animation-duration: var(--transition-duration-spring);
+  animation-timing-function: var(--ease-settle);
+}
+@keyframes soma-vt-out {
+  to { opacity: 0; }
+}
+@keyframes soma-vt-in {
+  from { opacity: 0; translate: 0 6px; }
+  to { opacity: 1; translate: 0 0; }
+}
+/* Fallback cross-fade for client navigations without the API. */
+.route-fade-in {
   animation: soma-fade-in var(--transition-duration-base) var(--ease-standard) both;
 }
-@utility animate-toast-in {
-  animation: soma-toast-in var(--transition-duration-base) var(--ease-enter) both;
+
+/* --------------------------------------------------------------------------
+   Reduced motion: everything settles in place. The spinner keeps turning
+   (essential feedback), slower.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  [data-reveal],
+  [data-reveal-stagger] > * {
+    opacity: 1 !important;
+    translate: none !important;
+  }
+  .soma-spinner {
+    animation-duration: 1.4s !important;
+    animation-iteration-count: infinite !important;
+  }
 }

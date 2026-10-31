@@ -254,6 +254,8 @@ The upload screen crops to 4:5 with a face guide, and the app derives the 1:1 an
 
 ## 5. Fallback: when no photography is available
 
+> **Design v2:** the tone-on-tone panels below are superseded by the generative aura artwork (`AuraArt`, `TonePanel`, `Portrait`, `Avatar`), specified in `docs/design-guideline.md` §9.2. The slugs, the decorative role and the "photo fades in over the panel" behaviour stay the same. The hex values in §5.1 are historical.
+
 The UI must look finished without a single photo. Placeholders are **tone-on-tone colour fields with typography**. They are never grey boxes with an image icon, never silhouettes and never gradients. The same panel also serves as the loading state underneath a real image: the photo simply fades in over it (640 ms, `ease-calm`).
 
 ### 5.1 Category and editorial panels

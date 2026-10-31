@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { SuccessCheck } from "@/components/ui/success";
+import { haptic } from "@/lib/haptic";
 import { DateStrip, TimeSlots } from "@/components/ui/booking";
 import { Sheet } from "@/components/ui/sheet";
 import { Modal } from "@/components/ui/dialog";
@@ -18,6 +20,8 @@ export function KitInteractive() {
   const [slot, setSlot] = useState<string | null>(null);
   const [sheet, setSheet] = useState(false);
   const [modal, setModal] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(0);
   const toast = useToast();
   const base = new Date(`${day}T08:00:00+01:00`).getTime();
   const slots = [0, 1, 2, 5, 6, 9, 10, 11].map((h) => ({ start: new Date(base + h * 3600000).toISOString() }));
@@ -29,7 +33,26 @@ export function KitInteractive() {
         <Button variant="secondary" onClick={() => setSheet(true)}>Sheet öffnen</Button>
         <Button variant="secondary" onClick={() => setModal(true)}>Dialog</Button>
         <Button variant="secondary" onClick={() => toast.show("Termin gespeichert.")}>Toast</Button>
+        <Button
+          loading={busy}
+          onClick={() => {
+            setBusy(true);
+            window.setTimeout(() => {
+              setBusy(false);
+              setDone((n) => n + 1);
+              haptic("success");
+            }, 1200);
+          }}
+        >
+          Anfrage annehmen
+        </Button>
       </div>
+      {done ? (
+        <div key={done} className="flex items-center gap-3">
+          <SuccessCheck size={44} />
+          <p className="type-heading-m">Bestätigt.</p>
+        </div>
+      ) : null}
       <Sheet open={sheet} onClose={() => setSheet(false)} title="Behandlung wählen" footer={<Button block size="l" onClick={() => setSheet(false)}>Übernehmen</Button>}>
         <p className="type-body-s text-ink-muted">Inhalt des Sheets.</p>
       </Sheet>

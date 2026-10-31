@@ -25,8 +25,10 @@ import {
 import { Mark } from "@/components/brand/logo";
 import { Icon } from "@/components/ui/icon";
 import { CountPill } from "@/components/ui/feedback";
+import { Kbd } from "@/components/ui/badge";
+import { RouteTransition } from "@/components/ui/motion";
 import { Sheet } from "@/components/ui/sheet";
-import { initials } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -126,13 +128,29 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
     document.cookie = `${RAIL_COOKIE}=${next ? "1" : "0"}; path=/admin; max-age=31536000; samesite=lax`;
   };
 
+  // "[" collapses / expands the sidebar (desktop), unless the user is typing.
+  const toggleRef = useRef(toggle);
+  toggleRef.current = toggle;
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "[" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      if (!window.matchMedia("(min-width: 64rem)").matches) return;
+      e.preventDefault();
+      toggleRef.current();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const current = ADMIN_NAV.flatMap((g) => g.items).find((i) => isActive(pathname, i.href));
 
   return (
     <div className="flex min-h-dvh flex-1 flex-col lg:flex-row">
       <a
         href="#inhalt"
-        className="sr-only z-(--z-toast) bg-ink px-4 py-2 text-ink-inverse focus:not-sr-only focus:fixed focus:top-2 focus:left-2 type-label-s"
+        className="sr-only z-(--z-toast) rounded-full bg-ink px-4 py-2 text-ink-inverse focus:not-sr-only focus:fixed focus:top-2 focus:left-2 type-label-s"
       >
         Zum Inhalt springen
       </a>
@@ -142,18 +160,18 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
         ref={asideRef}
         aria-label="Admin-Navigation"
         className={cn(
-          "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-line bg-surface-sunken lg:flex",
+          "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-line bg-surface transition-[width] duration-base ease-standard lg:flex",
           collapsed ? "w-16" : "w-62",
         )}
       >
-        <div className={cn("flex h-14 shrink-0 items-center border-b border-line", collapsed ? "justify-center" : "justify-between pr-2 pl-5")}>
+        <div className={cn("flex h-14 shrink-0 items-center", collapsed ? "justify-center" : "justify-between pr-2 pl-4")}>
           {collapsed ? (
-            <Link href={routes.admin.root()} className="flex size-10 items-center justify-center rounded-xs" aria-label="Admin – Übersicht" title="Admin – Übersicht">
-              <Mark className="h-6 text-ink" />
+            <Link href={routes.admin.root()} className="flex size-10 items-center justify-center rounded-control focus-ring" aria-label="Admin – Übersicht" title="Admin – Übersicht">
+              <MarkTile />
             </Link>
           ) : (
-            <Link href={routes.admin.root()} className="flex items-center gap-3 rounded-xs">
-              <Mark className="h-6 text-ink" />
+            <Link href={routes.admin.root()} className="flex items-center gap-2.5 rounded-control focus-ring">
+              <MarkTile />
               <span className="type-heading-s">Admin</span>
               <span className="sr-only"> – Übersicht</span>
             </Link>
@@ -164,10 +182,14 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
             onClick={toggle}
             aria-label={collapsed ? "Navigation ausklappen" : "Navigation einklappen"}
             aria-expanded={!collapsed}
-            title={collapsed ? "Navigation ausklappen" : "Navigation einklappen"}
-            className="inline-flex size-9 items-center justify-center rounded-xs text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+            aria-keyshortcuts="["
+            title={collapsed ? "Navigation ausklappen ( [ )" : "Navigation einklappen ( [ )"}
+            className="group/toggle relative inline-flex size-9 items-center justify-center rounded-control text-ink-muted pressable focus-ring hover:bg-ink/[0.05] hover:text-ink"
           >
-            <Icon icon={collapsed ? PanelLeftOpen : PanelLeftClose} />
+            <Icon icon={collapsed ? PanelLeftOpen : PanelLeftClose} size={18} />
+            <span aria-hidden className="pointer-events-none absolute top-full right-0 mt-1 hidden whitespace-nowrap opacity-0 transition-opacity duration-fast group-hover/toggle:opacity-100 xl:block">
+              <Kbd>[</Kbd>
+            </span>
           </button>
           )}
         </div>
@@ -180,8 +202,9 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
                 onClick={toggle}
                 aria-label="Navigation ausklappen"
                 aria-expanded={false}
-                title="Navigation ausklappen"
-                className="inline-flex size-9 items-center justify-center rounded-xs text-ink-muted transition-colors hover:bg-surface hover:text-ink"
+                aria-keyshortcuts="["
+                title="Navigation ausklappen ( [ )"
+                className="inline-flex size-9 items-center justify-center rounded-control text-ink-muted pressable focus-ring hover:bg-ink/[0.05] hover:text-ink"
               >
                 <Icon icon={PanelLeftOpen} />
               </button>
@@ -192,9 +215,9 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
       </aside>
 
       {/* Mobile / tablet top bar */}
-      <header className="sticky top-0 z-(--z-header) flex h-14 shrink-0 items-center justify-between gap-3 border-b border-line bg-surface-sunken pr-1 pl-4 lg:hidden">
-        <Link href={routes.admin.root()} className="flex min-w-0 items-center gap-3">
-          <Mark className="h-5 shrink-0 text-ink" />
+      <header className="sticky top-0 z-(--z-header) flex h-14 shrink-0 items-center justify-between gap-3 glass-strong pr-1 pl-4 shadow-[0_1px_0_var(--glass-hairline)] lg:hidden">
+        <Link href={routes.admin.root()} className="flex min-w-0 items-center gap-2.5 rounded-control focus-ring">
+          <MarkTile />
           <span className="type-heading-s">Admin</span>
           {current && current.href !== routes.admin.root() ? (
             <span className="truncate type-body-s text-ink-muted">· {current.label}</span>
@@ -208,7 +231,7 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
             onClick={() => setMenuOpen(true)}
             aria-label="Menü öffnen"
             aria-haspopup="dialog"
-            className="relative inline-flex size-touch items-center justify-center rounded-xs text-ink hover:bg-surface"
+            className="relative inline-flex size-touch items-center justify-center rounded-full text-ink pressable focus-ring hover:bg-ink/5"
           >
             <Icon icon={Menu} />
             {counts.verification + counts.disputes > 0 ? (
@@ -217,16 +240,16 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
           </button>
         </div>
       </header>
-      <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title="Admin" className="bg-surface-sunken">
+      <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title="Admin">
         <div className="-mx-5 -my-5 py-2" onClick={(e) => (e.target as HTMLElement).closest("a") && setMenuOpen(false)}>
           <NavGroups pathname={pathname} counts={counts} collapsed={false} touch />
           <SidebarFooter user={user} demo={demo} collapsed={false} />
         </div>
       </Sheet>
 
-      <main id="inhalt" tabIndex={-1} className="min-w-0 flex-1 focus:outline-none">
+      <RouteTransition as="main" id="inhalt" tabIndex={-1} className="min-w-0 flex-1 focus:outline-none">
         <div className="mx-auto w-full max-w-dashboard px-(--space-gutter) pt-6 pb-16 lg:px-8 lg:pt-8">{children}</div>
-      </main>
+      </RouteTransition>
     </div>
   );
 }
@@ -235,8 +258,8 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
   return (
     <>
       {ADMIN_NAV.map((g, gi) => (
-        <div key={g.label} className={cn(gi > 0 && (collapsed ? "mt-2 border-t border-line pt-2" : "mt-4"))}>
-          {collapsed ? null : <p className="px-5 pt-2 pb-1.5 type-overline text-ink-muted">{g.label}</p>}
+        <div key={g.label} className={cn(gi > 0 && (collapsed ? "mt-2 border-t border-line pt-2" : "mt-5"))}>
+          {collapsed ? null : <p className="px-5 pt-1 pb-1.5 text-[11px] leading-none font-[600] tracking-[0.06em] text-ink-muted uppercase">{g.label}</p>}
           <ul className={cn("flex flex-col gap-px", collapsed ? "px-2" : "px-2")}>
             {g.items.map((item) => {
               const active = isActive(pathname, item.href);
@@ -249,15 +272,13 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
                     title={collapsed ? item.label : undefined}
                     aria-label={collapsed ? (count ? `${item.label} (${count})` : item.label) : undefined}
                     className={cn(
-                      "relative flex items-center gap-3 rounded-xs type-body-s transition-colors duration-fast",
+                      "relative flex items-center gap-2.5 rounded-control type-body-s transition-[background-color,color,box-shadow] duration-fast pressable focus-ring",
                       touch ? "h-touch px-3" : "h-9",
                       collapsed ? "justify-center px-0" : "px-3",
-                      active
-                        ? "bg-surface-raised font-[520] text-ink before:absolute before:inset-y-1.5 before:left-0 before:w-0.5 before:bg-ink"
-                        : "text-ink-muted hover:bg-surface hover:text-ink",
+                      active ? "bg-surface-raised font-[520] text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
                     )}
                   >
-                    <Icon icon={item.icon} className="shrink-0" strokeWidth={active ? 1.75 : 1.5} />
+                    <Icon icon={item.icon} size={18} className={cn("shrink-0", active && "text-accent")} strokeWidth={active ? 1.9 : 1.5} />
                     {collapsed ? (
                       count ? <span aria-hidden className="absolute top-1.5 right-2 size-1.5 rounded-full bg-accent" /> : null
                     ) : (
@@ -277,9 +298,18 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
   );
 }
 
+function MarkTile() {
+  return (
+    <span aria-hidden className="relative inline-flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-[9px] bg-ink text-ink-inverse shadow-ink">
+      <span className="absolute inset-0 bg-aura opacity-30 mix-blend-screen" />
+      <Mark className="relative h-3.5" />
+    </span>
+  );
+}
+
 function EnvBadge({ compact }: { compact?: boolean }) {
   return (
-    <span className={cn("inline-flex h-6 items-center gap-1.5 bg-warning-soft px-2 type-caption whitespace-nowrap text-warning", compact && "h-6")}>
+    <span className={cn("inline-flex h-6 items-center gap-1.5 rounded-full bg-warning-soft px-2.5 type-caption font-[560] whitespace-nowrap text-warning", compact && "h-6")}>
       <span aria-hidden className="size-1.5 rounded-full bg-warning" />
       {compact ? "Demo" : "Demo-Umgebung"}
     </span>
@@ -293,8 +323,8 @@ function SidebarFooter({ user, demo, collapsed }: { user: ShellProps["user"]; de
     return (
       <div className="flex shrink-0 flex-col items-center gap-2 border-t border-line py-3">
         {demo ? <span title="Demo-Umgebung" aria-label="Demo-Umgebung" className="size-2 rounded-full bg-warning" /> : null}
-        <span title={`${user.name} · ${user.email}`} className="inline-flex size-8 items-center justify-center rounded-full bg-surface-raised type-caption font-semibold text-ink-muted">
-          {initials(user.name)}
+        <span title={`${user.name} · ${user.email}`} className="inline-flex">
+          <Avatar name={user.name} size={32} />
         </span>
         <button
           type="button"
@@ -302,24 +332,22 @@ function SidebarFooter({ user, demo, collapsed }: { user: ShellProps["user"]; de
           disabled={pending}
           aria-label="Abmelden"
           title="Abmelden"
-          className="inline-flex size-9 items-center justify-center rounded-xs text-ink-muted hover:bg-surface hover:text-ink"
+          className="inline-flex size-9 items-center justify-center rounded-control text-ink-muted pressable focus-ring hover:bg-ink/[0.05] hover:text-ink"
         >
-          <Icon icon={LogOut} />
+          <Icon icon={LogOut} size={18} />
         </button>
       </div>
     );
   }
   return (
-    <div className="flex shrink-0 flex-col gap-3 border-t border-line px-5 py-4">
+    <div className="m-3 flex shrink-0 flex-col gap-3 rounded-card bg-surface-raised p-3.5 shadow-raised">
       {demo ? (
         <div>
           <EnvBadge />
         </div>
       ) : null}
       <div className="flex items-center gap-3">
-        <span aria-hidden className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-raised type-caption font-semibold text-ink-muted">
-          {initials(user.name)}
-        </span>
+        <Avatar name={user.name} size={32} />
         <div className="min-w-0 flex-1">
           <p className="truncate type-label-s text-ink">{user.name}</p>
           <p className="truncate type-caption text-ink-muted">{user.email}</p>
@@ -330,9 +358,9 @@ function SidebarFooter({ user, demo, collapsed }: { user: ShellProps["user"]; de
           disabled={pending}
           aria-label="Abmelden"
           title="Abmelden"
-          className="inline-flex size-9 shrink-0 items-center justify-center rounded-xs text-ink-muted hover:bg-surface hover:text-ink"
+          className="inline-flex size-9 shrink-0 items-center justify-center rounded-control text-ink-muted pressable focus-ring hover:bg-ink/[0.05] hover:text-ink"
         >
-          <Icon icon={LogOut} />
+          <Icon icon={LogOut} size={18} />
         </button>
       </div>
     </div>

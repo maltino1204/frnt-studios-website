@@ -1,626 +1,617 @@
-# SOMA Design Guideline
+# SOMA Design Guideline v2
 
-Version 1.0, October 2026. Applies to the customer web app/PWA, the provider tool (`/pro`) and the admin console (`/admin`).
-
-Companion files:
+Version 2.0, October 2026. It applies to the customer web app/PWA (`/`, *Sie*), the provider tool (`/pro`, *du*) and the admin console (`/admin`). It replaces v1 and follows the binding brief `docs/design-v2-brief.md`.
 
 | File | Purpose |
 |---|---|
-| `src/styles/tokens.css` | Machine-readable tokens (Tailwind v4). If this guideline and the tokens disagree, the tokens win. |
-| `docs/art-direction.md` | Photography language, shot list with generation prompts, fallback placeholders |
-| `public/brand/*` | Wordmark, mark, app icons, favicon |
+| `src/styles/tokens.css` | Machine-readable tokens and utilities (Tailwind v4). If this guideline and the tokens disagree, the tokens win. |
+| `src/app/globals.css` | Global polish: scrollbars, reveal, segmented thumb, overlay exits, view transitions, reduced motion. |
+| `src/components/ui/*` | The UI kit. Build every surface from it. |
+| `src/lib/aura.ts`, `src/lib/haptic.ts` | The generative aura palettes and the `haptic()` helper. |
+| `/kit` (demo mode only) | A live reference for every component, including a product-led hero composition you can copy. |
+| `docs/art-direction.md` | Photography. §5 (fallbacks) is superseded by §9 of this document. |
+
+**What changed from v1, in one paragraph.** v1 read like a printed editorial: beige surfaces, 2 px corners, flat panels and dark blocks. v2 keeps the warm family and the German voice, but executes like a premium product. Surfaces are near-white and layered. Cards float on soft multi-layer shadows, and overlays are glass. Corners are soft. One signature, the **SOMA aura** (ultramarine → violet → peach), appears sparingly. Display type is an engineered grotesk, with a serif italic as the emotional accent. Every interaction answers tactilely, and ambient motion is slow and quiet (*Bewegung und Ruhe*).
 
 ---
 
-## 1. Brand concept
+## 1. Brand concept (unchanged)
 
-### The name
+*Soma* is Greek σῶμα, **the body**. The idea is ***Schon da.*** (*Already there.*): you don't go anywhere. The professional arrives at the Altbau living room, the hotel suite or the meeting room. Three consequences carry into v2:
 
-*Soma* is Greek σῶμα: **the body**. It is the root of "somatic": the body as lived and felt, not the body as an object. The word has two open syllables, is pronounced the same in German and English, and holds up in lowercase.
+1. **Home, not spa.** The colours are named after a lived-in apartment: Kalk, Leinen, Naht, Zinn, Graphit, Tinte. No stones, water, leaves or lotus.
+2. **Precise place and time.** The *Ortszeile* (place line) names a real situation: *Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10*.
+3. **One point of colour.** Ultramarine is the "you are here" dot from maps. In v2 it is lighter and brighter, and it carries the aura.
 
-### The idea: *Schon da.* (Already there.)
-
-Most wellness brands sell an escape: the spa, the retreat, somewhere else. SOMA does the opposite. You don't go anywhere. The place is wherever your body already is: the Altbau living room on a Tuesday evening, the hotel suite after a long flight, the meeting room at 13:00. The professional is the one who arrives. You are already there.
-
-The concept has three consequences for design:
-
-1. **Home materials instead of spa materials.** The palette is named and tuned after a lived-in German apartment: Kalk (lime-washed wall), Leinen (linen), Naht (seam), Zinn (pewter), Tinte (ink). No stones, no water, no leaves.
-2. **Precise place and time.** Editorial captions name a real situation, such as *Altbau, 3. OG · Köln-Ehrenfeld · 19:30*. This "place line" (Ortszeile) is our editorial signature, and it replaces mood words.
-3. **One point of colour.** Ultramarine is a deepened version of the blue "you are here" dot that everyone knows from maps. It points: the focused field, the link you can follow, the verified profile, the appointment happening now. Position (where you are in navigation and time) is marked by the ink roof line (see §2).
-
-**Avoid these associations.** In *Brave New World*, Huxley's "soma" is a sedative, and in the Vedas it is a ritual drink. Never write copy about bliss, escape, intoxication or "switching off". The brand voice is grounded, bodily and precise.
-
----
+Never write copy about bliss, escape or "switching off". The voice is grounded, bodily and precise.
 
 ## 2. Logo
 
-### Assets
+The assets, construction and renaming procedure are unchanged (`public/brand/*`, `src/components/brand/logo.tsx`).
 
-| File | Content | Use |
-|---|---|---|
-| `soma-wordmark.svg` | "soma", drawn as outlines, `fill="currentColor"`, viewBox 442.52 × 104 (baseline at y = 102) | Headers, footer, documents, social |
-| `soma-mark.svg` | σ mark, `currentColor`, 136 × 100 | Avatars, social profiles, loading states, small brand stamps |
-| `app-icon.svg`, `app-icon-512.png`, `app-icon-192.png` | Kalk σ on Tinte, 512 × 512 | PWA manifest `purpose: "any"` |
-| `app-icon-maskable.svg`, `app-icon-maskable-512.png` | Same, mark inside the central 80 % safe circle | Manifest `purpose: "maskable"` |
-| `apple-touch-icon.png` | 180 × 180, opaque | `app/apple-icon.png` |
-| `favicon.svg` | 32 × 32 tile, heavier optical cut of σ | `app/icon.svg` |
+- **Wordmark:** use Tinte on light surfaces and white on night or photo with scrim. It is never ultramarine, never an aura gradient, never outlined and never animated.
+- **σ mark:** at small sizes in product chrome, place it on an ink tile with a 9 px radius (`MarkTile` in the admin shell). The favicon uses the same tile with an 8 px radius.
+- **"Pro" marker:** next to the wordmark in `/pro`, a small ink pill with an aura dot. Do not build a lockup in any other way.
+- **Roof line (Dachlinie):** in v2 it is a 20 × 2 px **aura line** with round caps (`<AuraLine />`, or `bg-aura h-0.5 w-5 rounded-full`). It still means "where you are": overlines, the active mobile menu item, *Heute* in the date strip, the current step, and copyright. It is never a divider.
 
-### Concept
+## 3. Voice and tone for visual copy (unchanged)
 
-The **wordmark** is a contemporary contrast grotesk drawn for SOMA. Stems are confident and verticals carry the weight. Horizontals are about a third lighter. Bowls are slightly squared superellipses (exponent 2.35). Terminals are cut flat, parallel to the baseline, and the stems end in crisp spurs. The result sits between the editorial serif (Newsreader) and the UI sans (Instrument Sans), so it belongs to both. Joins in the *m* and *a* are thinned so the word stays even at 16 px.
-
-The **mark** is a lowercase Greek sigma **σ**, the first letter of σῶμα. It is built from the wordmark's *o* plus one horizontal stroke, flush with the top of the bowl and reaching past it. Read abstractly, it shows a body under a roof: someone at home, sheltered, arrived. It needs no explanation to work. It is simply a round form and a line, and it stays sharp at 16 px.
-
-**The roof line (Dachlinie)** is the system's only graphic device and is derived from that stroke. It is a short 2 px ink bar that marks "where you are": the active bottom-nav item, today in the date strip, the current checkout step, and the rule above an overline. It never becomes decoration such as dividers or frames.
-
-### Usage rules
-
-- **Colour:** use Tinte on light surfaces and Kalk on Nacht or on photography with a scrim. The logo is never ultramarine, never a gradient and never outlined.
-- **Clear space:** the wordmark needs space equal to half its height on all sides. The mark needs 25 % of its height.
-- **Minimum size:** wordmark 72 px wide (≈ 17 px tall) on screen and 20 mm in print. Mark 16 px. Below 32 px, always use the `favicon.svg` cut.
-- **Header size:** 20 px tall on mobile and 24 px from `lg`.
-- **Placement:** left-aligned in all product chrome. Centred placement is allowed only on the confirmation screen and in brand moments.
-- **No lockup in v1.** The σ is drawn heavier than the wordmark for icon use, so never set the two side by side. If a lockup is needed later, redraw σ at wordmark weight (stem 16, horizontal 10.5 units).
-- **Never:** stretch, rotate, re-space, add effects, place on busy image areas, set "soma" in a font as a stand-in, or animate the letters.
-- **In running text,** the name is written **SOMA** in capitals.
-
-### Renaming (trademark contingency)
-
-The name lives in a few places only, by design:
-
-1. `public/brand/soma-wordmark.svg`: redraw the letters with the same parameters (stem 16, horizontal 10.5, superellipse 2.35, flat terminals).
-2. `soma-mark.svg`, the app icons and the favicon: σ comes from the name. A new name needs a new initial drawn with the same bowl and stroke logic. Re-render the PNGs from the SVGs with `sharp`, flattened onto Tinte.
-3. `<title>`/`aria-label` inside the SVGs, the `metadata` and manifest `name`/`short_name`, and one `BRAND_NAME` constant in code. Never hard-code the name in components.
-4. Section 1 of this document and the tagline.
-5. Optional and cosmetic: the `--soma-*` primitive prefix in `tokens.css`.
-
-Colour, type, components, motion and photography do not depend on the name.
-
----
-
-## 3. Voice and tone for visual copy
-
-- **Address** follows `docs/product-spec.md` §15. Customer-facing UI uses **Sie**: formal, never stiff. `/pro` uses **du**. `/admin` is neutral. The visual rules below apply to all three.
-- **Tone:** warm, precise and adult. No exclamation marks, no emoji, no spa clichés (*Auszeit, Oase, Seele baumeln lassen, Me-Time*).
-- **Headlines** are short declaratives that end with a full stop, at most about six words: *Massage. Bei Ihnen zu Hause.* If the headline has a second clause, it may be set in italic. Questions belong in body copy, not in display type.
-- **Hierarchy for every block:** Overline (what/where) → Display (the promise) → Body (how, at most two sentences) → Action (verb + object).
-
-| Level | Example |
-|---|---|
-| Overline | MASSAGE · BERLIN |
-| Display | Wellness, die zu Ihnen kommt. *Zu Hause, im Hotel, im Büro.* |
-| Body | Verifizierte Profis bringen alles mit. Sie wählen Zeit und Ort. |
-| Action | Verfügbare Profis anzeigen |
-| Ortszeile (place line) | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 |
-
-- **Buttons** start with a verb and use two words where possible: *Termin wählen, Adresse speichern, Anfrage annehmen*. The final checkout button is fixed by law (§312j BGB): **Zahlungspflichtig buchen · 84 €** (or *anfragen*).
-- **Formats** follow German conventions, with a non-breaking space between number and unit: `89,00 €`. Search, profile and checkout show the total price including travel (*94 € inkl. Anfahrt*, PAngV); *ab 69 €* appears only on category and SEO pages. Other formats: `19:30` (*Uhr* only inside sentences), `Fr., 14. Nov.`, ranges with an en dash `18:00–19:30`, `4,9`, `2,4 km`, `60 Min.`
-- **Gender-neutral nouns:** *Profis, Fachkraft, Kundschaft*. Avoid gender colons in UI labels.
-- **Tagline:** "Your wellness. Your place." is the brand signature (footer, social, decks) and is kept in English. In the German UI, the headline claim is *Wellness, die zu Ihnen kommt.*
+- **Address:** customer UI uses *Sie*, `/pro` uses *du*, and `/admin` is neutral.
+- **Tone:** no exclamation marks, no emoji, no spa clichés.
+- **Headlines:** short declaratives ending in a full stop, with an optional second clause in `<em>`: *Massage. <em>Bei Ihnen zu Hause.</em>* In v2 the `<em>` automatically switches to the accent serif (§5).
+- **Block hierarchy:** Overline → Display → Body (at most two sentences) → Action (verb + object).
+- **Formats:**
+  - German formats with non-breaking spaces: `89,00 €`, `19:30`, `Fr., 14. Nov.`, `18:00–19:30`, `4,9`, `60 Min.`
+  - The final checkout button is fixed by law: **Zahlungspflichtig buchen · 84 €**.
+- **Rule for every agent:** keep visible texts and accessible names, because the E2E suite depends on them. Change copy only when the change is a real improvement, and update the test in the same change.
 
 ---
 
 ## 4. Colour
 
-### Palette
+### 4.1 Palette
 
-| Name | Hex | Token (utility) | Role |
-|---|---|---|---|
-| Kalk | `#F5F2EC` | `surface` | Page background |
-| Weiß | `#FFFFFF` | `surface-raised` | Inputs, sheets, panels, tables |
-| Leinen | `#ECE7DE` | `surface-sunken` | Hover fills, skeletons, sidebar, placeholders |
-| Naht | `#DDD6CA` | `line` | Hairline dividers (decorative) |
-| Zinn | `#857E73` | `line-strong` | Control borders (≥ 3:1) |
-| Graphit | `#6A645B` | `ink-muted` | Secondary text, placeholders |
-| Tinte | `#1A1916` | `ink`, `surface-inverse` | Text, primary buttons, selected states |
-| Tinte hover | `#33302B` | `ink-hover` | Hover of ink fills |
-| Ultramarin | `#2B3BD1` | `accent`, `focus` | Links, focus ring, verified badge, live appointment, count badges |
-| Ultramarin tief | `#2230B0` | `accent-hover` | Link hover |
-| Ultramarin hell | `#E6E8FA` | `accent-soft` | Selected table row, text selection, info banner |
-| Success | `#1E6B43` / soft `#E3EFE7` | `success`, `success-soft` | Confirmed, paid, available |
-| Warning | `#8A5A00` / soft `#F6EBD3` | `warning`, `warning-soft` | Pending, expiring, attention |
-| Danger | `#B3261E` / soft `#F8E4E1` | `danger`, `danger-soft` | Errors, cancellations, destructive actions |
-| Scrim | Nacht at 64 % | `scrim` | Flat overlay for text on photos |
-| Backdrop | Nacht at 48 % | `backdrop` | Behind sheets and modals |
+The values are lighter than v1. The token **names** are the same as in v1, so existing utilities keep working. Use the semantic utility in components and never a primitive.
 
-**Night variant (immersive sections).** Use `<section data-theme="night">`. Inside it, every semantic token is remapped, so components need no dark variants (for example, `bg-ink text-ink-inverse` becomes a Kalk button with ink text).
+| Role | Primitive | Hex | Utility | Use |
+|---|---|---|---|---|
+| Page | Kalk | `#FAF9F7` | `bg-surface` | Page background, near-white with a whisper of warmth |
+| Raised | Weiß | `#FFFFFF` | `bg-surface-raised` | Cards, inputs, sheets, tables |
+| Sunken | Leinen | `#F3F1ED` | `bg-surface-sunken` | Hover fills, skeletons, segmented track, level 0 |
+| Pressed | Sand | `#EBE8E2` | `bg-surface-pressed` | Pressed ghost controls, switch track (off) |
+| Tint | Hauch | `#F6F7FF` | `bg-surface-tint` = `bg-accent-tint` | Row hover in tables, info notices, selected list rows |
+| Hairline | Naht | `#E8E4DE` | `border-line`, `bg-line` | Decorative dividers only (1.27:1) |
+| Mid line | Naht mittel | `#D7D2CA` | `border-line-mid` | Chip, slot and secondary button borders (the text identifies the control) |
+| Control border | Zinn | `#8E887E` | `border-line-strong` | Inputs, checkboxes, radios, switch ring: **3:1 boundary** |
+| Secondary text | Graphit | `#6B665E` | `text-ink-muted` | Meta, hints, placeholders, inactive nav |
+| Ink | Tinte | `#1C1B19` | `text-ink`, `bg-ink` | Text, primary buttons, selected states |
+| Ink hover | | `#34322E` | `bg-ink-hover` | Primary hover |
+| Disabled | | `#B3AEA6` | `text-ink-disabled` | Inactive controls only (WCAG-exempt) |
+| Accent | Ultramarin | `#3D4FF0` | `text-accent`, `bg-accent`, `focus` | Links, focus, verified, live, count badges, chart series 1 |
+| Accent hover | Ultramarin tief | `#2F40DA` | `text-accent-hover` | Link hover |
+| Accent soft | Ultramarin hell | `#EEF0FF` | `bg-accent-soft` | Verified pill, accent badge, selection |
+| Success | | `#157347` / soft `#EAF6F0` | `text-success`, `bg-success-soft` | Confirmed, paid, positive delta |
+| Warning | | `#875800` / soft `#FDF4E2` | `text-warning`, `bg-warning-soft` | Requested, expiring, demo |
+| Danger | | `#BE3127` / soft `#FDEDEB` | `text-danger`, `bg-danger-soft`, `bg-danger` | Errors, cancellations, destructive |
+| Scrim | | Nacht at 62 % | `bg-scrim` | Under any text on a photo |
+| Backdrop | | `rgb(23 22 31 / 0.28)` + 6 px blur | `dialog::backdrop` | Behind sheets and modals (automatic) |
 
-| Role | Night value |
-|---|---|
-| surface / raised / sunken | `#161513` / `#22201D` / `#1D1B18` |
-| ink / muted | `#F5F2EC` / `#A8A196` |
-| line / line-strong | `#34312C` / `#7A7468` |
-| accent / focus | `#8F9BFF` |
-| success / warning / danger | `#6FC59A` / `#E6B556` / `#FF8A7A` |
+**Night scope.** `<section data-theme="night">` remaps every token, so components need no dark variants. The night values are: surface `#151418`, raised `#201F24`, ink `#F7F6F3`, muted `#AAA7B0`, accent `#9AA6FF`, line-strong `#7D7A84`, success `#6FD0A0`, warning `#EBBD5E`, danger `#FF8F80`. **v2 rule:** use at most **one** deliberate night band per customer page (for example *Für Profis* or *Abends im Hotel*). The footer, the mobile menu and toasts are light now. Never use night in `/admin`.
 
-Use night for the footer, the "Für Profis" band, editorial hotel/evening sections, the full-screen mobile menu and toasts. Never use it in `/admin`. There is no system dark mode in v1; the night scope makes it a small step later.
+### 4.2 The SOMA aura (signature)
 
-### Proportions and rules
+| Token | Hex | Utility |
+|---|---|---|
+| `--color-aura-1` Blau | `#5466FF` | `bg-aura-1` |
+| `--color-aura-2` Violett | `#9F8BFF` | `bg-aura-2` |
+| `--color-aura-3` Pfirsich | `#FFA894` | `bg-aura-3` |
+| `--color-aura-4` Aprikose | `#FFD3B8` | `bg-aura-4` |
+| `--gradient-aura` | linear 118°: 1 → 2 (42 %) → 3 (78 %) → 4 | `bg-aura` |
+| `--gradient-aura-soft` | three radial washes | `bg-aura-soft` |
 
-- Roughly **70 % Kalk/Weiß, 25 % ink (text and lines), at most 5 % ultramarine.** Photography provides the warmth.
-- **Primary actions are ink, never blue.** Ultramarine is a pointer, not a fill. It is never used for section backgrounds, large buttons or illustrations.
-- Semantic colours always come with an icon or a word. Colour alone never carries meaning.
-- No gradients anywhere. The scrim is a flat colour. Pink, blush and rose-gold are excluded from photography, too.
+**Where the aura goes.** It is a signature, not a fill. Use it in these places only:
 
-### Contrast (WCAG 2.2, computed)
+- **The hero:** `AuraBackground` or a `FloatingStage`.
+- **Highlight lines:** the roof line, the current step, the *Neu auf SOMA* dot.
+- **One key badge per view:** `Badge tone="aura"`, `aura-border`.
+- **The focus glow and chart fills.**
+- **Empty-state and fallback art:** `AuraArt`, `EmptyArt`.
+
+**Never:**
+
+- a full-bleed aura button, or an aura section background on every section;
+- gradient text;
+- the aura on `/admin` surfaces beyond charts, the σ tile and the aura line;
+- pink-dominant washes or rose-gold.
+
+**Text on aura.** Ink is always safe: it measures ≥ 11:1 even on the strongest hero peak. Muted text is AA on the `section` and `subtle` intensities (≥ 4.53:1). It is **not** AA on the `hero` intensity peaks (3.68–4.74:1). So on a hero, keep muted text away from the glow (use `placement="right"` with the text on the left), or set it on a surface or card.
+
+### 4.3 Proportions and rules
+
+- **Roughly 75 % near-white surfaces, 20 % ink, 5 % accent and aura.**
+- **Primary actions are ink pills.** Use `variant="accent"` only for a single key action on a screen that has no other primary. Ultramarine stays a pointer.
+- **Selected states are ink fills** (chips, slots, dates, segmented, switch, checkbox, radio). Colour never carries meaning alone: status always comes with a word.
+
+### 4.4 Charts
+
+Series follow this order: `chart-1` ultramarine `#3D4FF0`, `chart-2` violet `#8B5CF6`, `chart-3` ember `#D9704A`, `chart-4` teal `#0F9D8A`, `chart-5` pewter `#8E887E` (comparison or previous period, dashed).
+
+- Gridlines are `chart-grid`, 1 px, dashed `2 4`.
+- Area fills are a vertical gradient from the series colour at 22 % to transparent.
+- Use at most four series.
+- Status series use the semantic colours.
+- The last point is marked with a white dot, a 2 px ring and a 6 px halo.
+
+### 4.5 Contrast (WCAG 2.2, computed)
+
+All ratios were computed with the WCAG relative-luminance formula (script values, two decimals). Body text needs ≥ 4.5:1. UI boundaries and graphics need ≥ 3:1.
 
 | Pair | Colours | Ratio | Level |
 |---|---|---|---|
-| Ink on Surface | `#1A1916` / `#F5F2EC` | 15.73:1 | AAA |
-| Ink on Raised | `#1A1916` / `#FFFFFF` | 17.58:1 | AAA |
-| Ink on Sunken | `#1A1916` / `#ECE7DE` | 14.27:1 | AAA |
-| Muted on Surface / Raised / Sunken | `#6A645B` | 5.24 / 5.85 / 4.75:1 | AA |
-| Accent on Surface / Raised / Sunken | `#2B3BD1` | 7.09 / 7.93 / 6.44:1 | AAA / AAA / AA |
-| Accent hover on Surface | `#2230B0` | 8.87:1 | AAA |
-| Ink / Accent on Accent-soft | `#E6E8FA` | 14.47 / 6.53:1 | AAA / AA |
-| Kalk on Ink (primary button) | `#F5F2EC` / `#1A1916` | 15.73:1 | AAA |
-| Kalk on Ink-hover | `#33302B` | 11.76:1 | AAA |
-| White on Accent | `#FFFFFF` / `#2B3BD1` | 7.93:1 | AAA |
-| Success on Surface / Raised / Soft | `#1E6B43` | 5.80 / 6.48 / 5.48:1 | AA |
-| Warning on Surface / Raised / Soft | `#8A5A00` | 5.30 / 5.93 / 5.01:1 | AA |
-| Danger on Surface / Raised / Soft | `#B3261E` | 5.85 / 6.54 / 5.35:1 | AA |
-| White on Danger (destructive button) | `#FFFFFF` / `#B3261E` | 6.54:1 | AA |
-| Ink on Success-, Warning-, Danger-soft | — | 14.87 / 14.85 / 14.38:1 | AAA |
-| Night ink on Night / Night-raised | `#F5F2EC` | 16.33 / 14.54:1 | AAA |
-| Night muted on Night / Night-raised | `#A8A196` | 7.13 / 6.35:1 | AAA / AA |
-| Night accent on Night / Night-raised | `#8F9BFF` | 7.21 / 6.42:1 | AAA / AA |
-| Night success / warning / danger on Night | — | 8.80 / 9.65 / 7.97:1 | AAA |
-| Kalk on photo + 64 % scrim (worst case: white pixel becomes `#6A6968`) | — | 4.90:1 | AA |
-| *Non-text (3:1):* Line-strong vs Surface / Raised / Sunken | `#857E73` | 3.59 / 4.02 / 3.26:1 | Pass |
-| Night line-strong vs Night / Night-raised | `#7A7468` | 3.93 / 3.50:1 | Pass |
-| Focus ring vs Surface / Raised; Night focus vs Night | — | 7.09 / 7.93; 7.21:1 | Pass |
+| Ink on surface / raised / sunken / pressed / tint | `#1C1B19` on `#FAF9F7` / `#FFF` / `#F3F1ED` / `#EBE8E2` / `#F6F7FF` | 16.36 / 17.21 / 15.26 / 14.07 / 16.12 | AAA |
+| Muted on surface / raised / sunken / tint | `#6B665E` | 5.41 / 5.70 / 5.05 / 5.33 | AA |
+| Muted on accent-, success-, warning-, danger-soft | | 5.03 / 5.14 / 5.21 / 5.01 | AA |
+| Ink on accent-, success-, warning-, danger-soft | | 15.20 / 15.52 / 15.75 / 15.15 | AAA |
+| Accent on surface / raised / sunken / accent-soft / tint | `#3D4FF0` | 5.58 / 5.87 / 5.21 / 5.19 / 5.50 | AA |
+| Accent hover on surface / raised / accent-soft | `#2F40DA` | 6.96 / 7.33 / 6.47 | AA (AAA on raised) |
+| White on ink / ink-hover (primary button) | | 17.21 / 12.79 | AAA |
+| White on accent / accent-hover (accent button, count pill) | | 5.87 / 7.33 | AA / AAA |
+| Success on surface / raised / sunken / success-soft | `#157347` | 5.58 / 5.87 / 5.21 / 5.30 | AA |
+| Warning on surface / raised / sunken / warning-soft | `#875800` | 5.83 / 6.13 / 5.43 / 5.61 | AA |
+| Danger on surface / raised / sunken / danger-soft | `#BE3127` | 5.46 / 5.74 / 5.09 / 5.05 | AA |
+| White on danger (destructive button) | | 5.74 | AA |
+| Night ink on night / night-raised | `#F7F6F3` | 16.97 / 15.15 | AAA |
+| Night muted on night / night-raised | `#AAA7B0` | 7.74 / 6.91 | AAA / AA |
+| Night accent on night / night-raised | `#9AA6FF` | 8.10 / 7.23 | AAA |
+| Night success / warning / danger on night | | 9.79 / 10.46 / 8.29 | AAA |
+| Ink on night accent (night on-accent) | | 7.60 | AAA |
+| Ink on `glass-strong` (90 %), worst case over black | → `#E6E6E6` | 13.79 | AAA |
+| Muted on `glass-strong` (90 %), worst case over black | | 4.56 | AA |
+| Ink on `glass` (72 %), worst case over black | → `#B8B8B8` | 8.68 | AAA (**ink only** on `glass`) |
+| Muted on a glass sheet over the dimmed backdrop | → `#F4F4F4` | 5.18 | AA |
+| White on photo + 62 % scrim, worst case (white pixel) | → `#6E6D70` | 5.14 | AA |
+| Ink on the hero aura peak: blue / violet / peach / apricot | | 11.11 / 12.78 / 12.90 / 14.33 | AAA |
+| Muted on the hero aura peak: blue / violet / peach / apricot | | 3.68 / 4.23 / 4.27 / 4.74 | **Not for text** (see §4.2) |
+| Muted on the section aura peak: blue / violet / peach / apricot | | 4.53 / 4.70 / 4.59 / 4.87 | AA |
+| Muted on the subtle aura peak: blue / violet / peach / apricot | | 4.77 / 4.89 / 4.78 / 5.01 | AA |
+| *Non-text:* line-strong vs surface / raised / sunken | `#8E887E` | 3.34 / 3.52 / 3.12 | Pass |
+| *Non-text:* focus outline (accent) vs surface / raised / sunken | | 5.58 / 5.87 / 5.21 | Pass |
+| *Non-text:* ink selected fill vs surface / raised / sunken | | 16.36 / 17.21 / 15.26 | Pass |
+| *Non-text:* night line-strong vs night / night-raised | `#7D7A84` | 4.36 / 3.89 | Pass |
+| *Non-text:* chart 1–5 vs raised / surface | | 5.87·5.58 / 4.23·4.02 / 3.30·3.13 / 3.38·3.21 / 3.52·3.34 | Pass |
 
-`line` (`#DDD6CA`, 1.29:1) is decorative only. It must never be the only boundary that identifies a control. `ink-disabled` (`#ABA69E`) is reserved for inactive controls, which WCAG exempts.
-
-### Charts
-
-Series 1 Tinte, series 2 Ultramarin (the current or focused series), series 3 Zinn, series 4 Graphit dashed. Use at most four series. Gridlines are `line` at 1 px. Status series use the semantic colours. No area gradients: an area fill, if used, is a flat 8 % ink.
+- **Decorative lines.** `line` (1.27:1) and `line-mid` (1.50:1) are decorative. They are allowed as borders only where the label text identifies the control: chips, slots, secondary buttons and cards. Inputs, checkboxes, radios and the switch use `line-strong`.
+- **Exempt.** `ink-disabled` is for inactive controls, which WCAG exempts. Placeholders use full `ink-muted` (5.70:1), never a lighter tint.
 
 ---
 
 ## 5. Typography
 
-### Families
+### 5.1 Families and budget
 
-| Role | Google family (exact) | Axes / weights | Why |
+| Role | Family | Loading | Why |
 |---|---|---|---|
-| Display | **Newsreader** | `opsz` 6–72, `wght` 200–800, normal + italic | An editorial text face from Production Type with a real optical-size axis. At display sizes it is fine and contemporary, and its italic is expressive. It is far less overused than Playfair, Cormorant or Instrument Serif. |
-| UI | **Instrument Sans** | `wght` 400–700, `wdth` 75–100 | A crisp, slightly narrow grotesk that keeps long German compounds compact. The width axis lets tight UI condense to `wdth 88` without switching font. It has `tnum` and `case` features. |
-| Mono (optional) | **DM Mono** | 400, 500 | Booking references and IDs in `/pro` and `/admin` only. Not preloaded. |
+| UI and display | **Inter** (variable `wght` 100–900 + `opsz` 14–32) | `next/font/google`, latin, **preloaded** (~73 KB) | An engineered grotesk with real optical sizes: from 32 px the display cut tightens spacing and details automatically (`font-optical-sizing: auto`). It has first-class tabular figures, `ss01` open digits and `ss03` round quotes for „…“. |
+| Emotional accent | **Newsreader Italic**, display cut (opsz 72, wght 400) | `next/font/local`, `src/styles/fonts/newsreader-display-italic.woff2`, latin, **preloaded** (23 KB), SIL OFL | v1's serif, kept as the warm counterpoint. It is self-hosted as the static display instance: the variable version with its `opsz` axis costs 147 KB. |
+| References | **DM Mono** 400/500 | `next/font/google`, **not preloaded** | Booking references and IDs in `/pro` and `/admin` only (`code-ref`). |
 
-```ts
-import { Newsreader, Instrument_Sans, DM_Mono } from "next/font/google";
-const display = Newsreader({ subsets: ["latin", "latin-ext"], style: ["normal", "italic"], axes: ["opsz"], display: "swap", variable: "--font-display-src" });
-const sans = Instrument_Sans({ subsets: ["latin", "latin-ext"], axes: ["wdth"], display: "swap", variable: "--font-sans-src" });
-const mono = DM_Mono({ subsets: ["latin", "latin-ext"], weight: ["400", "500"], display: "swap", preload: false, variable: "--font-mono-src" });
-```
+The budget on `/` is 2 preloaded files and about **96 KB** in total (the brief allows 2 files and 150 KB). The Inter latin-ext file loads only when such glyphs appear (*Doğan*).
 
-Set `<html lang="de">`. Hyphenation depends on it.
+The CSS variables are `--font-sans-src` (Inter), `--font-accent-src` (Newsreader) and `--font-mono-src`. The theme exposes `font-sans`, `font-display` (Inter as well), `font-accent` and `font-mono`.
 
-### Scale
+### 5.2 Scale
 
-Display and heading sizes are fluid between a 360 px and a 1280 px viewport. UI text sizes are fixed. Use the composite `type-*` utilities, which set family, size, leading, tracking, weight and wrapping together.
+Use the composite `type-*` utilities. They set family, size, leading, tracking, weight and wrapping. Display sizes are fluid between 360 and 1280 px.
 
-| Utility | Face / weight | Mobile → Desktop | Line height | Tracking | Use |
+| Utility | Face / weight | Mobile → desktop | Leading | Tracking | Use |
 |---|---|---|---|---|---|
-| `type-display-xl` | Newsreader 360 | 36 → 80 px | 1.02 | −0.022em | Home hero only, one per page |
-| `type-display-l` | Newsreader 360 | 32 → 56 | 1.06 | −0.018em | Marketing section titles |
-| `type-display-m` | Newsreader 380 | 28 → 40 | 1.10 | −0.012em | Provider name, confirmation, category pages |
-| `type-display-s` | Newsreader 400 | 22 → 28 | 1.20 | −0.006em | Editorial quotes, empty states, dialogs at brand moments |
-| `type-heading-l` | Instrument 600 | 20 → 24 | 1.25 | −0.012em | App screen titles, dashboard page titles |
-| `type-heading-m` | Instrument 600 | 17 → 18 | 1.30 | −0.008em | Section titles in app, list names |
-| `type-heading-s` | Instrument 600 | 15 | 1.35 | −0.004em | Group titles, sheet titles on dense screens |
-| `type-body-l` | Instrument 400 | 17 → 19 | 1.55 | −0.003em | Marketing lead paragraphs |
-| `type-body` | Instrument 400 | 16 | 1.50 | 0 | Default text, inputs |
-| `type-body-s` | Instrument 400 | 14 | 1.45 | 0.002em | Secondary info, tables, meta |
-| `type-label` | Instrument 520 | 15 | 1.20 | 0 | Buttons, tabs, slots |
-| `type-label-s` | Instrument 520 | 13 | 1.20 | 0.005em | Field labels, small buttons, table headers |
-| `type-caption` | Instrument 450 | 12 | 1.35 | 0.01em | Timestamps, helper text, nav labels |
-| `type-overline` | Instrument 560, uppercase | 12 | 1.20 | 0.09em | Eyebrows (at most three words) |
-| `type-stat` | Newsreader 380, tabular | 32 → 40 | 1.00 | −0.02em | Dashboard key figures |
+| `type-display-xl` | Inter 600 | 40 → 80 | 1.02 | −0.040em | Home hero only, one per page |
+| `type-display-l` | Inter 600 | 32 → 56 | 1.06 | −0.036em | Marketing section titles |
+| `type-display-m` | Inter 600 | 28 → 40 | 1.10 | −0.030em | Provider name, category pages, confirmation |
+| `type-display-s` | Inter 600 | 22 → 28 | 1.18 | −0.022em | Page titles in the account and `/pro`, empty states, quotes |
+| `type-heading-l` | Inter 600 | 20 → 24 | 1.25 | −0.020em | App screen titles, dashboard titles, dialogs |
+| `type-heading-m` | Inter 600 | 17 → 18 | 1.30 | −0.014em | Section and list titles |
+| `type-heading-s` | Inter 600 | 15 | 1.35 | −0.009em | Group titles, card titles |
+| `type-body-l` | Inter 400 | 17 → 19 | 1.60 | −0.011em | Lead paragraphs |
+| `type-body` | Inter 400 | 16 | 1.55 | −0.008em | Default |
+| `type-body-s` | Inter 400 | 14 | 1.50 | −0.004em | Secondary info, tables |
+| `type-label` | Inter 520 | 15 | 1.20 | −0.008em | Buttons, tabs, slots |
+| `type-label-s` | Inter 520 | 13 | 1.20 | −0.002em | Field labels, small buttons, table headers, pills |
+| `type-caption` | Inter 460 | 12 | 1.40 | 0.002em | Timestamps, helper text, nav labels |
+| `type-overline` | Inter 600, uppercase | 12 | 1.20 | 0.08em | Eyebrows (at most three words) |
+| `type-stat` | Inter 600, tabular, `ss01` | 28 → 36 | 1.05 | −0.032em | KPI values |
+| `type-accent` | Newsreader Italic 400 | inherits | inherits | −0.012em | Tagline, quotes, decorative words |
 
-### Rules
+### 5.3 Rules
 
-- Newsreader is only for content at 22 px and above. It is never used for labels, buttons, inputs or tables.
-- Use italic only in Newsreader, for the second clause of a headline or for a place line, and at most once per headline. UI emphasis uses weight 600, never italic.
-- Use sentence case everywhere. Uppercase is only for overlines.
-- Apply `num` (tabular, lining figures) to prices, times, dates, durations, counts and table columns.
-- Body text is never smaller than 14 px, except captions at 12 px. Text inside inputs is always 16 px, which prevents iOS zoom.
-
-### German wrapping and hyphenation
-
-German compounds are long. Measured at 375 px with 20 px gutters (335 px measure), *Terminverfügbarkeit* in `type-display-xl` (36.7 px) is 318 px wide and fits, while *Wimpernverlängerung* (≈ 345 px) does not.
-
-1. **Display and headings:** `hyphens: manual` plus `text-wrap: balance`, both built into the utilities. Editors insert `&shy;` at compound joints in any headline word longer than 14 characters (*Wimpern&shy;verlängerung*). `overflow-wrap: break-word` is the last-resort guard: the page must never scroll horizontally.
-2. **Body text:** `hyphens: auto` with `hyphenate-limit-chars: 10 4 4` (only words of 10 or more characters, at least 4 characters on each side), plus `text-wrap: pretty`.
-3. **UI labels:** never hyphenate. Keep labels short. In chips, tabs and table headers that overflow, apply `condensed` (`wdth 88`), which recovers about 16 % of the width (*Gesichtsbehandlung* at 14 px goes from 136 to 113 px). If it still doesn't fit, wrap to a second line. Do not truncate.
-4. **Truncation** (`…`) is only for user content such as names, addresses and notes, always with the full text available. Never truncate prices, times or dates.
-5. Use non-breaking spaces in `14. Nov.`, `60 Min.`, `89 €` and `Fr., 14. Nov.`
+- **The accent is automatic.** An `<em>` or `<i>` inside any `type-display-*` or `type-heading-l` renders in Newsreader Italic at 1.06em with no extra leading. `type-display-* italic` and `font-display italic` do the same. Use one accent clause per headline at most, and never in UI labels, buttons, inputs or tables.
+- **Wrapping is built in.** Headlines use `text-wrap: balance`; paragraphs and list items use `pretty`. German hyphenation is unchanged from v1: insert `&shy;` into headline compounds of more than 14 characters. Body text uses `hyphens: auto` with `hyphenate-limit-chars: 10 4 4`.
+- **Numbers use `num`.** Apply `num` (tabular, lining) to prices, times, dates, counts and table columns. `type-stat` includes it.
+- **`condensed`** tightens tracking by 0.02em for long labels in chips, tabs and table headers. Inter has no width axis.
+- **Sizes.** Text is never smaller than 12 px, and form fields are 16 px (no iOS zoom).
 
 ---
 
 ## 6. Space, grid and layout
 
-**Spacing** is on a 4 px base (Tailwind `--spacing: 0.25rem`). Use only these steps: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160.
+These are unchanged from v1, except that the header is now 60/68 px and sections are 72/96/128 px.
 
-| Context | Value |
-|---|---|
-| Inside controls | 12–20 px horizontal |
-| Related items (label to field, title to meta) | 4–8 |
-| Items in a group | 16 |
-| Groups | 24–32 (`--space-stack`) |
-| Sections | 64 / 96 / 128 (`--space-section`, responsive) |
+- **Spacing:** use the 4 px base and only the steps 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160.
+- **Gutters:** `--space-gutter` is 20/32/48 px. Use `px-(--space-gutter)`.
+- **Containers:** `max-w-page` 1376, `max-w-content` 1152, `max-w-reading` 608, `max-w-form` 480, `max-w-sheet` 560 and `max-w-dashboard` 1440. Use them through `<Container width="…">`.
+- **Grid:** 4 columns below 768 px, 8 at 768–1023 px and 12 from 1024 px. Gaps are 12/20/24 px.
+- **Layering:** `z-(--z-header)` 30, bottom nav 30, sticky CTA 35, overlay 40, sheet 50, modal 60, toast 70.
+- **Fixed bottoms:** fixed bottom elements add `env(safe-area-inset-bottom)`, and page content reserves `--bottom-nav-height`.
+- **No horizontal scroll at 320 px.** Every grid child that may hold wide content gets `min-w-0`. Decorative layers stay inside an `overflow-clip` parent.
 
-**Grid and breakpoints.** The defaults are Tailwind's: `sm` 640, `md` 768, `lg` 1024, `xl` 1280, `2xl` 1536.
+---
 
-| Range | Columns | Outer margin (`--space-gutter`) | Gap |
+## 7. Shape, elevation and glass
+
+### 7.1 Radii: soft geometry, one family per component type
+
+| Utility | Value | Component types |
+|---|---|---|
+| `rounded-control` (and the legacy `rounded-xs`, bare `rounded`) | 10 px | Inputs, selects, textareas, menu items, inline hover areas, sidebar items |
+| `rounded-tile` | 14 px | Time slots, date cells, notices, toasts, popovers, list thumbnails and portraits ≤ 120 px |
+| `rounded-card` | 20 px | Cards, panels (`Panel`), tables, stat tiles, dialogs, desktop sheets |
+| `rounded-panel` | 28 px | Hero panels, feature cards, large media, the night band |
+| `rounded-sheet` | 28 px | Top corners of bottom sheets |
+| `rounded-full` | pill / circle | **Buttons**, chips, segmented, badges, status pills, avatars, switches, count pills |
+
+- **Nested radii:** an inner element uses the outer radius minus the padding (a 20 px card with 6 px padding → 14 px inner).
+- **No 2 px corners anywhere.** `rounded-xs` now *is* 10 px.
+
+### 7.2 Elevation: three levels, each with its own hairline
+
+| Level | Utility | Recipe (shadow colour `rgb(23 22 31)`, ink with a breath of violet) | Use |
 |---|---|---|---|
-| < 768 | 4 | 20 px | 12 |
-| 768–1023 | 8 | 32 px | 20 |
-| ≥ 1024 | 12 | 48 px | 24 |
-| ≥ 1280 | 12, content capped at 1280 | auto (min 48) | 24 |
+| 0 | `bg-surface-sunken` | none | In the page: segmented track, level-0 groups, skeletons |
+| 1 | `shadow-raised` | 1 px ring at 6 % + 1/2 px at 4 % + 3/8 px at 5 % | Resting cards, tables, stat tiles, panels, sidebar active item |
+| 2 | `shadow-float` | ring 5 % + 2/4 + 8/16 + 20/40 px layers | Hover lift, popovers, floating hero cards, toasts, empty-state art |
+| 3 | `shadow-overlay` (= `shadow-modal`) | ring 6 % + 4/8 + 16/32 + 40/80 px | Dialogs, desktop sheets |
+| | `shadow-sheet` | upward | Bottom sheets |
+| | `shadow-bar` | upward hairline + soft lift | Sticky bottom CTAs |
+| | `shadow-ink` / `shadow-accent` | inset highlight + coloured drop | Primary ink and accent buttons, selected chips, slots and dates |
+| | `shadow-aura` | ultramarine + peach glow | One hero card per view |
+| | `inset-shadow-field` / `inset-shadow-sunken` | 1 px inner | Inputs; sunken tracks |
 
-**Containers:** `max-w-page` 1376 (1280 plus margins), `max-w-content` 1152 (booking, profile), `max-w-reading` 608, `max-w-form` 480, `max-w-sheet` 560, `max-w-dashboard` 1440.
+- **Hairlines are built in.** Every level includes its hairline, so a raised surface never needs a `border`.
+- **No double borders.** Never draw a bordered panel inside a bordered panel. Group content with space, not boxes.
 
-**How mobile-first layouts expand**
+### 7.3 Glass
 
-- **Hero:** headline, then the search card, then the image (4:5, full-bleed). From `lg`: text and search in 6 columns, with the image in 6 columns running to the viewport edge.
-- **Category entry:** a horizontal snap carousel showing 2.3 tiles. From `lg`: a 4-column row. Tiles are images with labels below, never bordered cards.
-- **Results:** a single-column list of rows. From `lg`: the list in 7 columns plus a sticky filter/summary column of 4 columns. It stays a list and never becomes a card grid.
-- **Profile:** stacked, with a sticky bottom CTA. From `lg`: portrait in 5 columns (sticky), content in 7, and at `xl` a sticky booking panel.
-- **Checkout:** full-screen steps with a sticky bottom bar. From `lg`: a 7-column form plus a 5-column sticky summary.
-- **Bottom sheets** become centred dialogs (`max-w-sheet`). Filter sheets become a right-hand drawer 400 px wide.
-- **Bottom nav:** for customers it becomes header items at `lg`. In `/pro` it becomes a 240 px sidebar.
-- Fixed bottom elements add `env(safe-area-inset-bottom)`. Use `dvh` units for full-height layers.
+| Utility | Recipe | Use | Text |
+|---|---|---|---|
+| `glass` | white 72 %, `blur(20px) saturate(1.8)` | Floating cards on aura, decorative layers | **Ink only** |
+| `glass-strong` | white 90 %, `blur(24px) saturate(1.8)` | Sticky header (on scroll), checkout header, account header, `/pro` and `/admin` top bars, bottom nav, sticky CTA, sheets, toasts, modals | Ink and muted |
+| `glass-edge` | inner top highlight + 1 px outer hairline, composed with any `shadow-*` | Add to every glass layer | |
+
+- **Fallback:** without `backdrop-filter`, glass becomes white at 96–97 %.
+- **Night:** in a night scope, glass remaps to `rgb(32 31 36 / 0.66–0.82)`.
 
 ---
 
-## 7. Shape, lines and elevation
+## 8. Components (UI kit)
 
-### Radius policy: crisp by default
+Every interactive element is at least 44 × 44 px (`size-touch`, or a pseudo-element hit area). Use `focus-ring` (a 2 px accent outline plus a 6 px glow) on anything focusable that you build yourself; kit components already have it.
 
-| Token | Value | Applies to |
+### 8.1 Controls
+
+| Component | Import | v2 spec |
 |---|---|---|
-| `rounded-none` | 0 | **Default.** Images, panels, sections, tables, tiles, banners, skeletons for images and text |
-| `rounded-xs` (= `rounded`) | 2 px | Interactive controls: buttons, inputs, selects, search bar, time slots, date cells, checkboxes, menus, toasts, modals |
-| `rounded-sheet` | 8 px | Top corners of bottom sheets only, as a touch affordance |
-| `rounded-full` | circle/pill | People and points only: avatars ≤ 48 px, status dots, radios, switches, count badges, plus filter chips (the pill signals "toggle") |
+| `Button`, `ButtonLink`, `buttonClasses()` | `@/components/ui/button` | Pill. Sizes are S 36, M 44 and L 52. Variants: `primary` (ink + `shadow-ink`), `secondary` (white + mid ring), `ghost`, `accent`, `link`, `destructive`. Hover lifts filled variants by 1 px; the press scales to 0.97 on a spring; `focus-ring`. **Loading** blurs and fades the label out while the spinner springs in, at the same width, with `aria-busy`. |
+| `IconButton` | same | 44 px circle, ghost. Always pass `label`. |
+| `Input`, `Textarea`, `Select` | `@/components/ui/field` | 48 px (`dense` 36), `rounded-control`, `border-line-strong`, `inset-shadow-field`. Focus: accent border plus a 4 px glow. Errors fade in with `CircleAlert`, `aria-invalid` and `aria-describedby`. The select chevron rotates while focused. |
+| `Checkbox` | same | 20 px with a 6 px radius. The tick **draws in** (`stroke-dashoffset`) and the box settles on a spring. |
+| `Switch` | same | 42 × 24. The knob springs across and stretches while pressed. Off: pressed fill with a line-strong ring. On: ink. |
+| `RadioRow` | same | The dot springs in (border 1 → 6 px). |
+| `Chip`, `ChipLink`, `ChipRow` | `@/components/ui/chip` | 36 px pill (44 px hit area). Rest: white with a `line-mid` border. Selected: ink + `shadow-ink`, **settles** (`animate-settle`); the check pops. |
+| `SegmentedControl` | `@/components/ui/segmented` | Pill track on sunken. An ink thumb **slides** to the checked option (CSS `:has()`, up to 6 options, works without JS). |
+| `TabLinks` | `@/components/ui/tabs` | 44 px with a hover pill. The active 2 px ink bar **glides** to the new tab on navigation (shared view transition). |
 
-Tailwind's other radii are removed in the tokens. Portraits larger than 48 px are always rectangular.
+### 8.2 Overlays
 
-### Lines
-
-- All lines are 1 px. `line` is for dividers and list separators. `line-strong` is for borders that define a control.
-- Separate sections with space, not rules. Group content with hairlines and alignment, not boxes.
-- Never draw double borders (a bordered panel inside a bordered panel).
-
-### Elevation
-
-Use hairlines first and shadows only for layers that float above content.
-
-| Level | Token | Use |
+| Component | Import | v2 spec |
 |---|---|---|
-| 0 | none | Everything in the page flow: cards, buttons and images never have shadows |
-| Float | `shadow-float` | Menus, popovers, toasts |
-| Sheet | `shadow-sheet` | Bottom sheets |
-| Modal | `shadow-modal` | Dialogs |
-| Bar | `shadow-bar` | Sticky bottom bars (an upward hairline) |
+| `Sheet` | `@/components/ui/sheet` | Mobile: `glass-strong` bottom sheet, 28 px top radius, spring entry, **drag the header down to dismiss** (rubber band upwards, dismiss at 110 px or a fast flick), and an exit animation before close. From `md` it becomes a centred white dialog (`rounded-card shadow-overlay`). `variant="drawer"` is a right-hand 400 px drawer. Built on `<dialog>`: focus trap, Esc and focus restore. |
+| `Modal` | `@/components/ui/dialog` | Glass, `rounded-card`. Rises in and fades out. Only for consequential confirmations. |
+| `useDialogMotion(open, onClose)` | `@/components/ui/sheet` | Use it for any custom `<dialog>`: showModal, exit animation, then close. |
+| `ToastProvider`, `useToast()` | `@/components/ui/toast` | Glass tile that **springs in** and fades out. Success icons draw their check. `toast.show(msg, { kind, action, haptic: true })` (`haptic` for key confirmations). Shown for 5 s (8 s with an action) and paused on hover or focus. |
 
-No glassmorphism and no background blur.
+### 8.3 Content and status
 
----
-
-## 8. Components
-
-These are visual specs. Measurements are in CSS px, and every interactive element has a hit area of at least 44 × 44.
-
-### Buttons
-
-| Size | Height | Pad x | Text | Icon | Use |
-|---|---|---|---|---|---|
-| S | 36 `h-control-s` | 12 | `type-label-s` | 16 | `/admin` and dense desktop toolbars; hit area extended to 44 |
-| M | 44 | 20 | `type-label` | 20 | Default |
-| L | 52 `h-control-l` | 24 | `type-label` | 20 | Booking actions; full width on mobile |
-
-| Variant | Rest | Hover / pressed |
+| Component | Import | v2 spec |
 |---|---|---|
-| Primary | `bg-ink text-ink-inverse` | `bg-ink-hover` / opacity 0.92 |
-| Secondary | 1 px `border-ink`, `text-ink` | `bg-surface-sunken` |
-| Ghost | `text-ink` | `bg-surface-sunken` |
-| Link | `text-accent`, 1 px underline at 0.2em offset | `text-accent-hover` |
-| Destructive | `bg-danger text-on-danger` | Darken 8 %; only inside confirm dialogs |
+| `Notice` | `@/components/ui/feedback` | `rounded-tile`, soft tone with a 1 px inner tone ring and a tone icon. The info kind is accent-tinted. |
+| `Status` | same | **Pill:** soft tone background, tone text and a 6 px dot. The `accent` tone (live) has a slow ping. `variant="dot"` is the plain dot plus ink word for very dense rows. |
+| `Badge`, `Kbd` | `@/components/ui/badge` | Badge tones: `neutral`, `accent`, `success`, `warning`, `danger`, `ink` and `aura` (one key badge per view). Sizes `s` and `m`, plus an optional `dot` or `icon`. `Kbd` is a keyboard hint, always paired with text. |
+| `CountPill` | `@/components/ui/feedback` | 18 px, tabular. The accent variant has a soft glow. |
+| `EmptyState`, `EmptyArt` | same | Seeded aura art (a tile with two floating glass cards), `type-display-s` title, one or two muted lines and one action. `art={false}` keeps only the aura line (dense contexts). `seed` and `tone` control the art; `align="center"` is for full-page empties. |
+| `Skeleton`, `SkeletonText` | same | Sunken fill with a transform-only light **shimmer**. The default radius is 10 px; pass a `rounded-*` class to match the final shape. Text bars are pills. |
+| `VerifiedBadge`, `Rating`, `Stars` | `@/components/ui/trust` | `withLabel` renders an accent-soft pill reading *Verifiziert*. The rating star stays ink (never yellow). *Neu auf SOMA* gets an aura dot. |
+| `PriceBreakdown`, `CheckLine`, `StepIndicator` | `@/components/ui/summary` | The total is `type-heading-l num` above a dashed mid line. `CheckLine` uses a success disc. The step indicator has 4 px pill segments: done is ink, current is aura, and the fill animates. |
+| `SuccessCheck` | `@/components/ui/success` | The confirmation moment: the ring pops, then the check draws in. |
 
-- Radius is 2 px. A leading icon sits 8 px from the label. Use `ArrowRight` only for "go forward".
-- **Loading:** keep the width, set the label to opacity 0, show a centred 16/20 px spinner and `aria-busy`. Show it for at least 400 ms.
-- **Disabled:** `bg-surface-sunken text-ink-disabled`. Prefer an enabled button with validation, or pair a disabled one with helper text.
-- **Icon-only:** a 44 px ghost button with an `aria-label`.
-- **Night:** the same classes render a Kalk button with ink text.
+### 8.4 Data
 
-### Inputs and selects
+| Component | Import | v2 spec |
+|---|---|---|
+| `StatGrid`, `StatTile` | `@/components/ui/data` | Floating level-1 cards with a 12/16 px gap. **When you stack two grids, wrap them in `flex flex-col gap-3`.** The tile holds an optional `icon`, a `type-stat` value, a delta **pill** (success or danger soft) and an optional `spark={number[]}` (built-in gradient sparkline) or a custom `sparkline`. For a count-up: `value={<CountUp value={38} />}`. |
+| `Sparkline` | same | Smooth monotone line in `currentColor` (accent by default) with a gradient fill and a last-point dot. Decorative. |
+| `Table` | same | Level-1 card. 40 px muted header, rows 52 px (`dense` 40 px), hairlines, tinted row hover. `stickyHeader` gives a blurred glass header. |
+| `AreaChart` | `@/components/ui/chart` | SVG with a gradient fill, monotone curve, a dashed `compare` series, round ticks in a right gutter and a marked last point. `role="img"` with the **required** `summary` text. |
+| `DateStrip`, `TimeSlots` | `@/components/ui/booking` | Cells and slots are white tiles (`rounded-tile`). The selection settles into ink. *Heute* has an aura line. Radiogroup semantics and arrow keys are unchanged. |
 
-- **Field:** 48 px tall (36 in `/admin`), `bg-surface-raised`, 1 px `border-line-strong`, 2 px radius, 14 px padding x, 16 px text (which prevents iOS zoom).
-- **Label and helper:** the label sits above in `type-label-s` with a 6 px gap. *(optional)* is muted. Helper text goes below in `type-caption`, muted. Placeholders are examples only (*z. B. 10115*).
-- **States:**
-  - Hover: `border-ink-muted`.
-  - Focus: `border-ink` plus the focus outline at 1 px offset.
-  - Error: `border-danger`, a danger message with `CircleAlert` 16, and `aria-invalid`/`aria-describedby`.
-  - Disabled: `bg-surface-sunken`, `border-line`.
-- **Select:**
-  - On touch devices, use a native `<select>`.
-  - On desktop, use a listbox popover: `shadow-float`, 40 px options, the selected option marked with `Check`.
-  - The chevron is `ChevronDown` 20.
-- **Checkbox, radio, switch:** checkboxes are 20 px with a 2 px radius and an ink fill when checked. Radios are 20 px circles. Switches are 40 × 24 pills, ink when on.
+### 8.5 Media
 
-### Search bar (hero booking entry)
+| Component | Import | v2 spec |
+|---|---|---|
+| `Avatar` | `@/components/ui/avatar` | Circle ≤ 48 px. Monogram in the palette's deep hue on a **seeded aura tile** with a white inner ring and a hairline. The photo fades in over it. |
+| `Portrait` | same | 1:1 or 4:5, `rounded-tile` by default (pass `rounded-card` or `rounded-panel` for large ones). The fallback is the person's seeded `AuraArt` plus a monogram. From 10 rem wide, the monogram sits on a glass disc. |
+| `Photo`, `TonePanel` | `@/components/ui/photo` | Same API as v1. `tone` is the category slug or `nacht`; `word` is set in the accent italic over the category's generative art. The optional `seed` defaults to tone + word. The photo fades in over the panel (640 ms). `wordSize="l"` adds slow ambient drift; use it for one hero-sized panel only. |
 
-Fields and rules follow `product-spec.md` J1:
+### 8.6 Layout and shells
 
-- **Wo?** "PLZ oder Adresse", with `autocomplete="postal-code"` and an icon button *Standort verwenden* (`LocateFixed`). It resolves to *10115 · Berlin-Mitte*.
-- **Was?** A sheet showing the 7 category tiles, then a service list.
-- **Wann?** Chips *So bald wie möglich · Heute · Morgen · Datum wählen*, then window chips *Morgens · Nachmittags · Abends*.
-- **CTA:** **Verfügbare Profis anzeigen**.
-
-- **Mobile:** one raised panel with a 1 px `line-strong` border and 2 px radius. It holds three 64 px rows, each a caption label (muted: *Wo?*, *Was?*, *Wann?*) above a 16 px value, separated by hairlines, plus a full-width L primary button 8 px inside the bottom edge. *Was?* and *Wann?* open bottom sheets.
-- **Desktop (`lg`):**
-  - A single bar 72 px tall and at most 880 px wide.
-  - Segments are 1fr / 1.3fr / 1fr, separated by vertical hairlines inset 20 px.
-  - The L button sits 10 px from the right edge.
-  - Pickers are popovers anchored under each segment.
-- **`/suche`:** the fields become editable header chips (PLZ · Leistung · Datum).
-- **Unserved PLZ:** a calm inline note in ink: *In Ihrer Gegend sind wir noch nicht.* Then the waitlist email field. No error colour.
-- **Returning users:** a rebook row above the bar: *Erneut buchen: Shellac bei Anna K. – nächster Termin Do 18:30*.
-
-### Chips, segmented control
-
-- **Chips:**
-  - 36 px tall visually (44 px hit area), pill shape, 14 px padding x, 14 px text at weight 520.
-  - Rest: a 1 px `line-strong` border. Selected: `bg-ink text-ink-inverse` with an optional `Check` 16. Filter menus add a trailing `ChevronDown` 16 and a count (*Preis · 2*).
-  - On mobile, chips sit in one horizontal scroll row that bleeds to the screen edge and never wraps. Long labels use `condensed`.
-- **Segmented control:**
-  - For two to four short options (*Zuhause · Hotel · Büro*).
-  - The container is 44 px (36 dense) with a 1 px `line-strong` border, 2 px radius and 3 px padding. The selected segment is ink-filled and the others are muted.
-  - Anything longer becomes tabs or a select.
-
-### Date strip and time slots
-
-- **Date strip:**
-  - A horizontal snap scroll of 14 days (60 in `/pro`). Cells are 56 × 72 with a 4 px gap: the weekday (*Mo*, caption, muted) above the day (`type-heading-m num`). A month label sits over the first day of each month.
-  - Today reads *Heute* and shows a 12 × 2 px roof line above the number.
-  - Selected is ink-filled with a 2 px radius. Booked-out days are `ink-disabled`, not selectable, with `aria-label` "… ausgebucht".
-  - Desktop adds arrow buttons at both ends. Use radiogroup semantics with arrow keys.
-- **Time slots:**
-  - Grouped under overlines *Morgens*, *Nachmittags* and *Abends*. The grid has 3 columns on mobile, 4 at `sm` and 6 at `lg`, with an 8 px gap.
-  - A slot is 44 px tall, raised, with a 1 px `line` border, 2 px radius and `type-label num` text. Hover → `border-ink`. Selected → ink fill.
-  - Unavailable times are not rendered. An empty day shows *Keine freien Termine an diesem Tag.* plus the next free slot as a button.
-  - A summary line follows: *19:30–20:30 · 60 Min. · bei Ihnen zu Hause*.
-
-### Provider list row and profile header
-
-- **List row** (`/suche` result): a full-width row, never a card. It has 16 px vertical padding and a hairline below.
-  - Left: a 72 px square portrait, linked to the profile.
-  - Middle:
-    - The display name (*Anna K.*) in `type-heading-m`, also linked to the profile, with the verified icon.
-    - A meta line: ★ *4,9 (87)* · mode (*Sofort bestätigt* with `CalendarCheck` 14, or *Auf Anfrage* with `Clock` 14, both in caption) · one truncated muted line of specialty.
-  - Right: **94 €** (`type-label num`, 600) above *inkl. Anfahrt* (caption, muted).
-  - Below, full width: 3–5 slot chips for the requested window (36 px visual, 44 px hit area, raised, 1 px `line` border, `type-label-s num`; hover → ink border). Then a *Weitere Zeiten* link. A slot chip goes straight to `/buchen`.
-  - The favourite toggle (`Heart`, 44 px ghost) sits top-right.
-  - Interactive elements are never nested: the name and portrait link, and the slot chips are separate buttons.
-- **Profile, mobile:**
-  - A full-bleed 4:5 portrait with no text on it.
-  - Below the portrait:
-    - Overline (*MASSAGE · BERLIN-MITTE*)
-    - Name in `type-display-m`
-    - Verified badge with label
-    - Rating
-    - Three-line bio with *Mehr lesen*
-    - Facts (*Sprachen, Erfahrung, Bringt Liege mit*)
-  - A sticky bottom bar (`shadow-bar`) shows the selected service total (*84 € inkl. Anfahrt · 60 Min.*) and the L button *Termin wählen*.
-- **Profile, desktop:** the portrait takes 5 columns and is sticky, with content in 7. The work gallery is a strip of 1:1 thumbnails with no gaps between them.
-
-### Verified badge, rating, price breakdown
-
-- **Verified:**
-  - `BadgeCheck` (16 px in lists, 20 px on profiles) in `text-accent`, labelled *Verifiziert* on profiles. The accessible name is *Verifiziertes Profil*.
-  - Tapping it opens a sheet listing the checks (identity, qualification, trade registration, insurance).
-  - No green ticks, seals or rosettes.
-- **Rating:**
-  - A filled ink `Star` (14/16 px), then **4,9** (600, `num`) and *(128)* in muted.
-  - Five-star rows appear only in the review composer and on review detail.
-  - Fewer than three reviews show *Neu auf SOMA*. Never use yellow stars.
-- **Price breakdown** (*Preis & Bedingungen* on `/buchen`):
-  - 36 px rows: label in muted `type-body-s`, amount right-aligned in `num`.
-  - Order: *Behandlung* (*Entspannungsmassage · 60 Min.*), *Anfahrt*, *Guthaben* (*−10,00 €* in success). There is no service fee.
-  - A hairline, then **Gesamtpreis** in `type-heading-m num`.
-  - Below it, as captions: the VAT line (*inkl. 19 % MwSt.*) or the §19 UStG note, then the cancellation line with `Check` 16 in ink (*Kostenlos stornierbar bis Mittwoch, 18:30 Uhr.*), then *SOMA vermittelt; Vertragspartner ist Anna K.* in muted.
-  - No box.
-
-### Step indicator (checkout and onboarding)
-
-The same component serves two flows:
-
-- **`/buchen`** is one scrolling page. The indicator tracks its sections (*Übersicht · Ort · Kontakt · Zahlung*) and fills as each becomes valid. On desktop it is sticky at the top of the form column, and tapping a label scrolls to that section.
-- **`/pro/onboarding`** uses it as a real multi-step wizard.
-
-Visual spec:
-
-- **Mobile:** *Schritt 2 von 4* (caption, muted) and the step name (`type-heading-s`) above a row of segments. Segments are flex-1, 2 px tall, with a 4 px gap; done and current are ink, upcoming is `line`.
-- **Desktop:** labels sit under the segments. Completed labels link back.
-- **Sticky checkout CTA:** a full-width L button reading **Zahlungspflichtig buchen · 84 €**, inside a raised bar with `shadow-bar` and the safe area. The total in the label updates live with `num`.
-
-### Bottom sheet, modal, toast
-
-- **Sheet:**
-  - `bg-surface-raised`, 8 px top radius, `shadow-sheet`, over `bg-backdrop`.
-  - Grabber 36 × 4 (pill, `line-strong`). A 56 px header with the title (`type-heading-m`) and a 44 px close button.
-  - Content padding is 20 px. A sticky action footer has a hairline and safe-area padding. Maximum height is 92 dvh.
-  - Drag or Esc dismisses it. Focus is trapped while open and restored on close.
-  - Enters from `translateY(100%)` in 360 ms `ease-enter` and exits in 240 ms `ease-exit`.
-  - At `md`, it becomes a centred dialog (`max-w-sheet`). Filters become a right-hand drawer 400 px wide.
-- **Modal:**
-  - Only for consequential confirmations (*Termin stornieren?*).
-  - Centred, `max-w-form`, 2 px radius, `shadow-modal`, padding 24 (32 at `md`). Title in `type-heading-l`.
-  - Actions are right-aligned on desktop. On mobile they stack full width with primary on top.
-  - Enters with opacity plus scale 0.98 → 1 (240 ms).
-- **Toast:**
-  - Rendered inside `data-theme="night"`, so it is a Nacht surface with Kalk text.
-  - 2 px radius, `shadow-float`, 14 × 16 padding, `type-body-s`, at most 420 px wide. An optional `Check` or `CircleAlert` 20 uses the night semantic colours.
-  - Position: bottom-centre 16 px above the bottom nav or sticky bar on mobile; bottom-right 24 px on desktop.
-  - Duration is 5 s (8 s with an action), paused on hover or focus.
-  - `role="status"`, or `role="alert"` for errors.
-
-### Tabs
-
-- 44 px tall with 24 px between tabs, in `type-label`. Inactive tabs are muted. The active tab is ink with a 2 px ink bar under the label that slides in 240 ms.
-- A full-width `line` runs below the row.
-- Counts use an 18 px ink pill in `type-caption num`. Tabs scroll horizontally on mobile.
-
-### Dashboard tables and stat tiles
-
-- **Tables:**
-  - On a raised panel with a 1 px `line` border and no radius.
-  - Header row 40 px in `type-label-s`, muted, sentence case, with a `line-strong` bottom border. Sortable columns show `ArrowUpDown` 14.
-  - Rows are 52 px (comfortable) or 40 px (dense) in `type-body-s`, with `line` separators. No zebra stripes, no vertical rules.
-  - Numbers are right-aligned with `num`. IDs use `code-ref`. Status is an 8 px dot plus a word.
-  - Hover `bg-surface-sunken`. Selected `bg-accent-soft` with a 2 px accent bar on the left.
-  - The header is sticky. Pagination reads *1–25 von 312*.
-  - Below `md`, `/pro` tables become stacked lists. `/admin` scrolls horizontally with the first column fixed.
-- **Stat tiles:**
-  - Two to four tiles separated by 1 px `line` gaps (`gap-px` on `bg-line`), each raised with 20/24 px padding.
-  - Each shows a label (`type-label-s`, muted), the value in `type-stat`, then a delta: `ArrowUpRight` 14 and *+12 %* in success or danger, followed by *ggü. Vorwoche* in muted.
-  - An optional sparkline is 24 px: a 1.5 px ink line with no fill. Tiles form a 2 × 2 grid on mobile.
-
-### Empty states and skeletons
-
-- **Empty states:**
-  - Left-aligned: a 24 × 2 roof line, a headline in `type-display-s`, one or two muted lines in `type-body-s`, and one action. No illustration, no icon-in-a-circle.
-  - Examples: *Noch keine Termine.* / *Sobald Sie buchen, finden Sie Ihre Termine hier.* / [Behandlung finden]. In `/pro` (du): *Heute ist frei.* On search: *Am Freitag ist in 10115 alles ausgebucht.* (then offer the next dates as slot buttons).
-- **Skeletons:**
-  - They copy the final geometry exactly, in `bg-surface-sunken`, with radius 0 for images and text. Text bars are 0.7 × the line height at widths of 100 %, 92 % and 64 %.
-  - `animate-skeleton` is an opacity pulse with no shimmer, and is static under reduced motion. Show skeletons only after 200 ms.
-
-### Navigation and footer
-
-- **Marketing header:**
-  - Height is `--header-height` (56/72 px), sticky, `bg-surface`. A hairline appears after 8 px of scroll, with no shadow.
-  - Wordmark on the left (20/24 px tall).
-  - Desktop, on the right:
-    - Links in `type-label` (hover: 1 px underline at 6 px offset)
-    - *Anmelden* as a ghost button
-    - *Termin buchen* as a primary M button
-  - Mobile: a `Menu` icon button opens a full-screen night menu with links in `type-display-m`.
-- **Bottom navigation** (customer account and `/pro`):
-  - 64 px plus the safe area, raised, with a top hairline. Four or five equal items: a 24 px icon over a `type-caption` label.
-  - Inactive is muted. Active is ink, with a 16 × 2 roof line at the item's top edge and the icon stroke at 1.75. Counts use an accent pill.
-  - Customer items: *Entdecken, Termine, Favoriten, Konto*. `/pro` items: *Heute, Termine, Kalender, Einnahmen, Profil*.
-- **Admin sidebar:**
-  - 248 px (collapsible to a 64 px rail), `bg-surface-sunken`, right hairline. The top shows a 24 px σ and *Admin*.
-  - Groups use overlines (*Betrieb, Marktplatz, Finanzen, System*). Items are 36 px tall with a 20 px icon and 14 px text.
-  - The active item is raised and ink with a 2 px ink bar on the left. The footer shows the user and an environment badge on `warning-soft`.
-- **Footer:**
-  - In the night scope: the Kalk wordmark (24 px), then *Your wellness. Your place.* in `type-display-s` italic.
-  - Link columns: *Behandlungen, Städte, Für Profis, Hilfe, Rechtliches* (*Impressum, Datenschutz, AGB, Cookie-Einstellungen*), in muted `type-body-s`.
-  - *© 2026 SOMA* in caption. Vertical padding is 64/96 px.
+| Component | Import | v2 spec |
+|---|---|---|
+| `Container`, `Section`, `SectionHeader`, `PageHeader`, `FactList` | `@/components/ui/layout` | Unchanged API. |
+| `Overline` | same | Aura line followed by the label (inline). |
+| `Panel` | same | Level-1 card, `rounded-card` (override with any `rounded-*`). |
+| `BottomNav` | `@/components/ui/nav` | Glass mobile bottom nav. The active item sits in a soft pill that glides between items (shared view transition). Used by `/pro` and `/konto`. |
+| `Spinner` | `@/components/ui/spinner` | A 2 px conic ring. It keeps turning under reduced motion (slower), because it is essential feedback. |
+| `DemoRibbon` | `@/components/ui/demo-ribbon` | Light strip with a warning *Demo* pill. Same accessible name. |
 
 ---
 
-## 9. Imagery, iconography and illustration
+## 9. Imagery, aura art and product-led visuals
 
-**Photography** follows `docs/art-direction.md`.
+### 9.1 Photography
 
-- **Ratios:** 4:5 for portraits and categories, 1:1 for list thumbnails, 3:2 for editorial, 16:9 for the desktop hero, 1.91:1 for OG images.
-- Images have square corners, no borders and no shadows. Set `object-position` from each file's focal point.
-- **Loading:** start on a flat `bg-surface-sunken` and fade in over 640 ms with `ease-calm`. No blur-up.
-- Never place text on a photo without a `bg-scrim` overlay (a flat 64 %). Prefer layouts where text sits next to the image.
+Photography follows `docs/art-direction.md` §1–4.
 
-**Icons:** lucide-react.
+- **Corners:** images inside cards inherit the card radius minus the padding. Standalone media uses `rounded-panel` (large) or `rounded-tile` (thumbnails).
+- **Shadows:** media never has its own shadow; the surrounding card carries it.
+- **Text on photos:** always add `bg-scrim` (62 %).
 
-- Sizes are 16, 20 and 24 px on a 24 px grid. Use `strokeWidth={1.5}` with `absoluteStrokeWidth`, so every size draws 1.5 px.
-- Colour is `currentColor`. The gap to a label is 8 px (6 px at 16 px).
-- Navigation and actions always pair icons with labels. The exceptions are `X`, `ChevronLeft` (back), `Menu` and `Search`, which still need an `aria-label`.
-- Only `Star` is filled.
-- **Banned icons:** `Sparkles`, `Leaf`, `Flower`, `Droplet(s)`, `Gem`, `Crown`, `Wand`, and any lotus or spa imagery. Categories are typographic and have no icons.
+### 9.2 Generative aura art (replaces the v1 tone panels)
 
-**Illustration:** none. No 3D renders, blobs, emoji or stock vector people. When content is missing, the brand speaks through type, colour fields and the roof line.
+A missing image must look intentional. `AuraArt` renders three seeded glows in the category's hues, a soft white highlight, a tinted base and fine film grain (`grain`). The seed (slug, name or id) makes it deterministic: server and client agree, so there is no flicker and no hydration mismatch. Palettes live in `src/lib/aura.ts` (`CATEGORY_AURA`, plus six person palettes).
+
+| Slug | Wash | Glows | Deep hue (monogram) |
+|---|---|---|---|
+| `massage` | `#FBF1EA` | peach `#FFB99A`, terracotta rosé `#F59E86`, violet `#B5A6FF` | `#C76A4F` |
+| `manikuere` | `#FBEFF0` | rosé `#FFB3B8`, apricot `#FFCFA8`, blue `#A9B4FF` | `#C25A6C` |
+| `pedikuere` | `#FAF3E8` | honey `#FFD19A`, peach `#FFB08F`, blue `#9FB0FF` | `#B7791F` |
+| `kosmetik` | `#EEF5F2` | mint `#A8DCCB`, blue `#A9BDFF`, apricot `#FFD4BE` | `#2F8A72` |
+| `make-up` | `#F4F0FB` | lilac `#C3AEFF`, rose `#FFADC0`, peach `#FFCBA6` | `#7C5CE0` |
+| `haare-styling` | `#FAF2E6` | amber `#FFC98A`, coral `#F7A98E`, lavender `#B9B0FF` | `#B26A1E` |
+| `brows-lashes` | `#EEF0FF` | ultramarine `#6F7DFF`, violet `#A88CFF`, peach `#FFB7A0` | `#3D4FF0` |
+| `nacht` | `#151418` | ultramarine, violet, ember (dark art) | `#9AA6FF` |
+
+Artwork is decorative (`aria-hidden`); the real label is always rendered as text elsewhere.
+
+### 9.3 Product-led visuals
+
+The hero and the marketing sections show **the product itself**: real SOMA components as floating, layered cards on an aura. Copy the reference composition from `/kit` (the top section):
+
+- a provider result card with slot chips;
+- a *Bestätigt* glass card with `SuccessCheck`;
+- the Start-Code card with staggered digits;
+- a travel-fee line.
+
+Photos, where they exist, are an extra layer and never the only content. Rules:
+
+- **Decorative:** the stage is `aria-hidden` and `inert`. Never put real links or forms in it. Repeat the real action next to it.
+- **Fixed height:** give the stage a fixed height (`h-[26rem] lg:h-[34rem]`) so nothing shifts.
+- **Card count:** use three to four cards, with at most two `float` and one `glass`. Depths are 8–28 px and tilts ±1–3°.
+- **Mobile:** keep two or three cards and hide the rest with `hidden sm:block`.
+
+### 9.4 Icons
+
+The icon set is lucide. Use `<Icon icon={X} />` (1.5 px absolute stroke), sizes 16/18/20/24, and `currentColor`. Active navigation icons use a stroke of 1.9–2 and may take the accent colour in sidebars. Banned icons: `Sparkles`, `Leaf`, `Flower`, `Droplet(s)`, `Gem`, `Crown`, `Wand` and any spa imagery. Only `Star` is filled.
 
 ---
 
-## 10. Motion
+## 10. Motion and haptics: *Bewegung und Ruhe*
 
-Motion is calm and functional. Things settle; they do not bounce.
+Interactions answer instantly (100–280 ms). Ambient motion is slow and quiet (20–40 s). Nothing is frantic: no bouncing loops, and no motion that delays content or shifts layout. Everything is CSS-first; JS only decides **when**.
+
+### 10.1 Tokens
 
 | Token | Value | Use |
 |---|---|---|
-| `duration-instant` | 90 ms | Press feedback, checkbox tick |
-| `duration-fast` | 160 ms | Hover, focus, chips, colour changes (default) |
-| `duration-base` | 240 ms | Menus, toasts, tab indicator, accordions |
-| `duration-slow` | 360 ms | Sheet and modal entry, side panels |
-| `duration-calm` | 640 ms | Image fade-in, confirmation roof line |
-| `ease-standard` | `cubic-bezier(0.2, 0, 0, 1)` | Default for state changes |
-| `ease-enter` | `cubic-bezier(0.05, 0.7, 0.1, 1)` | Elements arriving |
-| `ease-exit` | `cubic-bezier(0.3, 0, 0.8, 0.15)` | Elements leaving (about 2/3 of the entry duration) |
-| `ease-calm` | `cubic-bezier(0.4, 0, 0.2, 1)` | Fades, skeleton pulse |
+| `duration-instant` | 100 ms | Press feedback |
+| `duration-fast` | 160 ms | Hover, focus, colour (default) |
+| `duration-base` | 220 ms | Menus, toasts, tabs, fades |
+| `duration-slow` | 280 ms | Sheets, dialogs, drawers |
+| `duration-spring` | 420 ms | Anything on a spring curve (the tail settles) |
+| `duration-calm` | 640 ms | Image fade, reveals, check draw |
+| `ease-standard` | `cubic-bezier(0.2, 0, 0, 1)` | State changes (default) |
+| `ease-enter` | `cubic-bezier(0.16, 1, 0.3, 1)` | Arrivals (expo out) |
+| `ease-exit` | `cubic-bezier(0.4, 0, 1, 1)` | Departures, about ⅔ of the entry duration |
+| `ease-calm` | `cubic-bezier(0.4, 0, 0.2, 1)` | Fades |
+| `ease-ambient` | `cubic-bezier(0.45, 0, 0.55, 1)` | Drift and breathe |
+| `ease-spring` | `linear(…)`, damped oscillator ζ 0.65, ≈ 7 % overshoot | Knobs, checks, toasts, press release |
+| `ease-settle` | `linear(…)`, ζ 0.75, ≈ 3 % overshoot | Chips, slots, dates, sheets, segmented thumb, lift |
 
-- **What animates:** opacity, colour, `transform` on layers that enter or leave (sheets, toasts, menus), the tab indicator, and the accordion chevron.
-- **The one brand moment:** on `/buchung/[id]`, a roof line draws from 0 to 24 px (640 ms calm) above the status headline *Bestätigt.*
-- **Never animated:** the logo, prices and totals (no count-up), list reflow, page-to-page slides, parallax, Ken Burns, hover zoom on photos, auto-advancing carousels, confetti, springs or overshoot, and shimmer gradients.
-- **`prefers-reduced-motion: reduce`:** the tokens reduce all durations to 1 ms. Layers appear in place, skeletons are static and smooth scrolling is off. Never convey state through motion alone.
+The animation utilities are `animate-fade-in`, `animate-sheet-in`, `animate-dialog-in`, `animate-toast-in`, `animate-pop`, `animate-settle`, `animate-rise`, `animate-draw` (SVG paths with `pathLength={1} strokeDasharray={1}`), `animate-float-in` (transform only), `animate-float`, `animate-aura-drift`, `animate-aura-drift-2`, `animate-aura-breathe`, `animate-skeleton` (shimmer) and `animate-spin`. The class `stagger-rise` staggers direct children by 50 ms.
+
+### 10.2 Tactile utilities
+
+| Utility | What it does | Put it on |
+|---|---|---|
+| `pressable` | Scales to 0.97 while held (100 ms), springs back (420 ms `ease-spring`). Transitions colour, shadow, scale and translate. Uses the individual `scale` property, so it composes with `lift`. | Buttons, chips, slots, nav items, icon buttons (built in) |
+| `lift` | On pointer devices, hover rises 2 px and moves to `shadow-float` with `ease-settle`; press scales to 0.985. | Whole-card links (`<Surface interactive>`) |
+| `focus-ring` | 2 px accent outline at 2 px offset plus a 6 px `focus-glow` halo, composed with existing shadows | Anything focusable you build yourself |
+| `spotlight` | The pointer-following light layer (use `<Spotlight>`) | Large cards, hero panels |
+| `ambient` | Pauses its animation offscreen (`data-ambient="off"`) and in hidden tabs | Any looping decoration |
+
+### 10.3 Motion primitives
+
+**`Reveal`** (`@/components/ui/motion`). Content fades up by 10 px once, when it scrolls into view. Content on screen at mount is never hidden, so there is no flash and no LCP cost. It is off with reduced motion and without JS.
+
+```tsx
+<Reveal as="section" className="…">…</Reveal>
+<Reveal stagger className="grid gap-4 md:grid-cols-3">{cards}</Reveal>   {/* children 60 ms apart */}
+<Reveal delay={120}>…</Reveal>
+```
+
+**`CountUp`**. Use it for stats. It runs for 900 ms with expo-out. On first load, values already on screen render final (no flash). Below the fold, the value counts up when scrolled to; after a client navigation, it counts on mount. Screen readers always get the final value. Reduced motion shows the final value.
+
+```tsx
+<StatTile label="Umsatz (Woche)" value={<CountUp value={4820} suffix=" €" />} delta={12} spark={weeks} />
+<CountUp value={4.9} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
+```
+
+**`Spotlight`**. A soft ultramarine-to-peach light follows the pointer. It only appears on `pointer: fine` devices, costs one rAF per move and is off with reduced motion. Give the wrapper the same radius as the card.
+
+```tsx
+<Spotlight className="rounded-panel"><Surface radius="panel" interactive as={Link} href="…">…</Surface></Spotlight>
+```
+
+**`Parallax`** (`@/components/ui/floating`). Scroll-linked depth in pure CSS (`animation-timeline: view()`). Use 8–24 px. It is off with reduced motion and where unsupported.
+
+```tsx
+<Parallax depth={16}><Surface className="p-4">…</Surface></Parallax>
+```
+
+**`RouteTransition`** (`@/components/ui/motion`). The page cross-fade on client navigation. With the View Transitions API, the old page fades out in 140 ms and the new one rises in 6 px; without it, the new page cross-fades in. Only pathname changes animate, not search params, refreshes or server actions. It is already wired into the site, checkout, account, `/pro` and `/admin` shells, so do not add it to pages. For your own shared-element morphs, use React's `<ViewTransition name="…" share="soma-morph" default="none">` (as in `TabLinks` and `BottomNav`). Full page loads use `@view-transition { navigation: auto }`.
+
+**Automation.** Under `navigator.webdriver` (E2E, QA screenshots), `Reveal` and `CountUp` render their final state immediately. Full-page captures do not scroll, so nothing may wait for a scroll.
+
+**`MotionRoot`**. It is mounted once in `app/layout.tsx`. It:
+
+- pauses ambient motion offscreen and in hidden tabs;
+- adds smooth scrolling to same-page anchor links (`#inhalt`, `#preis`) and moves focus to the target;
+- leaves programmatic scrolls instant, because a global `scroll-behavior: smooth` makes the router, focus and tests racy.
+
+**`haptic()`** (`@/lib/haptic`). Real device feedback through `navigator.vibrate`, feature-detected. It is silent on iOS and desktop, and off with reduced motion.
+
+```ts
+haptic("success"); // booking confirmed, request accepted, treatment started (Start-Code)
+haptic("warning"); // destructive confirmation (cancel)
+haptic("select");  // rare: date picked in a long flow
+```
+
+Call it only on **key confirmations**, after the action resolves, never on every tap. `toast.show(msg, { haptic: true })` does it for you.
+
+**`SuccessCheck`**. Use it on *Bestätigt.*, *Gespeichert*, *Angenommen*: `<SuccessCheck size={56} />` next to the word, plus `haptic("success")` on the client.
+
+### 10.4 Ambient calm
+
+- **Aura drift:** aura blobs drift and breathe in 24–38 s loops (transform and opacity only).
+- **Floating cards:** at most two per stage use a 9 s, 6 px float.
+- **Pausing:** both pause offscreen and in hidden tabs.
+- **Placement:** never put ambient motion behind body text in a way that pulls attention.
+- **Count:** use at most one animated `AuraBackground` per viewport.
+
+### 10.5 Reduced motion
+
+`prefers-reduced-motion: reduce` sets every duration to 1 ms. Under it:
+
+- reveals show in place, the aura is static, view transitions are instant and `haptic()` is a no-op;
+- the spinner keeps turning, but slower;
+- skeleton shimmer stops.
+
+Never convey state through motion alone.
 
 ---
 
-## 11. Dashboard language (`/pro`, `/admin`)
+## 11. Shells and navigation
+
+| Shell | File | v2 |
+|---|---|---|
+| Site header | `components/site/site-header.tsx` | Sticky. Transparent at the top, `glass-strong` with a hairline and soft drop once scrolled 8 px. Nav links are pills: hover is ink at 4 %, active ink at 6 %. A divider, then *Anmelden* (ghost) and *Termin buchen* (primary). |
+| Mobile menu | `components/site/mobile-menu.tsx` | Full-screen light surface with a subtle aura from below. Links are `type-display-s` rows with arrow glyphs that rise in with `stagger-rise`. The aura line marks the active link. CTA buttons and the tagline in the accent italic sit at the bottom. |
+| Footer | `components/site/site-footer.tsx` | Light, with a faint static aura and the tagline in the accent italic. Columns use `type-label-s` headings, muted links and the copyright with the aura line. |
+| Checkout header | `components/site/checkout-header.tsx` | Sticky `glass-strong`: a back pill, the centred wordmark and a *Sichere Buchung* success pill. |
+| Account | `components/site/account-nav.tsx` | Glass header with pill nav, a glass `BottomNav` and a rail where the active item is a raised card. |
+| Pro | `components/pro/shell.tsx` | Desktop: a 240 px sidebar on `bg-surface` with a hairline. The active item is raised (`shadow-raised`) with an accent icon. The profile sits in a level-1 card at the bottom. Mobile: a glass top bar and a glass `BottomNav` with counts. |
+| Admin | `components/admin/shell.tsx` | Linear-grade. A 248 px (64 px rail) sidebar on `bg-surface` with a σ `MarkTile`, small uppercase group labels, 36 px items and a raised active item with an accent icon. **`[` toggles the rail** (`aria-keyshortcuts`, `Kbd` hint). The user card holds an aura `Avatar` and the demo badge. Mobile: a glass top bar and a sheet menu. `AdminPageHeader` uses the aura line, and `PanelCard` is a level-1 card. |
+
+---
+
+## 12. Dashboard language (`/pro`, `/admin`)
 
 The brand is the same, at higher density.
 
-- **`/pro` is mobile-first:** the provider is on the move between appointments. Keep 44 px controls, bottom nav and sheets. The only Newsreader moments are the greeting on *Heute* (*Guten Abend, Lena.* in `type-display-s`) and the stat values. Day agenda rows are 64 px, with the time in `type-label num` on the left, the client and treatment in the middle and status on the right. The live appointment gets a 2 px accent bar on its left.
-- **`/admin` is desktop-first and dense:** 36 px controls, 14 px base text, 40 px table rows, 16/24 px panel padding and a 248 px sidebar. Page titles use `type-heading-l`, and there is no display type except stat tiles. Night scope is not used.
-- **Shared rules:**
-  - Panels are `bg-surface-raised` with a 1 px `line` border and 0 radius, sitting on a Kalk page.
-  - Status is always a dot plus a word. Destructive actions are confirmed in a modal.
-  - Numbers use German formats with `num`, and empty values show *—*.
-  - Filters sit in a toolbar row above tables: search input, filter chips and a segmented date range.
-  - Charts follow §4. Times follow the user's time zone, shown as *MEZ/MESZ* in tooltips.
+- **`/pro` is mobile-first.**
+  - Keep 44 px controls, the bottom nav and sheets.
+  - Use `type-display-s` for the greeting (*Guten Abend, Lena.*) and `type-stat` for values.
+  - Agenda rows are cards or hairline rows, 64 px, with the time in `type-label num` and status as a pill.
+  - The live appointment gets `Status tone="accent"` (with the ping) and a 2 px accent bar.
+- **`/admin` is desktop-first and dense.**
+  - Use 36 px controls (`dense`, `size="s"`), 14 px text, 40 px table rows and 16/24 px panel padding.
+  - Page titles are `type-heading-l`.
+  - Show KPI tiles with `spark`, and `AreaChart` for trends.
+- **Shared:**
+  - Panels and tables are level-1 cards on the Kalk page.
+  - Toolbars sit above tables: search input, chips and a segmented range.
+  - Numbers use `num`, and empty values show *—*.
+  - Destructive actions are confirmed in a `Modal`.
+  - Every async view has `loading.tsx` skeletons that match the final geometry, plus an `EmptyState`.
 
 ---
 
-## 12. Accessibility
+## 13. Accessibility (WCAG 2.2 AA)
 
-The target is WCAG 2.2 AA in all three surfaces.
-
-- **Contrast:** use only the pairs listed in §4. Placeholder tones in fallback imagery are decorative (`aria-hidden`), with the real label rendered as text.
-- **Focus:** `:focus-visible` shows a 2 px `focus` outline at 2 px offset (1 px offset on inputs). It is never removed or replaced by colour alone. Inside the night scope, the focus colour switches automatically.
-- **Touch targets:** at least 44 × 44 px (`min-h-touch min-w-touch`), with at least 8 px between adjacent targets. Small visuals such as chips and S buttons extend their hit area.
-- **Language and structure:** `lang="de"`, one `h1` per page, landmarks, and a skip link (*Zum Inhalt springen*) as the first focusable element.
-- **Forms:** visible labels, errors described in text and linked with `aria-describedby`, the correct `autocomplete` and `inputmode` attributes, and no time limits in checkout.
-- **Zoom:** layouts reflow at 320 px and at 200 % zoom without horizontal scrolling. Type is set in rem.
-- **Motion:** see §10. **Media:** portraits get alt text in the form *Porträt von Lena, Massage*. Decorative images get `alt=""`.
-- **Do not rely on colour:** selected states use an ink fill, and status uses words.
+- **Contrast:** use only the pairs in §4.5. Aura and generative art are decorative (`aria-hidden`).
+- **Focus:** `:focus-visible` shows a 2 px accent outline at 2 px offset, and kit components add the glow. Inputs show an accent border plus a 4 px glow. In forced-colors mode the outline falls back to `CanvasText`.
+- **Targets:** at least 44 × 44 px with 8 px spacing. Small visuals (chips, S buttons) extend their hit area.
+- **Structure:** `lang="de"`, one `h1`, landmarks, and the skip link *Zum Inhalt springen*.
+- **Forms:** labels, errors with `aria-describedby`, `autocomplete` and `inputmode`.
+- **Motion:** see §10.5. Overlays are `<dialog>`, which gives the focus trap and Esc for free.
+- **Decorative compositions:** `FloatingStage` is `aria-hidden` and `inert`.
+- **Charts:** `AreaChart` is `role="img"` with a text `summary`; always show the key figure as real text.
 
 ---
 
-## 13. Do and don't
+## 14. Do and don't
 
 | Do | Don't |
 |---|---|
-| Use ink for primary actions and ultramarine for pointers | Use blue CTA buttons or blue sections |
-| Lay out Kalk pages with hairlines and generous space | Build grids of shadowed, rounded cards |
-| Use square corners for images and panels, 2 px for controls | Round everything 12–24 px |
-| Write one confident headline with a full stop | Use exclamation marks, emoji, question headlines or spa clichés |
-| Use the Ortszeile: *Hotelsuite · Frankfurt · 21:10* | Use mood words like *Wellness-Oase* |
-| Show real skin, real apartments and hands at work | Use lotus, stones, orchids, bamboo, water drops, candles or rose-gold |
-| Use Newsreader for big moments and Instrument Sans for work | Use Newsreader in buttons, tables or labels |
-| Put `&shy;` in long headline compounds | Let long German words overflow or truncate prices |
-| Mark "where you are" with the roof line | Use the roof line as decoration or as a divider |
-| Use flat colour fields when imagery is missing | Use gradients, blobs, 3D or stock illustrations |
-| Keep motion short and calm | Use parallax, bounce, count-ups or carousels |
-| Pair status colours with words | Rely on colour alone |
+| Ink pill for the primary action; ultramarine as a pointer | Blue or aura buttons everywhere; blue sections |
+| Near-white page, level-1 cards, space between groups | Bordered boxes inside bordered boxes; 2 px corners |
+| One radius family per component type (§7.1) | Mixing 10 and 20 px on the same kind of thing |
+| Glass for sticky bars, sheets, toasts and floating hero cards | Glass for ordinary content cards, or muted text on `glass` |
+| The aura as a signature: hero, highlight line, one key badge, focus, charts | Aura section backgrounds on every section; gradient text |
+| Product-led hero: real components floating on the aura | Stock photos as the only content; illustrations of people |
+| Inter display with tight tracking; one accent clause in Newsreader Italic | Serif in UI labels, buttons or tables; several italic clauses |
+| `num` on prices, times and stats | Proportional digits that jump in tables or count-ups |
+| Spring press, hover lift, settle on selection | Bouncing loops, parallax on text, motion above the fold that delays content |
+| `Reveal` below the fold, once | Hiding hero content until JS runs |
+| `haptic("success")` on booking, accept or start | Vibrating on every tap |
+| Generative aura art for missing images | Flat beige boxes with big initials; grey image icons |
+| Status as a pill with a word | Colour alone |
 
 ---
 
-## 14. Implementation notes
+## 15. Implementation notes and recipes
 
-- **Import order:** in `globals.css`, `@import "tailwindcss";` must come first, then `@import "../styles/tokens.css";`. The tokens reset Tailwind's default colours, font sizes, radii and shadows, so only SOMA values exist.
-- **Utility reference:** `bg-surface`, `bg-surface-raised`, `bg-surface-sunken`, `text-ink`, `text-ink-muted`, `border-line`, `border-line-strong`, `text-accent`, `bg-accent-soft`, `font-display`, `font-sans`, `font-mono`, `type-*`, `num`, `condensed`, `code-ref`, `rounded-xs`, `rounded-sheet`, `shadow-float`, `ease-standard`, `duration-base`, `max-w-content`, `h-touch`, `px-(--space-gutter)`, `z-(--z-sheet)`, `animate-skeleton`, `bg-tone-massage` and so on.
-- **Icons in Next.js:** copy `public/brand/favicon.svg` to `src/app/icon.svg` and `apple-touch-icon.png` to `src/app/apple-icon.png`, then remove the default `favicon.ico`.
-- **Manifest:** `theme_color: "#1A1916"`, `background_color: "#F5F2EC"`, with icons 192 and 512 (`any`) and maskable 512. Set the `viewport` `themeColor` to `#F5F2EC`.
-- **Brand name:** keep it in one `BRAND_NAME` constant (see §2, Renaming).
-- **Placeholder tones** are keyed by category slug (`massage`, `manikuere`, `pedikuere`, `kosmetik`, `make-up`, `haare-styling`, `brows-lashes`), so `bg-tone-${slug}` works directly.
+- **Imports.** `globals.css` imports `tailwindcss` first, then `../styles/tokens.css`. The tokens reset Tailwind's default colours, type sizes, radii, shadows and inset shadows.
+- **Wrapping utilities.** Use `text-wrap-style` (the longhand) in custom CSS. The `text-wrap` shorthand resets `text-wrap-mode` and silently breaks `truncate` and `whitespace-nowrap`.
+- **No `tailwind-merge`.** `cn()` is `clsx`, so do not pass two classes for the same property. Kit components that accept a radius override (`Skeleton`, `Portrait`, `Panel`) skip their default when your `className` contains `rounded`.
+- **After editing `globals.css` or `tokens.css` in dev:** check that the change is actually in the served CSS (`curl` the CSS chunk and `grep`). Turbopack occasionally keeps a stale transform. If it does, make a real content edit or restart the dev server **by PID**. Never put `url(` with a bare argument in a CSS comment.
+- **Hero recipe:**
+
+```tsx
+<section className="relative isolate overflow-clip pt-10 pb-16 lg:pt-16 lg:pb-24">
+  <AuraBackground placement="right" />                       {/* muted text stays left, away from the glow */}
+  <Container className="grid items-center gap-12 lg:grid-cols-12">
+    <div className="flex flex-col gap-6 lg:col-span-5">
+      <Overline>Zu Hause · Hotel · Büro</Overline>
+      <h1 className="type-display-xl">Wellness, die zu Ihnen kommt. <em>Schon da.</em></h1>
+      …
+    </div>
+    <FloatingStage className="h-[26rem] lg:col-span-7 lg:h-[34rem]">
+      <FloatingCard className="top-[4%] left-[2%] w-[min(19rem,78%)]" depth={10} tilt={-1.5} enter={0} cardClassName="p-4">…</FloatingCard>
+      <FloatingCard className="top-[40%] right-0 w-[min(17rem,70%)]" depth={22} glass float enter={1} cardClassName="p-3.5">…</FloatingCard>
+    </FloatingStage>
+  </Container>
+</section>
+```
+
+- **Surface recipes:**
+
+```tsx
+<Surface className="p-5">…</Surface>                                    // level-1 card
+<Surface as={Link} href={href} interactive className="p-4">…</Surface>   // whole-card link with lift
+<GlassPanel className="p-4">…</GlassPanel>                               // level-2 glass
+<section className="relative isolate overflow-clip rounded-panel p-8">  // aura panel (section intensity is AA for muted text)
+  <AuraBackground variant="section" placement="full" fade="none" />
+</section>
+```
+
+- **`AuraBackground` props:**
+  - `variant`: `hero` | `section` | `subtle` | `night`.
+  - `placement`: `right` | `left` | `top` | `bottom` | `center` | `full`.
+  - `fade`: `bottom` | `top` | `both` | `radial` | `none`.
+  - `animate` (default true) and `grain` (default true).
+  - Place it in a `relative isolate overflow-clip` parent; it sits at `-z-10`.
+- **`AuraArt`:** `seed` (required), `tone?`, `animate?`, `grain?`. It fills a positioned parent.
+- **Empty state:** `<EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href="/">Behandlung finden</ButtonLink>}>Sobald Sie buchen, finden Sie Ihre Termine hier.</EmptyState>`
+- **Brand assets:**
+  - The favicon and app icon are an ink tile with a Kalk σ (favicon radius 8).
+  - Manifest `theme_color` and `background_color` are `#FAF9F7`, and so is the viewport `themeColor`.
+  - The PNG app icons are unchanged.

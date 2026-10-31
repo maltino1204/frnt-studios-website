@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useDialogMotion } from "./sheet";
 
-/** Modal for consequential confirmations only (e.g. "Termin stornieren?"). */
+/** Modal for consequential confirmations only (e.g. "Termin stornieren?"). Glass, rises in, fades out. */
 export function Modal({
   open,
   onClose,
@@ -19,30 +20,14 @@ export function Modal({
   actions: ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLDialogElement>(null);
+  const ref = useDialogMotion(open, onClose);
   const titleId = useId();
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    if (open && !d.open) d.showModal();
-    if (!open && d.open) d.close();
-  }, [open]);
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    const onCancel = (e: Event) => {
-      e.preventDefault();
-      onClose();
-    };
-    d.addEventListener("cancel", onCancel);
-    return () => d.removeEventListener("cancel", onCancel);
-  }, [onClose]);
   return (
     <dialog
       ref={ref}
       aria-labelledby={titleId}
       className={cn(
-        "m-auto w-[calc(100%-2.5rem)] max-w-form rounded-xs bg-surface-raised p-6 text-ink shadow-modal open:animate-dialog-in md:p-8",
+        "soma-modal m-auto w-[calc(100%-2.5rem)] max-w-form rounded-card glass-strong glass-edge p-6 text-ink shadow-overlay open:animate-dialog-in md:p-8",
         className,
       )}
     >

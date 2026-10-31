@@ -1,81 +1,91 @@
 /* ==========================================================================
-   SOMA — Design Tokens · Tailwind CSS v4
-   Source of truth: docs/design-guideline.md (rationale, usage, contrast table)
+   SOMA Design Tokens v2 (Tailwind CSS v4)
+   Source of truth for rationale, usage and the contrast table:
+   docs/design-guideline.md (v2). If the two disagree, these tokens win.
 
-   ── Font loading (src/app/layout.tsx) ─────────────────────────────────────
-   import { Newsreader, Instrument_Sans, DM_Mono } from "next/font/google";
+   Fonts (src/app/layout.tsx): Inter variable (opsz 14-32, wght) for UI and
+   display, preloaded; Newsreader Italic display cut (opsz 72, self-hosted,
+   23 KB) as the emotional accent, preloaded; DM Mono for references in /pro
+   and /admin only, not preloaded. Budget: 2 preloaded files, ~96 KB on /.
 
-   const display = Newsreader({
-     subsets: ["latin", "latin-ext"],
-     style: ["normal", "italic"],
-     axes: ["opsz"],                 // optical size 6–72, follows font-size
-     display: "swap",
-     variable: "--font-display-src",
-   });
-
-   const sans = Instrument_Sans({
-     subsets: ["latin", "latin-ext"],
-     axes: ["wdth"],                 // width 75–100, used for long German labels
-     display: "swap",
-     variable: "--font-sans-src",
-   });
-
-   // Optional: booking references and IDs in /admin and /pro only
-   const mono = DM_Mono({
-     subsets: ["latin", "latin-ext"],
-     weight: ["400", "500"],
-     display: "swap",
-     preload: false,
-     variable: "--font-mono-src",
-   });
-
-   <html lang="de" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
-
-   ── Import order (src/app/globals.css) ────────────────────────────────────
-   @import "tailwindcss";
-   @import "../styles/tokens.css";   // directly after tailwind, before any other @theme
+   Import order (src/app/globals.css): tailwindcss first, then this file.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Brand primitives. Do not use these in components; use the semantic
-      tokens in @theme below. Named after materials of a lived-in Altbau.
+   1. Brand primitives. Components use the semantic tokens in @theme, never
+      these. Named after the materials of a lived-in Altbau, now lighter.
    -------------------------------------------------------------------------- */
 :root {
-  --soma-kalk: #f5f2ec;            /* lime-washed wall: page surface        */
-  --soma-weiss: #ffffff;           /* paper: raised surface                 */
-  --soma-leinen: #ece7de;          /* linen: sunken surface, placeholders   */
-  --soma-naht: #ddd6ca;            /* seam: hairlines (decorative)          */
-  --soma-zinn: #857e73;            /* pewter: control borders (3:1)         */
-  --soma-graphit: #6a645b;         /* graphite: secondary text              */
-  --soma-tinte: #1a1916;           /* ink: text, primary actions            */
-  --soma-tinte-hover: #33302b;
+  /* Neutrals: near-white with a whisper of warmth */
+  --soma-kalk: #faf9f7;            /* page surface                          */
+  --soma-weiss: #ffffff;           /* raised surface                        */
+  --soma-leinen: #f3f1ed;          /* sunken surface, hover fills           */
+  --soma-sand: #ebe8e2;            /* pressed fills, skeleton base          */
+  --soma-naht: #e8e4de;            /* hairline (decorative)                 */
+  --soma-naht-mittel: #d7d2ca;     /* chip / card borders (text identifies) */
+  --soma-zinn: #8e887e;            /* control borders, 3:1                  */
+  --soma-graphit: #6b665e;         /* secondary text                        */
+  --soma-tinte: #1c1b19;           /* ink: text, primary actions            */
+  --soma-tinte-hover: #34322e;
 
-  --soma-ultramarin: #2b3bd1;      /* the single accent                     */
-  --soma-ultramarin-tief: #2230b0;
-  --soma-ultramarin-hell: #e6e8fa;
-  --soma-ultramarin-licht: #8f9bff;/* accent on dark surfaces               */
+  /* The accent: ultramarine, lighter and brighter than v1 */
+  --soma-ultramarin: #3d4ff0;
+  --soma-ultramarin-tief: #2f40da;
+  --soma-ultramarin-hell: #eef0ff;
+  --soma-ultramarin-hauch: #f6f7ff;
+  --soma-ultramarin-licht: #9aa6ff; /* accent on night surfaces            */
 
-  --soma-nacht: #161513;           /* immersive dark surface                */
-  --soma-nacht-raised: #22201d;
-  --soma-nacht-naht: #34312c;
-  --soma-nacht-zinn: #7a7468;
-  --soma-nacht-graphit: #a8a196;
+  /* The SOMA aura: ultramarine -> soft violet -> warm peach (decorative)   */
+  --soma-aura-blau: #5466ff;
+  --soma-aura-violett: #9f8bff;
+  --soma-aura-pfirsich: #ffa894;
+  --soma-aura-aprikose: #ffd3b8;
 
-  --soma-success: #1e6b43;
-  --soma-success-soft: #e3efe7;
-  --soma-success-night: #6fc59a;
-  --soma-warning: #8a5a00;
-  --soma-warning-soft: #f6ebd3;
-  --soma-warning-night: #e6b556;
-  --soma-danger: #b3261e;
-  --soma-danger-soft: #f8e4e1;
-  --soma-danger-night: #ff8a7a;
+  /* Night (one deliberate band at most) */
+  --soma-nacht: #151418;
+  --soma-nacht-raised: #201f24;
+  --soma-nacht-naht: #34323a;
+  --soma-nacht-zinn: #7d7a84;
+  --soma-nacht-graphit: #aaa7b0;
+
+  /* Status */
+  --soma-success: #157347;
+  --soma-success-soft: #eaf6f0;
+  --soma-success-night: #6fd0a0;
+  --soma-warning: #875800;
+  --soma-warning-soft: #fdf4e2;
+  --soma-warning-night: #ebbd5e;
+  --soma-danger: #be3127;
+  --soma-danger-soft: #fdedeb;
+  --soma-danger-night: #ff8f80;
+
+  /* Shadow tint: ink with a breath of violet, so depth reads clean, not muddy */
+  --soma-shadow: 23 22 31;
+
+  /* Glass */
+  --glass-bg: rgb(255 255 255 / 0.72);
+  --glass-bg-strong: rgb(255 255 255 / 0.9);
+  --glass-blur: 20px;
+  --glass-saturate: 1.8;
+  --glass-edge: rgb(255 255 255 / 0.7);          /* inner top highlight      */
+  --glass-hairline: rgb(23 22 31 / 0.08);        /* outer hairline           */
+
+  /* Aura gradients (backgrounds, highlight bars, chart fills; never text) */
+  --gradient-aura: linear-gradient(118deg, var(--soma-aura-blau) 0%, var(--soma-aura-violett) 42%, var(--soma-aura-pfirsich) 78%, var(--soma-aura-aprikose) 100%);
+  --gradient-aura-soft:
+    radial-gradient(60% 70% at 12% 18%, rgb(84 102 255 / 0.22), transparent 70%),
+    radial-gradient(50% 60% at 62% 30%, rgb(159 139 255 / 0.2), transparent 72%),
+    radial-gradient(55% 65% at 92% 80%, rgb(255 168 148 / 0.28), transparent 72%);
+  --gradient-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0));
+
+  /* Fine film grain (decorative overlay for aura art) */
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='%75rl(%23n)'/></svg>");
 
   /* Layout rhythm (responsive custom properties, use as px-(--space-gutter)) */
   --space-gutter: 1.25rem;         /* 20px  < 768   */
-  --space-section: 4rem;           /* 64px  < 768   */
-  --space-stack: 1.5rem;           /* gap between stacked blocks */
-  --header-height: 3.5rem;         /* 56px mobile   */
+  --space-section: 4.5rem;         /* 72px  < 768   */
+  --space-stack: 1.5rem;
+  --header-height: 3.75rem;        /* 60px mobile   */
   --bottom-nav-height: 4rem;       /* 64px + safe-area inset */
 
   /* Layering */
@@ -90,10 +100,10 @@
 
 @media (width >= 48rem) {
   :root {
-    --space-gutter: 2rem;          /* 32px  768–1023 */
+    --space-gutter: 2rem;          /* 32px  768-1023 */
     --space-section: 6rem;         /* 96px          */
     --space-stack: 2rem;
-    --header-height: 4.5rem;       /* 72px          */
+    --header-height: 4.25rem;      /* 68px          */
   }
 }
 
@@ -105,38 +115,43 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Theme ("static": every token is emitted as a CSS variable, used or not).
-      Generates utilities (bg-surface, text-ink, border-line,
-      text-accent, font-display, text-display-xl, rounded-xs, shadow-float,
-      ease-standard, duration-base, max-w-content, ...)
+   2. Theme ("static": every token is emitted as a CSS variable).
    -------------------------------------------------------------------------- */
 @theme static {
-  /* Remove Tailwind's default palette, type sizes, radii and shadows so
-     only SOMA values are available. */
   --color-*: initial;
   --text-*: initial;
   --radius-*: initial;
   --shadow-*: initial;
+  --inset-shadow-*: initial;
 
-  /* Colour: semantic roles */
+  /* Colour: semantic roles (names kept from v1, values lighter) */
   --color-surface: var(--soma-kalk);
   --color-surface-raised: var(--soma-weiss);
   --color-surface-sunken: var(--soma-leinen);
+  --color-surface-pressed: var(--soma-sand);
+  --color-surface-tint: var(--soma-ultramarin-hauch);     /* selected rows, hover in lists */
   --color-surface-inverse: var(--soma-tinte);
 
   --color-ink: var(--soma-tinte);
   --color-ink-hover: var(--soma-tinte-hover);
   --color-ink-muted: var(--soma-graphit);
-  --color-ink-disabled: #aba69e;            /* inactive UI only (WCAG-exempt) */
-  --color-ink-inverse: var(--soma-kalk);
+  --color-ink-disabled: #b3aea6;            /* inactive UI only (WCAG-exempt) */
+  --color-ink-inverse: var(--soma-weiss);
 
   --color-line: var(--soma-naht);
+  --color-line-mid: var(--soma-naht-mittel);
   --color-line-strong: var(--soma-zinn);
 
   --color-accent: var(--soma-ultramarin);
   --color-accent-hover: var(--soma-ultramarin-tief);
   --color-accent-soft: var(--soma-ultramarin-hell);
+  --color-accent-tint: var(--soma-ultramarin-hauch);
   --color-on-accent: var(--soma-weiss);
+
+  --color-aura-1: var(--soma-aura-blau);
+  --color-aura-2: var(--soma-aura-violett);
+  --color-aura-3: var(--soma-aura-pfirsich);
+  --color-aura-4: var(--soma-aura-aprikose);
 
   --color-success: var(--soma-success);
   --color-success-soft: var(--soma-success-soft);
@@ -147,175 +162,289 @@
   --color-on-danger: var(--soma-weiss);
 
   --color-focus: var(--soma-ultramarin);
-  --color-scrim: rgb(22 21 19 / 0.64);      /* flat photo overlay, never a gradient */
-  --color-backdrop: rgb(22 21 19 / 0.48);   /* behind sheets and modals */
+  --color-focus-glow: rgb(61 79 240 / 0.2);
+  --color-scrim: rgb(21 20 24 / 0.62);      /* overlay for text on photos (white text ≥ 4.5:1 on any pixel) */
+  --color-backdrop: rgb(23 22 31 / 0.28);   /* behind sheets and modals, with blur */
 
   /* Fixed night colours, for use outside a [data-theme="night"] scope */
   --color-night: var(--soma-nacht);
   --color-night-raised: var(--soma-nacht-raised);
-  --color-night-ink: var(--soma-kalk);
+  --color-night-ink: #f7f6f3;
   --color-night-muted: var(--soma-nacht-graphit);
+
+  /* Charts (≥ 3:1 against white; order = series order) */
+  --color-chart-1: #3d4ff0;   /* ultramarine: current / primary series */
+  --color-chart-2: #8b5cf6;   /* violet */
+  --color-chart-3: #d9704a;   /* ember peach */
+  --color-chart-4: #0f9d8a;   /* sea teal */
+  --color-chart-5: #8e887e;   /* pewter: comparison, previous period */
+  --color-chart-grid: var(--soma-naht);
 
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* Placeholder tones, keyed by category slug (fallback imagery, see docs/art-direction.md §5) */
-  --color-tone-massage: #e7e0d3;
-  --color-tone-massage-ink: #b5a994;
-  --color-tone-manikuere: #e4dcd0;
-  --color-tone-manikuere-ink: #a8957f;
-  --color-tone-pedikuere: #e9e3d1;
-  --color-tone-pedikuere-ink: #b4a783;
-  --color-tone-kosmetik: #dfe2e0;
-  --color-tone-kosmetik-ink: #a3aba7;
-  --color-tone-make-up: #d9d6d2;
-  --color-tone-make-up-ink: #9e9891;
-  --color-tone-haare-styling: #e2d8ca;
-  --color-tone-haare-styling-ink: #a99377;
-  --color-tone-brows-lashes: #2a2824;
-  --color-tone-brows-lashes-ink: #4a4640;
-  --color-tone-nacht: #161513;
-  --color-tone-nacht-ink: #2e2b27;
+  /* Category hues, keyed by slug: wash (base of the aura art) + deep hue.
+     The full generative palettes live in src/lib/aura.ts. */
+  --color-tone-massage: #fbf1ea;
+  --color-tone-massage-ink: #c76a4f;
+  --color-tone-manikuere: #fbeff0;
+  --color-tone-manikuere-ink: #c25a6c;
+  --color-tone-pedikuere: #faf3e8;
+  --color-tone-pedikuere-ink: #b7791f;
+  --color-tone-kosmetik: #eef5f2;
+  --color-tone-kosmetik-ink: #2f8a72;
+  --color-tone-make-up: #f4f0fb;
+  --color-tone-make-up-ink: #7c5ce0;
+  --color-tone-haare-styling: #faf2e6;
+  --color-tone-haare-styling-ink: #b26a1e;
+  --color-tone-brows-lashes: #eef0ff;
+  --color-tone-brows-lashes-ink: #3d4ff0;
+  --color-tone-nacht: #151418;
+  --color-tone-nacht-ink: #9aa6ff;
 
   /* Typography: families */
-  --font-display: var(--font-display-src), "Newsreader", Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-sans-src), "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: var(--font-mono-src), "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
-    monospace;
+  --font-sans: var(--font-sans-src), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-sans-src), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-accent: var(--font-accent-src), "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono-src), "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Typography: weights (Newsreader 200–800, Instrument Sans 400–700).
-     Display weights (360–400) live in the --text-display-* tokens. */
+  /* Typography: weights (Inter variable 100-900) */
   --font-weight-regular: 400;
   --font-weight-label: 520;
   --font-weight-strong: 600;
 
-  /* Typography: scale. Display and heading sizes are fluid between a 360px
-     and a 1280px viewport: clamp(mobile, …, desktop). UI text is fixed. */
-  --text-display-xl: clamp(2.25rem, 1.174rem + 4.783vw, 5rem);          /* 36 → 80 */
+  /* Typography: scale. Display and headings are fluid between 360 and 1280 px.
+     Inter's opsz axis follows font-size: the display cut from 32 px. */
+  --text-display-xl: clamp(2.5rem, 1.522rem + 4.348vw, 5rem);           /* 40 → 80 */
   --text-display-xl--line-height: 1.02;
-  --text-display-xl--letter-spacing: -0.022em;
-  --text-display-xl--font-weight: 360;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 600;
 
   --text-display-l: clamp(2rem, 1.413rem + 2.609vw, 3.5rem);            /* 32 → 56 */
   --text-display-l--line-height: 1.06;
-  --text-display-l--letter-spacing: -0.018em;
-  --text-display-l--font-weight: 360;
+  --text-display-l--letter-spacing: -0.036em;
+  --text-display-l--font-weight: 600;
 
   --text-display-m: clamp(1.75rem, 1.457rem + 1.304vw, 2.5rem);         /* 28 → 40 */
   --text-display-m--line-height: 1.1;
-  --text-display-m--letter-spacing: -0.012em;
-  --text-display-m--font-weight: 380;
+  --text-display-m--letter-spacing: -0.03em;
+  --text-display-m--font-weight: 600;
 
   --text-display-s: clamp(1.375rem, 1.228rem + 0.652vw, 1.75rem);       /* 22 → 28 */
-  --text-display-s--line-height: 1.2;
-  --text-display-s--letter-spacing: -0.006em;
-  --text-display-s--font-weight: 400;
+  --text-display-s--line-height: 1.18;
+  --text-display-s--letter-spacing: -0.022em;
+  --text-display-s--font-weight: 600;
 
   --text-heading-l: clamp(1.25rem, 1.152rem + 0.435vw, 1.5rem);         /* 20 → 24 */
   --text-heading-l--line-height: 1.25;
-  --text-heading-l--letter-spacing: -0.012em;
+  --text-heading-l--letter-spacing: -0.02em;
   --text-heading-l--font-weight: 600;
 
   --text-heading-m: clamp(1.0625rem, 1.038rem + 0.109vw, 1.125rem);     /* 17 → 18 */
   --text-heading-m--line-height: 1.3;
-  --text-heading-m--letter-spacing: -0.008em;
+  --text-heading-m--letter-spacing: -0.014em;
   --text-heading-m--font-weight: 600;
 
   --text-heading-s: 0.9375rem;                                          /* 15 */
   --text-heading-s--line-height: 1.35;
-  --text-heading-s--letter-spacing: -0.004em;
+  --text-heading-s--letter-spacing: -0.009em;
   --text-heading-s--font-weight: 600;
 
   --text-body-l: clamp(1.0625rem, 1.014rem + 0.217vw, 1.1875rem);       /* 17 → 19 */
-  --text-body-l--line-height: 1.55;
-  --text-body-l--letter-spacing: -0.003em;
+  --text-body-l--line-height: 1.6;
+  --text-body-l--letter-spacing: -0.011em;
 
   --text-body: 1rem;                                                    /* 16 */
-  --text-body--line-height: 1.5;
+  --text-body--line-height: 1.55;
+  --text-body--letter-spacing: -0.008em;
 
   --text-body-s: 0.875rem;                                              /* 14 */
-  --text-body-s--line-height: 1.45;
-  --text-body-s--letter-spacing: 0.002em;
+  --text-body-s--line-height: 1.5;
+  --text-body-s--letter-spacing: -0.004em;
 
   --text-label: 0.9375rem;                                              /* 15 */
   --text-label--line-height: 1.2;
+  --text-label--letter-spacing: -0.008em;
   --text-label--font-weight: 520;
 
   --text-label-s: 0.8125rem;                                            /* 13 */
   --text-label-s--line-height: 1.2;
-  --text-label-s--letter-spacing: 0.005em;
+  --text-label-s--letter-spacing: -0.002em;
   --text-label-s--font-weight: 520;
 
   --text-caption: 0.75rem;                                              /* 12 */
-  --text-caption--line-height: 1.35;
-  --text-caption--letter-spacing: 0.01em;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.002em;
 
   --text-overline: 0.75rem;                                             /* 12, uppercase */
   --text-overline--line-height: 1.2;
-  --text-overline--letter-spacing: 0.09em;
-  --text-overline--font-weight: 560;
+  --text-overline--letter-spacing: 0.08em;
+  --text-overline--font-weight: 600;
 
-  --text-stat: clamp(2rem, 1.804rem + 0.87vw, 2.5rem);                  /* 32 → 40, Newsreader numerals */
-  --text-stat--line-height: 1;
-  --text-stat--letter-spacing: -0.02em;
-  --text-stat--font-weight: 380;
+  --text-stat: clamp(1.75rem, 1.554rem + 0.87vw, 2.25rem);              /* 28 → 36, tabular */
+  --text-stat--line-height: 1.05;
+  --text-stat--letter-spacing: -0.032em;
+  --text-stat--font-weight: 600;
 
-  /* Shape: mostly crisp. rounded-none (0) is the default for surfaces,
-     rounded-full (built in) is for people and points only. */
-  --radius: 0.125rem;
-  --radius-xs: 0.125rem;      /* 2px: buttons, inputs, slots, menus, modals, toasts */
-  --radius-sheet: 0.5rem;     /* 8px: top corners of bottom sheets only            */
+  /* Shape: soft geometry, one radius family per component type */
+  --radius: 0.625rem;          /* bare `rounded` = 10 px                                  */
+  --radius-xs: 0.625rem;       /* legacy v1 name, now 10 px (was 2 px): same as control    */
+  --radius-control: 0.625rem;  /* 10: inputs, selects, small menu items, inline hovers     */
+  --radius-tile: 0.875rem;     /* 14: slots, date cells, notices, toasts, popovers, thumbs */
+  --radius-card: 1.25rem;      /* 20: cards, panels, tables, stat tiles, dialogs           */
+  --radius-panel: 1.75rem;     /* 28: hero panels, feature cards, large media              */
+  --radius-sheet: 1.75rem;     /* 28: top corners of bottom sheets                         */
+  /* rounded-full (built in): buttons, chips, segmented, badges, avatars, switches      */
 
-  /* Elevation: hairlines first; shadows only on floating layers */
-  --shadow-float: 0 1px 2px rgb(26 25 22 / 0.06), 0 8px 24px -8px rgb(26 25 22 / 0.18);
-  --shadow-sheet: 0 -1px 0 rgb(26 25 22 / 0.06), 0 -12px 32px -12px rgb(26 25 22 / 0.22);
-  --shadow-modal: 0 2px 4px rgb(26 25 22 / 0.06), 0 24px 64px -16px rgb(26 25 22 / 0.3);
-  --shadow-bar: 0 -1px 0 rgb(26 25 22 / 0.08);  /* sticky bottom bars: a hairline, not a glow */
+  /* Elevation: three levels. Each level carries its own hairline as the first
+     shadow layer, so raised surfaces need no border. */
+  --shadow-hairline: 0 0 0 1px rgb(var(--soma-shadow) / 0.07);
+  --shadow-raised:                                  /* level 1: resting cards */
+    0 0 0 1px rgb(var(--soma-shadow) / 0.06), 0 1px 2px rgb(var(--soma-shadow) / 0.04),
+    0 3px 8px -2px rgb(var(--soma-shadow) / 0.05);
+  --shadow-float:                                   /* level 2: hover lift, popovers, floating hero cards, toasts */
+    0 0 0 1px rgb(var(--soma-shadow) / 0.05), 0 2px 4px -1px rgb(var(--soma-shadow) / 0.05),
+    0 8px 16px -4px rgb(var(--soma-shadow) / 0.07), 0 20px 40px -12px rgb(var(--soma-shadow) / 0.14);
+  --shadow-overlay:                                 /* level 3: dialogs, sheets on desktop */
+    0 0 0 1px rgb(var(--soma-shadow) / 0.06), 0 4px 8px -2px rgb(var(--soma-shadow) / 0.05),
+    0 16px 32px -8px rgb(var(--soma-shadow) / 0.12), 0 40px 80px -20px rgb(var(--soma-shadow) / 0.28);
+  --shadow-modal: var(--shadow-overlay);            /* v1 name */
+  --shadow-sheet:                                   /* bottom sheets (upward) */
+    0 0 0 1px rgb(var(--soma-shadow) / 0.05), 0 -8px 24px -8px rgb(var(--soma-shadow) / 0.1),
+    0 -24px 64px -16px rgb(var(--soma-shadow) / 0.2);
+  --shadow-bar:                                     /* sticky bottom bars */
+    0 -1px 0 rgb(var(--soma-shadow) / 0.06), 0 -12px 32px -16px rgb(var(--soma-shadow) / 0.16);
+  --shadow-press: 0 0 0 1px rgb(var(--soma-shadow) / 0.08), 0 1px 1px rgb(var(--soma-shadow) / 0.04);
+  --shadow-ink:                                     /* primary (ink) buttons */
+    inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(var(--soma-shadow) / 0.24),
+    0 4px 12px -4px rgb(var(--soma-shadow) / 0.36);
+  --shadow-accent:                                  /* accent buttons, key badges */
+    inset 0 1px 0 rgb(255 255 255 / 0.22), 0 1px 2px rgb(47 64 218 / 0.3), 0 6px 16px -6px rgb(61 79 240 / 0.55);
+  --shadow-aura:                                    /* hero card glow (decorative) */
+    0 0 0 1px rgb(var(--soma-shadow) / 0.05), 0 24px 48px -16px rgb(84 102 255 / 0.28),
+    0 32px 64px -24px rgb(255 168 148 / 0.4);
+
+  --inset-shadow-field: inset 0 1px 2px rgb(var(--soma-shadow) / 0.05);
+  --inset-shadow-sunken: inset 0 1px 3px rgb(var(--soma-shadow) / 0.07);
+
+  --blur-glass: var(--glass-blur);
 
   /* Layout */
-  --container-reading: 38rem;    /* 608px reading measure: max-w-reading */
-  --container-form: 30rem;       /* 480px forms, checkout column   */
-  --container-sheet: 35rem;      /* 560px sheet → centred dialog   */
-  --container-content: 72rem;    /* 1152px booking, profile        */
-  --container-page: 86rem;       /* 1376px = 1280 content + 2×48   */
-  --container-dashboard: 90rem;  /* 1440px /pro, /admin            */
+  --container-reading: 38rem;    /* 608 px reading measure   */
+  --container-form: 30rem;       /* 480 px forms, checkout   */
+  --container-sheet: 35rem;      /* 560 px sheet → dialog    */
+  --container-content: 72rem;    /* 1152 px booking, profile */
+  --container-page: 86rem;       /* 1376 px = 1280 + 2×48    */
+  --container-dashboard: 90rem;  /* 1440 px /pro, /admin     */
 
-  --spacing-touch: 2.75rem;      /* 44px minimum touch target: h-touch, min-w-touch */
-  --spacing-control-s: 2.25rem;  /* 36px dense desktop controls (/admin) */
-  --spacing-control: 2.75rem;    /* 44px default control height     */
-  --spacing-control-l: 3.25rem;  /* 52px primary booking actions    */
+  --spacing-touch: 2.75rem;      /* 44 px minimum touch target */
+  --spacing-control-s: 2.25rem;  /* 36 px dense (/admin)       */
+  --spacing-control: 2.75rem;    /* 44 px default control      */
+  --spacing-control-l: 3.25rem;  /* 52 px primary booking      */
 
-  /* Motion */
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);       /* state changes, most UI     */
-  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);     /* sheets, toasts, menus in   */
-  --ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);      /* anything leaving           */
-  --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);         /* image fades, skeleton pulse */
+  /* Motion: interactions answer in 100-280 ms; ambient motion is 20-40 s. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);         /* state changes (default)        */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);         /* arrivals: expo out             */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);             /* departures                     */
+  --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);           /* fades, image load              */
+  --ease-ambient: cubic-bezier(0.45, 0, 0.55, 1);      /* drift and breathe (sine)       */
+  /* Springs (damped oscillator sampled into linear()). spring ≈ 7 % overshoot
+     for knobs, checks, toasts; settle ≈ 3 % for chips, slots, sheets, cards. */
+  --ease-spring: linear(0, 0.052, 0.178, 0.338, 0.504, 0.658, 0.789, 0.892, 0.969, 1.02, 1.051, 1.065, 1.068, 1.063, 1.054, 1.043, 1.032, 1.021, 1.013, 1.006, 1.001, 0.998, 0.996, 0.996, 0.997, 1);
+  --ease-settle: linear(0, 0.033, 0.115, 0.224, 0.344, 0.464, 0.576, 0.677, 0.763, 0.835, 0.893, 0.938, 0.971, 0.995, 1.011, 1.021, 1.026, 1.028, 1.026, 1.019, 1.013, 1.007, 1.003, 1);
 
-  --transition-duration-instant: 90ms;   /* press feedback, checkbox    */
-  --transition-duration-fast: 160ms;     /* hover, focus, chips, tabs   */
-  --transition-duration-base: 240ms;     /* menus, toasts, accordions   */
-  --transition-duration-slow: 360ms;     /* sheets, modals, page panels */
-  --transition-duration-calm: 640ms;     /* image fade-in               */
+  --transition-duration-instant: 100ms;  /* press feedback               */
+  --transition-duration-fast: 160ms;     /* hover, focus, colour (default) */
+  --transition-duration-base: 220ms;     /* menus, toasts, tabs          */
+  --transition-duration-slow: 280ms;     /* sheets, dialogs              */
+  --transition-duration-spring: 420ms;   /* spring curves need the tail  */
+  --transition-duration-calm: 640ms;     /* image fade, reveals, draws   */
 
   --default-transition-duration: 160ms;
   --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 
-  --animate-skeleton: soma-skeleton 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  --animate-spin: spin 0.9s linear infinite;
+  --animate-skeleton: soma-shimmer 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-spin: spin 0.8s linear infinite;
+  --animate-fade-in: soma-fade-in var(--transition-duration-base) var(--ease-standard) both;
+  --animate-sheet-in: soma-sheet-in var(--transition-duration-spring) var(--ease-settle) both;
+  --animate-dialog-in: soma-dialog-in var(--transition-duration-slow) var(--ease-enter) both;
+  --animate-toast-in: soma-toast-in var(--transition-duration-spring) var(--ease-spring) both;
+  --animate-pop: soma-pop var(--transition-duration-spring) var(--ease-spring) both;
+  --animate-settle: soma-settle var(--transition-duration-spring) var(--ease-settle);
+  --animate-rise: soma-rise var(--transition-duration-calm) var(--ease-enter) both;
+  --animate-draw: soma-draw var(--transition-duration-calm) var(--ease-enter) both;
+  --animate-aura-drift: soma-aura-drift 32s var(--ease-ambient) infinite alternate;
+  --animate-aura-drift-2: soma-aura-drift-2 38s var(--ease-ambient) infinite alternate;
+  --animate-aura-breathe: soma-aura-breathe 24s var(--ease-ambient) infinite alternate;
+  --animate-float: soma-float 9s var(--ease-ambient) infinite alternate;
+  --animate-float-in: soma-float-in 900ms var(--ease-enter) both;
 
-  @keyframes soma-skeleton {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.55; }
+  @keyframes soma-shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
   }
   @keyframes spin {
     to { transform: rotate(360deg); }
+  }
+  @keyframes soma-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes soma-sheet-in {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes soma-dialog-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes soma-toast-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes soma-pop {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes soma-settle {
+    0% { scale: 0.94; }
+    100% { scale: 1; }
+  }
+  @keyframes soma-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes soma-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes soma-aura-drift {
+    0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+    100% { transform: translate3d(6%, 4%, 0) scale(1.08) rotate(8deg); }
+  }
+  @keyframes soma-aura-drift-2 {
+    0% { transform: translate3d(0, 0, 0) scale(1.04) rotate(0deg); }
+    100% { transform: translate3d(-7%, -3%, 0) scale(0.96) rotate(-10deg); }
+  }
+  @keyframes soma-aura-breathe {
+    0% { opacity: 0.75; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+  @keyframes soma-float {
+    0% { translate: 0 0; }
+    100% { translate: 0 -6px; }
+  }
+  @keyframes soma-float-in {
+    from { transform: translateY(14px) scale(0.98); }
+    to { transform: none; }
   }
 }
 
 /* --------------------------------------------------------------------------
    3. Composite type utilities: family + size + leading + tracking + weight +
       wrapping. Prefer these over assembling text-* and font-* by hand.
+      Wrapping uses the text-wrap-style longhand: the text-wrap shorthand
+      would reset text-wrap-mode and break `truncate` / `whitespace-nowrap`.
    -------------------------------------------------------------------------- */
 @utility type-display-xl {
   font-family: var(--font-display);
@@ -323,7 +452,7 @@
   line-height: var(--text-display-xl--line-height);
   letter-spacing: var(--text-display-xl--letter-spacing);
   font-weight: var(--text-display-xl--font-weight);
-  text-wrap: balance;
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -333,7 +462,7 @@
   line-height: var(--text-display-l--line-height);
   letter-spacing: var(--text-display-l--letter-spacing);
   font-weight: var(--text-display-l--font-weight);
-  text-wrap: balance;
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -343,7 +472,7 @@
   line-height: var(--text-display-m--line-height);
   letter-spacing: var(--text-display-m--letter-spacing);
   font-weight: var(--text-display-m--font-weight);
-  text-wrap: balance;
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -353,7 +482,7 @@
   line-height: var(--text-display-s--line-height);
   letter-spacing: var(--text-display-s--letter-spacing);
   font-weight: var(--text-display-s--font-weight);
-  text-wrap: balance;
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -363,7 +492,7 @@
   line-height: var(--text-heading-l--line-height);
   letter-spacing: var(--text-heading-l--letter-spacing);
   font-weight: var(--text-heading-l--font-weight);
-  text-wrap: balance;
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -373,6 +502,7 @@
   line-height: var(--text-heading-m--line-height);
   letter-spacing: var(--text-heading-m--letter-spacing);
   font-weight: var(--text-heading-m--font-weight);
+  text-wrap-style: balance;
   hyphens: manual;
   overflow-wrap: break-word;
 }
@@ -390,7 +520,7 @@
   line-height: var(--text-body-l--line-height);
   letter-spacing: var(--text-body-l--letter-spacing);
   font-weight: 400;
-  text-wrap: pretty;
+  text-wrap-style: pretty;
   hyphens: auto;
   hyphenate-limit-chars: 10 4 4;
 }
@@ -398,8 +528,9 @@
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
+  letter-spacing: var(--text-body--letter-spacing);
   font-weight: 400;
-  text-wrap: pretty;
+  text-wrap-style: pretty;
   hyphens: auto;
   hyphenate-limit-chars: 10 4 4;
 }
@@ -409,6 +540,7 @@
   line-height: var(--text-body-s--line-height);
   letter-spacing: var(--text-body-s--letter-spacing);
   font-weight: 400;
+  text-wrap-style: pretty;
   hyphens: auto;
   hyphenate-limit-chars: 10 4 4;
 }
@@ -416,6 +548,7 @@
   font-family: var(--font-sans);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
   font-weight: var(--text-label--font-weight);
   hyphens: none;
 }
@@ -432,7 +565,7 @@
   font-size: var(--text-caption);
   line-height: var(--text-caption--line-height);
   letter-spacing: var(--text-caption--letter-spacing);
-  font-weight: 450;
+  font-weight: 460;
 }
 @utility type-overline {
   font-family: var(--font-sans);
@@ -449,14 +582,25 @@
   letter-spacing: var(--text-stat--letter-spacing);
   font-weight: var(--text-stat--font-weight);
   font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1, "ss01" 1;
+}
+/* The emotional accent: Newsreader Italic, display cut. Use for one clause
+   in a headline, a quote, the tagline. Inside type-display-* <em> does it. */
+@utility type-accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  font-synthesis: none;
 }
 /* Prices, times, dates, counts */
 @utility num {
   font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
 }
-/* Long German labels in tight UI (chips, tabs, table headers) */
+/* Long German labels in tight UI (chips, tabs, table headers). Inter has no
+   width axis, so this tightens tracking instead. */
 @utility condensed {
+  letter-spacing: -0.02em;
   font-variation-settings: "wdth" 88;
 }
 /* Booking references, IDs */
@@ -468,49 +612,192 @@
 }
 
 /* --------------------------------------------------------------------------
-   4. Night scope: immersive dark sections. Everything inside re-maps, so
+   4. Surface utilities: glass, aura, grain
+   -------------------------------------------------------------------------- */
+/* Translucent white with blur and saturation. Combine with a shadow-* level.
+   Text on glass: ink only (muted only on glass-strong). */
+@utility glass {
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: rgb(255 255 255 / 0.96);
+  }
+}
+@utility glass-strong {
+  background-color: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: rgb(255 255 255 / 0.97);
+  }
+}
+/* The glass edge: inner top highlight + outer hairline, composed with any
+   shadow-* / ring-* utility on the same element. */
+@utility glass-edge {
+  --tw-inset-shadow: inset 0 1px 0 var(--glass-edge);
+  --tw-ring-shadow: 0 0 0 1px var(--glass-hairline);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow, 0 0 #0000), var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+@utility bg-aura {
+  background-image: var(--gradient-aura);
+}
+@utility bg-aura-soft {
+  background-image: var(--gradient-aura-soft);
+}
+/* A 1 px aura-gradient border on a white surface (key badges, featured card). */
+@utility aura-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface-raised), var(--color-surface-raised)) padding-box,
+    var(--gradient-aura) border-box;
+}
+/* Fine film grain overlay; host gets position: relative. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: var(--grain);
+    background-size: 160px 160px;
+    opacity: 0.16;
+    mix-blend-mode: soft-light;
+    border-radius: inherit;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Haptics: tactile interaction utilities (motion is information)
+   -------------------------------------------------------------------------- */
+/* Spring press: scale 0.97 while held, springs back on release. Uses the
+   individual `scale` property so it composes with `lift` (translate). */
+@utility pressable {
+  transition-property: color, background-color, border-color, box-shadow, opacity, scale, translate;
+  transition-duration: var(--transition-duration-fast), var(--transition-duration-fast), var(--transition-duration-fast), var(--transition-duration-base), var(--transition-duration-fast), var(--transition-duration-spring), var(--transition-duration-spring);
+  transition-timing-function: var(--ease-standard), var(--ease-standard), var(--ease-standard), var(--ease-standard), var(--ease-standard), var(--ease-spring), var(--ease-spring);
+  -webkit-tap-highlight-color: transparent;
+  &:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    scale: 0.97;
+    transition-duration: var(--transition-duration-instant);
+    transition-timing-function: var(--ease-standard);
+  }
+}
+/* Hover lift for cards: rises 2 px to level 2 (pointer devices only). */
+@utility lift {
+  transition-property: box-shadow, translate, scale, background-color, border-color;
+  transition-duration: var(--transition-duration-base), var(--transition-duration-spring), var(--transition-duration-spring), var(--transition-duration-fast), var(--transition-duration-fast);
+  transition-timing-function: var(--ease-standard), var(--ease-settle), var(--ease-spring), var(--ease-standard), var(--ease-standard);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      translate: 0 -2px;
+      box-shadow: var(--shadow-float);
+    }
+  }
+  &:active {
+    scale: 0.985;
+    translate: 0 0;
+  }
+}
+/* Focus glow: 2 px accent outline plus a soft halo, composed with shadows. */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    --tw-ring-shadow: 0 0 0 6px var(--color-focus-glow);
+    box-shadow: var(--tw-inset-shadow, 0 0 #0000), var(--tw-inset-ring-shadow, 0 0 #0000), var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  }
+}
+/* Ambient motion pauses offscreen (MotionRoot sets data-ambient) and in
+   hidden tabs (html[data-hidden]). */
+@utility ambient {
+  will-change: transform;
+  [data-ambient="off"] &,
+  [data-ambient="off"]&,
+  :root[data-hidden] & {
+    animation-play-state: paused;
+  }
+}
+/* Pointer spotlight (see <Spotlight>): a soft light follows the pointer. */
+@utility spotlight {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--spot-o, 0);
+    background: radial-gradient(420px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgb(84 102 255 / 0.1), rgb(255 168 148 / 0.06) 40%, transparent 70%);
+    transition: opacity var(--transition-duration-base) var(--ease-standard);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Night scope: one deliberate dark band. Everything inside re-maps, so
       components need no dark variants.  <section data-theme="night">
    -------------------------------------------------------------------------- */
 [data-theme="night"] {
   --color-surface: var(--soma-nacht);
   --color-surface-raised: var(--soma-nacht-raised);
-  --color-surface-sunken: #1d1b18;
-  --color-surface-inverse: var(--soma-kalk);
-  --color-ink: var(--soma-kalk);
+  --color-surface-sunken: #1b1a1f;
+  --color-surface-pressed: #26252b;
+  --color-surface-tint: #1d1e2e;
+  --color-surface-inverse: #f7f6f3;
+  --color-ink: #f7f6f3;
   --color-ink-hover: #ffffff;
   --color-ink-muted: var(--soma-nacht-graphit);
-  --color-ink-disabled: #5e594f;
+  --color-ink-disabled: #5f5c66;
   --color-ink-inverse: var(--soma-tinte);
   --color-line: var(--soma-nacht-naht);
+  --color-line-mid: #45434c;
   --color-line-strong: var(--soma-nacht-zinn);
   --color-accent: var(--soma-ultramarin-licht);
-  --color-accent-hover: #b0b8ff;
+  --color-accent-hover: #b8c0ff;
   --color-accent-soft: #23264a;
+  --color-accent-tint: #1d1e2e;
   --color-on-accent: var(--soma-tinte);
   --color-success: var(--soma-success-night);
   --color-warning: var(--soma-warning-night);
   --color-danger: var(--soma-danger-night);
   --color-focus: var(--soma-ultramarin-licht);
+  --color-focus-glow: rgb(154 166 255 / 0.28);
+  --glass-bg: rgb(32 31 36 / 0.66);
+  --glass-bg-strong: rgb(32 31 36 / 0.82);
+  --glass-edge: rgb(255 255 255 / 0.08);
+  --glass-hairline: rgb(255 255 255 / 0.1);
+  --soma-shadow: 0 0 0;
 }
 
 /* --------------------------------------------------------------------------
-   5. Base application of tokens
+   7. Base application of tokens
    -------------------------------------------------------------------------- */
 @layer base {
   html {
+    color-scheme: light;
     background-color: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 100%;
+    font-optical-sizing: auto;
+    /* Inter: round quotes and commas for „…“ (ss03) */
+    font-feature-settings: "ss03" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-optical-sizing: auto;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
   }
   body {
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
+    letter-spacing: var(--text-body--letter-spacing);
     overflow-wrap: break-word;
   }
   [data-theme="night"] {
@@ -518,9 +805,20 @@
     color: var(--color-ink);
     color-scheme: dark;
   }
+  /* The accent face inside display headlines: <em> / <i> */
+  /* line-height: 0 keeps the taller serif metrics from opening up the leading */
+  :where(.type-display-xl, .type-display-l, .type-display-m, .type-display-s, .type-heading-l) :where(em, i) {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.06em;
+    line-height: 0;
+    letter-spacing: -0.012em;
+    font-synthesis: none;
+  }
   ::selection {
-    background-color: var(--color-accent-soft);
-    color: var(--color-ink);
+    background-color: rgb(61 79 240 / 0.16);
+    color: inherit;
   }
   :focus-visible {
     outline: 2px solid var(--color-focus);
@@ -536,4 +834,14 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Unlayered on purpose: a display utility plus `italic` on the same element
+   (e.g. "type-display-s italic") must switch to the accent face, which a
+   base-layer rule cannot do against the utilities layer. */
+:where(.type-display-xl, .type-display-l, .type-display-m, .type-display-s, .font-display).italic {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  font-synthesis: none;
 }

@@ -9,8 +9,9 @@ import { Icon } from "./icon";
 export type DateCell = { key: string; date: string | Date; available: boolean };
 
 /**
- * Date strip: horizontal snap scroll of day cells (56×72), radiogroup semantics with arrow keys.
- * Today reads "Heute" with a roof line; booked-out days are disabled.
+ * Date strip: horizontal snap scroll of day cells (56×72, 14px radius), radiogroup
+ * semantics with arrow keys. Today reads "Heute" with an aura line; the selected
+ * day settles into an ink fill on a spring; booked-out days are disabled.
  */
 export function DateStrip({
   days,
@@ -42,7 +43,7 @@ export function DateStrip({
   let lastMonth = "";
   return (
     <div className={cn("relative flex items-center gap-1", className)}>
-      <button type="button" onClick={() => scrollBy(-1)} aria-label="Frühere Tage" className="hidden size-touch shrink-0 items-center justify-center rounded-xs hover:bg-surface-sunken lg:inline-flex">
+      <button type="button" onClick={() => scrollBy(-1)} aria-label="Frühere Tage" className="hidden size-touch shrink-0 items-center justify-center rounded-full pressable focus-ring hover:bg-surface-sunken lg:inline-flex">
         <Icon icon={ChevronLeft} />
       </button>
       <div
@@ -50,7 +51,7 @@ export function DateStrip({
         role="radiogroup"
         aria-label={label}
         onKeyDown={onKey}
-        className="-mx-(--space-gutter) flex snap-x scroll-px-(--space-gutter) gap-1 overflow-x-auto px-(--space-gutter) pt-5 pb-1 scrollbar-none lg:mx-0 lg:scroll-px-0 lg:px-0"
+        className="-mx-(--space-gutter) flex snap-x scroll-px-(--space-gutter) gap-1.5 overflow-x-auto px-(--space-gutter) pt-5 pb-2 scrollbar-none lg:mx-0 lg:scroll-px-0 lg:px-0"
       >
         {days.map((d) => {
           const p = dateParts(d.date);
@@ -70,8 +71,12 @@ export function DateStrip({
               aria-label={`${isToday ? "Heute, " : ""}${p.weekday} ${p.day}. ${p.month}${d.available ? "" : " – ausgebucht"}`}
               onClick={() => onSelect(d.key)}
               className={cn(
-                "relative flex h-[72px] w-14 shrink-0 snap-start flex-col items-center justify-center gap-1 rounded-xs transition-colors duration-fast",
-                isSel ? "bg-ink text-ink-inverse" : d.available ? "text-ink hover:bg-surface-sunken" : "text-ink-disabled",
+                "relative flex h-[72px] w-14 shrink-0 snap-start flex-col items-center justify-center gap-1 rounded-tile pressable focus-ring",
+                isSel
+                  ? "animate-settle bg-ink text-ink-inverse shadow-ink"
+                  : d.available
+                    ? "bg-surface-raised text-ink shadow-[0_0_0_1px_var(--color-line)] hover:shadow-[0_0_0_1px_var(--color-line-strong)]"
+                    : "text-ink-disabled",
               )}
             >
               {showMonth ? (
@@ -79,7 +84,7 @@ export function DateStrip({
                   {p.month}
                 </span>
               ) : null}
-              {isToday ? <span aria-hidden className={cn("absolute top-2 h-0.5 w-3", isSel ? "bg-ink-inverse" : "bg-ink")} /> : null}
+              {isToday ? <span aria-hidden className={cn("absolute top-2 h-0.5 w-3 rounded-full", isSel ? "bg-ink-inverse" : "bg-aura")} /> : null}
               <span className={cn("type-caption", isSel ? "text-ink-inverse" : d.available ? "text-ink-muted" : "")}>
                 {isToday ? "Heute" : p.weekday}
               </span>
@@ -88,7 +93,7 @@ export function DateStrip({
           );
         })}
       </div>
-      <button type="button" onClick={() => scrollBy(1)} aria-label="Spätere Tage" className="hidden size-touch shrink-0 items-center justify-center rounded-xs hover:bg-surface-sunken lg:inline-flex">
+      <button type="button" onClick={() => scrollBy(1)} aria-label="Spätere Tage" className="hidden size-touch shrink-0 items-center justify-center rounded-full pressable focus-ring hover:bg-surface-sunken lg:inline-flex">
         <Icon icon={ChevronRight} />
       </button>
     </div>
@@ -102,7 +107,7 @@ function bucket(iso: string): "Morgens" | "Nachmittags" | "Abends" {
   return h < 12 ? "Morgens" : h < 17 ? "Nachmittags" : "Abends";
 }
 
-/** Time slots grouped under Morgens / Nachmittags / Abends. Unavailable times are never rendered. */
+/** Time slots grouped under Morgens / Nachmittags / Abends; the chosen slot settles into ink. Unavailable times are never rendered. */
 export function TimeSlots({
   slots,
   selected,
@@ -138,8 +143,10 @@ export function TimeSlots({
                   aria-checked={isSel}
                   onClick={() => onSelect(s.start)}
                   className={cn(
-                    "h-touch rounded-xs border type-label num transition-colors duration-fast",
-                    isSel ? "border-ink bg-ink text-ink-inverse" : "border-line bg-surface-raised text-ink hover:border-ink",
+                    "h-touch rounded-tile border type-label num pressable focus-ring",
+                    isSel
+                      ? "animate-settle border-ink bg-ink text-ink-inverse shadow-ink"
+                      : "border-line-mid bg-surface-raised text-ink shadow-[0_1px_2px_rgb(23_22_31/0.04)] hover:border-ink",
                   )}
                 >
                   {formatTime(s.start)}

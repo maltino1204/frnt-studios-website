@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Bell, CalendarDays, Compass, Heart, LogOut, User, type LucideIcon } from "lucide-react";
 import { Wordmark } from "@/components/brand/logo";
 import { CountPill } from "@/components/ui/feedback";
+import { BottomNav } from "@/components/ui/nav";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -29,12 +30,12 @@ const ITEMS: NavItem[] = [
 export function AccountHeader({ unread }: { unread: number }) {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-(--z-header) border-b border-line bg-surface">
+    <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--glass-hairline)]">
       <div className="mx-auto flex h-(--header-height) w-full max-w-content items-center justify-between gap-6 px-(--space-gutter)">
-        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="-mx-2 inline-flex min-h-touch items-center px-2 text-ink">
+        <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-control px-2 text-ink focus-ring">
           <Wordmark />
         </Link>
-        <nav aria-label="Konto" className="hidden h-full items-stretch gap-8 lg:flex">
+        <nav aria-label="Konto" className="hidden items-center gap-1 lg:flex">
           {ITEMS.map((it) => {
             const active = it.match(pathname);
             return (
@@ -43,8 +44,8 @@ export function AccountHeader({ unread }: { unread: number }) {
                 href={it.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative inline-flex items-center type-label transition-colors duration-fast",
-                  active ? "text-ink before:absolute before:top-0 before:left-0 before:h-0.5 before:w-4 before:bg-ink" : "text-ink-muted hover:text-ink",
+                  "relative inline-flex h-10 items-center rounded-full px-4 type-label transition-colors duration-fast pressable focus-ring",
+                  active ? "bg-ink/[0.06] text-ink" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
                 )}
               >
                 {it.label}
@@ -54,7 +55,7 @@ export function AccountHeader({ unread }: { unread: number }) {
         </nav>
         <Link
           href={routes.account.notifications()}
-          className="relative -mr-3 inline-flex size-touch items-center justify-center rounded-xs text-ink hover:bg-surface-sunken"
+          className="relative -mr-3 inline-flex size-touch items-center justify-center rounded-full text-ink pressable focus-ring hover:bg-ink/5"
         >
           <Bell size={22} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
           <span className="sr-only">{unread ? `Benachrichtigungen, ${unread} ungelesen` : "Benachrichtigungen"}</span>
@@ -69,35 +70,10 @@ export function AccountHeader({ unread }: { unread: number }) {
   );
 }
 
-/** Mobile bottom navigation: Entdecken · Termine · Favoriten · Konto (design-guideline §8). */
+/** Mobile bottom navigation: Entdecken · Termine · Favoriten · Konto (glass, design-guideline v2 §8). */
 export function AccountBottomNav() {
   const pathname = usePathname();
-  return (
-    <nav
-      aria-label="Hauptnavigation"
-      className="fixed inset-x-0 bottom-0 z-(--z-bottom-nav) border-t border-line bg-surface-raised pb-[env(safe-area-inset-bottom)] lg:hidden"
-    >
-      <ul className="grid h-(--bottom-nav-height) grid-cols-4">
-        {ITEMS.map((it) => {
-          const active = it.match(pathname);
-          const I = it.icon;
-          return (
-            <li key={it.label} className="flex">
-              <Link
-                href={it.href}
-                aria-current={active ? "page" : undefined}
-                className={cn("relative flex flex-1 flex-col items-center justify-center gap-1", active ? "text-ink" : "text-ink-muted hover:text-ink")}
-              >
-                {active ? <span aria-hidden className="absolute top-0 h-0.5 w-4 bg-ink" /> : null}
-                <I size={24} strokeWidth={active ? 1.75 : 1.5} absoluteStrokeWidth aria-hidden />
-                <span className="type-caption">{it.label}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
+  return <BottomNav items={ITEMS.map((it) => ({ href: it.href, label: it.label, icon: it.icon, active: it.match(pathname) }))} />;
 }
 
 /** Desktop side rail with all account sections. */
@@ -105,7 +81,7 @@ export function AccountRail() {
   const pathname = usePathname();
   return (
     <nav aria-label="Kontobereiche" className="sticky top-[calc(var(--header-height)+2.5rem)] flex flex-col">
-      <ul className="flex flex-col">
+      <ul className="flex flex-col gap-0.5">
         {ACCOUNT_SECTIONS.map((s) => {
           const active = s.href === "/konto" ? pathname === "/konto" : pathname.startsWith(s.href);
           return (
@@ -114,8 +90,8 @@ export function AccountRail() {
                 href={s.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex min-h-10 items-center py-2 pl-4 type-body-s transition-colors duration-fast",
-                  active ? "font-semibold text-ink before:absolute before:top-2 before:bottom-2 before:left-0 before:w-0.5 before:bg-ink" : "text-ink-muted hover:text-ink",
+                  "relative flex min-h-10 items-center rounded-control px-3 py-2 type-body-s transition-[background-color,color,box-shadow] duration-fast focus-ring",
+                  active ? "bg-surface-raised font-semibold text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
                 )}
               >
                 {s.label}
@@ -125,7 +101,7 @@ export function AccountRail() {
         })}
       </ul>
       <form action={signOutAction} className="mt-6 border-t border-line pt-4">
-        <button type="submit" className="inline-flex min-h-10 items-center gap-2 pl-4 type-body-s text-ink-muted hover:text-ink">
+        <button type="submit" className="inline-flex min-h-10 items-center gap-2 rounded-control px-3 type-body-s text-ink-muted transition-colors hover:text-ink focus-ring">
           <LogOut size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
           Abmelden
         </button>

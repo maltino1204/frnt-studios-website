@@ -28,11 +28,11 @@ export function Section({ className, night, ...props }: ComponentProps<"section"
   );
 }
 
-/** Overline with roof line above: the "where you are" marker for section labels. */
+/** Overline led by the aura line (the v2 roof line): the "where you are" marker for section labels. */
 export function Overline({ children, className, as: As = "p" }: { children: ReactNode; className?: string; as?: "p" | "span" | "h2" | "h3" }) {
   return (
-    <As className={cn("flex flex-col gap-3 type-overline text-ink-muted", className)}>
-      <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+    <As className={cn("flex items-center gap-2.5 type-overline text-ink-muted", className)}>
+      <span aria-hidden className="block h-0.5 w-5 shrink-0 rounded-full bg-aura" />
       {children}
     </As>
   );
@@ -57,7 +57,7 @@ export function SectionHeader({
   return (
     <div className={cn("flex flex-col gap-6 md:flex-row md:items-end md:justify-between", className)}>
       <div className="flex max-w-reading flex-col gap-4">
-        {overline ? <Overline>{overline}</Overline> : null}
+        {overline ? <Overline className="mb-1">{overline}</Overline> : null}
         <h2 className={size === "l" ? "type-display-l" : "type-display-m"}>{title}</h2>
         {lead ? <p className="type-body-l text-ink-muted">{lead}</p> : null}
       </div>
@@ -92,9 +92,9 @@ export function PageHeader({
   );
 }
 
-/** Raised panel with hairline border, no radius (dashboards, account). */
+/** Level-1 card: white, 20px radius, layered soft shadow with its own hairline (dashboards, account). */
 export function Panel({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("border border-line bg-surface-raised", className)} {...props} />;
+  return <div className={cn("bg-surface-raised shadow-raised", !className?.includes("rounded") && "rounded-card", className)} {...props} />;
 }
 
 /** Definition list rows for facts (label left, value right). */

@@ -29,13 +29,13 @@ export function AdminPageHeader({
     <header className={cn("flex flex-col gap-4 pb-6 md:flex-row md:items-end md:justify-between", className)}>
       <div className="flex min-w-0 flex-col gap-2">
         {back ? (
-          <Link href={back.href} className="-ml-1 inline-flex w-fit items-center gap-1 rounded-xs py-1 pr-2 type-label-s text-ink-muted hover:text-ink">
+          <Link href={back.href} className="-ml-1 inline-flex w-fit items-center gap-1 rounded-full py-1 pr-2.5 pl-1 type-label-s text-ink-muted transition-colors hover:bg-ink/[0.04] hover:text-ink focus-ring">
             <Icon icon={ChevronLeft} size={16} />
             {back.label}
           </Link>
         ) : group ? (
-          <p className="flex flex-col gap-2.5 type-overline text-ink-muted">
-            <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+          <p className="flex items-center gap-2.5 type-overline text-ink-muted">
+            <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
             {group}
           </p>
         ) : null}
@@ -97,8 +97,8 @@ export function PanelCard({
   bodyClassName?: string;
 }) {
   return (
-    <section className={cn("flex min-w-0 flex-col border border-line bg-surface-raised", className)}>
-      <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line px-4 py-2">
+    <section className={cn("flex min-w-0 flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised", className)}>
+      <div className="flex min-h-12 items-center justify-between gap-3 border-b border-line px-5 py-2">
         <h2 className="flex items-center gap-2 type-heading-s">{title}</h2>
         {action}
       </div>
@@ -110,7 +110,7 @@ export function PanelCard({
 /** Small muted inline link (e.g. "Alle anzeigen"). */
 export function MutedLink({ href, children, className }: { href: string; children: ReactNode; className?: string }) {
   return (
-    <Link href={href} className={cn("rounded-xs type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover", className)}>
+    <Link href={href} className={cn("rounded-control type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover focus-ring", className)}>
       {children}
     </Link>
   );

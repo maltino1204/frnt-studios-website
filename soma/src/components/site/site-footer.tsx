@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/logo";
+import { AuraBackground } from "@/components/ui/aura";
 import { Container } from "@/components/ui/layout";
 import { BRAND_NAME, BRAND_TAGLINE, SUPPORT_EMAIL } from "@/lib/brand";
 import { routes } from "@/lib/routes";
@@ -19,7 +20,7 @@ async function loadFooterData(): Promise<{ categories: CategoryDTO[]; cities: Ci
   }
 }
 
-/** Night-scope footer (design-guideline §8 "Footer"). */
+/** Light footer with a faint aura (design-guideline v2 §8 "Footer"). */
 export async function SiteFooter() {
   const { categories, cities } = await loadFooterData();
   const columns: Array<{ title: string; links: FooterLink[] }> = [
@@ -63,25 +64,26 @@ export async function SiteFooter() {
   ];
 
   return (
-    <footer data-theme="night" className="bg-surface py-16 text-ink md:py-24">
+    <footer className="relative isolate overflow-clip border-t border-line bg-surface pt-16 pb-10 text-ink md:pt-24">
+      <AuraBackground variant="subtle" placement="left" fade="bottom" animate={false} className="opacity-70" />
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-5 lg:col-span-4">
-            <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start px-2">
+            <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start rounded-control px-2 focus-ring">
               <Wordmark className="h-6 lg:h-6" />
             </Link>
-            <p className="type-display-s italic text-ink">{BRAND_TAGLINE}</p>
+            <p className="max-w-[16ch] type-accent text-[1.75rem] leading-[1.1] text-ink lg:text-[2rem]">{BRAND_TAGLINE}</p>
           </div>
           <nav aria-label="Fußzeile" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5">
             {columns.map((col) => (
-              <div key={col.title} className="flex min-w-0 flex-col gap-4">
-                <h2 className="type-overline text-ink">{col.title}</h2>
-                <ul className="flex flex-col lg:gap-1">
+              <div key={col.title} className="flex min-w-0 flex-col gap-3">
+                <h2 className="type-label-s text-ink">{col.title}</h2>
+                <ul className="flex flex-col lg:gap-0.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="inline-flex min-h-touch items-center py-1 type-body-s break-words text-ink-muted transition-colors duration-fast hover:text-ink lg:min-h-8"
+                        className="inline-flex min-h-touch items-center rounded-control py-1 type-body-s break-words text-ink-muted transition-colors duration-fast hover:text-ink focus-ring lg:min-h-8"
                       >
                         {l.label}
                       </Link>
@@ -93,7 +95,9 @@ export async function SiteFooter() {
           </nav>
         </div>
         <div className="mt-16 flex flex-col gap-2 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="type-caption text-ink-muted">© {new Date().getFullYear()} {BRAND_NAME}</p>
+          <p className="inline-flex items-center gap-2 type-caption text-ink-muted">
+            <span aria-hidden className="h-0.5 w-4 rounded-full bg-aura" />© {new Date().getFullYear()} {BRAND_NAME}
+          </p>
           <p className="type-caption text-ink-muted">
             {BRAND_NAME} vermittelt Termine. Vertragspartner für die Behandlung ist der jeweilige Profi.
           </p>

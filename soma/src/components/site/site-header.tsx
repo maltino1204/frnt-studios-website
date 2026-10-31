@@ -12,8 +12,9 @@ import { accountLink, focusBookingEntry, useSiteSession } from "./discovery-sess
 import { MobileMenu, type NavLink } from "./mobile-menu";
 
 /**
- * Marketing header (design-guideline §8): sticky, Kalk, a hairline after 8px
- * of scroll. Account state is fetched after hydration so pages stay static.
+ * Marketing header (design-guideline v2 §8 "Navigation"): sticky and
+ * transparent at the top, glass with a hairline once the page scrolls.
+ * Account state is fetched after hydration so pages stay static.
  */
 export function SiteHeader() {
   const pathname = usePathname() ?? "/";
@@ -37,27 +38,28 @@ export function SiteHeader() {
 
   return (
     <header
+      data-scrolled={scrolled ? "" : undefined}
       className={cn(
-        "sticky top-0 z-(--z-header) h-(--header-height) border-b bg-surface transition-colors duration-fast ease-standard",
-        scrolled ? "border-line" : "border-transparent",
+        "sticky top-0 z-(--z-header) h-(--header-height) transition-[background-color,box-shadow,backdrop-filter] duration-base ease-standard",
+        scrolled ? "glass-strong shadow-[0_1px_0_var(--glass-hairline),0_8px_24px_-16px_rgb(23_22_31/0.18)]" : "bg-transparent",
       )}
     >
       <Container className="flex h-full items-center justify-between gap-6">
-        <Link href="/" aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-xs px-2">
+        <Link href="/" aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-control px-2 focus-ring">
           <Wordmark />
         </Link>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-6 lg:flex">
           <nav aria-label="Hauptnavigation">
-            <ul className="flex items-center gap-8">
+            <ul className="flex items-center gap-1">
               {links.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
                     aria-current={l.active ? "page" : undefined}
                     className={cn(
-                      "inline-flex h-touch items-center type-label text-ink underline-offset-[6px] decoration-1 hover:underline",
-                      l.active && "underline",
+                      "relative inline-flex h-10 items-center rounded-full px-4 type-label transition-colors duration-fast pressable focus-ring",
+                      l.active ? "bg-ink/[0.06] text-ink" : "text-ink hover:bg-ink/[0.04]",
                     )}
                   >
                     {l.label}
@@ -66,6 +68,7 @@ export function SiteHeader() {
               ))}
             </ul>
           </nav>
+          <span aria-hidden className="h-5 w-px bg-line-mid" />
           <div className="flex items-center gap-2">
             <ButtonLink
               href={account?.href ?? routes.login()}

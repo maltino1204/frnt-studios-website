@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Wordmark } from "@/components/brand/logo";
+import { AuraBackground } from "@/components/ui/aura";
 import { ButtonLink, IconButton } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { BRAND_TAGLINE } from "@/lib/brand";
@@ -14,7 +15,8 @@ import { focusBookingEntry } from "./discovery-session";
 export type NavLink = { href: string; label: string; active?: boolean };
 
 /**
- * Full-screen night menu for < lg (design-guideline §8 "Marketing header").
+ * Full-screen menu for < lg (design-guideline v2 §8 "Navigation"): a light
+ * glass layer over a soft aura; links rise in with a short stagger.
  * Built on <dialog>: focus trap, Esc and focus restore come from the platform.
  */
 export function MobileMenu({
@@ -67,39 +69,40 @@ export function MobileMenu({
       <dialog
         id="site-menu"
         ref={ref}
-        data-theme="night"
         aria-label="Menü"
-        className="m-0 h-dvh max-h-none w-full max-w-none bg-surface p-0 text-ink open:flex open:animate-fade-in open:flex-col"
+        className="m-0 h-dvh max-h-none w-full max-w-none overflow-hidden bg-transparent p-0 text-ink backdrop:bg-transparent backdrop:backdrop-blur-none open:flex open:animate-fade-in open:flex-col"
       >
+        <div aria-hidden className="absolute inset-0 -z-20 bg-surface" />
+        <AuraBackground variant="subtle" placement="bottom" fade="top" className="-z-10" />
         <div className="flex h-(--header-height) shrink-0 items-center justify-between px-(--space-gutter)">
-          <Link href="/" onClick={close} aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center px-2">
+          <Link href="/" onClick={close} aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-control px-2 focus-ring">
             <Wordmark />
           </Link>
           <IconButton label="Menü schließen" onClick={close} className="-mr-2.5">
             <Icon icon={X} size={24} />
           </IconButton>
         </div>
-        <nav aria-label="Hauptnavigation" className="min-h-0 flex-1 overflow-y-auto px-(--space-gutter) pt-10 pb-8">
-          <ul className="flex flex-col gap-1">
+        <nav aria-label="Hauptnavigation" className="min-h-0 flex-1 overflow-y-auto px-(--space-gutter) pt-8 pb-8">
+          <ul className={cn("flex flex-col", open && "stagger-rise")}>
             {links.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className="border-b border-line/80 last:border-b-0">
                 <Link
                   href={l.href}
                   onClick={close}
                   aria-current={l.active ? "page" : undefined}
-                  className={cn(
-                    "group flex min-h-touch items-center gap-4 py-2 type-display-m transition-colors duration-fast",
-                    l.active ? "text-ink" : "text-ink hover:text-ink-muted",
-                  )}
+                  className="group flex min-h-16 items-center justify-between gap-4 rounded-control py-2 type-display-s transition-colors duration-fast focus-ring"
                 >
-                  {l.active ? <span aria-hidden className="h-0.5 w-6 shrink-0 bg-ink" /> : null}
-                  {l.label}
+                  <span className="flex items-center gap-3">
+                    {l.active ? <span aria-hidden className="h-0.5 w-5 shrink-0 rounded-full bg-aura" /> : null}
+                    {l.label}
+                  </span>
+                  <Icon icon={ArrowUpRight} size={20} className="text-ink-muted transition-[translate,color] duration-base ease-spring group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink" />
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="flex shrink-0 flex-col gap-3 border-t border-line px-(--space-gutter) pt-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <div className="flex shrink-0 flex-col gap-3 px-(--space-gutter) pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <ButtonLink
             href="/#termin"
             size="l"
@@ -121,7 +124,7 @@ export function MobileMenu({
           >
             {account?.label ?? "Anmelden"}
           </ButtonLink>
-          <p className="pt-3 font-display text-[1.125rem] italic leading-snug text-ink-muted">{BRAND_TAGLINE}</p>
+          <p className="pt-3 text-center type-accent text-[1.25rem] leading-snug text-ink-muted">{BRAND_TAGLINE}</p>
         </div>
       </dialog>
     </div>

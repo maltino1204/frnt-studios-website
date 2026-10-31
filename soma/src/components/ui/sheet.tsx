@@ -1,12 +1,57 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
+const EXIT_MS = 200;
+const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /**
- * Bottom sheet on mobile, centred dialog from md (design-guideline §8).
+ * Shared open/close choreography for <dialog>-based overlays: showModal on
+ * open; on close, play the exit animation (data-closing) and only then close.
+ */
+export function useDialogMotion(open: boolean, onClose: () => void) {
+  const ref = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    if (open) {
+      d.removeAttribute("data-closing");
+      d.style.removeProperty("translate");
+      if (!d.open) d.showModal();
+      return;
+    }
+    if (!d.open) return;
+    if (prefersReduced()) {
+      d.close();
+      return;
+    }
+    d.setAttribute("data-closing", "");
+    const t = window.setTimeout(() => {
+      d.removeAttribute("data-closing");
+      d.style.removeProperty("translate");
+      d.close();
+    }, EXIT_MS);
+    return () => window.clearTimeout(t);
+  }, [open]);
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    const onCancel = (e: Event) => {
+      e.preventDefault();
+      onClose();
+    };
+    d.addEventListener("cancel", onCancel);
+    return () => d.removeEventListener("cancel", onCancel);
+  }, [onClose]);
+  return ref;
+}
+
+/**
+ * Bottom sheet on mobile (glass, spring entry, drag down to dismiss with a
+ * rubber-band feel), centred dialog from md (design-guideline v2 §8).
  * Built on <dialog>: focus trap, Esc to close and focus restore come from the platform.
  */
 export function Sheet({
@@ -27,24 +72,40 @@ export function Sheet({
   /** "drawer" = right-hand 400px drawer from md (filters) */
   variant?: "sheet" | "drawer";
 }) {
-  const ref = useRef<HTMLDialogElement>(null);
+  const ref = useDialogMotion(open, onClose);
   const titleId = useId();
-  useEffect(() => {
+  const drag = useRef<{ y: number; t: number; dy: number } | null>(null);
+
+  // Drag-to-dismiss on the grabber/header (touch and pen; mobile layout only).
+  const onPointerDown = (e: ReactPointerEvent<HTMLElement>) => {
+    if (e.pointerType === "mouse" || window.matchMedia("(min-width: 48rem)").matches) return;
+    if ((e.target as HTMLElement).closest("button, a, input, select, textarea")) return;
+    drag.current = { y: e.clientY, t: performance.now(), dy: 0 };
+    e.currentTarget.setPointerCapture(e.pointerId);
+    ref.current?.setAttribute("data-dragging", "");
+  };
+  const onPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
+    const s = drag.current;
     const d = ref.current;
-    if (!d) return;
-    if (open && !d.open) d.showModal();
-    if (!open && d.open) d.close();
-  }, [open]);
-  useEffect(() => {
+    if (!s || !d) return;
+    const raw = e.clientY - s.y;
+    // Rubber band: free downwards, strong resistance upwards.
+    s.dy = raw > 0 ? raw : -Math.sqrt(-raw) * 2.5;
+    d.style.translate = `0 ${s.dy}px`;
+  };
+  const onPointerUp = () => {
+    const s = drag.current;
     const d = ref.current;
-    if (!d) return;
-    const onCancel = (e: Event) => {
-      e.preventDefault();
+    drag.current = null;
+    if (!s || !d) return;
+    d.removeAttribute("data-dragging");
+    const velocity = s.dy / Math.max(1, performance.now() - s.t);
+    if (s.dy > 110 || (s.dy > 40 && velocity > 0.6)) {
       onClose();
-    };
-    d.addEventListener("cancel", onCancel);
-    return () => d.removeEventListener("cancel", onCancel);
-  }, [onClose]);
+    } else {
+      d.style.removeProperty("translate");
+    }
+  };
 
   return (
     <dialog
@@ -53,30 +114,32 @@ export function Sheet({
         if (e.target === ref.current) onClose();
       }}
       className={cn(
-        "m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-hidden bg-surface-raised p-0 text-ink shadow-sheet open:flex open:flex-col",
-        "rounded-t-sheet open:animate-sheet-in",
-        variant === "sheet" && "md:m-auto md:max-w-sheet md:rounded-xs md:shadow-modal md:open:animate-dialog-in",
-        variant === "drawer" && "md:mt-0 md:mr-0 md:ml-auto md:h-dvh md:max-h-dvh md:w-[400px] md:rounded-none",
+        "soma-sheet m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-hidden p-0 text-ink open:flex open:flex-col",
+        "rounded-t-sheet glass-strong glass-edge shadow-sheet open:animate-sheet-in",
+        variant === "sheet" && "md:m-auto md:max-w-sheet md:rounded-card md:bg-surface-raised md:shadow-overlay md:open:animate-dialog-in",
+        variant === "drawer" && "soma-drawer md:mt-0 md:mr-0 md:ml-auto md:h-dvh md:max-h-dvh md:w-[400px] md:rounded-tr-none md:rounded-l-card md:bg-surface-raised md:shadow-overlay",
         className,
       )}
       aria-labelledby={titleId}
     >
-      <div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-line-strong md:hidden" aria-hidden />
-      <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line pr-2 pl-5">
-        <h2 id={titleId} className="type-heading-m">
-          {title}
-        </h2>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Schließen"
-          className="inline-flex size-touch items-center justify-center rounded-xs hover:bg-surface-sunken"
-        >
-          <Icon icon={X} />
-        </button>
-      </header>
+      <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp} className="shrink-0 touch-none md:touch-auto">
+        <div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-ink/20 md:hidden" aria-hidden />
+        <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line/70 pr-2 pl-5">
+          <h2 id={titleId} className="type-heading-m">
+            {title}
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Schließen"
+            className="inline-flex size-touch items-center justify-center rounded-full pressable focus-ring hover:bg-ink/5"
+          >
+            <Icon icon={X} />
+          </button>
+        </header>
+      </div>
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">{children}</div>
-      {footer ? <footer className="shrink-0 border-t border-line px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">{footer}</footer> : null}
+      {footer ? <footer className="shrink-0 border-t border-line/70 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">{footer}</footer> : null}
     </dialog>
   );
 }
