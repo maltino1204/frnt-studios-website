@@ -174,17 +174,25 @@ test("a declined request shows alternatives and a way onward (R8)", async ({ pag
 test("provider bio with a phone number is refused (R7)", async ({ page }) => {
   await login(page, USERS.provider);
   await page.goto("/pro/profil");
+  // The form is a client component: wait for hydration, otherwise React resets a value filled too early.
+  await page.waitForLoadState("networkidle");
   const bio = page.getByRole("textbox", { name: /Über dich/ });
   const original = await bio.inputValue();
-  await bio.fill(`${original.slice(0, 300)} Ruf mich an: 0170 1234567`);
+  const withPhone = `${original.slice(0, 300)} Ruf mich an: 0170 1234567`;
+  await expect(async () => {
+    await bio.fill(withPhone);
+    await expect(bio).toHaveValue(withPhone, { timeout: 1_000 });
+  }).toPass({ timeout: 10_000 });
   await page.getByRole("button", { name: "Profil speichern" }).click();
   try {
     await expect(page.getByText(/Kontaktdaten wie Telefonnummern/).first()).toBeVisible({ timeout: 10_000 });
   } finally {
     // Never leave the test text behind, even if the server accepted it.
     await page.reload();
+    await page.waitForLoadState("networkidle");
     if ((await bio.inputValue()) !== original) {
       await bio.fill(original);
+      await expect(bio).toHaveValue(original);
       await page.getByRole("button", { name: "Profil speichern" }).click();
       await expect(page.getByText("Profil gespeichert.")).toBeVisible();
     }
