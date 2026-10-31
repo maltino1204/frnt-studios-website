@@ -135,7 +135,7 @@ export function HeroShowcase({ data, className }: { data: ShowcaseData; classNam
           >
             <p className="flex items-center gap-1.5 type-heading-l num">
               {formatRating(data.rating.avg)}
-              <Star aria-hidden size={18} strokeWidth={1.5} absoluteStrokeWidth className="fill-ink text-ink" />
+              <Icon icon={Star} size={18} className="fill-ink text-ink" />
             </p>
             <p className="type-caption text-ink">{`aus ${data.rating.count.toLocaleString("de-DE")} verifizierten Bewertungen`}</p>
           </FloatingCard>

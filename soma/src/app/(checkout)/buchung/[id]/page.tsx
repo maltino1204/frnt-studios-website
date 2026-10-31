@@ -147,16 +147,17 @@ function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
   );
 }
 
+/** One group of the booking facts: a single <div> directly in the <dl> (A5-3); the icon lives in the <dt>. */
 function Fact({ icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) {
   return (
-    <div className="flex min-w-0 gap-3">
-      <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-muted">
-        <Icon icon={icon} size={16} />
-      </span>
-      <div className="flex min-w-0 flex-col gap-0.5">
-        <dt className="type-caption text-ink-muted hyphens-none">{label}</dt>
-        <dd className="type-body-s text-ink">{children}</dd>
-      </div>
+    <div className="relative flex min-w-0 min-h-9 flex-col gap-0.5 pl-12">
+      <dt className="type-caption text-ink-muted hyphens-none">
+        <span aria-hidden className="absolute top-0 left-0 inline-flex size-9 items-center justify-center rounded-full bg-surface-sunken text-ink-muted">
+          <Icon icon={icon} size={16} />
+        </span>
+        {label}
+      </dt>
+      <dd className="type-body-s text-ink">{children}</dd>
     </div>
   );
 }
@@ -285,15 +286,10 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
       <Container width="content" className="flex flex-col gap-5 pt-6 pb-16 md:gap-6 lg:pt-10 lg:pb-24">
         {/* Status hero: calm aura, the confirmation moment and (when confirmed) the Start-Code card. */}
         <section aria-labelledby="status-titel" className="relative isolate overflow-clip rounded-panel bg-surface-raised shadow-raised">
-          {/* Muted text must stay AA: the fuller "hero" wash only where the text column stays left of the glow. */}
-          {aura === "hero" ? (
-            <>
-              <AuraBackground variant="section" placement="right" fade="none" className="lg:hidden" />
-              <AuraBackground variant="hero" placement="right" fade="none" className="hidden lg:block" />
-            </>
-          ) : (
-            <AuraBackground variant={aura} placement="right" fade="none" />
-          )}
+          {/* Muted text must stay AA (A5-15): phones stack the muted sentence over the glow, so they get the
+              subtle wash without grain (grain darkens pixels); from lg the text column stays left of the glow. */}
+          <AuraBackground variant="subtle" placement="right" fade="none" grain={false} className="lg:hidden" />
+          <AuraBackground variant={aura} placement="right" fade="none" className="hidden lg:block" />
           <div className="grid gap-8 p-5 pt-7 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-10 lg:p-12">
             <div className={cn("flex min-w-0 flex-col gap-5", b.startCode ? "lg:col-span-7" : "lg:col-span-9")}>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2">

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState, type ComponentProps } from "react";
 import { cn } from "@/lib/cn";
-import { haptic } from "@/lib/haptic";
 
 /**
  * A slot chip that links straight to checkout (search results). On press it
@@ -27,7 +26,6 @@ export function SlotChipLink({ className, onClick, ...props }: ComponentProps<ty
         onClick?.(e);
         if (!e.defaultPrevented && !e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
           setPicked(true);
-          haptic("tap");
         }
       }}
       data-picked={picked || undefined}

@@ -39,6 +39,7 @@ export function useDialogMotion(open: boolean, onClose: () => void, initialFocus
   const ref = useRef<HTMLDialogElement>(null);
   const focusRef = useRef(initialFocus);
   focusRef.current = initialFocus;
+  const returnRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
@@ -46,6 +47,7 @@ export function useDialogMotion(open: boolean, onClose: () => void, initialFocus
       d.removeAttribute("data-closing");
       d.style.removeProperty("translate");
       if (!d.open) {
+        returnRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         d.showModal();
         focusInitial(d, focusRef.current);
       }
@@ -74,6 +76,18 @@ export function useDialogMotion(open: boolean, onClose: () => void, initialFocus
     d.addEventListener("cancel", onCancel);
     return () => d.removeEventListener("cancel", onCancel);
   }, [onClose]);
+  // Prefer keeping the dialog mounted and passing open={false} (exit animation, platform focus restore).
+  // Safety net for parents that unmount it while open: the platform never runs close(), so focus would
+  // fall to <body>. Give it back to the element that opened the dialog.
+  useEffect(() => {
+    const d = ref.current;
+    return () => {
+      const back = returnRef.current;
+      if (!d || d.isConnected || !d.open || !back?.isConnected) return;
+      const active = document.activeElement;
+      if (!active || active === document.body) back.focus({ preventScroll: true });
+    };
+  }, []);
   return ref;
 }
 

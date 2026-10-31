@@ -66,7 +66,7 @@ export default async function KontoPage() {
             Nächster Termin
           </h2>
           {upcoming.total > 1 ? (
-            <Link href={routes.account.bookings()} className="rounded-control type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover">
+            <Link href={routes.account.bookings()} className="-my-3.5 inline-flex min-h-touch items-center rounded-control type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover">
               {`Alle ${upcoming.total} anstehenden Termine`}
             </Link>
           ) : null}

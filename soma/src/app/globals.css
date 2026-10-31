@@ -40,6 +40,31 @@
   video {
     -webkit-user-drag: none;
   }
+  /* The SOMA wordmark (components/brand/logo.tsx): its outlines as a mask over currentColor. */
+  .wordmark {
+    display: inline-block;
+    flex-shrink: 0;
+    aspect-ratio: 442.52 / 104;
+    background-color: currentColor;
+    -webkit-mask: var(--wordmark) center / contain no-repeat;
+    mask: var(--wordmark) center / contain no-repeat;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  @media (forced-colors: active) {
+    .wordmark {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+  /* Shared paint for <Icon> (lucide geometry, drawn server-side). In the base layer, so fill-*, stroke-*
+     and text-* utilities on an icon still win. */
+  .ico {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
   dialog {
     color: inherit;
   }
@@ -236,11 +261,15 @@ dialog[data-closing]::backdrop {
   animation-duration: var(--transition-duration-base);
   animation-timing-function: var(--ease-standard);
 }
+/* A5-11: an overlapping cross-fade that never goes fully transparent. The new page starts at 0 ms and is
+   opaque after 180 ms; the old one stays nearly opaque until then (ease-exit) and is gone at 220 ms. */
 ::view-transition-old(.soma-page) {
-  animation: soma-vt-out 140ms var(--ease-exit) both;
+  animation: soma-vt-out 220ms var(--ease-exit) both;
 }
 ::view-transition-new(.soma-page) {
-  animation: soma-vt-in 260ms var(--ease-enter) 60ms both;
+  animation:
+    soma-vt-fade 180ms var(--ease-enter) both,
+    soma-vt-rise 260ms var(--ease-enter) both;
 }
 ::view-transition-group(soma-chrome) {
   animation: none;
@@ -260,9 +289,13 @@ dialog[data-closing]::backdrop {
 @keyframes soma-vt-out {
   to { opacity: 0; }
 }
-@keyframes soma-vt-in {
-  from { opacity: 0; translate: 0 6px; }
-  to { opacity: 1; translate: 0 0; }
+@keyframes soma-vt-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes soma-vt-rise {
+  from { translate: 0 6px; }
+  to { translate: 0 0; }
 }
 /* Fallback cross-fade for client navigations without the API. */
 .route-fade-in {

@@ -121,7 +121,7 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
                     <td>
                       <span className="flex flex-col items-start">
                         {r.customerName ? <CellLink href={`/admin/nutzer/${r.customerId}`}>{r.customerName}</CellLink> : <span className="text-ink-muted">{EMPTY}</span>}
-                        <Link href={routes.admin.booking(r.bookingId)} className="rounded-[6px] code-ref text-ink-muted underline-offset-4 hover:text-ink hover:underline focus-ring">
+                        <Link href={routes.admin.booking(r.bookingId)} className="rounded-[6px] py-1 code-ref text-ink-muted underline-offset-4 hover:text-ink hover:underline focus-ring">
                           {r.bookingReference}
                         </Link>
                       </span>

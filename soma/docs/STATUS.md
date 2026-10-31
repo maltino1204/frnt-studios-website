@@ -78,10 +78,10 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 
 ### 3.1 Latest numbers (final integration run)
 - `tsc --noEmit`: clean.
-- Vitest: **200/200** passing (unit + integration against Postgres; 22 files).
-- Playwright E2E against the production build: **108/108** passing (54 journeys × mobile + desktop, about 4 min). The suite
+- Vitest: **208/208** passing (unit + integration against Postgres; 24 files).
+- Playwright E2E against the production build: **125 passed, 1 skipped** (a desktop-only check), mobile + desktop, about 7 min. The suite
   covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1–F11
-  and the audit-4 regression tests (`tests/e2e/audit4.spec.ts`).
+  and the audit-4/audit-5 regression tests (`tests/e2e/audit4.spec.ts`, `tests/e2e/audit5.spec.ts`).
 - `next build`: 113 routes generated, 42 SEO city pages prerendered.
 
 **Not tested (no credentials or sandbox limits):** Stripe Connect (keys, webhook, Payment Element),
@@ -114,7 +114,21 @@ dimension *Premium-Anmutung* scores 9. The audit measured:
 - reduced motion fully respected;
 - E2E 108/108.
 
-All nine dimensions reach the target of ≥ 8 in audit 4. The auditor's demo verdict: ready to hand to the client, with
+**Fixed after audit 5** (verified by tests, not re-scored). All 15 findings A5-1 … A5-15 are fixed:
+- dialogs stay mounted and return focus;
+- 0 px overflow at 320 px; valid `dl` markup; accessible names; keyboard-scrollable rows;
+- 44 px hit areas; status words as well as colours; `favicon.ico`;
+- route cross-fade without a blank frame; NBSP in short dates;
+- haptics only on key confirmations; aura contrast ≥ 4.7:1.
+
+Performance (A5-9):
+- HTML on `/` is down from 390 to 340 KB, `/pro` from 204 to 163 KB, `/admin` from 301 to 237 KB;
+- Newsreader is no longer preloaded;
+- LCP with Fast 3G and 4× CPU: `/` 2.3 s, `/pro` 2.3 s, `/admin` 2.1 s.
+
+The `audit5.spec.ts` regressions run without `test.fail()`.
+
+Audit 4 (before Design v2): all nine dimensions ≥ 8; the auditor's demo verdict then: ready to hand to the client, with
 the caveats in `DEMO.md`.
 
 ### 4.1 Fixed after audit 4 (verified by tests, not re-scored)

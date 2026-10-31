@@ -9,7 +9,6 @@ import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Sheet } from "@/components/ui/sheet";
 import { cn } from "@/lib/cn";
-import { haptic } from "@/lib/haptic";
 import { formatDistance, formatDuration, formatPrice, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { quoteBookingAction } from "@/server/actions/booking";
@@ -200,7 +199,6 @@ function BookingCta({ block }: { block?: boolean }) {
   return (
     <ButtonLink
       href={checkoutHref(picker.offeringId, picker.slot, travel?.postalCode ?? null, inviteCode)}
-      onClick={() => haptic("select")}
       size="l"
       block={block}
       iconRight={<Icon icon={ArrowRight} />}
@@ -224,10 +222,7 @@ function StickyBar() {
         </p>
         <Button
           size="l"
-          onClick={() => {
-            haptic("tap");
-            openSheet();
-          }}
+          onClick={openSheet}
           className="shrink-0"
         >
           Termin wählen

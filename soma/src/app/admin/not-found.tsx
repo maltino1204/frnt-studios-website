@@ -5,6 +5,7 @@ import { routes } from "@/lib/routes";
 export default function AdminNotFound() {
   return (
     <EmptyState
+      headingLevel="h1"
       title="Eintrag nicht gefunden."
       action={
         <ButtonLink href={routes.admin.root()} size="s" variant="secondary">

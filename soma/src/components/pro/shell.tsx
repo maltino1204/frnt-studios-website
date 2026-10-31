@@ -22,7 +22,7 @@ import { Wordmark } from "@/components/brand/logo";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill, Status } from "@/components/ui/feedback";
 import { RouteTransition } from "@/components/ui/motion";
-import { BottomNav } from "@/components/ui/nav";
+import { BottomNav, LinkPending } from "@/components/ui/nav";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -180,6 +180,7 @@ function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
           active ? "bg-surface-raised text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
         )}
       >
+        {active ? null : <LinkPending />}
         <item.icon size={18} strokeWidth={active ? 1.9 : 1.5} absoluteStrokeWidth aria-hidden className={cn("shrink-0", active && "text-accent")} />
         <span className="flex-1">{item.label}</span>
         {item.count ? <CountPill accent>{item.count}</CountPill> : null}

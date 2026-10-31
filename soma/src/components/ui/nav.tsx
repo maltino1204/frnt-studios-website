@@ -1,10 +1,29 @@
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { ViewTransition } from "react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { CountPill } from "./feedback";
+
+/**
+ * Pending hint for navigation links (useLinkStatus). When the next page takes a moment (the /pro and /admin
+ * overviews render without a loading.tsx skeleton, so they paint complete on first load, A5-9), a soft fill
+ * fades in after 100 ms. Always rendered (no layout shift); place it inside a `relative` Link.
+ */
+export function LinkPending({ className }: { className?: string }) {
+  const { pending } = useLinkStatus();
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute inset-0 rounded-control bg-ink/[0.06] opacity-0 transition-opacity duration-base ease-calm",
+        pending && "opacity-100 delay-100",
+        className,
+      )}
+    />
+  );
+}
 
 export type BottomNavItem = { href: string; label: string; icon: LucideIcon; active?: boolean; count?: number };
 
@@ -40,7 +59,9 @@ export function BottomNav({ items, label = "Hauptnavigation", className }: { ite
                     <ViewTransition name={`${label.replace(/[^a-zA-Z]/g, "")}-pill`} share="soma-morph" default="none">
                       <span aria-hidden className="absolute inset-0 animate-settle rounded-full bg-ink/[0.07]" />
                     </ViewTransition>
-                  ) : null}
+                  ) : (
+                    <LinkPending className="rounded-full" />
+                  )}
                   <I size={22} strokeWidth={it.active ? 2 : 1.5} absoluteStrokeWidth aria-hidden className="relative" />
                   {it.count ? (
                     <CountPill accent className="absolute -top-0.5 right-1.5">

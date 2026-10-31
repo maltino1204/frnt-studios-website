@@ -17,7 +17,6 @@ import { Rating } from "@/components/ui/trust";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDistance, formatDuration, formatPrice, formatPriceExact, formatTime } from "@/lib/format";
-import { haptic } from "@/lib/haptic";
 import { routes } from "@/lib/routes";
 import { updateProfileAction } from "@/server/actions/account";
 import { confirmDevPaymentAction, createBookingAction, loadAvailabilityAction, quoteBookingAction } from "@/server/actions/booking";
@@ -272,8 +271,6 @@ export function CheckoutForm(props: CheckoutFormProps) {
       scrollTo(STEP_IDS[firstInvalid === -1 ? 3 : firstInvalid]);
       return;
     }
-    // A short tick on the key action (no-op on iOS, desktop and with reduced motion).
-    haptic("tap");
     setPhase(!customer && !guest ? "konto" : "reservieren");
     startSubmit(async () => {
       let createdGuest = guest;

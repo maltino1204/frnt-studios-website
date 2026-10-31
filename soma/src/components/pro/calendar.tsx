@@ -196,7 +196,6 @@ export function WeekGrid({ data }: { data: WeekData }) {
                   <Link
                     key={b.id}
                     href={routes.pro.booking(b.id)}
-                    aria-label={`${formatTime(b.startsAt)}–${formatTime(b.endsAt)}, ${customerLabel(b.customer)}, ${b.serviceName}, ${statusWord(b, data.now)}`}
                     className={cn(
                       "group absolute z-[2] flex overflow-hidden rounded-[10px] shadow-[0_1px_2px_rgb(23_22_31/0.06)] ring-inset transition-[box-shadow,translate] duration-fast focus-ring hover:-translate-y-px hover:shadow-float",
                       tone.block,
@@ -204,18 +203,27 @@ export function WeekGrid({ data }: { data: WeekData }) {
                     style={{ top: top + 1, height: h, left: `calc(${lane * width}% + 4px)`, width: `calc(${width}% - 8px)` }}
                   >
                     <span aria-hidden className={cn("w-[3px] shrink-0", tone.bar)} />
+                    {/* A5-4: the name comes from the content, so it starts with the visible text; the rest is sr-only. */}
                     <span className={cn("flex min-w-0 flex-col px-2 py-1", tone.text)}>
                       <span className="flex items-center gap-1 text-[11.5px] leading-tight font-[600] num">
                         {live ? (
-                          <span className="relative size-1.5 rounded-full bg-accent">
+                          <span aria-hidden className="relative size-1.5 rounded-full bg-accent">
                             <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60 [animation-duration:2.4s]" />
                           </span>
                         ) : null}
                         {formatTime(b.startsAt)}
+                        <span className="sr-only">{`–${formatTime(b.endsAt)}`}</span>
                         {b.status === "requested" ? <span className="font-[520] text-warning"> · Anfrage</span> : null}
                       </span>
-                      {h >= 40 ? <span className="truncate text-[12px] leading-snug font-[520]">{b.serviceName}</span> : null}
-                      {h >= 60 ? <span className="truncate text-[12px] leading-snug text-ink-muted">{customerLabel(b.customer)}</span> : null}
+                      <span className={h >= 40 ? "truncate text-[12px] leading-snug font-[520]" : "sr-only"}>
+                        <span className="sr-only">, </span>
+                        {b.serviceName}
+                      </span>
+                      <span className={h >= 60 ? "truncate text-[12px] leading-snug text-ink-muted" : "sr-only"}>
+                        <span className="sr-only">, </span>
+                        {customerLabel(b.customer)}
+                      </span>
+                      {b.status === "requested" ? null : <span className="sr-only">{`, ${statusWord(b, data.now)}`}</span>}
                     </span>
                   </Link>
                 );

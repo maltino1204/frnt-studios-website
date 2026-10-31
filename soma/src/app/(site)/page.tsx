@@ -7,7 +7,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline, Section } from "@/components/ui/layout";
-import { Reveal } from "@/components/ui/motion";
+import { Reveal, ScrollRegion } from "@/components/ui/motion";
 import { Photo } from "@/components/ui/photo";
 import { SuccessCheck } from "@/components/ui/success";
 import { Surface } from "@/components/ui/surface";
@@ -142,8 +142,8 @@ export default async function HomePage() {
       {/* Proof band (R14): real numbers that count up, real quotes */}
       <ProofBand proof={proof} />
 
-      {/* Categories */}
-      <Section aria-labelledby="behandlungen-titel" className="max-md:py-14">
+      {/* Categories. Every section below the hero is `cv-auto`: rendered only near the viewport (A5-9). */}
+      <Section aria-labelledby="behandlungen-titel" className="cv-auto max-md:py-14">
         <Container>
           <Reveal>
             <Rail
@@ -171,7 +171,7 @@ export default async function HomePage() {
       </Section>
 
       {/* How it works: three steps, each with a piece of the product */}
-      <Section aria-labelledby="ablauf-titel" className="pt-0 max-md:pb-14">
+      <Section aria-labelledby="ablauf-titel" className="cv-auto pt-0 max-md:pb-14">
         <Container>
           <Reveal className="flex max-w-reading flex-col gap-4">
             <Overline>So funktioniert&apos;s</Overline>
@@ -211,7 +211,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Places: home, hotel, office */}
-      <Section aria-labelledby="orte-titel" className="pt-0 max-md:pb-14">
+      <Section aria-labelledby="orte-titel" className="cv-auto pt-0 max-md:pb-14">
         <Container>
           <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-6">
             <div className="flex flex-col gap-5 lg:col-span-6">
@@ -224,47 +224,49 @@ export default async function HomePage() {
               Sie bleiben, wo Sie sind. Ihr Profi kommt mit allem, was es braucht, und hinterlässt den Raum, wie er war.
             </p>
           </Reveal>
-          <Reveal
-            as="ul"
-            stagger
-            aria-label="Orte"
-            className="-mx-(--space-gutter) -my-4 mt-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:mt-8 md:grid md:snap-none md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 lg:gap-6"
+          {/* A5-5: on phones the row scrolls sideways; the region makes it reachable and scrollable by keyboard. */}
+          <ScrollRegion
+            label="Orte"
+            className="@container -mx-(--space-gutter) -my-4 mt-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:mt-8 md:block md:snap-none md:overflow-visible md:px-0"
           >
-            {(
-              [
-                { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Hände klappen eine mobile Massageliege auf dem Parkett eines Wohnzimmers auf" },
-                { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – Ihr Profi kommt direkt zu Ihnen.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Masseur massiert einen Geschäftsreisenden am Abend in einer Frankfurter Hotelsuite" },
-                { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Schulter- und Nackenmassage auf einem Massagestuhl in einem Hamburger Besprechungsraum" },
-              ] satisfies Array<{ k: string; icon: LucideIcon; v: string; src: string; tone: string; place: string; alt: string }>
-            ).map((row) => (
-              <li key={row.k} className="w-[84%] shrink-0 snap-start md:w-auto md:min-w-0">
-                <Surface as="figure" className="flex h-full flex-col gap-4 p-1.5 pb-5">
-                  <div className="relative">
-                    <Photo src={row.src} alt={row.alt} tone={row.tone} sizes="(min-width: 768px) 30vw, 84vw" className="aspect-[3/2] w-full rounded-tile" />
-                    <span className="absolute bottom-3 left-3 z-[4] inline-flex max-w-[calc(100%-1.5rem)] items-center gap-1.5 truncate rounded-full glass-strong glass-edge px-3 py-1.5 type-caption text-ink shadow-raised">
-                      <Icon icon={MapPin} size={14} className="shrink-0" />
-                      <span className="truncate">{row.place}</span>
-                    </span>
-                  </div>
-                  <figcaption className="flex flex-col gap-2 px-3.5">
-                    <span className="flex items-center gap-2 type-heading-l text-ink">
-                      <Icon icon={row.icon} size={20} className="text-accent" />
-                      {row.k}
-                    </span>
-                    <span className="type-body-s text-ink-muted">{row.v}</span>
-                  </figcaption>
-                </Surface>
-              </li>
-            ))}
-          </Reveal>
+            <Reveal as="ul" stagger aria-label="Orte" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
+              {(
+                [
+                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Hände klappen eine mobile Massageliege auf dem Parkett eines Wohnzimmers auf" },
+                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – Ihr Profi kommt direkt zu Ihnen.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Masseur massiert einen Geschäftsreisenden am Abend in einer Frankfurter Hotelsuite" },
+                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Schulter- und Nackenmassage auf einem Massagestuhl in einem Hamburger Besprechungsraum" },
+                ] satisfies Array<{ k: string; icon: LucideIcon; v: string; src: string; tone: string; place: string; alt: string }>
+              ).map((row) => (
+                <li key={row.k} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
+                  <Surface as="figure" className="flex h-full flex-col gap-4 p-1.5 pb-5">
+                    <div className="relative">
+                      <Photo src={row.src} alt={row.alt} tone={row.tone} sizes="(min-width: 768px) 30vw, 84vw" className="aspect-[3/2] w-full rounded-tile" />
+                      <span className="absolute bottom-3 left-3 z-[4] inline-flex max-w-[calc(100%-1.5rem)] items-center gap-1.5 truncate rounded-full glass-strong glass-edge px-3 py-1.5 type-caption text-ink shadow-raised">
+                        <Icon icon={MapPin} size={14} className="shrink-0" />
+                        <span className="truncate">{row.place}</span>
+                      </span>
+                    </div>
+                    <figcaption className="flex flex-col gap-2 px-3.5">
+                      <span className="flex items-center gap-2 type-heading-l text-ink">
+                        <Icon icon={row.icon} size={20} className="text-accent" />
+                        {row.k}
+                      </span>
+                      <span className="type-body-s text-ink-muted">{row.v}</span>
+                    </figcaption>
+                  </Surface>
+                </li>
+              ))}
+            </Reveal>
+          </ScrollRegion>
         </Container>
       </Section>
 
       {/* Trust + SOMA-Garantie */}
-      <Section aria-labelledby="vertrauen-titel" className="pt-0 max-md:pb-14">
+      <Section aria-labelledby="vertrauen-titel" className="cv-auto pt-0 max-md:pb-14">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-12 lg:gap-6">
-            <Reveal className="flex flex-col gap-8 lg:col-span-5">
+          {/* One GuaranteePanel, placed by the grid: after the list on phones, under the heading from lg. */}
+          <div className="grid gap-8 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-6">
+            <Reveal className="lg:col-span-5">
               <div className="flex flex-col gap-5">
                 <Overline>Vertrauen</Overline>
                 <h2 id="vertrauen-titel" className="type-display-l">
@@ -274,9 +276,8 @@ export default async function HomePage() {
                   Wer zu Ihnen nach Hause kommt, muss mehr vorweisen als gute Fotos. Das prüfen wir – und das garantieren wir.
                 </p>
               </div>
-              <GuaranteePanel disputeWindowHours={terms.disputeWindowHours} className="max-lg:hidden" />
             </Reveal>
-            <Reveal as="ul" stagger className="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:gap-5">
+            <Reveal as="ul" stagger className="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:gap-5">
               <TrustItem icon={BadgeCheck} title="Jeder Profi ist verifiziert." badge>
                 Bevor jemand buchbar ist, prüfen wir {listSentence(terms.baseRequiredDocuments.map((d) => d.label)) || "Identität, Gewerbe und Versicherung"} – und
                 für jede angebotene Behandlung die Qualifikation.
@@ -296,7 +297,7 @@ export default async function HomePage() {
                 {NBSP}Stunden danach halten wir die Auszahlung an den Profi zurück – so greift die {BRAND_NAME}-Garantie, wenn etwas nicht stimmt.
               </TrustItem>
             </Reveal>
-            <Reveal className="lg:hidden">
+            <Reveal className="lg:col-span-5 lg:row-start-2 lg:self-start">
               <GuaranteePanel disputeWindowHours={terms.disputeWindowHours} />
             </Reveal>
           </div>
@@ -305,7 +306,7 @@ export default async function HomePage() {
 
       {/* Featured professionals */}
       {featured.length > 0 ? (
-        <Section aria-labelledby="profis-titel" className="pt-0 max-md:pb-14">
+        <Section aria-labelledby="profis-titel" className="cv-auto pt-0 max-md:pb-14">
           <Container>
             <Reveal>
               <Rail
@@ -331,7 +332,7 @@ export default async function HomePage() {
 
       {/* Cities */}
       {cities.length > 0 ? (
-        <Section aria-labelledby="staedte-titel" className="pt-0 max-md:pb-14">
+        <Section aria-labelledby="staedte-titel" className="cv-auto pt-0 max-md:pb-14">
           <Container>
             <Reveal className="grid gap-8 md:gap-10 lg:grid-cols-12 lg:gap-6">
               <div className="flex flex-col gap-5 lg:col-span-4">
@@ -360,10 +361,10 @@ export default async function HomePage() {
       ) : null}
 
       {/* For professionals: the page's one night band */}
-      <Section aria-labelledby="fuer-profis-titel" className="pt-0 max-md:pb-14">
+      <Section aria-labelledby="fuer-profis-titel" className="cv-auto pt-0 max-md:pb-14">
         <Container>
           <Reveal>
-            <div data-theme="night" className="relative isolate grid gap-10 overflow-clip rounded-panel px-6 py-10 md:px-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-14 lg:py-16">
+            <div data-theme="night" className="relative isolate grid gap-10 overflow-clip rounded-panel [clip-path:inset(0_round_var(--radius-panel))] px-6 py-10 md:px-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-14 lg:py-16">
                 <AuraBackground variant="night" placement="right" fade="none" />
                 <div className="flex flex-col gap-5 lg:col-span-6">
                   <Overline>Für Profis</Overline>
@@ -389,7 +390,7 @@ export default async function HomePage() {
 
       {/* FAQ */}
       {faq.length > 0 ? (
-        <Section aria-label="Häufige Fragen" className="pt-0 max-md:pb-14">
+        <Section aria-label="Häufige Fragen" className="cv-auto pt-0 max-md:pb-14">
           <Container>
             <Reveal>
               <FaqSection

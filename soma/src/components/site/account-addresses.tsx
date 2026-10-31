@@ -83,17 +83,31 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
 
 /** Address book: list, add / edit in a sheet, delete with confirmation, set default. */
 export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
+  // A5-1: the sheet and the modal stay mounted and close with open={false}, so the exit animation plays and
+  // the platform returns focus to the trigger. The last target is kept for the exit; `editRun` resets the form.
   const [editing, setEditing] = useState<AddressDTO | "new" | null>(null);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editRun, setEditRun] = useState(0);
   const [deleting, setDeleting] = useState<AddressDTO | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [pending, start] = useTransition();
   const toast = useToast();
 
+  const edit = (target: AddressDTO | "new") => {
+    setEditing(target);
+    setEditRun((n) => n + 1);
+    setEditOpen(true);
+  };
+  const askDelete = (a: AddressDTO) => {
+    setDeleting(a);
+    setDeleteOpen(true);
+  };
   const remove = () => {
     if (!deleting) return;
     start(async () => {
       const r = await deleteAddressAction(deleting.id);
       toast.show(r.ok ? (r.message ?? "Adresse gelöscht.") : r.error, { kind: r.ok ? "success" : "error" });
-      setDeleting(null);
+      setDeleteOpen(false);
     });
   };
   const makeDefault = (a: AddressDTO) =>
@@ -137,16 +151,17 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
                 {a.label && a.label !== LOCATION_LABELS[a.kind] ? <p className="type-caption text-ink-muted">{LOCATION_LABELS[a.kind]}</p> : null}
               </div>
             </div>
-            <div className="mt-auto -mb-1 -ml-2 flex items-center gap-1 border-t border-line pt-3">
-              <Button variant="ghost" size="s" onClick={() => setEditing(a)} icon={<Icon icon={Pencil} />}>
+            {/* Below 360 px the button icons drop out so both labels and the delete button fit (A5-2). */}
+            <div className="mt-auto -mb-1 -ml-2 flex min-w-0 items-center gap-1 border-t border-line pt-3">
+              <Button variant="ghost" size="s" onClick={() => edit(a)} icon={<Icon icon={Pencil} />} className="max-[359px]:px-3 max-[359px]:[&_svg]:hidden">
                 Bearbeiten
               </Button>
               {!a.isDefault ? (
-                <Button variant="ghost" size="s" onClick={() => makeDefault(a)} disabled={pending} icon={<Icon icon={Star} />}>
+                <Button variant="ghost" size="s" onClick={() => makeDefault(a)} disabled={pending} icon={<Icon icon={Star} />} className="max-[359px]:px-3 max-[359px]:[&_svg]:hidden">
                   Als Standard
                 </Button>
               ) : null}
-              <IconButton label="Löschen" onClick={() => setDeleting(a)} className="-mr-2.5 ml-auto text-danger hover:bg-danger-soft active:bg-danger-soft">
+              <IconButton label="Löschen" onClick={() => askDelete(a)} className="-mr-2 ml-auto shrink-0 text-danger hover:bg-danger-soft active:bg-danger-soft">
                 <Icon icon={Trash2} size={18} />
               </IconButton>
             </div>
@@ -155,7 +170,7 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
         <li className="flex">
           <button
             type="button"
-            onClick={() => setEditing("new")}
+            onClick={() => edit("new")}
             disabled={full}
             className="group flex min-h-32 w-full flex-col items-center justify-center gap-3 rounded-card border border-dashed border-line-strong bg-surface-raised/50 p-5 text-ink transition-[background-color,border-color,box-shadow] duration-base pressable focus-ring hover:border-ink-muted hover:bg-surface-raised hover:shadow-raised disabled:text-ink-disabled"
           >
@@ -168,30 +183,26 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
         </li>
       </ul>
 
-      {editing ? (
-        <Sheet open onClose={() => setEditing(null)} title={editing === "new" ? "Neue Adresse" : "Adresse bearbeiten"}>
-          <AddressForm address={editing === "new" ? null : editing} onDone={() => setEditing(null)} isFirst={addresses.length === 0} />
-        </Sheet>
-      ) : null}
-      {deleting ? (
-        <Modal
-          open
-          onClose={() => setDeleting(null)}
-          title="Adresse löschen?"
-          actions={
-            <>
-              <Button variant="ghost" onClick={() => setDeleting(null)}>
-                Behalten
-              </Button>
-              <Button variant="destructive" onClick={remove} loading={pending}>
-                Löschen
-              </Button>
-            </>
-          }
-        >
-          {`${deleting.street} ${deleting.houseNumber}, ${deleting.postalCode} ${deleting.city}. Gebuchte Termine behalten ihre Adresse.`}
-        </Modal>
-      ) : null}
+      <Sheet open={editOpen} onClose={() => setEditOpen(false)} title={editing === "new" ? "Neue Adresse" : "Adresse bearbeiten"}>
+        {editing ? <AddressForm key={editRun} address={editing === "new" ? null : editing} onDone={() => setEditOpen(false)} isFirst={addresses.length === 0} /> : null}
+      </Sheet>
+      <Modal
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Adresse löschen?"
+        actions={
+          <>
+            <Button variant="ghost" onClick={() => setDeleteOpen(false)}>
+              Behalten
+            </Button>
+            <Button variant="destructive" onClick={remove} loading={pending}>
+              Löschen
+            </Button>
+          </>
+        }
+      >
+        {deleting ? `${deleting.street} ${deleting.houseNumber}, ${deleting.postalCode} ${deleting.city}. Gebuchte Termine behalten ihre Adresse.` : null}
+      </Modal>
     </div>
   );
 }

@@ -138,7 +138,7 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
               <span className="absolute top-1/2 left-1/2 size-40 -translate-1/2 rounded-full border border-white/50" />
               <span className="absolute top-1/2 left-1/2 size-24 -translate-1/2 rounded-full border border-white/60" />
               <span className="absolute top-1/2 left-1/2 flex size-10 -translate-1/2 items-center justify-center rounded-full glass-strong glass-edge text-accent shadow-float">
-                <MapPin size={18} strokeWidth={1.8} absoluteStrokeWidth />
+                <Icon icon={MapPin} size={18} strokeWidth={1.8} />
               </span>
               <span className="absolute right-3 bottom-3 inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink num">
                 {formatDistance(b.location.distanceKm)}

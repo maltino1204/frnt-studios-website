@@ -4,19 +4,21 @@
  * iOS, desktop, without user activation and with prefers-reduced-motion.
  *
  *   haptic("success")  // booking confirmed, request accepted, treatment started
- *   haptic("tap")      // selection of a slot or date (sparingly)
  *   haptic("warning")  // destructive confirmation
+ *   haptic("select")   // rare: a date picked in a long flow
+ *
+ * Only on key confirmations, after the action resolves; never on ordinary taps (slots, chips, CTAs).
+ * Those answer visually (press, settle) instead (brief principle 11, guideline §10.3, A5-14).
  */
-export type HapticKind = "tap" | "select" | "success" | "warning";
+export type HapticKind = "select" | "success" | "warning";
 
 const PATTERNS: Record<HapticKind, number | number[]> = {
-  tap: 8,
   select: 10,
   success: [12, 60, 14],
   warning: [14, 80, 14],
 };
 
-export function haptic(kind: HapticKind = "tap"): boolean {
+export function haptic(kind: HapticKind = "success"): boolean {
   if (typeof window === "undefined" || typeof navigator === "undefined") return false;
   if (!("vibrate" in navigator) || typeof navigator.vibrate !== "function") return false;
   if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return false;

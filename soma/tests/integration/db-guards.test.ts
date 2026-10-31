@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { ServiceError } from "@/server/errors";
 import { wallTimeToInstant, addDays, localDateOf, isoWeekdayOf } from "@/server/domain/tz";
 import { createBooking } from "@/server/services/bookings";
-import { createCustomer, createProvider, NEW_ADDRESS, slotAtLeast, sql } from "./support/fixtures";
+import { ALL_DAY, createCustomer, createProvider, NEW_ADDRESS, slotAtLeast, sql } from "./support/fixtures";
 import { rawInsertBooking } from "./support/raw";
 
 /** Next local date (>= 2 days ahead) with the given ISO weekday. */
@@ -66,9 +66,11 @@ describe("database guards (triggers + exclusion constraint)", () => {
   });
 
   it("rejects invalid status transitions and snapshot changes", async () => {
-    const p = await createProvider();
+    const p = await createProvider({ weeklyHours: ALL_DAY });
     const c = await createCustomer();
-    const id = await rawInsertBooking(p, c, new Date(Date.now() + 26 * 3_600_000));
+    // A fixed 10:00 two days ahead (≥ 34 h away), so the insert never falls outside the working hours by time of day.
+    const start = wallTimeToInstant(addDays(localDateOf(new Date()), 2), 10 * 60).instant;
+    const id = await rawInsertBooking(p, c, start);
     await expect(sql()`update public.bookings set status = 'completed' where id = ${id}`).rejects.toThrow(/SOMA_INVALID_TRANSITION/);
     await expect(sql()`update public.bookings set status = 'in_progress' where id = ${id}`).rejects.toThrow(/SOMA_INVALID_TRANSITION/);
     await expect(sql()`update public.bookings set total_cents = 1 where id = ${id}`).rejects.toThrow(/SOMA_BOOKING_IMMUTABLE/);

@@ -60,7 +60,7 @@ export function AuraArt({
             top: `${b.y - b.h / 2}%`,
             width: `${b.w}%`,
             height: `${b.h}%`,
-            background: `radial-gradient(closest-side, ${auraColor(b.color, b.opacity)}, ${auraColor(b.color, b.opacity * 0.35)} 55%, transparent)`,
+            background: `radial-gradient(closest-side,${auraColor(b.color, b.opacity)},${auraColor(b.color, b.opacity * 0.35)} 55%,#0000)`,
             animationDelay: `${-i * 7}s`,
           }}
         />
@@ -158,7 +158,7 @@ export function AuraBackground({
             top: `${top}%`,
             width: `${size}%`,
             minWidth: variant === "hero" || variant === "night" ? "22rem" : "14rem",
-            background: `radial-gradient(closest-side, ${auraColor(STOPS[stop], alphas[stop])}, ${auraColor(STOPS[stop], alphas[stop] * 0.4)} 50%, transparent)`,
+            background: `radial-gradient(closest-side,${auraColor(STOPS[stop], alphas[stop])},${auraColor(STOPS[stop], alphas[stop] * 0.4)} 50%,#0000)`,
             animationDelay: `${-i * 9}s`,
           }}
         />

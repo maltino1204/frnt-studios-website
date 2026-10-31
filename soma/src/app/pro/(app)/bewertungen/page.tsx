@@ -36,21 +36,24 @@ export default async function ProReviewsPage({ searchParams }: PageProps<"/pro/b
             <Stars value={list.ratingAvg ?? 0} size={18} />
             <p className="type-caption text-ink-muted">{plural(list.ratingCount, "Bewertung", "Bewertungen")}</p>
           </div>
-          <dl className="flex flex-col gap-2">
-            {(["5", "4", "3", "2", "1"] as const).map((k) => (
-              <div key={k} className="grid grid-cols-[3.5rem_minmax(0,1fr)_2rem] items-center gap-3">
-                <dt className="type-caption text-ink-muted num">{k} Sterne</dt>
-                <dd aria-hidden className="h-2 overflow-hidden rounded-full bg-surface-sunken inset-shadow-sunken">
-                  <span className="block h-full rounded-full bg-ink" style={{ width: `${(list.distribution[k] / max) * 100}%` }} />
-                </dd>
-                <dd className="text-right type-caption text-ink-muted num">
-                  {list.distribution[k]}
-                  <span className="sr-only"> {list.distribution[k] === 1 ? "Bewertung" : "Bewertungen"}</span>
-                </dd>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            <dl className="flex flex-col gap-2">
+              {(["5", "4", "3", "2", "1"] as const).map((k) => (
+                <div key={k} className="grid grid-cols-[3.5rem_minmax(0,1fr)_2rem] items-center gap-3">
+                  <dt className="type-caption text-ink-muted num">{k} Sterne</dt>
+                  <dd aria-hidden className="h-2 overflow-hidden rounded-full bg-surface-sunken inset-shadow-sunken">
+                    <span className="block h-full rounded-full bg-ink" style={{ width: `${(list.distribution[k] / max) * 100}%` }} />
+                  </dd>
+                  <dd className="text-right type-caption text-ink-muted num">
+                    {list.distribution[k]}
+                    <span className="sr-only"> {list.distribution[k] === 1 ? "Bewertung" : "Bewertungen"}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            {/* A5-3: the footnote sits after the <dl>, not inside it. */}
             {total ? <p className="pt-1 type-caption text-ink-muted num">{Math.round(((list.distribution["5"] + list.distribution["4"]) / total) * 100)} % mit vier oder fünf Sternen</p> : null}
-          </dl>
+          </div>
         </section>
       ) : null}
 

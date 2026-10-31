@@ -143,18 +143,36 @@ export function Select({
   className,
   dense,
   hideLabel,
+  display,
   id: idProp,
   children,
   ...props
-}: FieldProps & ComponentProps<"select">) {
+}: FieldProps &
+  ComponentProps<"select"> & {
+    /**
+     * Visible content for the closed control, for values too long for one line (it may wrap, e.g. a service
+     * name over "60 Min. · 85 €"). The native select stays on top, transparent, so label, focus, keyboard and
+     * the platform picker are unchanged; the display itself is aria-hidden.
+     */
+    display?: ReactNode;
+  }) {
   const auto = useId();
   const id = idProp ?? auto;
   return (
     <FieldShell id={id} label={label} hint={hint} error={error} optional={optional} className={className} hideLabel={hideLabel}>
       <div className="group relative">
+        {display ? (
+          <div aria-hidden className="pointer-events-none flex min-h-12 flex-col justify-center gap-0.5 rounded-control bg-surface-raised py-2.5 pr-10 pl-3.5">
+            {display}
+          </div>
+        ) : null}
         <select
           id={id}
-          className={cn(control, "appearance-none pr-10", dense ? "h-control-s text-[15px]" : "h-12")}
+          className={cn(
+            control,
+            "appearance-none pr-10",
+            display ? "absolute inset-0 h-full bg-transparent text-transparent [&>option]:text-ink" : dense ? "h-control-s text-[15px]" : "h-12",
+          )}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(id, error, hint)}
           {...props}

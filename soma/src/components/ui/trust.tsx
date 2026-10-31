@@ -47,7 +47,7 @@ export function Rating({
   }
   return (
     <span className={cn("inline-flex items-center gap-1 type-label-s text-ink", className)} aria-label={`Bewertung ${formatRating(avg)} von 5 bei ${count} Bewertungen`}>
-      <Star size={size} strokeWidth={1.5} absoluteStrokeWidth className="fill-ink text-ink" aria-hidden />
+      <Icon icon={Star} size={size} className="fill-ink text-ink" />
       <span className="font-semibold num">{formatRating(avg)}</span>
       {showCount ? <span className="font-normal text-ink-muted num">({count})</span> : null}
     </span>
@@ -59,12 +59,10 @@ export function Stars({ value, size = 16, className }: { value: number; size?: n
   return (
     <span className={cn("inline-flex gap-0.5", className)} role="img" aria-label={`${value} von 5 Sternen`}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star
+        <Icon
           key={i}
+          icon={Star}
           size={size}
-          strokeWidth={1.5}
-          absoluteStrokeWidth
-          aria-hidden
           className={i <= Math.round(value) ? "fill-ink text-ink" : "fill-surface-sunken text-line-strong"}
         />
       ))}

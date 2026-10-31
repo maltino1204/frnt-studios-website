@@ -85,7 +85,8 @@ export default async function ProTodayPage() {
     <ProPage>
       <div className="relative isolate flex flex-col gap-8 lg:gap-10">
         <div aria-hidden className="pointer-events-none absolute -inset-x-(--space-gutter) -top-6 -z-10 h-[20rem] lg:-top-10 lg:h-[24rem]">
-          <AuraBackground variant="subtle" placement="top" fade="bottom" />
+          {/* A5-15: no grain behind the muted greeting meta; it darkened pixels to 4.37:1. */}
+          <AuraBackground variant="subtle" placement="top" fade="bottom" grain={false} />
         </div>
         <header className="flex flex-col gap-2.5">
           <p className="flex items-center gap-2.5 type-overline text-ink-muted" suppressHydrationWarning>
@@ -101,7 +102,7 @@ export default async function ProTodayPage() {
               <span key={s}>
                 {i > 0 ? <span aria-hidden> · </span> : null}
                 {i === 0 && dash.openRequests.length ? (
-                  <a href="#anfragen" className="font-[520] text-ink underline decoration-line-mid decoration-1 underline-offset-[0.25em] hover:decoration-ink">
+                  <a href="#anfragen" className="rounded-control py-3 font-[520] text-ink underline decoration-line-mid decoration-1 underline-offset-[0.25em] focus-ring hover:decoration-ink">
                     {s.replace(/^./, (c) => c.toUpperCase())}
                   </a>
                 ) : i === 0 ? (

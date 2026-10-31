@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CloudCheck } from "lucide-react";
+import { Icon } from "@/components/ui/icon";
 import { Wordmark } from "@/components/brand/logo";
 import { routes } from "@/lib/routes";
 import { getSession } from "@/server/auth/guards";
@@ -24,7 +25,7 @@ export default async function ProOnboardingLayout({ children }: LayoutProps<"/pr
       </a>
       <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--glass-hairline)]">
         <div className="mx-auto flex h-14 w-full max-w-content items-center justify-between gap-4 px-(--space-gutter) md:h-16">
-          <Link href={routes.forPros()} className="inline-flex min-h-touch items-center gap-3 rounded-control text-ink focus-ring" aria-label="SOMA für Profis">
+          <Link href={routes.forPros()} className="inline-flex min-h-touch items-center gap-3 rounded-control text-ink focus-ring" aria-label="SOMA Pro – für Profis">
             <Wordmark className="h-[18px]! w-auto lg:h-5!" />
             <span className="inline-flex h-5 items-center gap-1 rounded-full bg-ink px-2 text-[11px] leading-none font-[620] tracking-[0.02em] text-ink-inverse">
               <span aria-hidden className="size-1.5 rounded-full bg-aura" />
@@ -33,7 +34,7 @@ export default async function ProOnboardingLayout({ children }: LayoutProps<"/pr
           </Link>
           {session?.role === "provider" ? (
             <span className="inline-flex items-center gap-1.5 type-caption text-ink-muted">
-              <CloudCheck size={16} strokeWidth={1.6} absoluteStrokeWidth aria-hidden className="text-success" />
+              <Icon icon={CloudCheck} size={16} strokeWidth={1.6} className="text-success" />
               <span className="max-sm:sr-only">Jeder Schritt wird gespeichert</span>
               <span className="sm:hidden" aria-hidden>
                 Schritte werden gespeichert

@@ -42,6 +42,8 @@ function useClientMount(): boolean {
 /**
  * Global motion housekeeping, after mount only:
  * - html[data-hidden] while the tab is hidden (pauses every `ambient` loop);
+ * - html[data-automation] under navigator.webdriver: `cv-auto` sections render
+ *   in full, because full-page captures do not scroll (first paint is unchanged);
  * - smooth scrolling for same-page anchor links.
  * It never touches React-rendered attributes, so it cannot cause hydration
  * mismatches (offscreen pausing lives in <Ambient>).
@@ -49,6 +51,7 @@ function useClientMount(): boolean {
 export function MotionRoot() {
   useEffect(() => {
     const root = document.documentElement;
+    if (automated()) root.setAttribute("data-automation", "");
     const onVisibility = () => {
       if (document.hidden) root.setAttribute("data-hidden", "");
       else root.removeAttribute("data-hidden");
@@ -102,6 +105,43 @@ export function Ambient({ className, style, children, ...props }: Omit<Component
   }, []);
   return (
     <div ref={ref} data-ambient={on ? "on" : "off"} className={className} style={style} {...props}>
+      {children}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* ScrollRegion: horizontal scrollers that keyboard users can reach.         */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Wrapper for a horizontal snap row without focusable content (e.g. the home
+ * "Orte" row on phones). While its content overflows it is a focusable, named
+ * region, so Tab reaches it and the arrow keys scroll it (WCAG 2.1.1, axe
+ * scrollable-region-focusable). Where it does not scroll (the desktop grid) it
+ * is a plain wrapper, so there is no empty tab stop. Server HTML is focusable.
+ */
+export function ScrollRegion({ label, className, children }: { label: string; className?: string; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [scrolls, setScrolls] = useState(true);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const update = () => setScrolls(el.scrollWidth > el.clientWidth + 1);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      role={scrolls ? "region" : undefined}
+      aria-label={scrolls ? label : undefined}
+      tabIndex={scrolls ? 0 : undefined}
+      className={cn("focus-ring", className)}
+    >
       {children}
     </div>
   );

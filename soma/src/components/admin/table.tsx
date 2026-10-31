@@ -162,7 +162,8 @@ export function CellLink({ href, children, sub, row }: { href: string; children:
       <Link
         href={href}
         className={cn(
-          "w-fit rounded-[6px] font-[520] text-ink decoration-line-strong underline-offset-4 hover:underline focus-ring",
+          // py-0.5: the target grows to ≥ 24 px (WCAG 2.5.8, A5-6); no negative margin, so stacked links never overlap.
+          "w-fit rounded-[6px] py-0.5 font-[520] text-ink decoration-line-strong underline-offset-4 hover:underline focus-ring",
           row && "after:absolute after:inset-0 after:content-[''] [tr:hover_&]:underline",
         )}
       >

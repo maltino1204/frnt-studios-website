@@ -104,7 +104,7 @@ The values are lighter than v1. The token **names** are the same as in v1, so ex
 - the aura on `/admin` surfaces beyond charts, the σ tile and the aura line;
 - pink-dominant washes or rose-gold.
 
-**Text on aura.** Ink is always safe: it measures ≥ 11:1 even on the strongest hero peak. Muted text is AA on the `section` and `subtle` intensities (≥ 4.53:1). It is **not** AA on the `hero` intensity peaks (3.68–4.74:1). So on a hero, keep muted text away from the glow (use `placement="right"` with the text on the left), or set it on a surface or card.
+**Text on aura.** Ink is always safe: it measures ≥ 11:1 even on the strongest hero peak. Muted text is AA on the `section` and `subtle` intensities (≥ 4.53:1). It is **not** AA on the `hero` intensity peaks (3.68–4.74:1). So on a hero, keep muted text away from the glow (use `placement="right"` with the text on the left), or set it on a surface or card. The film grain darkens single pixels (down to 4.37:1 on `subtle`), so behind muted text use `grain={false}` (the `/pro` greeting band, the booking hero on phones; audit 5, A5-15).
 
 ### 4.3 Proportions and rules
 
@@ -172,10 +172,10 @@ All ratios were computed with the WCAG relative-luminance formula (script values
 | Role | Family | Loading | Why |
 |---|---|---|---|
 | UI and display | **Inter** (variable `wght` 100–900 + `opsz` 14–32) | `next/font/google`, latin, **preloaded** (~73 KB) | An engineered grotesk with real optical sizes: from 32 px the display cut tightens spacing and details automatically (`font-optical-sizing: auto`). It has first-class tabular figures, `ss01` open digits and `ss03` round quotes for „…“. |
-| Emotional accent | **Newsreader Italic**, display cut (opsz 72, wght 400) | `next/font/local`, `src/styles/fonts/newsreader-display-italic.woff2`, latin, **preloaded** (23 KB), SIL OFL | v1's serif, kept as the warm counterpoint. It is self-hosted as the static display instance: the variable version with its `opsz` axis costs 147 KB. |
+| Emotional accent | **Newsreader Italic**, display cut (opsz 72, wght 400) | `next/font/local`, `src/styles/fonts/newsreader-display-italic.woff2`, latin, **not preloaded** (23 KB), SIL OFL | v1's serif, kept as the warm counterpoint. It is self-hosted as the static display instance: the variable version with its `opsz` axis costs 147 KB. |
 | References | **DM Mono** 400/500 | `next/font/google`, **not preloaded** | Booking references and IDs in `/pro` and `/admin` only (`code-ref`). |
 
-The budget on `/` is 2 preloaded files and about **96 KB** in total (the brief allows 2 files and 150 KB). The Inter latin-ext file loads only when such glyphs appear (*Doğan*).
+Only Inter is preloaded (one file, ~72 KB; the brief allows 2 files and 150 KB). Newsreader (23 KB) is fetched as soon as an accent is styled and swaps in over its metric-matched Times fallback, so it no longer competes with the render-blocking CSS on routes without an accent above the fold (audit 5, A5-9). The Inter latin-ext file loads only when such glyphs appear (*Doğan*).
 
 The CSS variables are `--font-sans-src` (Inter), `--font-accent-src` (Newsreader) and `--font-mono-src`. The theme exposes `font-sans`, `font-display` (Inter as well), `font-accent` and `font-mono`.
 
@@ -280,7 +280,7 @@ Every interactive element is at least 44 × 44 px (`size-touch`, or a pseudo-ele
 
 | Component | Import | v2 spec |
 |---|---|---|
-| `Button`, `ButtonLink`, `buttonClasses()` | `@/components/ui/button` | Pill. Sizes are S 36, M 44 and L 52. Variants: `primary` (ink + `shadow-ink`), `secondary` (white + mid ring), `ghost`, `accent`, `link`, `destructive`. Hover lifts filled variants by 1 px; the press scales to 0.97 on a spring; `focus-ring`. **Loading** blurs and fades the label out while the spinner springs in, at the same width, with `aria-busy`. |
+| `Button`, `ButtonLink`, `buttonClasses()` | `@/components/ui/button` | Pill. Sizes are S 36 (with a 44 px hit area), M 44 and L 52. Variants: `primary` (ink + `shadow-ink`), `secondary` (white + mid ring), `ghost`, `accent`, `link`, `destructive`. Hover lifts filled variants by 1 px; the press scales to 0.97 on a spring; `focus-ring`. **Loading** blurs and fades the label out while the spinner springs in, at the same width, with `aria-busy`. |
 | `IconButton` | same | 44 px circle, ghost. Always pass `label`. |
 | `Input`, `Textarea`, `Select` | `@/components/ui/field` | 48 px (`dense` 36), `rounded-control`, `border-line-strong`, `inset-shadow-field`. Focus: accent border plus a 4 px glow. Errors fade in with `CircleAlert`, `aria-invalid` and `aria-describedby`. The select chevron rotates while focused. |
 | `Checkbox` | same | 20 px with a 6 px radius. The tick **draws in** (`stroke-dashoffset`) and the box settles on a spring. |
@@ -296,7 +296,7 @@ Every interactive element is at least 44 × 44 px (`size-touch`, or a pseudo-ele
 |---|---|---|
 | `Sheet` | `@/components/ui/sheet` | Mobile: `glass-strong` bottom sheet, 28 px top radius, spring entry, **drag the header down to dismiss** (rubber band upwards, dismiss at 110 px or a fast flick), and an exit animation before close. From `md` it becomes a centred white dialog (`rounded-card shadow-overlay`). `variant="drawer"` is a right-hand 400 px drawer. Built on `<dialog>`: focus trap, Esc and focus restore. |
 | `Modal` | `@/components/ui/dialog` | Glass, `rounded-card`. Rises in and fades out. Only for consequential confirmations. On open, focus goes to the **first action** (the safe one, e.g. *Behalten*), never into a text field, so the mobile keyboard stays down. `initialFocus` takes `"actions"` (default), `"auto"` (platform default), a ref or a selector. |
-| `useDialogMotion(open, onClose, initialFocus?)` | `@/components/ui/sheet` | Use it for any custom `<dialog>`: showModal, focus per `initialFocus`, exit animation, then close. `Sheet` accepts `initialFocus` too (default `"auto"`, the close button). |
+| `useDialogMotion(open, onClose, initialFocus?)` | `@/components/ui/sheet` | Use it for any custom `<dialog>`: showModal, focus per `initialFocus`, exit animation, then close. `Sheet` accepts `initialFocus` too (default `"auto"`, the close button). **Keep `Modal` and `Sheet` mounted and close them with `open={false}`**: only then does the exit play and focus return to the trigger. `{open ? <Modal open …/> : null}` skips both; a safety net still gives focus back (audit 5, A5-1). |
 | `ToastProvider`, `useToast()` | `@/components/ui/toast` | Glass tile that **springs in** and fades out. Success icons draw their check. `toast.show(msg, { kind, action, haptic: true })` (`haptic` for key confirmations). Shown for 5 s (8 s with an action) and paused on hover or focus. |
 
 ### 8.3 Content and status
@@ -461,7 +461,7 @@ The animation utilities are `animate-fade-in`, `animate-sheet-in`, `animate-dial
 <Parallax depth={16}><Surface className="p-4">…</Surface></Parallax>
 ```
 
-**`RouteTransition`** (`@/components/ui/motion`). The page cross-fade on client navigation. With the View Transitions API, the old page fades out in 140 ms and the new one rises in 6 px; without it, the new page cross-fades in. Only pathname changes animate, not search params, refreshes or server actions. It is already wired into the site, checkout, account, `/pro` and `/admin` shells, so do not add it to pages. For your own shared-element morphs, use React's `<ViewTransition name="…" share="soma-morph" default="none">` (as in `TabLinks` and `BottomNav`). Full page loads use `@view-transition { navigation: auto }`.
+**`RouteTransition`** (`@/components/ui/motion`). The page cross-fade on client navigation. With the View Transitions API the two pages overlap: the new one fades in over 180 ms and rises 6 px (260 ms) on top of the old one, which fades out over 220 ms (`ease-exit`), so there is never a blank frame; without the API, the new page cross-fades in. Only pathname changes animate, not search params, refreshes or server actions. It is already wired into the site, checkout, account, `/pro` and `/admin` shells, so do not add it to pages. For your own shared-element morphs, use React's `<ViewTransition name="…" share="soma-morph" default="none">` (as in `TabLinks` and `BottomNav`). Full page loads use `@view-transition { navigation: auto }`.
 
 **Automation.** Under `navigator.webdriver` (E2E, QA screenshots), `Reveal` and `CountUp` render their final state immediately. Full-page captures do not scroll, so nothing may wait for a scroll.
 
@@ -481,7 +481,7 @@ haptic("warning"); // destructive confirmation (cancel)
 haptic("select");  // rare: date picked in a long flow
 ```
 
-Call it only on **key confirmations**, after the action resolves, never on every tap. `toast.show(msg, { haptic: true })` does it for you.
+Call it only on **key confirmations**, after the action resolves, never on every tap. `toast.show(msg, { haptic: true })` does it for you. Slot, chip and CTA taps (including *Termin wählen* and *Zahlungspflichtig buchen*) never vibrate: they answer visually with press and settle, and the booking itself vibrates once it is confirmed (brief principle 11; audit 5, A5-14).
 
 **`SuccessCheck`**. Use it on *Bestätigt.*, *Gespeichert*, *Angenommen*: `<SuccessCheck size={56} />` next to the word, plus `haptic("success")` on the client.
 
@@ -537,7 +537,7 @@ The brand is the same, at higher density.
   - Toolbars sit above tables: search input, chips and a segmented range.
   - Numbers use `num`, and empty values show *—*.
   - Destructive actions are confirmed in a `Modal`.
-  - Every async view has `loading.tsx` skeletons that match the final geometry, plus an `EmptyState`.
+  - Every async view has `loading.tsx` skeletons that match the final geometry, plus an `EmptyState`. **Exception:** the `/pro` and `/admin` overviews render complete, without a `loading.tsx`. Their data is ready in under 200 ms, and a streamed skeleton held the content back: React batches Suspense reveals, which cost about 0.5 s of LCP on slow networks (audit 5, A5-9). Navigation links show `LinkPending` (`@/components/ui/nav`) while such a page loads.
 
 ---
 
@@ -579,6 +579,13 @@ The brand is the same, at higher density.
 - **Imports.** `globals.css` imports `tailwindcss` first, then `../styles/tokens.css`. The tokens reset Tailwind's default colours, type sizes, radii, shadows and inset shadows.
 - **Wrapping utilities.** Use `text-wrap-style` (the longhand) in custom CSS. The `text-wrap` shorthand resets `text-wrap-mode` and silently breaks `truncate` and `whitespace-nowrap`.
 - **`cn()` merges.** It is `clsx` + `tailwind-merge` v3, taught SOMA's scales (radius, shadow, inset shadow, spacing, containers, `text-*` sizes, fonts, ease, durations, animations; `bg-aura` counts as a background image). A later conflicting class wins, so `className` overrides component defaults: `<Badge className="hidden sm:inline-flex">`, `<IconButton className="rounded-control">`. Important overrides (`h-5!`) are kept next to the base class and win in CSS. Custom utilities (`type-*`, `glass`, `pressable`, `num` …) pass through untouched. Tests: `tests/unit/cn.test.ts`.
+- **Payload and first paint (audit 5, A5-9):**
+  - `Icon` draws the lucide geometry itself (an `<svg class="ico">`), so Server Components ship no client-component reference per icon. Use `<Icon icon={X} />` instead of `<X />` in Server Components; `fill-*` and `stroke-*` utilities still win.
+  - `Wordmark` is a CSS mask (`--wordmark` in `tokens.css`), so its outline is not repeated in every page's HTML and RSC payload.
+  - Put repeated link styles on the parent (`[&_a]:…`, as in the footer), not on fifty links.
+  - `cv-auto` (`content-visibility: auto`; size estimate via `[--cv-size:…]`) skips style, layout and paint of below-the-fold sections until they come near the viewport. It implies paint containment, so use it on full-width blocks whose shadows stay inside their padding. Under automation it renders in full after hydration, so full-page captures stay complete.
+  - `ScrollRegion` (`@/components/ui/motion`) wraps a horizontal snap row without focusable content. While the row scrolls, it is a focusable, named region (keyboard scrolling).
+  - The film grain is a mask over an ink fill, so it is never an LCP candidate.
 - **After editing `globals.css` or `tokens.css` in dev:** check that the change is actually in the served CSS (`curl` the CSS chunk and `grep`). Turbopack occasionally keeps a stale transform. If it does, make a real content edit or restart the dev server **by PID**. Never put `url(` with a bare argument in a CSS comment.
 - **Hero recipe:**
 

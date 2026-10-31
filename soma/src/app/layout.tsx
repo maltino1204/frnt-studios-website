@@ -10,14 +10,17 @@ import { ServiceWorker } from "@/components/ui/service-worker";
 import "./globals.css";
 
 /*
- * Type system v2 (design-guideline §5). Font budget on "/": 2 preloaded files,
- * ~96 KB in total.
+ * Type system v2 (design-guideline §5). One preloaded file (~72 KB) on every route.
  * - Inter (variable: wght + opsz 14–32) is the UI and display face. Its optical
  *   size axis follows font-size, so headlines get the tighter display cut.
  *   Latin is preloaded (~73 KB); latin-ext downloads only for names like "Doğan".
  * - Newsreader Italic is the emotional accent (<em> in display headlines, the
  *   tagline, quotes). It is self-hosted as the static display cut (opsz 72,
  *   wght 400, latin, 23 KB, SIL OFL: src/styles/fonts/OFL-Newsreader.txt).
+ *   Not preloaded (A5-9): a preload competed with the render-blocking CSS on
+ *   every route, most of which show no accent above the fold. The browser
+ *   fetches it as soon as an <em> is styled; until then the metric-matched
+ *   Times fallback holds the space (display: swap, no layout shift).
  * - DM Mono is for booking references in /pro and /admin only, never preloaded.
  */
 const sans = Inter({
@@ -32,6 +35,7 @@ const accent = localFont({
   style: "italic",
   weight: "400",
   display: "swap",
+  preload: false,
   variable: "--font-accent-src",
   adjustFontFallback: "Times New Roman",
 });

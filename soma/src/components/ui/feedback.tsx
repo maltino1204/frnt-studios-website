@@ -60,11 +60,14 @@ export function EmptyState({
   seed,
   tone,
   align = "start",
+  headingLevel = "h2",
 }: {
   title: ReactNode;
   children?: ReactNode;
   action?: ReactNode;
   className?: string;
+  /** "h1" when the empty state is the whole page (e.g. a not-found state) */
+  headingLevel?: "h1" | "h2" | "h3";
   art?: boolean;
   /** seeds the artwork; defaults to the title text */
   seed?: string;
@@ -73,6 +76,7 @@ export function EmptyState({
   align?: "start" | "center";
 }) {
   const s = seed ?? (typeof title === "string" ? title : "leer");
+  const Heading = headingLevel;
   return (
     <div
       className={cn(
@@ -82,7 +86,7 @@ export function EmptyState({
       )}
     >
       {art ? <EmptyArt seed={s} tone={tone} className="mb-2" /> : <span aria-hidden className="block h-0.5 w-6 rounded-full bg-aura" />}
-      <h2 className="type-display-s">{title}</h2>
+      <Heading className="type-display-s">{title}</Heading>
       {children ? <div className="type-body-s text-ink-muted">{children}</div> : null}
       {action ? <div className="pt-2">{action}</div> : null}
     </div>

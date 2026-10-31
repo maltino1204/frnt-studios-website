@@ -63,10 +63,12 @@ export function auraPalette(tone?: string | null, seed = ""): AuraPalette {
   return PERSON_AURA[hashSeed(seed || tone || "soma") % PERSON_AURA.length];
 }
 
+/** "#5466ff", 0.3 → "#5466ff4d": 8-digit hex keeps the inline gradients (HTML and RSC payload) short (A5-9). */
 function alpha(hex: string, a: number): string {
   const h = hex.replace("#", "");
-  const n = parseInt(h.length === 3 ? h.replace(/(.)/g, "$1$1") : h, 16);
-  return `rgb(${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255} / ${a.toFixed(2)})`;
+  const rgb = (h.length === 3 ? h.replace(/(.)/g, "$1$1") : h).slice(0, 6).toLowerCase();
+  const aa = Math.round(Math.min(1, Math.max(0, a)) * 255);
+  return `#${rgb}${aa.toString(16).padStart(2, "0")}`;
 }
 
 const r2 = (n: number) => Math.round(n * 10) / 10;
@@ -117,7 +119,7 @@ export function auraBackground(seed: string, tone?: string | null): { background
   const layers = blobs
     .slice()
     .reverse()
-    .map((b) => `radial-gradient(${b.w}% ${b.h}% at ${b.x}% ${b.y}%, ${alpha(b.color, b.opacity)} 0%, ${alpha(b.color, b.opacity * 0.35)} 38%, transparent 72%)`);
+    .map((b) => `radial-gradient(${b.w}% ${b.h}% at ${b.x}% ${b.y}%,${alpha(b.color, b.opacity)},${alpha(b.color, b.opacity * 0.35)} 38%,#0000 72%)`);
   const base = palette.dark
     ? `linear-gradient(${angle}deg, ${palette.wash}, #1d1b26)`
     : `linear-gradient(${angle}deg, ${palette.wash}, #ffffff)`;

@@ -27,7 +27,8 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-  s: "h-control-s px-3.5 type-label-s [&_svg]:size-4",
+  // 36 px visual, 44 px hit area (A5-6, guideline §13): the pseudo-element extends the target vertically.
+  s: "h-control-s px-3.5 type-label-s [&_svg]:size-4 before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
   m: "h-control px-5 type-label [&_svg]:size-[18px]",
   l: "h-control-l px-7 type-label text-[1rem] [&_svg]:size-5",
 };

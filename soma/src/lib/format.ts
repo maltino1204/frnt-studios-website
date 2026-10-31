@@ -42,8 +42,8 @@ const monthShortFmt = fmt({ month: "short" });
 export const formatTime = (d: DateInput) => timeFmt.format(toDate(d));
 /** "Donnerstag, 6. November" */
 export const formatDay = (d: DateInput) => dayFmt.format(toDate(d));
-/** "Do., 6. Nov." */
-export const formatDayShort = (d: DateInput) => dayShortFmt.format(toDate(d));
+/** "Do., 6. Nov." with non-breaking spaces, so a short date never breaks across lines (guideline §3, A5-12). */
+export const formatDayShort = (d: DateInput) => dayShortFmt.format(toDate(d)).replace(/ /g, "\u00a0");
 /** "06.11.2026" */
 export const formatDate = (d: DateInput) => dateFmt.format(toDate(d));
 /** "6. November 2026" */

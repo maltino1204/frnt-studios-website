@@ -180,7 +180,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
         {documents.length ? (
           <ul className="grid gap-3 sm:grid-cols-2">
             {documents.map((d) => (
-              <li key={d.id} className={cn("flex items-start gap-3.5 rounded-card bg-surface-raised p-4 shadow-raised transition-opacity duration-base", deleting && deletingId === d.id && "opacity-50")}>
+              <li key={d.id} className={cn("flex min-w-0 items-start gap-3.5 rounded-card bg-surface-raised p-4 shadow-raised transition-opacity duration-base", deleting && deletingId === d.id && "opacity-50")}>
                 <IconTile icon={FileText} tone={d.status === "approved" ? "success" : d.status === "rejected" ? "danger" : "neutral"} size={40} />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <p className="truncate type-body-s font-[560] text-ink">{d.fileName}</p>

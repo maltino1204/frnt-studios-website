@@ -93,9 +93,13 @@ export function AgendaTimeline({ bookings, now = Date.now(), showDate = false, l
                     <Icon icon={MapPin} size={16} className="size-3.5! shrink-0" />
                     <span className="truncate">{placeLine(b)}</span>
                   </span>
+                  {/* A5-7: status always as a word (guideline §4.3); on phones it sits under the place line. */}
+                  <span className="flex pt-1 sm:hidden">
+                    <Status tone={live ? "accent" : st.tone}>{live ? "Jetzt" : st.label}</Status>
+                  </span>
                 </span>
-                <Status tone={live ? "accent" : st.tone} className="max-sm:px-2!">
-                  <span className="sr-only sm:not-sr-only">{live ? "Jetzt" : st.label}</span>
+                <Status tone={live ? "accent" : st.tone} className="max-sm:hidden">
+                  {live ? "Jetzt" : st.label}
                 </Status>
                 <Icon icon={ChevronRight} size={16} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
               </Link>

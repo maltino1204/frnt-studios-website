@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Wordmark } from "@/components/brand/logo";
 import { AuraBackground } from "@/components/ui/aura";
 import { Container } from "@/components/ui/layout";
+import { cn } from "@/lib/cn";
 import { BRAND_NAME, BRAND_TAGLINE, SUPPORT_EMAIL } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 import type { CategoryDTO, CityDTO } from "@/server/dto";
@@ -64,7 +65,7 @@ export async function SiteFooter() {
   ];
 
   return (
-    <footer className="relative isolate overflow-clip border-t border-line bg-surface pt-16 pb-10 text-ink md:pt-24">
+    <footer className="relative isolate cv-auto overflow-clip border-t border-line bg-surface pt-16 pb-10 text-ink [--cv-size:1100px] md:pt-24 lg:[--cv-size:560px]">
       <AuraBackground variant="subtle" placement="left" fade="bottom" animate={false} className="opacity-70" />
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
@@ -74,19 +75,21 @@ export async function SiteFooter() {
             </Link>
             <p className="max-w-[16ch] type-accent text-[1.75rem] leading-[1.1] text-ink lg:text-[2rem]">{BRAND_TAGLINE}</p>
           </div>
-          <nav aria-label="Fußzeile" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5">
+          {/* The link style lives once on the nav (not on ~50 links), which keeps every page's HTML and RSC payload smaller (A5-9). */}
+          <nav
+            aria-label="Fußzeile"
+            className={cn(
+              "grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5",
+              "[&_a]:inline-flex [&_a]:min-h-touch [&_a]:items-center [&_a]:rounded-control [&_a]:py-1 [&_a]:type-body-s [&_a]:break-words [&_a]:text-ink-muted [&_a]:transition-colors [&_a]:duration-fast [&_a]:focus-ring [&_a]:hover:text-ink lg:[&_a]:min-h-8",
+            )}
+          >
             {columns.map((col) => (
               <div key={col.title} className="flex min-w-0 flex-col gap-3">
                 <h2 className="type-label-s text-ink">{col.title}</h2>
                 <ul className="flex flex-col lg:gap-0.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        className="inline-flex min-h-touch items-center rounded-control py-1 type-body-s break-words text-ink-muted transition-colors duration-fast hover:text-ink focus-ring lg:min-h-8"
-                      >
-                        {l.label}
-                      </Link>
+                      <Link href={l.href}>{l.label}</Link>
                     </li>
                   ))}
                 </ul>

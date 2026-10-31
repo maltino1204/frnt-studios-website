@@ -6,7 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { Container, Section } from "@/components/ui/layout";
-import { CountUp, Reveal } from "@/components/ui/motion";
+import { CountUp, Reveal, ScrollRegion } from "@/components/ui/motion";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
@@ -28,7 +28,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
       value: (
         <>
           <CountUp value={Math.round(proof.ratingAvg * 10) / 10} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
-          <Star aria-hidden size={22} strokeWidth={1.5} absoluteStrokeWidth className="fill-ink text-ink" />
+          <Icon icon={Star} size={22} className="fill-ink text-ink" />
           <span className="sr-only"> von 5 Sternen</span>
         </>
       ),
@@ -62,36 +62,37 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
         ) : null}
         {quotes.length ? (
           // Phones: one swipeable row (no auto-advance) instead of stacked quotes; from md three columns.
-          <Reveal
-            as="ul"
-            stagger
-            aria-label="Stimmen aus verifizierten Bewertungen"
-            className="-mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 lg:gap-6"
+          // A5-5: while it scrolls it is a focusable, named region (keyboard scrolling).
+          <ScrollRegion
+            label="Stimmen"
+            className="@container -mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:block md:snap-none md:overflow-visible md:px-0"
           >
-            {quotes.map((q) => (
-              <li key={q.id} className="w-[84%] shrink-0 snap-start md:w-auto md:min-w-0">
-                <figure className="flex h-full flex-col justify-between gap-6 rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
-                  <div className="flex flex-col gap-3">
-                    <Icon icon={Quote} size={20} className="text-accent" />
-                    <blockquote className="type-heading-l text-ink">
-                      <p>{`„${q.comment}“`}</p>
-                    </blockquote>
-                  </div>
-                  <figcaption className="flex items-center gap-3">
-                    <Avatar name={q.authorName} size={32} />
-                    <span className="min-w-0 type-caption text-ink-muted">
-                      <span className="block font-[560] text-ink">{q.authorName}</span>
-                      {`${q.serviceName} bei `}
-                      <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-accent hover:decoration-accent">
-                        {q.providerName}
-                      </Link>
-                      {q.cityName ? ` · ${q.cityName}` : null}
-                    </span>
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </Reveal>
+            <Reveal as="ul" stagger aria-label="Stimmen aus verifizierten Bewertungen" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
+              {quotes.map((q) => (
+                <li key={q.id} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
+                  <figure className="flex h-full flex-col justify-between gap-6 rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
+                    <div className="flex flex-col gap-3">
+                      <Icon icon={Quote} size={20} className="text-accent" />
+                      <blockquote className="type-heading-l text-ink">
+                        <p>{`„${q.comment}“`}</p>
+                      </blockquote>
+                    </div>
+                    <figcaption className="flex items-center gap-3">
+                      <Avatar name={q.authorName} size={32} />
+                      <span className="min-w-0 type-caption text-ink-muted">
+                        <span className="block font-[560] text-ink">{q.authorName}</span>
+                        {`${q.serviceName} bei `}
+                        <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-accent hover:decoration-accent">
+                          {q.providerName}
+                        </Link>
+                        {q.cityName ? ` · ${q.cityName}` : null}
+                      </span>
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </Reveal>
+          </ScrollRegion>
         ) : null}
       </Container>
     </Section>

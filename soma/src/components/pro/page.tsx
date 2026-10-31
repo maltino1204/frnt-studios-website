@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, ChevronLeft } from "lucide-react";
+import { Icon } from "@/components/ui/icon";
 import { AuraLine } from "@/components/ui/aura";
 import { cn } from "@/lib/cn";
 
@@ -45,7 +46,7 @@ export function ProHeader({
             href={back.href}
             className="group -ml-2 inline-flex h-9 items-center gap-1 self-start rounded-full pr-3 pl-1.5 type-label-s text-ink-muted transition-colors duration-fast pressable focus-ring hover:bg-ink/[0.04] hover:text-ink"
           >
-            <ChevronLeft size={16} strokeWidth={1.6} absoluteStrokeWidth aria-hidden className="transition-transform duration-fast group-hover:-translate-x-0.5" />
+            <Icon icon={ChevronLeft} size={16} strokeWidth={1.6} className="transition-transform duration-fast group-hover:-translate-x-0.5" />
             {back.label}
           </Link>
         ) : null}
@@ -107,7 +108,7 @@ export function AsideLink({ href, children }: { href: string; children: ReactNod
       className="group relative -mr-2 inline-flex h-9 items-center gap-1 rounded-full px-2.5 type-label-s text-accent transition-colors duration-fast pressable focus-ring hover:bg-accent-tint hover:text-accent-hover before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']"
     >
       {children}
-      <ArrowRight size={14} strokeWidth={1.8} absoluteStrokeWidth aria-hidden className="transition-transform duration-fast group-hover:translate-x-0.5" />
+      <Icon icon={ArrowRight} size={14} strokeWidth={1.8} className="transition-transform duration-fast group-hover:translate-x-0.5" />
     </Link>
   );
 }

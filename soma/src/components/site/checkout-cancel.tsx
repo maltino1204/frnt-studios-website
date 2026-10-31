@@ -135,48 +135,47 @@ export function CancelBooking({
       <Button variant="secondary" onClick={openModal} block>
         {isRequest ? "Anfrage zurückziehen" : "Termin stornieren"}
       </Button>
-      {open ? (
-        <Modal
-          open
-          onClose={() => setOpen(false)}
-          title={isRequest ? "Anfrage zurückziehen?" : "Termin stornieren?"}
-          actions={
+      {/* A5-1: stays mounted, so useDialogMotion plays the exit and close() returns focus to the trigger. */}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={isRequest ? "Anfrage zurückziehen?" : "Termin stornieren?"}
+        actions={
+          <>
+            <Button ref={keepRef} variant="ghost" onClick={() => setOpen(false)}>
+              {isRequest ? "Anfrage behalten" : "Termin behalten"}
+            </Button>
+            <Button variant="destructive" onClick={confirm} loading={pending || refreshing} className="num">
+              {isRequest ? "Zurückziehen" : free ? "Kostenlos stornieren" : `Stornieren · ${formatPriceExact(preview.feeCents)} Gebühr`}
+            </Button>
+          </>
+        }
+      >
+        <div aria-live="polite" className="flex flex-col gap-4">
+          {isRequest ? null : (
+            <div aria-busy={refreshing || undefined} className={cn("grid grid-cols-2 gap-2 transition-[opacity,filter] duration-base", refreshing && "opacity-50 blur-[1px]")}>
+              <Amount label="Stornogebühr" cents={preview.feeCents} tone={preview.feeCents > 0 ? "danger" : undefined} />
+              <Amount label="Erstattung" cents={preview.refundCents} tone="success" />
+            </div>
+          )}
+          {isRequest ? (
+            <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
+          ) : inGrace && graceEnd !== null ? (
             <>
-              <Button ref={keepRef} variant="ghost" onClick={() => setOpen(false)}>
-                {isRequest ? "Anfrage behalten" : "Termin behalten"}
-              </Button>
-              <Button variant="destructive" onClick={confirm} loading={pending || refreshing} className="num">
-                {isRequest ? "Zurückziehen" : free ? "Kostenlos stornieren" : `Stornieren · ${formatPriceExact(preview.feeCents)} Gebühr`}
-              </Button>
+              <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
+              <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
             </>
-          }
-        >
-          <div aria-live="polite" className="flex flex-col gap-4">
-            {isRequest ? null : (
-              <div aria-busy={refreshing || undefined} className={cn("grid grid-cols-2 gap-2 transition-[opacity,filter] duration-base", refreshing && "opacity-50 blur-[1px]")}>
-                <Amount label="Stornogebühr" cents={preview.feeCents} tone={preview.feeCents > 0 ? "danger" : undefined} />
-                <Amount label="Erstattung" cents={preview.refundCents} tone="success" />
-              </div>
-            )}
-            {isRequest ? (
-              <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
-            ) : inGrace && graceEnd !== null ? (
-              <>
-                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
-                <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
-              </>
-            ) : free ? (
-              <p>{`Die Stornierung ist jetzt noch kostenlos. Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
-            ) : (
-              <p className="num">
-                {`Es fällt eine Stornogebühr von ${formatPriceExact(preview.feeCents)} an (${preview.tierLabel}). Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}
-              </p>
-            )}
-            <Textarea label="Grund" optional rows={2} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} placeholder="Hilft der Fachkraft bei der Planung" />
-            {error ? <Notice kind="danger">{error}</Notice> : null}
-          </div>
-        </Modal>
-      ) : null}
+          ) : free ? (
+            <p>{`Die Stornierung ist jetzt noch kostenlos. Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
+          ) : (
+            <p className="num">
+              {`Es fällt eine Stornogebühr von ${formatPriceExact(preview.feeCents)} an (${preview.tierLabel}). Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}
+            </p>
+          )}
+          <Textarea label="Grund" optional rows={2} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} placeholder="Hilft der Fachkraft bei der Planung" />
+          {error ? <Notice kind="danger">{error}</Notice> : null}
+        </div>
+      </Modal>
     </>
   );
 }

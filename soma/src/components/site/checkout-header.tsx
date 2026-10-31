@@ -18,15 +18,15 @@ export function CheckoutHeader({ signedIn }: { signedIn: boolean }) {
   };
   return (
     <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--glass-hairline)]">
-      <div className="mx-auto grid h-(--header-height) w-full max-w-content grid-cols-[1fr_auto_1fr] items-center gap-4 px-(--space-gutter)">
+      <div className="mx-auto grid h-(--header-height) w-full max-w-content grid-cols-[1fr_auto_1fr] items-center gap-2 px-(--space-gutter) min-[360px]:gap-4">
         <div className="-ml-3 justify-self-start">
           {onDetail ? (
-            <Link href={signedIn ? routes.account.bookings() : routes.home()} className="inline-flex h-10 items-center gap-1 rounded-full pr-4 pl-2.5 type-label text-ink pressable focus-ring hover:bg-ink/5">
+            <Link href={signedIn ? routes.account.bookings() : routes.home()} className="inline-flex h-touch items-center gap-1 rounded-full pr-3 pl-2.5 type-label text-ink pressable focus-ring hover:bg-ink/5 min-[360px]:pr-4">
               <Icon icon={ChevronLeft} />
               {signedIn ? "Termine" : "Startseite"}
             </Link>
           ) : (
-            <button type="button" onClick={back} className="inline-flex h-10 items-center gap-1 rounded-full pr-4 pl-2.5 type-label text-ink pressable focus-ring hover:bg-ink/5">
+            <button type="button" onClick={back} className="inline-flex h-touch items-center gap-1 rounded-full pr-3 pl-2.5 type-label text-ink pressable focus-ring hover:bg-ink/5 min-[360px]:pr-4">
               <Icon icon={ChevronLeft} />
               Zurück
             </button>

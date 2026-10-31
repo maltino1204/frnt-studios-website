@@ -28,6 +28,7 @@ import { CountPill } from "@/components/ui/feedback";
 import { Kbd } from "@/components/ui/badge";
 import { RouteTransition } from "@/components/ui/motion";
 import { Sheet } from "@/components/ui/sheet";
+import { LinkPending } from "@/components/ui/nav";
 import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
@@ -285,6 +286,7 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
                       active ? "bg-surface-raised font-[520] text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
                     )}
                   >
+                    {active ? null : <LinkPending />}
                     <Icon icon={item.icon} size={18} className={cn("shrink-0", active && "text-accent")} strokeWidth={active ? 1.9 : 1.5} />
                     {collapsed ? (
                       count ? <span aria-hidden className="absolute top-1.5 right-2 size-1.5 rounded-full bg-accent" /> : null

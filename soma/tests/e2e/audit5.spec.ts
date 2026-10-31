@@ -22,7 +22,6 @@ async function firstUpcomingBooking(page: Page): Promise<string> {
 // A5-1: the customer cancel dialog is unmounted instead of closed, so focus falls back to <body>.
 // ---------------------------------------------------------------------------
 test("the cancel dialog opens on the safe action and returns focus to its trigger (A5-1)", async ({ page }) => {
-  test.fail(true, "A5-1: checkout-cancel.tsx unmounts the <dialog>, focus lands on <body>");
   await login(page, USERS.customer);
   const id = await firstUpcomingBooking(page);
   await page.goto(`/buchung/${id}`);
@@ -48,20 +47,17 @@ async function overflowAt320(page: Page, path: string): Promise<number> {
 }
 
 test("saved addresses fit a 320 px screen (A5-2)", async ({ page }) => {
-  test.fail(true, "A5-2: address card action row is 11 px too wide");
   await login(page, USERS.customer);
   expect(await overflowAt320(page, "/konto/adressen")).toBe(0);
 });
 
 test("the booking detail header fits a 320 px screen (A5-2)", async ({ page }) => {
-  test.fail(true, "A5-2: checkout header (back pill + wordmark + 'Sicher' pill) is 6 px too wide");
   await login(page, USERS.customer);
   const id = await firstUpcomingBooking(page);
   expect(await overflowAt320(page, `/buchung/${id}`)).toBe(0);
 });
 
 test("the provider document list fits a 320 px screen (A5-2)", async ({ page }) => {
-  test.fail(true, "A5-2: document rows on /pro/verifizierung are 3 px too wide");
   await login(page, USERS.provider);
   expect(await overflowAt320(page, "/pro/verifizierung")).toBe(0);
 });
@@ -175,7 +171,6 @@ test("the admin palette finds a booking by reference and gives focus back", asyn
 // A5-3: <dt>/<dd> must sit directly in <dl> (or one <div> inside it).
 // ---------------------------------------------------------------------------
 test("booking facts are a valid description list (A5-3)", async ({ page }) => {
-  test.fail(true, "A5-3: Fact() wraps dt/dd in div > div (buchung/[id]/page.tsx)");
   await login(page, USERS.customer);
   const id = await firstUpcomingBooking(page);
   await page.goto(`/buchung/${id}`);

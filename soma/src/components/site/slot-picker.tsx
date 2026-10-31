@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/feedback";
 import { CheckLine } from "@/components/ui/summary";
 import { cn } from "@/lib/cn";
-import { haptic } from "@/lib/haptic";
 import { berlinDateKey, formatDuration, formatPrice, formatTime } from "@/lib/format";
 import { loadAvailabilityAction } from "@/server/actions/booking";
 import type { CancellationPolicyDTO, OfferingDTO, SlotsByDayDTO } from "@/server/dto";
@@ -146,10 +145,8 @@ export function SlotPicker({
     for (const d of days) if (d.date > (date ?? "") && d.slots.length) return { date: d.date, slot: d.slots[0] };
     return null;
   })();
-  const priceOf = (o: OfferingDTO, short = false) =>
-    travelFeeCents == null
-      ? `${formatPrice(o.priceCents)} zzgl. Anfahrt`
-      : `${formatPrice(o.priceCents + travelFeeCents)}${short ? "" : " inkl. Anfahrt"}`;
+  const priceOf = (o: OfferingDTO) =>
+    travelFeeCents == null ? `${formatPrice(o.priceCents)} zzgl. Anfahrt` : `${formatPrice(o.priceCents + travelFeeCents)} inkl. Anfahrt`;
   const end = slot ? new Date(new Date(slot).getTime() + offering.durationMinutes * 60_000).toISOString() : null;
   const freeUntil = slot && policy ? freeUntilFor(policy, slot) : null;
   // Inside a sheet the content padding is 20px at every width, so the strip bleeds by exactly that much.
@@ -164,10 +161,18 @@ export function SlotPicker({
           value={state.offeringId}
           onChange={(e) => state.selectOffering(e.target.value)}
           hint={travelFeeCents != null ? "Endpreise inklusive Anfahrt." : undefined}
+          // A5-8: one line could not hold "Entspannungsmassage (klassisch) · 60 Min. · 85 €" in the booking panel.
+          // The closed control shows the service (it may wrap) over duration and price; the list keeps all three.
+          display={
+            <>
+              <span className="type-body text-ink">{offering.serviceName}</span>
+              <span className="type-caption text-ink-muted num">{`${formatDuration(offering.durationMinutes)} · ${priceOf(offering)}`}</span>
+            </>
+          }
         >
           {offerings.map((o) => (
             <option key={o.providerServiceId} value={o.providerServiceId}>
-              {`${o.serviceName} · ${formatDuration(o.durationMinutes)} · ${priceOf(o, true)}`}
+              {`${o.serviceName} · ${formatDuration(o.durationMinutes)} · ${priceOf(o)}`}
             </option>
           ))}
         </Select>
@@ -212,11 +217,8 @@ export function SlotPicker({
             <TimeSlots
               slots={daySlots.map((s) => ({ start: s }))}
               selected={slot}
-              onSelect={(s) => {
-                // A light tick on phones that support it; the chip itself settles into ink.
-                if (s !== slot) haptic("tap");
-                state.setSlot(s);
-              }}
+              // The chip settles into ink; device haptics stay reserved for key confirmations (A5-14).
+              onSelect={state.setSlot}
               empty={
                 <div className="flex flex-col items-start gap-3">
                   <p className="type-body-s text-ink-muted">Keine freien Termine an diesem Tag.</p>
