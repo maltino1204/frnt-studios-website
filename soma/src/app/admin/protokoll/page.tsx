@@ -4,6 +4,9 @@ import { formatDateTime, tzName } from "@/components/admin/format";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
 import { AdminTable, hrefWith, TablePager } from "@/components/admin/table";
 import { FilterForm } from "@/components/admin/toolbar";
+import { Cog } from "lucide-react";
+import { Avatar } from "@/components/ui/avatar";
+import { Icon } from "@/components/ui/icon";
 import { EmptyState } from "@/components/ui/feedback";
 import { Select } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
@@ -128,10 +131,10 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
         </FilterForm>
 
         {list.items.length === 0 ? (
-          <EmptyState title="Keine Einträge.">{active ? "Für diese Filter gibt es keine Einträge." : "Sobald Admins etwas ändern, erscheint es hier."}</EmptyState>
+          <EmptyState seed="protokoll-leer" title="Keine Einträge.">{active ? "Für diese Filter gibt es keine Einträge." : "Sobald Admins etwas ändern, erscheint es hier."}</EmptyState>
         ) : (
           <div>
-            <AdminTable label="Protokoll">
+            <AdminTable label="Protokoll" stickyHeader>
               <thead>
                 <tr>
                   <th scope="col">Zeitpunkt</th>
@@ -149,17 +152,30 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
                   return (
                     <tr key={e.id}>
                       <td className="num text-ink-muted">{formatDateTime(e.createdAt)}</td>
-                      <td>{e.actorName ?? "System"}</td>
+                      <td>
+                        <span className="flex items-center gap-2">
+                          {e.actorName ? (
+                            <Avatar name={e.actorName} size={24} />
+                          ) : (
+                            <span aria-hidden className="inline-flex size-6 items-center justify-center rounded-full bg-surface-sunken text-ink-muted shadow-[inset_0_0_0_1px_var(--color-line)]">
+                              <Icon icon={Cog} size={14} />
+                            </span>
+                          )}
+                          {e.actorName ?? "System"}
+                        </span>
+                      </td>
                       <td>
                         <span className="font-[520]" title={e.action}>
                           {ACTION[e.action] ?? <span className="code-ref">{e.action}</span>}
                         </span>
                       </td>
-                      <td className="text-ink-muted">{ENTITY[e.entity] ?? e.entity}</td>
+                      <td>
+                        <span className="inline-flex h-5 items-center rounded-full bg-surface-sunken px-2 type-caption font-[520] text-ink-muted">{ENTITY[e.entity] ?? e.entity}</span>
+                      </td>
                       <td>
                         {e.entityId ? (
                           href ? (
-                            <Link href={href} className="code-ref text-accent underline-offset-4 hover:underline" title={e.entityId}>
+                            <Link href={href} className="rounded-[6px] code-ref text-accent underline-offset-4 hover:underline focus-ring" title={e.entityId}>
                               {e.entityId.length > 20 ? `${e.entityId.slice(0, 8)}…` : e.entityId}
                             </Link>
                           ) : (
@@ -171,13 +187,13 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
                           EMPTY
                         )}
                       </td>
-                      <td className="max-w-[28rem]">
+                      <td>
                         {details ? (
-                          <details className="group">
-                            <summary className="cursor-pointer truncate text-ink-muted marker:content-none [&::-webkit-details-marker]:hidden" title="Details anzeigen">
+                          <details className="group w-80 max-w-80 xl:w-96 xl:max-w-96">
+                            <summary className="block cursor-pointer truncate rounded-[6px] text-ink-muted transition-colors duration-fast marker:content-none hover:text-ink focus-ring [&::-webkit-details-marker]:hidden" title="Details anzeigen">
                               {details}
                             </summary>
-                            <pre className="mt-2 mb-2 max-h-60 overflow-auto bg-surface-sunken p-3 font-mono text-[12px] leading-relaxed whitespace-pre-wrap text-ink">{JSON.stringify(e.data, null, 2)}</pre>
+                            <pre className="mt-2 mb-2 max-h-60 animate-fade-in overflow-auto rounded-tile bg-surface-sunken p-3 font-mono text-[12px] leading-relaxed whitespace-pre-wrap text-ink ring-1 ring-line ring-inset">{JSON.stringify(e.data, null, 2)}</pre>
                           </details>
                         ) : (
                           EMPTY

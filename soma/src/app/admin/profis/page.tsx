@@ -3,10 +3,10 @@ import { formatDate } from "@/lib/format";
 import { formatInt } from "@/components/admin/format";
 import { PROVIDER_STATUS } from "@/components/admin/labels";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
-import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
-import { FilterForm } from "@/components/admin/toolbar";
+import { AdminTable, CellLink, hrefWith, numCell, rowLink, TablePager } from "@/components/admin/table";
+import { FilterForm, SearchField } from "@/components/admin/toolbar";
+import { Avatar } from "@/components/ui/avatar";
 import { EmptyState, Status } from "@/components/ui/feedback";
-import { Input } from "@/components/ui/field";
 import { TabLinks } from "@/components/ui/tabs";
 import { Rating } from "@/components/ui/trust";
 import { routes } from "@/lib/routes";
@@ -62,16 +62,16 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
           }))}
         />
         <FilterForm action={routes.admin.providers()} hidden={{ status: sp.status }} resetHref={q ? hrefWith(routes.admin.providers(), {}, { status: sp.status }) : undefined}>
-          <Input dense label="Suche" hideLabel name="q" defaultValue={q} placeholder="Name oder Profil-Slug" className="w-full sm:w-72" type="search" />
+          <SearchField name="q" defaultValue={q} placeholder="Name oder Profil-Slug" className="min-w-0 flex-1 sm:w-80 sm:flex-none" />
         </FilterForm>
 
         {list.items.length === 0 ? (
-          <EmptyState title={q ? "Keine Treffer." : "Hier ist niemand."}>
+          <EmptyState seed={`profis-${tab.key}`} title={q ? "Keine Treffer." : "Hier ist niemand."}>
             {q ? `Keine Profis für „${q}“ in dieser Ansicht.` : "In diesem Status gibt es gerade keine Profis."}
           </EmptyState>
         ) : (
           <div>
-            <AdminTable label="Profis">
+            <AdminTable label="Profis" stickyHeader>
               <thead>
                 <tr>
                   <th scope="col">Profi</th>
@@ -87,9 +87,14 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
               </thead>
               <tbody>
                 {list.items.map((p) => (
-                  <tr key={p.providerId}>
+                  <tr key={p.providerId} className={rowLink}>
                     <td>
-                      <CellLink href={routes.admin.provider(p.providerId)}>{p.displayName}</CellLink>
+                      <span className="flex items-center gap-2.5">
+                        <Avatar name={p.displayName} size={24} />
+                        <CellLink row href={routes.admin.provider(p.providerId)}>
+                          {p.displayName}
+                        </CellLink>
+                      </span>
                     </td>
                     <td>
                       <Status tone={PROVIDER_STATUS[p.status].tone}>{PROVIDER_STATUS[p.status].label}</Status>
@@ -99,11 +104,9 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
                       {p.categories.length ? p.categories.map(catName).join(", ") : EMPTY}
                     </td>
                     <td className="num text-ink-muted">{p.submittedAt ? formatDate(p.submittedAt) : EMPTY}</td>
-                    <td className={numCell}>{p.documentsPending ? <span className="text-warning">{p.documentsPending}</span> : <span className="text-ink-muted">0</span>}</td>
-                    <td className={numCell}>{p.missingDocuments ? <span className="text-danger">{p.missingDocuments}</span> : <span className="text-ink-muted">0</span>}</td>
-                    <td>
-                      <Rating avg={p.ratingAvg} count={p.ratingAvg != null ? 3 : 0} showCount={false} />
-                    </td>
+                    <td className={numCell}>{p.documentsPending ? <CountBadge tone="warning">{p.documentsPending}</CountBadge> : <span className="text-ink-muted">0</span>}</td>
+                    <td className={numCell}>{p.missingDocuments ? <CountBadge tone="danger">{p.missingDocuments}</CountBadge> : <span className="text-ink-muted">0</span>}</td>
+                    <td>{p.ratingAvg != null ? <Rating avg={p.ratingAvg} count={3} showCount={false} /> : <span className="text-ink-muted">{EMPTY}</span>}</td>
                     <td className={numCell}>{formatInt(p.completedCount)}</td>
                   </tr>
                 ))}
@@ -115,5 +118,13 @@ export default async function ProvidersPage({ searchParams }: { searchParams: Pr
         <p className="type-caption text-ink-muted">„Fehlend“ zählt Pflichtdokumente, die fehlen oder noch nicht geprüft sind (plattformweit und je angebotener Kategorie).</p>
       </div>
     </>
+  );
+}
+
+function CountBadge({ tone, children }: { tone: "warning" | "danger"; children: React.ReactNode }) {
+  return (
+    <span className={`inline-flex h-5 min-w-6 items-center justify-center rounded-full px-1.5 type-caption font-[600] num ${tone === "warning" ? "bg-warning-soft text-warning" : "bg-danger-soft text-danger"}`}>
+      {children}
+    </span>
   );
 }

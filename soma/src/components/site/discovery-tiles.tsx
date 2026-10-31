@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Portrait } from "@/components/ui/avatar";
+import { Icon } from "@/components/ui/icon";
 import { Photo } from "@/components/ui/photo";
+import { surfaceClasses } from "@/components/ui/surface";
 import { Rating, VerifiedBadge } from "@/components/ui/trust";
 import { cn } from "@/lib/cn";
 import { images } from "@/lib/images";
@@ -9,7 +12,11 @@ import type { CategoryDTO } from "@/server/dto";
 import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
 import { fromPrice } from "./discovery-copy";
 
-/** Category tile: 4:5 image with the tone fallback, label below (never a bordered card). */
+/**
+ * Category card (v2): the photo sits over the category's generative aura art
+ * (it stays when the photo cannot load), inset 6 px in a level-1 card that
+ * lifts on hover and springs on press.
+ */
 export function CategoryTile({
   category,
   href,
@@ -24,7 +31,7 @@ export function CategoryTile({
   priority?: boolean;
 }) {
   return (
-    <Link href={href ?? routes.category(category.slug)} className="group flex flex-col gap-3 rounded-xs focus-visible:outline-offset-4">
+    <Link href={href ?? routes.category(category.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3 p-1.5 pb-4" })}>
       <Photo
         src={category.imagePath ?? images.category(category.slug)}
         alt=""
@@ -33,17 +40,24 @@ export function CategoryTile({
         wordSize="s"
         sizes={sizes}
         priority={priority}
-        className="aspect-[4/5] w-full"
+        className="aspect-[4/5] w-full rounded-tile"
       />
-      <span className="flex flex-col gap-1">
-        <span className="type-heading-m text-ink underline-offset-4 decoration-1 group-hover:underline">{category.name}</span>
-        {(meta ?? category.tagline) ? <span className="type-body-s text-ink-muted">{meta ?? category.tagline}</span> : null}
+      <span className="flex flex-col gap-1 px-2.5">
+        <span className="flex items-center justify-between gap-2">
+          <span className="type-heading-m text-ink">{category.name}</span>
+          <Icon
+            icon={ArrowUpRight}
+            size={18}
+            className="shrink-0 text-ink-muted transition-[translate,color] duration-base ease-settle group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
+          />
+        </span>
+        {(meta ?? category.tagline) ? <span className="line-clamp-2 type-body-s text-ink-muted">{meta ?? category.tagline}</span> : null}
       </span>
     </Link>
   );
 }
 
-/** Editorial portrait card for provider rails: 4:5 portrait, name, category · city, rating. */
+/** Provider card for rails: 4:5 portrait (photo or aura monogram) inset in a lifting card, name, category · city, rating. */
 export function ProviderPortraitCard({
   provider,
   categorySlug,
@@ -61,12 +75,20 @@ export function ProviderPortraitCard({
   const meta = [cat?.name, provider.cityName].filter(Boolean).join(" · ");
   const price = showFromPrice ? fromPrice(provider.fromPriceCents) : null;
   return (
-    <Link href={routes.provider(provider.slug)} className="group flex flex-col gap-3 rounded-xs focus-visible:outline-offset-4">
-      <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" sizes={sizes} />
-      <span className="flex flex-col gap-1.5">
+    <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3 p-1.5 pb-4" })}>
+      <span className="relative block">
+        <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" sizes={sizes} className="w-full rounded-tile" />
+        {provider.bookingMode === "instant" ? (
+          <span className="absolute top-2.5 left-2.5 z-[4] inline-flex h-6 items-center gap-1.5 rounded-full glass-strong glass-edge px-2.5 text-[11.5px] leading-none font-[560] text-ink shadow-raised">
+            <span aria-hidden className="size-1.5 rounded-full bg-success" />
+            Sofort bestätigt
+          </span>
+        ) : null}
+      </span>
+      <span className="flex flex-col gap-1.5 px-2.5">
         <span className="flex items-center gap-1.5">
-          <span className="truncate type-heading-m text-ink underline-offset-4 decoration-1 group-hover:underline">{provider.displayName}</span>
-          <VerifiedBadge />
+          <span className="truncate type-heading-m text-ink">{provider.displayName}</span>
+          <VerifiedBadge className="shrink-0" />
         </span>
         {meta ? <span className="truncate type-body-s text-ink-muted">{meta}</span> : null}
         <span className="flex items-center justify-between gap-3">
@@ -84,13 +106,13 @@ export function ProviderListRow({ provider, categorySlug, className }: { provide
   const cats = ordered.map((c) => c.name).join(", ");
   const price = fromPrice(provider.fromPriceCents);
   return (
-    <li className={cn("border-b border-line", className)}>
-      <Link href={routes.provider(provider.slug)} className="group flex items-start gap-4 py-4 md:gap-5">
+    <li className={cn("min-w-0", className)}>
+      <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex items-start gap-4 p-3 pr-4 md:gap-5" })}>
         <Portrait src={provider.avatarUrl} name={provider.displayName} sizes="72px" className="w-[4.5rem] shrink-0" />
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="flex items-center gap-1.5">
-            <span className="truncate type-heading-m text-ink underline-offset-4 decoration-1 group-hover:underline">{provider.displayName}</span>
-            <VerifiedBadge />
+            <span className="truncate type-heading-m text-ink">{provider.displayName}</span>
+            <VerifiedBadge className="shrink-0" />
           </span>
           <Rating avg={provider.ratingAvg} count={provider.ratingCount} />
           {provider.headline ? <span className="line-clamp-2 type-body-s text-ink-muted">{provider.headline}</span> : null}
@@ -100,7 +122,7 @@ export function ProviderListRow({ provider, categorySlug, className }: { provide
           </span>
         </span>
         {price ? (
-          <span className="flex shrink-0 flex-col items-end gap-0.5 text-right">
+          <span className="flex shrink-0 flex-col items-end gap-0.5 pt-0.5 text-right">
             <span className="type-label font-semibold text-ink num">{price}</span>
             <span className="type-caption text-ink-muted">zzgl. Anfahrt</span>
           </span>

@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { Bell, CalendarCheck, CalendarX2, CheckCheck, ChevronRight, CircleCheck, Gift, Hourglass, Star, Wallet, type LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/feedback";
+import { CountPill, EmptyState } from "@/components/ui/feedback";
+import { Icon } from "@/components/ui/icon";
 import { Switch } from "@/components/ui/field";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
@@ -19,6 +21,17 @@ const PREFS: Array<{ key: keyof NotificationPreferencesDTO; label: string; descr
   { key: "pushBookings", label: "Push-Mitteilungen", description: "Für die installierte App auf Ihrem Smartphone." },
   { key: "emailMarketing", label: "Neuigkeiten von SOMA", description: "Gelegentlich, jederzeit abbestellbar." },
 ];
+
+function iconFor(type: string): LucideIcon {
+  if (type === "booking.confirmed") return CalendarCheck;
+  if (type === "booking.requested") return Hourglass;
+  if (type === "booking.cancelled" || type === "booking.declined" || type === "booking.expired") return CalendarX2;
+  if (type === "booking.completed") return CircleCheck;
+  if (type.startsWith("review.")) return Star;
+  if (type.startsWith("referral.") || type.startsWith("credit.")) return Gift;
+  if (type.startsWith("payout.")) return Wallet;
+  return Bell;
+}
 
 /** Preferences save on every change (optimistic, reverted on error). */
 export function NotificationPrefs({ initial }: { initial: NotificationPreferencesDTO }) {
@@ -38,9 +51,9 @@ export function NotificationPrefs({ initial }: { initial: NotificationPreference
     });
   };
   return (
-    <div className="flex flex-col divide-y divide-line border-y border-line">
+    <div className="flex flex-col divide-y divide-line overflow-hidden rounded-card bg-surface-raised px-5 shadow-raised md:px-6">
       {PREFS.map((p) => (
-        <Switch key={p.key} label={p.label} description={p.description} checked={prefs[p.key]} onChange={(e) => change(p.key, e.target.checked)} className="py-3" />
+        <Switch key={p.key} label={p.label} description={p.description} checked={prefs[p.key]} onChange={(e) => change(p.key, e.target.checked)} className="py-3.5" />
       ))}
     </div>
   );
@@ -76,45 +89,75 @@ export function NotificationInbox({ items, renderedAt }: { items: NotificationDT
   };
   if (!list.length) {
     return (
-      <EmptyState title="Alles gelesen." className="py-2">
-        Neuigkeiten zu Ihren Terminen erscheinen hier.
-      </EmptyState>
+      <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
+        <EmptyState title="Alles gelesen." seed="konto-mitteilungen" className="py-8">
+          Neuigkeiten zu Ihren Terminen erscheinen hier.
+        </EmptyState>
+      </div>
     );
   }
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between gap-4">
-        <p className="type-body-s text-ink-muted" aria-live="polite">
-          {unread ? `${unread} ungelesen` : "Alles gelesen"}
+    <div className="overflow-hidden rounded-card bg-surface-raised shadow-raised">
+      <div className="flex min-h-14 items-center justify-between gap-4 border-b border-line px-4 py-2 md:px-5">
+        <p className="flex items-center gap-2 type-label-s text-ink" aria-live="polite">
+          {unread ? (
+            <>
+              <CountPill accent>{unread}</CountPill>
+              {`${unread} ungelesen`}
+            </>
+          ) : (
+            <>
+              <Icon icon={CheckCheck} size={16} className="text-success" />
+              Alles gelesen
+            </>
+          )}
         </p>
         {unread ? (
-          <Button variant="ghost" size="s" onClick={markAll} loading={pending}>
+          <Button variant="ghost" size="s" onClick={markAll} loading={pending} icon={<Icon icon={CheckCheck} />} className="-mr-2">
             Alle als gelesen markieren
           </Button>
         ) : null}
       </div>
-      <ul className="flex flex-col border-t border-line">
+      <ul className="flex flex-col">
         {list.map((n) => {
+          const isUnread = !n.readAt;
           const body = (
             <>
-              <span className="flex items-start justify-between gap-3">
-                <span className={cn("type-body-s text-ink", !n.readAt && "font-semibold")}>{n.title}</span>
-                <span className="shrink-0 type-caption text-ink-muted">{formatRelative(n.createdAt, new Date(now))}</span>
+              <span
+                aria-hidden
+                className={cn(
+                  "relative inline-flex size-9 shrink-0 items-center justify-center rounded-full transition-colors duration-base",
+                  isUnread ? "bg-accent-soft text-accent" : "bg-surface-sunken text-ink-muted",
+                )}
+              >
+                <Icon icon={iconFor(n.type)} size={16} />
+                {isUnread ? <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-accent shadow-[0_0_0_2px_var(--color-surface-raised)]" /> : null}
               </span>
-              {n.body ? <span className="block type-body-s text-ink-muted">{n.body}</span> : null}
+              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span className="flex items-start justify-between gap-3">
+                  <span className={cn("type-body-s text-ink", isUnread && "font-semibold")}>
+                    {isUnread ? <span className="sr-only">Ungelesen: </span> : null}
+                    {n.title}
+                  </span>
+                  <span className="shrink-0 pt-px type-caption text-ink-muted">{formatRelative(n.createdAt, new Date(now))}</span>
+                </span>
+                {n.body ? <span className="block type-body-s text-ink-muted">{n.body}</span> : null}
+              </span>
+              {n.href ? <Icon icon={ChevronRight} size={16} className="mt-2.5 shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" /> : null}
             </>
           );
+          const cls = cn(
+            "group flex w-full items-start gap-3.5 px-4 py-3.5 text-left transition-colors duration-fast focus-ring md:px-5",
+            isUnread ? "bg-accent-tint hover:bg-accent-soft/70" : "hover:bg-surface-sunken",
+          );
           return (
-            <li key={n.id} className="relative border-b border-line">
-              {!n.readAt ? <span aria-hidden className="absolute top-5 -left-3 size-2 rounded-full bg-accent lg:-left-4" /> : null}
+            <li key={n.id} className="border-b border-line last:border-b-0">
               {n.href ? (
-                <Link href={n.href} onClick={() => markOne(n.id)} className="flex flex-col gap-1 py-3.5 hover:bg-surface-sunken">
-                  {!n.readAt ? <span className="sr-only">Ungelesen: </span> : null}
+                <Link href={n.href} onClick={() => markOne(n.id)} className={cls}>
                   {body}
                 </Link>
               ) : (
-                <button type="button" onClick={() => markOne(n.id)} className="flex w-full flex-col gap-1 py-3.5 text-left hover:bg-surface-sunken">
-                  {!n.readAt ? <span className="sr-only">Ungelesen: </span> : null}
+                <button type="button" onClick={() => markOne(n.id)} className={cls}>
                   {body}
                 </button>
               )}

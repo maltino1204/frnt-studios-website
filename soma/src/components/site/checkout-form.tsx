@@ -1,26 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { BedDouble, Building2, CalendarDays, ChevronDown, CircleAlert, Clock, House, KeyRound, MapPin, Plus, UserRound, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState, useTransition, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
-import { Checkbox, Input, RadioRow, Switch, Textarea } from "@/components/ui/field";
+import { Checkbox, Input, Switch, Textarea } from "@/components/ui/field";
+import { Overline } from "@/components/ui/layout";
 import { SegmentedControl } from "@/components/ui/segmented";
-import { CheckLine, PriceBreakdown, StepIndicator, type PriceLine } from "@/components/ui/summary";
+import { CheckLine, PriceBreakdown, type PriceLine } from "@/components/ui/summary";
 import { Rating } from "@/components/ui/trust";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDistance, formatDuration, formatPrice, formatPriceExact, formatTime } from "@/lib/format";
+import { haptic } from "@/lib/haptic";
 import { routes } from "@/lib/routes";
 import { updateProfileAction } from "@/server/actions/account";
 import { confirmDevPaymentAction, createBookingAction, loadAvailabilityAction, quoteBookingAction } from "@/server/actions/booking";
 import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/checkout-ext";
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
-import { dayLabel, deadlineShort, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, withStop } from "./checkout-format";
+import { dayLabel, deadlineShort, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, slotTileClasses, withStop } from "./checkout-format";
+import { CheckoutStepper, MorphText, OptionCard, PaymentTile, StepCard } from "./checkout-parts";
 import { MetaLine, ModeLabel } from "./provider-row";
 import { StripePaymentSheet } from "./checkout-stripe";
 
@@ -62,6 +66,9 @@ type AddrFields = {
 
 const STEPS = ["Übersicht", "Ort", "Kontakt", "Zahlung"] as const;
 const STEP_IDS = ["uebersicht", "ort", "kontakt", "zahlung"] as const;
+const KIND_ICON = { home: House, hotel: BedDouble, office: Building2, other: MapPin } as const;
+/** Morphing caption while the booking runs: each phase names the step that is actually happening. */
+type Phase = "konto" | "reservieren" | "zahlung" | "weiter";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE = /^\+?[0-9 ()/-]{6,24}$/;
 
@@ -97,23 +104,6 @@ function requestIntro(providerName: string, quote: QuoteDTO): string {
 /** Confirmation URL; `?konto=neu` tells a fresh guest that the "Passwort festlegen" e-mail is on its way. */
 function bookingUrl(bookingId: string, guest: { claimEmailSent: boolean } | null): string {
   return guest?.claimEmailSent ? `${routes.booking(bookingId)}?konto=neu` : routes.booking(bookingId);
-}
-
-function Section({ id, title, description, children, aside }: { id: string; title: string; description?: ReactNode; children: ReactNode; aside?: ReactNode }) {
-  return (
-    <section id={id} aria-labelledby={`${id}-titel`} className={cn("flex scroll-mt-24 flex-col gap-5", id !== "uebersicht" && "border-t border-line pt-8")}>
-      <div className="flex items-baseline justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 id={`${id}-titel`} className="type-heading-m">
-            {title}
-          </h2>
-          {description ? <p className="type-body-s text-ink-muted">{description}</p> : null}
-        </div>
-        {aside}
-      </div>
-      {children}
-    </section>
-  );
 }
 
 export function CheckoutForm(props: CheckoutFormProps) {
@@ -166,6 +156,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [taken, setTaken] = useState<string[] | null>(null);
+  const [phase, setPhase] = useState<Phase | null>(null);
   const [stripeStep, setStripeStep] = useState<{ bookingId: string; clientSecret: string | null; guest: { claimEmailSent: boolean } | null } | null>(null);
 
   const isMassage = props.categorySlug === "massage";
@@ -281,6 +272,9 @@ export function CheckoutForm(props: CheckoutFormProps) {
       scrollTo(STEP_IDS[firstInvalid === -1 ? 3 : firstInvalid]);
       return;
     }
+    // A short tick on the key action (no-op on iOS, desktop and with reduced motion).
+    haptic("tap");
+    setPhase(!customer && !guest ? "konto" : "reservieren");
     startSubmit(async () => {
       let createdGuest = guest;
       if (!customer && !guest) {
@@ -288,12 +282,14 @@ export function CheckoutForm(props: CheckoutFormProps) {
           firstName: contact.firstName, lastName: contact.lastName, email: contact.email, phone: contact.phone, inviteCode,
         });
         if (!r.ok) {
+          setPhase(null);
           setServerError(r.error);
           setFieldErrors(r.fieldErrors ?? {});
           scrollTo("kontakt");
           return;
         }
         if (r.data.kind === "exists") {
+          setPhase(null);
           // Known e-mail: switch to the inline login, keep everything typed so far.
           setExistingEmail(r.data.email);
           setLogin({ email: r.data.email, password: "" });
@@ -304,6 +300,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
         }
         createdGuest = { email: r.data.email, claimEmailSent: r.data.claimEmailSent };
         setGuest(createdGuest);
+        setPhase("reservieren");
       } else if (customer && phone.trim()) {
         const fd = new FormData();
         fd.set("firstName", customer.firstName ?? "");
@@ -334,20 +331,26 @@ export function CheckoutForm(props: CheckoutFormProps) {
         rebookedFromId: props.rebookedFromId,
       });
       if (!res.ok) {
+        setPhase(null);
         await handleFailure(res.error, res.fieldErrors);
         return;
       }
       if (res.data.paymentProvider === "stripe") {
+        setPhase(null);
         // Production: collect the card in Stripe's Payment Element; the webhook confirms the booking.
         setStripeStep({ bookingId: res.data.bookingId, clientSecret: res.data.paymentClientSecret, guest: createdGuest });
         return;
       }
+      setPhase("zahlung");
       const paid = await confirmDevPaymentAction(res.data.bookingId);
       if (!paid.ok) toast.show(paid.error, { kind: "error" });
+      else setPhase("weiter");
       router.push(bookingUrl(res.data.bookingId, createdGuest));
     });
   };
 
+
+  const shownKind: LocationKind = savedChosen ? (savedChosen.kind === "other" ? "home" : savedChosen.kind) : kind;
   const summaryAddress = savedChosen
     ? `${savedChosen.street} ${savedChosen.houseNumber}, ${savedChosen.postalCode} ${savedChosen.city}`
     : addr.street && addr.houseNumber
@@ -361,10 +364,19 @@ export function CheckoutForm(props: CheckoutFormProps) {
     ...(price.discountCents > 0 ? [{ label: <span className="hyphens-none">Guthaben</span>, cents: price.discountCents, kind: "credit" as const }] : []),
   ];
 
+  const idleCaption = isRequest ? withStop(`Belastung erst nach Bestätigung durch ${provider.name}`) : "Sofort bestätigt. Sie erhalten die Bestätigung per E-Mail.";
+  const phaseCaption: Record<Phase, string> = {
+    konto: "Ihr Kundenkonto wird angelegt …",
+    reservieren: isRequest ? "Ihre Anfrage wird gesendet …" : "Ihr Termin wird reserviert …",
+    zahlung: quote.paymentProvider === "dev" ? "Testzahlung wird autorisiert …" : "Zahlung wird vorbereitet …",
+    weiter: isRequest ? "Anfrage gesendet. Einen Moment …" : "Bestätigt. Einen Moment …",
+  };
+
   const cta = (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2.5">
       {showErrors && Object.keys(errors).length ? (
-        <p role="alert" className="type-caption text-danger">
+        <p role="alert" className="flex animate-fade-in items-center justify-center gap-1.5 type-caption text-danger">
+          <Icon icon={CircleAlert} size={14} className="shrink-0" />
           Bitte prüfen Sie die markierten Angaben.
         </p>
       ) : null}
@@ -372,27 +384,39 @@ export function CheckoutForm(props: CheckoutFormProps) {
         {ctaLabel}
       </Button>
       <p className="text-center type-caption text-ink-muted">
-        {isRequest ? withStop(`Belastung erst nach Bestätigung durch ${provider.name}`) : "Sofort bestätigt. Sie erhalten die Bestätigung per E-Mail."}
+        <MorphText text={submitting && phase ? phaseCaption[phase] : idleCaption} />
       </p>
     </div>
   );
 
+  const cancellationLines = (
+    <div className="flex flex-col gap-2">
+      {isRequest ? <CheckLine>{`Bis zur Zusage von ${provider.name} jederzeit kostenlos stornierbar.`}</CheckLine> : null}
+      {freeNow && freeUntil ? <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine> : null}
+      {grace ? <CheckLine>{grace}</CheckLine> : null}
+      {!freeNow ? (
+        <p className="type-caption text-ink">
+          {grace ? "Danach gelten für diesen kurzfristigen Termin bereits Stornogebühren." : "Für diesen kurzfristigen Termin gelten bereits Stornogebühren."}
+        </p>
+      ) : null}
+    </div>
+  );
+
   return (
-    <div className="lg:grid lg:grid-cols-12 lg:gap-6">
-      <div className="flex min-w-0 flex-col gap-8 lg:col-span-7">
-        <div className="flex flex-col gap-3">
+    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+      <div className="flex min-w-0 flex-col gap-4 md:gap-5 lg:col-span-7">
+        <div className="flex flex-col gap-3 pb-2">
+          <Overline>{isRequest ? "Ihre Anfrage" : "Ihre Buchung"}</Overline>
           <h1 className="type-display-s">{isRequest ? "Termin anfragen." : "Termin buchen."}</h1>
-          <p className="type-body-s text-ink-muted">
+          <p className="max-w-reading type-body-s text-ink-muted">
             {isRequest ? requestIntro(provider.name, quote) : "Prüfen Sie Ihre Angaben. Der Termin ist sofort bestätigt."}
           </p>
         </div>
-        <div className="lg:sticky lg:top-0 lg:z-10 lg:-mx-1 lg:bg-surface lg:px-1 lg:py-3">
-          <StepIndicator steps={[...STEPS]} current={current} onStepClick={(i) => scrollTo(STEP_IDS[i])} />
-        </div>
+        <CheckoutStepper steps={STEPS} current={current} onStepClick={(i) => scrollTo(STEP_IDS[i])} className="lg:sticky lg:top-[calc(var(--header-height)+0.75rem)] lg:z-10" />
 
         {taken ? (
-          <section aria-live="assertive" className="flex flex-col gap-4 bg-surface-raised p-5 md:p-6">
-            <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+          <section aria-live="assertive" className="relative isolate flex flex-col gap-4 overflow-clip rounded-card bg-surface-raised p-5 shadow-float ring-1 ring-warning/20 ring-inset md:p-7">
+            <span aria-hidden className="block h-0.5 w-6 rounded-full bg-aura" />
             <h2 className="type-display-s">Dieser Termin wurde gerade vergeben.</h2>
             <p className="type-body-s text-ink-muted">
               {taken.length
@@ -400,70 +424,84 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 : `Jemand war einen Moment schneller. In den nächsten 7${NBSP}Tagen ist bei ${provider.name} leider nichts mehr frei.`}
             </p>
             {taken.length ? (
-              <ul className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2 stagger-rise">
                 {taken.map((s) => (
                   <li key={s}>
-                    <button
-                      type="button"
-                      onClick={() => chooseNewSlot(s)}
-                      className="inline-flex h-touch items-center rounded-xs border border-line bg-surface-raised px-4 type-label num text-ink transition-colors duration-fast hover:border-ink"
-                    >
+                    <button type="button" onClick={() => chooseNewSlot(s)} className={slotTileClasses}>
                       {slotChipLabel(s, true)}
                     </button>
                   </li>
                 ))}
               </ul>
             ) : null}
-            <Link href={routes.search({ plz: postalCode, kategorie: props.categorySlug ?? undefined })} className="self-start type-label-s text-accent underline underline-offset-[0.2em]">
+            <Link href={routes.search({ plz: postalCode, kategorie: props.categorySlug ?? undefined })} className="self-start rounded-control type-label-s text-accent underline underline-offset-[0.2em] focus-ring hover:text-accent-hover">
               Andere Profis in Ihrer Nähe
             </Link>
           </section>
         ) : null}
 
-        {/* Übersicht */}
-        <Section id="uebersicht" title="Übersicht">
-          <div className="flex items-start gap-4">
+        {/* 1 · Übersicht */}
+        <StepCard
+          id="uebersicht"
+          index={0}
+          done={valid[0]}
+          title="Übersicht"
+          aside={
+            <ButtonLink href={props.changeHref} variant="secondary" size="s" className="shrink-0">
+              Ändern
+            </ButtonLink>
+          }
+        >
+          <div className="flex items-center gap-4">
             <Avatar src={provider.avatarUrl} name={provider.name} size={48} />
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <div className="flex items-baseline justify-between gap-3">
-                <p className="type-heading-m">{provider.name}</p>
-                <Link href={props.changeHref} className="-my-1 inline-block py-1 type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover">
-                  Ändern
-                </Link>
-              </div>
+              <p className="type-heading-s">{provider.name}</p>
               <MetaLine>
                 <Rating avg={provider.ratingAvg} count={provider.ratingCount} />
                 <ModeLabel mode={quote.bookingMode} />
               </MetaLine>
             </div>
           </div>
-          <dl className="flex flex-col divide-y divide-line border-t border-line">
-            <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
-              <dd className="text-right type-body-s text-ink">{quote.serviceName}</dd>
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-4 rounded-tile bg-surface-sunken p-4 sm:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_auto] sm:gap-x-6">
+            <div className="col-span-2 flex min-w-0 flex-col gap-1 sm:col-span-1">
+              <dt className="type-caption text-ink-muted hyphens-none">Behandlung</dt>
+              <dd className="type-label text-ink">{quote.serviceName}</dd>
             </div>
-            <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Termin</dt>
-              <dd className="text-right type-body-s text-ink num">{`${dayLabel(quote.startsAt)} · ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</dd>
+            <div className="flex min-w-0 flex-col gap-1">
+              <dt className="flex items-center gap-1.5 type-caption text-ink-muted hyphens-none">
+                <Icon icon={CalendarDays} size={14} />
+                Termin
+              </dt>
+              <dd className="type-label text-ink num">
+                {dayLabel(quote.startsAt)}
+                <span className="block text-ink-muted">{`${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</span>
+              </dd>
             </div>
-            <div className="flex items-baseline justify-between gap-4 py-3">
-              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Dauer</dt>
-              <dd className="text-right type-body-s text-ink num">{formatDuration(quote.durationMinutes)}</dd>
+            <div className="flex flex-col gap-1">
+              <dt className="flex items-center gap-1.5 type-caption text-ink-muted hyphens-none">
+                <Icon icon={Clock} size={14} />
+                Dauer
+              </dt>
+              <dd className="type-label text-ink num">{formatDuration(quote.durationMinutes)}</dd>
             </div>
           </dl>
-        </Section>
+        </StepCard>
 
-        {/* Ort */}
-        <Section id="ort" title="Ort" description="Wo dürfen wir Sie besuchen?">
+        {/* 2 · Ort */}
+        <StepCard id="ort" index={1} done={valid[1]} title="Ort" description="Wo dürfen wir Sie besuchen?">
           <SegmentedControl
             name="kind"
             label="Art des Ortes"
-            options={[
-              { value: "home", label: "Zuhause" },
-              { value: "hotel", label: "Hotel" },
-              { value: "office", label: "Büro" },
-            ]}
-            value={savedChosen ? (savedChosen.kind === "other" ? "home" : savedChosen.kind) : kind}
+            options={(["home", "hotel", "office"] as const).map((k) => ({
+              value: k,
+              label: (
+                <span className="inline-flex items-center gap-1.5">
+                  <Icon icon={KIND_ICON[k]} size={16} className="hidden min-[360px]:block" />
+                  {LOCATION_LABELS[k]}
+                </span>
+              ),
+            }))}
+            value={shownKind}
             onChange={(v) => {
               setKind(v as LocationKind);
               if (savedChosen && savedChosen.kind !== v) {
@@ -474,25 +512,36 @@ export function CheckoutForm(props: CheckoutFormProps) {
           />
 
           {addresses.length ? (
-            <fieldset className="flex flex-col">
-              <legend className="mb-1 type-label-s text-ink">Gespeicherte Adressen</legend>
-              <div className="flex flex-col border-y border-line">
-                {addresses.map((a) => (
-                  <RadioRow
-                    key={a.id}
-                    name="address"
-                    value={a.id}
-                    checked={choice === a.id}
-                    onChange={() => {
-                      setChoice(a.id);
-                      setKind(a.kind === "other" ? "home" : a.kind);
-                      requote({ addressId: a.id, useCredits });
-                    }}
-                    label={`${a.label ?? LOCATION_LABELS[a.kind]}${a.isDefault ? " · Standard" : ""}`}
-                    description={`${a.street} ${a.houseNumber}, ${a.postalCode} ${a.city}${a.details ? ` · ${a.details}` : ""}`}
-                  />
-                ))}
-                <RadioRow
+            <fieldset className="flex flex-col gap-2.5">
+              <legend className="mb-2.5 type-label-s text-ink">Gespeicherte Adressen</legend>
+              <div className="grid gap-2.5 sm:grid-cols-2">
+                {addresses.map((a) => {
+                  const name = a.label ?? LOCATION_LABELS[a.kind];
+                  return (
+                    <OptionCard
+                      key={a.id}
+                      name="address"
+                      value={a.id}
+                      checked={choice === a.id}
+                      onChange={() => {
+                        setChoice(a.id);
+                        setKind(a.kind === "other" ? "home" : a.kind);
+                        requote({ addressId: a.id, useCredits });
+                      }}
+                      icon={KIND_ICON[a.kind]}
+                      title={name}
+                      badge={a.isDefault ? <Badge size="s" tone="accent">Standard</Badge> : null}
+                      accessibleName={`${name}${a.isDefault ? " · Standard" : ""}`}
+                      description={
+                        <>
+                          <span className="block num">{`${a.street} ${a.houseNumber}, ${a.postalCode} ${a.city}`}</span>
+                          {a.details ? <span className="line-clamp-1">{a.details}</span> : null}
+                        </>
+                      }
+                    />
+                  );
+                })}
+                <OptionCard
                   name="address"
                   value="new"
                   checked={choice === "new"}
@@ -500,7 +549,10 @@ export function CheckoutForm(props: CheckoutFormProps) {
                     setChoice("new");
                     requote({ addressId: null, useCredits });
                   }}
-                  label="Neue Adresse"
+                  icon={Plus}
+                  dashed
+                  title="Neue Adresse"
+                  accessibleName="Neue Adresse"
                   description={`In ${postalCode}${props.cityName ? ` ${props.cityName}` : ""}`}
                 />
               </div>
@@ -508,7 +560,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
           ) : null}
 
           {choice === "new" ? (
-            <div className="flex flex-col gap-4">
+            <div className="flex animate-fade-in flex-col gap-4">
               <div className="grid grid-cols-[minmax(0,1fr)_6.5rem] gap-3">
                 <Input label="Straße" autoComplete="address-line1" value={addr.street} onChange={(e) => set("street", e.target.value)} error={err("street")} maxLength={120} />
                 <Input label="Nr." autoComplete="address-line2" value={addr.houseNumber} onChange={(e) => set("houseNumber", e.target.value)} error={err("houseNumber")} maxLength={12} />
@@ -566,21 +618,37 @@ export function CheckoutForm(props: CheckoutFormProps) {
               <Link href={routes.search({ plz: savedChosen?.postalCode ?? postalCode, kategorie: props.categorySlug ?? undefined })}>Profis in der Nähe dieser Adresse finden</Link>
             </Notice>
           ) : null}
-        </Section>
+        </StepCard>
 
-        {/* Kontakt */}
-        <Section
+        {/* 3 · Kontakt */}
+        <StepCard
           id="kontakt"
+          index={2}
+          done={valid[2]}
           title="Kontakt"
           description={customer || guest ? undefined : mode === "signup" ? "Für Ihre Bestätigung und Rückfragen am Termintag. Ein Passwort brauchen Sie dafür nicht." : undefined}
         >
-          {customer ? (
+          {customer || guest ? (
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-0.5 border-y border-line py-3">
-                <p className="type-body-s text-ink">{`Angemeldet als ${[customer.firstName, customer.lastName].filter(Boolean).join(" ") || customer.email}`}</p>
-                <p className="type-caption text-ink-muted">{`${customer.email}${customer.phone ? ` · ${customer.phone}` : ""}`}</p>
+              <div className="flex items-center gap-3.5 rounded-tile bg-surface-sunken p-3.5">
+                <Avatar name={customer ? [customer.firstName, customer.lastName].filter(Boolean).join(" ") || customer.email : [contact.firstName, contact.lastName].filter(Boolean).join(" ")} size={40} />
+                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <p className="type-label text-ink">
+                    {customer
+                      ? `Angemeldet als ${[customer.firstName, customer.lastName].filter(Boolean).join(" ") || customer.email}`
+                      : `Konto angelegt für ${[contact.firstName, contact.lastName].filter(Boolean).join(" ")}`}
+                  </p>
+                  <p className="truncate type-caption text-ink-muted">
+                    {customer ? `${customer.email}${customer.phone ? ` · ${customer.phone}` : ""}` : `${guest!.email}${contact.phone ? ` · ${contact.phone}` : ""}`}
+                  </p>
+                </div>
+                <span className="hidden sm:block">
+                  <Badge tone="success" size="s" dot>
+                    {customer ? "Angemeldet" : "Angelegt"}
+                  </Badge>
+                </span>
               </div>
-              {!customer.phone ? (
+              {customer && !customer.phone ? (
                 <Input
                   label="Mobilnummer"
                   optional
@@ -595,107 +663,115 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 />
               ) : null}
             </div>
-          ) : guest ? (
-            <div className="flex flex-col gap-0.5 border-y border-line py-3">
-              <p className="type-body-s text-ink">{`Konto angelegt für ${[contact.firstName, contact.lastName].filter(Boolean).join(" ")}`}</p>
-              <p className="type-caption text-ink-muted">{`${guest.email}${contact.phone ? ` · ${contact.phone}` : ""}`}</p>
-            </div>
-          ) : mode === "signup" ? (
-            <div className="flex flex-col gap-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Input label="Vorname" autoComplete="given-name" value={contact.firstName} onChange={(e) => setContact({ ...contact, firstName: e.target.value })} error={err("firstName")} />
-                <Input label="Nachname" autoComplete="family-name" value={contact.lastName} onChange={(e) => setContact({ ...contact, lastName: e.target.value })} error={err("lastName")} />
-              </div>
-              <Input
-                label="E-Mail"
-                type="email"
-                autoComplete="email"
-                inputMode="email"
-                hint="Hierhin schicken wir die Bestätigung und den Link, mit dem Sie später ein Passwort festlegen."
-                value={contact.email}
-                onChange={(e) => setContact({ ...contact, email: e.target.value })}
-                error={err("email")}
-              />
-              <Input
-                label="Mobilnummer"
-                type="tel"
-                autoComplete="tel"
-                inputMode="tel"
-                placeholder="+49 151 23456789"
-                hint="Nur für Rückfragen zu Ihrem Termin. Wir geben sie erst nach der Bestätigung an die Fachkraft weiter."
-                value={contact.phone}
-                onChange={(e) => setContact({ ...contact, phone: e.target.value })}
-                error={err("phone")}
-              />
-              <p className="type-caption text-ink-muted">
-                Mit der Buchung legen wir ein Kundenkonto für Sie an. Es gelten die{" "}
-                <Link href={routes.terms()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
-                  AGB
-                </Link>
-                ; wie wir Ihre Daten verarbeiten, steht in der{" "}
-                <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
-                  Datenschutzerklärung
-                </Link>
-                .
-              </p>
-              <div className="flex flex-wrap items-center gap-x-2 border-t border-line pt-4">
-                <span className="type-body-s text-ink-muted">Schon Kundin oder Kunde?</span>
-                <Button variant="link" className="type-label-s" onClick={() => setMode("login")}>
-                  Ich habe bereits ein Konto
-                </Button>
-              </div>
-            </div>
           ) : (
-            <div className="flex flex-col gap-4">
-              {existingEmail ? (
-                <Notice kind="info" title="Sie haben schon ein Konto.">
-                  {`Mit ${existingEmail} gibt es bereits ein Kundenkonto. Bitte melden Sie sich an – Ihre Auswahl bleibt erhalten.`}
-                </Notice>
-              ) : null}
-              <Input label="E-Mail" type="email" autoComplete="email" inputMode="email" value={login.email} onChange={(e) => setLogin({ ...login, email: e.target.value })} />
-              <Input label="Passwort" type="password" autoComplete="current-password" value={login.password} onChange={(e) => setLogin({ ...login, password: e.target.value })} />
-              {loginError ? <Notice kind="danger">{loginError}</Notice> : showErrors && errors.login ? <Notice kind="warning">{errors.login}</Notice> : null}
-              <div className="flex flex-wrap items-center gap-3">
-                <Button variant="secondary" onClick={doLogin} loading={loggingIn}>
-                  Anmelden und fortfahren
-                </Button>
-                <Link href="/passwort-vergessen" className="type-label-s text-accent underline underline-offset-[0.2em]" target="_blank">
-                  Passwort vergessen?
-                </Link>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-2 border-t border-line pt-4">
-                <span className="type-body-s text-ink-muted">Neu bei SOMA?</span>
-                <Button
-                  variant="link"
-                  className="type-label-s"
-                  onClick={() => {
-                    setExistingEmail(null);
-                    setMode("signup");
-                  }}
-                >
-                  Konto beim Buchen anlegen
-                </Button>
-              </div>
+            <div className="flex flex-col gap-5">
+              <SegmentedControl
+                name="kontakt-modus"
+                label="Wie möchten Sie fortfahren?"
+                value={mode}
+                onChange={(v) => {
+                  if (v === "signup") setExistingEmail(null);
+                  setMode(v as "signup" | "login");
+                }}
+                options={[
+                  { value: "signup", label: "Neu bei SOMA" },
+                  { value: "login", label: "Ich habe ein Konto" },
+                ]}
+              />
+              {mode === "signup" ? (
+                <div key="signup" className="flex animate-fade-in flex-col gap-4">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Input label="Vorname" autoComplete="given-name" value={contact.firstName} onChange={(e) => setContact({ ...contact, firstName: e.target.value })} error={err("firstName")} />
+                    <Input label="Nachname" autoComplete="family-name" value={contact.lastName} onChange={(e) => setContact({ ...contact, lastName: e.target.value })} error={err("lastName")} />
+                  </div>
+                  <Input
+                    label="E-Mail"
+                    type="email"
+                    autoComplete="email"
+                    inputMode="email"
+                    hint="Hierhin schicken wir die Bestätigung und den Link, mit dem Sie später ein Passwort festlegen."
+                    value={contact.email}
+                    onChange={(e) => setContact({ ...contact, email: e.target.value })}
+                    error={err("email")}
+                  />
+                  <Input
+                    label="Mobilnummer"
+                    type="tel"
+                    autoComplete="tel"
+                    inputMode="tel"
+                    placeholder="+49 151 23456789"
+                    hint="Nur für Rückfragen zu Ihrem Termin. Wir geben sie erst nach der Bestätigung an die Fachkraft weiter."
+                    value={contact.phone}
+                    onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    error={err("phone")}
+                  />
+                  <div className="flex gap-3 rounded-tile bg-surface-sunken p-3.5">
+                    <Icon icon={UserRound} size={18} className="mt-px shrink-0 text-ink-muted" />
+                    <p className="type-caption text-ink-muted">
+                      Mit der Buchung legen wir ein Kundenkonto für Sie an. Es gelten die{" "}
+                      <Link href={routes.terms()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
+                        AGB
+                      </Link>
+                      ; wie wir Ihre Daten verarbeiten, steht in der{" "}
+                      <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
+                        Datenschutzerklärung
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div key="login" className="flex animate-fade-in flex-col gap-4">
+                  {existingEmail ? (
+                    <Notice kind="info" title="Sie haben schon ein Konto.">
+                      {`Mit ${existingEmail} gibt es bereits ein Kundenkonto. Bitte melden Sie sich an – Ihre Auswahl bleibt erhalten.`}
+                    </Notice>
+                  ) : null}
+                  <Input label="E-Mail" type="email" autoComplete="email" inputMode="email" value={login.email} onChange={(e) => setLogin({ ...login, email: e.target.value })} />
+                  <Input label="Passwort" type="password" autoComplete="current-password" value={login.password} onChange={(e) => setLogin({ ...login, password: e.target.value })} />
+                  {loginError ? <Notice kind="danger">{loginError}</Notice> : showErrors && errors.login ? <Notice kind="warning">{errors.login}</Notice> : null}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <Button variant="secondary" onClick={doLogin} loading={loggingIn} icon={<Icon icon={KeyRound} />}>
+                      Anmelden und fortfahren
+                    </Button>
+                    <Link href="/passwort-vergessen" className="rounded-control type-label-s text-accent underline underline-offset-[0.2em] focus-ring" target="_blank">
+                      Passwort vergessen?
+                    </Link>
+                  </div>
+                </div>
+              )}
             </div>
           )}
-        </Section>
+        </StepCard>
 
-        {/* Zahlung */}
-        <Section id="zahlung" title="Zahlung">
+        {/* 4 · Zahlung */}
+        <StepCard id="zahlung" index={3} done={valid[3]} title="Zahlung">
           {quote.paymentProvider === "dev" ? (
-            <Notice kind="warning" title="Testmodus – es wird keine echte Zahlung ausgeführt">
-              {isRequest
-                ? `Beim Anfragen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) nur reserviert. Belastet wird erst, wenn die Fachkraft zusagt.`
-                : `Beim Buchen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) simuliert. Es fließt kein Geld.`}
-            </Notice>
+            <PaymentTile
+              title={`Visa${NBSP}••••${NBSP}4242`}
+              meta="Testkarte · simulierte Zahlung"
+              badge={
+                <Badge tone="warning" size="s" dot>
+                  Test
+                </Badge>
+              }
+              noticeTitle="Testmodus – es wird keine echte Zahlung ausgeführt"
+              notice={
+                isRequest
+                  ? `Beim Anfragen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) nur reserviert. Belastet wird erst, wenn die Fachkraft zusagt.`
+                  : `Beim Buchen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) simuliert. Es fließt kein Geld.`
+              }
+            />
           ) : (
-            <Notice kind="info" title="Sichere Kartenzahlung">
-              Die Zahlungsdaten geben Sie im nächsten Schritt bei unserem Zahlungsdienstleister Stripe ein.
-            </Notice>
+            <PaymentTile stripe title="Kartenzahlung" meta="Die Zahlungsdaten geben Sie im nächsten Schritt bei unserem Zahlungsdienstleister Stripe ein." />
           )}
           {customer && quote.creditsAvailableCents > 0 ? (
-            <div className="border-y border-line">
+            <div className="flex items-center gap-3 rounded-tile bg-surface-sunken pr-4 pl-3.5">
+              <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised">
+                <Icon icon={Wallet} size={16} />
+              </span>
               <Switch
+                className="flex-1"
                 label="SOMA-Guthaben verwenden"
                 description={`${formatPriceExact(quote.creditsAvailableCents)} verfügbar`}
                 checked={useCredits}
@@ -707,115 +783,95 @@ export function CheckoutForm(props: CheckoutFormProps) {
               />
             </div>
           ) : null}
-        </Section>
-
-        {/* Preis & Bedingungen */}
-        <section id="preis" aria-labelledby="preis-titel" className="flex scroll-mt-24 flex-col gap-5 border-t border-line pt-8">
-          <h2 id="preis-titel" className="type-heading-m">
-            Preis & Bedingungen
-          </h2>
-          <div aria-live="polite" aria-busy={quoting || undefined} className={cn("transition-opacity duration-fast", quoting && "opacity-60")}>
-            <PriceBreakdown
-              lines={lines}
-              totalCents={price.totalCents}
-              notes={[
-                ...(isRequest ? [<CheckLine key="req">{`Bis zur Zusage von ${provider.name} jederzeit kostenlos stornierbar.`}</CheckLine>] : []),
-                ...(freeNow && freeUntil ? [<CheckLine key="free">{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>] : []),
-                ...(grace ? [<CheckLine key="grace">{grace}</CheckLine>] : []),
-                ...(!freeNow
-                  ? [
-                      <span key="nofree" className="text-ink">
-                        {grace ? "Danach gelten für diesen kurzfristigen Termin bereits Stornogebühren." : "Für diesen kurzfristigen Termin gelten bereits Stornogebühren."}
-                      </span>,
-                    ]
-                  : []),
-                <span key="vat">{quote.vatNote}</span>,
-                <span key="agent">{`SOMA vermittelt; Vertragspartner ist ${provider.name} (selbstständige Fachkraft).`}</span>,
-              ]}
+          <div className="flex flex-col gap-2 border-t border-line pt-3">
+            {/* ⚖ LEGAL REVIEW: consent wording for § 356 Abs. 4 BGB (express request to start before the withdrawal period ends). */}
+            <Checkbox
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              error={err("consent")}
+              label="Ich verlange ausdrücklich, dass die Fachkraft vor Ablauf der Widerrufsfrist mit der Behandlung beginnt. Mir ist bekannt, dass ich mein Widerrufsrecht bei vollständiger Erbringung der Leistung verliere."
+              description={
+                <>
+                  Pflichtangabe nach §{NBSP}356 Abs.{NBSP}4 BGB.{" "}
+                  <Link href="/widerruf" target="_blank" className="text-accent underline underline-offset-[0.2em]">
+                    Widerrufsbelehrung
+                  </Link>
+                </>
+              }
             />
+            <p className="type-caption text-ink-muted">
+              Mit Klick auf „{isRequest ? "Zahlungspflichtig anfragen" : "Zahlungspflichtig buchen"}“ schließen Sie einen kostenpflichtigen Vertrag mit {provider.name} ab; es gelten die{" "}
+              <Link href={routes.terms()} target="_blank" className="text-accent underline underline-offset-[0.2em]">
+                AGB
+              </Link>
+              .
+            </p>
           </div>
-          <details className="group border-y border-line">
-            <summary className="flex min-h-touch cursor-pointer list-none items-center justify-between gap-4 type-label-s text-ink">
-              Stornobedingungen im Detail
-              <Icon icon={ChevronDown} className="text-ink-muted transition-transform duration-base group-open:rotate-180" />
-            </summary>
-            <ul className="flex flex-col gap-1.5 pb-4">
-              {scheduleLines(quote.cancellation.schedule).map((l) => (
-                <li key={l} className="type-caption text-ink-muted num">
-                  {l}
-                </li>
-              ))}
-              <li className="type-caption text-ink-muted">Sagt die Fachkraft ab, erhalten Sie den vollen Betrag zurück.</li>
-            </ul>
-          </details>
-          {/* ⚖ LEGAL REVIEW: consent wording for § 356 Abs. 4 BGB (express request to start before the withdrawal period ends). */}
-          <Checkbox
-            checked={consent}
-            onChange={(e) => setConsent(e.target.checked)}
-            error={err("consent")}
-            label="Ich verlange ausdrücklich, dass die Fachkraft vor Ablauf der Widerrufsfrist mit der Behandlung beginnt. Mir ist bekannt, dass ich mein Widerrufsrecht bei vollständiger Erbringung der Leistung verliere."
-            description={
-              <>
-                Pflichtangabe nach §{NBSP}356 Abs.{NBSP}4 BGB.{" "}
-                <Link href="/widerruf" target="_blank" className="text-accent underline underline-offset-[0.2em]">
-                  Widerrufsbelehrung
-                </Link>
-              </>
-            }
-          />
-          <p className="type-caption text-ink-muted">
-            Mit Klick auf „{isRequest ? "Zahlungspflichtig anfragen" : "Zahlungspflichtig buchen"}“ schließen Sie einen kostenpflichtigen Vertrag mit {provider.name} ab; es gelten die{" "}
-            <Link href={routes.terms()} target="_blank" className="text-accent underline underline-offset-[0.2em]">
-              AGB
-            </Link>
-            .
-          </p>
           {serverError ? <Notice kind="danger">{serverError}</Notice> : null}
-        </section>
+        </StepCard>
       </div>
 
-      {/* Desktop summary */}
-      <aside aria-label="Zusammenfassung" className="hidden lg:col-span-5 lg:block">
-        <div className="sticky top-8 ml-6 flex flex-col gap-5 border border-line bg-surface-raised p-6">
-          <div className="flex items-center gap-3">
-            <Avatar src={provider.avatarUrl} name={provider.name} size={48} />
-            <div className="min-w-0">
-              <p className="type-heading-s">{provider.name}</p>
-              <p className="truncate type-caption text-ink-muted">{`${quote.serviceName} · ${formatDuration(quote.durationMinutes)}`}</p>
+      {/* Summary: in the flow on phones, a sticky premium card on desktop. */}
+      <aside aria-label="Zusammenfassung" className="mt-4 min-w-0 md:mt-5 lg:col-span-5 lg:mt-0">
+        <div className="lg:sticky lg:top-[calc(var(--header-height)+0.75rem)]">
+          <section id="preis" aria-labelledby="preis-titel" className="relative isolate flex scroll-mt-24 flex-col gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-float md:p-7">
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-52 bg-aura-soft [mask-image:linear-gradient(to_bottom,#000_35%,transparent)]" />
+            <div className="flex items-center gap-3.5">
+              <Avatar src={provider.avatarUrl} name={provider.name} size={48} />
+              <div className="min-w-0">
+                <p className="type-heading-s">{provider.name}</p>
+                <p className="truncate type-caption text-ink-muted">{`${quote.serviceName} · ${formatDuration(quote.durationMinutes)}`}</p>
+              </div>
             </div>
-          </div>
-          <dl className="flex flex-col divide-y divide-line border-y border-line">
-            <div className="flex justify-between gap-4 py-2.5">
-              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Termin</dt>
-              <dd className="text-right type-body-s num">{`${dayLabel(quote.startsAt)}, ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</dd>
+            <ul className="flex flex-col gap-3">
+              <li className="flex items-start gap-3 type-body-s text-ink">
+                <Icon icon={CalendarDays} size={18} className="mt-px shrink-0 text-ink-muted" />
+                <span className="num">{`${dayLabel(quote.startsAt)}, ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</span>
+              </li>
+              <li className="flex items-start gap-3 type-body-s text-ink">
+                <Icon icon={KIND_ICON[savedChosen?.kind ?? kind]} size={18} className="mt-px shrink-0 text-ink-muted" />
+                <span className="min-w-0">
+                  {LOCATION_LABELS[savedChosen?.kind ?? kind]}
+                  <span className="block truncate type-caption text-ink-muted">{summaryAddress}</span>
+                </span>
+              </li>
+            </ul>
+            <div className="flex flex-col gap-3 border-t border-dashed border-line-mid pt-5">
+              <h2 id="preis-titel" className="type-label-s text-ink-muted">
+                Preis & Bedingungen
+              </h2>
+              <div aria-live="polite" aria-busy={quoting || undefined} className={cn("transition-[opacity,filter] duration-base ease-standard", quoting && "opacity-50 blur-[1px]")}>
+                <PriceBreakdown
+                  lines={lines}
+                  totalCents={price.totalCents}
+                  notes={[<span key="vat">{quote.vatNote}</span>, <span key="agent">{`SOMA vermittelt; Vertragspartner ist ${provider.name} (selbstständige Fachkraft).`}</span>]}
+                />
+              </div>
             </div>
-            <div className="flex justify-between gap-4 py-2.5">
-              <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Ort</dt>
-              <dd className="min-w-0 text-right type-body-s">
-                <span className="block">{LOCATION_LABELS[savedChosen?.kind ?? kind]}</span>
-                <span className="block truncate text-ink-muted">{summaryAddress}</span>
-              </dd>
+            <div className="flex flex-col gap-1 rounded-tile bg-surface-sunken px-3.5 pt-3.5">
+              {cancellationLines}
+              <details className="group">
+                <summary className="-mx-1 flex min-h-touch cursor-pointer list-none items-center justify-between gap-4 rounded-control px-1 type-label-s text-ink focus-ring">
+                  Stornobedingungen im Detail
+                  <Icon icon={ChevronDown} size={18} className="text-ink-muted transition-transform duration-base ease-spring group-open:rotate-180" />
+                </summary>
+                <ul className="flex animate-fade-in flex-col gap-1.5 pb-3.5">
+                  {scheduleLines(quote.cancellation.schedule).map((l) => (
+                    <li key={l} className="type-caption text-ink-muted num">
+                      {l}
+                    </li>
+                  ))}
+                  <li className="type-caption text-ink-muted">Sagt die Fachkraft ab, erhalten Sie den vollen Betrag zurück.</li>
+                </ul>
+              </details>
             </div>
-          </dl>
-          <div aria-live="polite" className={cn("flex items-baseline justify-between gap-4 transition-opacity duration-fast", quoting && "opacity-60")}>
-            <p className="type-heading-m">Gesamtpreis</p>
-            <p className="type-heading-m num">{formatPriceExact(price.totalCents)}</p>
-          </div>
-          {isRequest ? (
-            <CheckLine>Bis zur Zusage kostenlos stornierbar.</CheckLine>
-          ) : (
-            <div className="flex flex-col gap-1.5">
-              {freeNow && freeUntil ? <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine> : null}
-              {grace ? <CheckLine>{grace}</CheckLine> : null}
-              {!freeNow ? <p className="type-caption text-ink-muted">{grace ? "Danach gelten für diesen kurzfristigen Termin bereits Stornogebühren." : "Kurzfristiger Termin: Es gelten bereits Stornogebühren."}</p> : null}
-            </div>
-          )}
-          {cta}
+            <div className="hidden lg:block">{cta}</div>
+          </section>
         </div>
       </aside>
 
-      {/* Mobile sticky CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) bg-surface-raised px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
+      {/* Mobile sticky CTA: glass bar above the safe area. */}
+      <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong glass-edge px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
         {cta}
       </div>
 

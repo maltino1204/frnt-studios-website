@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import { formatDate, formatPriceExact } from "@/lib/format";
 import { formatDateTime, formatInt, fullName } from "@/components/admin/format";
 import { BOOKING_STATUS, PROVIDER_STATUS, ROLE } from "@/components/admin/labels";
-import { AdminPageHeader, AdminSection, EMPTY, PanelCard } from "@/components/admin/page";
-import { AdminTable, CellLink, numCell } from "@/components/admin/table";
+import { AdminPageHeader, AdminSection, Card, EMPTY, Facts, MutedLink, PanelCard, SectionEmpty } from "@/components/admin/page";
+import { AdminTable, CellLink, numCell, rowLink } from "@/components/admin/table";
+import { Avatar } from "@/components/ui/avatar";
 import { CreditAdjustForm, UserAnonymizeButton, UserBlockButton, UserExportButton } from "@/components/admin/user-actions";
-import { EmptyState, Notice, Status } from "@/components/ui/feedback";
-import { FactList } from "@/components/ui/layout";
+import { Notice, Status } from "@/components/ui/feedback";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import { getUserForAdmin } from "@/server/services/admin-ext";
@@ -30,31 +30,34 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
     <>
       <AdminPageHeader
         back={{ href: routes.admin.users(), label: "Nutzer" }}
-        title={name}
+        title={
+          <span className="flex items-center gap-3">
+            <Avatar name={name} size={40} />
+            {name}
+          </span>
+        }
         meta={
-          <span className="flex flex-wrap items-center gap-4">
-            <span className="type-body-s text-ink-muted">{ROLE[u.role]}</span>
+          <span className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex h-6 items-center rounded-full bg-surface-sunken px-2.5 type-label-s text-ink-muted">{ROLE[u.role]}</span>
             {anonymized ? <Status tone="neutral">Anonymisiert</Status> : u.blockedAt ? <Status tone="danger">Gesperrt</Status> : <Status tone="success">Aktiv</Status>}
           </span>
         }
-        description={anonymized ? `Anonymisiert am ${formatDateTime(d.anonymizedAt!)}` : u.email}
+        description={<span className="sm:pl-[3.25rem]">{anonymized ? `Anonymisiert am ${formatDateTime(d.anonymizedAt!)}` : u.email}</span>}
         actions={
           !self && !anonymized ? (
             <>
-              {u.role === "provider" ? (
-                <CellLink href={routes.admin.provider(u.id)}>Profi-Profil verwalten</CellLink>
-              ) : null}
+              {u.role === "provider" ? <MutedLink href={routes.admin.provider(u.id)}>Profi-Profil verwalten</MutedLink> : null}
               <UserBlockButton userId={u.id} name={name} blocked={!!u.blockedAt} role={ROLE[u.role]} />
             </>
           ) : null
         }
       />
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">
-        <div className="flex min-w-0 flex-col gap-10">
-          <AdminSection id="bookings" title="Buchungen" description={`Die letzten ${Math.min(20, u.bookingsCount)} von ${formatInt(u.bookingsCount)} Buchungen.`}>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6 xl:gap-8">
+        <div className="flex min-w-0 flex-col gap-8 lg:gap-10">
+          <AdminSection id="bookings" title="Buchungen" description={u.bookingsCount ? `Die letzten ${Math.min(20, u.bookingsCount)} von ${formatInt(u.bookingsCount)} Buchungen.` : undefined}>
             {d.bookings.length === 0 ? (
-              <EmptyState title="Noch keine Buchungen." className="py-4" />
+              <SectionEmpty seed={`nutzer-buchungen-${u.id}`} title="Noch keine Buchungen." />
             ) : (
               <AdminTable label="Buchungen">
                 <thead>
@@ -69,9 +72,9 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
                 </thead>
                 <tbody>
                   {d.bookings.map((b) => (
-                    <tr key={b.id}>
+                    <tr key={b.id} className={rowLink}>
                       <td>
-                        <CellLink href={routes.admin.booking(b.id)}>
+                        <CellLink row href={routes.admin.booking(b.id)}>
                           <span className="code-ref">{b.reference}</span>
                         </CellLink>
                       </td>
@@ -92,12 +95,12 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
           {isCustomer ? (
             <AdminSection id="credits" title="Guthaben" description={`Aktueller Stand: ${formatPriceExact(d.credits.balanceCents)}. Jede Buchung wird protokolliert.`}>
               {!anonymized ? (
-                <div className="border border-line bg-surface-raised px-4 py-4">
+                <Card className="px-4 py-4 sm:px-5 sm:py-5">
                   <CreditAdjustForm userId={u.id} balanceCents={d.credits.balanceCents} />
-                </div>
+                </Card>
               ) : null}
               {d.credits.entries.length === 0 ? (
-                <EmptyState title="Noch keine Guthabenbewegungen." className="py-4" />
+                <SectionEmpty seed={`guthaben-${u.id}`} title="Noch keine Guthabenbewegungen." />
               ) : (
                 <AdminTable label="Guthabenbewegungen">
                   <thead>
@@ -133,9 +136,9 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
           ) : null}
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-6">
-          <PanelCard title="Konto" bodyClassName="px-4 py-1">
-            <FactList
+        <aside className="flex min-w-0 flex-col gap-3 lg:gap-4">
+          <PanelCard title="Konto" bodyClassName="px-4 sm:px-5">
+            <Facts
               items={[
                 { label: "E-Mail", value: <span className="break-all">{u.email}</span> },
                 { label: "Telefon", value: u.phone ?? EMPTY },
@@ -152,7 +155,7 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
             />
           </PanelCard>
 
-          <PanelCard title="Datenschutz" bodyClassName="flex flex-col gap-4 px-4 py-4">
+          <PanelCard title="Datenschutz" bodyClassName="flex flex-col gap-4 px-4 py-4 sm:px-5">
             <div className="flex flex-col gap-2">
               <p className="type-body-s text-ink-muted">Auskunft nach Art. 15 DSGVO: Profil, Adressen, Buchungen, Bewertungen, Guthaben und Benachrichtigungen als JSON. Der Export wird protokolliert.</p>
               <div>

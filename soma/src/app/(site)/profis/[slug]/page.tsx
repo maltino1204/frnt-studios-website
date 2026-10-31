@@ -12,9 +12,12 @@ import { BRAND_NAME, SITE_URL } from "@/lib/brand";
 import { formatDateLong, formatDistance, formatPrice, formatPriceExact, plural } from "@/lib/format";
 import { resolveImage } from "@/lib/images";
 import { routes } from "@/lib/routes";
+import { Check, CalendarCheck2, Clock3 } from "lucide-react";
+import { AuraArt } from "@/components/ui/aura";
 import { Portrait } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
-import { Container, FactList, Overline } from "@/components/ui/layout";
+import { Icon } from "@/components/ui/icon";
+import { Container, Overline } from "@/components/ui/layout";
 import { Photo } from "@/components/ui/photo";
 import { Rating } from "@/components/ui/trust";
 import { FavoriteButton } from "@/components/site/favorite-button";
@@ -116,7 +119,6 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
     profile.languages.length ? { label: "Sprachen", value: profile.languages.map(languageName).join(", ") } : null,
     profile.yearsExperience ? { label: "Erfahrung", value: plural(profile.yearsExperience, "Jahr", "Jahre") } : null,
     { label: "Ausstattung", value: "Bringt alles Nötige mit" },
-    profile.completedCount > 0 ? { label: "Termine über SOMA", value: profile.completedCount.toLocaleString("de-DE") } : null,
     profile.approvedAt ? { label: "Auf SOMA seit", value: formatDateLong(profile.approvedAt).replace(/^\d+\. /, "") } : null,
   ].filter((f): f is { label: string; value: string } => !!f);
 
@@ -153,34 +155,86 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
       : {}),
   };
 
-  const content = (
-    <div className="flex flex-col gap-12 lg:gap-16">
-      <header className="flex flex-col gap-4">
-        <Overline>{`${cat?.name ?? "Beauty & Wellness"}${profile.cityName ? ` · ${profile.cityName}` : ""}`}</Overline>
-        <div className="flex items-start justify-between gap-4">
-          <h1 className="type-display-m">{profile.displayName}</h1>
-          <FavoriteButton providerId={profile.providerId} providerName={profile.displayName} initial={profile.isFavorite} canToggle={isCustomer} withLabel className="-mr-3 mt-0.5" />
+  const metaLine = `${cat?.name ?? "Beauty & Wellness"}${profile.cityName ? ` · ${profile.cityName}` : ""}`;
+
+  const hero = (
+    <header className="flex flex-col">
+      {/* Cover: the person's seeded aura (the same palette as the monogram), drifting slowly. */}
+      <div className="relative isolate h-32 overflow-clip rounded-panel shadow-raised sm:h-44 lg:h-56">
+        <AuraArt seed={profile.displayName} animate />
+        <div className="absolute top-3 right-3 z-[3] lg:top-4 lg:right-4">
+          <FavoriteButton
+            providerId={profile.providerId}
+            providerName={profile.displayName}
+            initial={profile.isFavorite}
+            canToggle={isCustomer}
+            withLabel
+            className="glass-strong glass-edge shadow-raised hover:bg-white/90"
+          />
         </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+      </div>
+      <div className="flex flex-col gap-5 px-1 sm:flex-row sm:items-end sm:gap-7 sm:px-6 lg:px-8">
+        <Portrait
+          src={profile.avatarUrl}
+          name={profile.displayName}
+          ratio="1/1"
+          sizes="(min-width: 1024px) 176px, 128px"
+          priority
+          className="relative z-[2] -mt-14 w-28 shrink-0 rounded-card shadow-float ring-4 ring-surface sm:-mt-20 sm:w-36 lg:-mt-24 lg:w-44 lg:rounded-panel"
+        />
+        <div className="flex min-w-0 flex-col gap-3 sm:pt-5 sm:pb-1">
+          <Overline>{metaLine}</Overline>
+          <h1 className="type-display-m">{profile.displayName}</h1>
+          {profile.headline ? <p className="type-body-l text-ink-muted">{profile.headline}</p> : null}
+        </div>
+      </div>
+      {/* Trust row */}
+      <ul className="mt-6 flex flex-wrap items-center gap-2 sm:px-6 lg:px-8" aria-label="Auf einen Blick">
+        <li>
           <VerifiedSheetButton name={firstName} qualifications={profile.verifiedQualifications ?? []} />
-          <a href="#bewertungen" className="inline-flex h-touch items-center hover:underline hover:underline-offset-4">
+        </li>
+        <li>
+          <a href="#bewertungen" className="inline-flex h-touch items-center rounded-full bg-surface-raised px-3.5 shadow-raised pressable focus-ring hover:shadow-float">
             <Rating avg={profile.ratingAvg} count={profile.ratingCount} size={16} />
           </a>
+        </li>
+        <li className="inline-flex h-touch items-center rounded-full bg-surface-raised px-3.5 shadow-raised">
           <ModeLabel mode={profile.bookingMode} className="type-label-s" />
-        </div>
-        {profile.headline ? <p className="type-body-l text-ink-muted">{profile.headline}</p> : null}
-        {profile.inviteValid ? (
-          <Notice kind="info" title={`Persönliche Einladung von ${profile.displayName}`}>
-            Sie buchen über den Link Ihrer Fachkraft. Preise und Bedingungen sind dieselben.
-          </Notice>
+        </li>
+        {profile.completedCount > 0 ? (
+          <li className="inline-flex h-touch items-center gap-1.5 rounded-full bg-surface-raised px-3.5 type-label-s text-ink shadow-raised num">
+            <Icon icon={CalendarCheck2} size={14} />
+            {`${profile.completedCount.toLocaleString("de-DE")} Termine über ${BRAND_NAME}`}
+          </li>
         ) : null}
-        {profile.bio ? <Bio text={profile.bio} /> : null}
-        <FactList items={facts} className="border-y border-line" />
-      </header>
+      </ul>
+    </header>
+  );
 
-      <section aria-labelledby="leistungen" className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 id="leistungen" className="type-heading-m">
+  const content = (
+    <div className="flex flex-col gap-14 lg:gap-16">
+      {profile.inviteValid ? (
+        <Notice kind="info" title={`Persönliche Einladung von ${profile.displayName}`}>
+          Sie buchen über den Link Ihrer Fachkraft. Preise und Bedingungen sind dieselben.
+        </Notice>
+      ) : null}
+
+      <section aria-labelledby="ueber" className="flex flex-col gap-5">
+        <h2 id="ueber" className="type-heading-l">{`Über ${firstName}`}</h2>
+        {profile.bio ? <Bio text={profile.bio} /> : null}
+        <dl className="grid grid-cols-2 gap-3">
+          {facts.map((f) => (
+            <div key={f.label} className="flex min-w-0 flex-col gap-1 rounded-tile bg-surface-raised px-4 py-3.5 shadow-raised">
+              <dt className="type-caption text-ink-muted">{f.label}</dt>
+              <dd className="type-label text-ink num">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section aria-labelledby="leistungen" className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1.5">
+          <h2 id="leistungen" className="type-heading-l">
             Leistungen & Preise
           </h2>
           <p className="type-body-s text-ink-muted">
@@ -194,29 +248,22 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
         {profile.offerings.length ? <OfferingList /> : <p className="type-body-s text-ink-muted">{`${firstName} bietet gerade keine buchbaren Leistungen an.`}</p>}
       </section>
 
-      {offering ? (
-        <section id="termin" aria-labelledby="termin-titel" className="hidden scroll-mt-28 flex-col gap-4 lg:flex">
-          <h2 id="termin-titel" className="type-heading-m">
-            Termin wählen
-          </h2>
-          <InlineBooking />
-        </section>
-      ) : null}
-
       {profile.portfolio.length ? (
-        <section aria-labelledby="arbeiten" className="flex flex-col gap-4">
-          <h2 id="arbeiten" className="type-heading-m">
+        <section aria-labelledby="arbeiten" className="flex flex-col gap-5">
+          <h2 id="arbeiten" className="type-heading-l">
             Arbeiten
           </h2>
-          <ul className="grid grid-cols-3 sm:grid-cols-4">
-            {profile.portfolio.slice(0, 12).map((item, i) => (
-              <li key={item.id}>
+          <ul className="grid grid-cols-3 gap-2 sm:gap-3">
+            {profile.portfolio.slice(0, 9).map((item, i) => (
+              <li key={item.id} className="min-w-0">
                 <Photo
                   src={item.url}
                   alt={item.caption ?? `Arbeit von ${profile.displayName}, Bild ${i + 1}`}
                   tone={cat?.slug ?? "massage"}
+                  seed={`${profile.slug}:${item.id}`}
                   ratio="1/1"
-                  sizes="(min-width: 1024px) 160px, 33vw"
+                  sizes="(min-width: 1024px) 200px, 33vw"
+                  className="rounded-tile shadow-raised"
                 />
               </li>
             ))}
@@ -224,38 +271,57 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
         </section>
       ) : null}
 
-      <section id="bewertungen" aria-labelledby="bewertungen-titel" className="flex scroll-mt-28 flex-col gap-6">
-        <h2 id="bewertungen-titel" className="type-heading-m">
+      <section id="bewertungen" aria-labelledby="bewertungen-titel" className="flex scroll-mt-28 flex-col gap-5">
+        <h2 id="bewertungen-titel" className="type-heading-l">
           Bewertungen
         </h2>
         <ReviewList reviews={reviews} providerName={profile.displayName} pageHref={reviewHref} />
       </section>
 
-      <section aria-labelledby="gebiet" className="flex flex-col gap-3">
-        <h2 id="gebiet" className="type-heading-m">
+      <section aria-labelledby="gebiet" className="flex flex-col gap-5">
+        <h2 id="gebiet" className="type-heading-l">
           Einsatzgebiet & Anfahrt
         </h2>
-        <p className="type-body text-ink">
-          {`${firstName} kommt im Umkreis von ${profile.serviceRadiusKm.toLocaleString("de-DE")} km${profile.cityName ? ` in ${profile.cityName}` : ""} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}
-        </p>
-        <p className="type-body-s text-ink-muted">{travelExplanation(profile)}</p>
-        {travel ? (
-          <p className="type-body-s text-ink num">
-            {travel.within
-              ? `Für ${travel.postalCode}: ${formatDistance(travel.distanceKm)} · Anfahrt ${formatPrice(travel.feeCents)}`
-              : `${travel.postalCode} liegt außerhalb des Einsatzgebiets.`}
-          </p>
-        ) : null}
-        <p className="type-caption text-ink-muted">Den genauen Standort von Profis zeigen wir aus Datenschutzgründen nicht an.</p>
+        <div className="grid overflow-hidden rounded-card bg-surface-raised shadow-raised sm:grid-cols-[minmax(0,1fr)_14rem]">
+          <div className="flex flex-col gap-3 p-5 md:p-6">
+            <p className="type-body text-ink">
+              {`${firstName} kommt im Umkreis von ${profile.serviceRadiusKm.toLocaleString("de-DE")} km${profile.cityName ? ` in ${profile.cityName}` : ""} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}
+            </p>
+            <p className="type-body-s text-ink-muted">{travelExplanation(profile)}</p>
+            {travel ? (
+              <p className={travel.within ? "type-label-s text-ink num" : "type-label-s text-warning"}>
+                {travel.within
+                  ? `Für ${travel.postalCode}: ${formatDistance(travel.distanceKm)} · Anfahrt ${formatPrice(travel.feeCents)}`
+                  : `${travel.postalCode} liegt außerhalb des Einsatzgebiets.`}
+              </p>
+            ) : null}
+            <p className="type-caption text-ink-muted">Den genauen Standort von Profis zeigen wir aus Datenschutzgründen nicht an.</p>
+          </div>
+          {/* Abstract radius: never a map, never a location. */}
+          <div aria-hidden className="relative isolate hidden min-h-40 items-center justify-center overflow-hidden sm:flex">
+            <AuraArt seed={`${profile.slug}:gebiet`} tone={cat?.slug} />
+            <span className="absolute z-[2] size-36 rounded-full border border-white/70 bg-white/25" />
+            <span className="absolute z-[2] size-20 rounded-full border border-white/80 bg-white/30" />
+            <span className="relative z-[3] inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink shadow-raised num">
+              {`${profile.serviceRadiusKm.toLocaleString("de-DE")} km`}
+            </span>
+          </div>
+        </div>
       </section>
 
-      <section aria-labelledby="storno" className="flex flex-col gap-3">
-        <h2 id="storno" className="type-heading-m">
+      <section aria-labelledby="storno" className="flex flex-col gap-5">
+        <h2 id="storno" className="type-heading-l">
           Stornierung
         </h2>
-        <ul className="flex flex-col divide-y divide-line border-y border-line">
-          {policySummary(profile.cancellationPolicy).map((l) => (
-            <li key={l} className="py-2.5 type-body-s text-ink">
+        <ul className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
+          {policySummary(profile.cancellationPolicy).map((l, i) => (
+            <li key={l} className="flex items-start gap-3 py-3.5 type-body-s text-ink">
+              <span
+                aria-hidden
+                className={i === 0 ? "mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-success-soft text-success" : "mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-muted"}
+              >
+                <Icon icon={i === 0 ? Check : Clock3} size={12} strokeWidth={2.25} />
+              </span>
               {l}
             </li>
           ))}
@@ -274,37 +340,51 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
     </div>
   );
 
+  const body = (
+    <div className="mt-10 lg:mt-14 lg:grid lg:grid-cols-12 lg:gap-6">
+      <div className="min-w-0 lg:col-span-7">{content}</div>
+      {offering ? (
+        <aside aria-labelledby="termin-titel" className="hidden lg:col-span-5 lg:block lg:pl-4">
+          <section
+            id="termin"
+            className="sticky top-[calc(var(--header-height)+1.5rem)] flex max-h-[calc(100svh-var(--header-height)-3rem)] scroll-mt-28 flex-col gap-5 overflow-y-auto overscroll-contain rounded-card bg-surface-raised p-5 shadow-float xl:p-6 lg:[&_[role=radiogroup]_.grid]:grid-cols-4"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <h2 id="termin-titel" className="type-heading-l">
+                Termin wählen
+              </h2>
+              <ModeLabel mode={profile.bookingMode} className="type-label-s" />
+            </div>
+            <InlineBooking />
+          </section>
+        </aside>
+      ) : null}
+    </div>
+  );
+
   return (
     <div className="pb-28 lg:pb-0">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <Container width="content" className="pb-16 lg:pt-10 lg:pb-24">
-        <div className="lg:grid lg:grid-cols-12 lg:gap-6">
-          <div className="-mx-(--space-gutter) lg:col-span-5 lg:mx-0">
-            <div className="lg:sticky lg:top-[calc(var(--header-height)+1.5rem)]">
-              <Portrait src={profile.avatarUrl} name={profile.displayName} ratio="4/5" sizes="(min-width: 1024px) 440px, 100vw" priority />
-            </div>
-          </div>
-          <div className="pt-8 lg:col-span-7 lg:pt-0 lg:pl-10">
-            {offering ? (
-              <ProfileBookingProvider
-                providerId={profile.providerId}
-                providerName={profile.displayName}
-                providerSlug={profile.slug}
-                offerings={profile.offerings}
-                initialOfferingId={offering.providerServiceId}
-                initialDays={days}
-                initialDate={datum}
-                policy={profile.cancellationPolicy}
-                initialTravel={travel}
-                inviteCode={profile.inviteValid ? (invite ?? undefined) : undefined}
-              >
-                {content}
-              </ProfileBookingProvider>
-            ) : (
-              content
-            )}
-          </div>
-        </div>
+      <Container width="content" className="pt-4 pb-16 md:pt-6 lg:pt-8 lg:pb-24">
+        {hero}
+        {offering ? (
+          <ProfileBookingProvider
+            providerId={profile.providerId}
+            providerName={profile.displayName}
+            providerSlug={profile.slug}
+            offerings={profile.offerings}
+            initialOfferingId={offering.providerServiceId}
+            initialDays={days}
+            initialDate={datum}
+            policy={profile.cancellationPolicy}
+            initialTravel={travel}
+            inviteCode={profile.inviteValid ? (invite ?? undefined) : undefined}
+          >
+            {body}
+          </ProfileBookingProvider>
+        ) : (
+          body
+        )}
       </Container>
     </div>
   );

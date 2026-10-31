@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, Plus } from "lucide-react";
+import { AuraArt } from "@/components/ui/aura";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { Input, Select, Switch } from "@/components/ui/field";
@@ -11,6 +12,7 @@ import { Icon } from "@/components/ui/icon";
 import { Modal } from "@/components/ui/dialog";
 import { Sheet } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/toast";
+import { cn } from "@/lib/cn";
 import { formatDuration, formatPrice } from "@/lib/format";
 import { deleteProServiceAction, upsertProServiceAction } from "@/server/actions/pro";
 import { routes } from "@/lib/routes";
@@ -33,9 +35,9 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
 
   const offeredCategoryIds = useMemo(() => new Set(services.filter((s) => s.isActive).map((s) => s.categoryId)), [services]);
   const groups = useMemo(() => {
-    const m = new Map<string, { name: string; items: ProServiceDTO[] }>();
+    const m = new Map<string, { name: string; slug: string; items: ProServiceDTO[] }>();
     for (const s of services) {
-      const g = m.get(s.categoryId) ?? { name: s.categoryName, items: [] };
+      const g = m.get(s.categoryId) ?? { name: s.categoryName, slug: s.categorySlug, items: [] };
       g.items.push(s);
       m.set(s.categoryId, g);
     }
@@ -111,43 +113,51 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
   return (
     <div className="flex flex-col gap-8">
       {groups.length ? (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
           {groups.map(([id, g]) => {
             // F2/F3: offerings of a category whose documents are missing or unreviewed are not bookable yet.
             const awaiting = g.items.filter((o) => o.awaitingDocuments);
             const missing = [...new Set(awaiting.flatMap((o) => o.missingDocuments))];
             return (
-            <section key={id} className="flex flex-col gap-2" aria-label={g.name}>
-              <h2 className="type-overline text-ink-muted">{g.name}</h2>
+            <section key={id} className="overflow-hidden rounded-card bg-surface-raised shadow-raised" aria-label={g.name}>
+              <div className="flex items-center gap-3 border-b border-line px-4 py-3.5 sm:px-5">
+                <span aria-hidden className="relative size-9 shrink-0 overflow-hidden rounded-[11px] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.5)]">
+                  <AuraArt seed={`kat-${g.slug}`} tone={g.slug} grain={false} />
+                </span>
+                <h2 className="min-w-0 flex-1 type-heading-s">{g.name}</h2>
+                <span className="type-caption text-ink-muted num">{g.items.length === 1 ? "1 Leistung" : `${g.items.length} Leistungen`}</span>
+              </div>
               {awaiting.length ? (
-                <Notice kind="info" title="Wartet auf Nachweis">
-                  {`${missing.length ? `Es fehlt noch: ${missing.join(", ")}. ` : ""}Bis wir den Nachweis geprüft haben, ${awaiting.length === 1 ? "ist diese Leistung" : "sind diese Leistungen"} nicht buchbar. `}
-                  <Link href={routes.pro.verification()}>Zur Verifizierung</Link>
-                </Notice>
+                <div className="px-4 pt-3 sm:px-5">
+                  <Notice kind="info" title="Wartet auf Nachweis">
+                    {`${missing.length ? `Es fehlt noch: ${missing.join(", ")}. ` : ""}Bis wir den Nachweis geprüft haben, ${awaiting.length === 1 ? "ist diese Leistung" : "sind diese Leistungen"} nicht buchbar. `}
+                    <Link href={routes.pro.verification()}>Zur Verifizierung</Link>
+                  </Notice>
+                </div>
               ) : null}
-              <ul className="border-y border-line">
+              <ul className="divide-y divide-line">
                 {g.items.map((o) => (
-                  <li key={o.providerServiceId} className="border-b border-line last:border-b-0">
+                  <li key={o.providerServiceId}>
                     <button
                       type="button"
                       onClick={() => openEdit(o)}
-                      className="flex min-h-16 w-full items-center gap-4 py-3 pr-1 text-left transition-colors duration-fast hover:bg-surface-sunken"
+                      className="group flex min-h-16 w-full items-center gap-4 px-4 py-3 text-left transition-colors duration-fast focus-ring hover:bg-surface-tint sm:px-5"
                     >
                       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                        <span className="type-body-s font-[520] text-ink">{o.serviceName}</span>
+                        <span className={cn("type-body-s font-[560]", o.isActive ? "text-ink" : "text-ink-muted")}>{o.serviceName}</span>
                         <span className="type-caption text-ink-muted num">
                           {formatDuration(o.durationMinutes)}
                           {o.priceHintFromCents ? ` · Richtwert ab ${formatPrice(o.priceHintFromCents)}` : ""}
                         </span>
                         {o.awaitingDocuments ? (
-                          <Status tone="warning" className="pt-1 type-caption!">
+                          <Status tone="warning" className="mt-1 type-caption!">
                             Wartet auf Nachweis · nicht buchbar
                           </Status>
                         ) : null}
                       </span>
                       {!o.awaitingDocuments && !o.isActive ? <Status tone="neutral">Pausiert</Status> : null}
-                      <span className="type-label num text-ink">{formatPrice(o.priceCents)}</span>
-                      <Icon icon={ChevronRight} size={16} className="text-ink-muted" />
+                      <span className="type-heading-s num text-ink">{formatPrice(o.priceCents)}</span>
+                      <Icon icon={ChevronRight} size={16} className="text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
                       <span className="sr-only">bearbeiten</span>
                     </button>
                   </li>
@@ -158,12 +168,14 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
           })}
         </div>
       ) : (
-        <EmptyState className="py-2!" title="Noch keine Leistungen.">
-          Wähle aus dem SOMA-Katalog, was du anbietest, und lege Dauer und Preis fest. Kundschaft sieht immer den Endpreis inklusive Anfahrt.
-        </EmptyState>
+        <div className="rounded-card bg-surface-raised px-5 shadow-raised">
+          <EmptyState className="py-6!" seed="pro-leistungen" title="Noch keine Leistungen.">
+            Wähle aus dem SOMA-Katalog, was du anbietest, und lege Dauer und Preis fest. Kundschaft sieht immer den Endpreis inklusive Anfahrt.
+          </EmptyState>
+        </div>
       )}
 
-      <Button size="l" variant={groups.length ? "secondary" : "primary"} className="self-start" onClick={openAdd} icon={<Icon icon={Plus} />}>
+      <Button size="l" variant={groups.length ? "secondary" : "primary"} className="self-start max-sm:w-full" onClick={openAdd} icon={<Icon icon={Plus} />}>
         Leistung hinzufügen
       </Button>
 
@@ -261,19 +273,24 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
             />
 
             {rates && priceCents ? (
-              <div className="flex flex-col gap-1 bg-surface-sunken px-4 py-3">
+              <div className="flex flex-col gap-3 rounded-tile bg-surface-sunken/80 px-4 py-3.5 inset-shadow-sunken">
                 <p className="type-label-s text-ink">Das bleibt dir (ohne Anfahrt, die ist provisionsfrei)</p>
-                <dl className="flex flex-col pt-1">
+                <dl className="flex flex-col gap-2.5">
                   {[
                     { label: "Neukundschaft", rate: rates.rate },
                     { label: "Stammkundschaft", rate: rates.repeatClientRate },
                     { label: "Eigene Kundschaft", rate: rates.ownClientRate },
                   ].map((t) => (
-                    <div key={t.label} className="flex min-h-8 items-baseline justify-between gap-4">
-                      <dt className="type-body-s text-ink-muted hyphens-none">
-                        {t.label} <span className="num">· {formatPercent(t.rate)}</span>
-                      </dt>
-                      <dd className="type-label num">{formatPrice(Math.round(priceCents * (1 - t.rate)))}</dd>
+                    <div key={t.label} className="flex flex-col gap-1.5">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <dt className="type-body-s text-ink-muted hyphens-none">
+                          {t.label} <span className="num">· {formatPercent(t.rate)}</span>
+                        </dt>
+                        <dd className="type-label num">{formatPrice(Math.round(priceCents * (1 - t.rate)))}</dd>
+                      </div>
+                      <span aria-hidden className="flex h-1.5 overflow-hidden rounded-full bg-surface-raised">
+                        <span className="h-full rounded-full bg-ink transition-[width] duration-spring ease-settle" style={{ width: `${(1 - t.rate) * 100}%` }} />
+                      </span>
                     </div>
                   ))}
                 </dl>

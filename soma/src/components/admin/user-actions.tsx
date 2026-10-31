@@ -76,7 +76,7 @@ function downloadJson(fileName: string, json: string) {
 export function UserExportButton({ userId }: { userId: string }) {
   const m = useMutation(exportUserDataAction, { onSuccess: (r) => downloadJson(r.fileName, r.json) });
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-start gap-1">
       <Button size="s" variant="secondary" loading={m.pending} icon={<Icon icon={Download} size={16} />} onClick={() => m.run({ userId })}>
         Daten exportieren
       </Button>

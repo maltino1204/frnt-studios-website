@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSession } from "@/server/auth/guards";
@@ -8,7 +9,11 @@ import { searchProviders } from "@/server/services/search";
 import { getPriceFloors } from "@/server/services/site-ext";
 import { listNearbyPostalCodes, type NearbyPostalCodeDTO } from "@/server/services/site-ext-2";
 import type { CategoryWithServicesDTO, SearchInput, SearchResultDTO, ServiceDTO } from "@/server/dto";
+import { AuraBackground } from "@/components/ui/aura";
+import { chipClasses } from "@/components/ui/chip";
+import { EmptyArt } from "@/components/ui/feedback";
 import { Container, Overline } from "@/components/ui/layout";
+import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { ProviderRow } from "@/components/site/provider-row";
@@ -106,24 +111,20 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   // --- No PLZ yet / malformed PLZ: compact booking prompt ----------------------
   if (!plz || !/^\d{5}$/.test(plz)) {
     return (
-      <div>
-        <Container width="content" className="flex flex-col gap-8 pt-8 pb-16 lg:pt-14 lg:pb-24">
-          <div className="flex max-w-reading flex-col gap-4">
-            <Overline>{category ? category.name : "Termin finden"}</Overline>
-            <h1 className="type-display-m">Wo dürfen wir Sie besuchen?</h1>
-            <p className="type-body text-ink-muted">
-              Geben Sie Ihre Postleitzahl ein. Wir zeigen Ihnen verifizierte Profis mit freien Terminen und dem Endpreis inklusive Anfahrt.
-            </p>
-          </div>
-          <SearchPrompt
-            catalog={lite}
-            plz={plz}
-            leistung={service?.slug}
-            kategorie={category?.slug}
-            plzError={plz ? "Bitte geben Sie eine fünfstellige Postleitzahl ein." : null}
-          />
-        </Container>
-      </div>
+      <PromptLayout
+        overline={category ? category.name : "Termin finden"}
+        title="Wo dürfen wir Sie besuchen?"
+        tone={category?.slug}
+        lead="Geben Sie Ihre Postleitzahl ein. Wir zeigen Ihnen verifizierte Profis mit freien Terminen und dem Endpreis inklusive Anfahrt."
+      >
+        <SearchPrompt
+          catalog={lite}
+          plz={plz}
+          leistung={service?.slug}
+          kategorie={category?.slug}
+          plzError={plz ? "Bitte geben Sie eine fünfstellige Postleitzahl ein." : null}
+        />
+      </PromptLayout>
     );
   }
 
@@ -158,16 +159,14 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   // --- Unknown PLZ --------------------------------------------------------------
   if (!result) {
     return (
-      <div>
-        <Container width="content" className="flex flex-col gap-8 pt-8 pb-16 lg:pt-14 lg:pb-24">
-          <div className="flex max-w-reading flex-col gap-4">
-            <Overline>Postleitzahl unbekannt</Overline>
-            <h1 className="type-display-m">{`Die Postleitzahl ${plz} kennen wir nicht.`}</h1>
-            <p className="type-body text-ink-muted">Bitte prüfen Sie die Eingabe. Wir arbeiten mit fünfstelligen deutschen Postleitzahlen.</p>
-          </div>
-          <SearchPrompt catalog={lite} plz={plz} leistung={service?.slug} kategorie={category?.slug} plzError="Unbekannte Postleitzahl." />
-        </Container>
-      </div>
+      <PromptLayout
+        overline="Postleitzahl unbekannt"
+        title={`Die Postleitzahl ${plz} kennen wir nicht.`}
+        tone={category?.slug}
+        lead="Bitte prüfen Sie die Eingabe. Wir arbeiten mit fünfstelligen deutschen Postleitzahlen."
+      >
+        <SearchPrompt catalog={lite} plz={plz} leistung={service?.slug} kategorie={category?.slug} plzError="Unbekannte Postleitzahl." />
+      </PromptLayout>
     );
   }
 
@@ -231,17 +230,22 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     ? "Keine Profis mit freien Terminen gefunden."
     : `${plural(result.total, "Profi", "Profis")} mit freien Terminen${datum ? onDay(datum) : " in den nächsten 7\u00a0Tagen"}`;
 
+  const resetFilters = searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null });
+  const emptySeed = `suche:${plz}:${category?.slug ?? "alle"}`;
+
   return (
     <div>
       <SearchNavProvider state={state}>
         <Container width="page" className="pt-6 pb-16 lg:pt-10 lg:pb-24">
           <div className="lg:grid lg:grid-cols-12 lg:gap-6">
-            <div className="flex min-w-0 flex-col lg:col-span-7">
+            <div className="flex min-w-0 flex-col lg:col-span-7 xl:col-span-8">
               <Overline>Verfügbare Profis</Overline>
               <h1 className="mt-3 type-heading-l">
                 {`${what}${dauer ? ` · ${formatDuration(dauer)}` : ""} in ${plz}${city ? ` ${city}` : ""}`}
               </h1>
-              <div className="mt-5">
+
+              {/* Sticky glass filter bar: full-bleed on phones, a floating capsule from lg. */}
+              <div className="sticky top-(--header-height) z-20 -mx-(--space-gutter) mt-4 glass-strong px-(--space-gutter) py-2 shadow-[0_1px_0_var(--color-line)] lg:mx-0 lg:mt-5 lg:rounded-card lg:px-2 lg:py-1.5 lg:glass-edge lg:shadow-raised">
                 <SearchChips catalog={lite} />
               </div>
               {service ? (
@@ -249,7 +253,8 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                   <SearchDateStrip />
                 </div>
               ) : null}
-              <p aria-live="polite" role="status" className="mt-5 border-b border-line pb-3 type-body-s text-ink-muted num">
+              <p aria-live="polite" role="status" className="mt-5 mb-3 type-body-s text-ink-muted num">
+                {!empty ? <span aria-hidden className="mr-2 inline-block size-1.5 -translate-y-px rounded-full bg-success align-middle" /> : null}
                 {countText}
               </p>
 
@@ -262,18 +267,13 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       ))}
                     </div>
                     {thin && (moreDays.length || nearby.length || filtersActive) ? (
-                      <div className="mt-6 flex flex-col gap-3 border-l-2 border-ink pl-4">
-                        <p className="type-body-s text-ink">So finden Sie mehr Auswahl:</p>
+                      <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-tint p-5 shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)]">
+                        <p className="type-heading-s text-ink">So finden Sie mehr Auswahl:</p>
                         {moreDays.length ? (
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="type-body-s text-ink-muted">An anderen Tagen</span>
                             {moreDays.map((d) => (
-                              <Link
-                                key={d}
-                                href={searchHref({ ...state, datum: d })}
-                                scroll={false}
-                                className="inline-flex h-touch items-center rounded-xs border border-line bg-surface-raised px-4 type-label-s num text-ink transition-colors duration-fast hover:border-ink"
-                              >
+                              <Link key={d} href={searchHref({ ...state, datum: d })} scroll={false} className={chipClasses(false, "num")}>
                                 {dayLabel(d)}
                               </Link>
                             ))}
@@ -293,37 +293,29 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                           </p>
                         ) : null}
                         {filtersActive ? (
-                          <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
+                          <Link href={resetFilters} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
                             Ohne Filter suchen
                           </Link>
                         ) : null}
                       </div>
                     ) : null}
                     {result.total > result.results.length && seite < 4 ? (
-                      <div className="pt-6">
-                        <ButtonLink href={searchHref(state, { seite: seite + 1 })} variant="secondary" scroll={false}>
+                      <div className="flex justify-center pt-8">
+                        <ButtonLink href={searchHref(state, { seite: seite + 1 })} variant="secondary" size="l" scroll={false}>
                           Weitere Profis anzeigen
                         </ButtonLink>
                       </div>
                     ) : null}
                   </>
                 ) : notLaunched ? (
-                  <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
-                    <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-                    <h2 id="leer-titel" className="type-display-s">
-                      In Ihrer Gegend sind wir noch nicht.
-                    </h2>
+                  <EmptyCard seed={emptySeed} tone={category?.slug} title="In Ihrer Gegend sind wir noch nicht.">
                     <p className="type-body-s text-ink-muted">
                       {`SOMA startet in Berlin, Hamburg, München, Köln, Frankfurt und Düsseldorf. Sollen wir Ihnen Bescheid geben, sobald es in ${plz} losgeht?`}
                     </p>
                     <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
-                  </section>
+                  </EmptyCard>
                 ) : noSupply ? (
-                  <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
-                    <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-                    <h2 id="leer-titel" className="type-display-s">
-                      {`In ${city ?? plz} gibt es noch keine Profis für ${what}.`}
-                    </h2>
+                  <EmptyCard seed={emptySeed} tone={category?.slug} title={`In ${city ?? plz} gibt es noch keine Profis für ${what}.`}>
                     <p className="type-body-s text-ink-muted">{`Hinterlassen Sie Ihre E-Mail-Adresse – wir melden uns, sobald ${what} in ${plz} buchbar ist.`}</p>
                     {service && category && categoryHasSupply ? (
                       <ButtonLink href={searchHref({ ...state, leistung: null, dauer: null })} variant="secondary">
@@ -331,24 +323,16 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       </ButtonLink>
                     ) : null}
                     <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
-                  </section>
+                  </EmptyCard>
                 ) : datum ? (
-                  <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
-                    <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-                    <h2 id="leer-titel" className="type-display-s">
-                      {`Am ${formatDay(`${datum}T12:00:00Z`)}, ist in ${plz} alles ausgebucht.`}
-                    </h2>
+                  <EmptyCard seed={emptySeed} tone={category?.slug} title={`Am ${formatDay(`${datum}T12:00:00Z`)}, ist in ${plz} alles ausgebucht.`}>
                     {nextDays.length ? (
                       <>
                         <p className="type-body-s text-ink-muted">An diesen Tagen sind noch Termine frei:</p>
                         <ul className="flex flex-wrap gap-2">
                           {nextDays.map((d) => (
                             <li key={d.date}>
-                              <Link
-                                href={searchHref({ ...state, datum: d.date })}
-                                scroll={false}
-                                className="inline-flex h-touch items-center gap-2 rounded-xs border border-line bg-surface-raised px-4 type-label num text-ink transition-colors duration-fast hover:border-ink"
-                              >
+                              <Link href={searchHref({ ...state, datum: d.date })} scroll={false} className={chipClasses(false, "h-11 gap-2 rounded-tile px-4 num")}>
                                 {dayLabel(d.date)}
                                 <span className="type-caption text-ink-muted">{plural(d.total, "Profi", "Profis")}</span>
                               </Link>
@@ -360,76 +344,57 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       <p className="type-body-s text-ink-muted">Auch an den Folgetagen ist nichts frei. Lassen Sie sich benachrichtigen, sobald ein Termin frei wird.</p>
                     )}
                     {filtersActive ? (
-                      <Link href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} className="type-label-s text-accent underline underline-offset-[0.2em]">
+                      <Link href={resetFilters} className="type-label-s text-accent underline underline-offset-[0.2em]">
                         Ohne Filter suchen
                       </Link>
                     ) : null}
                     {!nextDays.length ? <WaitlistForm postalCode={plz} categorySlug={category?.slug} cta="Benachrichtigen, wenn frei" /> : null}
-                  </section>
+                  </EmptyCard>
                 ) : (
-                  <section className="flex max-w-reading flex-col items-start gap-4 py-10" aria-labelledby="leer-titel">
-                    <span aria-hidden className="block h-0.5 w-6 bg-ink" />
-                    <h2 id="leer-titel" className="type-display-s">
-                      {filtersActive ? "Mit diesen Filtern ist gerade nichts frei." : `In ${plz} ist in den nächsten 7${NBSP}Tagen nichts frei.`}
-                    </h2>
+                  <EmptyCard
+                    seed={emptySeed}
+                    tone={category?.slug}
+                    title={filtersActive ? "Mit diesen Filtern ist gerade nichts frei." : `In ${plz} ist in den nächsten 7${NBSP}Tagen nichts frei.`}
+                  >
                     <p className="type-body-s text-ink-muted">
                       {filtersActive
                         ? "Lockern Sie die Filter oder wählen Sie einen späteren Tag."
                         : `Für ${what} ist in Ihrer Nähe derzeit kein Termin frei. Wählen Sie einen späteren Tag oder lassen Sie sich benachrichtigen.`}
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                      {filtersActive ? (
-                        <ButtonLink href={searchHref({ ...state, sofort: false, bewertung: false, sprache: null, zeit: null, preis: null })} variant="secondary">
-                          Filter zurücksetzen
-                        </ButtonLink>
-                      ) : null}
-                      {service && category ? (
-                        <ButtonLink href={searchHref({ ...state, leistung: null, dauer: null })} variant="secondary">
-                          {`Alle ${category.name}-Leistungen`}
-                        </ButtonLink>
-                      ) : null}
-                    </div>
+                    {filtersActive || (service && category) ? (
+                      <div className="flex flex-wrap gap-3">
+                        {filtersActive ? (
+                          <ButtonLink href={resetFilters} variant="secondary">
+                            Filter zurücksetzen
+                          </ButtonLink>
+                        ) : null}
+                        {service && category ? (
+                          <ButtonLink href={searchHref({ ...state, leistung: null, dauer: null })} variant="secondary">
+                            {`Alle ${category.name}-Leistungen`}
+                          </ButtonLink>
+                        ) : null}
+                      </div>
+                    ) : null}
                     {!filtersActive ? <WaitlistForm postalCode={plz} categorySlug={category?.slug} cta="Benachrichtigen, wenn frei" /> : null}
-                  </section>
+                  </EmptyCard>
                 )}
               </SearchResultsRegion>
             </div>
 
-            <aside aria-label="Ihre Suche und Filter" className="hidden lg:col-span-4 lg:col-start-9 lg:block">
-              <div className="sticky top-[calc(var(--header-height)+2rem)] flex flex-col gap-8 border-l border-line pl-8">
+            <aside aria-label="Ihre Suche und Filter" className="hidden lg:col-span-5 lg:block xl:col-span-4">
+              <div className="sticky top-[calc(var(--header-height)+1.5rem)] flex flex-col gap-6 rounded-card bg-surface-raised p-6 shadow-raised">
                 <div className="flex flex-col gap-3">
                   <p className="type-overline text-ink-muted">Ihre Suche</p>
                   <dl className="flex flex-col divide-y divide-line">
-                    <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Ort</dt>
-                      <dd className="text-right type-body-s num">{`${plz}${city ? ` ${city}` : ""}`}</dd>
-                    </div>
-                    <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
-                      <dd className="text-right type-body-s">{what}</dd>
-                    </div>
-                    <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wann</dt>
-                      <dd className="text-right type-body-s">
-                        {`${datum ? dayLabel(datum) : "So bald wie möglich"}${zeit ? ` · ${TIME_OF_DAY_LABEL[zeit]}` : ""}`}
-                      </dd>
-                    </div>
-                    {preis ? (
-                      <div className="flex justify-between gap-4 py-2.5">
-                        <dt className="type-body-s text-ink-muted">Preis</dt>
-                        <dd className="text-right type-body-s num">{`bis ${preis}${NBSP}€ inkl. Anfahrt`}</dd>
-                      </div>
-                    ) : null}
-                    {sprache ? (
-                      <div className="flex justify-between gap-4 py-2.5">
-                        <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Sprache</dt>
-                        <dd className="text-right type-body-s">{languageName(sprache)}</dd>
-                      </div>
-                    ) : null}
+                    <SummaryRow label="Ort" value={`${plz}${city ? ` ${city}` : ""}`} num />
+                    <SummaryRow label="Behandlung" value={what} />
+                    <SummaryRow label="Wann" value={`${datum ? dayLabel(datum) : "So bald wie möglich"}${zeit ? ` · ${TIME_OF_DAY_LABEL[zeit]}` : ""}`} />
+                    {preis ? <SummaryRow label="Preis" value={`bis ${preis}${NBSP}€ inkl. Anfahrt`} num /> : null}
+                    {sprache ? <SummaryRow label="Sprache" value={languageName(sprache)} /> : null}
                   </dl>
                 </div>
                 <InlineFilters />
-                <p className="type-caption text-ink-muted">
+                <p className="border-t border-line pt-4 type-caption text-ink-muted">
                   Alle Preise sind Endpreise inklusive Anfahrt. Profis zahlen nicht für ihre Platzierung.{" "}
                   <Link href="/ranking" className="text-accent underline underline-offset-[0.2em]">
                     So sortieren wir
@@ -453,6 +418,50 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
           ) : null}
         </Container>
       </SearchNavProvider>
+    </div>
+  );
+}
+
+function SummaryRow({ label, value, num }: { label: string; value: string; num?: boolean }) {
+  return (
+    <div className="flex justify-between gap-4 py-2.5">
+      <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">{label}</dt>
+      <dd className={cn("text-right type-body-s text-ink", num && "num")}>{value}</dd>
+    </div>
+  );
+}
+
+/** Empty and zero-supply states: seeded aura art, a calm headline, the next useful action. */
+function EmptyCard({ seed, tone, title, children }: { seed: string; tone?: string | null; title: string; children: ReactNode }) {
+  return (
+    <section aria-labelledby="leer-titel" className="relative isolate mt-1 overflow-clip rounded-panel bg-surface-raised p-6 shadow-raised md:p-8">
+      <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
+      <div className="flex max-w-reading flex-col items-start gap-4">
+        <EmptyArt seed={seed} tone={tone ?? undefined} className="mb-2" />
+        <h2 id="leer-titel" className="type-display-s">
+          {title}
+        </h2>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+/** No or unknown PLZ: a calm prompt on a soft aura, the form as a floating card. */
+function PromptLayout({ overline, title, lead, children }: { overline: string; title: string; lead: string; tone?: string | null; children: ReactNode }) {
+  return (
+    <div className="relative isolate overflow-clip">
+      <AuraBackground placement="right" animate={false} variant="section" fade="both" />
+      <Container width="content" className="grid gap-8 pt-8 pb-16 lg:grid-cols-12 lg:items-start lg:gap-6 lg:pt-16 lg:pb-24">
+        <div className="flex max-w-reading flex-col gap-4 lg:col-span-6">
+          <Overline>{overline}</Overline>
+          <h1 className="type-display-m">{title}</h1>
+          <p className="type-body-l text-ink-muted">{lead}</p>
+        </div>
+        <div className="lg:col-span-5 lg:col-start-8">
+          {children}
+        </div>
+      </Container>
     </div>
   );
 }

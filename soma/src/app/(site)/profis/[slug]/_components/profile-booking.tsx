@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { createContext, useContext, useState, useTransition, type ReactNode } from "react";
 import { Button, ButtonLink } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Sheet } from "@/components/ui/sheet";
 import { cn } from "@/lib/cn";
+import { haptic } from "@/lib/haptic";
 import { formatDistance, formatDuration, formatPrice, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { quoteBookingAction } from "@/server/actions/booking";
@@ -38,6 +39,11 @@ function useBooking() {
 function checkoutHref(offeringId: string, slot: string, plz: string | null, invite?: string) {
   const base = routes.checkout({ angebot: offeringId, start: slot, plz: plz ?? undefined });
   return invite ? `${base}&einladung=${encodeURIComponent(invite)}` : base;
+}
+
+function priceParts(o: OfferingDTO, travel: TravelInfo | null): [string, string] {
+  if (travel && travel.within) return [formatPrice(o.priceCents + travel.feeCents), `inkl.${NBSP}Anfahrt`];
+  return [formatPrice(o.priceCents), `zzgl.${NBSP}Anfahrt`];
 }
 
 function totalLabel(o: OfferingDTO, travel: TravelInfo | null) {
@@ -124,7 +130,7 @@ function PlzField({ idPrefix }: { idPrefix: string }) {
   if (travel && !editing) {
     return (
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-4 border-b border-line pb-3">
+        <div className="flex items-center justify-between gap-4 rounded-tile bg-surface-sunken/70 py-1 pr-1.5 pl-4">
           <p className="type-body-s">
             <span className="text-ink-muted">Ihre Postleitzahl </span>
             <span className="font-semibold num">{travel.postalCode}</span>
@@ -194,6 +200,7 @@ function BookingCta({ block }: { block?: boolean }) {
   return (
     <ButtonLink
       href={checkoutHref(picker.offeringId, picker.slot, travel?.postalCode ?? null, inviteCode)}
+      onClick={() => haptic("select")}
       size="l"
       block={block}
       iconRight={<Icon icon={ArrowRight} />}
@@ -209,13 +216,20 @@ function StickyBar() {
   const { picker, travel, openSheet } = useBooking();
   const o = picker.offering;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) bg-surface-raised px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong glass-edge px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar animate-sheet-in lg:hidden">
       <div className="mx-auto flex max-w-content items-center justify-between gap-4">
         <p className="min-w-0">
           <span className="block type-label font-semibold num">{totalLabel(o, travel)}</span>
           <span className="block truncate type-caption text-ink-muted">{`${o.serviceName} · ${formatDuration(o.durationMinutes)}`}</span>
         </p>
-        <Button size="l" onClick={openSheet} className="shrink-0">
+        <Button
+          size="l"
+          onClick={() => {
+            haptic("tap");
+            openSheet();
+          }}
+          className="shrink-0"
+        >
           Termin wählen
         </Button>
       </div>
@@ -240,26 +254,42 @@ export function OfferingList() {
   return (
     <div className="flex flex-col gap-6">
       {[...groups.entries()].map(([cat, list]) => (
-        <div key={cat} className="flex flex-col">
-          {multi ? <p className="mb-1 type-overline text-ink-muted">{cat}</p> : null}
-          <ul className="flex flex-col border-t border-line">
+        <div key={cat} className="flex flex-col gap-2.5">
+          {multi ? <p className="type-overline text-ink-muted">{cat}</p> : null}
+          <ul className="flex flex-col gap-2.5">
             {list.map((o) => {
               const selected = o.providerServiceId === picker.offeringId;
+              const [price, suffix] = priceParts(o, travel);
               return (
-                <li key={o.providerServiceId} className="flex items-center justify-between gap-4 border-b border-line py-3.5">
-                  <div className="min-w-0">
-                    <p className={cn("type-body text-ink hyphens-none", selected && "font-semibold")}>{o.serviceName}</p>
-                    <p className="type-caption text-ink-muted num">{`${formatDuration(o.durationMinutes)} · ${totalLabel(o, travel)}`}</p>
-                  </div>
-                  <Button
-                    variant={selected ? "primary" : "secondary"}
-                    size="s"
+                <li key={o.providerServiceId}>
+                  <button
+                    type="button"
+                    aria-pressed={selected}
                     onClick={() => choose(o.providerServiceId)}
-                    className="shrink-0"
+                    className={cn(
+                      "flex w-full items-center gap-4 rounded-card bg-surface-raised px-4 py-3.5 text-left shadow-raised pressable focus-ring md:px-5 md:py-4",
+                      selected ? "ring-2 ring-ink" : "[@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-px [@media(hover:hover)_and_(pointer:fine)]:hover:shadow-float",
+                    )}
                   >
-                    {selected ? "Gewählt" : "Wählen"}
-                    <span className="sr-only">{`: ${o.serviceName}, ${formatDuration(o.durationMinutes)}`}</span>
-                  </Button>
+                    <span className="min-w-0 flex-1">
+                      <span className={cn("block type-body text-ink hyphens-none", selected && "font-semibold")}>{o.serviceName}</span>
+                      <span className="block type-caption text-ink-muted num">{formatDuration(o.durationMinutes)}</span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      <span className="block type-label text-ink num">{price}</span>
+                      <span className="block type-caption whitespace-nowrap text-ink-muted">{suffix}</span>
+                    </span>
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "inline-flex size-6 shrink-0 items-center justify-center rounded-full border transition-[background-color,border-color] duration-fast",
+                        selected ? "border-ink bg-ink text-ink-inverse" : "border-line-strong bg-surface-raised",
+                      )}
+                    >
+                      {selected ? <Icon icon={Check} size={14} strokeWidth={2.5} className="animate-pop" /> : null}
+                    </span>
+                    <span className="sr-only">{selected ? " – gewählt" : " – wählen"}</span>
+                  </button>
                 </li>
               );
             })}
@@ -277,7 +307,10 @@ export function InlineBooking() {
     <div className="flex flex-col gap-6">
       <PlzField idPrefix="inline" />
       <SlotPicker state={picker} travelFeeCents={travel?.within ? travel.feeCents : null} policy={policy} idPrefix="inline" />
-      <BookingCta />
+      {/* Pinned to the bottom of the (scrollable) sticky card, so the next step is always in reach. */}
+      <div className="sticky bottom-0 z-[2] -mx-5 -mb-5 mt-auto rounded-b-card border-t border-line bg-surface-raised/92 px-5 pt-4 pb-5 backdrop-blur-md xl:-mx-6 xl:-mb-6 xl:px-6 xl:pb-6 [&_a]:w-full [&_button]:w-full">
+        <BookingCta />
+      </div>
     </div>
   );
 }

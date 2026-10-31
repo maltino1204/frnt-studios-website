@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { ArrowRight, BadgeCheck, CalendarCheck, KeyRound, MapPinned, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
+import { ArrowRight, BadgeCheck, CalendarCheck, Check, KeyRound, Link2, MapPin, MapPinned, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
 import { formatPercent } from "@/components/pro/labels";
 import { EarningsCalculator } from "@/components/pro/landing/earnings-calculator";
+import { AuraBackground } from "@/components/ui/aura";
+import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
+import { Table } from "@/components/ui/data";
+import { FloatingCard, FloatingStage } from "@/components/ui/floating";
+import { CountUp, Reveal, Spotlight } from "@/components/ui/motion";
+import { SuccessCheck } from "@/components/ui/success";
+import { Surface } from "@/components/ui/surface";
+import { FaqList } from "@/components/site/discovery-faq";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline, Section, SectionHeader } from "@/components/ui/layout";
 import { Photo } from "@/components/ui/photo";
@@ -105,17 +113,25 @@ export default async function ForProsPage() {
     mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
 
+  const tiersShown = [
+    { value: c.rate, label: "nur bei neuer Kundschaft" },
+    { value: c.repeatClientRate, label: "bei Stammkundschaft" },
+    { value: c.ownClientRate, label: "mit deinem Link" },
+    { value: 0, label: "auf Anfahrt" },
+  ];
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
-      {/* Hero */}
-      <section className="pt-8 pb-(--space-section) md:pt-12">
-        <Container className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
+      {/* Hero: text + the provider tool itself, floating on the aura */}
+      <section className="relative isolate overflow-clip">
+        <AuraBackground placement="right" fade="both" />
+        <Container className="grid gap-12 pt-8 pb-14 md:pt-12 lg:grid-cols-12 lg:items-center lg:gap-6 lg:pt-12 lg:pb-20">
           <div className="flex flex-col gap-6 lg:col-span-6">
             <Overline>Für Profis · {activeCities.length} Städte</Overline>
             <h1 className="type-display-l">
-              Du bringst das Können. <em className="italic">Wir die Kundschaft.</em>
+              Du bringst das Können. <em>Wir die Kundschaft.</em>
             </h1>
             <p className="max-w-reading type-body-l text-ink-muted">
               {BRAND_NAME} vermittelt dir bezahlte Termine bei Kundschaft in deiner Nähe – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
@@ -128,81 +144,73 @@ export default async function ForProsPage() {
                 So funktioniert’s
               </ButtonLink>
             </div>
-            <div className="mt-4 flex flex-col gap-3">
-              <dl className="grid grid-cols-2 border-t border-line sm:grid-cols-4">
-                {[
-                  { value: formatPercent(c.rate), label: "nur bei neuer Kundschaft" },
-                  { value: formatPercent(c.repeatClientRate), label: "bei Stammkundschaft" },
-                  { value: formatPercent(c.ownClientRate), label: "mit deinem Link" },
-                  { value: "0\u00a0%", label: "auf Anfahrt" },
-                ].map((f, i) => (
+            <div className="mt-2 flex flex-col gap-3">
+              <dl className="grid grid-cols-2 rounded-card bg-surface-raised shadow-raised sm:grid-cols-4">
+                {tiersShown.map((f, i) => (
                   <div
                     key={f.label}
                     className={cn(
-                      "flex min-w-0 flex-col gap-1 border-b border-line py-4",
-                      i % 2 === 1 ? "border-l pl-4" : "pr-4",
-                      i > 0 && "sm:border-l sm:pl-4",
-                      i < 3 && "sm:pr-4",
+                      "relative flex min-w-0 flex-col gap-1 px-4 py-4",
+                      i % 2 === 1 && "before:absolute before:inset-y-4 before:left-0 before:w-px before:bg-line",
+                      i >= 2 && "max-sm:border-t max-sm:border-line",
+                      i === 2 && "sm:before:absolute sm:before:inset-y-4 sm:before:left-0 sm:before:w-px sm:before:bg-line",
                     )}
                   >
                     <dt className="order-2 type-caption text-ink-muted hyphens-none">{f.label}</dt>
-                    <dd className="order-1 type-stat">{f.value}</dd>
+                    <dd className="order-1 type-stat">
+                      <CountUp value={Math.round(f.value * 1000) / 10} format={{ maximumFractionDigits: 1 }} suffix={" %"} />
+                    </dd>
                   </div>
                 ))}
               </dl>
-              <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Auszahlung ${hold}\u00a0Stunden nach dem Termin.`}</p>
+              <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Auszahlung ${hold} Stunden nach dem Termin.`}</p>
             </div>
           </div>
-          <figure className="-mx-(--space-gutter) flex flex-col gap-3 lg:col-span-6 lg:mx-0 lg:-mr-(--space-gutter)">
-            <Photo
-              src={images.editorial.arrival}
-              alt="Eine Massagetherapeutin mit Klappliege kommt an einer Altbau-Wohnungstür an."
-              tone="massage"
-              word="Angekommen."
-              wordSize="l"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              ratio="4/5"
-              priority
-              className="lg:aspect-[5/6]!"
-            />
-            <figcaption className="px-(--space-gutter) type-caption text-ink-muted lg:px-0">Altbau, 3. OG · Berlin-Prenzlauer Berg · 18:30</figcaption>
-          </figure>
+          <div className="min-w-0 lg:col-span-6">
+            <ProShowcase hold={hold} cities={activeCities.length} />
+          </div>
         </Container>
       </section>
 
       {/* Benefits */}
-      <Section className="border-t border-line pt-(--space-section)">
-        <Container className="flex flex-col gap-12">
-          <SectionHeader overline="Was du bekommst" title={<>Mehr Zeit für die Arbeit, <em className="italic">weniger fürs Drumherum.</em></>} />
-          <ul className="grid gap-x-12 md:grid-cols-2 lg:grid-cols-3">
+      <Section>
+        <Container className="flex flex-col gap-10 md:gap-12">
+          <Reveal>
+            <SectionHeader overline="Was du bekommst" title={<>Mehr Zeit für die Arbeit, <em>weniger fürs Drumherum.</em></>} />
+          </Reveal>
+          <Reveal as="ul" stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {benefits.map((b) => (
-              <li key={b.title} className="flex flex-col gap-3 border-t border-line py-6">
-                <Icon icon={b.icon} size={24} className="text-ink" />
-                <h3 className="type-heading-m">{b.title}</h3>
-                <p className="type-body-s text-ink-muted">{b.body}</p>
+              <li key={b.title} className="min-w-0">
+                <Surface className="flex h-full flex-col gap-3 p-5 md:p-6">
+                  <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent">
+                    <Icon icon={b.icon} size={20} />
+                  </span>
+                  <h3 className="type-heading-m">{b.title}</h3>
+                  <p className="type-body-s text-ink-muted">{b.body}</p>
+                </Surface>
               </li>
             ))}
-          </ul>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* Commission */}
-      <Section id="provision" className="bg-surface-sunken">
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="flex flex-col gap-8 lg:col-span-6">
+      {/* Commission + calculator */}
+      <Section id="provision" className="pt-0">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <Reveal className="flex flex-col gap-8 lg:col-span-6">
             <SectionHeader
               overline="Provision"
-              title={<>Transparent. <em className="italic">Ohne Grundgebühr.</em></>}
+              title={<>Transparent. <em>Ohne Grundgebühr.</em></>}
               lead="Du zahlst nur, wenn ein Termin stattfindet. Je enger die Beziehung zur Kundschaft, desto weniger."
             />
-            <dl className="border-t border-ink">
+            <dl className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised md:px-6">
               {[
                 { rate: formatPercent(c.rate), title: "Neue Kundschaft über SOMA", body: "Die erste Buchung einer Person bei dir." },
                 { rate: formatPercent(c.repeatClientRate), title: "Stammkundschaft", body: "Jede weitere Buchung derselben Person über SOMA." },
                 { rate: formatPercent(c.ownClientRate), title: "Eigene Kundschaft", body: "Kommt über deinen persönlichen Einladungslink – dauerhaft." },
-                { rate: "0 %", title: "Anfahrt", body: "Die Anfahrtspauschale geht immer vollständig an dich." },
+                { rate: "0 %", title: "Anfahrt", body: "Die Anfahrtspauschale geht immer vollständig an dich." },
               ].map((r) => (
-                <div key={r.title} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-x-6 border-b border-line py-5 md:grid-cols-[7rem_1fr]">
+                <div key={r.title} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-x-6 py-5 md:grid-cols-[7rem_1fr]">
                   <dd className="type-stat">{r.rate}</dd>
                   <dt className="flex flex-col gap-1">
                     <span className="type-heading-m">{r.title}</span>
@@ -214,59 +222,71 @@ export default async function ForProsPage() {
             <p className="type-caption text-ink-muted">
               {terms.commission ? "Aktuelle Konditionen zum Start." : "Konditionen zum Start."} Für Kundschaft fällt keine Servicegebühr an. Jede Buchung behält die Provision, die beim Buchen galt.
             </p>
-          </div>
-          <div className="flex flex-col gap-4 lg:col-span-5 lg:col-start-8 lg:pt-24">
-            <h3 className="type-heading-m">Rechne nach</h3>
+          </Reveal>
+          <Reveal className="flex flex-col gap-4 lg:col-span-6 lg:pl-6" delay={80}>
+            <h3 className="flex items-center gap-2.5 type-heading-m">
+              <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
+              Rechne nach
+            </h3>
             <EarningsCalculator rates={c} />
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
       {/* How it works */}
-      <Section id="so-funktionierts" className="scroll-mt-(--header-height)">
-        <Container className="flex flex-col gap-12">
-          <SectionHeader overline="So funktioniert’s" title={<>In vier Schritten <em className="italic">startklar.</em></>} />
-          <ol className="grid gap-x-8 md:grid-cols-2 lg:grid-cols-4">
+      <Section id="so-funktionierts" className="scroll-mt-(--header-height) pt-0">
+        <Container className="flex flex-col gap-10 md:gap-12">
+          <Reveal>
+            <SectionHeader overline="So funktioniert’s" title={<>In vier Schritten <em>startklar.</em></>} />
+          </Reveal>
+          <Reveal as="ol" stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {steps.map((s) => (
-              <li key={s.n} className="flex flex-col gap-3 border-t border-ink py-6">
-                <span className="type-label num text-ink-muted">{s.n}</span>
-                <h3 className="type-heading-m">{s.title}</h3>
-                <p className="type-body-s text-ink-muted">{s.body}</p>
+              <li key={s.n} className="min-w-0">
+                <Surface className="flex h-full flex-col gap-3 p-5 md:p-6">
+                  <span className="flex items-center gap-2.5 type-overline text-ink-muted num">
+                    <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
+                    {s.n}
+                  </span>
+                  <h3 className="type-heading-m">{s.title}</h3>
+                  <p className="type-body-s text-ink-muted">{s.body}</p>
+                </Surface>
               </li>
             ))}
-          </ol>
+          </Reveal>
         </Container>
       </Section>
 
       {/* Requirements */}
-      <Section className="border-t border-line">
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+      <Section className="pt-0">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <Reveal className="lg:col-span-5">
             <SectionHeader
               size="m"
               overline="Voraussetzungen"
-              title={<>Was du <em className="italic">mitbringst.</em></>}
+              title={<>Was du <em>mitbringst.</em></>}
               lead="Du arbeitest in privaten Wohnungen, Hotels und Büros. Deshalb prüfen wir jedes Profil, bevor es sichtbar wird – meist innerhalb von 48 Stunden."
             />
-          </div>
-          <div className="flex flex-col gap-10 lg:col-span-6 lg:col-start-7">
+          </Reveal>
+          <Reveal className="flex flex-col gap-8 lg:col-span-6 lg:col-start-7">
             <div className="flex flex-col gap-3">
               <h3 className="type-overline text-ink-muted">Für alle Profis</h3>
-              <ul className="border-t border-line">
-                {terms.baseRequiredDocuments.map((d) => (
-                  <li key={d.kind} className="border-b border-line py-3.5 type-body text-ink">
+              <ul className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
+                {[...terms.baseRequiredDocuments.map((d) => ({ key: d.kind, label: d.label })), { key: "gewerbe", label: "Selbstständige Tätigkeit (Kleinunternehmerregelung möglich)" }].map((d) => (
+                  <li key={d.key} className="flex items-start gap-3 py-3.5 type-body text-ink">
+                    <span aria-hidden className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-success-soft text-success">
+                      <Icon icon={Check} size={12} strokeWidth={2.5} />
+                    </span>
                     {d.label}
                   </li>
                 ))}
-                <li className="border-b border-line py-3.5 type-body text-ink">Selbstständige Tätigkeit (Kleinunternehmerregelung möglich)</li>
               </ul>
             </div>
             {catDocs.length ? (
               <div className="flex flex-col gap-3">
                 <h3 className="type-overline text-ink-muted">Je nach Kategorie</h3>
-                <dl className="border-t border-line">
+                <dl className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
                   {catDocs.map((cat) => (
-                    <div key={cat.id} className="flex flex-col gap-1 border-b border-line py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                    <div key={cat.id} className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                       <dt className="shrink-0 type-label">{cat.name}</dt>
                       <dd className="type-body-s text-ink-muted sm:text-right">{cat.requiredDocuments.map((d) => d.label).join(", ")}</dd>
                     </div>
@@ -274,144 +294,208 @@ export default async function ForProsPage() {
                 </dl>
               </div>
             ) : null}
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* Night band: invite link */}
-      <Section night className="overflow-hidden">
-        <Container className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
-          <div className="flex flex-col gap-6 lg:col-span-5">
-            <Overline>Einladungslink</Overline>
-            <h2 className="type-display-l">
-              Bring deine Stamm&shy;kundschaft mit. <em className="italic">Für {formatPercent(c.ownClientRate)}.</em>
-            </h2>
-            <p className="type-body-l text-ink-muted">
-              Über deinen persönlichen Link bucht deine Kundschaft dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
-            </p>
-            <ButtonLink href={REGISTER} size="l" className="self-start" iconRight={<Icon icon={ArrowRight} />}>
-              Kostenlos registrieren
-            </ButtonLink>
-          </div>
-          <figure className="-mx-(--space-gutter) flex flex-col gap-3 lg:col-span-7 lg:mx-0 lg:-mr-(--space-gutter)">
-            <Photo
-              src={images.editorial.providerCta}
-              alt="Eine Friseurin mit Arbeitstasche auf dem Weg die Altbautreppe hinauf zum nächsten Termin."
-              tone="nacht"
-              word="Zwischen zwei Terminen."
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              ratio="16/9"
-            />
-            <figcaption className="px-(--space-gutter) type-caption text-ink-muted lg:px-0">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
-          </figure>
+      {/* The page's one night band: invite link */}
+      <Section className="pt-0">
+        <Container>
+          <Reveal>
+            <div data-theme="night" className="relative isolate grid gap-10 overflow-clip rounded-panel px-6 py-10 md:px-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-14 lg:py-16">
+              <AuraBackground variant="night" placement="right" fade="none" />
+              <div className="flex flex-col gap-6 lg:col-span-5">
+                <Overline>Einladungslink</Overline>
+                <h2 className="type-display-l">
+                  Bring deine Stamm&shy;kundschaft mit. <em>Für {formatPercent(c.ownClientRate)}.</em>
+                </h2>
+                <p className="type-body-l text-ink-muted">
+                  Über deinen persönlichen Link bucht deine Kundschaft dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
+                </p>
+                <ButtonLink href={REGISTER} size="l" className="self-start" iconRight={<Icon icon={ArrowRight} />}>
+                  Kostenlos registrieren
+                </ButtonLink>
+              </div>
+              <figure className="relative flex flex-col gap-3 lg:col-span-7">
+                <Photo
+                  src={images.editorial.providerCta}
+                  alt="Eine Friseurin mit Arbeitstasche auf dem Weg die Altbautreppe hinauf zum nächsten Termin."
+                  tone="nacht"
+                  word="Zwischen zwei Terminen."
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  ratio="16/10"
+                  className="rounded-card"
+                />
+                <div aria-hidden className="absolute top-4 right-4 flex items-center gap-2.5 rounded-card glass glass-edge px-3.5 py-2.5 shadow-float">
+                  <Icon icon={Link2} size={16} className="text-accent" />
+                  <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
+                </div>
+                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
+              </figure>
+            </div>
+          </Reveal>
         </Container>
       </Section>
 
       {/* Live demand per launch city (R15) */}
       {demandRows.length && demand ? (
-        <Section id="nachfrage" aria-labelledby="nachfrage-titel" className="border-t border-line">
-          <Container className="grid gap-12 lg:grid-cols-12">
-            <div className="flex flex-col gap-5 lg:col-span-5">
+        <Section id="nachfrage" aria-labelledby="nachfrage-titel" className="pt-0">
+          <Container className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+            <Reveal className="flex flex-col gap-5 lg:col-span-5">
               <Overline>Nachfrage</Overline>
               <h2 id="nachfrage-titel" className="type-display-l">
-                Gesucht wird <em className="italic">schon.</em>
+                Gesucht wird <em>schon.</em>
               </h2>
               <p className="max-w-reading type-body-l text-ink-muted">
                 {`${n(totalSearches)} Suchen nach Behandlungen in den letzten ${demand.days} Tagen. Auf der Warteliste stehen Menschen, die in ihrer Nähe noch niemanden gefunden haben.`}
               </p>
-            </div>
-            <div className="flex flex-col gap-3 lg:col-span-6 lg:col-start-7">
-              <table className="w-full border-collapse text-left">
+            </Reveal>
+            <Reveal className="flex min-w-0 flex-col gap-3 lg:col-span-6 lg:col-start-7">
+              <Table>
                 <caption className="sr-only">{`Suchen der letzten ${demand.days} Tage, Warteliste und Profis pro Stadt`}</caption>
                 <thead>
-                  <tr className="border-b border-line-strong">
-                    <th scope="col" className="py-2.5 pr-3 type-label-s font-normal text-ink-muted">
-                      Stadt
-                    </th>
-                    <th scope="col" className="py-2.5 px-3 text-right type-label-s font-normal text-ink-muted">
+                  <tr>
+                    <th scope="col">Stadt</th>
+                    <th scope="col" className="text-right">
                       Suchen
                     </th>
-                    <th scope="col" className="py-2.5 px-3 text-right type-label-s font-normal text-ink-muted">
+                    <th scope="col" className="text-right">
                       Warteliste
                     </th>
-                    <th scope="col" className="py-2.5 pl-3 text-right type-label-s font-normal text-ink-muted">
+                    <th scope="col" className="text-right">
                       Profis
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {demandRows.map((r) => (
-                    <tr key={r.citySlug} className="border-b border-line">
-                      <th scope="row" className="py-3.5 pr-3 type-body-s font-normal text-ink hyphens-none">
-                        {r.cityName}
-                      </th>
-                      <td className="py-3.5 px-3 text-right type-label num">{n(r.searches)}</td>
-                      <td className="py-3.5 px-3 text-right type-body-s text-ink-muted num">{n(r.waitlistSignups)}</td>
-                      <td className="py-3.5 pl-3 text-right type-body-s text-ink-muted num">{n(r.approvedProviders)}</td>
-                    </tr>
-                  ))}
+                  {demandRows.map((r) => {
+                    const max = Math.max(...demandRows.map((x) => x.searches), 1);
+                    return (
+                      <tr key={r.citySlug}>
+                        <td className="text-ink hyphens-none">
+                          <span className="flex flex-col gap-1.5 py-2">
+                            {r.cityName}
+                            <span aria-hidden className="block h-1 w-full max-w-40 overflow-hidden rounded-full bg-surface-sunken">
+                              <span className="block h-full rounded-full bg-accent" style={{ width: `${Math.max(4, Math.round((r.searches / max) * 100))}%` }} />
+                            </span>
+                          </span>
+                        </td>
+                        <td className="text-right type-label num">{n(r.searches)}</td>
+                        <td className="text-right text-ink-muted num">{n(r.waitlistSignups)}</td>
+                        <td className="text-right text-ink-muted num">{n(r.approvedProviders)}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
-              </table>
+              </Table>
               <p className="type-caption text-ink-muted">{`Suchen der letzten ${demand.days} Tage in der ${BRAND_NAME}-Suche, stündlich aktualisiert. „Profis“ zählt freigeschaltete Profile mit Standort in der Stadt.`}</p>
-            </div>
+            </Reveal>
           </Container>
         </Section>
       ) : null}
 
       {/* Cities */}
-      <Section className="pb-0">
+      <Section className="pt-0">
         <Container>
-          <div className="flex flex-col gap-4 border-b border-line pb-(--space-section)">
+          <Reveal className="flex flex-col gap-5">
             <Overline>Wo wir starten</Overline>
             <p className="max-w-[48rem] type-display-m">
-              Jetzt in {cityText}. <em className="italic text-ink-muted">Weitere Städte folgen.</em>
+              Jetzt in {cityText}. <em className="text-ink-muted">Weitere Städte folgen.</em>
             </p>
-          </div>
+            <ul className="flex flex-wrap gap-2" aria-label="Startstädte">
+              {activeCities.map((x) => (
+                <li key={x.slug} className="inline-flex h-9 items-center gap-2 rounded-full bg-surface-raised px-3.5 type-label-s text-ink shadow-raised">
+                  <Icon icon={MapPin} size={14} className="text-accent" />
+                  {x.name}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </Container>
       </Section>
 
       {/* FAQ */}
-      <Section id="faq">
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4">
+      <Section id="faq" className="pt-0">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <Reveal className="lg:col-span-4">
             <SectionHeader size="m" overline="Fragen" title="Gut zu wissen." />
-          </div>
-          <div className="lg:col-span-7 lg:col-start-6">
-            <ul className="border-t border-line">
-              {faq.map((f) => (
-                <li key={f.q} className="border-b border-line">
-                  <details className="group">
-                    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 type-heading-m [&::-webkit-details-marker]:hidden">
-                      {f.q}
-                      <span aria-hidden className="relative size-4 shrink-0">
-                        <span className="absolute top-1/2 left-0 h-px w-4 bg-ink" />
-                        <span className="absolute top-0 left-1/2 h-4 w-px bg-ink transition-transform duration-base ease-standard group-open:scale-y-0" />
-                      </span>
-                    </summary>
-                    <p className="max-w-reading pb-6 type-body text-ink-muted">{f.a}</p>
-                  </details>
-                </li>
-              ))}
-            </ul>
-          </div>
+          </Reveal>
+          <Reveal className="lg:col-span-7 lg:col-start-6">
+            <FaqList items={faq} />
+          </Reveal>
         </Container>
       </Section>
 
       {/* Final CTA */}
-      <Section className="bg-surface-sunken">
-        <Container className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="flex max-w-reading flex-col gap-4">
-            <Overline>Los geht’s</Overline>
-            <h2 className="type-display-l">
-              In 15 Minuten <em className="italic">startklar.</em>
-            </h2>
-            <p className="type-body-l text-ink-muted">Konto anlegen, Profil einrichten, Dokumente hochladen. Wir melden uns, sobald du freigeschaltet bist.</p>
-          </div>
-          <ButtonLink href={REGISTER} size="l" iconRight={<Icon icon={ArrowRight} />}>
-            Jetzt registrieren
-          </ButtonLink>
+      <Section className="pt-0">
+        <Container>
+          <Reveal className="relative isolate flex flex-col items-start gap-6 overflow-clip rounded-panel p-6 md:flex-row md:items-end md:justify-between md:p-12">
+            <AuraBackground variant="section" placement="full" fade="none" animate={false} />
+            <div className="flex max-w-reading flex-col gap-4">
+              <Overline>Los geht’s</Overline>
+              <h2 className="type-display-l">
+                In 15 Minuten <em>startklar.</em>
+              </h2>
+              <p className="type-body-l text-ink-muted">Konto anlegen, Profil einrichten, Dokumente hochladen. Wir melden uns, sobald du freigeschaltet bist.</p>
+            </div>
+            <ButtonLink href={REGISTER} size="l" iconRight={<Icon icon={ArrowRight} />}>
+              Jetzt registrieren
+            </ButtonLink>
+          </Reveal>
         </Container>
       </Section>
     </>
+  );
+}
+
+/** The provider tool, floating on the aura: real terms (commission, payout hold); the request and code are illustrative. */
+function ProShowcase({ hold, cities }: { hold: number; cities: number }) {
+  return (
+    <Spotlight className="rounded-panel">
+      <FloatingStage className="h-[24rem] sm:h-[28rem] lg:h-[34rem]" placement="center">
+        <FloatingCard className="top-[4%] left-0 w-[min(19rem,84%)] sm:left-[4%]" depth={10} tilt={-1.5} enter={0} cardClassName="flex flex-col gap-3 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <span className="type-overline text-ink-muted">Neue Anfrage</span>
+            <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-accent-soft px-2.5 type-label-s text-accent">
+              <span className="size-1.5 rounded-full bg-accent" />
+              Live
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Avatar name="Kundin" size={40} />
+            <div className="min-w-0">
+              <p className="truncate type-heading-s">Entspannungsmassage</p>
+              <p className="truncate type-caption text-ink-muted num">60 Min. · Zu Hause · Prenzlauer Berg</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <span className="inline-flex h-9 flex-1 items-center justify-center rounded-full bg-ink type-label-s text-ink-inverse shadow-ink">Annehmen</span>
+            <span className="inline-flex h-9 flex-1 items-center justify-center rounded-full ring-1 ring-line-mid type-label-s">Ablehnen</span>
+          </div>
+        </FloatingCard>
+        <FloatingCard className="top-[46%] right-0 w-[min(16rem,70%)] lg:top-[40%]" depth={22} glass float enter={1} cardClassName="flex items-center gap-3 p-3.5">
+          <SuccessCheck size={36} glow={false} />
+          <div className="min-w-0">
+            <p className="type-heading-s">Auszahlung</p>
+            <p className="type-caption text-ink-muted">{`${hold} Stunden nach dem Termin`}</p>
+          </div>
+        </FloatingCard>
+        <FloatingCard className="bottom-[3%] left-[8%] w-[min(14rem,60%)] lg:bottom-[6%]" depth={16} tilt={1.5} enter={2} cardClassName="p-4">
+          <p className="type-overline text-ink-muted">Start-Code</p>
+          <p className="mt-2 flex gap-1.5 stagger-rise">
+            {["4", "8", "2", "7"].map((d, i) => (
+              <span key={i} className="inline-flex h-11 w-9 items-center justify-center rounded-tile bg-surface-sunken type-heading-l num">
+                {d}
+              </span>
+            ))}
+          </p>
+          <p className="mt-2.5 type-caption text-ink-muted">Termin starten, vor Ort.</p>
+        </FloatingCard>
+        <FloatingCard className="top-[2%] right-[3%] hidden w-[12.5rem] sm:block" depth={28} glass float enter={3} cardClassName="flex flex-col gap-1 px-4 py-3.5">
+          <p className="type-heading-l num">{cities}</p>
+          <p className="type-caption text-ink">{cities === 1 ? "Startstadt" : "Startstädte"}</p>
+        </FloatingCard>
+      </FloatingStage>
+    </Spotlight>
   );
 }

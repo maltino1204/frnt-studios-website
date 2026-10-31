@@ -118,9 +118,9 @@ export default async function WiderrufPage() {
 
       <ContentSection id="formular" title={sections[4].title}>
         <p>Wenn Sie den Vertrag widerrufen wollen, füllen Sie bitte dieses Formular aus und senden Sie es zurück.</p>
-        <ol className="flex flex-col border-t border-line">
+        <ol className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
           {FORM_LINES.map((line) => (
-            <li key={line} className="border-b border-line py-3 type-body-s text-ink">
+            <li key={line} className="py-3 type-body-s text-ink">
               {line}
             </li>
           ))}

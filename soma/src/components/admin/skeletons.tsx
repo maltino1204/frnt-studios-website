@@ -25,12 +25,12 @@ export function HeaderSkeleton({ back }: { back?: boolean }) {
 
 export function StatsSkeleton({ tiles = 4 }: { tiles?: number }) {
   return (
-    <div className="grid grid-cols-2 gap-px border border-line bg-line lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
       {Array.from({ length: tiles }, (_, i) => (
-        <div key={i} className="flex flex-col gap-2 bg-surface-raised p-5 lg:p-6">
+        <div key={i} className="flex flex-col gap-2 rounded-card bg-surface-raised p-4 shadow-raised sm:p-5 lg:p-6">
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-10 w-28" />
-          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-4 w-32 max-w-full" />
         </div>
       ))}
     </div>
@@ -40,14 +40,14 @@ export function StatsSkeleton({ tiles = 4 }: { tiles?: number }) {
 /** Loading table: clipped to the available width (never widens the page, audit-3 F10). */
 export function TableSkeleton({ rows = 10, cols = 6 }: { rows?: number; cols?: number }) {
   return (
-    <div aria-hidden className="relative max-w-full min-w-0 overflow-hidden border border-line bg-surface-raised">
-      <div className="flex h-10 min-w-0 items-center gap-6 overflow-hidden border-b border-line-strong px-4">
+    <div aria-hidden className="relative max-w-full min-w-0 overflow-hidden rounded-card bg-surface-raised shadow-raised">
+      <div className="flex h-10 min-w-0 items-center gap-6 overflow-hidden bg-surface px-5 shadow-[inset_0_-1px_0_var(--color-line)]">
         {Array.from({ length: cols }, (_, i) => (
           <Skeleton key={i} className={cn("h-3 min-w-0", i === 0 ? "w-24" : "w-16")} />
         ))}
       </div>
       {Array.from({ length: rows }, (_, r) => (
-        <div key={r} className="flex h-10 min-w-0 items-center gap-6 overflow-hidden border-b border-line px-4 last:border-b-0">
+        <div key={r} className="flex h-10 min-w-0 items-center gap-6 overflow-hidden border-b border-line px-5 last:border-b-0">
           {Array.from({ length: cols }, (_, i) => (
             <Skeleton key={i} className={cn("h-3 min-w-0", i === 0 ? "w-24" : i % 3 === 1 ? "w-28" : "w-14")} />
           ))}
@@ -61,21 +61,21 @@ export function ToolbarSkeleton({ fields = 1 }: { fields?: number }) {
   return (
     <div className="flex flex-wrap items-end gap-3">
       {Array.from({ length: fields }, (_, i) => (
-        <Skeleton key={i} className={cn("h-control-s", i === 0 ? "w-64" : "w-40")} />
+        <Skeleton key={i} className={cn("h-control-s rounded-control", i === 0 ? "w-64 max-w-full" : "w-40")} />
       ))}
-      <Skeleton className="h-control-s w-24" />
+      <Skeleton className="h-control-s w-24 rounded-full" />
     </div>
   );
 }
 
 export function PanelSkeleton({ rows = 4, className }: { rows?: number; className?: string }) {
   return (
-    <div className={cn("border border-line bg-surface-raised", className)}>
-      <div className="flex h-12 items-center border-b border-line px-4">
+    <div className={cn("overflow-hidden rounded-card bg-surface-raised shadow-raised", className)}>
+      <div className="flex h-12 items-center border-b border-line px-5">
         <Skeleton className="h-4 w-32" />
       </div>
       {Array.from({ length: rows }, (_, i) => (
-        <div key={i} className="flex h-14 flex-col justify-center gap-1.5 border-b border-line px-4 last:border-b-0">
+        <div key={i} className="flex h-14 flex-col justify-center gap-1.5 px-5">
           <Skeleton className="h-3.5 w-[64%]" />
           <Skeleton className="h-3 w-[40%]" />
         </div>
@@ -134,11 +134,11 @@ export function OverviewSkeleton() {
     <Delay>
       <HeaderSkeleton />
       <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-px">
+        <div className="flex flex-col gap-3 lg:gap-4">
           <StatsSkeleton />
           <StatsSkeleton />
         </div>
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
           <PanelSkeleton rows={2} />
           <PanelSkeleton rows={2} />
           <PanelSkeleton rows={4} />

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { formatDate } from "@/lib/format";
 import { formatInt } from "@/components/admin/format";
 import { AdminPageHeader, EMPTY } from "@/components/admin/page";
 import { ReviewModerationButton } from "@/components/admin/review-actions";
-import { AdminTable, CellLink, hrefWith, TablePager } from "@/components/admin/table";
-import { ChipFilter, FilterForm } from "@/components/admin/toolbar";
+import { AdminTable, CellLink, hrefWith, rowAction, TablePager } from "@/components/admin/table";
+import { ChipFilter, FilterForm, SearchField, SegmentedLinks } from "@/components/admin/toolbar";
 import { ChipLink } from "@/components/ui/chip";
 import { EmptyState, Status } from "@/components/ui/feedback";
-import { Input } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import type { AdminReviewFilter, AdminReviewVisibility } from "@/server/dto";
@@ -21,11 +21,12 @@ const RATINGS: Array<{ key?: string; label: string }> = [{ label: "Alle" }, { ke
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <span className="flex items-center gap-1.5 num">
-      <span aria-hidden className={rating <= 2 ? "text-danger" : "text-ink"}>
-        {"★".repeat(rating)}
-        <span className="text-line-strong">{"★".repeat(5 - rating)}</span>
+    <span className={`inline-flex h-6 items-center gap-1.5 rounded-full px-2 ${rating <= 2 ? "bg-danger-soft" : "bg-surface-sunken"}`}>
+      <span aria-hidden className="flex items-center gap-px text-[13px] leading-none tracking-[-0.04em]">
+        <span className={rating <= 2 ? "text-danger" : "text-ink"}>{"★".repeat(rating)}</span>
+        <span className="text-line-mid">{"★".repeat(5 - rating)}</span>
       </span>
+      <span aria-hidden className={`type-caption font-[600] num ${rating <= 2 ? "text-danger" : "text-ink"}`}>{rating}</span>
       <span className="sr-only">{rating} von 5 Sternen</span>
     </span>
   );
@@ -55,25 +56,19 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
         description={`${formatInt(list.total)} ${q || visibility || rating || flagged ? "Treffer" : "Bewertungen"} · ${formatInt(hidden.total)} ausgeblendet · ${formatInt(critical.total)} kritische sichtbar`}
       />
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div className="flex flex-col gap-3">
           <FilterForm action={BASE} hidden={{ sichtbar: visibility, sterne: ratingKey, kontakt: flagged ? "1" : undefined }} resetHref={q ? hrefWith(BASE, {}, { sichtbar: visibility, sterne: ratingKey }) : undefined}>
-            <Input dense label="Suche" hideLabel type="search" name="q" defaultValue={q} placeholder="Text, Profi oder Buchungsnummer" className="w-full sm:w-72" />
+            <SearchField name="q" defaultValue={q} placeholder="Text, Profi oder Buchungsnummer" className="min-w-0 flex-1 sm:w-80 sm:flex-none" />
           </FilterForm>
-          <div className="flex min-w-0 flex-col gap-3 md:flex-row md:flex-wrap md:gap-x-8">
-            <ChipFilter label="Status">
-              {VISIBILITY.map((v) => (
-                <ChipLink key={v.label} href={hrefWith(BASE, current, { sichtbar: v.key, seite: undefined })} selected={visibility === v.key}>
-                  {v.label}
-                </ChipLink>
-              ))}
-            </ChipFilter>
-            <ChipFilter label="Sterne">
-              {RATINGS.map((r) => (
-                <ChipLink key={r.label} href={hrefWith(BASE, current, { sterne: r.key, seite: undefined })} selected={ratingKey === r.key}>
-                  {r.label}
-                </ChipLink>
-              ))}
-            </ChipFilter>
+          <div className="flex min-w-0 flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:gap-x-6">
+            <SegmentedLinks
+              label="Status"
+              items={VISIBILITY.map((v) => ({ href: hrefWith(BASE, current, { sichtbar: v.key, seite: undefined }), label: v.label, active: visibility === v.key }))}
+            />
+            <SegmentedLinks
+              label="Sterne"
+              items={RATINGS.map((r) => ({ href: hrefWith(BASE, current, { sterne: r.key, seite: undefined }), label: r.label, active: ratingKey === r.key }))}
+            />
             <ChipFilter label="Hinweise">
               <ChipLink href={hrefWith(BASE, current, { kontakt: flagged ? undefined : "1", seite: undefined })} selected={flagged}>
                 Mit Kontaktdaten
@@ -83,18 +78,16 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
         </div>
 
         {list.items.length === 0 ? (
-          <EmptyState title="Keine Bewertungen gefunden.">{q ? `Nichts passt zu „${q}“.` : "Für diese Filter gibt es keine Bewertungen."}</EmptyState>
+          <EmptyState seed="bewertungen-leer" title="Keine Bewertungen gefunden.">{q ? `Nichts passt zu „${q}“.` : "Für diese Filter gibt es keine Bewertungen."}</EmptyState>
         ) : (
           <div>
-            <AdminTable label="Bewertungen">
+            <AdminTable label="Bewertungen" stickyHeader>
               <thead>
                 <tr>
-                  <th scope="col">Datum</th>
-                  <th scope="col">Sterne</th>
+                  <th scope="col">Bewertung</th>
                   <th scope="col">Text</th>
                   <th scope="col">Profi</th>
-                  <th scope="col">Kundschaft</th>
-                  <th scope="col">Buchung</th>
+                  <th scope="col">Kundschaft · Buchung</th>
                   <th scope="col">Status</th>
                   <th scope="col" className="text-right">
                     <span className="sr-only">Aktionen</span>
@@ -103,33 +96,41 @@ export default async function ReviewsModerationPage({ searchParams }: { searchPa
               </thead>
               <tbody>
                 {list.items.map((r) => (
-                  <tr key={r.id} className="align-top">
-                    <td className="num text-ink-muted">{formatDate(r.createdAt)}</td>
+                  <tr key={r.id} className="align-top [&>td]:py-3">
                     <td>
-                      <Stars rating={r.rating} />
+                      <span className="flex flex-col items-start gap-1">
+                        <Stars rating={r.rating} />
+                        <span className="type-caption text-ink-muted num">{formatDate(r.createdAt)}</span>
+                      </span>
                     </td>
-                    <td className="min-w-64 max-w-[28rem] py-2.5 !whitespace-normal">
-                      <p className="line-clamp-3 type-body-s text-ink" title={r.comment ?? undefined}>
+                    <td className="w-[36%] min-w-72 !whitespace-normal">
+                      <p className="line-clamp-3 type-body-s text-pretty text-ink" title={r.comment ?? undefined}>
                         {r.comment ?? <span className="text-ink-muted">Ohne Text</span>}
                       </p>
-                      {r.tags.length ? <p className="type-caption text-ink-muted">{r.tags.join(" · ")}</p> : null}
-                      {r.providerReply ? <p className="mt-1 line-clamp-2 type-caption text-ink-muted">Antwort: {r.providerReply}</p> : null}
-                      {r.contactFlags.length ? <p className="mt-1 type-caption text-danger">Kontaktdaten: {r.contactFlags.join(", ")}</p> : null}
+                      {r.tags.length ? <p className="mt-0.5 type-caption text-ink-muted">{r.tags.join(" · ")}</p> : null}
+                      {r.providerReply ? <p className="mt-1.5 line-clamp-2 border-l-2 border-line-mid pl-2.5 type-caption text-ink-muted">Antwort: {r.providerReply}</p> : null}
+                      {r.contactFlags.length ? (
+                        <p className="mt-1.5 inline-flex rounded-full bg-danger-soft px-2 py-0.5 type-caption font-[520] text-danger">Kontaktdaten: {r.contactFlags.join(", ")}</p>
+                      ) : null}
                     </td>
-                    <td>
-                      <CellLink href={routes.admin.provider(r.providerId)} sub={r.serviceName}>
+                    <td className="max-w-56">
+                      <CellLink href={routes.admin.provider(r.providerId)} sub={<span className="block truncate">{r.serviceName}</span>}>
                         {r.providerName}
                       </CellLink>
                     </td>
-                    <td>{r.customerName ? <CellLink href={`/admin/nutzer/${r.customerId}`}>{r.customerName}</CellLink> : <span className="text-ink-muted">{EMPTY}</span>}</td>
                     <td>
-                      <CellLink href={routes.admin.booking(r.bookingId)}>
-                        <span className="code-ref">{r.bookingReference}</span>
-                      </CellLink>
+                      <span className="flex flex-col items-start">
+                        {r.customerName ? <CellLink href={`/admin/nutzer/${r.customerId}`}>{r.customerName}</CellLink> : <span className="text-ink-muted">{EMPTY}</span>}
+                        <Link href={routes.admin.booking(r.bookingId)} className="rounded-[6px] code-ref text-ink-muted underline-offset-4 hover:text-ink hover:underline focus-ring">
+                          {r.bookingReference}
+                        </Link>
+                      </span>
                     </td>
                     <td>{r.isPublished ? <Status tone="success">Sichtbar</Status> : <Status tone="neutral">Ausgeblendet</Status>}</td>
                     <td className="text-right">
-                      <ReviewModerationButton reviewId={r.id} isPublished={r.isPublished} label={`Die Bewertung von ${r.customerName ?? "dieser Kundschaft"}`} />
+                      <span className={`inline-flex ${rowAction}`}>
+                        <ReviewModerationButton reviewId={r.id} isPublished={r.isPublished} label={`Die Bewertung von ${r.customerName ?? "dieser Kundschaft"}`} />
+                      </span>
                     </td>
                   </tr>
                 ))}

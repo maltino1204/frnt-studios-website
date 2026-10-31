@@ -7,14 +7,11 @@ export default function Loading() {
     <Container className="pt-6 pb-(--space-section) md:pt-8" role="status" aria-busy="true" aria-label="Wird geladen">
       <Skeleton className="h-3 w-32" />
       <HeaderSkeleton />
-      <ul aria-hidden className="border-t border-line">
+      <ul aria-hidden className="grid gap-4 md:grid-cols-2 lg:gap-6">
         {[0, 1, 2, 3].map((i) => (
-          <li key={i} className="grid gap-5 border-b border-line py-8 lg:grid-cols-12 lg:gap-6">
-            <div className="flex flex-col gap-2 lg:col-span-4">
-              <Skeleton className="h-9 w-40" />
-              <Skeleton className="h-3 w-32" />
-            </div>
-            <div className="flex flex-wrap gap-2 lg:col-span-8">
+          <li key={i} className="flex flex-col gap-5 rounded-card bg-surface-raised p-1.5 pb-6 shadow-raised">
+            <Skeleton className="h-32 w-full rounded-tile md:h-40" />
+            <div className="flex flex-wrap gap-2 px-4">
               {[0, 1, 2, 3, 4].map((j) => (
                 <Skeleton key={j} className="h-9 w-24 rounded-full" />
               ))}

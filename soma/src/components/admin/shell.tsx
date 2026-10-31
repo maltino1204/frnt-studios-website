@@ -32,6 +32,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
+import { CommandPalette, CommandPaletteTrigger } from "./command-palette";
 
 type NavItem = { href: string; label: string; icon: LucideIcon; count?: "verification" | "disputes" };
 type NavGroup = { label: string; items: NavItem[] };
@@ -193,6 +194,9 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
           </button>
           )}
         </div>
+        <div className={cn("shrink-0 pb-1", collapsed ? "flex justify-center" : "px-3")}>
+          <CommandPaletteTrigger variant={collapsed ? "rail" : "field"} />
+        </div>
         <nav aria-label="Bereiche" className="min-h-0 flex-1 overflow-y-auto py-2">
           <NavGroups pathname={pathname} counts={counts} collapsed={collapsed} />
           {collapsed ? (
@@ -226,6 +230,7 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
         </Link>
         <div className="flex items-center gap-1">
           {demo ? <EnvBadge compact /> : null}
+          <CommandPaletteTrigger variant="icon" />
           <button
             type="button"
             onClick={() => setMenuOpen(true)}
@@ -246,6 +251,8 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
           <SidebarFooter user={user} demo={demo} collapsed={false} />
         </div>
       </Sheet>
+
+      <CommandPalette groups={ADMIN_NAV} />
 
       <RouteTransition as="main" id="inhalt" tabIndex={-1} className="min-w-0 flex-1 focus:outline-none">
         <div className="mx-auto w-full max-w-dashboard px-(--space-gutter) pt-6 pb-16 lg:px-8 lg:pt-8">{children}</div>

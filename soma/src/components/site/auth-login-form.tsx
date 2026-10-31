@@ -44,7 +44,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
             error={fe?.password}
             required
           />
-          <Link href="/passwort-vergessen" className="inline-flex h-touch items-center self-end type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+          <Link href="/passwort-vergessen" className="inline-flex h-touch items-center self-end rounded-full type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover">
             Passwort vergessen?
           </Link>
         </div>
@@ -61,7 +61,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
       </form>
 
       {demo?.length ? (
-        <section aria-labelledby="demo-titel" className="flex flex-col gap-3 border-t border-line pt-6">
+        <section aria-labelledby="demo-titel" className="flex flex-col gap-3 rounded-card bg-surface-sunken/70 p-4 sm:p-5">
           <div className="flex flex-col gap-1">
             <h2 id="demo-titel" className="type-overline text-ink-muted">
               Demo-Zugänge
@@ -79,7 +79,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
                     setEmail(d.email);
                     setPassword(demoPassword ?? "");
                   }}
-                  className="inline-flex min-h-touch w-full flex-col items-start justify-center rounded-xs border border-line-strong bg-surface-raised px-3 py-2 text-left transition-colors duration-fast hover:border-ink"
+                  className="inline-flex min-h-touch w-full flex-col items-start justify-center rounded-tile bg-surface-raised px-3 py-2 text-left shadow-raised pressable focus-ring hover:-translate-y-px hover:shadow-float"
                 >
                   <span className="type-label-s text-ink">
                     {d.label}

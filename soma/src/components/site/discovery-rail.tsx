@@ -66,7 +66,7 @@ export function Rail({
   return (
     <div className={className}>
       {header || scrollable ? (
-        <div className="mb-10 flex items-end justify-between gap-6 lg:mb-12">
+        <div className="mb-8 flex items-end justify-between gap-6 lg:mb-10">
           <div className="min-w-0 flex-1">{header}</div>
           {scrollable ? (
             <div className="hidden shrink-0 gap-2 lg:flex">
@@ -80,13 +80,14 @@ export function Rail({
         ref={ref}
         aria-label={label}
         className={cn(
-          "-mx-(--space-gutter) flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pb-2 scrollbar-none md:gap-5 lg:gap-6",
+          // Vertical padding gives the cards' lift and float shadow room inside the scroller (overflow clips both axes).
+          "-mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pt-4 pb-10 scrollbar-none md:gap-5 lg:gap-6",
           // From lg the rail runs to the right viewport edge, aligned left with the container.
           "lg:mr-[calc((100vw-min(100vw,var(--container-page)))/-2-var(--space-gutter))] lg:pr-[calc((100vw-min(100vw,var(--container-page)))/2+var(--space-gutter))]",
         )}
       >
         {Children.map(children, (child) => (
-          <li className={cn("w-[calc((100%-2*0.75rem)/2.3)] shrink-0 snap-start md:w-[calc((100%-2*1.25rem)/3.3)]", width)}>{child}</li>
+          <li className={cn("w-[calc((100%-2*0.75rem)/2.15)] shrink-0 snap-start md:w-[calc((100%-2*1.25rem)/3.3)]", width)}>{child}</li>
         ))}
       </ul>
     </div>
@@ -100,7 +101,7 @@ function RailButton({ label, disabled, onClick, icon }: { label: string; disable
       aria-label={label}
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex size-touch items-center justify-center rounded-xs border border-line-strong text-ink transition-colors duration-fast hover:border-ink disabled:border-line disabled:text-ink-disabled"
+      className="inline-flex size-touch items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised pressable focus-ring hover:-translate-y-px hover:shadow-float disabled:pointer-events-none disabled:bg-transparent disabled:text-ink-disabled disabled:shadow-none disabled:ring-1 disabled:ring-line"
     >
       <Icon icon={icon} />
     </button>

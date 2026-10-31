@@ -2,9 +2,9 @@
 
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ExternalLink, FileText, Trash, Upload } from "lucide-react";
-import { IconButton } from "@/components/ui/button";
-import { Notice, Status } from "@/components/ui/feedback";
+import { Check, Clock, ExternalLink, FileText, Minus, Trash, Upload, X } from "lucide-react";
+import { IconButton, buttonClasses } from "@/components/ui/button";
+import { Status } from "@/components/ui/feedback";
 import { Select } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
@@ -13,6 +13,7 @@ import { formatDate } from "@/lib/format";
 import { deleteDocumentAction, uploadDocumentAction } from "@/server/actions/pro";
 import type { DocumentDTO, DocumentKind } from "@/server/dto";
 import { DOCUMENT_KIND_LABEL, DOCUMENT_STATUS_LABEL, DOCUMENT_STATUS_TONE, proError } from "./labels";
+import { IconTile, ProgressRing } from "./ui";
 
 const DOC_TYPES = "application/pdf,image/jpeg,image/png";
 const MAX_DOC_BYTES = 10 * 1024 * 1024;
@@ -70,8 +71,8 @@ function DocumentUploadButton({ kind, categoryId, label, variant = "secondary" }
         />
         <span
           className={cn(
-            "inline-flex h-control cursor-pointer items-center gap-2 rounded-xs px-4 type-label whitespace-nowrap transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus",
-            variant === "primary" ? "bg-ink text-ink-inverse hover:bg-ink-hover" : "border border-ink text-ink hover:bg-surface-sunken",
+            buttonClasses({ variant: variant === "primary" ? "primary" : "secondary" }),
+            "cursor-pointer peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus",
             pending && "opacity-60",
           )}
           aria-hidden
@@ -99,6 +100,9 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const latestOf = (kind: DocumentKind) => documents.filter((d) => d.kind === kind);
+  const total = requirements.length;
+  const doneCount = requirements.filter((r) => !r.missing).length;
+  const approvedCount = requirements.filter((r) => !r.missing && latestOf(r.kind).some((d) => d.status === "approved")).length;
 
   const remove = (id: string) => {
     setDeletingId(id);
@@ -112,33 +116,61 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
   };
 
   return (
-    <div className="flex flex-col gap-10">
-      <section className="flex flex-col gap-3" aria-labelledby="req-title">
-        <h2 id="req-title" className="type-heading-m">
-          Benötigte Nachweise
-        </h2>
-        <ul className="border-y border-line">
+    <div className="flex flex-col gap-8">
+      <section className="flex flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised" aria-labelledby="req-title">
+        <div className="flex items-center gap-4 border-b border-line p-5 lg:p-6">
+          <ProgressRing value={total ? doneCount / total : 0} size={64} stroke={5} tone={doneCount === total ? "success" : "aura"}>
+            <span className="type-label-s text-ink num">
+              {doneCount}/{total}
+            </span>
+          </ProgressRing>
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <h2 id="req-title" className="type-heading-m">
+              Benötigte Nachweise
+            </h2>
+            <p className="type-body-s text-ink-muted num">
+              {doneCount === total ? "Alle hochgeladen" : `${doneCount} von ${total} hochgeladen`}
+              {approvedCount ? ` · ${approvedCount} geprüft` : ""}
+            </p>
+          </div>
+        </div>
+        <ul className="divide-y divide-line">
           {requirements.map((r) => {
             const docs = latestOf(r.kind);
             const approved = docs.some((d) => d.status === "approved");
             const rejected = r.missing ? docs.find((d) => d.status === "rejected") : undefined;
             const status = r.missing ? (rejected ? { tone: "danger" as const, label: "Abgelehnt – bitte neu hochladen" } : { tone: "neutral" as const, label: "Fehlt" }) : approved ? { tone: "success" as const, label: "Geprüft" } : { tone: "warning" as const, label: "In Prüfung" };
+            const StateIcon = status.tone === "success" ? Check : status.tone === "warning" ? Clock : status.tone === "danger" ? X : Minus;
             return (
-              <li key={r.key} className="flex flex-col gap-3 border-b border-line py-4 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-                <div className="flex min-w-0 flex-col gap-1">
-                  <p className="type-body-s font-[520] text-ink">{r.label}</p>
-                  <p className="type-caption text-ink-muted">{r.scope}</p>
-                  <Status tone={status.tone} className="mt-1">
-                    {status.label}
-                  </Status>
-                  {rejected?.reviewNote ? <p className="type-caption text-ink">Hinweis aus der Prüfung: {rejected.reviewNote}</p> : null}
+              <li key={r.key} className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:px-6">
+                <div className="flex min-w-0 items-start gap-3.5">
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full",
+                      status.tone === "success" && "bg-success text-white shadow-[0_2px_6px_-2px_rgb(21_115_71/0.6)]",
+                      status.tone === "warning" && "bg-warning-soft text-warning",
+                      status.tone === "danger" && "bg-danger-soft text-danger",
+                      status.tone === "neutral" && "bg-surface-sunken text-ink-muted shadow-[inset_0_0_0_1px_var(--color-line-mid)]",
+                    )}
+                  >
+                    <StateIcon size={15} strokeWidth={2} absoluteStrokeWidth />
+                  </span>
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <p className="type-body-s font-[560] text-ink">{r.label}</p>
+                    <p className="type-caption text-ink-muted">{r.scope}</p>
+                    <Status tone={status.tone} className="mt-1">
+                      {status.label}
+                    </Status>
+                    {rejected?.reviewNote ? <p className="type-caption text-ink">Hinweis aus der Prüfung: {rejected.reviewNote}</p> : null}
+                  </div>
                 </div>
                 {r.missing ? <DocumentUploadButton kind={r.kind} categoryId={r.categoryId} label={r.label} variant="primary" /> : null}
               </li>
             );
           })}
         </ul>
-        <p className="type-caption text-ink-muted">PDF, JPG oder PNG bis 10 MB. Deine Dokumente sieht nur das SOMA-Prüfteam. Wir prüfen meist innerhalb von 48 Stunden.</p>
+        <p className="border-t border-line bg-surface/60 px-5 py-3 type-caption text-ink-muted lg:px-6">PDF, JPG oder PNG bis 10 MB. Deine Dokumente sieht nur das SOMA-Prüfteam. Wir prüfen meist innerhalb von 48 Stunden.</p>
       </section>
 
       <section className="flex flex-col gap-3" aria-labelledby="docs-title">
@@ -146,15 +178,15 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
           Hochgeladene Dokumente
         </h2>
         {documents.length ? (
-          <ul className="border-y border-line">
+          <ul className="grid gap-3 sm:grid-cols-2">
             {documents.map((d) => (
-              <li key={d.id} className="flex items-start gap-4 border-b border-line py-4 last:border-b-0">
-                <Icon icon={FileText} className="mt-0.5 shrink-0 text-ink-muted" />
+              <li key={d.id} className={cn("flex items-start gap-3.5 rounded-card bg-surface-raised p-4 shadow-raised transition-opacity duration-base", deleting && deletingId === d.id && "opacity-50")}>
+                <IconTile icon={FileText} tone={d.status === "approved" ? "success" : d.status === "rejected" ? "danger" : "neutral"} size={40} />
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <p className="truncate type-body-s font-[520] text-ink">{d.fileName}</p>
+                  <p className="truncate type-body-s font-[560] text-ink">{d.fileName}</p>
                   <p className="type-caption text-ink-muted num">
                     {DOCUMENT_KIND_LABEL[d.kind]}
-                    {d.categoryName ? ` für ${d.categoryName}` : ""} · hochgeladen am {formatDate(d.createdAt)}
+                    {d.categoryName ? ` für ${d.categoryName}` : ""} · {formatDate(d.createdAt)}
                   </p>
                   <Status tone={DOCUMENT_STATUS_TONE[d.status]} className="mt-1">
                     {DOCUMENT_STATUS_LABEL[d.status]}
@@ -162,13 +194,13 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
                   </Status>
                   {d.reviewNote ? <p className="type-caption text-ink">Hinweis: {d.reviewNote}</p> : null}
                 </div>
-                <div className="flex shrink-0 items-center">
-                  <a href={d.url} target="_blank" rel="noopener noreferrer" aria-label={`${d.fileName} ansehen`} title="Ansehen" className="inline-flex size-touch items-center justify-center rounded-xs text-ink hover:bg-surface-sunken">
-                    <Icon icon={ExternalLink} />
+                <div className="-mt-1 -mr-1 flex shrink-0 items-center">
+                  <a href={d.url} target="_blank" rel="noopener noreferrer" aria-label={`${d.fileName} ansehen`} title="Ansehen" className="inline-flex size-touch items-center justify-center rounded-full text-ink pressable focus-ring hover:bg-surface-sunken">
+                    <Icon icon={ExternalLink} size={18} />
                   </a>
                   {d.status === "pending" ? (
-                    <IconButton label={`${d.fileName} löschen`} onClick={() => remove(d.id)} disabled={deleting && deletingId === d.id}>
-                      <Icon icon={Trash} />
+                    <IconButton label={`${d.fileName} löschen`} onClick={() => remove(d.id)} disabled={deleting && deletingId === d.id} className="hover:bg-danger-soft! hover:text-danger">
+                      <Icon icon={Trash} size={18} />
                     </IconButton>
                   ) : null}
                 </div>
@@ -176,13 +208,13 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
             ))}
           </ul>
         ) : (
-          <p className="border-y border-line py-4 type-body-s text-ink-muted">Noch keine Dokumente hochgeladen.</p>
+          <p className="rounded-card bg-surface-raised px-5 py-4 type-body-s text-ink-muted shadow-raised">Noch keine Dokumente hochgeladen.</p>
         )}
       </section>
 
-      <section className="flex flex-col gap-4 border border-line bg-surface-raised p-5" aria-labelledby="other-title">
+      <section className="flex flex-col gap-4 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6" aria-labelledby="other-title">
         <div className="flex flex-col gap-1">
-          <h2 id="other-title" className="type-heading-s">
+          <h2 id="other-title" className="type-heading-m">
             Weiteres Dokument
           </h2>
           <p className="type-caption text-ink-muted">Zum Beispiel eine zusätzliche Qualifikation, eine neue Versicherungspolice oder einen Hygieneplan.</p>
@@ -212,7 +244,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
           />
         </div>
       </section>
-      {requirements.every((r) => !r.missing) ? <Notice kind="success">Alle benötigten Nachweise sind hochgeladen.</Notice> : null}
+      
     </div>
   );
 }

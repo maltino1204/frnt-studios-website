@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InlineBar } from "@/components/admin/bars";
 import { formatInt, formatPercent } from "@/components/admin/format";
-import { AdminPageHeader, AdminSection, EMPTY, MutedLink } from "@/components/admin/page";
+import { AdminPageHeader, AdminSection, Card, EMPTY, MutedLink, SectionEmpty } from "@/components/admin/page";
 import { RangeSwitch } from "@/components/admin/range-switch";
 import { AdminTable, hrefWith, numCell } from "@/components/admin/table";
 import { EmptyState, Status } from "@/components/ui/feedback";
@@ -47,33 +47,46 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
         description={`Angebot und Nachfrage, letzte ${days} Tage · ${formatInt(totals.searches)} Suchen, davon ${formatInt(totals.zero)} ohne Ergebnis${outsideCities ? ` und ${formatInt(outsideCities)} außerhalb der Startstädte` : ""} · ${formatInt(totals.waitlist)} auf der Warteliste`}
         actions={<RangeSwitch value={days} options={RANGES} />}
       />
-      <div className="flex flex-col gap-12">
-        <AdminSection id="gaps" title="Angebotslücken" description={`Kategorien mit Nachfrage, aber weniger als ${minProviders} Profis in der Stadt (unter dieser Schwelle sind SEO-Seiten nicht indexierbar).`}>
+      <div className="flex flex-col gap-10 lg:gap-12">
+        <AdminSection id="gaps" title="Angebotslücken" count={gaps.length || undefined} description={`Kategorien mit Nachfrage, aber weniger als ${minProviders} Profis in der Stadt (unter dieser Schwelle sind SEO-Seiten nicht indexierbar).`}>
           {gaps.length === 0 ? (
-            <EmptyState title="Keine Lücken." className="py-4">
+            <SectionEmpty seed="regionen-luecken" title="Keine Lücken.">
               Jede nachgefragte Kategorie hat mindestens {minProviders} Profis.
-            </EmptyState>
+            </SectionEmpty>
           ) : (
-            <ul className="grid gap-px border border-line bg-line sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="grid gap-3 sm:grid-cols-2 lg:gap-4 xl:grid-cols-3">
               {gaps.slice(0, 9).map((g) => (
-                <li key={`${g.citySlug}-${g.categorySlug}`} className="flex flex-col gap-1.5 bg-surface-raised px-4 py-3.5">
-                  <Status tone={g.providers === 0 ? "danger" : "warning"}>
-                    {g.categoryName} in {g.city}
-                  </Status>
-                  <p className="pl-4 type-body-s text-ink-muted num">
-                    <span className="text-ink">{formatInt(g.searches)} Suchen</span>, {formatInt(g.providers)} {g.providers === 1 ? "Profi" : "Profis"}
-                    {g.waitlist ? `, ${formatInt(g.waitlist)} auf der Warteliste` : ""}
-                  </p>
-                </li>
+                <Card as="li" key={`${g.citySlug}-${g.categorySlug}`} className="flex flex-col gap-2.5 px-4 py-3.5 sm:px-5 sm:py-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="flex min-w-0 flex-col">
+                      <span className="type-heading-s">{g.categoryName}</span>
+                      <span className="type-caption text-ink-muted">{g.city}</span>
+                    </p>
+                    <Status tone={g.providers === 0 ? "danger" : "warning"}>{g.providers === 0 ? "Kein Profi" : "Unter Schwelle"}</Status>
+                  </div>
+                  <dl className="grid grid-cols-3 gap-2 border-t border-line pt-2.5">
+                    <div className="flex flex-col">
+                      <dt className="type-caption text-ink-muted">Suchen</dt>
+                      <dd className="type-label-s text-ink num">{formatInt(g.searches)}</dd>
+                    </div>
+                    <div className="flex flex-col">
+                      <dt className="type-caption text-ink-muted">Profis</dt>
+                      <dd className={cn("type-label-s num", g.providers === 0 ? "text-danger" : "text-ink")}>{formatInt(g.providers)}</dd>
+                    </div>
+                    <div className="flex flex-col">
+                      <dt className="type-caption text-ink-muted">Warteliste</dt>
+                      <dd className="type-label-s text-ink num">{formatInt(g.waitlist)}</dd>
+                    </div>
+                  </dl>
+                </Card>
               ))}
-              {gaps.length % 3 !== 0 && gaps.length < 9 ? <li aria-hidden className="hidden bg-surface-raised xl:block" style={{ gridColumn: `span ${3 - (gaps.length % 3)}` }} /> : null}
             </ul>
           )}
           {gaps.length > 9 ? <p className="type-caption text-ink-muted">Weitere {gaps.length - 9} Lücken in der Matrix unten.</p> : null}
         </AdminSection>
 
         <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
-          <AdminTable label="Städte">
+          <AdminTable label="Städte" className="[&_td]:px-3 [&_th]:px-3">
             <thead>
               <tr>
                 <th scope="col">Stadt</th>
@@ -142,7 +155,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
                     return (
                       <td
                         key={cat.categorySlug}
-                        className={cn("text-right num", tone === "danger" && "bg-danger-soft", tone === "warning" && "bg-warning-soft")}
+                        className={cn("text-right num", tone === "danger" && "bg-danger-soft/80", tone === "warning" && "bg-warning-soft/80")}
                         title={`${cat.categoryName} in ${c.cityName}: ${cat.providers} Profis, ${cat.searches} Suchen, ${cat.waitlist} Warteliste`}
                       >
                         <span className={cn(cat.providers === 0 ? "text-ink-muted" : "text-ink", tone === "danger" && "text-danger")}>{cat.providers}</span>
@@ -164,7 +177,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
           actions={regions.length > 15 ? <MutedLink href={hrefWith(routes.admin.regions(), { tage: String(days) }, { plz: showAll ? undefined : "alle" })}>{showAll ? "Top 15" : `Alle ${regions.length} anzeigen`}</MutedLink> : null}
         >
           {regions.length === 0 ? (
-            <EmptyState title="Noch keine Daten." className="py-4" />
+            <SectionEmpty seed="regionen-plz" title="Noch keine Daten." />
           ) : (
             <AdminTable label="PLZ-Regionen">
               <thead>

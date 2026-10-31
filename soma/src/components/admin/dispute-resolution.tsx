@@ -34,7 +34,7 @@ export function DisputeResolution({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirming, setConfirming] = useState(false);
   const investigate = useMutation(updateDisputeStatusAction, { success: "Streitfall ist in Prüfung." });
-  const resolve = useMutation(resolveDisputeAction, { success: "Streitfall abgeschlossen. Beide Seiten wurden benachrichtigt.", onSuccess: () => setConfirming(false) });
+  const resolve = useMutation(resolveDisputeAction, { success: "Streitfall abgeschlossen. Beide Seiten wurden benachrichtigt.", onSuccess: () => setConfirming(false), haptic: true });
   const close = useMutation(updateDisputeStatusAction, { success: "Streitfall geschlossen.", onSuccess: () => setConfirming(false) });
   const cents = parseEuroInput(amount);
   const pending = resolve.pending || close.pending;
@@ -64,7 +64,7 @@ export function DisputeResolution({
   return (
     <div className="flex flex-col gap-5">
       {status === "open" ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-surface-sunken px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-tile bg-surface-sunken px-4 py-3">
           <p className="type-body-s text-ink-muted">Noch nicht in Bearbeitung. Markieren, damit niemand doppelt prüft.</p>
           <Button size="s" variant="secondary" loading={investigate.pending} icon={<Icon icon={Search} size={16} />} onClick={() => investigate.run({ disputeId, status: "investigating" })}>
             In Prüfung nehmen
@@ -171,7 +171,7 @@ export function DisputeResolution({
                 ? "Beide Seiten werden benachrichtigt, die Auszahlung an den Profi wird wieder freigegeben."
                 : "Der Fall wird ohne Entscheidung geschlossen, die Auszahlung wird freigegeben."}
           </p>
-          <p className="border-l border-line-strong pl-3 text-ink">„{note.trim()}“</p>
+          <p className="rounded-tile bg-surface-sunken/80 px-4 py-3 text-ink">„{note.trim()}“</p>
         </ConfirmModal>
       ) : null}
     </div>

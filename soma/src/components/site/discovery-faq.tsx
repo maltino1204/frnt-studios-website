@@ -6,20 +6,33 @@ import { cn } from "@/lib/cn";
 import type { FaqItem } from "./discovery-copy";
 import { faqLd, JsonLd } from "./discovery-json-ld";
 
-/** Native <details> accordion with hairlines. The plus turns into a cross when open (240ms). */
+/**
+ * Native <details> accordion in a level-1 card (works without JS). Opening and
+ * closing animate the height where the browser supports `::details-content`
+ * (interpolate-size); the plus turns into a cross on a spring. Reduced motion: instant.
+ */
 export function FaqList({ items, className }: { items: FaqItem[]; className?: string }) {
   return (
-    <div className={cn("border-t border-line", className)}>
+    <div className={cn("divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised md:px-7", className)}>
       {items.map((it) => (
-        <details key={it.q} className="group border-b border-line">
-          <summary className="flex min-h-touch cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+        <details
+          key={it.q}
+          className={cn(
+            "group [interpolate-size:allow-keywords]",
+            "details-content:h-0 details-content:overflow-clip open:details-content:h-auto",
+            "motion-safe:details-content:transition-[height,content-visibility] motion-safe:details-content:transition-discrete motion-safe:details-content:duration-slow motion-safe:details-content:ease-standard",
+          )}
+        >
+          <summary className="flex min-h-touch cursor-pointer list-none items-center justify-between gap-6 rounded-control py-5 focus-ring [&::-webkit-details-marker]:hidden">
             <span className="type-heading-m text-ink">{it.q}</span>
-            <Icon
-              icon={Plus}
-              className="mt-0.5 shrink-0 text-ink-muted transition-transform duration-base ease-standard group-open:rotate-45"
-            />
+            <span
+              aria-hidden
+              className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink transition-[background-color,color,rotate] duration-spring ease-spring group-open:rotate-45 group-open:bg-ink group-open:text-ink-inverse"
+            >
+              <Icon icon={Plus} size={16} />
+            </span>
           </summary>
-          <p className="max-w-reading pb-6 type-body text-ink-muted">{it.a}</p>
+          <p className="max-w-reading pr-10 pb-6 type-body text-ink-muted opacity-0 transition-opacity duration-base ease-calm group-open:opacity-100">{it.a}</p>
         </details>
       ))}
     </div>

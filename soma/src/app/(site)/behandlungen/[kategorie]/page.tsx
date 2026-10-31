@@ -6,15 +6,19 @@ import { CategoryPageSkeleton } from "@/components/site/discovery-skeletons";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
-import { capitalize, categoryFaq, floorsById, numberWord, shy, toEntryCatalog } from "@/components/site/discovery-copy";
+import { capitalize, categoryFaq, floorsById, fromPrice, numberWord, shy, toEntryCatalog } from "@/components/site/discovery-copy";
 import { FaqSection } from "@/components/site/discovery-faq";
 import { isSlug } from "@/components/site/discovery-slug";
-import { DiscoveryHero } from "@/components/site/discovery-hero";
+import { DiscoveryHero, HeroBadge } from "@/components/site/discovery-hero";
 import { aggregateRating, breadcrumbLd, JsonLd, serviceLd } from "@/components/site/discovery-json-ld";
 import { LinkGrid, providerCountLabel } from "@/components/site/discovery-links";
 import { Rail } from "@/components/site/discovery-rail";
 import { ServiceList } from "@/components/site/discovery-services";
 import { ProviderPortraitCard } from "@/components/site/discovery-tiles";
+import { Star } from "lucide-react";
+import { Icon } from "@/components/ui/icon";
+import { Reveal } from "@/components/ui/motion";
+import { formatRating } from "@/lib/format";
 import { images } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { getCategory, listCatalog, listCategories, listCities } from "@/server/services/catalog";
@@ -78,6 +82,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
     { name: category.name, path: routes.category(category.slug) },
   ];
   const firstCity = cities[0]?.slug;
+  const rating = aggregateRating(providers);
 
   return (
     <>
@@ -90,21 +95,40 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
             path: routes.category(category.slug),
             areaServed: liveCities.map((r) => r.city.name),
             offers: from != null ? { lowPriceCents: from } : null,
-            rating: aggregateRating(providers),
+            rating,
           }),
         ]}
       />
-      <Container className="pt-6 md:pt-8">
-        <Breadcrumbs items={crumbs} />
-      </Container>
-
       <DiscoveryHero
         size="m"
+        breadcrumbs={<Breadcrumbs items={crumbs} />}
         overline={liveCities.length ? `${category.name} · ${numberWord(liveCities.length)} ${liveCities.length === 1 ? "Stadt" : "Städte"}` : category.name}
         title={`${shy(category.name)}.`}
         emphasis="Bei Ihnen zu Hause."
         lead={category.description ?? category.tagline ?? undefined}
         photo={{ src: category.imagePath ?? images.category(category.slug), alt: "", tone: category.slug, word: category.name }}
+        ambient={false}
+        badges={
+          <>
+            {from != null ? (
+              <HeroBadge className="top-[10%] -left-2 sm:-left-6 lg:-left-10">
+                <span className="flex flex-col">
+                  <span className="type-heading-l num">{fromPrice(from)}</span>
+                  <span className="type-caption text-ink-muted">günstigstes Angebot, zzgl. Anfahrt</span>
+                </span>
+              </HeroBadge>
+            ) : null}
+            {rating && rating.count >= 3 ? (
+              <HeroBadge glass className="right-4 bottom-[12%] hidden sm:flex lg:-right-6">
+                <Icon icon={Star} size={18} className="fill-ink text-ink" />
+                <span className="flex flex-col">
+                  <span className="type-heading-s num">{formatRating(rating.value)}</span>
+                  <span className="type-caption text-ink num">{`${rating.count.toLocaleString("de-DE")} Bewertungen`}</span>
+                </span>
+              </HeroBadge>
+            ) : null}
+          </>
+        }
       >
         <BookingEntry
           catalog={toEntryCatalog(catalog, fm)}
@@ -114,9 +138,9 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
       </DiscoveryHero>
 
       {/* Services */}
-      <Section aria-labelledby="leistungen-titel">
+      <Section aria-labelledby="leistungen-titel" className="max-md:py-14">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <Reveal className="grid gap-10 lg:grid-cols-12 lg:gap-6">
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>Leistungen</Overline>
               <h2 id="leistungen-titel" className="type-display-l">
@@ -134,7 +158,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
                 <p className="type-body text-ink-muted">Für diese Behandlung sind gerade keine Leistungen eingetragen.</p>
               )}
             </div>
-          </div>
+          </Reveal>
         </Container>
       </Section>
 

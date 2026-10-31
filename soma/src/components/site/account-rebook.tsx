@@ -119,7 +119,7 @@ export function RebookButton({
                 {options.alternatives.length ? " Diese Profis in Ihrer Nähe haben Zeit:" : ""}
               </p>
               {options.alternatives.length ? (
-                <div className="flex flex-col border-t border-line" style={{ ["--space-gutter" as string]: "1.25rem" }}>
+                <div className="flex flex-col">
                   {options.alternatives.map((r) => (
                     <ProviderRow key={r.providerId} result={r} postalCode={options.postalCode} date={null} canFavorite headingLevel="h3" />
                   ))}

@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Quote, ShieldCheck, Star } from "lucide-react";
+import { AuraBackground } from "@/components/ui/aura";
+import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { Container, Section } from "@/components/ui/layout";
+import { CountUp, Reveal } from "@/components/ui/motion";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
-import { formatRating } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import type { SocialProofDTO } from "@/server/services/site-ext-2";
 
@@ -13,19 +16,19 @@ const NBSP = " ";
 const COLS: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3" };
 
 /**
- * Home proof band under the hero (audit-1 R14): real aggregates from the database,
- * two or three real review quotes with an Ortszeile, and the named SOMA-Garantie.
- * Typographic only: no logos, no badges, no press.
+ * Home proof band under the hero (audit-1 R14): real aggregates from the
+ * database (counting up once when they scroll into view) and two or three real
+ * review quotes. No logos, no press, no invented numbers.
  */
-export function ProofBand({ proof, disputeWindowHours }: { proof: SocialProofDTO | null; disputeWindowHours: number }) {
+export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
   const stats: Array<{ key: string; value: ReactNode; label: string }> = [];
   if (proof && proof.reviewCount > 0 && proof.ratingAvg != null) {
     stats.push({
       key: "rating",
       value: (
         <>
-          {formatRating(proof.ratingAvg)}
-          <Star aria-hidden size={20} strokeWidth={1.5} absoluteStrokeWidth className="fill-ink text-ink" />
+          <CountUp value={Math.round(proof.ratingAvg * 10) / 10} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
+          <Star aria-hidden size={22} strokeWidth={1.5} absoluteStrokeWidth className="fill-ink text-ink" />
           <span className="sr-only"> von 5 Sternen</span>
         </>
       ),
@@ -33,80 +36,102 @@ export function ProofBand({ proof, disputeWindowHours }: { proof: SocialProofDTO
     });
   }
   if (proof && proof.approvedProviders > 0) {
-    stats.push({ key: "pros", value: proof.approvedProviders.toLocaleString("de-DE"), label: "geprüfte Profis" });
-    if (proof.cities > 0) stats.push({ key: "cities", value: proof.cities.toLocaleString("de-DE"), label: proof.cities === 1 ? "Stadt" : "Städte" });
+    stats.push({ key: "pros", value: <CountUp value={proof.approvedProviders} />, label: "geprüfte Profis" });
+    if (proof.cities > 0) stats.push({ key: "cities", value: <CountUp value={proof.cities} />, label: proof.cities === 1 ? "Stadt" : "Städte" });
   }
   const quotes = proof?.quotes ?? [];
-  const guarantee = `${BRAND_NAME}-Garantie`;
+  if (!stats.length && !quotes.length) return null;
 
   return (
-    <Section aria-labelledby="stimmen-titel" className="pb-0 max-md:pt-12">
-      <Container className="flex flex-col gap-12 md:gap-16">
-        {stats.length || quotes.length ? (
-          <div className="flex flex-col gap-10 md:gap-12">
-            <div className="flex flex-col gap-4">
-              <h2 id="stimmen-titel" className="type-overline text-ink-muted">
-                Verifizierte Bewertungen
-              </h2>
-              {stats.length ? (
-                <dl className={cn("grid border-y border-line", COLS[stats.length])}>
-                  {stats.map((s, i) => (
-                    <div key={s.key} className={cn("flex min-w-0 flex-col gap-1.5 py-5 md:py-7", i > 0 ? "border-l border-line pl-4 md:pl-6" : "pr-4")}>
-                      <dt className="order-2 type-caption text-ink-muted md:type-body-s">{s.label}</dt>
-                      <dd className="order-1 flex items-center gap-1.5 type-display-m num">{s.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-            </div>
-            {quotes.length ? (
-              // Phones: one swipeable row (no auto-advance) instead of stacked quotes; from md three columns.
-              <ul
-                aria-label="Stimmen aus verifizierten Bewertungen"
-                className="-mx-(--space-gutter) flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-6 overflow-x-auto px-(--space-gutter) scrollbar-none md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-0 md:overflow-visible md:px-0"
-              >
-                {quotes.map((q, i) => (
-                  <li key={q.id} className={cn("w-[82%] shrink-0 snap-start md:w-auto md:min-w-0 md:pr-6", i > 0 && "md:pl-6")}>
-                    <figure className="flex flex-col gap-4">
-                      <blockquote className="type-display-s text-ink">
-                        <p>{`„${q.comment}“`}</p>
-                      </blockquote>
-                      <figcaption className="type-caption text-ink-muted">
-                        {`${q.authorName} · ${q.serviceName} bei `}
-                        <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-1 underline-offset-[0.2em] hover:text-accent">
-                          {q.providerName}
-                        </Link>
-                        {q.cityName ? ` · ${q.cityName}` : null}
-                      </figcaption>
-                    </figure>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ) : (
-          <h2 id="stimmen-titel" className="sr-only">
-            {guarantee}
-          </h2>
-        )}
-
-        {/* Same three columns as the figures above, so the promise lines up with the second column. */}
-        <div className="grid gap-4 border-t border-line pt-8 md:grid-cols-3 md:gap-0 lg:pt-10">
-          <h3 className="type-overline text-ink md:pr-6">{guarantee}</h3>
-          <div className="flex flex-col gap-4 md:col-span-2 md:pl-6">
-            <p className="max-w-[40rem] type-display-s text-ink">
-              {`Wenn etwas nicht stimmt, melden Sie es innerhalb von ${disputeWindowHours}${NBSP}Stunden – wir finden eine Lösung: Nachbesserung, Gutschrift oder Erstattung.`}
-            </p>
-            <Link
-              href={`${routes.help()}#garantie`}
-              className="inline-flex min-h-touch items-center gap-2 self-start type-label text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover"
-            >
-              So funktioniert die Garantie
-              <Icon icon={ArrowRight} size={16} />
-            </Link>
-          </div>
-        </div>
+    <Section aria-labelledby="stimmen-titel" className="pt-4 pb-0 md:pt-6">
+      <Container className="flex flex-col gap-6 md:gap-8">
+        <h2 id="stimmen-titel" className="sr-only">
+          Verifizierte Bewertungen
+        </h2>
+        {stats.length ? (
+          <Reveal>
+            <dl className={cn("grid rounded-card bg-surface-raised shadow-raised", COLS[stats.length])}>
+              {stats.map((s, i) => (
+                <div key={s.key} className={cn("relative flex min-w-0 flex-col gap-1.5 px-4 py-5 md:px-8 md:py-7", i > 0 && "before:absolute before:inset-y-5 before:left-0 before:w-px before:bg-line md:before:inset-y-7")}>
+                  <dt className="order-2 type-caption text-ink-muted md:type-body-s">{s.label}</dt>
+                  <dd className="order-1 flex items-center gap-1.5 type-stat">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        ) : null}
+        {quotes.length ? (
+          // Phones: one swipeable row (no auto-advance) instead of stacked quotes; from md three columns.
+          <Reveal
+            as="ul"
+            stagger
+            aria-label="Stimmen aus verifizierten Bewertungen"
+            className="-mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 lg:gap-6"
+          >
+            {quotes.map((q) => (
+              <li key={q.id} className="w-[84%] shrink-0 snap-start md:w-auto md:min-w-0">
+                <figure className="flex h-full flex-col justify-between gap-6 rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
+                  <div className="flex flex-col gap-3">
+                    <Icon icon={Quote} size={20} className="text-accent" />
+                    <blockquote className="type-heading-l text-ink">
+                      <p>{`„${q.comment}“`}</p>
+                    </blockquote>
+                  </div>
+                  <figcaption className="flex items-center gap-3">
+                    <Avatar name={q.authorName} size={32} />
+                    <span className="min-w-0 type-caption text-ink-muted">
+                      <span className="block font-[560] text-ink">{q.authorName}</span>
+                      {`${q.serviceName} bei `}
+                      <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-accent hover:decoration-accent">
+                        {q.providerName}
+                      </Link>
+                      {q.cityName ? ` · ${q.cityName}` : null}
+                    </span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </Reveal>
+        ) : null}
       </Container>
     </Section>
+  );
+}
+
+/**
+ * The named SOMA-Garantie: one aura panel (section intensity, AA for muted
+ * text) with the real dispute window from the platform terms.
+ */
+export function GuaranteePanel({ disputeWindowHours, className }: { disputeWindowHours: number; className?: string }) {
+  const guarantee = `${BRAND_NAME}-Garantie`;
+  return (
+    <div className={cn("relative isolate flex flex-col gap-5 overflow-clip rounded-panel p-6 md:p-10", className)}>
+      <AuraBackground variant="section" placement="full" fade="none" animate={false} />
+      <div className="flex items-center gap-3">
+        <span className="inline-flex size-11 items-center justify-center rounded-full bg-surface-raised text-accent shadow-raised">
+          <Icon icon={ShieldCheck} size={22} />
+        </span>
+        <Badge tone="aura" dot>
+          {guarantee}
+        </Badge>
+      </div>
+      <h3 className="max-w-[34rem] type-display-s text-ink">
+        {`Wenn etwas nicht stimmt, melden Sie es innerhalb von ${disputeWindowHours}${NBSP}Stunden. Wir finden eine Lösung.`}
+      </h3>
+      <ul className="flex flex-wrap gap-2" aria-label="Mögliche Lösungen">
+        {["Nachbesserung", "Gutschrift", "Erstattung"].map((x) => (
+          <li key={x} className="inline-flex h-8 items-center rounded-full bg-surface-raised/80 px-3.5 type-label-s text-ink shadow-raised">
+            {x}
+          </li>
+        ))}
+      </ul>
+      <Link
+        href={`${routes.help()}#garantie`}
+        className="group inline-flex min-h-touch items-center gap-2 self-start rounded-full type-label text-ink focus-ring"
+      >
+        <span className="underline decoration-1 underline-offset-[0.2em]">So funktioniert die Garantie</span>
+        <Icon icon={ArrowRight} size={16} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
+      </Link>
+    </div>
   );
 }

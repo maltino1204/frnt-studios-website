@@ -3,7 +3,9 @@ import Link from "next/link";
 import { requireRole } from "@/server/auth/guards";
 import { listCustomerBookings } from "@/server/services/bookings";
 import type { BookingListItemDTO } from "@/server/dto";
+import { Star } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { EmptyState } from "@/components/ui/feedback";
 import { PageHeader } from "@/components/ui/layout";
 import { TabLinks } from "@/components/ui/tabs";
@@ -41,17 +43,18 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
         ]}
       />
       {list.length ? (
-        <ul className="flex flex-col" aria-label={`${tab[0].toUpperCase()}${tab.slice(1)} Termine`}>
+        <ul className="flex flex-col gap-3" aria-label={`${tab[0].toUpperCase()}${tab.slice(1)} Termine`}>
           {list.map((b) => (
             <AccountBookingRow
               key={b.id}
               b={b}
+              muted={tab === "storniert"}
               actions={
                 tab === "bevorstehend" ? undefined : (
                   <>
                     <RebookButton bookingId={b.id} size="s" />
                     {b.canReview ? (
-                      <ButtonLink href={`${routes.booking(b.id)}#bewerten`} variant="ghost" size="s">
+                      <ButtonLink href={`${routes.booking(b.id)}#bewerten`} variant="ghost" size="s" icon={<Icon icon={Star} />}>
                         Bewerten
                       </ButtonLink>
                     ) : null}
@@ -61,19 +64,25 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
             />
           ))}
         </ul>
-      ) : tab === "bevorstehend" ? (
-        <EmptyState title="Noch keine Termine." action={<ButtonLink href={routes.search()}>Behandlung finden</ButtonLink>}>
-          Sobald Sie buchen, finden Sie Ihre Termine hier.
-        </EmptyState>
-      ) : tab === "vergangen" ? (
-        <EmptyState title="Noch keine vergangenen Termine.">Abgeschlossene Termine erscheinen hier – mit einem Tipp buchen Sie sie erneut.</EmptyState>
       ) : (
-        <EmptyState title="Keine stornierten Termine.">
-          Stornierte, abgelehnte und abgelaufene Buchungen sehen Sie hier.{" "}
-          <Link href={routes.account.bookings()} className="text-accent underline underline-offset-[0.2em]">
-            Zu den anstehenden Terminen
-          </Link>
-        </EmptyState>
+        <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
+          {tab === "bevorstehend" ? (
+            <EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href={routes.search()}>Behandlung finden</ButtonLink>} className="py-8">
+              Sobald Sie buchen, finden Sie Ihre Termine hier.
+            </EmptyState>
+          ) : tab === "vergangen" ? (
+            <EmptyState title="Noch keine vergangenen Termine." seed="konto-vergangen" className="py-8">
+              Abgeschlossene Termine erscheinen hier – mit einem Tipp buchen Sie sie erneut.
+            </EmptyState>
+          ) : (
+            <EmptyState title="Keine stornierten Termine." seed="konto-storniert" className="py-8">
+              Stornierte, abgelehnte und abgelaufene Buchungen sehen Sie hier.{" "}
+              <Link href={routes.account.bookings()} className="text-accent underline underline-offset-[0.2em]">
+                Zu den anstehenden Terminen
+              </Link>
+            </EmptyState>
+          )}
+        </div>
       )}
     </div>
   );

@@ -103,12 +103,15 @@ export default async function RankingPage() {
         <p>
           Standardmäßig sortieren wir nach einer Punktzahl aus sieben Faktoren. Jeder Faktor wird auf einen Wert zwischen 0 und 1 gebracht und mit seinem Anteil gewichtet:
         </p>
-        <dl className="mt-2 border-t border-line">
+        <dl className="mt-2 flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
           {factors.map((f) => (
-            <div key={f.name} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 gap-y-1 border-b border-line py-4">
+            <div key={f.name} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 gap-y-1.5 py-4">
               <dt className="type-heading-s text-ink hyphens-none">{f.name}</dt>
               <dd className="row-span-2 type-label font-semibold text-ink num">{pct(f.weight)}</dd>
               <dd className="col-start-1 type-body-s text-ink-muted">{f.body}</dd>
+              <dd aria-hidden className="col-span-2 mt-1 h-1 overflow-hidden rounded-full bg-surface-sunken">
+                <span className="block h-full rounded-full bg-accent" style={{ width: `${Math.round(f.weight * 100)}%` }} />
+              </dd>
             </div>
           ))}
         </dl>

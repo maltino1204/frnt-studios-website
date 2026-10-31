@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { AuraArt } from "@/components/ui/aura";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline } from "@/components/ui/layout";
@@ -13,8 +14,8 @@ export function NotFoundContent() {
     { href: routes.help(), label: "Hilfe & häufige Fragen" },
   ];
   return (
-    <Container className="grid gap-12 py-(--space-section) lg:grid-cols-12 lg:gap-6">
-      <div className="flex flex-col gap-6 lg:col-span-7">
+    <Container className="grid gap-12 py-(--space-section) lg:grid-cols-12 lg:items-center lg:gap-6">
+      <div className="flex flex-col gap-6 lg:col-span-6">
         <Overline>Fehler 404</Overline>
         <h1 className="type-display-l">
           Hier ist niemand. <em>Noch nicht.</em>
@@ -31,18 +32,28 @@ export function NotFoundContent() {
           </ButtonLink>
         </div>
       </div>
-      <nav aria-label="Weiter zu" className="lg:col-span-4 lg:col-start-9 lg:pt-16">
-        <ul className="border-t border-line">
-          {links.map((l) => (
-            <li key={l.href} className="border-b border-line">
-              <Link href={l.href} className="group flex min-h-14 items-center justify-between gap-4 py-3 type-heading-m">
-                {l.label}
-                <Icon icon={ArrowRight} className="text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="flex flex-col gap-4 lg:col-span-5 lg:col-start-8">
+        {/* An empty doorstep: the aura with a glass card that names the missing page. Decorative. */}
+        <div aria-hidden className="relative isolate flex h-56 items-center justify-center overflow-hidden rounded-panel shadow-float md:h-64">
+          <AuraArt seed="404" tone="brows-lashes" />
+          <span className="relative z-[3] flex -rotate-2 flex-col items-center gap-1 rounded-card glass-strong glass-edge px-8 py-5 shadow-float">
+            <span className="type-display-m num">404</span>
+            <span className="type-caption text-ink">Seite nicht gefunden</span>
+          </span>
+        </div>
+        <nav aria-label="Weiter zu">
+          <ul className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-2 shadow-raised">
+            {links.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="group flex min-h-14 items-center justify-between gap-4 rounded-control px-3 py-3 type-heading-m focus-ring">
+                  {l.label}
+                  <Icon icon={ArrowRight} className="text-ink-muted transition-[translate,color] duration-base ease-settle group-hover:translate-x-0.5 group-hover:text-ink" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </Container>
   );
 }

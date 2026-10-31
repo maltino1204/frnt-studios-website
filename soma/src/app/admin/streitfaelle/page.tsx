@@ -4,11 +4,10 @@ import { formatPriceExact, formatRelative } from "@/lib/format";
 import { DisputeResolution } from "@/components/admin/dispute-resolution";
 import { formatDateTime } from "@/components/admin/format";
 import { DISPUTE_REASON, DISPUTE_STATUS, ROLE } from "@/components/admin/labels";
-import { AdminPageHeader, MutedLink } from "@/components/admin/page";
+import { AdminPageHeader, Card, Facts, MutedLink } from "@/components/admin/page";
 import { hrefWith } from "@/components/admin/table";
+import { SegmentedLinks } from "@/components/admin/toolbar";
 import { EmptyState, Status } from "@/components/ui/feedback";
-import { FactList } from "@/components/ui/layout";
-import { TabLinks } from "@/components/ui/tabs";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
@@ -28,30 +27,34 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
   const selected = all.find((d) => d.id === sp.fall) ?? items[0] ?? null;
   const ops = selected ? await getAdminBookingOps(session, selected.bookingId) : null;
   const openCount = all.filter((d) => OPEN.includes(d.status)).length;
+  const closedCount = all.length - openCount;
   const isOpen = selected ? OPEN.includes(selected.status) : false;
 
   return (
     <>
       <AdminPageHeader group="Betrieb" title="Streitfälle" description="Antwort innerhalb von 4 Stunden, Lösung innerhalb von 72 Stunden. Offene Fälle halten die Auszahlung der Buchung zurück." />
-      <div className="flex flex-col gap-6">
-        <TabLinks
+      <div className="flex flex-col gap-5">
+        <SegmentedLinks
           label="Ansicht"
+          showLabel={false}
           items={[
             { href: hrefWith(routes.admin.disputes(), {}, {}), label: "Offen", count: openCount, active: view === "offen" },
-            { href: hrefWith(routes.admin.disputes(), {}, { ansicht: "abgeschlossen" }), label: "Abgeschlossen", active: view === "abgeschlossen" },
+            { href: hrefWith(routes.admin.disputes(), {}, { ansicht: "abgeschlossen" }), label: "Abgeschlossen", count: closedCount, active: view === "abgeschlossen" },
             { href: hrefWith(routes.admin.disputes(), {}, { ansicht: "alle" }), label: "Alle", active: view === "alle" },
           ]}
         />
 
         {all.length === 0 ? (
-          <EmptyState title="Keine Streitfälle.">Kundschaft und Profis können innerhalb von 48 Stunden nach einem Termin einen Streitfall eröffnen.</EmptyState>
+          <EmptyState seed="streitfaelle-leer" title="Keine Streitfälle.">
+            Kundschaft und Profis können innerhalb von 48 Stunden nach einem Termin einen Streitfall eröffnen.
+          </EmptyState>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
-            <nav aria-label="Streitfälle" className="min-w-0 self-start border border-line bg-surface-raised">
+          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-6">
+            <Card as="nav" aria-label="Streitfälle" className="p-1.5 lg:sticky lg:top-6">
               {items.length === 0 ? (
-                <p className="px-4 py-6 type-body-s text-ink-muted">{view === "offen" ? "Keine offenen Streitfälle." : "Keine Fälle in dieser Ansicht."}</p>
+                <p className="px-3 py-5 type-body-s text-ink-muted">{view === "offen" ? "Keine offenen Streitfälle." : "Keine Fälle in dieser Ansicht."}</p>
               ) : (
-                <ul className="divide-y divide-line">
+                <ul className="flex flex-col gap-0.5">
                   {items.map((d) => {
                     const active = selected?.id === d.id;
                     return (
@@ -61,8 +64,8 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                           aria-current={active ? "true" : undefined}
                           scroll={false}
                           className={cn(
-                            "relative flex flex-col gap-1 px-4 py-3 transition-colors",
-                            active ? "bg-accent-soft before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-accent" : "hover:bg-surface-sunken",
+                            "relative flex flex-col gap-1 rounded-tile px-3.5 py-3 transition-[background-color,box-shadow] duration-fast focus-ring",
+                            active ? "bg-accent-tint shadow-[inset_0_0_0_1px_rgb(61_79_240/0.16)]" : "hover:bg-surface-sunken/70",
                           )}
                         >
                           <span className="flex items-center justify-between gap-3">
@@ -70,7 +73,7 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                             <Status tone={DISPUTE_STATUS[d.status].tone}>{DISPUTE_STATUS[d.status].label}</Status>
                           </span>
                           <span className="type-body-s text-ink">{DISPUTE_REASON[d.reason]}</span>
-                          <span className="type-caption text-ink-muted">
+                          <span className="type-caption text-ink-muted num">
                             {ROLE[d.openedByRole]} · {formatRelative(d.createdAt)} · {formatPriceExact(d.bookingTotalCents)}
                           </span>
                         </Link>
@@ -79,13 +82,16 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                   })}
                 </ul>
               )}
-            </nav>
+            </Card>
 
             {selected ? (
-              <article aria-labelledby="fall-title" className="flex min-w-0 flex-col gap-6 border border-line bg-surface-raised p-4 md:p-6">
+              <Card as="article" aria-labelledby="fall-title" className="flex flex-col gap-6 p-4 sm:p-6">
                 <header className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="flex flex-col gap-1">
-                    <h2 id="fall-title" className="type-heading-m">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <p className="type-label-s text-ink-muted">
+                      Streitfall · <span className="code-ref">{selected.bookingReference}</span>
+                    </p>
+                    <h2 id="fall-title" className="type-heading-l">
                       {DISPUTE_REASON[selected.reason]}
                     </h2>
                     <p className="type-body-s text-ink-muted num">
@@ -95,23 +101,30 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                   <Status tone={DISPUTE_STATUS[selected.status].tone}>{DISPUTE_STATUS[selected.status].label}</Status>
                 </header>
 
-                <blockquote className="border-l border-line-strong pl-4 type-body whitespace-pre-line text-ink">{selected.description}</blockquote>
+                <blockquote className="relative rounded-tile bg-surface-sunken/70 px-4 py-3.5 pl-5 type-body whitespace-pre-line text-ink before:absolute before:inset-y-3 before:left-2 before:w-0.5 before:rounded-full before:bg-line-strong">
+                  {selected.description}
+                </blockquote>
 
-                <FactList
+                <Facts
                   className="border-y border-line"
                   items={[
-                    { label: "Buchung", value: <MutedLink href={routes.admin.booking(selected.bookingId)}><span className="code-ref">{selected.bookingReference}</span></MutedLink> },
+                    {
+                      label: "Buchung",
+                      value: (
+                        <MutedLink href={routes.admin.booking(selected.bookingId)}>
+                          <span className="code-ref">{selected.bookingReference}</span>
+                        </MutedLink>
+                      ),
+                    },
                     { label: "Kundschaft", value: selected.customerName },
                     { label: "Profi", value: selected.providerName },
                     { label: "Buchungsbetrag", value: <span className="num">{formatPriceExact(selected.bookingTotalCents)}</span> },
                     { label: "Noch erstattbar", value: <span className="num">{formatPriceExact(ops?.refundableCents ?? 0)}</span> },
-                    ...(ops?.completedAt ? [{ label: "Termin abgeschlossen", value: <span className="num">{formatDateTime(ops.completedAt)}</span> }] : []),
-                    ...(!isOpen
-                      ? [
-                          { label: "Ergebnis", value: selected.refundCents ? <span className="num">Erstattet {formatPriceExact(selected.refundCents)}</span> : DISPUTE_STATUS[selected.status].label },
-                          ...(selected.resolvedAt ? [{ label: "Abgeschlossen", value: <span className="num">{formatDateTime(selected.resolvedAt)}</span> }] : []),
-                        ]
-                      : []),
+                    ops?.completedAt ? { label: "Termin abgeschlossen", value: <span className="num">{formatDateTime(ops.completedAt)}</span> } : null,
+                    !isOpen
+                      ? { label: "Ergebnis", value: selected.refundCents ? <span className="num">Erstattet {formatPriceExact(selected.refundCents)}</span> : DISPUTE_STATUS[selected.status].label }
+                      : null,
+                    !isOpen && selected.resolvedAt ? { label: "Abgeschlossen", value: <span className="num">{formatDateTime(selected.resolvedAt)}</span> } : null,
                   ]}
                 />
 
@@ -130,7 +143,7 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                     <p className="type-body-s whitespace-pre-line">{selected.resolutionNote}</p>
                   </div>
                 ) : null}
-              </article>
+              </Card>
             ) : null}
           </div>
         )}

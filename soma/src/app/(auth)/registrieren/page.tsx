@@ -32,12 +32,12 @@ export default async function RegistrierenPage({ searchParams }: { searchParams:
       <RegisterForm next={next} referralCode={referral} inviteCode={one(sp.einladung)?.slice(0, 16) ?? null} />
       <Link
         href={routes.pro.onboarding()}
-        className="flex min-h-touch items-center justify-between gap-4 border-y border-line py-4 type-label text-ink hover:text-ink-muted"
+        className="group flex min-h-touch items-center justify-between gap-4 rounded-card bg-surface-raised px-5 py-4 type-label text-ink shadow-raised pressable focus-ring hover:-translate-y-px hover:shadow-float"
       >
         <span>
           Sie sind Profi? <span className="text-accent underline decoration-1 underline-offset-[0.2em]">Hier registrieren</span>
         </span>
-        <Icon icon={ArrowRight} />
+        <Icon icon={ArrowRight} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
       </Link>
     </div>
   );

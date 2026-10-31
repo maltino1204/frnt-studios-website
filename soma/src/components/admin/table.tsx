@@ -1,20 +1,20 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { PaginationLabel } from "@/components/ui/data";
+import { buttonClasses } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/cn";
 
 /**
- * Class string for the kit <Table dense>: no wrapping (tables scroll
- * horizontally on small screens) and a fixed first column below lg.
+ * Class string for admin tables: no wrapping (tables scroll horizontally on
+ * small screens) and a fixed first column below lg.
  */
 export const adminTable = cn(
   "[&_td]:whitespace-nowrap",
   "max-lg:[&_td:first-child]:sticky max-lg:[&_td:first-child]:left-0 max-lg:[&_td:first-child]:z-[1] max-lg:[&_td:first-child]:bg-surface-raised",
-  "max-lg:[&_th:first-child]:sticky max-lg:[&_th:first-child]:left-0 max-lg:[&_th:first-child]:z-[1] max-lg:[&_th:first-child]:bg-surface-raised",
-  "max-lg:[&_td:first-child]:shadow-[1px_0_0_var(--color-line)] max-lg:[&_th:first-child]:shadow-[1px_0_0_var(--color-line)]",
-  "max-lg:[&_tbody_tr:hover_td:first-child]:bg-surface-sunken",
+  "max-lg:[&_th:first-child]:sticky max-lg:[&_th:first-child]:left-0 max-lg:[&_th:first-child]:z-[3]",
+  "max-lg:[&_td:first-child]:shadow-[1px_0_0_var(--color-line)] max-lg:[&_th:first-child]:shadow-[1px_0_0_var(--color-line),inset_0_-1px_0_var(--color-line)]",
+  "max-lg:[&_tbody_tr:hover_td:first-child]:bg-accent-tint",
 );
 
 /**
@@ -25,17 +25,24 @@ export const adminTable = cn(
 export const adminTableWrapper = "relative max-w-full";
 
 /**
- * Admin data table (audit-2 N7): the kit table styling inside a scroll region that is
- * keyboard-focusable and named (`role="region"`, `tabIndex={0}`, `aria-label`; axe
- * scrollable-region-focusable). The region is `relative` and `max-w-full`, so wide tables
- * scroll inside it and never widen the page; the first column stays sticky below lg.
+ * Admin data table (Linear-grade, design-guideline v2 §8.4 / §12): a level-1 card with a
+ * Kalk header band, 40px rows, hairlines, tinted row hover and tabular numbers.
+ *
+ * The card is a scroll region that is keyboard-focusable and named (`role="region"`,
+ * `tabIndex={0}`, `aria-label`; axe scrollable-region-focusable, audit-2 N7). It is
+ * `relative` and `max-w-full`, so wide tables scroll inside it and never widen the page;
+ * the first column stays sticky below lg.
+ *
+ * `stickyHeader` (long, paginated lists): from lg the card is capped at the viewport height
+ * and the header stays pinned while the rows scroll underneath (glass header).
  */
 export function AdminTable({
   label,
   className,
   regionClassName,
+  stickyHeader,
   ...props
-}: ComponentProps<"table"> & { label: string; regionClassName?: string }) {
+}: ComponentProps<"table"> & { label: string; regionClassName?: string; stickyHeader?: boolean }) {
   return (
     <div
       role="region"
@@ -43,18 +50,23 @@ export function AdminTable({
       aria-label={`Tabelle: ${label}`}
       tabIndex={0}
       className={cn(
-        "relative max-w-full min-w-0 overflow-x-auto border border-line bg-surface-raised",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+        "relative max-w-full min-w-0 overflow-x-auto rounded-card bg-surface-raised shadow-raised",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus",
+        stickyHeader && "lg:max-h-[calc(100dvh-7.5rem)] lg:overflow-y-auto lg:overscroll-y-contain",
         regionClassName,
       )}
     >
       <table
         data-dense=""
         className={cn(
-          "w-full border-collapse text-left type-body-s",
-          "[&_th]:h-10 [&_th]:border-b [&_th]:border-line-strong [&_th]:px-4 [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted",
-          "[&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_tr:last-child_td]:border-b-0 [&_td]:h-10",
-          "[&_tbody_tr]:transition-colors [&_tbody_tr:hover]:bg-surface-sunken",
+          "w-full border-separate border-spacing-0 text-left type-body-s",
+          // header band
+          "[&_th]:h-10 [&_th]:bg-surface [&_th]:px-4 [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted [&_th]:shadow-[inset_0_-1px_0_var(--color-line)]",
+          "[&_th:first-child]:pl-5 [&_th:last-child]:pr-5 [&_td:first-child]:pl-5 [&_td:last-child]:pr-5",
+          stickyHeader && "lg:[&_thead_th]:sticky lg:[&_thead_th]:top-0 lg:[&_thead_th]:z-[2] lg:[&_thead_th]:bg-surface/85 lg:[&_thead_th]:backdrop-blur-md lg:[&_thead_th]:backdrop-saturate-150",
+          // rows
+          "[&_td]:h-10 [&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_tbody_tr:last-child_td]:border-b-0",
+          "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-accent-tint",
           adminTable,
           className,
         )}
@@ -77,7 +89,7 @@ export function hrefWith(base: string, current: Record<string, string | undefine
   return s ? `${base}?${s}` : base;
 }
 
-/** Pagination row: "1–25 von 312" plus previous/next links. */
+/** Pagination row: "1–25 von 312" plus previous/next pills. */
 export function TablePager({
   page,
   pageSize,
@@ -94,11 +106,14 @@ export function TablePager({
   const from = total === 0 ? 0 : (page - 1) * pageSize + 1;
   const to = Math.min(total, page * pageSize);
   const last = Math.max(1, Math.ceil(total / pageSize));
-  const link = "inline-flex h-control-s items-center gap-1 rounded-xs border border-line-strong bg-surface-raised px-2.5 type-label-s text-ink hover:border-ink";
-  const off = "inline-flex h-control-s items-center gap-1 rounded-xs border border-line px-2.5 type-label-s text-ink-disabled";
+  const link = buttonClasses({ variant: "secondary", size: "s", className: "gap-1 pl-2.5" });
+  const linkNext = buttonClasses({ variant: "secondary", size: "s", className: "gap-1 pr-2.5" });
+  const off = "inline-flex h-control-s items-center gap-1 rounded-full px-3 type-label-s text-ink-disabled ring-1 ring-line ring-inset";
   return (
-    <nav aria-label="Seiten" className={cn("flex items-center justify-between gap-4 pt-3", className)}>
-      <PaginationLabel from={from} to={to} total={total} />
+    <nav aria-label="Seiten" className={cn("flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-3", className)}>
+      <span className="type-caption text-ink-muted num">
+        {total === 0 ? "0" : `${from.toLocaleString("de-DE")}–${to.toLocaleString("de-DE")}`} von {total.toLocaleString("de-DE")}
+      </span>
       {last > 1 ? (
         <div className="flex items-center gap-2">
           {page > 1 ? (
@@ -106,19 +121,19 @@ export function TablePager({
               <Icon icon={ChevronLeft} size={16} /> Zurück
             </Link>
           ) : (
-            <span className={off} aria-disabled>
+            <span className={cn(off, "pl-2.5")} aria-disabled>
               <Icon icon={ChevronLeft} size={16} /> Zurück
             </span>
           )}
-          <span className="type-caption text-ink-muted num">
+          <span className="hidden px-1 type-caption text-ink-muted num sm:inline">
             Seite {page} von {last}
           </span>
           {page < last ? (
-            <Link href={href(page + 1)} className={link} rel="next">
+            <Link href={href(page + 1)} className={linkNext} rel="next">
               Weiter <Icon icon={ChevronRight} size={16} />
             </Link>
           ) : (
-            <span className={off} aria-disabled>
+            <span className={cn(off, "pr-2.5")} aria-disabled>
               Weiter <Icon icon={ChevronRight} size={16} />
             </span>
           )}
@@ -128,14 +143,30 @@ export function TablePager({
   );
 }
 
-/** Primary cell content: a link in ink with an underline on hover, plus an optional muted second line. */
-export function CellLink({ href, children, sub }: { href: string; children: ReactNode; sub?: ReactNode }) {
+/**
+ * Primary cell content: a link in ink with an underline on hover, plus an optional muted second line.
+ * `row`: the link's hit area covers the whole table row (Linear-style row links); other interactive
+ * elements in that row must sit above it (`rowAction`).
+ */
+export function CellLink({ href, children, sub, row }: { href: string; children: ReactNode; sub?: ReactNode; row?: boolean }) {
   return (
     <span className="flex flex-col">
-      <Link href={href} className="w-fit rounded-xs font-[520] text-ink underline-offset-4 hover:underline">
+      <Link
+        href={href}
+        className={cn(
+          "w-fit rounded-[6px] font-[520] text-ink decoration-line-strong underline-offset-4 hover:underline focus-ring",
+          row && "after:absolute after:inset-0 after:content-[''] [tr:hover_&]:underline",
+        )}
+      >
         {children}
       </Link>
       {sub ? <span className="type-caption text-ink-muted">{sub}</span> : null}
     </span>
   );
 }
+
+/** Lifts an interactive element above a row link (see CellLink `row`). */
+export const rowAction = "relative z-[2]";
+
+/** Table row that hosts a row link (CellLink `row`). */
+export const rowLink = "relative cursor-pointer";

@@ -65,17 +65,19 @@ export function FavoriteButton({
       title={label}
       disabled={pending}
       className={cn(
-        "inline-flex h-touch shrink-0 items-center justify-center gap-2 rounded-xs text-ink transition-colors duration-fast hover:bg-surface-sunken",
-        withLabel ? "px-3 type-label-s" : "w-touch",
+        "inline-flex h-touch shrink-0 items-center justify-center gap-2 rounded-full text-ink pressable focus-ring hover:bg-surface-sunken disabled:opacity-100",
+        withLabel ? "px-3.5 type-label-s" : "w-touch",
         className,
       )}
     >
+      {/* Re-keyed on change so the heart springs (pop) each time it is filled. */}
       <Heart
+        key={fav ? "on" : "off"}
         size={20}
         strokeWidth={1.5}
         absoluteStrokeWidth
         aria-hidden
-        className={cn("transition-colors duration-fast", fav ? "fill-ink text-ink" : "text-ink")}
+        className={cn("transition-colors duration-fast", fav ? "animate-pop fill-ink text-ink" : "text-ink")}
       />
       {withLabel ? <span>{fav ? "Gemerkt" : "Merken"}</span> : null}
     </button>

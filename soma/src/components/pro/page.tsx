@@ -1,11 +1,12 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ChevronLeft } from "lucide-react";
+import { ArrowRight, ChevronLeft } from "lucide-react";
+import { AuraLine } from "@/components/ui/aura";
 import { cn } from "@/lib/cn";
 
 /**
- * Provider app page frame. /pro titles use type-heading-l (design-guideline §11:
- * the only Newsreader moments are the greeting on "Heute" and stat values).
+ * Provider app page frame (design-guideline v2 §12): Kalk page, level-1 cards,
+ * generous rhythm. Titles are type-display-s; sections type-heading-m.
  */
 export function ProPage({
   children,
@@ -17,8 +18,8 @@ export function ProPage({
   className?: string;
 }) {
   return (
-    <div className="mx-auto w-full max-w-[72rem] px-(--space-gutter) pt-6 lg:pt-10">
-      <div className={cn("flex w-full flex-col gap-8 lg:gap-10", width === "narrow" && "max-w-[46rem]", className)}>{children}</div>
+    <div className="mx-auto w-full max-w-[74rem] px-(--space-gutter) pt-6 lg:pt-10">
+      <div className={cn("flex w-full flex-col gap-8 lg:gap-10", width === "narrow" && "max-w-[48rem]", className)}>{children}</div>
     </div>
   );
 }
@@ -38,18 +39,30 @@ export function ProHeader({
 }) {
   return (
     <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <div className="flex min-w-0 flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-2.5">
         {back ? (
-          <Link href={back.href} className="-ml-1 inline-flex h-touch items-center gap-1 self-start type-label-s text-ink-muted hover:text-ink">
-            <ChevronLeft size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />
+          <Link
+            href={back.href}
+            className="group -ml-2 inline-flex h-9 items-center gap-1 self-start rounded-full pr-3 pl-1.5 type-label-s text-ink-muted transition-colors duration-fast pressable focus-ring hover:bg-ink/[0.04] hover:text-ink"
+          >
+            <ChevronLeft size={16} strokeWidth={1.6} absoluteStrokeWidth aria-hidden className="transition-transform duration-fast group-hover:-translate-x-0.5" />
             {back.label}
           </Link>
         ) : null}
-        {overline ? <p className="type-overline text-ink-muted">{overline}</p> : null}
-        <h1 className="type-heading-l">{title}</h1>
+        {overline ? (
+          typeof overline === "string" ? (
+            <p className="flex items-center gap-2.5 type-overline text-ink-muted">
+              <AuraLine className="w-5" />
+              {overline}
+            </p>
+          ) : (
+            <div className="flex flex-wrap items-center gap-2">{overline}</div>
+          )
+        ) : null}
+        <h1 className="type-display-s">{title}</h1>
         {description ? <p className="max-w-reading type-body-s text-ink-muted">{description}</p> : null}
       </div>
-      {actions ? <div className="flex shrink-0 flex-wrap gap-2">{actions}</div> : null}
+      {actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}
     </header>
   );
 }
@@ -71,9 +84,9 @@ export function ProSection({
   id?: string;
 }) {
   return (
-    <section id={id} className={cn("flex flex-col gap-4", className)} aria-labelledby={id ? `${id}-title` : undefined}>
-      <div className="flex min-h-touch items-center justify-between gap-4">
-        <div className="flex flex-col gap-1">
+    <section id={id} className={cn("flex min-w-0 flex-col gap-4", className)} aria-labelledby={id ? `${id}-title` : undefined}>
+      <div className="flex min-h-9 items-end justify-between gap-4">
+        <div className="flex min-w-0 flex-col gap-1">
           <h2 id={id ? `${id}-title` : undefined} className="type-heading-m">
             {title}
           </h2>
@@ -86,11 +99,15 @@ export function ProSection({
   );
 }
 
-/** Text link with chevron used for "Alle anzeigen" asides. */
+/** Quiet text link with an arrow, used for "Alle ansehen" asides (44px hit area). */
 export function AsideLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} className="inline-flex h-touch items-center type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+    <Link
+      href={href}
+      className="group relative -mr-2 inline-flex h-9 items-center gap-1 rounded-full px-2.5 type-label-s text-accent transition-colors duration-fast pressable focus-ring hover:bg-accent-tint hover:text-accent-hover before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']"
+    >
       {children}
+      <ArrowRight size={14} strokeWidth={1.8} absoluteStrokeWidth aria-hidden className="transition-transform duration-fast group-hover:translate-x-0.5" />
     </Link>
   );
 }

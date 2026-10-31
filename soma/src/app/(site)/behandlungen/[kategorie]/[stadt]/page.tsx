@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import type { CategoryDTO, CityDTO } from "@/server/dto";
 import { SeoPageSkeleton } from "@/components/site/discovery-skeletons";
 import { EmptyState } from "@/components/ui/feedback";
+import { AuraArt, AuraBackground } from "@/components/ui/aura";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
@@ -111,9 +112,11 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
           }),
         ]}
       />
-      <Container className="pt-6 md:pt-8">
+      <div className="relative isolate overflow-clip">
+        <AuraBackground placement="right" variant="section" animate={false} fade="both" className="max-h-[44rem]" />
+      <Container className="pt-5 md:pt-7">
         <Breadcrumbs items={crumbs} />
-        <div className="grid gap-10 pt-8 pb-(--space-section) md:pt-12 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
+        <div className="grid gap-10 pt-6 pb-(--space-section) md:pt-10 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
           <header className="flex flex-col gap-5 lg:col-span-7 lg:row-start-1">
             <Overline>
               {category.name} · {city.name}
@@ -130,9 +133,14 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
 
           {/* One booking entry: below the intro on mobile, a sticky side column from lg. */}
           <aside aria-label="Termin finden" className="lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:self-start lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
-            <p className="mb-4 hidden type-heading-m lg:block">
-              {category.name} in {city.name} buchen
-            </p>
+            <div className="mb-4 hidden items-center gap-3 lg:flex">
+              <span aria-hidden className="relative size-10 shrink-0 overflow-hidden rounded-tile shadow-raised">
+                <AuraArt seed={`${category.slug}:${city.slug}`} tone={category.slug} grain={false} />
+              </span>
+              <p className="type-heading-m">
+                {category.name} in {city.name} buchen
+              </p>
+            </div>
             <BookingEntry catalog={fullCatalog} defaultCategory={category.slug} postalExample={examples[city.slug] ?? "10115"} variant="compact" />
           </aside>
 
@@ -142,7 +150,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
                 <h2 id="profis-titel" className="type-heading-l">
                   Profis für {category.name} in {city.name}
                 </h2>
-                <ul className="mt-4 border-t border-line">
+                <ul className="mt-5 flex flex-col gap-3">
                   {providers.map((p) => (
                     <ProviderListRow key={p.providerId} provider={p} categorySlug={category.slug} />
                   ))}
@@ -153,7 +161,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
               </section>
             ) : (
               // EmptyState renders its own h2.
-              <EmptyState title={`${category.name} in ${city.name} ist bald da.`} className="py-0">
+              <EmptyState title={`${category.name} in ${city.name} ist bald da.`} seed={`${category.slug}:${city.slug}`} tone={category.slug} className="rounded-card bg-surface-raised p-6 shadow-raised md:p-8">
                 Geben Sie Ihre Postleitzahl ein: Wir zeigen Ihnen Profis, die zu Ihnen fahren, oder geben Ihnen Bescheid, sobald es in Ihrer Gegend losgeht.
               </EmptyState>
             )}
@@ -163,7 +171,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
                 <h2 id="leistungen-titel" className="type-heading-l">
                   Leistungen in {city.name}
                 </h2>
-                <div className="mt-4">
+                <div className="mt-5">
                   <ServiceList services={services} floors={fm} categorySlug={category.slug} emptyPriceLabel={n > 0 ? `Noch nicht in ${city.name}` : ""} />
                 </div>
               </section>
@@ -171,6 +179,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
           </div>
         </div>
       </Container>
+      </div>
 
       <Section aria-labelledby="mehr-titel" className="pt-0">
         <Container>

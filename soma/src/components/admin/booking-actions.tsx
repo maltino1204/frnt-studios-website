@@ -76,7 +76,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
           <p>
             Status jetzt: {ctx.statusLabel}. Beide Seiten werden benachrichtigt. Standard bei Stornierung durch SOMA ist die volle Erstattung.
           </p>
-          <div className="flex flex-col gap-1 bg-surface-sunken px-4 py-3 type-body-s text-ink">
+          <div className="flex flex-col gap-1 rounded-tile bg-surface-sunken px-4 py-3 type-body-s text-ink">
             <p className="type-label-s text-ink-muted">Laut gebuchten Stornobedingungen</p>
             {ctx.customerCancelNow ? (
               <p>
@@ -92,7 +92,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
               <p>Für diesen Status gibt es keine Kundenstornierung; die Gebühr legt SOMA fest.</p>
             )}
             {ctx.customerCancelNow && ctx.customerCancelNow.feeCents > 0 ? (
-              <button type="button" className="w-fit rounded-xs type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover" onClick={() => setFee(centsToInput(ctx.customerCancelNow!.feeCents))}>
+              <button type="button" className="w-fit rounded-full type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover focus-ring" onClick={() => setFee(centsToInput(ctx.customerCancelNow!.feeCents))}>
                 Gebühr laut Bedingungen übernehmen
               </button>
             ) : null}
@@ -110,7 +110,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
             hint={`0,00 € = volle Erstattung · höchstens ${formatPriceExact(ctx.totalCents)}`}
           />
           {valid ? (
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-1 type-body-s">
+            <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 rounded-tile bg-surface-raised/70 px-4 py-3 type-body-s ring-1 ring-line ring-inset">
               <dt className="text-ink-muted">Erstattung an Kundschaft</dt>
               <dd className="text-right num text-ink">{formatPriceExact(ctx.totalCents - (feeCents ?? 0))}</dd>
               <dt className="text-ink-muted">Davon an Profi (Gebührenanteil)</dt>
@@ -135,7 +135,7 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const m = useMutation(refundPaymentAction, { success: `Erstattung für ${ctx.reference} ausgelöst.` });
+  const m = useMutation(refundPaymentAction, { success: `Erstattung für ${ctx.reference} ausgelöst.`, haptic: true });
   const cents = parseEuroInput(amount);
   const formId = `refund-${ctx.bookingId}`;
   if (ctx.refundableCents <= 0) return null;
@@ -196,7 +196,7 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
             Gesamten Restbetrag eintragen
           </Button>
           {cents && cents > 0 && cents <= ctx.refundableCents ? (
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-1 type-body-s">
+            <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 rounded-tile bg-surface-raised/70 px-4 py-3 type-body-s ring-1 ring-line ring-inset">
               <dt className="text-ink-muted">Trägt SOMA (Provision)</dt>
               <dd className="text-right num text-ink">{formatPriceExact(somaShare)}</dd>
               <dt className="text-ink-muted">Trägt Profi</dt>

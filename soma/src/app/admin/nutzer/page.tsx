@@ -3,12 +3,11 @@ import { formatDate } from "@/lib/format";
 import { formatInt, fullName } from "@/components/admin/format";
 import { PROVIDER_STATUS, ROLE } from "@/components/admin/labels";
 import { AdminPageHeader } from "@/components/admin/page";
-import { AdminTable, CellLink, hrefWith, numCell, TablePager } from "@/components/admin/table";
-import { ChipFilter, FilterForm } from "@/components/admin/toolbar";
+import { AdminTable, CellLink, hrefWith, numCell, rowAction, rowLink, TablePager } from "@/components/admin/table";
+import { FilterForm, SearchField, SegmentedLinks } from "@/components/admin/toolbar";
 import { UserBlockButton } from "@/components/admin/user-actions";
-import { ChipLink } from "@/components/ui/chip";
+import { Avatar } from "@/components/ui/avatar";
 import { EmptyState, Status } from "@/components/ui/feedback";
-import { Input } from "@/components/ui/field";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import type { AppRole } from "@/server/dto";
@@ -36,33 +35,29 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
     <>
       <AdminPageHeader group="Marktplatz" title="Nutzer" description={`${formatInt(list.total)} ${q || role || status ? "Treffer" : "Konten"} · ${formatInt(blocked.total)} gesperrt`} />
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <FilterForm action={routes.admin.users()} hidden={{ rolle: role, status }} resetHref={q ? hrefWith(routes.admin.users(), {}, { rolle: role, status }) : undefined}>
-            <Input dense label="Suche" hideLabel type="search" name="q" defaultValue={q} placeholder="Name oder E-Mail" className="w-full sm:w-72" />
+            <SearchField name="q" defaultValue={q} placeholder="Name oder E-Mail" className="min-w-0 flex-1 sm:w-80 sm:flex-none" />
           </FilterForm>
-          <div className="flex flex-col gap-3 md:flex-row md:gap-8">
-            <ChipFilter label="Rolle">
-              {ROLES.map((r) => (
-                <ChipLink key={r.label} href={hrefWith(routes.admin.users(), { q, status }, { rolle: r.key })} selected={role === r.key}>
-                  {r.label}
-                </ChipLink>
-              ))}
-            </ChipFilter>
-            <ChipFilter label="Status">
-              {STATES.map((s) => (
-                <ChipLink key={s.label} href={hrefWith(routes.admin.users(), { q, rolle: role }, { status: s.key })} selected={status === s.key}>
-                  {s.label}
-                </ChipLink>
-              ))}
-            </ChipFilter>
+          <div className="flex flex-col gap-2 md:flex-row md:gap-6">
+            <SegmentedLinks
+              label="Rolle"
+              items={ROLES.map((r) => ({ href: hrefWith(routes.admin.users(), { q, status }, { rolle: r.key }), label: r.label, active: role === r.key }))}
+            />
+            <SegmentedLinks
+              label="Status"
+              items={STATES.map((s) => ({ href: hrefWith(routes.admin.users(), { q, rolle: role }, { status: s.key }), label: s.label, active: status === s.key }))}
+            />
           </div>
         </div>
 
         {list.items.length === 0 ? (
-          <EmptyState title="Keine Konten gefunden.">{q ? `Niemand passt zu „${q}“.` : "Für diese Filter gibt es keine Konten."}</EmptyState>
+          <EmptyState seed="nutzer-leer" title="Keine Konten gefunden.">
+            {q ? `Niemand passt zu „${q}“.` : "Für diese Filter gibt es keine Konten."}
+          </EmptyState>
         ) : (
           <div>
-            <AdminTable label="Nutzer">
+            <AdminTable label="Nutzer" stickyHeader>
               <thead>
                 <tr>
                   <th scope="col">Name</th>
@@ -80,30 +75,35 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
                 {list.items.map((u) => {
                   const name = fullName(u.firstName, u.lastName);
                   return (
-                    <tr key={u.id}>
+                    <tr key={u.id} className={rowLink}>
                       <td>
-                        <CellLink href={`/admin/nutzer/${u.id}`}>{name}</CellLink>
+                        <span className="flex items-center gap-2.5">
+                          <Avatar name={name} size={24} />
+                          <CellLink row href={`/admin/nutzer/${u.id}`}>
+                            {name}
+                          </CellLink>
+                        </span>
                       </td>
                       <td className="max-w-64 truncate text-ink-muted" title={u.email}>
                         {u.email}
                       </td>
                       <td>
-                        <span className="flex items-center gap-2">
+                        <span className="flex items-center gap-1.5">
                           {ROLE[u.role]}
                           {u.providerStatus ? <span className="type-caption text-ink-muted">· {PROVIDER_STATUS[u.providerStatus].label}</span> : null}
                         </span>
                       </td>
-                      <td>
-                        {u.blockedAt ? (
-                          <Status tone="danger">Gesperrt</Status>
-                        ) : (
-                          <Status tone="success">Aktiv</Status>
-                        )}
-                      </td>
+                      <td>{u.blockedAt ? <Status tone="danger">Gesperrt</Status> : <Status tone="success">Aktiv</Status>}</td>
                       <td className={numCell}>{formatInt(u.bookingsCount)}</td>
                       <td className="num text-ink-muted">{formatDate(u.createdAt)}</td>
                       <td className="text-right">
-                        {u.id === session.userId ? <span className="type-caption text-ink-muted">Eigenes Konto</span> : <UserBlockButton userId={u.id} name={name} blocked={!!u.blockedAt} role={ROLE[u.role]} />}
+                        {u.id === session.userId ? (
+                          <span className="type-caption text-ink-muted">Eigenes Konto</span>
+                        ) : (
+                          <span className={`inline-flex ${rowAction}`}>
+                            <UserBlockButton userId={u.id} name={name} blocked={!!u.blockedAt} role={ROLE[u.role]} />
+                          </span>
+                        )}
                       </td>
                     </tr>
                   );

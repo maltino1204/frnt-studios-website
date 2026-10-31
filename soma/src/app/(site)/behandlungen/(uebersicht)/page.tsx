@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { AuraBackground } from "@/components/ui/aura";
 import { ChipLink, ChipRow } from "@/components/ui/chip";
+import { Reveal } from "@/components/ui/motion";
+import { accentLinkClass } from "@/components/site/discovery-styles";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline } from "@/components/ui/layout";
 import { Photo } from "@/components/ui/photo";
@@ -35,7 +38,9 @@ export default async function BehandlungenPage() {
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <Container className="pt-6 md:pt-10">
+      <div className="relative isolate overflow-clip">
+        <AuraBackground placement="right" variant="section" fade="both" animate={false} />
+      <Container className="pt-5 md:pt-7">
         <Breadcrumbs items={crumbs} />
         <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">
           <Overline>Behandlungen</Overline>
@@ -46,14 +51,20 @@ export default async function BehandlungenPage() {
             Jede Leistung zeigt, ab welchem Preis sie gerade angeboten wird. Den Endpreis inklusive Anfahrt sehen Sie in der Suche für Ihre Adresse.
           </p>
         </header>
-        <ChipRow label="Zu einer Behandlung springen" className="pb-2">
-          {catalog.map((c) => (
-            <ChipLink key={c.slug} href={`#${c.slug}`}>
-              {c.name}
-            </ChipLink>
-          ))}
-        </ChipRow>
       </Container>
+      </div>
+      {/* Sticky glass jump bar */}
+      <div className="sticky top-(--header-height) z-20 glass-strong shadow-[0_1px_0_var(--color-line)]">
+        <Container>
+          <ChipRow label="Zu einer Behandlung springen" className="py-2.5">
+            {catalog.map((c) => (
+              <ChipLink key={c.slug} href={`#${c.slug}`}>
+                {c.name}
+              </ChipLink>
+            ))}
+          </ChipRow>
+        </Container>
+      </div>
 
       {catalog.map((c, i) => {
         const prices = c.services.map((s) => fm[s.id]).filter((n): n is number => typeof n === "number");
@@ -63,19 +74,24 @@ export default async function BehandlungenPage() {
             key={c.slug}
             id={c.slug}
             aria-labelledby={`${c.slug}-titel`}
-            className={cn("scroll-mt-20 pt-12 md:pt-16", i === catalog.length - 1 && "pb-(--space-section)")}
+            className={cn("scroll-mt-36 pt-12 md:pt-16", i === catalog.length - 1 && "pb-(--space-section)")}
           >
             <Container>
-              <div className="grid gap-8 border-t border-line pt-10 md:pt-14 lg:grid-cols-12 lg:gap-6">
+              <Reveal className="grid gap-8 lg:grid-cols-12 lg:gap-6">
                 <div className="lg:col-span-4">
-                  <Link href={routes.category(c.slug)} tabIndex={-1} aria-hidden className="block lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
+                  <Link
+                    href={routes.category(c.slug)}
+                    tabIndex={-1}
+                    aria-hidden
+                    className="block overflow-hidden rounded-panel shadow-raised transition-[translate,box-shadow] duration-base ease-settle hover:-translate-y-0.5 hover:shadow-float lg:sticky lg:top-[calc(var(--header-height)+5.5rem)]"
+                  >
                     <Photo
                       src={c.imagePath ?? images.category(c.slug)}
                       alt=""
                       tone={c.slug}
                       word={c.name}
                       sizes="(min-width: 1024px) 30vw, 100vw"
-                      className="aspect-[3/2] w-full lg:aspect-[4/5]"
+                      className="aspect-[2/1] w-full sm:aspect-[5/2] lg:aspect-[4/5]"
                     />
                   </Link>
                 </div>
@@ -88,17 +104,14 @@ export default async function BehandlungenPage() {
                       {c.name}
                     </h2>
                     {c.description ? <p className="max-w-[36rem] type-body-l text-ink-muted">{c.description}</p> : null}
-                    <Link
-                      href={routes.category(c.slug)}
-                      className="inline-flex min-h-touch items-center gap-2 self-start type-label text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover"
-                    >
+                    <Link href={routes.category(c.slug)} className={cn(accentLinkClass, "self-start")}>
                       Alles zu {c.name}
-                      <Icon icon={ArrowRight} size={16} />
+                      <Icon icon={ArrowRight} size={16} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
                     </Link>
                   </div>
                   <ServiceList services={c.services} floors={fm} categorySlug={c.slug} linkTo={routes.category(c.slug)} />
                 </div>
-              </div>
+              </Reveal>
             </Container>
           </section>
         );

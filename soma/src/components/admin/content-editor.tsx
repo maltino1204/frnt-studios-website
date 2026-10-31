@@ -218,11 +218,11 @@ function ObjectList({ name, items, onChange, path }: { name: string; items: Reco
       <legend className="pb-2 type-label-s text-ink">
         {label(name)} <span className="font-normal text-ink-muted num">({items.length})</span>
       </legend>
-      <ol className="flex flex-col gap-px border border-line bg-line">
+      <ol className="flex flex-col gap-2">
         {items.map((it, i) => (
-          <li key={i} className="flex flex-col gap-3 bg-surface-raised px-4 py-3">
+          <li key={i} className="flex flex-col gap-3 rounded-tile bg-surface-sunken/50 px-4 py-3 ring-1 ring-line ring-inset">
             <div className="flex items-center justify-between gap-2">
-              <span className="type-label-s text-ink-muted num">{i + 1}</span>
+              <span className="inline-flex size-6 items-center justify-center rounded-full bg-surface-raised type-caption font-[600] text-ink-muted shadow-raised num">{i + 1}</span>
               <span className="flex items-center gap-1">
                 <Button size="s" variant="ghost" aria-label={`Eintrag ${i + 1} nach oben`} disabled={i === 0} onClick={() => move(i, -1)} icon={<Icon icon={ArrowUp} size={16} />} />
                 <Button size="s" variant="ghost" aria-label={`Eintrag ${i + 1} nach unten`} disabled={i === items.length - 1} onClick={() => move(i, 1)} icon={<Icon icon={ArrowDown} size={16} />} />

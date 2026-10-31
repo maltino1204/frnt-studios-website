@@ -55,15 +55,15 @@ export default async function StornierungPage() {
           Maßgeblich ist der Zeitpunkt, zu dem Sie in Ihrem Konto stornieren. Die Gebühr bezieht sich auf den Preis der Behandlung; wann die Anfahrt erstattet wird, steht in jeder
           Zeile.
         </p>
-        <dl className="mt-2 border-t border-line">
+        <dl className="mt-2 flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
           {graceMinutes > 0 ? (
-            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 py-4">
               <dt className="type-body text-ink hyphens-none">In den ersten {graceMinutes}&nbsp;Minuten nach der Buchung</dt>
               <dd className="text-right type-label font-semibold text-success num">Kostenlos</dd>
             </div>
           ) : null}
           {rows.map((r) => (
-            <div key={r.when} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+            <div key={r.when} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 py-4">
               <dt className="type-body text-ink hyphens-none">{r.when}</dt>
               <dd className="text-right">
                 <span className={r.feePercent <= 0 ? "block type-label font-semibold text-success num" : "block type-label font-semibold text-ink num"}>{r.fee}</span>
@@ -71,7 +71,7 @@ export default async function StornierungPage() {
               </dd>
             </div>
           ))}
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 border-b border-line py-4">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 py-4">
             <dt className="type-body text-ink hyphens-none">Nicht angetroffen (ohne Absage)</dt>
             <dd className="text-right">
               <span className="block type-label font-semibold text-ink num">{policy.noShowFeePercent}&nbsp;% der Behandlung</span>

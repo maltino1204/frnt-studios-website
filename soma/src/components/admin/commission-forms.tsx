@@ -133,7 +133,7 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
       </div>
       {orderWarning ? <Notice kind="warning">Üblich ist: Eigene Kundschaft ≤ Stammkundschaft ≤ Basis. Sonst lohnt es sich für Profis nicht, Kundschaft auf SOMA zu halten.</Notice> : null}
 
-      <div className="flex flex-col gap-3 border border-line bg-surface px-4 py-4">
+      <div className="flex flex-col gap-3 rounded-tile bg-surface-sunken/60 px-4 py-4 ring-1 ring-line ring-inset">
         <div className="flex flex-wrap items-start gap-3">
           <p className="w-full type-label-s text-ink-muted">Beispielrechnung</p>
           <Input dense label="Behandlung (€)" inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} className="w-36" />
@@ -141,7 +141,7 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
         </div>
         <table className="w-full type-body-s">
           <thead>
-            <tr className="border-b border-line-strong text-left type-label-s text-ink-muted">
+            <tr className="border-b border-line text-left type-label-s text-ink-muted">
               <th scope="col" className="py-2 font-[520]">Stufe</th>
               <th scope="col" className="py-2 text-right font-[520]">Satz</th>
               <th scope="col" className="py-2 text-right font-[520]">Provision</th>
@@ -197,7 +197,7 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
           </p>
           <table className="w-full type-body-s">
             <thead>
-              <tr className="border-b border-line-strong text-left type-label-s">
+              <tr className="border-b border-line text-left type-label-s text-ink-muted">
                 <th scope="col" className="py-1.5 font-[520]">Stufe</th>
                 <th scope="col" className="py-1.5 text-right font-[520]">Bisher</th>
                 <th scope="col" className="py-1.5 text-right font-[520]">Neu</th>
@@ -275,7 +275,7 @@ export function NumberSettingForm({
   return (
     <form
       noValidate
-      className="flex flex-col gap-3 px-4 py-4 sm:grid sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-x-8"
+      className="flex flex-col gap-3 px-4 py-4 sm:grid sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-x-8 sm:px-5"
       onSubmit={(e) => {
         e.preventDefault();
         m.reset();
@@ -365,7 +365,7 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent, 
   return (
     <form
       noValidate
-      className="flex flex-col gap-4 px-4 py-4"
+      className="flex flex-col gap-4 px-4 py-4 sm:px-5 sm:py-5"
       onSubmit={(e) => {
         e.preventDefault();
         m.reset();
@@ -383,17 +383,17 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent, 
       <fieldset className="flex flex-col gap-2">
         <legend className="sr-only">Staffeln</legend>
         {tiers.map((t, i) => (
-          <div key={i} className="flex flex-wrap items-start gap-2">
-            <span className="flex h-control-s items-center type-body-s text-ink-muted">ab</span>
+          <div key={i} className="flex flex-wrap items-center gap-x-2 gap-y-1.5 rounded-tile bg-surface-sunken/60 py-2 pr-1.5 pl-3 ring-1 ring-line ring-inset">
+            <span className="type-body-s text-ink-muted">ab</span>
             <Input dense label={`Staffel ${i + 1}: Stunden vor dem Termin`} hideLabel inputMode="numeric" value={t.h} onChange={(e) => setTiers((all) => all.map((x, j) => (j === i ? { ...x, h: e.target.value } : x)))} error={errors[`h${i}`]} className="w-20" />
-            <span className="flex h-control-s items-center type-body-s text-ink-muted">Std. vorher</span>
+            <span className="type-body-s text-ink-muted">Std. vorher</span>
             <Input dense label={`Staffel ${i + 1}: Gebühr in Prozent`} hideLabel inputMode="numeric" value={t.p} onChange={(e) => setTiers((all) => all.map((x, j) => (j === i ? { ...x, p: e.target.value } : x)))} error={errors[`p${i}`]} className="w-20" />
-            <span className="flex h-control-s items-center type-body-s text-ink-muted">% Gebühr</span>
+            <span className="mr-2 type-body-s text-ink-muted">% Gebühr</span>
             <Checkbox
               label="Anfahrt einbehalten"
               checked={t.travel}
               onChange={(e) => setTiers((all) => all.map((x, j) => (j === i ? { ...x, travel: e.target.checked } : x)))}
-              className="[&_label]:min-h-0 [&_label]:py-1"
+              className="flex-1 [&_label]:min-h-0 [&_label]:py-1"
             />
             <Button size="s" variant="ghost" aria-label={`Staffel ${i + 1} entfernen`} disabled={tiers.length <= 1} onClick={() => setTiers((all) => all.filter((_, j) => j !== i))} icon={<Icon icon={Minus} size={16} />} />
           </div>

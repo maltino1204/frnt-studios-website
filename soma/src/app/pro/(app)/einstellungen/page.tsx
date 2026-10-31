@@ -1,6 +1,7 @@
 import { InviteCard } from "@/components/pro/invite-card";
 import { formatPercent } from "@/components/pro/labels";
-import { ProHeader, ProPage, ProSection } from "@/components/pro/page";
+import { ProHeader, ProPage } from "@/components/pro/page";
+import { CardSection } from "@/components/pro/ui";
 import { PasswordForm, SettingsForm } from "@/components/pro/settings-form";
 import { Notice } from "@/components/ui/feedback";
 import { FactList } from "@/components/ui/layout";
@@ -25,7 +26,7 @@ export default async function ProSettingsPage() {
         ownClientRateLabel={terms.commission ? formatPercent(terms.commission.ownClientRate) : "5\u00a0%"}
         inactiveNote={dash.status === "approved" ? undefined : "Dein Link funktioniert, sobald dein Profil freigeschaltet ist."}
       />
-      <ProSection id="konto" title="Konto">
+      <CardSection id="konto" title="Konto" bodyClassName="gap-4">
         <FactList className="border-y border-line" items={[{ label: "E-Mail", value: session.email }, { label: "Einladungscode", value: <span className="code-ref">{settings.inviteCode}</span> }]} />
         {session.isDemoAccount ? (
           // F7: shared demo logins stay usable for the next tester (the server refuses these actions too).
@@ -35,12 +36,12 @@ export default async function ProSettingsPage() {
         ) : (
           <PasswordForm />
         )}
-        <form action={signOutAction} className="pt-2">
-          <button type="submit" className="inline-flex h-touch items-center type-label text-ink underline decoration-1 underline-offset-[0.2em] hover:text-ink-muted">
+        <form action={signOutAction}>
+          <button type="submit" className="inline-flex h-touch items-center rounded-full px-1 type-label text-ink underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-ink-muted">
             Abmelden
           </button>
         </form>
-      </ProSection>
+      </CardSection>
     </ProPage>
   );
 }

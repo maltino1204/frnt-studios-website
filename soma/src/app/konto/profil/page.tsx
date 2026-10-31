@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/server/auth/guards";
 import { getProfile } from "@/server/services/account";
+import { Download, KeyRound, Trash2, UserRound, type LucideIcon } from "lucide-react";
+import { Avatar } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
+import { Icon } from "@/components/ui/icon";
+import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/layout";
 import { DataExportButton, DeleteAccount, PasswordForm, ProfileForm } from "@/components/site/account-profile";
 import { BRAND_NAME, SUPPORT_EMAIL } from "@/lib/brand";
@@ -18,51 +22,72 @@ function DemoNotice() {
   );
 }
 
+/** A settings card: icon tile, title, optional lead, content. */
+function Card({ id, icon, title, lead, danger, children }: { id: string; icon: LucideIcon; title: string; lead?: React.ReactNode; danger?: boolean; children: React.ReactNode }) {
+  return (
+    <section aria-labelledby={id} className={cn("flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised md:p-7", danger && "ring-1 ring-danger/10 ring-inset")}>
+      <div className="flex items-start gap-3.5">
+        <span aria-hidden className={cn("inline-flex size-10 shrink-0 items-center justify-center rounded-full", danger ? "bg-danger-soft text-danger" : "bg-surface-sunken text-ink")}>
+          <Icon icon={icon} size={18} />
+        </span>
+        <div className="flex min-w-0 flex-col gap-1 pt-1.5">
+          <h2 id={id} className="type-heading-m">
+            {title}
+          </h2>
+          {lead ? <div className="max-w-reading type-body-s text-ink-muted">{lead}</div> : null}
+        </div>
+      </div>
+      {children}
+    </section>
+  );
+}
+
 export default async function ProfilPage() {
   const session = await requireRole("customer", "/konto/profil");
   const profile = await getProfile(session);
+  const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(" ") || profile.email;
   return (
-    <div className="flex flex-col gap-10">
-      <PageHeader title="Profil & Sicherheit" description={`Bei ${BRAND_NAME} seit ${formatDateLong(profile.createdAt)}`} className="pb-0" />
-      <section aria-labelledby="angaben" className="flex flex-col gap-5">
-        <h2 id="angaben" className="type-heading-m">
-          Ihre Angaben
-        </h2>
-        <ProfileForm profile={profile} />
-      </section>
-      <section aria-labelledby="passwort" className="flex flex-col gap-5 border-t border-line pt-8">
-        <h2 id="passwort" className="type-heading-m">
-          Passwort
-        </h2>
-        {session.isDemoAccount ? <DemoNotice /> : <PasswordForm />}
-      </section>
-      <section aria-labelledby="daten" className="flex flex-col gap-5 border-t border-line pt-8">
-        <div className="flex flex-col gap-2">
-          <h2 id="daten" className="type-heading-m">
-            Ihre Daten
-          </h2>
-          <p className="max-w-reading type-body-s text-ink-muted">
-            Laden Sie alles herunter, was wir zu Ihrem Konto speichern: Angaben, Adressen, Buchungen, Bewertungen und Guthaben, als JSON-Datei.
-          </p>
+    <div className="flex flex-col gap-5 md:gap-6">
+      <PageHeader title="Profil & Sicherheit" description={`Bei ${BRAND_NAME} seit ${formatDateLong(profile.createdAt)}`} className="pb-1" />
+      <Card id="angaben" icon={UserRound} title="Ihre Angaben">
+        <div className="flex items-center gap-3.5 rounded-tile bg-surface-sunken p-3.5">
+          <Avatar src={profile.avatarUrl} name={fullName} size={48} />
+          <div className="min-w-0">
+            <p className="truncate type-label text-ink">{fullName}</p>
+            <p className="truncate type-caption text-ink-muted">{profile.email}</p>
+          </div>
         </div>
+        <ProfileForm profile={profile} />
+      </Card>
+      <Card id="passwort" icon={KeyRound} title="Passwort">
+        {session.isDemoAccount ? <DemoNotice /> : <PasswordForm />}
+      </Card>
+      <Card
+        id="daten"
+        icon={Download}
+        title="Ihre Daten"
+        lead="Laden Sie alles herunter, was wir zu Ihrem Konto speichern: Angaben, Adressen, Buchungen, Bewertungen und Guthaben, als JSON-Datei."
+      >
         <DataExportButton />
-      </section>
-      <section aria-labelledby="loeschen" className="flex flex-col gap-4 border-t border-line pt-8">
-        <div className="flex flex-col gap-2">
-          <h2 id="loeschen" className="type-heading-m">
-            Konto löschen
-          </h2>
-          <p className="max-w-reading type-body-s text-ink-muted">
+      </Card>
+      <Card
+        id="loeschen"
+        icon={Trash2}
+        title="Konto löschen"
+        danger
+        lead={
+          <>
             Wir löschen Ihre persönlichen Angaben und Ihren Zugang. Offene Termine stornieren Sie bitte vorher; Rechnungsdaten bewahren wir ohne Ihre Kontaktdaten so lange auf,
             wie es das Gesetz verlangt. Fragen dazu beantworten wir unter{" "}
             <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent underline underline-offset-[0.2em]">
               {SUPPORT_EMAIL}
             </a>
             .
-          </p>
-        </div>
+          </>
+        }
+      >
         {session.isDemoAccount ? <DemoNotice /> : <DeleteAccount email={profile.email} />}
-      </section>
+      </Card>
     </div>
   );
 }

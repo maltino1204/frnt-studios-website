@@ -11,6 +11,7 @@ import { useMutation } from "./use-mutation";
 export function CreatePayoutBatchButton({ eligibleCents, eligibleCount, providers, holdHours }: { eligibleCents: number; eligibleCount: number; providers: number; holdHours: number }) {
   const m = useMutation(createPayoutBatchAction, {
     success: (r) => (r.payouts.length ? `${r.payouts.length} Auszahlung${r.payouts.length === 1 ? "" : "en"} über ${formatPriceExact(r.totalCents)} angelegt (${r.bookingCount} Buchungen).` : "Keine auszahlbaren Buchungen gefunden."),
+    haptic: true,
   });
   return (
     <ConfirmButton
@@ -35,7 +36,7 @@ export function CreatePayoutBatchButton({ eligibleCents, eligibleCount, provider
 }
 
 export function MarkPayoutPaidButton({ payoutId, providerName, amountCents }: { payoutId: string; providerName: string; amountCents: number }) {
-  const m = useMutation(markPayoutPaidAction, { success: `Auszahlung an ${providerName} als bezahlt markiert.` });
+  const m = useMutation(markPayoutPaidAction, { success: `Auszahlung an ${providerName} als bezahlt markiert.`, haptic: true });
   return (
     <ConfirmButton
       label="Als bezahlt markieren"

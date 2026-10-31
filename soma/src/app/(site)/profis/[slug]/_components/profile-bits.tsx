@@ -38,7 +38,7 @@ export function VerifiedSheetButton({
         type="button"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
-        className="-mx-2 inline-flex h-touch items-center rounded-xs px-2 hover:bg-surface-sunken"
+        className="inline-flex h-touch items-center rounded-full pressable focus-ring [&>span]:h-touch [&>span]:pr-4 [&>span]:pl-3 [&>span]:shadow-raised hover:[&>span]:shadow-float"
       >
         <VerifiedBadge withLabel size={20} />
         <span className="sr-only">: Was wir geprüft haben</span>
@@ -49,10 +49,12 @@ export function VerifiedSheetButton({
             <p className="type-body-s text-ink-muted">
               {`Bevor ${name} auf SOMA buchbar wurde, haben wir diese Unterlagen geprüft. Laufende Nachweise wie die Versicherung fordern wir regelmäßig neu an.`}
             </p>
-            <ul className="flex flex-col divide-y divide-line border-y border-line">
+            <ul className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-4 shadow-raised stagger-rise">
               {checks.map((c) => (
                 <li key={c.title} className="flex gap-3 py-3.5">
-                  <Icon icon={Check} className="mt-0.5 shrink-0 text-ink" />
+                  <span aria-hidden className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-success-soft text-success">
+                    <Icon icon={Check} size={14} strokeWidth={2.25} />
+                  </span>
                   <div className="flex flex-col gap-0.5">
                     <p className="type-heading-s">{c.title}</p>
                     <p className="type-body-s text-ink-muted">{c.body}</p>
@@ -77,7 +79,7 @@ export function Bio({ text }: { text: string }) {
   const long = text.length > 180;
   return (
     <div className="flex flex-col items-start gap-1">
-      <p id="bio" className={cn("type-body text-ink whitespace-pre-line", !open && long && "line-clamp-3")}>
+      <p id="bio" className={cn("type-body-l text-ink whitespace-pre-line", !open && long && "line-clamp-4")}>
         {text}
       </p>
       {long ? (
@@ -86,7 +88,7 @@ export function Bio({ text }: { text: string }) {
           aria-expanded={open}
           aria-controls="bio"
           onClick={() => setOpen((o) => !o)}
-          className="inline-flex h-touch items-center type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover"
+          className="inline-flex h-touch items-center rounded-full type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover"
         >
           {open ? "Weniger anzeigen" : "Mehr lesen"}
         </button>

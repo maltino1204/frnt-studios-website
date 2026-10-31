@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/feedback";
 import { CheckLine } from "@/components/ui/summary";
 import { cn } from "@/lib/cn";
+import { haptic } from "@/lib/haptic";
 import { berlinDateKey, formatDuration, formatPrice, formatTime } from "@/lib/format";
 import { loadAvailabilityAction } from "@/server/actions/booking";
 import type { CancellationPolicyDTO, OfferingDTO, SlotsByDayDTO } from "@/server/dto";
@@ -182,12 +183,12 @@ export function SlotPicker({
           <div role="status" className="flex flex-col gap-6" aria-label="Termine werden geladen">
             <div className="flex gap-1 pt-5">
               {Array.from({ length: 6 }, (_, i) => (
-                <Skeleton key={i} className="h-[72px] w-14 shrink-0" />
+                <Skeleton key={i} className="h-[72px] w-14 shrink-0 rounded-tile" />
               ))}
             </div>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {Array.from({ length: 6 }, (_, i) => (
-                <Skeleton key={i} className="h-touch" />
+                <Skeleton key={i} className="h-touch rounded-tile" />
               ))}
             </div>
           </div>
@@ -211,7 +212,11 @@ export function SlotPicker({
             <TimeSlots
               slots={daySlots.map((s) => ({ start: s }))}
               selected={slot}
-              onSelect={state.setSlot}
+              onSelect={(s) => {
+                // A light tick on phones that support it; the chip itself settles into ink.
+                if (s !== slot) haptic("tap");
+                state.setSlot(s);
+              }}
               empty={
                 <div className="flex flex-col items-start gap-3">
                   <p className="type-body-s text-ink-muted">Keine freien Termine an diesem Tag.</p>
@@ -233,7 +238,7 @@ export function SlotPicker({
       </div>
 
       {slot && end ? (
-        <div className="flex flex-col gap-1.5 border-t border-line pt-4">
+        <div key={slot} className="flex flex-col gap-1.5 rounded-tile bg-surface-tint px-4 py-3 shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)] animate-rise">
           <p className="type-label num">
             {`${dayLabel(slot, now)} · ${formatTime(slot)}–${formatTime(end)} · ${formatDuration(offering.durationMinutes)} · ${locationPhrase}`}
           </p>

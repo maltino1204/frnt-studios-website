@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CancellationPolicyForm, CommissionRuleForm, DeactivateRuleButton, NumberSettingForm } from "@/components/admin/commission-forms";
 import { formatDateTime, formatPercent } from "@/components/admin/format";
-import { AdminPageHeader, AdminSection, MutedLink } from "@/components/admin/page";
+import { AdminPageHeader, AdminSection, Card, MutedLink } from "@/components/admin/page";
+import { buttonClasses } from "@/components/ui/button";
 import { AdminTable, hrefWith, numCell } from "@/components/admin/table";
 import { Status } from "@/components/ui/feedback";
 import { routes } from "@/lib/routes";
@@ -44,7 +45,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
         title="Provisionen"
         description="Provisionssätze und Plattform-Einstellungen. Jede Änderung ist versioniert, gilt für neue Buchungen und wird protokolliert."
       />
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-10 lg:gap-12">
         <AdminSection
           id="rules"
           title="Provisionsregeln"
@@ -70,7 +71,14 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
             <tbody>
               {shown.map((r) => (
                 <tr key={r.id} className={r.isActive ? undefined : "text-ink-muted"}>
-                  <td className="font-[520]">{scopeLabel(r)}</td>
+                  <td className="font-[520]">
+                    <span className="flex items-center gap-2">
+                      <span className={`inline-flex h-5 items-center rounded-full px-2 type-caption font-[560] ${r.scope === "global" ? "bg-accent-soft text-accent" : "bg-surface-sunken text-ink-muted"}`}>
+                        {r.scope === "global" ? "Global" : r.scope === "category" ? "Kategorie" : "Profi"}
+                      </span>
+                      {r.scope === "global" ? "Alle Buchungen" : r.scope === "category" ? r.categoryName ?? "—" : r.providerName ?? "—"}
+                    </span>
+                  </td>
                   <td className={numCell}>{formatPercent(r.rate)}</td>
                   <td className={numCell}>{formatPercent(r.repeatClientRate)}</td>
                   <td className={numCell}>{formatPercent(r.ownClientRate)}</td>
@@ -83,7 +91,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
                       <span className="flex items-center justify-end gap-1">
                         <Link
                           href={`${hrefWith(routes.admin.commissions(), { verlauf: history ? "1" : undefined }, { regel: r.id })}#regel`}
-                          className="inline-flex h-control-s items-center rounded-xs px-3 type-label-s text-ink hover:bg-surface-sunken"
+                          className={buttonClasses({ variant: "ghost", size: "s" })}
                         >
                           Ändern
                         </Link>
@@ -99,7 +107,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
 
         <div className="grid gap-10 xl:grid-cols-2 xl:gap-8">
           <AdminSection id="regel" title={initial ? "Regel ändern" : "Regel anlegen oder ersetzen"} description={initial ? `Ersetzt: ${scopeLabel(initial)}` : "Startwerte sind die aktuellen globalen Sätze."}>
-            <div className="border border-line bg-surface-raised p-4 md:p-6">
+            <Card className="p-4 md:p-6">
               <CommissionRuleForm
                 key={initial?.id ?? "new"}
                 rules={rules}
@@ -107,11 +115,11 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
                 categories={cats.map((c) => ({ id: c.id, name: c.isActive ? c.name : `${c.name} (inaktiv)` }))}
                 providers={providers.items.map((p) => ({ id: p.providerId, name: p.displayName }))}
               />
-            </div>
+            </Card>
           </AdminSection>
 
           <AdminSection id="settings" title="Plattform-Einstellungen" description="Nur Werte, die gefahrlos im Betrieb geändert werden können. Alle Änderungen werden protokolliert.">
-            <div className="divide-y divide-line border border-line bg-surface-raised">
+            <Card className="divide-y divide-line">
               <CancellationPolicyForm tiers={policy.tiers ?? []} noShowFeePercent={policy.no_show_fee_percent ?? 100} graceMinutes={policy.grace_minutes ?? 0} />
               <NumberSettingForm
                 settingKey="hold_minutes"
@@ -155,7 +163,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
                 cents
                 warning="Wird als Guthaben gebucht. Texte auf der Empfehlungsseite nennen den Betrag."
               />
-            </div>
+            </Card>
           </AdminSection>
         </div>
       </div>

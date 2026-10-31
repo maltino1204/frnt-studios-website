@@ -10,11 +10,13 @@ import { EmptyState, Notice } from "@/components/ui/feedback";
 import { Input, Select, Switch } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
+import { cn } from "@/lib/cn";
 import { plural } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { addTimeOffAction, deleteTimeOffAction } from "@/server/actions/pro";
 import type { TimeOffDTO } from "@/server/dto";
 import { addDaysKey, berlinDateKey, berlinToIso, formatTimeOffRange, timeOptions } from "./time";
+import { DateTile } from "./ui";
 import { proError } from "./labels";
 
 const REASONS = ["Urlaub", "Krank", "Fortbildung", "Privat"];
@@ -70,33 +72,36 @@ export function TimeOffEditor({ entries }: { entries: TimeOffDTO[] }) {
   };
 
   return (
-    <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-      <section className="flex flex-col gap-4 lg:col-span-6" aria-labelledby="to-list">
+    <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+      <section className="order-2 flex flex-col gap-4 lg:order-1 lg:col-span-6" aria-labelledby="to-list">
         <h2 id="to-list" className="type-heading-m">
           Eingetragen
         </h2>
         {entries.length ? (
-          <ul className="border-y border-line">
+          <ul className="divide-y divide-line overflow-hidden rounded-card bg-surface-raised shadow-raised">
             {entries.map((t) => (
-              <li key={t.id} className="flex min-h-16 items-center justify-between gap-4 border-b border-line py-3 last:border-b-0">
-                <div className="flex min-w-0 flex-col gap-0.5">
-                  <span className="type-body-s font-[520] text-ink num">{formatTimeOffRange(t)}</span>
+              <li key={t.id} className={cn("flex min-h-18 items-center gap-4 px-4 py-3 transition-opacity duration-base sm:px-5", deleting === t.id && "opacity-50")}>
+                <DateTile date={t.start} />
+                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="type-body-s font-[560] text-ink num">{formatTimeOffRange(t)}</span>
                   <span className="truncate type-caption text-ink-muted">{t.reason ?? "Ohne Grund"}</span>
                 </div>
-                <IconButton label={`Abwesenheit ${formatTimeOffRange(t)} entfernen`} onClick={() => remove(t.id)} disabled={deleting === t.id}>
+                <IconButton label={`Abwesenheit ${formatTimeOffRange(t)} entfernen`} onClick={() => remove(t.id)} disabled={deleting === t.id} className="hover:bg-danger-soft! hover:text-danger">
                   <Icon icon={Trash} />
                 </IconButton>
               </li>
             ))}
           </ul>
         ) : (
-          <EmptyState className="py-2!" title="Keine Abwesenheiten.">
-            Trage Urlaub, Fortbildungen oder freie Nachmittage ein – dann bietet SOMA in dieser Zeit keine Termine an.
-          </EmptyState>
+          <div className="rounded-card bg-surface-raised px-5 shadow-raised">
+            <EmptyState className="py-6!" seed="pro-abwesenheit" title="Keine Abwesenheiten.">
+              Trage Urlaub, Fortbildungen oder freie Nachmittage ein – dann bietet SOMA in dieser Zeit keine Termine an.
+            </EmptyState>
+          </div>
         )}
       </section>
 
-      <section className="flex flex-col gap-5 lg:col-span-6" aria-labelledby="to-add">
+      <section className="order-1 flex flex-col gap-5 self-start rounded-card bg-surface-raised p-5 shadow-raised lg:order-2 lg:col-span-6 lg:p-6" aria-labelledby="to-add">
         <h2 id="to-add" className="type-heading-m">
           Abwesenheit eintragen
         </h2>
@@ -147,7 +152,7 @@ export function TimeOffEditor({ entries }: { entries: TimeOffDTO[] }) {
             </Notice>
           ) : null}
         </div>
-        <Button size="l" onClick={add} loading={pending && !deleting} icon={<Icon icon={Plus} />} className="self-start">
+        <Button size="l" onClick={add} loading={pending && !deleting} icon={<Icon icon={Plus} />} className="self-start max-sm:w-full">
           Abwesenheit eintragen
         </Button>
       </section>

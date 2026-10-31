@@ -1,16 +1,30 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/field";
 import { Notice } from "@/components/ui/feedback";
 import { useToast } from "@/components/ui/toast";
 import { CheckLine } from "@/components/ui/summary";
+import { cn } from "@/lib/cn";
 import { formatPriceExact, formatTime } from "@/lib/format";
+import { haptic } from "@/lib/haptic";
 import { cancelBookingAction } from "@/server/actions/booking";
 import type { BookingStatus, PolicyScheduleEntryDTO } from "@/server/dto";
+
+/** One amount of the fee preview; cross-fades when the server preview changes. */
+function Amount({ label, cents, tone }: { label: string; cents: number; tone?: "success" | "danger" }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1 rounded-tile bg-surface-raised/80 p-3.5 shadow-raised">
+      <p className="type-caption text-ink-muted">{label}</p>
+      <p key={cents} className={cn("animate-fade-in type-heading-l num", tone === "success" ? "text-success" : tone === "danger" ? "text-danger" : "text-ink")}>
+        {formatPriceExact(cents)}
+      </p>
+    </div>
+  );
+}
 
 function tierIndex(schedule: PolicyScheduleEntryDTO[], now: number): number {
   return schedule.findIndex((e) => (!e.from || Date.parse(e.from) <= now) && (!e.until || now < Date.parse(e.until)));
@@ -72,6 +86,29 @@ export function CancelBooking({
     }
   };
 
+  // Live preview: while the dialog is open, re-check every 15 s whether a tier boundary
+  // (or the end of the Bedenkzeit) has passed; the server then recomputes the fee.
+  useEffect(() => {
+    if (!open || status !== "confirmed") return;
+    let seen = Date.now();
+    const t = window.setInterval(() => {
+      const n = Date.now();
+      setNow(n);
+      const graceEnded = graceEnd !== null && seen < graceEnd && n >= graceEnd;
+      if (graceEnded || tierIndex(schedule, n) !== tierIndex(schedule, seen)) startRefresh(() => router.refresh());
+      seen = n;
+    }, 15_000);
+    return () => window.clearInterval(t);
+  }, [open, status, graceEnd, schedule, router]);
+
+  // Destructive dialog: start on the safe choice, not on the reason field (no keyboard pop-up on phones).
+  const keepRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const id = requestAnimationFrame(() => keepRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, [open]);
+
   const confirm = () => {
     setError(null);
     start(async () => {
@@ -81,6 +118,7 @@ export function CancelBooking({
         return;
       }
       setOpen(false);
+      haptic("warning");
       toast.show(
         res.data.feeCents > 0
           ? `Storniert. Stornogebühr ${formatPriceExact(res.data.feeCents)}, Erstattung ${formatPriceExact(res.data.refundCents)}.`
@@ -94,7 +132,7 @@ export function CancelBooking({
 
   return (
     <>
-      <Button variant="secondary" onClick={openModal} block className="sm:w-auto">
+      <Button variant="secondary" onClick={openModal} block>
         {isRequest ? "Anfrage zurückziehen" : "Termin stornieren"}
       </Button>
       {open ? (
@@ -104,7 +142,7 @@ export function CancelBooking({
           title={isRequest ? "Anfrage zurückziehen?" : "Termin stornieren?"}
           actions={
             <>
-              <Button variant="ghost" onClick={() => setOpen(false)}>
+              <Button ref={keepRef} variant="ghost" onClick={() => setOpen(false)}>
                 {isRequest ? "Anfrage behalten" : "Termin behalten"}
               </Button>
               <Button variant="destructive" onClick={confirm} loading={pending || refreshing} className="num">
@@ -114,11 +152,17 @@ export function CancelBooking({
           }
         >
           <div aria-live="polite" className="flex flex-col gap-4">
+            {isRequest ? null : (
+              <div aria-busy={refreshing || undefined} className={cn("grid grid-cols-2 gap-2 transition-[opacity,filter] duration-base", refreshing && "opacity-50 blur-[1px]")}>
+                <Amount label="Stornogebühr" cents={preview.feeCents} tone={preview.feeCents > 0 ? "danger" : undefined} />
+                <Amount label="Erstattung" cents={preview.refundCents} tone="success" />
+              </div>
+            )}
             {isRequest ? (
               <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
             ) : inGrace && graceEnd !== null ? (
               <>
-                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
+                <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
                 <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
               </>
             ) : free ? (

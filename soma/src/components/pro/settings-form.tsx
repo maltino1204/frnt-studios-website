@@ -59,16 +59,17 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
 
   return (
     <form
-      className="flex flex-col gap-10"
+      className="flex flex-col gap-4 lg:gap-5"
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
         save();
       }}
     >
+      <div className="rounded-card bg-surface-raised p-5 shadow-raised lg:p-6">
       <fieldset className="flex flex-col gap-2">
-        <legend className="mb-2 type-heading-m">Buchungsmodus</legend>
-        <div className="border-y border-line">
+        <legend className="mb-3 type-heading-m">Buchungsmodus</legend>
+        <div className="-mx-2 flex flex-col gap-1">
           <RadioRow
             name="bookingMode"
             value="request"
@@ -76,6 +77,7 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
             onChange={() => setMode("request")}
             label="Auf Anfrage"
             description="Du bestätigst jede Buchung selbst. Die Zahlung ist bis zu deiner Antwort nur reserviert."
+            className="rounded-tile border-b-0! px-3 has-checked:bg-surface-tint"
           />
           <RadioRow
             name="bookingMode"
@@ -89,13 +91,16 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
                 ? "Freie Zeiten sind direkt buchbar. Profis mit Sofortbuchung erscheinen in der Suche weiter oben."
                 : "Wird nach drei abgeschlossenen Terminen mit mindestens 4,5 Sternen verfügbar."
             }
+            className="rounded-tile border-b-0! px-3 has-checked:bg-surface-tint has-disabled:cursor-not-allowed has-disabled:opacity-70"
           />
         </div>
         {errors.bookingMode ? <p className="type-caption text-danger">{errors.bookingMode}</p> : null}
       </fieldset>
+      </div>
 
+      <div className="rounded-card bg-surface-raised p-5 shadow-raised lg:p-6">
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-2 type-heading-m">Planung</legend>
+        <legend className="mb-3 type-heading-m">Planung</legend>
         <div className="grid gap-5 sm:grid-cols-3">
           <Select label="Vorlaufzeit" value={String(lead)} onChange={(e) => setLead(Number(e.target.value))} error={errors.leadTimeMinutes} hint="Frühestens so lange vorher buchbar">
             {withCurrent(LEAD_TIMES, lead).map((m) => (
@@ -120,9 +125,11 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
           </Select>
         </div>
       </fieldset>
+      </div>
 
+      <div className="rounded-card bg-surface-raised p-5 shadow-raised lg:p-6">
       <fieldset className="flex flex-col gap-5">
-        <legend className="mb-2 type-heading-m">Umsatzsteuer</legend>
+        <legend className="mb-3 type-heading-m">Umsatzsteuer</legend>
         <Select
           label="Umsatzsteuer"
           value={vatMode}
@@ -137,18 +144,21 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
           ))}
         </Select>
       </fieldset>
+      </div>
 
+      <div className="rounded-card bg-surface-raised p-5 shadow-raised lg:p-6 pb-2! lg:pb-3!">
       <fieldset className="flex flex-col">
-        <legend className="mb-2 type-heading-m">Benachrichtigungen</legend>
-        <div className="divide-y divide-line border-y border-line">
+        <legend className="mb-1 type-heading-m">Benachrichtigungen</legend>
+        <div className="divide-y divide-line">
           {NOTIFY.map((n) => (
-            <Switch key={n.key} label={n.label} description={n.description} checked={prefs[n.key]} onChange={(e) => setPrefs({ ...prefs, [n.key]: e.target.checked })} className="py-3" />
+            <Switch key={n.key} label={n.label} description={n.description} checked={prefs[n.key]} onChange={(e) => setPrefs({ ...prefs, [n.key]: e.target.checked })} className="py-3.5" />
           ))}
         </div>
       </fieldset>
+      </div>
 
       <div aria-live="polite">{error ? <Notice kind="danger">{error}</Notice> : null}</div>
-      <Button type="submit" size="l" loading={pending} className="self-start">
+      <Button type="submit" size="l" loading={pending} className="mt-2 self-start max-sm:w-full">
         Einstellungen speichern
       </Button>
     </form>

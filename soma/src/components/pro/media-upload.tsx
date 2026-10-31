@@ -4,12 +4,13 @@ import { useActionState, useEffect, useRef, useState, useTransition } from "reac
 import { useRouter } from "next/navigation";
 import { ImagePlus, Trash, Upload } from "lucide-react";
 import { Avatar, Portrait } from "@/components/ui/avatar";
-import { Button, IconButton } from "@/components/ui/button";
+import { Button, IconButton, buttonClasses } from "@/components/ui/button";
 import { EmptyState, Notice } from "@/components/ui/feedback";
 import { Input, Select } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { Photo } from "@/components/ui/photo";
 import { useToast } from "@/components/ui/toast";
+import { cn } from "@/lib/cn";
 import { uploadAvatarAction } from "@/server/actions/account";
 import { deletePortfolioItemAction, uploadPortfolioImageAction } from "@/server/actions/pro";
 import type { PortfolioItemDTO } from "@/server/dto";
@@ -42,7 +43,7 @@ export function AvatarUpload({ avatarUrl, name, onSaved }: { avatarUrl: string |
   }, [state, toast, router, onSaved]);
   return (
     <form ref={formRef} action={action} className="flex items-center gap-5">
-      <div className="w-24 shrink-0">
+      <div className={cn("relative w-24 shrink-0 rounded-tile shadow-raised transition-opacity duration-base", pending && "opacity-60")}>
         <Portrait src={state?.ok ? state.data.avatarUrl : avatarUrl} name={name} sizes="96px" />
       </div>
       <div className="flex min-w-0 flex-col gap-2">
@@ -64,7 +65,7 @@ export function AvatarUpload({ avatarUrl, name, onSaved }: { avatarUrl: string |
               if (f) formRef.current?.requestSubmit();
             }}
           />
-          <span className="inline-flex h-control items-center gap-2 rounded-xs border border-ink px-5 type-label text-ink transition-colors hover:bg-surface-sunken peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus">
+          <span className={cn(buttonClasses({ variant: "secondary" }), "cursor-pointer peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus")}>
             <Icon icon={Upload} />
             {pending ? "Wird hochgeladen …" : avatarUrl ? "Foto ändern" : "Foto hochladen"}
           </span>
@@ -137,33 +138,37 @@ export function PortfolioManager({
   return (
     <div className="flex flex-col gap-6">
       {items.length ? (
-        <ul className="grid grid-cols-3 gap-1 sm:grid-cols-4 lg:grid-cols-6" aria-label="Portfolio">
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4" aria-label="Portfolio">
           {items.map((it) => (
-            <li key={it.id} className="group relative">
-              {/* The visible caption below names the image; repeating it as alt text would be read twice. */}
-              <Photo src={it.url} alt={it.caption ? "" : "Portfolio-Bild"} tone={catSlug(it.categoryId)} sizes="(min-width: 1024px) 160px, 33vw" ratio="1/1" />
-              <IconButton
-                label={`Bild${it.caption ? ` „${it.caption}“` : ""} entfernen`}
-                onClick={() => remove(it.id)}
-                disabled={deleting && deletingId === it.id}
-                className="absolute top-1 right-1 bg-surface-raised/95 hover:bg-surface-raised"
-              >
-                <Icon icon={Trash} size={18} />
-              </IconButton>
-              {it.caption ? <p className="truncate px-1 py-1.5 type-caption text-ink-muted">{it.caption}</p> : null}
+            <li key={it.id} className={cn("group relative flex flex-col gap-2 transition-opacity duration-base", deleting && deletingId === it.id && "opacity-50")}>
+              <div className="relative overflow-hidden rounded-card shadow-raised transition-[box-shadow,translate] duration-base ease-settle group-hover:-translate-y-0.5 group-hover:shadow-float">
+                {/* The visible caption below names the image; repeating it as alt text would be read twice. */}
+                <Photo src={it.url} alt={it.caption ? "" : "Portfolio-Bild"} tone={catSlug(it.categoryId)} seed={it.id} sizes="(min-width: 1024px) 260px, 50vw" ratio="1/1" />
+                <IconButton
+                  label={`Bild${it.caption ? ` „${it.caption}“` : ""} entfernen`}
+                  onClick={() => remove(it.id)}
+                  disabled={deleting && deletingId === it.id}
+                  className="absolute top-2 right-2 z-[4] size-10! glass-strong glass-edge shadow-raised transition-opacity duration-fast hover:bg-white! hover:text-danger [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:focus-visible:opacity-100"
+                >
+                  <Icon icon={Trash} size={18} />
+                </IconButton>
+              </div>
+              {it.caption ? <p className="truncate px-0.5 type-caption text-ink-muted">{it.caption}</p> : null}
             </li>
           ))}
         </ul>
       ) : (
-        <EmptyState className="py-2!" title="Noch kein Portfolio.">
-          Zeig {minRecommended} oder mehr Arbeiten – Nägel, Make-up oder dein Set-up vor Ort. Profile mit Bildern werden deutlich häufiger gebucht.
-        </EmptyState>
+        <div className="rounded-card bg-surface-raised px-5 shadow-raised">
+          <EmptyState className="py-6!" seed="pro-portfolio" title="Noch kein Portfolio.">
+            Zeig {minRecommended} oder mehr Arbeiten – Nägel, Make-up oder dein Set-up vor Ort. Profile mit Bildern werden deutlich häufiger gebucht.
+          </EmptyState>
+        </div>
       )}
 
       {/* Submitted without React's form reset: file, caption and category survive a rejected upload (N5). */}
-      <form ref={formRef} action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-4 border border-line bg-surface-raised p-5" noValidate>
-        <h3 className="type-heading-s">Bild hinzufügen</h3>
-        <label className="flex cursor-pointer flex-col items-start gap-2">
+      <form ref={formRef} action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6" noValidate>
+        <h3 className="type-heading-m">Bild hinzufügen</h3>
+        <label className="group/drop flex cursor-pointer flex-col gap-2">
           <input
             ref={fileRef}
             type="file"
@@ -184,11 +189,18 @@ export function PortfolioManager({
             }}
           />
           <span className="type-label-s text-ink">Bilddatei</span>
-          <span className="inline-flex h-control items-center gap-2 rounded-xs border border-line-strong bg-surface px-4 type-label text-ink transition-colors hover:border-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus">
-            <Icon icon={ImagePlus} />
-            {fileName ?? "Bild auswählen"}
+          <span
+            className={cn(
+              "flex min-h-28 flex-col items-center justify-center gap-2 rounded-tile border-[1.5px] border-dashed px-4 py-5 text-center transition-[border-color,background-color] duration-fast peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-disabled:cursor-not-allowed peer-disabled:opacity-60",
+              fileName ? "border-ink bg-surface-tint" : "border-line-strong bg-surface hover:border-ink hover:bg-surface-tint",
+            )}
+          >
+            <span className={cn("inline-flex size-10 items-center justify-center rounded-full transition-colors", fileName ? "bg-ink text-ink-inverse" : "bg-surface-raised text-ink shadow-raised")}>
+              <Icon icon={ImagePlus} />
+            </span>
+            <span className="max-w-full truncate type-label text-ink">{fileName ?? "Bild auswählen"}</span>
+            <span className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB · {items.length} von 24 Bildern</span>
           </span>
-          <span className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB · {items.length} von 24 Bildern</span>
         </label>
         <div className="grid gap-4 sm:grid-cols-2">
           <Input

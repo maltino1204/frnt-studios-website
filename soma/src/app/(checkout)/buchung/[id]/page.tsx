@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CalendarPlus } from "lucide-react";
+import { ArrowRight, CalendarDays, CalendarPlus, CalendarX2, ChevronRight, CircleCheck, CirclePlay, ClipboardList, Clock, CreditCard, Hourglass, MapPin, StickyNote, type LucideIcon } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { getBookingForCustomer } from "@/server/services/bookings";
 import { REVIEW_TAG_OPTIONS } from "@/server/services/reviews";
 import { searchProviders } from "@/server/services/search";
 import type { CustomerBookingDTO, ProviderSearchResult, SearchInput, Session } from "@/server/dto";
+import { AuraBackground } from "@/components/ui/aura";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
-import { Notice } from "@/components/ui/feedback";
+import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
-import { Container, Overline } from "@/components/ui/layout";
+import { Container } from "@/components/ui/layout";
+import { SuccessCheck } from "@/components/ui/success";
 import { CheckLine, PriceBreakdown, type PriceLine } from "@/components/ui/summary";
+import { GlassPanel } from "@/components/ui/surface";
 import { Rating, Stars } from "@/components/ui/trust";
+import { cn } from "@/lib/cn";
 import { RebookButton } from "@/components/site/account-rebook";
 import { CancelBooking } from "@/components/site/checkout-cancel";
+import { ConfirmHaptic } from "@/components/site/checkout-confirmation";
 import { ReportProblem } from "@/components/site/checkout-dispute";
 import { DevPayButton } from "@/components/site/checkout-pay";
-import { RoofLineDraw } from "@/components/site/checkout-roofline";
 import { ProviderRow } from "@/components/site/provider-row";
 import { ReviewComposer } from "@/components/site/review-composer";
 import {
@@ -28,8 +32,10 @@ import {
   freeUntilFor,
   LOCATION_LABELS,
   NBSP,
+  nbspDate,
   paymentLabel,
   scheduleLines,
+  statusTone,
   withStop,
 } from "@/components/site/checkout-format";
 import { berlinDateKey, formatDateLong, formatDay, formatDayShort, formatDuration, formatPriceExact, formatTime } from "@/lib/format";
@@ -43,70 +49,120 @@ function respondByText(iso: string | null): string {
   return `${d === "Heute" ? "" : `${d === "Morgen" ? "morgen" : d}, `}${formatTime(iso)}${NBSP}Uhr`;
 }
 
-function Hero({ b }: { b: CustomerBookingDTO }) {
+function heroCopy(b: CustomerBookingDTO): { title: string; body: string } {
   const first = b.provider.displayName;
-  const when = `${formatDay(b.startsAt)} um ${formatTime(b.startsAt)}${NBSP}Uhr`;
-  let title: string;
-  let body: string;
-  let line: "draw" | "static" = "static";
+  const when = `${nbspDate(formatDay(b.startsAt))} um ${formatTime(b.startsAt)}${NBSP}Uhr`;
   switch (b.status) {
     case "confirmed":
-      title = "Bestätigt.";
-      body = `${first} kommt am ${when} zu Ihnen.`;
-      line = "draw";
-      break;
+      return { title: "Bestätigt.", body: `${first} kommt am ${when} zu Ihnen.` };
     case "requested":
-      title = `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/[\s\u00a0]Uhr$/, "")}`;
-      body = `${withStop(`Ihre Anfrage ist bei ${first}`)} Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`;
-      break;
+      return {
+        title: `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/[\s\u00a0]Uhr$/, "")}`,
+        body: `${withStop(`Ihre Anfrage ist bei ${first}`)} Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`,
+      };
     case "pending_payment":
-      title = b.canPay ? "Zahlung ausstehend." : "Reservierung abgelaufen.";
-      body = b.canPay
-        ? `Der Termin ist bis ${b.holdExpiresAt ? `${formatTime(b.holdExpiresAt)}${NBSP}Uhr` : "in Kürze"} für Sie reserviert. Schließen Sie die Zahlung ab, um ihn zu sichern.`
-        : "Die Zahlung wurde nicht rechtzeitig abgeschlossen. Es wurde nichts belastet.";
-      break;
+      return b.canPay
+        ? {
+            title: "Zahlung ausstehend.",
+            body: `Der Termin ist bis ${b.holdExpiresAt ? `${formatTime(b.holdExpiresAt)}${NBSP}Uhr` : "in Kürze"} für Sie reserviert. Schließen Sie die Zahlung ab, um ihn zu sichern.`,
+          }
+        : { title: "Reservierung abgelaufen.", body: "Die Zahlung wurde nicht rechtzeitig abgeschlossen. Es wurde nichts belastet." };
     case "in_progress":
-      title = "Die Behandlung läuft.";
-      body = `${first} ist bei Ihnen. Wir wünschen Ihnen eine schöne Behandlung.`;
-      break;
+      return { title: "Die Behandlung läuft.", body: `${first} ist bei Ihnen. Wir wünschen Ihnen eine schöne Behandlung.` };
     case "completed":
-      title = "Abgeschlossen.";
-      body = `Ihr Termin bei ${first} am ${formatDateLong(b.startsAt)} ist abgeschlossen.`;
-      break;
+      return { title: "Abgeschlossen.", body: `Ihr Termin bei ${first} am ${nbspDate(formatDateLong(b.startsAt))} ist abgeschlossen.` };
     case "cancelled":
-      title = "Storniert.";
-      body =
-        b.cancelledBy === "provider"
-          ? `${first} musste den Termin leider absagen. Sie erhalten den vollen Betrag zurück.`
-          : b.cancellationFeeCents > 0
-            ? `Der Termin wurde storniert. Stornogebühr ${formatPriceExact(b.cancellationFeeCents)}, erstattet ${formatPriceExact(b.refundCents)}.`
-            : "Der Termin wurde storniert. Es fallen keine Kosten an.";
-      break;
+      return {
+        title: "Storniert.",
+        body:
+          b.cancelledBy === "provider"
+            ? `${first} musste den Termin leider absagen. Sie erhalten den vollen Betrag zurück.`
+            : b.cancellationFeeCents > 0
+              ? `Der Termin wurde storniert. Stornogebühr ${formatPriceExact(b.cancellationFeeCents)}, erstattet ${formatPriceExact(b.refundCents)}.`
+              : "Der Termin wurde storniert. Es fallen keine Kosten an.",
+      };
     case "declined":
-      title = "Leider abgesagt.";
-      body = `${first} kann diesen Termin nicht wahrnehmen. Es wurde nichts belastet.`;
-      break;
+      return { title: "Leider abgesagt.", body: `${first} kann diesen Termin nicht wahrnehmen. Es wurde nichts belastet.` };
     case "expired":
-      title = "Abgelaufen.";
-      body = b.confirmedAt ? "Diese Buchung ist abgelaufen." : "Die Anfrage wurde nicht rechtzeitig bestätigt. Es wurde nichts belastet.";
-      break;
+      return { title: "Abgelaufen.", body: b.confirmedAt ? "Diese Buchung ist abgelaufen." : "Die Anfrage wurde nicht rechtzeitig bestätigt. Es wurde nichts belastet." };
     case "no_show":
-      title = "Nicht angetroffen.";
-      body = "Die Fachkraft hat Sie zum vereinbarten Termin nicht angetroffen. Es gilt die volle Stornogebühr.";
-      break;
+      return { title: "Nicht angetroffen.", body: "Die Fachkraft hat Sie zum vereinbarten Termin nicht angetroffen. Es gilt die volle Stornogebühr." };
+  }
+}
+
+/** The status glyph above the headline: the drawn check on "Bestätigt.", calm icons otherwise. */
+function StatusGlyph({ b }: { b: CustomerBookingDTO }) {
+  if (b.status === "confirmed") return <SuccessCheck size={56} glow={false} />;
+  const map: Partial<Record<CustomerBookingDTO["status"], { icon: LucideIcon; cls: string }>> = {
+    requested: { icon: Hourglass, cls: "bg-warning-soft text-warning" },
+    pending_payment: { icon: CreditCard, cls: "bg-warning-soft text-warning" },
+    in_progress: { icon: CirclePlay, cls: "bg-accent-soft text-accent" },
+    completed: { icon: CircleCheck, cls: "bg-surface-raised text-ink" },
+  };
+  const m = map[b.status] ?? { icon: CalendarX2, cls: "bg-surface-raised text-ink-muted" };
+  return (
+    <span aria-hidden className={cn("inline-flex size-14 animate-pop items-center justify-center rounded-full shadow-raised", m.cls)}>
+      <Icon icon={m.icon} size={24} />
+    </span>
+  );
+}
+
+/** The Start-Code, digit by digit (staggered reveal). Screen readers get the spaced digits. */
+function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
+  if (!b.startCode) return null;
+  if (b.status === "in_progress") {
+    return (
+      <GlassPanel as="section" aria-labelledby="startcode" className="flex flex-col gap-2 p-5 md:p-6">
+        <p id="startcode" className="type-overline text-ink-muted">
+          Ihr Start-Code
+        </p>
+        <CheckLine>{b.startedAt ? `Code bestätigt um ${formatTime(b.startedAt)}${NBSP}Uhr.` : "Code bestätigt."}</CheckLine>
+      </GlassPanel>
+    );
   }
   return (
-    <header className="flex flex-col gap-4">
-      <p className="type-caption text-ink-muted">
-        Buchung <span className="code-ref text-ink">{b.reference}</span>
+    <GlassPanel as="section" aria-labelledby="startcode" className="flex flex-col gap-4 p-5 md:p-6">
+      <p id="startcode" className="type-overline text-ink-muted">
+        Ihr Start-Code
       </p>
-      <div className="flex flex-col gap-3">
-        {line === "draw" ? <RoofLineDraw /> : <span aria-hidden className="block h-0.5 w-6 bg-ink" />}
-        <h1 className="type-display-m">{title}</h1>
-      </div>
-      <p className="max-w-reading type-body-l text-ink-muted">{body}</p>
-    </header>
+      <p className="leading-none">
+        {" "}
+        <span aria-hidden className="stagger-rise">
+          {b.startCode.split("").map((d, i) => (
+            <span
+              key={i}
+              className="mr-2 inline-flex h-16 w-[3.25rem] items-center justify-center rounded-tile bg-surface-raised text-[2rem] font-[600] tracking-[-0.02em] text-ink shadow-raised num last:mr-0 sm:h-[4.5rem] sm:w-14 sm:text-[2.25rem]"
+              style={{ animationDelay: `${220 + i * 90}ms` }}
+            >
+              {d}
+            </span>
+          ))}
+        </span>{" "}
+        <span className="sr-only">{b.startCode.split("").join(" ")}</span>
+      </p>
+      <p className="type-body-s text-ink-muted">
+        Nennen Sie diesen Code Ihrer Fachkraft bei Ankunft. Erst mit dem Code beginnt der Termin – so wissen Sie, dass die richtige Person vor Ihnen steht.
+      </p>
+    </GlassPanel>
   );
+}
+
+function Fact({ icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex min-w-0 gap-3">
+      <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink-muted">
+        <Icon icon={icon} size={16} />
+      </span>
+      <div className="flex min-w-0 flex-col gap-0.5">
+        <dt className="type-caption text-ink-muted hyphens-none">{label}</dt>
+        <dd className="type-body-s text-ink">{children}</dd>
+      </div>
+    </div>
+  );
+}
+
+function Card({ className, ...props }: React.ComponentProps<"section">) {
+  return <section className={cn("flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised md:p-7", className)} {...props} />;
 }
 
 type Alternatives = {
@@ -201,173 +257,225 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
   const tierWouldCharge = !tierFreeUntil || Date.parse(tierFreeUntil) <= renderedAt;
   const inGrace = b.status === "confirmed" && !!graceUntil && Date.parse(graceUntil) > renderedAt && tierWouldCharge;
   const profileHref = routes.provider(b.provider.slug);
+  const { title, body } = heroCopy(b);
+  // Haptic only right after the booking was confirmed or sent (not on later visits).
+  const sentAt = b.status === "confirmed" ? (b.confirmedAt ? Date.parse(b.confirmedAt) : null) : b.status === "requested" ? bookedAt : null;
+  const fresh = sentAt !== null && renderedAt - sentAt < 120_000;
+  // Calm aura for every state; the live states get the fuller wash (text stays left, away from the glow).
+  const aura = ["confirmed", "requested", "in_progress"].includes(b.status) ? "hero" : ["completed", "pending_payment"].includes(b.status) ? "section" : "subtle";
+  const schedule = b.status === "confirmed" ? scheduleLines(b.cancellation.schedule, renderedAt) : [];
+  // Same filter as scheduleLines, so each line gets the tone of its own fee.
+  const tiers = b.cancellation.schedule.filter((e) => !e.until || Date.parse(e.until) > renderedAt);
+  const tierTone = (i: number) => {
+    const t = tiers[i];
+    if (!t) return "bg-line-strong";
+    if (t.feePercent <= 0 && !t.travelFeeRetained) return "bg-success";
+    return t.feePercent >= 100 ? "bg-danger/75" : "bg-warning/80";
+  };
+  const upcoming =
+    b.status === "confirmed"
+      ? { label: "Ihr Termin", time: `${formatDayShort(b.startsAt)}, ${formatTime(b.startsAt)}` }
+      : b.status === "requested"
+        ? { label: `Antwort von ${b.provider.displayName}`, time: `bis ${respondByText(b.respondBy)}` }
+        : null;
 
   return (
     <main id="inhalt" className="flex-1">
-      <Container width="content" className="flex flex-col gap-10 pt-8 pb-16 lg:gap-14 lg:pt-14 lg:pb-24">
-        <Hero b={b} />
-
-        {newAccount ? (
-          <Notice kind="info" title="Ihr Kundenkonto ist angelegt." className="max-w-reading">
-            {`Wir haben Ihnen eine E-Mail geschickt, um ein Passwort festzulegen. Bis dahin bleiben Sie auf diesem Gerät angemeldet und finden die Buchung unter „Meine Termine“.`}
-          </Notice>
-        ) : null}
-
-        {b.status === "pending_payment" && b.canPay && b.payment?.provider === "dev" ? <DevPayButton bookingId={b.id} /> : null}
-
-        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-6">
-          <div className="flex min-w-0 flex-col gap-10 lg:col-span-7">
-            {alternatives ? (
-              <section aria-labelledby="alternativen" className="flex flex-col gap-2">
-                <h2 id="alternativen" className="type-heading-m">
-                  {alternatives.results.length ? "Diese Profis haben Zeit" : "Andere Profis in Ihrer Nähe"}
-                </h2>
-                <p className="type-body-s text-ink-muted">
-                  {alternatives.results.length
-                    ? alternativesCaption(alternatives, b)
-                    : `Für ${b.serviceName} in ${b.location.postalCode} finden wir gerade keinen freien Termin. In der Suche sehen Sie alle Profis und Tage.`}
-                </p>
-                {alternatives.results.length ? (
-                  <div className="mt-2 flex flex-col border-t border-line">
-                    {alternatives.results.map((r) => (
-                      <ProviderRow key={r.providerId} result={r} postalCode={b.location.postalCode} date={alternatives.date} canFavorite headingLevel="h3" />
-                    ))}
-                  </div>
-                ) : null}
-                <div className="pt-4">
-                  <ButtonLink href={alternatives.searchHref} variant={alternatives.results.length ? "secondary" : "primary"} size="l" iconRight={<Icon icon={ArrowRight} />}>
-                    Andere Profis finden
-                  </ButtonLink>
-                </div>
-              </section>
-            ) : null}
-
-            {b.startCode && b.status === "in_progress" ? (
-              <section aria-labelledby="startcode" className="flex flex-col gap-2 border border-line p-5 md:p-6">
-                <p id="startcode" className="type-overline text-ink-muted">
-                  Ihr Start-Code
-                </p>
-                <CheckLine>{b.startedAt ? `Code bestätigt um ${formatTime(b.startedAt)}${NBSP}Uhr.` : "Code bestätigt."}</CheckLine>
-              </section>
-            ) : b.startCode ? (
-              <section aria-labelledby="startcode" className="flex flex-col gap-3 border border-line bg-surface-raised p-5 md:p-6">
-                <p id="startcode" className="type-overline text-ink-muted">
-                  Ihr Start-Code
-                </p>
-                <p className="font-display text-[3.5rem] leading-none font-[380] tracking-[0.18em] num">
-                  <span aria-hidden>{b.startCode}</span>
-                  <span className="sr-only">{b.startCode.split("").join(" ")}</span>
-                </p>
-                <p className="type-body-s text-ink-muted">
-                  Nennen Sie diesen Code Ihrer Fachkraft bei Ankunft. Erst mit dem Code beginnt der Termin – so wissen Sie, dass die richtige Person vor Ihnen steht.
-                </p>
-              </section>
-            ) : null}
-
-            <section aria-labelledby="details" className="flex flex-col gap-4">
-              <h2 id="details" className="type-heading-m">
-                Ihr Termin
-              </h2>
-              <div className="flex items-center gap-4 border-y border-line py-4">
-                <Avatar src={b.provider.avatarUrl} name={b.provider.displayName} size={48} />
-                <div className="min-w-0 flex-1">
-                  <Link href={profileHref} className="-my-1 inline-block py-1 type-heading-m hover:underline hover:underline-offset-4">
-                    {b.provider.displayName}
-                  </Link>
-                  <p>
-                    <Rating avg={b.provider.ratingAvg} count={b.provider.ratingCount} />
-                  </p>
-                </div>
+      <ConfirmHaptic bookingId={b.id} fresh={fresh} />
+      <Container width="content" className="flex flex-col gap-5 pt-6 pb-16 md:gap-6 lg:pt-10 lg:pb-24">
+        {/* Status hero: calm aura, the confirmation moment and (when confirmed) the Start-Code card. */}
+        <section aria-labelledby="status-titel" className="relative isolate overflow-clip rounded-panel bg-surface-raised shadow-raised">
+          {/* Muted text must stay AA: the fuller "hero" wash only where the text column stays left of the glow. */}
+          {aura === "hero" ? (
+            <>
+              <AuraBackground variant="section" placement="right" fade="none" className="lg:hidden" />
+              <AuraBackground variant="hero" placement="right" fade="none" className="hidden lg:block" />
+            </>
+          ) : (
+            <AuraBackground variant={aura} placement="right" fade="none" />
+          )}
+          <div className="grid gap-8 p-5 pt-7 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-10 lg:p-12">
+            <div className={cn("flex min-w-0 flex-col gap-5", b.startCode ? "lg:col-span-7" : "lg:col-span-9")}>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <Status tone={statusTone(b.status)}>{b.statusLabel}</Status>
+                <span className="type-caption text-ink-muted">
+                  Buchung <span className="code-ref text-ink">{b.reference}</span>
+                </span>
               </div>
-              <dl className="flex flex-col divide-y divide-line border-b border-line">
-                <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Behandlung</dt>
-                  <dd className="text-right type-body-s">{b.serviceName}</dd>
-                </div>
-                <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wann</dt>
-                  <dd className="text-right type-body-s num">
-                    {`${formatDayShort(b.startsAt)} · ${formatTime(b.startsAt)}–${formatTime(b.endsAt)}`}
-                    <span className="block text-ink-muted">{formatDuration(b.durationMinutes)}</span>
-                  </dd>
-                </div>
-                <div className="flex items-baseline justify-between gap-6 py-3">
-                  <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Wo</dt>
-                  <dd className="min-w-0 text-right type-body-s">
-                    <span className="block">{LOCATION_LABELS[b.location.kind]}</span>
-                    <span className="block">{b.location.addressLine}</span>
-                    <span className="block num">{`${b.location.postalCode} ${b.location.city}`}</span>
-                    {b.location.details ? <span className="block text-ink-muted">{b.location.details}</span> : null}
-                  </dd>
-                </div>
-                {b.notes ? (
-                  <div className="flex items-baseline justify-between gap-6 py-3">
-                    <dt className="shrink-0 type-body-s text-ink-muted hyphens-none">Hinweise</dt>
-                    <dd className="text-right type-body-s whitespace-pre-line">{b.notes}</dd>
-                  </div>
-                ) : null}
-              </dl>
-              {active ? (
+              <div className="flex flex-col gap-4">
+                <StatusGlyph b={b} />
+                <h1 id="status-titel" className="type-display-m">
+                  {title}
+                </h1>
+              </div>
+              <p className="max-w-reading type-body-l text-ink-muted">{body}</p>
+              {active && b.status !== "pending_payment" ? (
                 <div className="flex flex-wrap gap-2 pt-1">
                   <ButtonLink href={`${routes.booking(b.id)}/kalender`} variant="secondary" icon={<Icon icon={CalendarPlus} />} prefetch={false}>
                     Zum Kalender hinzufügen
                   </ButtonLink>
                 </div>
               ) : null}
-            </section>
+              {b.status === "pending_payment" && b.canPay && b.payment?.provider === "dev" ? <DevPayButton bookingId={b.id} /> : null}
+            </div>
+            {b.startCode ? (
+              <div className="min-w-0 lg:col-span-5">
+                <StartCodeCard b={b} />
+              </div>
+            ) : null}
+          </div>
+        </section>
 
-            {b.canReview ? (
-              <section aria-labelledby="bewerten" className="flex flex-col gap-4">
-                <h2 id="bewerten" className="type-heading-m">
-                  Bewerten
-                </h2>
-                <ReviewComposer bookingId={b.id} providerName={b.provider.displayName} tags={REVIEW_TAG_OPTIONS} />
-              </section>
-            ) : b.review ? (
-              <section aria-labelledby="bewertung" className="flex flex-col gap-2">
-                <h2 id="bewertung" className="type-heading-m">
-                  Ihre Bewertung
-                </h2>
-                <Stars value={b.review.rating} />
-                {b.review.comment ? <p className="type-body text-ink">{b.review.comment}</p> : null}
+        {newAccount ? (
+          <Notice kind="info" title="Ihr Kundenkonto ist angelegt.">
+            {`Wir haben Ihnen eine E-Mail geschickt, um ein Passwort festzulegen. Bis dahin bleiben Sie auf diesem Gerät angemeldet und finden die Buchung unter „Meine Termine“.`}
+          </Notice>
+        ) : null}
+
+        <div className="flex flex-col gap-5 md:gap-6 lg:grid lg:grid-cols-12 lg:items-start">
+          <div className="flex min-w-0 flex-col gap-5 md:gap-6 lg:col-span-7">
+            {alternatives ? (
+              <section aria-labelledby="alternativen" className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1.5 px-1">
+                  <h2 id="alternativen" className="type-heading-m">
+                    {alternatives.results.length ? "Diese Profis haben Zeit" : "Andere Profis in Ihrer Nähe"}
+                  </h2>
+                  <p className="type-body-s text-ink-muted">
+                    {alternatives.results.length
+                      ? alternativesCaption(alternatives, b)
+                      : `Für ${b.serviceName} in ${b.location.postalCode} finden wir gerade keinen freien Termin. In der Suche sehen Sie alle Profis und Tage.`}
+                  </p>
+                </div>
+                {alternatives.results.length ? (
+                  <div className="flex flex-col">
+                    {alternatives.results.map((r) => (
+                      <ProviderRow key={r.providerId} result={r} postalCode={b.location.postalCode} date={alternatives.date} canFavorite headingLevel="h3" />
+                    ))}
+                  </div>
+                ) : null}
+                <div className="flex flex-wrap items-center gap-2">
+                  <ButtonLink href={alternatives.searchHref} variant={alternatives.results.length ? "secondary" : "primary"} iconRight={<Icon icon={ArrowRight} />}>
+                    Andere Profis finden
+                  </ButtonLink>
+                  {b.canRebook ? <RebookButton bookingId={b.id} variant="ghost" label={`Wieder bei ${b.provider.displayName} buchen`} /> : null}
+                </div>
               </section>
             ) : null}
 
+            <Card aria-labelledby="details">
+              <h2 id="details" className="type-heading-m">
+                Ihr Termin
+              </h2>
+              <Link href={profileHref} className="group -m-2 flex items-center gap-4 rounded-tile p-2 transition-colors duration-fast focus-ring hover:bg-surface-sunken">
+                <Avatar src={b.provider.avatarUrl} name={b.provider.displayName} size={48} />
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="type-heading-s text-ink">{b.provider.displayName}</span>
+                  <Rating avg={b.provider.ratingAvg} count={b.provider.ratingCount} />
+                </span>
+                <Icon icon={ChevronRight} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
+              </Link>
+              <dl className="grid gap-x-6 gap-y-5 border-t border-line pt-5 sm:grid-cols-2">
+                <Fact icon={ClipboardList} label="Behandlung">
+                  {b.serviceName}
+                </Fact>
+                <Fact icon={CalendarDays} label="Wann">
+                  <span className="num">{`${formatDayShort(b.startsAt)} · ${formatTime(b.startsAt)}–${formatTime(b.endsAt)}`}</span>
+                  <span className="flex items-center gap-1 text-ink-muted num">
+                    <Icon icon={Clock} size={14} />
+                    {formatDuration(b.durationMinutes)}
+                  </span>
+                </Fact>
+                <Fact icon={MapPin} label="Wo">
+                  <span className="block">{LOCATION_LABELS[b.location.kind]}</span>
+                  <span className="block">{b.location.addressLine}</span>
+                  <span className="block num">{`${b.location.postalCode} ${b.location.city}`}</span>
+                  {b.location.details ? <span className="block text-ink-muted">{b.location.details}</span> : null}
+                </Fact>
+                {b.notes ? (
+                  <Fact icon={StickyNote} label="Hinweise">
+                    <span className="whitespace-pre-line">{b.notes}</span>
+                  </Fact>
+                ) : null}
+              </dl>
+              {b.canRebook && !alternatives ? (
+                <div className="flex flex-wrap gap-2 border-t border-line pt-5">
+                  <RebookButton bookingId={b.id} variant="secondary" label={`Wieder bei ${b.provider.displayName} buchen`} />
+                </div>
+              ) : null}
+            </Card>
+
+            {b.canReview ? (
+              <Card aria-labelledby="bewerten" className="scroll-mt-24">
+                <div className="flex flex-col gap-1">
+                  <h2 id="bewerten" className="type-heading-m">
+                    Bewerten
+                  </h2>
+                  <p className="type-body-s text-ink-muted">Ihre Bewertung hilft anderen bei der Wahl – und der Fachkraft.</p>
+                </div>
+                <ReviewComposer bookingId={b.id} providerName={b.provider.displayName} tags={REVIEW_TAG_OPTIONS} />
+              </Card>
+            ) : b.review ? (
+              <Card aria-labelledby="bewertung" className="gap-3">
+                <h2 id="bewertung" className="type-heading-m">
+                  Ihre Bewertung
+                </h2>
+                <Stars value={b.review.rating} size={20} />
+                {b.review.comment ? <p className="type-body text-ink">{b.review.comment}</p> : null}
+              </Card>
+            ) : null}
+
             {b.events.length ? (
-              <section aria-labelledby="verlauf" className="flex flex-col gap-4">
+              <Card aria-labelledby="verlauf">
                 <h2 id="verlauf" className="type-heading-m">
                   Verlauf
                 </h2>
                 <ol className="flex flex-col">
-                  {b.events.map((e, i) => (
-                    <li key={`${e.createdAt}-${i}`} className="grid grid-cols-[1rem_minmax(0,1fr)] gap-x-3 pb-4 last:pb-0">
-                      <span aria-hidden className="relative flex justify-center">
-                        <span className="mt-1.5 size-2 rounded-full bg-ink" />
-                        {i < b.events.length - 1 ? <span className="absolute top-4 bottom-[-0.5rem] w-px bg-line" /> : null}
+                  {b.events.map((e, i) => {
+                    const last = i === b.events.length - 1;
+                    const line = !last || !!upcoming;
+                    return (
+                      <li key={`${e.createdAt}-${i}`} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3.5 pb-5 last:pb-0">
+                        <span aria-hidden className="relative flex justify-center">
+                          {last && !upcoming ? (
+                            <span className="mt-1 size-3 rounded-full bg-aura shadow-[0_0_0_4px_rgb(84_102_255/0.12)]" />
+                          ) : (
+                            <span className="mt-1 size-3 rounded-full bg-ink shadow-[0_0_0_3px_var(--color-surface-raised)]" />
+                          )}
+                          {line ? <span className="absolute top-5 bottom-[-0.75rem] w-px bg-line-mid" /> : null}
+                        </span>
+                        <div className="flex flex-col gap-0.5">
+                          <p className="type-label text-ink">{EVENT_LABELS[e.toStatus]}</p>
+                          <p className="type-caption text-ink-muted num">{`${formatDayShort(e.createdAt)}, ${formatTime(e.createdAt)}`}</p>
+                          {e.note ? <p className="type-caption text-ink-muted">{e.note}</p> : null}
+                        </div>
+                      </li>
+                    );
+                  })}
+                  {upcoming ? (
+                    <li className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3.5">
+                      <span aria-hidden className="flex justify-center">
+                        <span className="mt-1 size-3 rounded-full border-[1.5px] border-dashed border-line-strong bg-surface-raised" />
                       </span>
-                      <div className="flex flex-col">
-                        <p className="type-body-s text-ink">{EVENT_LABELS[e.toStatus]}</p>
-                        <p className="type-caption text-ink-muted num">{`${formatDayShort(e.createdAt)}, ${formatTime(e.createdAt)}`}</p>
-                        {e.note ? <p className="type-caption text-ink-muted">{e.note}</p> : null}
+                      <div className="flex flex-col gap-0.5">
+                        <p className="type-label text-ink-muted">{upcoming.label}</p>
+                        <p className="type-caption text-ink-muted num">{upcoming.time}</p>
                       </div>
                     </li>
-                  ))}
+                  ) : null}
                 </ol>
-              </section>
+              </Card>
             ) : null}
           </div>
 
-          <aside aria-label="Preis und Optionen" className="flex flex-col gap-10 lg:col-span-5">
-            <div className="flex flex-col gap-4 lg:ml-6">
-              <h2 className="type-heading-m">Preis</h2>
+          <aside aria-label="Preis und Optionen" className="flex min-w-0 flex-col gap-5 md:gap-6 lg:col-span-5">
+            <Card aria-labelledby="preis-titel">
+              <h2 id="preis-titel" className="type-heading-m">
+                Preis
+              </h2>
               <PriceBreakdown
                 lines={lines}
                 totalCents={b.price.totalCents}
                 notes={[
-                  <span key="pay" className="flex items-center gap-2 text-ink">
-                    Zahlung: {paymentLabel(b.payment)}
-                    {b.payment?.cardLast4 ? <span className="text-ink-muted">{`· ${b.payment.cardBrand?.toUpperCase() ?? "Karte"} •••• ${b.payment.cardLast4}`}</span> : null}
-                  </span>,
                   ...(b.status === "cancelled" && (b.cancellationFeeCents > 0 || b.refundCents > 0)
                     ? [<span key="refund" className="num">{`Stornogebühr ${formatPriceExact(b.cancellationFeeCents)} · Erstattung ${formatPriceExact(b.refundCents)}`}</span>]
                     : []),
@@ -375,25 +483,40 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                   <span key="agent">{withStop(`SOMA vermittelt; Vertragspartner ist ${b.provider.displayName}`)}</span>,
                 ]}
               />
-            </div>
+              <div className="flex items-center gap-3 rounded-tile bg-surface-sunken p-3">
+                <span aria-hidden className="inline-flex h-8 w-12 shrink-0 items-center justify-center rounded-[6px] bg-surface-raised text-ink-muted shadow-raised">
+                  <Icon icon={CreditCard} size={16} />
+                </span>
+                <p className="min-w-0 type-caption text-ink">
+                  <span className="block font-[520]">{`Zahlung: ${paymentLabel(b.payment)}`}</span>
+                  {b.payment?.cardLast4 ? <span className="block text-ink-muted num">{`${b.payment.cardBrand?.toUpperCase() ?? "Karte"} •••• ${b.payment.cardLast4}`}</span> : null}
+                </p>
+              </div>
+            </Card>
 
             {b.canCancel || active ? (
-              <div className="flex flex-col gap-4 lg:ml-6">
-                <h2 className="type-heading-m">Stornierung</h2>
+              <Card aria-labelledby="storno-titel">
+                <h2 id="storno-titel" className="type-heading-m">
+                  Stornierung
+                </h2>
                 {b.status === "requested" ? (
                   <CheckLine>Bis zur Zusage jederzeit kostenlos zurückziehbar.</CheckLine>
                 ) : freeNow && freeUntil ? (
                   <CheckLine>{`Kostenlos stornierbar bis ${deadlineText(freeUntil)}.`}</CheckLine>
                 ) : null}
                 {inGrace ? <p className="type-caption text-ink-muted">{`In den ersten ${graceMinutes}${NBSP}Minuten nach der Buchung immer kostenlos stornierbar.`}</p> : null}
-                {b.status === "confirmed" ? (
-                  <ul className="flex flex-col gap-1">
-                    {scheduleLines(b.cancellation.schedule).map((l) => (
-                      <li key={l} className="type-caption text-ink-muted num">
-                        {l}
+                {schedule.length ? (
+                  <ol className="flex flex-col gap-2.5 rounded-tile bg-surface-sunken p-3.5">
+                    {schedule.map((l, i) => (
+                      <li key={l} className="flex items-start gap-2.5 type-caption text-ink-muted num">
+                        <span aria-hidden className={cn("mt-1 size-2 shrink-0 rounded-full", tierTone(i), i === 0 && "shadow-[0_0_0_3px_rgb(23_22_31/0.08)]")} />
+                        <span className={cn(i === 0 && "text-ink")}>
+                          {l}
+                          {i === 0 ? <span className="ml-1.5 inline-flex h-[18px] items-center rounded-full bg-surface-raised px-1.5 text-[11px] font-[560] text-ink shadow-raised">jetzt</span> : null}
+                        </span>
                       </li>
                     ))}
-                  </ul>
+                  </ol>
                 ) : null}
                 {b.canCancel && b.cancellation.ifCancelledNow ? (
                   <CancelBooking
@@ -408,28 +531,24 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                     tierFreeUntil={tierFreeUntil}
                   />
                 ) : null}
-              </div>
-            ) : null}
-
-            {b.canRebook || b.canDispute ? (
-              <div className="flex flex-col items-start gap-3 lg:ml-6">
-                {b.canRebook ? <RebookButton bookingId={b.id} variant="primary" size="l" label={`Wieder bei ${b.provider.displayName} buchen`} /> : null}
-                {b.canDispute ? <ReportProblem bookingId={b.id} /> : null}
-              </div>
+              </Card>
             ) : null}
 
             {b.status === "confirmed" ? (
-              <Notice kind="info" title="Vorbereitung" className="lg:ml-6">
+              <Notice kind="info" title="Vorbereitung">
                 Halten Sie bitte etwas Platz frei und sorgen Sie für einen ruhigen Raum. Alles Weitere bringt die Fachkraft mit.
               </Notice>
             ) : null}
 
-            <p className="type-caption text-ink-muted lg:ml-6">
-              Fragen zur Buchung?{" "}
-              <Link href={routes.help()} className="text-accent underline underline-offset-[0.2em]">
-                Hilfe & Kontakt
-              </Link>
-            </p>
+            <div className="flex flex-col items-start gap-1 px-1">
+              {b.canDispute ? <ReportProblem bookingId={b.id} /> : null}
+              <p className="type-caption text-ink-muted">
+                Fragen zur Buchung?{" "}
+                <Link href={routes.help()} className="text-accent underline underline-offset-[0.2em]">
+                  Hilfe & Kontakt
+                </Link>
+              </p>
+            </div>
           </aside>
         </div>
       </Container>

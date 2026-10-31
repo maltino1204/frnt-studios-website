@@ -90,22 +90,38 @@ export function WeeklyHoursEditor({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="type-body-s text-ink-muted">
-          <span className="font-semibold text-ink num">{(totalMin / 60).toLocaleString("de-DE", { maximumFractionDigits: 1 })} Std.</span> pro Woche buchbar
-        </p>
-        <Button variant="ghost" size="s" onClick={copyMonday} disabled={!week[1].length} icon={<Icon icon={Copy} size={16} />}>
-          Montag auf Di–Fr übertragen
-        </Button>
+      <div className="flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="flex flex-col gap-0.5">
+            <p className="type-label-s text-ink-muted">Pro Woche buchbar</p>
+            <p className="type-stat" aria-live="polite">
+              {(totalMin / 60).toLocaleString("de-DE", { maximumFractionDigits: 1 })}
+              <span className="ml-1.5 type-heading-m text-ink-muted">Std.</span>
+            </p>
+          </div>
+          <Button variant="secondary" size="s" onClick={copyMonday} disabled={!week[1].length} icon={<Icon icon={Copy} size={16} />}>
+            Montag auf Di–Fr übertragen
+          </Button>
+        </div>
+        <WeekOverview week={week} errors={errors} />
       </div>
-
-      <ul className="border-y border-line">
+      <div className="overflow-hidden rounded-card bg-surface-raised shadow-raised">
+      <div aria-hidden className="hidden items-center gap-6 border-b border-line bg-surface/60 px-5 py-2.5 type-label-s text-ink-muted md:flex">
+        <span className="w-44 shrink-0">Tag</span>
+        <span className="flex flex-1 gap-2">
+          <span className="flex-1">Beginn</span>
+          <span className="w-3" />
+          <span className="flex-1">Ende</span>
+          <span className="w-11" />
+        </span>
+      </div>
+      <ul className="divide-y divide-line">
         {WEEKDAYS.map((d) => {
           const wins = week[d.n];
           const on = wins.length > 0;
           const err = errors[d.n];
           return (
-            <li key={d.n} className="flex flex-col gap-3 border-b border-line py-4 last:border-b-0 md:flex-row md:items-start md:gap-6">
+            <li key={d.n} className={cn("flex flex-col gap-3 px-4 py-4 transition-colors duration-base sm:px-5 md:flex-row md:items-start md:gap-6", !on && "bg-surface/60", err && "bg-danger-soft/40")}>
               <div className="md:w-44 md:shrink-0">
                 <Switch
                   label={<span className="type-label">{d.long}</span>}
@@ -121,12 +137,12 @@ export function WeeklyHoursEditor({
                 />
               </div>
               {on ? (
-                <div className="flex flex-1 flex-col gap-2">
+                <div className="flex flex-1 animate-fade-in flex-col gap-2">
                   {wins.map((w, i) => (
-                    <div key={i} className="flex items-end gap-2">
+                    <div key={i} className="flex items-center gap-2">
                       <Select
                         label="Beginn"
-                        hideLabel={i > 0}
+                        hideLabel
                         className="flex-1"
                         value={w.start}
                         aria-invalid={err ? true : undefined}
@@ -143,10 +159,10 @@ export function WeeklyHoursEditor({
                           </option>
                         ))}
                       </Select>
-                      <span aria-hidden className="pb-3 text-ink-muted">–</span>
+                      <span aria-hidden className="w-3 text-center text-ink-muted">–</span>
                       <Select
                         label="Ende"
-                        hideLabel={i > 0}
+                        hideLabel
                         className="flex-1"
                         value={w.end}
                         aria-invalid={err ? true : undefined}
@@ -165,7 +181,7 @@ export function WeeklyHoursEditor({
                       </Select>
                       <IconButton
                         label={`Zeitfenster ${w.start}–${w.end} am ${d.long} entfernen`}
-                        className="mb-0.5"
+                        className="hover:bg-danger-soft! hover:text-danger"
                         onClick={() =>
                           update((x) => {
                             x[d.n].splice(i, 1);
@@ -208,6 +224,7 @@ export function WeeklyHoursEditor({
           );
         })}
       </ul>
+      </div>
 
       <div aria-live="polite">{error ? <Notice kind="danger">{error}</Notice> : null}</div>
 
@@ -215,13 +232,52 @@ export function WeeklyHoursEditor({
         className={cn(
           "flex items-center justify-between gap-4",
           stickySave &&
-            "sticky bottom-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom))] z-(--z-sticky-cta) -mx-(--space-gutter) border-t border-line bg-surface-raised px-(--space-gutter) py-3 shadow-bar lg:bottom-0 lg:mx-0 lg:border lg:px-5",
+            "sticky bottom-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom))] z-(--z-sticky-cta) -mx-(--space-gutter) glass-strong glass-edge px-(--space-gutter) py-3 shadow-bar lg:bottom-4 lg:mx-0 lg:rounded-card lg:px-5 lg:shadow-float",
         )}
       >
-        <p className="type-caption text-ink-muted">{dirty ? "Ungespeicherte Änderungen" : "Alles gespeichert"}</p>
+        <p className="flex items-center gap-2 type-caption text-ink-muted" aria-live="polite">
+          <span aria-hidden className={cn("size-2 rounded-full transition-colors duration-base", dirty ? "bg-warning" : "bg-success")} />
+          <span className="whitespace-nowrap sm:hidden">{dirty ? "Nicht gespeichert" : "Gespeichert"}</span>
+          <span className="max-sm:hidden">{dirty ? "Ungespeicherte Änderungen" : "Alles gespeichert"}</span>
+        </p>
         <Button size="l" loading={pending} onClick={save}>
           {submitLabel}
         </Button>
+      </div>
+    </div>
+  );
+}
+
+/** Live week overview: one 0–24 h track per day with the bookable windows (decorative; the editor below is the source). */
+function WeekOverview({ week, errors }: { week: Week; errors: Record<number, string | null> }) {
+  return (
+    <div aria-hidden className="flex flex-col gap-1.5">
+      {WEEKDAYS.map((d) => (
+        <div key={d.n} className="grid grid-cols-[1.75rem_minmax(0,1fr)] items-center gap-3">
+          <span className={cn("type-caption", week[d.n].length ? "text-ink" : "text-ink-muted")}>{d.short}</span>
+          <span className="relative h-2.5 overflow-hidden rounded-full bg-surface-sunken inset-shadow-sunken">
+            {week[d.n].map((w, i) => {
+              const a = toMin(w.start);
+              const b = toMin(w.end);
+              if (b <= a) return null;
+              return (
+                <span
+                  key={i}
+                  className={cn("absolute inset-y-0 rounded-full transition-[left,width] duration-spring ease-settle", errors[d.n] ? "bg-danger" : "bg-ink")}
+                  style={{ left: `${(a / 1440) * 100}%`, width: `${((b - a) / 1440) * 100}%` }}
+                />
+              );
+            })}
+          </span>
+        </div>
+      ))}
+      <div className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-3">
+        <span />
+        <span className="flex justify-between type-caption text-ink-muted num">
+          {["0", "6", "12", "18", "24"].map((h) => (
+            <span key={h}>{h}</span>
+          ))}
+        </span>
       </div>
     </div>
   );

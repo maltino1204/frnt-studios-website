@@ -56,6 +56,7 @@ export function ProviderDecisions({ providerId, status, missing }: { providerId:
         (d === "approve" || d === "reinstate") && missing.length > 0 ? (
           <Button
             key={d}
+            size="s"
             variant={SPECS[d].variant}
             disabled
             aria-describedby={APPROVAL_BLOCKED_ID}
@@ -76,6 +77,7 @@ function DecisionButton({ providerId, spec }: { providerId: string; spec: Decisi
   const [note, setNote] = useState("");
   const toast = useToast();
   const m = useMutation(decideProviderAction, {
+    haptic: spec.decision === "approve" || spec.decision === "reinstate",
     success: (r) => (r.warnings.length ? `Gespeichert, mit ${r.warnings.length} Hinweis${r.warnings.length === 1 ? "" : "en"}.` : `Gespeichert: ${spec.label}.`),
     onSuccess: (r) => {
       if (r.warnings.length) toast.show(r.warnings.join(" · "), { kind: "info" });

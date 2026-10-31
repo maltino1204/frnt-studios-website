@@ -1,25 +1,29 @@
 import { Container } from "@/components/ui/layout";
 import { Skeleton } from "@/components/ui/feedback";
 
+/** Mirrors the booking detail: status hero panel, detail cards, price column. */
 export default function BuchungLoading() {
   return (
     <div role="status" aria-busy="true" aria-label="Buchung wird geladen" className="flex-1">
-      <Container width="content" className="flex flex-col gap-10 pt-8 pb-16 lg:pt-14">
-        <div className="flex flex-col gap-4">
-          <Skeleton className="h-4 w-48" />
-          <Skeleton className="h-0.5 w-6" />
-          <Skeleton className="h-10 w-64" />
-          <Skeleton className="h-5 w-full max-w-reading" />
-        </div>
-        <div className="flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-6">
-          <div className="flex flex-col gap-6 lg:col-span-7">
-            <Skeleton className="h-36 w-full" />
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-40 w-full" />
+      <Container width="content" className="flex flex-col gap-5 pt-6 pb-16 md:gap-6 lg:pt-10">
+        <div className="grid gap-8 rounded-panel bg-surface-raised p-5 pt-7 shadow-raised sm:p-8 lg:grid-cols-12 lg:p-12">
+          <div className="flex flex-col gap-5 lg:col-span-7">
+            <Skeleton className="h-6 w-48 rounded-full" />
+            <Skeleton className="size-14 rounded-full" />
+            <Skeleton className="h-10 w-64" />
+            <Skeleton className="h-5 w-full max-w-reading rounded-full" />
+            <Skeleton className="h-11 w-56 rounded-full" />
           </div>
-          <div className="flex flex-col gap-4 lg:col-span-5 lg:ml-6">
-            <Skeleton className="h-5 w-24" />
-            <Skeleton className="h-32 w-full" />
+          <Skeleton className="h-52 rounded-card lg:col-span-5" />
+        </div>
+        <div className="flex flex-col gap-5 md:gap-6 lg:grid lg:grid-cols-12">
+          <div className="flex flex-col gap-5 md:gap-6 lg:col-span-7">
+            <Skeleton className="h-72 w-full rounded-card" />
+            <Skeleton className="h-48 w-full rounded-card" />
+          </div>
+          <div className="flex flex-col gap-5 md:gap-6 lg:col-span-5">
+            <Skeleton className="h-64 w-full rounded-card" />
+            <Skeleton className="h-56 w-full rounded-card" />
           </div>
         </div>
       </Container>

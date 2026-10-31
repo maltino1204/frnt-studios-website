@@ -1,14 +1,16 @@
-import { AgendaRow } from "@/components/pro/bookings";
-import { WEEKDAYS } from "@/components/pro/labels";
+import Link from "next/link";
+import { CalendarOff, ChevronLeft, ChevronRight, Clock, Inbox, Users } from "lucide-react";
+import { WeekGrid, WeekList, weekFigures } from "@/components/pro/calendar";
 import { ProHeader, ProPage } from "@/components/pro/page";
-import { addDaysKey, berlinDateKey, berlinToIso, formatTimeOffRange, weekdayOfKey } from "@/components/pro/time";
+import { addDaysKey, berlinDateKey, berlinToIso } from "@/components/pro/time";
 import { TimeOffEditor } from "@/components/pro/time-off-editor";
 import { WeeklyHoursEditor } from "@/components/pro/weekly-hours-editor";
 import { ButtonLink } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
+import { Icon } from "@/components/ui/icon";
 import { TabLinks } from "@/components/ui/tabs";
 import { cn } from "@/lib/cn";
-import { dateParts } from "@/lib/format";
+import { formatDayShort } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import { getProCalendar, listTimeOff } from "@/server/services/pro";
@@ -21,20 +23,35 @@ const VIEWS = [
   { slug: "abwesenheiten", label: "Abwesenheiten" },
 ] as const;
 
-const DAYS = 14;
+const weekHref = (offset: number) => `${routes.pro.calendar()}${offset ? `?woche=${offset}` : ""}`;
 
 export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/kalender">) {
   const session = await requireRole("provider", "/pro/kalender");
   const sp = await searchParams;
   const view = VIEWS.find((v) => v.slug === sp.ansicht)?.slug ?? "uebersicht";
-  const today = berlinDateKey();
-  const [cal, timeOff] = await Promise.all([getProCalendar(session, today, DAYS), view === "abwesenheiten" ? listTimeOff(session) : Promise.resolve(null)]);
+  const offset = Math.max(-12, Math.min(26, Math.trunc(Number(typeof sp.woche === "string" ? sp.woche : 0)) || 0));
   const now = Date.now();
+  // A rolling week that starts today: the first column is always the day you are in.
+  const monday = addDaysKey(berlinDateKey(now), offset * 7);
+  const [cal, timeOff] = await Promise.all([getProCalendar(session, monday, 7), view === "abwesenheiten" ? listTimeOff(session) : Promise.resolve(null)]);
+  const data = { monday, weeklyHours: cal.weeklyHours, timeOff: cal.timeOff, bookings: cal.bookings, now };
+  const figures = weekFigures(data);
+  const sunday = addDaysKey(monday, 6);
 
   return (
     <ProPage>
-      <ProHeader title="Kalender" description="Deine Arbeitszeiten bestimmen, wann Kundschaft dich buchen kann. Abwesenheiten blockieren einzelne Tage." />
-      <div className="flex flex-col gap-8">
+      <ProHeader
+        title="Kalender"
+        description="Deine Arbeitszeiten bestimmen, wann Kundschaft dich buchen kann. Abwesenheiten blockieren einzelne Tage."
+        actions={
+          view === "uebersicht" ? (
+            <ButtonLink href={`${routes.pro.calendar()}?ansicht=abwesenheiten`} variant="secondary" icon={<Icon icon={CalendarOff} />} className="max-md:hidden">
+              Abwesenheit eintragen
+            </ButtonLink>
+          ) : null
+        }
+      />
+      <div className="flex flex-col gap-6">
         <TabLinks
           label="Kalender-Ansicht"
           items={VIEWS.map((v) => ({ href: `${routes.pro.calendar()}?ansicht=${v.slug}`, label: v.label, active: v.slug === view }))}
@@ -47,61 +64,43 @@ export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/
                 Ohne Arbeitszeiten bist du nicht buchbar. <a href={`${routes.pro.calendar()}?ansicht=arbeitszeiten`}>Jetzt eintragen</a>
               </Notice>
             ) : null}
-            <ol className="border-y border-line" aria-label={`Die nächsten ${DAYS} Tage`}>
-              {Array.from({ length: DAYS }, (_, i) => {
-                const key = addDaysKey(today, i);
-                const dayStart = Date.parse(berlinToIso(key, "00:00"));
-                const dayEnd = Date.parse(berlinToIso(addDaysKey(key, 1), "00:00"));
-                const wd = weekdayOfKey(key);
-                const hours = cal.weeklyHours.filter((h) => h.weekday === wd);
-                const bookings = cal.bookings.filter((b) => {
-                  const t = Date.parse(b.startsAt);
-                  return t >= dayStart && t < dayEnd;
-                });
-                const off = cal.timeOff.filter((t) => Date.parse(t.start) < dayEnd && Date.parse(t.end) > dayStart);
-                const p = dateParts(new Date(dayStart + 12 * 3_600_000));
-                const isToday = i === 0;
-                return (
-                  <li key={key} className="grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-3 border-b border-line py-4 last:border-b-0 sm:grid-cols-[5rem_minmax(0,1fr)] sm:gap-x-4">
-                    <div className="relative flex flex-col items-start gap-0.5 pt-1">
-                      {isToday ? <span aria-hidden className="absolute -top-1 left-0 h-0.5 w-3 bg-ink" /> : null}
-                      <span className="type-caption text-ink-muted">{isToday ? "Heute" : WEEKDAYS[wd - 1].short}</span>
-                      <span className="type-heading-m num">{p.day}.</span>
-                      <span className="type-caption text-ink-muted">{p.month}</span>
-                    </div>
-                    <div className="flex min-w-0 flex-col gap-2">
-                      <p className={cn("type-caption", off.length ? "text-warning" : "text-ink-muted")}>
-                        {off.length
-                          ? `Abwesend · ${off.map((o) => `${formatTimeOffRange(o)}${o.reason ? ` (${o.reason})` : ""}`).join(", ")}`
-                          : hours.length
-                            ? `Buchbar ${hours.map((h) => `${h.start}–${h.end}`).join(", ")}`
-                            : "Nicht buchbar"}
-                      </p>
-                      {bookings.length ? (
-                        <ul className="border-t border-line">
-                          {bookings.map((b) => (
-                            <AgendaRow key={b.id} booking={b} now={now} compact />
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="type-body-s text-ink-muted">Keine Termine</p>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-            <div className="flex flex-wrap gap-2">
-              <ButtonLink href={`${routes.pro.calendar()}?ansicht=arbeitszeiten`} variant="secondary">
-                Arbeitszeiten bearbeiten
-              </ButtonLink>
-              <ButtonLink href={`${routes.pro.calendar()}?ansicht=abwesenheiten`} variant="ghost">
-                Abwesenheit eintragen
-              </ButtonLink>
+
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-3">
+                <nav aria-label="Zeitraum wechseln" className="flex items-center gap-1 rounded-full bg-surface-raised p-1 shadow-raised">
+                  <Link href={weekHref(offset - 1)} aria-label="Vorherige 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
+                    <Icon icon={ChevronLeft} size={18} />
+                  </Link>
+                  <Link
+                    href={weekHref(0)}
+                    aria-current={offset === 0 ? "date" : undefined}
+                    className={cn("inline-flex h-9 items-center rounded-full px-3.5 type-label-s transition-colors duration-fast pressable focus-ring", offset === 0 ? "bg-ink text-ink-inverse shadow-ink" : "text-ink hover:bg-surface-sunken")}
+                  >
+                    Heute
+                  </Link>
+                  <Link href={weekHref(offset + 1)} aria-label="Nächste 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
+                    <Icon icon={ChevronRight} size={18} />
+                  </Link>
+                </nav>
+                <div className="flex flex-col">
+                  <h2 className="type-heading-m">{offset === 0 ? "Nächste 7 Tage" : offset > 0 ? `In ${offset} ${offset === 1 ? "Woche" : "Wochen"}` : `Vor ${-offset} ${offset === -1 ? "Woche" : "Wochen"}`}</h2>
+                  <p className="type-caption text-ink-muted num">
+                    {formatDayShort(berlinToIso(monday, "12:00"))} – {formatDayShort(berlinToIso(sunday, "12:00"))}
+                  </p>
+                </div>
+              </div>
+              <ul className="flex flex-wrap gap-2" aria-label="Zeitraum in Zahlen">
+                <Figure icon={Users} label={`${figures.appts} ${figures.appts === 1 ? "Termin" : "Termine"}`} />
+                {figures.requests ? <Figure icon={Inbox} label={`${figures.requests} ${figures.requests === 1 ? "Anfrage" : "Anfragen"}`} tone="warning" /> : null}
+                <Figure icon={Clock} label={`${figures.bookableHours.toLocaleString("de-DE")} Std. buchbar`} />
+              </ul>
             </div>
+
+            <WeekGrid data={data} />
+            <WeekList data={data} />
           </>
         ) : view === "arbeitszeiten" ? (
-          <div className="max-w-[46rem]">
+          <div className="max-w-[48rem]">
             <WeeklyHoursEditor initial={cal.weeklyHours} />
           </div>
         ) : (
@@ -109,5 +108,14 @@ export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/
         )}
       </div>
     </ProPage>
+  );
+}
+
+function Figure({ icon, label, tone }: { icon: typeof Users; label: string; tone?: "warning" }) {
+  return (
+    <li className={cn("inline-flex h-8 items-center gap-1.5 rounded-full px-3 type-label-s num", tone === "warning" ? "bg-warning-soft text-warning" : "bg-surface-raised text-ink shadow-raised")}>
+      <Icon icon={icon} size={16} className={cn("size-3.5!", tone ? undefined : "text-ink-muted")} />
+      {label}
+    </li>
   );
 }

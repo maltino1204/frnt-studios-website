@@ -1,8 +1,9 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { BedDouble, Building2, House, MapPin, Pencil, Plus, Star, Trash2 } from "lucide-react";
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button, IconButton } from "@/components/ui/button";
 import { Modal } from "@/components/ui/dialog";
 import { EmptyState, Notice } from "@/components/ui/feedback";
 import { Checkbox, Input } from "@/components/ui/field";
@@ -16,6 +17,8 @@ import { initialActionState } from "@/server/actions/types";
 import type { AddressDTO, LocationKind } from "@/server/dto";
 import { LOCATION_LABELS } from "./checkout-format";
 import { keepValuesOnSubmit } from "./keep-values";
+
+const KIND_ICON = { home: House, hotel: BedDouble, office: Building2, other: MapPin } as const;
 
 function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null; onDone: () => void; isFirst: boolean }) {
   const [state, action, pending] = useActionState(saveAddressAction, initialActionState);
@@ -42,11 +45,15 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
         label="Art des Ortes"
         value={kind}
         onChange={(v) => setKind(v as LocationKind)}
-        options={[
-          { value: "home", label: "Zuhause" },
-          { value: "hotel", label: "Hotel" },
-          { value: "office", label: "Büro" },
-        ]}
+        options={(["home", "hotel", "office"] as const).map((k) => ({
+          value: k,
+          label: (
+            <span className="inline-flex items-center gap-1.5">
+              <Icon icon={KIND_ICON[k]} size={16} className="hidden min-[360px]:block" />
+              {LOCATION_LABELS[k]}
+            </span>
+          ),
+        }))}
       />
       <Input label="Bezeichnung" name="label" optional placeholder={`z. B. ${LOCATION_LABELS[kind]}`} defaultValue={address?.label ?? ""} maxLength={60} error={fe?.label} />
       <div className="grid grid-cols-[minmax(0,1fr)_6.5rem] gap-3">
@@ -95,44 +102,71 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
       toast.show(r.ok ? `${a.label ?? LOCATION_LABELS[a.kind]} ist jetzt Ihre Standardadresse.` : r.error, { kind: r.ok ? "success" : "error" });
     });
 
+  const full = addresses.length >= 20;
   return (
     <div className="flex flex-col gap-6">
-      {addresses.length ? (
-        <ul className="flex flex-col border-t border-line">
-          {addresses.map((a) => (
-            <li key={a.id} className="flex flex-col gap-3 border-b border-line py-4 sm:flex-row sm:items-start sm:justify-between">
+      {!addresses.length ? (
+        <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
+          <EmptyState title="Noch keine Adressen." seed="konto-adressen" className="py-8">
+            Speichern Sie Zuhause, Hotel oder Büro – beim nächsten Termin wählen Sie mit einem Tipp.
+          </EmptyState>
+        </div>
+      ) : null}
+      <ul className="grid gap-3 md:grid-cols-2 md:gap-4">
+        {addresses.map((a) => (
+          <li key={a.id} className="flex min-w-0 flex-col gap-4 rounded-card bg-surface-raised p-4 shadow-raised md:p-5">
+            <div className="flex min-w-0 items-start gap-3.5">
+              <span
+                aria-hidden
+                className={a.isDefault ? "inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-ink text-ink-inverse shadow-ink" : "inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink"}
+              >
+                <Icon icon={KIND_ICON[a.kind]} size={18} />
+              </span>
               <div className="flex min-w-0 flex-col gap-0.5">
                 <p className="flex flex-wrap items-center gap-2 type-heading-s">
                   {a.label ?? LOCATION_LABELS[a.kind]}
-                  {a.isDefault ? <span className="rounded-full border border-line-strong px-2 py-0.5 type-caption font-normal text-ink">Standard</span> : null}
+                  {a.isDefault ? (
+                    <Badge size="s" tone="accent" dot>
+                      Standard
+                    </Badge>
+                  ) : null}
                 </p>
                 <p className="type-body-s text-ink">{`${a.street} ${a.houseNumber}`}</p>
                 <p className="type-body-s text-ink num">{`${a.postalCode} ${a.city}`}</p>
-                {a.details ? <p className="type-caption text-ink-muted">{a.details}</p> : null}
-                <p className="type-caption text-ink-muted">{LOCATION_LABELS[a.kind]}</p>
+                {a.details ? <p className="line-clamp-2 type-caption text-ink-muted">{a.details}</p> : null}
+                {a.label && a.label !== LOCATION_LABELS[a.kind] ? <p className="type-caption text-ink-muted">{LOCATION_LABELS[a.kind]}</p> : null}
               </div>
-              <div className="-ml-3 flex shrink-0 flex-wrap gap-1 sm:ml-0">
-                <Button variant="ghost" size="s" onClick={() => setEditing(a)}>
-                  Bearbeiten
+            </div>
+            <div className="mt-auto -mb-1 -ml-2 flex items-center gap-1 border-t border-line pt-3">
+              <Button variant="ghost" size="s" onClick={() => setEditing(a)} icon={<Icon icon={Pencil} />}>
+                Bearbeiten
+              </Button>
+              {!a.isDefault ? (
+                <Button variant="ghost" size="s" onClick={() => makeDefault(a)} disabled={pending} icon={<Icon icon={Star} />}>
+                  Als Standard
                 </Button>
-                {!a.isDefault ? (
-                  <Button variant="ghost" size="s" onClick={() => makeDefault(a)} disabled={pending}>
-                    Als Standard
-                  </Button>
-                ) : null}
-                <Button variant="ghost" size="s" onClick={() => setDeleting(a)} className="text-danger">
-                  Löschen
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState title="Noch keine Adressen.">Speichern Sie Zuhause, Hotel oder Büro – beim nächsten Termin wählen Sie mit einem Tipp.</EmptyState>
-      )}
-      <Button variant="secondary" icon={<Icon icon={Plus} />} onClick={() => setEditing("new")} className="self-start" disabled={addresses.length >= 20}>
-        Adresse hinzufügen
-      </Button>
+              ) : null}
+              <IconButton label="Löschen" onClick={() => setDeleting(a)} className="-mr-2.5 ml-auto text-danger hover:bg-danger-soft active:bg-danger-soft">
+                <Icon icon={Trash2} size={18} />
+              </IconButton>
+            </div>
+          </li>
+        ))}
+        <li className="flex">
+          <button
+            type="button"
+            onClick={() => setEditing("new")}
+            disabled={full}
+            className="group flex min-h-32 w-full flex-col items-center justify-center gap-3 rounded-card border border-dashed border-line-strong bg-surface-raised/50 p-5 text-ink transition-[background-color,border-color,box-shadow] duration-base pressable focus-ring hover:border-ink-muted hover:bg-surface-raised hover:shadow-raised disabled:text-ink-disabled"
+          >
+            <span aria-hidden className="inline-flex size-11 items-center justify-center rounded-full bg-ink text-ink-inverse shadow-ink transition-[scale] duration-spring ease-spring group-hover:scale-105 group-disabled:bg-surface-sunken group-disabled:text-ink-disabled group-disabled:shadow-none">
+              <Icon icon={Plus} size={20} />
+            </span>
+            <span className="type-label">Adresse hinzufügen</span>
+            <span className="type-caption text-ink-muted">{full ? "Höchstens 20 Adressen." : "Zuhause, Hotel oder Büro"}</span>
+          </button>
+        </li>
+      </ul>
 
       {editing ? (
         <Sheet open onClose={() => setEditing(null)} title={editing === "new" ? "Neue Adresse" : "Adresse bearbeiten"}>

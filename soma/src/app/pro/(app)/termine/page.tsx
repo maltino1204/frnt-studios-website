@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/ui/feedback";
 import { TabLinks } from "@/components/ui/tabs";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
-import { countProBookingTabs, listProBookingsTab, type ProBookingTab } from "@/server/services/pro-ext";
+import { countProBookingTabs, getProviderTerms, listProBookingsTab, type ProBookingTab } from "@/server/services/pro-ext";
 
 export const metadata = { title: "Termine" };
 
@@ -29,7 +29,7 @@ const PAGE_SIZE = 20;
 export default async function ProBookingsPage({ searchParams }: PageProps<"/pro/termine">) {
   const session = await requireRole("provider", "/pro/termine");
   const sp = await searchParams;
-  const counts = await countProBookingTabs(session);
+  const [counts, terms] = await Promise.all([countProBookingTabs(session), getProviderTerms()]);
   const slug = typeof sp.tab === "string" ? sp.tab : counts.requests > 0 ? "anfragen" : "bevorstehend";
   const current = TABS.find((t) => t.slug === slug) ?? TABS[1];
   const page = Math.max(1, Number(typeof sp.seite === "string" ? sp.seite : 1) || 1);
@@ -52,21 +52,32 @@ export default async function ProBookingsPage({ searchParams }: PageProps<"/pro/
           }))}
         />
         {shown === 0 ? (
-          <EmptyState className="py-4!" title={empty.title}>
-            {empty.body}
-          </EmptyState>
+          <div className="rounded-card bg-surface-raised px-5 shadow-raised lg:px-8">
+            <EmptyState className="py-8!" seed={`pro-termine-${current.tab}`} title={empty.title}>
+              {empty.body}
+            </EmptyState>
+          </div>
         ) : current.tab === "requests" ? (
-          <div className="flex flex-col gap-3">
+          <div className="grid gap-4 xl:grid-cols-2">
             {list.items.map((b) => (
-              <RequestPanel key={b.id} booking={b} headingLevel="h2" />
+              <RequestPanel key={b.id} booking={b} headingLevel="h2" serverNow={now} windowHours={terms.requestResponseHours} />
             ))}
           </div>
         ) : (
-          <ul className="border-y border-line">
-            {list.items.map((b) => (
-              <BookingListRow key={b.id} booking={b} now={now} />
-            ))}
-          </ul>
+          <div className="overflow-hidden rounded-card bg-surface-raised shadow-raised">
+            <div className="hidden items-center gap-4 border-b border-line bg-surface/60 px-5 py-2.5 type-label-s text-ink-muted md:flex">
+              <span className="w-13 shrink-0">Datum</span>
+              <span className="flex-1">Termin</span>
+              <span className="w-36 shrink-0">Status</span>
+              <span className="w-24 shrink-0 text-right">Auszahlung</span>
+              <span aria-hidden className="w-4 shrink-0" />
+            </div>
+            <ul className="divide-y divide-line">
+              {list.items.map((b) => (
+                <BookingListRow key={b.id} booking={b} now={now} />
+              ))}
+            </ul>
+          </div>
         )}
         {shown > 0 ? (
           <div className="flex flex-wrap items-center justify-between gap-4">

@@ -25,7 +25,7 @@ export function SearchPrompt({
   const today = berlinDateKey();
   const tomorrow = berlinDateKey(new Date(Date.now() + 86_400_000));
   return (
-    <form action="/suche" method="get" className="flex w-full max-w-form flex-col gap-5 rounded-xs border border-line-strong bg-surface-raised p-5 md:p-6">
+    <form action="/suche" method="get" className="flex w-full max-w-form flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-float md:p-7">
       <Input
         label="Wo?"
         name="plz"

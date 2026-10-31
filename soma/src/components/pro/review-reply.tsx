@@ -20,7 +20,7 @@ export function ReviewReply({ reviewId, authorName }: { reviewId: string; author
   const [pending, start] = useTransition();
   if (!open) {
     return (
-      <Button variant="ghost" size="s" className="-ml-3 self-start" icon={<Icon icon={MessageSquare} size={16} />} onClick={() => setOpen(true)}>
+      <Button variant="secondary" size="s" className="self-start" icon={<Icon icon={MessageSquare} size={16} />} onClick={() => setOpen(true)}>
         Öffentlich antworten
       </Button>
     );
@@ -35,7 +35,7 @@ export function ReviewReply({ reviewId, authorName }: { reviewId: string; author
       router.refresh();
     });
   return (
-    <div className="flex flex-col gap-3 border-l-2 border-line pl-4">
+    <div className="flex animate-fade-in flex-col gap-3 rounded-tile bg-surface-sunken/70 p-4 inset-shadow-sunken">
       <Textarea
         label={`Deine Antwort an ${authorName ?? "die Kundschaft"}`}
         rows={3}
@@ -46,7 +46,7 @@ export function ReviewReply({ reviewId, authorName }: { reviewId: string; author
         error={error}
         hint="Öffentlich sichtbar in deinem Profil. Du kannst einmal antworten."
       />
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button loading={pending} onClick={submit} disabled={text.trim().length < 2}>
           Antwort veröffentlichen
         </Button>

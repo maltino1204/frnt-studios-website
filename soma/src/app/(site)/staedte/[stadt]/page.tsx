@@ -8,7 +8,7 @@ import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
 import { getCityIntro } from "@/components/site/discovery-content";
 import { floorsById, fromPrice, splitHeadline, toEntryCatalog } from "@/components/site/discovery-copy";
-import { DiscoveryHero } from "@/components/site/discovery-hero";
+import { DiscoveryHero, HeroBadge } from "@/components/site/discovery-hero";
 import { breadcrumbLd, JsonLd } from "@/components/site/discovery-json-ld";
 import { LinkGrid, providerCountLabel } from "@/components/site/discovery-links";
 import { Rail } from "@/components/site/discovery-rail";
@@ -70,6 +70,8 @@ async function StadtContent({ city }: { city: CityDTO }) {
     const p = floors.filter((f) => f.categorySlug === slug).map((f) => f.fromCents);
     return p.length ? Math.min(...p) : null;
   };
+  const liveCount = catalog.filter((c) => count(c.slug) > 0).length;
+  const cityFrom = floors.length ? Math.min(...floors.map((f) => f.fromCents)) : null;
   const [title, emphasis] = splitHeadline(intro.title ? `${intro.title}.` : `Beauty & Wellness zu Hause. In ${city.name}.`);
   const crumbs = [
     { name: "Start", path: routes.home() },
@@ -80,17 +82,33 @@ async function StadtContent({ city }: { city: CityDTO }) {
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <Container className="pt-6 md:pt-8">
-        <Breadcrumbs items={crumbs} />
-      </Container>
-
       <DiscoveryHero
         size="m"
+        breadcrumbs={<Breadcrumbs items={crumbs} />}
+        ambient={false}
         overline={city.state && city.state !== city.name ? `${city.name} · ${city.state}` : `Stadt · ${city.name}`}
         title={title}
         emphasis={emphasis}
         lead={intro.body ?? `Geprüfte Profis kommen in ${city.name} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}
-        photo={{ src: images.editorial.arrival, alt: "", word: `${city.name}.` }}
+        photo={{ src: images.editorial.arrival, alt: "", word: `${city.name}.`, tone: "brows-lashes", seed: `stadt:${city.slug}` }}
+        badges={
+          <>
+            <HeroBadge className="top-[10%] -left-2 sm:-left-6 lg:-left-10">
+              <span className="flex flex-col">
+                <span className="type-heading-l num">{`${liveCount} von ${catalog.length}`}</span>
+                <span className="type-caption text-ink-muted">Behandlungen buchbar</span>
+              </span>
+            </HeroBadge>
+            {cityFrom != null ? (
+              <HeroBadge glass className="right-4 bottom-[12%] hidden sm:flex lg:-right-6">
+                <span className="flex flex-col">
+                  <span className="type-heading-s num">{fromPrice(cityFrom)}</span>
+                  <span className="type-caption text-ink">zzgl. Anfahrt</span>
+                </span>
+              </HeroBadge>
+            ) : null}
+          </>
+        }
       >
         <BookingEntry catalog={toEntryCatalog(catalog, fm)} postalExample={examples[city.slug] ?? "10115"} />
       </DiscoveryHero>

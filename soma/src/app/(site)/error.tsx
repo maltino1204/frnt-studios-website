@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { Button, ButtonLink } from "@/components/ui/button";
+import { EmptyArt } from "@/components/ui/feedback";
 import { Container } from "@/components/ui/layout";
 import { SUPPORT_EMAIL } from "@/lib/brand";
 
@@ -14,7 +15,7 @@ export default function SiteError({ error, retry }: { error: unknown; retry: () 
   return (
     <Container className="py-(--space-section)">
       <div role="alert" className="flex max-w-[36rem] flex-col gap-6">
-        <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+        <EmptyArt seed="fehler" tone="massage" />
         <h1 className="type-display-l">
           Das hat nicht geklappt.
         </h1>

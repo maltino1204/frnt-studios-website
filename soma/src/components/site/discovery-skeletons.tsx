@@ -1,60 +1,64 @@
 import { Skeleton, SkeletonText } from "@/components/ui/feedback";
 import { Container } from "@/components/ui/layout";
 
-/** Booking entry geometry: three 64px rows + L button (mobile), one 72px bar (lg, hero). */
+/** Booking entry geometry: three 64px rows + L button in a card (mobile), one 72px pill bar (lg, hero). */
 export function EntrySkeleton({ bar = true }: { bar?: boolean }) {
   return (
     <div aria-hidden className={bar ? "w-full lg:w-[min(55rem,calc(100vw-2*var(--space-gutter)))]" : "w-full"}>
-      <div className={bar ? "flex flex-col border border-line bg-surface-raised lg:h-[4.5rem] lg:flex-row lg:items-center" : "flex flex-col border border-line bg-surface-raised"}>
+      <div
+        className={
+          bar
+            ? "flex flex-col rounded-card bg-surface-raised shadow-raised lg:h-[4.5rem] lg:flex-row lg:items-center lg:rounded-full"
+            : "flex flex-col rounded-card bg-surface-raised shadow-raised"
+        }
+      >
         {[0, 1, 2].map((i) => (
-          <div key={i} className={bar ? "flex h-16 flex-col justify-center gap-2 border-b border-line px-4 lg:flex-1 lg:border-b-0 lg:px-5" : "flex h-16 flex-col justify-center gap-2 border-b border-line px-4"}>
-            <Skeleton className="h-2.5 w-10" />
-            <Skeleton className="h-3.5 w-32" />
+          <div key={i} className={bar ? "flex h-16 flex-col justify-center gap-2 px-5 lg:flex-1 lg:px-6" : "flex h-16 flex-col justify-center gap-2 px-5"}>
+            <Skeleton className="h-2.5 w-10 rounded-full" />
+            <Skeleton className="h-3.5 w-32 rounded-full" />
           </div>
         ))}
         <div className={bar ? "p-2 lg:p-0 lg:pr-2.5" : "p-2"}>
-          <Skeleton className={bar ? "h-control-l w-full lg:w-60" : "h-control-l w-full"} />
+          <Skeleton className={bar ? "h-control-l w-full rounded-full lg:w-60" : "h-control-l w-full rounded-full"} />
         </div>
       </div>
     </div>
   );
 }
 
-/** Hero: overline, display headline, lead, entry; image 4:5 below on mobile, right half from lg. */
+/** Hero: overline, display headline, lead; booking entry; media panel (right from lg). */
 export function HeroSkeleton() {
   return (
     <div role="status" aria-busy="true" aria-label="Wird geladen">
-      <section className="relative lg:flex lg:min-h-[min(calc(100svh-var(--header-height)),52rem)] lg:items-center">
-        <Container className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-6">
-          <div className="flex flex-col gap-8 pt-8 pb-10 md:pt-14 md:pb-14 lg:col-span-6 lg:py-24">
-            <div className="flex max-w-[38rem] flex-col gap-5">
-              <Skeleton className="h-3 w-32" />
-              <Skeleton className="h-10 w-4/5 lg:h-14" />
-              <SkeletonText lines={3} className="type-body-l max-w-[34rem]" />
-            </div>
+      <section>
+        <Container className="grid gap-10 pt-4 pb-14 md:pt-6 lg:grid-cols-12 lg:items-center lg:gap-6 lg:gap-y-10 lg:pt-8 lg:pb-20">
+          <div className="flex max-w-[38rem] flex-col gap-5 lg:col-span-6">
+            <Skeleton className="h-3 w-32 rounded-full" />
+            <Skeleton className="h-10 w-4/5 rounded-full lg:h-12" />
+            <SkeletonText lines={3} className="type-body-l max-w-[34rem]" />
+          </div>
+          <div className="lg:order-3 lg:col-span-12">
             <EntrySkeleton />
           </div>
+          <Skeleton className="aspect-[16/10] w-full rounded-panel sm:aspect-[2/1] lg:order-2 lg:col-span-5 lg:col-start-8 lg:aspect-[5/4]" />
         </Container>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50%+0.75rem)]">
-          <Skeleton className="aspect-[4/5] w-full md:aspect-[3/2] lg:aspect-auto lg:h-full" />
-        </div>
       </section>
     </div>
   );
 }
 
-/** Rows of a hairline list (services, providers). */
+/** Rows of a card list (services, providers). */
 export function RowsSkeleton({ rows = 4, portrait }: { rows?: number; portrait?: boolean }) {
   return (
-    <ul aria-hidden className="border-t border-line">
+    <ul aria-hidden className={portrait ? "flex flex-col gap-3" : "flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised"}>
       {Array.from({ length: rows }, (_, i) => (
-        <li key={i} className="flex items-start gap-4 border-b border-line py-5">
-          {portrait ? <Skeleton className="size-[4.5rem] shrink-0" /> : null}
+        <li key={i} className={portrait ? "flex items-start gap-4 rounded-card bg-surface-raised p-3 pr-4 shadow-raised" : "flex items-start gap-4 py-5"}>
+          {portrait ? <Skeleton className="size-[4.5rem] shrink-0 rounded-tile" /> : null}
           <div className="flex flex-1 flex-col gap-2">
-            <Skeleton className="h-4 w-1/2" />
+            <Skeleton className="h-4 w-1/2 rounded-full" />
             <SkeletonText lines={2} className="type-body-s" />
           </div>
-          <Skeleton className="h-4 w-14 shrink-0" />
+          <Skeleton className="h-4 w-14 shrink-0 rounded-full" />
         </li>
       ))}
     </ul>
@@ -65,8 +69,8 @@ export function RowsSkeleton({ rows = 4, portrait }: { rows?: number; portrait?:
 export function CategoryPageSkeleton() {
   return (
     <>
-      <Container className="pt-6 md:pt-8">
-        <Skeleton className="h-3 w-48" />
+      <Container className="pt-5 md:pt-7">
+        <Skeleton className="h-3 w-48 rounded-full" />
       </Container>
       <HeroSkeleton />
     </>
@@ -77,8 +81,8 @@ export function CategoryPageSkeleton() {
 export function SeoPageSkeleton() {
   return (
     <Container className="pt-6 pb-(--space-section) md:pt-8" role="status" aria-busy="true" aria-label="Wird geladen">
-      <Skeleton className="h-3 w-56" />
-      <div className="grid gap-10 pt-8 md:pt-12 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
+      <Skeleton className="h-3 w-56 rounded-full" />
+      <div className="grid gap-10 pt-6 md:pt-10 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
         <div className="flex flex-col gap-5 lg:col-span-7">
           <Skeleton className="h-3 w-32" />
           <Skeleton className="h-9 w-4/5 md:h-11" />

@@ -23,6 +23,7 @@ import { Icon } from "@/components/ui/icon";
 import { Photo } from "@/components/ui/photo";
 import { Sheet } from "@/components/ui/sheet";
 import { Spinner } from "@/components/ui/spinner";
+import { SuccessCheck } from "@/components/ui/success";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDayShort } from "@/lib/format";
 import { images } from "@/lib/images";
@@ -170,7 +171,7 @@ function Popover({
       role="dialog"
       aria-label={label}
       className={cn(
-        "absolute top-[calc(100%+0.5rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] flex-col overflow-hidden rounded-xs border border-line bg-surface-raised text-ink shadow-float animate-fade-in",
+        "absolute top-[calc(100%+0.75rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] origin-top-left flex-col overflow-hidden rounded-card glass-strong glass-edge text-ink shadow-overlay animate-dialog-in",
         className,
       )}
     >
@@ -202,12 +203,12 @@ function WasPicker({
         <button
           type="button"
           onClick={() => setView(null)}
-          className="-mx-2 mb-2 inline-flex min-h-touch items-center gap-1.5 self-start rounded-xs px-2 type-label-s text-ink-muted hover:text-ink"
+          className="-mx-2 mb-2 inline-flex min-h-touch items-center gap-1.5 self-start rounded-full px-3 type-label-s text-ink-muted pressable focus-ring hover:bg-surface-sunken hover:text-ink"
         >
           <Icon icon={ChevronLeft} size={16} />
           Alle Behandlungen
         </button>
-        <ul className="flex flex-col border-t border-line">
+        <ul className="flex flex-col">
           <li>
             <PickRow
               selected={categorySlug === current.slug && !serviceId}
@@ -237,14 +238,14 @@ function WasPicker({
             type="button"
             onClick={() => setView(c.slug)}
             aria-pressed={categorySlug === c.slug}
-            className="group flex w-full items-center gap-4 border-b border-line py-3 text-left transition-colors duration-fast hover:bg-surface-sunken/60"
+            className="group -mx-2 flex w-[calc(100%+1rem)] items-center gap-4 rounded-control px-2 py-2.5 text-left pressable focus-ring hover:bg-surface-sunken/70"
           >
             <Photo
               src={c.imagePath ?? images.category(c.slug)}
               alt=""
               tone={c.slug}
               sizes="40px"
-              className="aspect-[4/5] w-10 shrink-0"
+              className="aspect-square w-11 shrink-0 rounded-[10px] shadow-raised"
             />
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className={cn("type-heading-s", categorySlug === c.slug && "underline decoration-1 underline-offset-4")}>{c.name}</span>
@@ -269,7 +270,7 @@ function PickRow({ selected, onClick, title, meta }: { selected: boolean; onClic
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className="flex min-h-14 w-full items-center justify-between gap-4 border-b border-line py-3 text-left transition-colors duration-fast hover:bg-surface-sunken/60"
+      className="-mx-2 flex min-h-14 w-[calc(100%+1rem)] items-center justify-between gap-4 rounded-control px-2 py-3 text-left pressable focus-ring hover:bg-surface-sunken/70"
     >
       <span className="flex min-w-0 flex-col gap-0.5">
         <span className={cn("type-body text-ink", selected && "font-semibold")}>{title}</span>
@@ -278,7 +279,7 @@ function PickRow({ selected, onClick, title, meta }: { selected: boolean; onClic
       <span
         aria-hidden
         className={cn(
-          "size-5 shrink-0 rounded-full border transition-[border-width,border-color] duration-fast",
+          "size-5 shrink-0 rounded-full border bg-surface-raised transition-[border-width,border-color] duration-spring ease-spring",
           selected ? "border-[6px] border-ink" : "border-line-strong",
         )}
       />
@@ -361,8 +362,9 @@ function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySl
   const [state, action, pending] = useActionState(joinWaitlistAction, initialActionState);
   if (state?.ok) {
     return (
-      <p className="type-body-s text-ink">
-        Eingetragen. Wir melden uns, sobald Profis in {postalCode} buchbar sind.
+      <p className="flex items-center gap-3 type-body-s text-ink">
+        <SuccessCheck size={32} glow={false} />
+        <span>Eingetragen. Wir melden uns, sobald Profis in {postalCode} buchbar sind.</span>
       </p>
     );
   }
@@ -568,12 +570,12 @@ export function BookingEntry({
 
   /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero). */
   const segment = cn(
-    "relative flex min-w-0 flex-col justify-center border-b border-line px-4",
-    bar ? "h-16 lg:h-full lg:border-b-0 lg:px-5" : "h-16",
+    "relative flex min-w-0 flex-col justify-center px-5 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-line after:content-['']",
+    bar ? "h-16 lg:h-full lg:px-6 lg:after:hidden" : "h-16",
   );
   const divider = bar ? "lg:before:absolute lg:before:inset-y-5 lg:before:left-0 lg:before:w-px lg:before:bg-line lg:before:content-['']" : "";
   const caption = "type-caption text-ink-muted";
-  const value = cn("block type-body text-ink", bar && "lg:leading-tight");
+  const value = "block truncate text-body leading-snug text-ink";
 
   const wasPicker = <WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />;
   const wannPicker = <WannPicker when={when} onChange={setWhen} />;
@@ -586,13 +588,13 @@ export function BookingEntry({
         noValidate
         onSubmit={submit}
         className={cn(
-          "flex flex-col rounded-xs border bg-surface-raised text-ink",
-          invalid ? "border-danger" : "border-line-strong",
-          bar && "lg:grid lg:h-[4.5rem] lg:grid-cols-[1.1fr_1.2fr_1fr_auto] lg:items-center",
+          "flex flex-col rounded-card bg-surface-raised text-ink shadow-float ring-inset transition-shadow duration-base",
+          invalid ? "ring-2 ring-danger" : "ring-1 ring-line-mid",
+          bar && "lg:grid lg:h-[4.5rem] lg:grid-cols-[1.2fr_1.1fr_1.25fr_auto] lg:items-center lg:rounded-full",
         )}
       >
         {/* Wo? */}
-        <div className={cn(segment, "pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:pr-2")}>
+        <div className={cn(segment, "rounded-t-card pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:rounded-full lg:pr-2")}>
           <label htmlFor={`${uid}-plz`} className={caption}>
             Wo?<span className="sr-only"> Postleitzahl</span>
           </label>
@@ -631,7 +633,7 @@ export function BookingEntry({
               onClick={locate}
               aria-label="Standort verwenden"
               title="Standort verwenden"
-              className="-my-2 inline-flex size-touch shrink-0 items-center justify-center rounded-xs text-ink-muted transition-colors duration-fast hover:bg-surface-sunken hover:text-ink"
+              className="-my-2 inline-flex size-touch shrink-0 items-center justify-center rounded-full text-ink-muted pressable focus-ring hover:bg-surface-sunken hover:text-ink"
             >
               {locating ? <Spinner size={20} /> : <Icon icon={LocateFixed} />}
             </button>
@@ -646,7 +648,7 @@ export function BookingEntry({
             onClick={() => setOpen(open === "was" ? null : "was")}
             aria-haspopup="dialog"
             aria-expanded={open === "was"}
-            className={cn("-mx-4 flex h-full items-center justify-between gap-3 px-4 text-left transition-colors duration-fast", bar && "lg:-mx-5 lg:px-5 lg:hover:bg-surface-sunken/60")}
+            className={cn("-mx-5 flex h-full items-center justify-between gap-3 px-5 text-left transition-colors duration-fast focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus", bar && "lg:-mx-6 lg:rounded-full lg:px-6 lg:hover:bg-surface-sunken/70", bar && open === "was" && "lg:bg-surface-sunken/70")}
           >
             <span className="flex min-w-0 flex-col">
               <span className={caption}>Was?</span>
@@ -662,14 +664,14 @@ export function BookingEntry({
         </div>
 
         {/* Wann? */}
-        <div className={cn(segment, divider)}>
+        <div className={cn(segment, divider, "after:hidden")}>
           <button
             ref={wannRef}
             type="button"
             onClick={() => setOpen(open === "wann" ? null : "wann")}
             aria-haspopup="dialog"
             aria-expanded={open === "wann"}
-            className={cn("-mx-4 flex h-full items-center justify-between gap-3 px-4 text-left transition-colors duration-fast", bar && "lg:-mx-5 lg:px-5 lg:hover:bg-surface-sunken/60")}
+            className={cn("-mx-5 flex h-full items-center justify-between gap-3 px-5 text-left transition-colors duration-fast focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus", bar && "lg:-mx-6 lg:rounded-full lg:px-6 lg:hover:bg-surface-sunken/70", bar && open === "wann" && "lg:bg-surface-sunken/70")}
           >
             <span className="flex min-w-0 flex-col">
               <span className={caption}>Wann?</span>
@@ -695,7 +697,7 @@ export function BookingEntry({
           ) : null}
         </div>
 
-        <div className={cn("p-2", bar && "lg:p-0 lg:pr-2.5")}>
+        <div className={cn("p-2 pt-1", bar && "lg:p-0 lg:pr-2.5")}>
           <Button type="submit" size="l" block loading={pending}>
             Verfügbare Profis anzeigen
           </Button>
@@ -717,7 +719,7 @@ export function BookingEntry({
         ) : loc.status === "error" ? (
           <p id={hintId} className="mt-3 type-caption text-ink-muted">{loc.message}</p>
         ) : loc.status === "outside" ? (
-          <div className="mt-4 flex flex-col gap-3 border-l-2 border-ink pl-4">
+          <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised animate-rise sm:p-5">
             <p className="type-body-s text-ink">
               In Ihrer Gegend sind wir noch nicht. Sollen wir Ihnen Bescheid geben, sobald es in {loc.data.postalCode} losgeht?
             </p>

@@ -10,9 +10,11 @@ import type { AddressDTO, QuoteDTO } from "@/server/dto";
 import { ButtonLink } from "@/components/ui/button";
 import { NotFoundState } from "@/components/site/not-found-state";
 import { Container } from "@/components/ui/layout";
+import { AuraBackground } from "@/components/ui/aura";
 import { CheckoutForm, type CheckoutCustomer } from "@/components/site/checkout-form";
 import { CheckoutPlzForm } from "@/components/site/checkout-plz-form";
-import { slotChipLabel } from "@/components/site/checkout-format";
+import { slotChipLabel, slotTileClasses } from "@/components/site/checkout-format";
+import { Overline } from "@/components/ui/layout";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Termin buchen", robots: { index: false, follow: false } };
@@ -87,13 +89,15 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
   if (!plz) {
     return (
       <Shell>
-        <div className="flex max-w-form flex-col gap-6">
+        <section className="relative isolate mx-auto flex max-w-form flex-col gap-6 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
+          <AuraBackground variant="subtle" placement="top" fade="bottom" animate={false} />
           <div className="flex flex-col gap-3">
+            <Overline>Ihre Buchung</Overline>
             <h1 className="type-display-s">Wo findet die Behandlung statt?</h1>
             <p className="type-body-s text-ink-muted">Mit Ihrer Postleitzahl berechnen wir den Endpreis inklusive Anfahrt und prüfen das Einsatzgebiet.</p>
           </div>
           <CheckoutPlzForm angebot={angebot} start={startsAt} einladung={einladung} von={von} />
-        </div>
+        </section>
       </Shell>
     );
   }
@@ -105,10 +109,13 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     if (isServiceError(e) && e.code === "validation") {
       return (
         <Shell>
-          <div className="flex max-w-form flex-col gap-6">
-            <h1 className="type-display-s">Bitte prüfen Sie die Postleitzahl.</h1>
+          <section className="mx-auto flex max-w-form flex-col gap-6 rounded-card bg-surface-raised p-6 shadow-float md:p-8">
+            <div className="flex flex-col gap-3">
+              <Overline>Ihre Buchung</Overline>
+              <h1 className="type-display-s">Bitte prüfen Sie die Postleitzahl.</h1>
+            </div>
             <CheckoutPlzForm angebot={angebot} start={startsAt} einladung={einladung} von={von} error={e.fieldErrors?.postalCode ?? e.message} initial={plz} />
-          </div>
+          </section>
         </Shell>
       );
     }
@@ -149,8 +156,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     const next = days.flatMap((d) => d.slots).slice(0, 6);
     return (
       <Shell>
-        <div className="flex max-w-reading flex-col items-start gap-5">
-          <span aria-hidden className="block h-0.5 w-6 bg-ink" />
+        <section className="relative isolate flex max-w-reading flex-col items-start gap-5 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
+          <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
+          <span aria-hidden className="block h-0.5 w-6 rounded-full bg-aura" />
           <h1 className="type-display-s">Dieser Termin ist nicht mehr frei.</h1>
           <p className="type-body-s text-ink-muted">
             {next.length
@@ -158,12 +166,12 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
               : `Bei ${quote.providerName} ist in den nächsten 7 Tagen leider nichts mehr frei.`}
           </p>
           {next.length ? (
-            <ul className="flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-2 stagger-rise">
               {next.map((s) => (
                 <li key={s}>
                   <Link
                     href={checkoutHref({ angebot, start: s, plz, adresse: initialAddressId, einladung, von })}
-                    className="inline-flex h-touch items-center rounded-xs border border-line bg-surface-raised px-4 type-label num text-ink transition-colors duration-fast hover:border-ink"
+                    className={slotTileClasses}
                   >
                     {slotChipLabel(s, true)}
                   </Link>
@@ -179,7 +187,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
               Andere Profis
             </ButtonLink>
           </div>
-        </div>
+        </section>
       </Shell>
     );
   }
@@ -189,8 +197,8 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     : null;
 
   return (
-    <main id="inhalt" className="flex-1 pb-44 lg:pb-0">
-      <Container width="content" className="pt-6 pb-16 lg:pt-12 lg:pb-24">
+    <main id="inhalt" className="flex-1 pb-36 lg:pb-0">
+      <Container width="content" className="pt-6 pb-16 lg:pt-10 lg:pb-24">
         <CheckoutForm
           quote={quote}
           categorySlug={offering?.categorySlug ?? null}
