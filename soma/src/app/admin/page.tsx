@@ -13,7 +13,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { StatGrid, StatTile } from "@/components/ui/data";
 import { CountPill, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
-import { Count } from "@/components/admin/count";
+import { CountUp as Count } from "@/components/ui/motion";
 import { formatPrice, formatRating, formatRelative } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
