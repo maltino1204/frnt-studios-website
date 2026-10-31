@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { AuraBackground } from "./aura";
+import { Ambient } from "./motion";
 import { surfaceClasses } from "./surface";
 
 /*
@@ -95,9 +96,9 @@ export function FloatingCard({
     </div>
   );
   const floated = float ? (
-    <div className="ambient animate-float" data-ambient="off" style={{ animationDelay: `${-((depth * 37) % 9)}s` }}>
+    <Ambient className="ambient animate-float" style={{ animationDelay: `${-((depth * 37) % 9)}s` }}>
       {card}
-    </div>
+    </Ambient>
   ) : (
     card
   );

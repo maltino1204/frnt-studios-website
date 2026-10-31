@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type ComponentProps,
   type CSSProperties,
   type ElementType,
@@ -23,21 +24,30 @@ const reducedMotion = () => typeof window !== "undefined" && window.matchMedia("
 /** Automation (E2E, QA screenshots) sees the finished page: full-page captures do not scroll, so nothing may wait for a scroll. */
 const automated = () => typeof navigator !== "undefined" && navigator.webdriver === true;
 
-/** True after the first client render anywhere: later mounts are client navigations. */
-let hydrated = false;
+const subscribeNever = () => () => {};
+/**
+ * false while React hydrates server HTML (server snapshot), true for
+ * components mounted fresh on the client (navigations, later state). This is
+ * per component and correct inside streamed Suspense boundaries, unlike a
+ * global "root has hydrated" flag.
+ */
+function useClientMount(): boolean {
+  return useSyncExternalStore(subscribeNever, () => true, () => false);
+}
 
 /* ------------------------------------------------------------------------ */
 /* MotionRoot: mounted once in the root layout.                             */
 /* ------------------------------------------------------------------------ */
 
 /**
- * Pauses ambient motion (aura drift, float) when it is offscreen or the tab
- * is hidden. Elements opt in with `data-ambient="off"` in their markup
- * (AuraBackground does this); visible ones are switched to "on".
+ * Global motion housekeeping, after mount only:
+ * - html[data-hidden] while the tab is hidden (pauses every `ambient` loop);
+ * - smooth scrolling for same-page anchor links.
+ * It never touches React-rendered attributes, so it cannot cause hydration
+ * mismatches (offscreen pausing lives in <Ambient>).
  */
 export function MotionRoot() {
   useEffect(() => {
-    hydrated = true;
     const root = document.documentElement;
     const onVisibility = () => {
       if (document.hidden) root.setAttribute("data-hidden", "");
@@ -61,40 +71,40 @@ export function MotionRoot() {
       target.focus({ preventScroll: true });
     };
     document.addEventListener("click", onClick);
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) (e.target as HTMLElement).dataset.ambient = e.isIntersecting ? "on" : "off";
-      },
-      { rootMargin: "120px 0px" },
-    );
-    const seen = new WeakSet<Element>();
-    const scan = (scope: ParentNode) => {
-      scope.querySelectorAll("[data-ambient]").forEach((el) => {
-        if (seen.has(el)) return;
-        seen.add(el);
-        io.observe(el);
-      });
-    };
-    scan(document);
-    let queued = false;
-    const mo = new MutationObserver(() => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        scan(document);
-      });
-    });
-    mo.observe(document.body, { childList: true, subtree: true });
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       document.removeEventListener("click", onClick);
-      io.disconnect();
-      mo.disconnect();
     };
   }, []);
   return null;
+}
+
+/* ------------------------------------------------------------------------ */
+/* Ambient: the gate for slow decorative loops.                             */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * A div whose `ambient` descendants (aura drift, float) run only while it is
+ * near the viewport. The attribute is React state: server and first client
+ * render are both data-ambient="off", and it switches after mount, so it is
+ * hydration-safe anywhere, including streamed Suspense boundaries.
+ * AuraArt/AuraBackground (animate) and FloatingCard (float) use it.
+ */
+export function Ambient({ className, style, children, ...props }: Omit<ComponentProps<"div">, "ref">) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reducedMotion() || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setOn(e.isIntersecting), { rootMargin: "120px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div ref={ref} data-ambient={on ? "on" : "off"} className={className} style={style} {...props}>
+      {children}
+    </div>
+  );
 }
 
 /* ------------------------------------------------------------------------ */
@@ -179,10 +189,16 @@ export function Reveal<T extends ElementType = "div">({
 /* ------------------------------------------------------------------------ */
 
 /**
- * Counts a number up (900 ms, expo-out) when it scrolls into view, or on
- * mount after a client navigation. On the first page load, values that are
- * already on screen render final immediately (no flash, no LCP cost).
- * Reduced motion: always final. Screen readers only ever get the final value.
+ * Counts a number up (900 ms, expo-out).
+ * - Hydration: the first client render always equals the server value (no
+ *   mismatch, also behind streamed loading.tsx boundaries, no LCP cost).
+ *   Values already on screen stay final; below the fold they count up from 0
+ *   when scrolled to.
+ * - Fresh client mounts (navigations) count up from 0 on mount.
+ * - A changed `value` animates from the number currently shown; re-renders
+ *   with the same value do nothing.
+ * - Reduced motion and automation: always final. Screen readers only ever
+ *   get the final value.
  */
 export function CountUp({
   value,
@@ -202,62 +218,85 @@ export function CountUp({
 }) {
   const fmt = (n: number) => `${prefix}${new Intl.NumberFormat("de-DE", format).format(n)}${suffix}`;
   const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(() => (hydrated ? 0 : value));
-  const [animating, setAnimating] = useState(hydrated);
+  const clientMount = useClientMount();
+  const [fresh] = useState(clientMount);
+  const [display, setDisplay] = useState(() => (fresh ? 0 : value));
+  const [animating, setAnimating] = useState(false);
+  const shown = useRef(display);
+  const first = useRef(true);
+  const decimals = format?.maximumFractionDigits ?? (Number.isInteger(value) ? 0 : 1);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const isFirst = first.current;
+    first.current = false;
+    const show = (n: number) => {
+      shown.current = n;
+      setDisplay(n);
+    };
     if (reducedMotion() || automated()) {
-      setDisplay(value);
+      show(value);
       setAnimating(false);
       return;
     }
-    const decimals = format?.maximumFractionDigits ?? (Number.isInteger(value) ? 0 : 1);
     let raf = 0;
-    const run = () => {
+    let io: IntersectionObserver | null = null;
+    const factor = Math.pow(10, decimals);
+    const run = (from: number) => {
+      if (from === value) {
+        show(value);
+        setAnimating(false);
+        return;
+      }
       const start = performance.now();
       setAnimating(true);
       const tick = (now: number) => {
         const t = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - t, 4);
-        const factor = Math.pow(10, decimals);
-        setDisplay(t >= 1 ? value : Math.round(value * eased * factor) / factor);
+        show(t >= 1 ? value : Math.round((from + (value - from) * eased) * factor) / factor);
         if (t < 1) raf = requestAnimationFrame(tick);
         else setAnimating(false);
       };
       raf = requestAnimationFrame(tick);
     };
+    const cleanup = () => {
+      io?.disconnect();
+      cancelAnimationFrame(raf);
+    };
+    if (!isFirst) {
+      // The target changed: glide from whatever is on screen now.
+      run(shown.current);
+      return cleanup;
+    }
     const rect = el.getBoundingClientRect();
     const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
-    if (onScreen && !animating && display === value) return; // first load, already visible: stay final
     if (onScreen) {
-      run();
-      return () => cancelAnimationFrame(raf);
+      run(fresh ? 0 : value); // hydrated + visible: already final, nothing moves
+      return cleanup;
     }
-    setDisplay(0);
-    const io = new IntersectionObserver(
+    // Below the fold: hide the figure at 0 (invisible, so no flash) and count when it arrives.
+    show(0);
+    io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          run();
+          io?.disconnect();
+          run(0);
         }
       },
       { threshold: 0.4 },
     );
     io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-    // Re-run only when the target value changes.
+    return cleanup;
+    // Only a new target value re-runs the effect; format/prefix changes just re-render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  const moving = animating || display !== value;
   return (
     <span ref={ref} className={cn("num", className)}>
-      <span aria-hidden={animating || display !== value ? true : undefined}>{fmt(display)}</span>
-      {animating || display !== value ? <span className="sr-only">{fmt(value)}</span> : null}
+      <span aria-hidden={moving ? true : undefined}>{fmt(display)}</span>
+      {moving ? <span className="sr-only">{fmt(value)}</span> : null}
     </span>
   );
 }
@@ -266,8 +305,23 @@ export function CountUp({
 /* Spotlight: a soft light that follows the pointer (pointer: fine only).   */
 /* ------------------------------------------------------------------------ */
 
-/** Wrap large cards and hero panels. Touch devices get nothing; it costs one rAF per move. */
-export function Spotlight({ className, children, ...props }: ComponentProps<"div">) {
+/**
+ * Wrap large cards and hero panels; give the wrapper the card's radius.
+ * The light is an overlay above the content (pointer-events: none), so it
+ * shows on opaque cards too: `fill` tints the surface (multiply, text stays
+ * AA), `border` draws a glowing 1 px rim, `both` does both. Touch devices get
+ * nothing; it costs one rAF per pointer move.
+ *
+ *   <Spotlight className="rounded-panel" variant="border">
+ *     <Surface radius="panel" interactive as={Link} href="…">…</Surface>
+ *   </Spotlight>
+ */
+export function Spotlight({
+  className,
+  children,
+  variant = "fill",
+  ...props
+}: ComponentProps<"div"> & { variant?: "fill" | "border" | "both" }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -301,6 +355,8 @@ export function Spotlight({ className, children, ...props }: ComponentProps<"div
   return (
     <div ref={ref} className={cn("spotlight", className)} {...props}>
       {children}
+      {variant !== "border" ? <span aria-hidden className="spotlight-fill" /> : null}
+      {variant !== "fill" ? <span aria-hidden className="spotlight-border" /> : null}
     </div>
   );
 }

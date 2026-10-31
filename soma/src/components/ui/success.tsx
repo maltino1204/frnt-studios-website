@@ -13,19 +13,35 @@ export function SuccessCheck({
   size = 48,
   tone = "success",
   glow = true,
+  glowSize,
   className,
 }: {
   size?: number;
   tone?: "success" | "accent" | "ink";
   /** soft aura halo behind the ring (hero moments) */
   glow?: boolean;
+  /**
+   * How far the halo reaches beyond the ring, in px (default ≈ 22 % of size,
+   * e.g. 12 px at 56). It is a radial gradient that ends exactly there (no
+   * blur filter), so it never spills onto neighbours; 0 = no halo.
+   */
+  glowSize?: number;
   className?: string;
 }) {
   const color = tone === "success" ? "text-success" : tone === "accent" ? "text-accent" : "text-ink";
   const fill = tone === "success" ? "bg-success-soft" : tone === "accent" ? "bg-accent-soft" : "bg-surface-sunken";
+  const reach = glowSize ?? Math.round(size * 0.22);
   return (
-    <span aria-hidden className={cn("relative inline-flex shrink-0 items-center justify-center", color, className)} style={{ width: size, height: size }}>
-      {glow ? <span className="absolute -inset-[35%] rounded-full bg-aura opacity-25 blur-xl animate-fade-in" /> : null}
+    <span aria-hidden className={cn("relative isolate inline-flex shrink-0 items-center justify-center", color, className)} style={{ width: size, height: size }}>
+      {glow && reach > 0 ? (
+        <span
+          className="pointer-events-none absolute -z-10 animate-fade-in rounded-full"
+          style={{
+            inset: -reach,
+            background: "radial-gradient(closest-side, rgb(84 102 255 / 0.32), rgb(159 139 255 / 0.2) 55%, rgb(255 168 148 / 0.14) 75%, transparent)",
+          }}
+        />
+      ) : null}
       <span className={cn("absolute inset-0 rounded-full shadow-raised animate-pop", fill)} />
       <svg viewBox="0 0 24 24" fill="none" className="relative" style={{ width: size * 0.5, height: size * 0.5 }}>
         <path

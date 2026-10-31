@@ -295,8 +295,8 @@ Every interactive element is at least 44 × 44 px (`size-touch`, or a pseudo-ele
 | Component | Import | v2 spec |
 |---|---|---|
 | `Sheet` | `@/components/ui/sheet` | Mobile: `glass-strong` bottom sheet, 28 px top radius, spring entry, **drag the header down to dismiss** (rubber band upwards, dismiss at 110 px or a fast flick), and an exit animation before close. From `md` it becomes a centred white dialog (`rounded-card shadow-overlay`). `variant="drawer"` is a right-hand 400 px drawer. Built on `<dialog>`: focus trap, Esc and focus restore. |
-| `Modal` | `@/components/ui/dialog` | Glass, `rounded-card`. Rises in and fades out. Only for consequential confirmations. |
-| `useDialogMotion(open, onClose)` | `@/components/ui/sheet` | Use it for any custom `<dialog>`: showModal, exit animation, then close. |
+| `Modal` | `@/components/ui/dialog` | Glass, `rounded-card`. Rises in and fades out. Only for consequential confirmations. On open, focus goes to the **first action** (the safe one, e.g. *Behalten*), never into a text field, so the mobile keyboard stays down. `initialFocus` takes `"actions"` (default), `"auto"` (platform default), a ref or a selector. |
+| `useDialogMotion(open, onClose, initialFocus?)` | `@/components/ui/sheet` | Use it for any custom `<dialog>`: showModal, focus per `initialFocus`, exit animation, then close. `Sheet` accepts `initialFocus` too (default `"auto"`, the close button). |
 | `ToastProvider`, `useToast()` | `@/components/ui/toast` | Glass tile that **springs in** and fades out. Success icons draw their check. `toast.show(msg, { kind, action, haptic: true })` (`haptic` for key confirmations). Shown for 5 s (8 s with an action) and paused on hover or focus. |
 
 ### 8.3 Content and status
@@ -311,7 +311,7 @@ Every interactive element is at least 44 × 44 px (`size-touch`, or a pseudo-ele
 | `Skeleton`, `SkeletonText` | same | Sunken fill with a transform-only light **shimmer**. The default radius is 10 px; pass a `rounded-*` class to match the final shape. Text bars are pills. |
 | `VerifiedBadge`, `Rating`, `Stars` | `@/components/ui/trust` | `withLabel` renders an accent-soft pill reading *Verifiziert*. The rating star stays ink (never yellow). *Neu auf SOMA* gets an aura dot. |
 | `PriceBreakdown`, `CheckLine`, `StepIndicator` | `@/components/ui/summary` | The total is `type-heading-l num` above a dashed mid line. `CheckLine` uses a success disc. The step indicator has 4 px pill segments: done is ink, current is aura, and the fill animates. |
-| `SuccessCheck` | `@/components/ui/success` | The confirmation moment: the ring pops, then the check draws in. |
+| `SuccessCheck` | `@/components/ui/success` | The confirmation moment: the ring pops, then the check draws in. The halo is a bounded radial gradient, `glowSize` px beyond the ring (default ≈ 22 % of `size`), isolated beneath the ring, so it never spills onto neighbours. `glow={false}` or `glowSize={0}` removes it. |
 
 ### 8.4 Data
 
@@ -437,17 +437,22 @@ The animation utilities are `animate-fade-in`, `animate-sheet-in`, `animate-dial
 <Reveal delay={120}>…</Reveal>
 ```
 
-**`CountUp`**. Use it for stats. It runs for 900 ms with expo-out. On first load, values already on screen render final (no flash). Below the fold, the value counts up when scrolled to; after a client navigation, it counts on mount. Screen readers always get the final value. Reduced motion shows the final value.
+**`CountUp`**. Use it for stats. It runs for 900 ms with expo-out.
+- **Hydration-safe:** the first client render always equals the server value, also inside streamed `loading.tsx` boundaries (it tells hydration from a fresh client mount per component with `useSyncExternalStore`).
+- **On first load:** values already on screen stay final (no flash). Below the fold, the value counts up when scrolled to.
+- **After a client navigation:** it counts up on mount.
+- **When `value` changes,** it glides from the number currently shown; re-renders with the same value do nothing.
+- Screen readers always get the final value. Reduced motion shows the final value.
 
 ```tsx
 <StatTile label="Umsatz (Woche)" value={<CountUp value={4820} suffix=" €" />} delta={12} spark={weeks} />
 <CountUp value={4.9} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
 ```
 
-**`Spotlight`**. A soft ultramarine-to-peach light follows the pointer. It only appears on `pointer: fine` devices, costs one rAF per move and is off with reduced motion. Give the wrapper the same radius as the card.
+**`Spotlight`**. A soft ultramarine-to-peach light follows the pointer. The light is an overlay **above** the content (`pointer-events: none`), so it shows on opaque cards: `variant="fill"` (default) tints the surface with a multiply blend (text stays AA), `"border"` lights a 1 px rim, `"both"` does both. It only appears on `pointer: fine` devices, costs one rAF per move and is off with reduced motion. Give the wrapper the same radius as the card.
 
 ```tsx
-<Spotlight className="rounded-panel"><Surface radius="panel" interactive as={Link} href="…">…</Surface></Spotlight>
+<Spotlight className="rounded-panel" variant="both"><Surface radius="panel" interactive as={Link} href="…">…</Surface></Spotlight>
 ```
 
 **`Parallax`** (`@/components/ui/floating`). Scroll-linked depth in pure CSS (`animation-timeline: view()`). Use 8–24 px. It is off with reduced motion and where unsupported.
@@ -460,9 +465,11 @@ The animation utilities are `animate-fade-in`, `animate-sheet-in`, `animate-dial
 
 **Automation.** Under `navigator.webdriver` (E2E, QA screenshots), `Reveal` and `CountUp` render their final state immediately. Full-page captures do not scroll, so nothing may wait for a scroll.
 
-**`MotionRoot`**. It is mounted once in `app/layout.tsx`. It:
+**`Ambient`** (`@/components/ui/motion`). The gate for slow loops: a `div` whose `ambient` descendants run only while it is near the viewport. Its `data-ambient` attribute is React state (`"off"` on the server and on the first client render, switched after mount), so it is **hydration-safe anywhere**, including streamed Suspense boundaries. `AuraArt animate`, `AuraBackground` and `FloatingCard float` use it, so the drift can stay on everywhere.
 
-- pauses ambient motion offscreen and in hidden tabs;
+**`MotionRoot`**. It is mounted once in `app/layout.tsx`. It never touches React-rendered attributes. It:
+
+- pauses ambient motion in hidden tabs (`html[data-hidden]`);
 - adds smooth scrolling to same-page anchor links (`#inhalt`, `#preis`) and moves focus to the target;
 - leaves programmatic scrolls instant, because a global `scroll-behavior: smooth` makes the router, focus and tests racy.
 
@@ -571,7 +578,7 @@ The brand is the same, at higher density.
 
 - **Imports.** `globals.css` imports `tailwindcss` first, then `../styles/tokens.css`. The tokens reset Tailwind's default colours, type sizes, radii, shadows and inset shadows.
 - **Wrapping utilities.** Use `text-wrap-style` (the longhand) in custom CSS. The `text-wrap` shorthand resets `text-wrap-mode` and silently breaks `truncate` and `whitespace-nowrap`.
-- **No `tailwind-merge`.** `cn()` is `clsx`, so do not pass two classes for the same property. Kit components that accept a radius override (`Skeleton`, `Portrait`, `Panel`) skip their default when your `className` contains `rounded`.
+- **`cn()` merges.** It is `clsx` + `tailwind-merge` v3, taught SOMA's scales (radius, shadow, inset shadow, spacing, containers, `text-*` sizes, fonts, ease, durations, animations; `bg-aura` counts as a background image). A later conflicting class wins, so `className` overrides component defaults: `<Badge className="hidden sm:inline-flex">`, `<IconButton className="rounded-control">`. Important overrides (`h-5!`) are kept next to the base class and win in CSS. Custom utilities (`type-*`, `glass`, `pressable`, `num` …) pass through untouched. Tests: `tests/unit/cn.test.ts`.
 - **After editing `globals.css` or `tokens.css` in dev:** check that the change is actually in the served CSS (`curl` the CSS chunk and `grep`). Turbopack occasionally keeps a stale transform. If it does, make a real content edit or restart the dev server **by PID**. Never put `url(` with a bare argument in a CSS comment.
 - **Hero recipe:**
 

@@ -1,6 +1,6 @@
 import { ProHeader, ProPage } from "@/components/pro/page";
 import { ReviewReply } from "@/components/pro/review-reply";
-import { CountUp } from "@/components/pro/count-up";
+import { CountUp } from "@/components/ui/motion";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { PaginationLabel } from "@/components/ui/data";

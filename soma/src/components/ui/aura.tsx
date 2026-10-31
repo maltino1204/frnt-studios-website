@@ -1,11 +1,13 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { auraBackground, auraBlobs, auraColor, auraPalette } from "@/lib/aura";
+import { Ambient } from "./motion";
 
 /*
  * The SOMA aura (design-guideline v2 §4 "Aura" and §9 "Imagery").
  * Server components: no client JS. Ambient drift is pure CSS and is paused
- * offscreen / in hidden tabs by <MotionRoot> via data-ambient.
+ * offscreen (the <Ambient> gate, hydration-safe) and in hidden tabs
+ * (html[data-hidden], set by <MotionRoot>).
  */
 
 /**
@@ -44,9 +46,8 @@ export function AuraArt({
   const palette = auraPalette(tone, seed);
   const blobs = auraBlobs(seed, palette);
   return (
-    <div
+    <Ambient
       aria-hidden
-      data-ambient="off"
       className={cn("absolute inset-0 overflow-hidden", grain && "grain", className)}
       style={{ backgroundColor, backgroundImage: base, ...style }}
     >
@@ -65,7 +66,7 @@ export function AuraArt({
         />
       ))}
       {children}
-    </div>
+    </Ambient>
   );
 }
 
@@ -132,10 +133,10 @@ export function AuraBackground({
           : fade === "radial"
             ? "radial-gradient(closest-side, #000 55%, transparent)"
             : undefined;
+  const Root = animate ? Ambient : "div";
   return (
-    <div
+    <Root
       aria-hidden
-      data-ambient={animate ? "off" : undefined}
       className={cn(
         "pointer-events-none absolute inset-0 -z-10 overflow-hidden",
         variant === "night" && "bg-night",
@@ -162,7 +163,7 @@ export function AuraBackground({
           }}
         />
       ))}
-    </div>
+    </Root>
   );
 }
 

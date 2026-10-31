@@ -7,9 +7,8 @@ import { AsideLink, ProPage, ProSection } from "@/components/pro/page";
 import { MoneyCount, RatingBars, weekKeyOf, weeklySeries } from "@/components/pro/stats";
 import { addDaysKey, berlinDateKey, berlinToIso, greetingFor } from "@/components/pro/time";
 import { ProgressRing } from "@/components/pro/ui";
-import { AmbientAura } from "@/components/pro/ambient-aura";
-import { CountUp } from "@/components/pro/count-up";
-import { AuraLine } from "@/components/ui/aura";
+import { CountUp } from "@/components/ui/motion";
+import { AuraLine, AuraBackground } from "@/components/ui/aura";
 import { ButtonLink } from "@/components/ui/button";
 import { StatGrid, StatTile } from "@/components/ui/data";
 import { EmptyState, Notice } from "@/components/ui/feedback";
@@ -86,7 +85,7 @@ export default async function ProTodayPage() {
     <ProPage>
       <div className="relative isolate flex flex-col gap-8 lg:gap-10">
         <div aria-hidden className="pointer-events-none absolute -inset-x-(--space-gutter) -top-6 -z-10 h-[20rem] lg:-top-10 lg:h-[24rem]">
-          <AmbientAura variant="subtle" placement="top" fade="bottom" />
+          <AuraBackground variant="subtle" placement="top" fade="bottom" />
         </div>
         <header className="flex flex-col gap-2.5">
           <p className="flex items-center gap-2.5 type-overline text-ink-muted" suppressHydrationWarning>

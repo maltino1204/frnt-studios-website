@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import { CountUp } from "./count-up";
+import { CountUp } from "@/components/ui/motion";
 import { berlinDateKey } from "@/lib/format";
 import { addDaysKey, weekdayOfKey } from "./time";
 

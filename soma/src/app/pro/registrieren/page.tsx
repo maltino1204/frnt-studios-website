@@ -12,9 +12,8 @@ import { PayoutButton } from "@/components/pro/payout-button";
 import { buildRequirements } from "@/components/pro/requirements";
 import { ServicesEditor } from "@/components/pro/services-editor";
 import { ButtonLink, buttonClasses } from "@/components/ui/button";
-import { AmbientAura } from "@/components/pro/ambient-aura";
 import { CardSection } from "@/components/pro/ui";
-import { AuraLine } from "@/components/ui/aura";
+import { AuraLine, AuraBackground } from "@/components/ui/aura";
 import { SuccessCheck } from "@/components/ui/success";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
@@ -299,7 +298,7 @@ function WizardFrame({
   return (
     <>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] overflow-clip">
-        <AmbientAura variant="subtle" placement="top" fade="bottom" />
+        <AuraBackground variant="subtle" placement="top" fade="bottom" />
       </div>
       <Container width="content" className="flex flex-col gap-8 pt-6 md:gap-10 md:pt-10">
         <WizardSteps current={current} done={done} />
@@ -370,7 +369,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
   return (
     <>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] overflow-clip">
-        <AmbientAura variant="section" placement="top" fade="bottom" />
+        <AuraBackground variant="section" placement="top" fade="bottom" />
       </div>
       <Container width="content" className="flex flex-col gap-10 pt-10 md:pt-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">

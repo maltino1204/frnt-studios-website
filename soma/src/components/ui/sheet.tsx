@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useEffect, useId, useRef, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, type PointerEvent as ReactPointerEvent, type ReactNode, type RefObject } from "react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
@@ -9,18 +9,46 @@ const EXIT_MS = 200;
 const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Shared open/close choreography for <dialog>-based overlays: showModal on
- * open; on close, play the exit animation (data-closing) and only then close.
+ * Where focus goes when a dialog opens: "auto" is the platform default (the
+ * first focusable element); otherwise a ref, or a CSS selector inside the
+ * dialog. A selector that matches a container focuses its first focusable
+ * child (Modal uses this to focus its first action).
  */
-export function useDialogMotion(open: boolean, onClose: () => void) {
+export type InitialFocus = "auto" | string | RefObject<HTMLElement | null>;
+
+const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function focusInitial(d: HTMLDialogElement, initialFocus: InitialFocus) {
+  if (initialFocus === "auto") return;
+  let target: HTMLElement | null;
+  if (typeof initialFocus === "string") {
+    const el = d.querySelector<HTMLElement>(initialFocus);
+    target = el && !el.matches(FOCUSABLE) ? el.querySelector<HTMLElement>(FOCUSABLE) : el;
+  } else {
+    target = initialFocus.current;
+  }
+  target?.focus({ preventScroll: true });
+}
+
+/**
+ * Shared open/close choreography for <dialog>-based overlays: showModal on
+ * open (then move focus per `initialFocus`); on close, play the exit
+ * animation (data-closing) and only then close.
+ */
+export function useDialogMotion(open: boolean, onClose: () => void, initialFocus: InitialFocus = "auto") {
   const ref = useRef<HTMLDialogElement>(null);
+  const focusRef = useRef(initialFocus);
+  focusRef.current = initialFocus;
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
     if (open) {
       d.removeAttribute("data-closing");
       d.style.removeProperty("translate");
-      if (!d.open) d.showModal();
+      if (!d.open) {
+        d.showModal();
+        focusInitial(d, focusRef.current);
+      }
       return;
     }
     if (!d.open) return;
@@ -62,6 +90,7 @@ export function Sheet({
   footer,
   className,
   variant = "sheet",
+  initialFocus = "auto",
 }: {
   open: boolean;
   onClose: () => void;
@@ -71,8 +100,10 @@ export function Sheet({
   className?: string;
   /** "drawer" = right-hand 400px drawer from md (filters) */
   variant?: "sheet" | "drawer";
+  /** where focus lands on open (default: platform, i.e. the close button) */
+  initialFocus?: InitialFocus;
 }) {
-  const ref = useDialogMotion(open, onClose);
+  const ref = useDialogMotion(open, onClose, initialFocus);
   const titleId = useId();
   const drag = useRef<{ y: number; t: number; dy: number } | null>(null);
 

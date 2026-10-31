@@ -451,7 +451,7 @@ function EmptyCard({ seed, tone, title, children }: { seed: string; tone?: strin
 function PromptLayout({ overline, title, lead, children }: { overline: string; title: string; lead: string; tone?: string | null; children: ReactNode }) {
   return (
     <div className="relative isolate overflow-clip">
-      <AuraBackground placement="right" animate={false} variant="section" fade="both" />
+      <AuraBackground placement="right" variant="section" fade="both" />
       <Container width="content" className="grid gap-8 pt-8 pb-16 lg:grid-cols-12 lg:items-start lg:gap-6 lg:pt-16 lg:pb-24">
         <div className="flex max-w-reading flex-col gap-4 lg:col-span-6">
           <Overline>{overline}</Overline>

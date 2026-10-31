@@ -33,7 +33,7 @@ export default async function StaedtePage() {
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <div className="relative isolate overflow-clip">
-        <AuraBackground placement="right" variant="section" fade="both" animate={false} />
+        <AuraBackground placement="right" variant="section" fade="both" />
         <Container className="pt-5 md:pt-7">
           <Breadcrumbs items={crumbs} />
           <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Check, Copy, Link2, Share2 } from "lucide-react";
 import { AuraBackground } from "@/components/ui/aura";
-import { AmbientAura } from "./ambient-aura";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
@@ -52,7 +51,7 @@ export function InviteCard({
       className={cn("relative isolate flex flex-col gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-raised lg:p-6", !compact && "lg:rounded-panel lg:p-8", className)}
       aria-labelledby="invite-title"
     >
-      {compact ? <AuraBackground variant="section" placement="full" fade="none" animate={false} /> : <AmbientAura variant="section" placement="full" fade="none" />}
+      {compact ? <AuraBackground variant="section" placement="full" fade="none" animate={false} /> : <AuraBackground variant="section" placement="full" fade="none" />}
       <div className="flex flex-col gap-3">
         <span className="inline-flex h-7 w-fit items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink shadow-raised num">
           Eigene Kundschaft · {ownClientRateLabel}

@@ -113,7 +113,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
         ]}
       />
       <div className="relative isolate overflow-clip">
-        <AuraBackground placement="right" variant="section" animate={false} fade="both" className="max-h-[44rem]" />
+        <AuraBackground placement="right" variant="section" fade="both" className="max-h-[44rem]" />
       <Container className="pt-5 md:pt-7">
         <Breadcrumbs items={crumbs} />
         <div className="grid gap-10 pt-6 pb-(--space-section) md:pt-10 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">

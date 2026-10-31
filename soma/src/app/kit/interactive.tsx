@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SuccessCheck } from "@/components/ui/success";
+import { CountUp } from "@/components/ui/motion";
 import { haptic } from "@/lib/haptic";
 import { DateStrip, TimeSlots } from "@/components/ui/booking";
 import { Sheet } from "@/components/ui/sheet";
@@ -22,6 +23,7 @@ export function KitInteractive() {
   const [modal, setModal] = useState(false);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(0);
+  const [earned, setEarned] = useState(4820);
   const toast = useToast();
   const base = new Date(`${day}T08:00:00+01:00`).getTime();
   const slots = [0, 1, 2, 5, 6, 9, 10, 11].map((h) => ({ start: new Date(base + h * 3600000).toISOString() }));
@@ -51,8 +53,17 @@ export function KitInteractive() {
         <div key={done} className="flex items-center gap-3">
           <SuccessCheck size={44} />
           <p className="type-heading-m">Bestätigt.</p>
+          <span className="rounded-full bg-surface-sunken px-3 py-1 type-caption">Nachbar</span>
         </div>
       ) : null}
+      <div className="flex items-center gap-3">
+        <p className="type-stat" data-testid="kit-countup">
+          <CountUp value={earned} suffix=" €" />
+        </p>
+        <Button size="s" variant="secondary" onClick={() => setEarned((v) => v + 250)}>
+          +250 €
+        </Button>
+      </div>
       <Sheet open={sheet} onClose={() => setSheet(false)} title="Behandlung wählen" footer={<Button block size="l" onClick={() => setSheet(false)}>Übernehmen</Button>}>
         <p className="type-body-s text-ink-muted">Inhalt des Sheets.</p>
       </Sheet>
