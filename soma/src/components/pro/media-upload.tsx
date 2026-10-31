@@ -166,9 +166,9 @@ export function PortfolioManager({
       )}
 
       {/* Submitted without React's form reset: file, caption and category survive a rejected upload (N5). */}
-      <form ref={formRef} action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6" noValidate>
-        <h3 className="type-heading-m">Bild hinzufügen</h3>
-        <label className="group/drop flex cursor-pointer flex-col gap-2">
+      <form ref={formRef} action={action} onSubmit={keepValuesOnSubmit(action)} className="grid gap-5 rounded-card bg-surface-raised p-5 shadow-raised lg:grid-cols-2 lg:gap-x-8 lg:p-6" noValidate>
+        <h3 className="type-heading-m lg:col-span-2">Bild hinzufügen</h3>
+        <label className="group/drop flex cursor-pointer flex-col gap-2 lg:row-span-4">
           <input
             ref={fileRef}
             type="file"
@@ -191,7 +191,7 @@ export function PortfolioManager({
           <span className="type-label-s text-ink">Bilddatei</span>
           <span
             className={cn(
-              "flex min-h-28 flex-col items-center justify-center gap-2 rounded-tile border-[1.5px] border-dashed px-4 py-5 text-center transition-[border-color,background-color] duration-fast peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-disabled:cursor-not-allowed peer-disabled:opacity-60",
+              "flex min-h-28 flex-1 flex-col items-center justify-center gap-2 rounded-tile border-[1.5px] border-dashed px-4 py-5 text-center transition-[border-color,background-color] duration-fast peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-disabled:cursor-not-allowed peer-disabled:opacity-60",
               fileName ? "border-ink bg-surface-tint" : "border-line-strong bg-surface hover:border-ink hover:bg-surface-tint",
             )}
           >
@@ -202,7 +202,7 @@ export function PortfolioManager({
             <span className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB · {items.length} von 24 Bildern</span>
           </span>
         </label>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
           <Input
             name="caption"
             label="Bildunterschrift"
@@ -235,7 +235,7 @@ export function PortfolioManager({
           type="submit"
           loading={pending}
           disabled={full || !fileName}
-          className="self-start"
+          className="self-start justify-self-start"
           icon={<Icon icon={Upload} />}
           onClick={(e) => {
             if (!fileRef.current?.files?.length) {

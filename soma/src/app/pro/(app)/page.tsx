@@ -149,7 +149,7 @@ export default async function ProTodayPage() {
               label="Bevorstehend"
               icon={<Icon icon={CalendarCheck2} size={16} />}
               value={<CountUp value={dash.upcomingCount} />}
-              hint="bestätigt · nächste 7 Tage"
+              hint="bestätigte Termine"
               spark={perDay}
             />
             <StatTile
@@ -163,7 +163,7 @@ export default async function ProTodayPage() {
               label="Abgeschlossen"
               icon={<Icon icon={CheckCircle2} size={16} />}
               value={<CountUp value={dash.completedCount} />}
-              hint="seit Start · 8 Wochen im Verlauf"
+              hint="seit Start"
               spark={countWeeks}
             />
           </StatGrid>
