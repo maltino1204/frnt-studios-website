@@ -1,0 +1,404 @@
+{
+ "pro@390": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 662,
+    "h": 9,
+    "w": 20
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 630,
+    "h": 40,
+    "w": 20
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Heute · SOMA",
+  "h1": [
+   "Guten Abend, Selin."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Guten Abend, Selin.",
+   "Selin.",
+   "J",
+   "F",
+   "Heute ist frei."
+  ],
+  "url": "http://localhost:3100/pro"
+ },
+ "pro-termine@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Termine · SOMA Pro",
+  "h1": [
+   "Termine"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Termine",
+   "J",
+   "F"
+  ],
+  "url": "http://localhost:3100/pro/termine"
+ },
+ "pro-einnahmen@390": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 706,
+    "h": 2,
+    "w": 16
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Einnahmen · SOMA Pro",
+  "h1": [
+   "Einnahmen"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Einnahmen"
+  ],
+  "url": "http://localhost:3100/pro/einnahmen"
+ },
+ "pro-kalender@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Kalender · SOMA Pro",
+  "h1": [
+   "Kalender"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Kalender"
+  ],
+  "url": "http://localhost:3100/pro/kalender"
+ },
+ "pro-verifizierung@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Verifizierung · SOMA Pro",
+  "h1": [
+   "Verifizierung"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Verifizierung"
+  ],
+  "url": "http://localhost:3100/pro/verifizierung"
+ },
+ "admin@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "\"DM Mono\""
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Übersicht"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "NK",
+   "PA",
+   "LA",
+   "CJ"
+  ],
+  "url": "http://localhost:3100/admin"
+ },
+ "pro@1440": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 430,
+    "h": 9,
+    "w": 20
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 399,
+    "h": 40,
+    "w": 20
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Heute · SOMA",
+  "h1": [
+   "Guten Abend, Selin."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Guten Abend, Selin.",
+   "Selin.",
+   "J",
+   "F",
+   "Heute ist frei."
+  ],
+  "url": "http://localhost:3100/pro"
+ },
+ "pro-termine@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Termine · SOMA Pro",
+  "h1": [
+   "Termine"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Termine",
+   "J",
+   "F"
+  ],
+  "url": "http://localhost:3100/pro/termine"
+ },
+ "pro-einnahmen@1440": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 520,
+    "h": 2,
+    "w": 16
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "\"DM Mono\""
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Einnahmen · SOMA Pro",
+  "h1": [
+   "Einnahmen"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Einnahmen"
+  ],
+  "url": "http://localhost:3100/pro/einnahmen"
+ },
+ "pro-kalender@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Kalender · SOMA Pro",
+  "h1": [
+   "Kalender"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Kalender"
+  ],
+  "url": "http://localhost:3100/pro/kalender"
+ },
+ "pro-verifizierung@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Verifizierung · SOMA Pro",
+  "h1": [
+   "Verifizierung"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "SA",
+   "Verifizierung"
+  ],
+  "url": "http://localhost:3100/pro/verifizierung"
+ },
+ "admin@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "\"DM Mono\""
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Übersicht"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "AA",
+   "NK",
+   "PA",
+   "LA",
+   "CJ"
+  ],
+  "url": "http://localhost:3100/admin"
+ },
+ "admin-profis@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Profis & Verifizierung · Admin",
+  "h1": [
+   "Profis & Verifizierung"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "AA",
+   "NK",
+   "PA",
+   "KB",
+   "CO",
+   "ST",
+   "LR",
+   "GH",
+   "TH",
+   "JW",
+   "ER",
+   "SA",
+   "JW",
+   "KH",
+   "MP",
+   "NW",
+   "MS",
+   "AO",
+   "HB",
+   "EY",
+   "YK",
+   "FS",
+   "TK",
+   "KD",
+   "MF",
+   "CJ"
+  ],
+  "url": "http://localhost:3100/admin/profis"
+ },
+ "admin-buchungen@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "\"DM Mono\""
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Buchungen · Admin",
+  "h1": [
+   "Buchungen"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "AA"
+  ],
+  "url": "http://localhost:3100/admin/buchungen"
+ }
+}

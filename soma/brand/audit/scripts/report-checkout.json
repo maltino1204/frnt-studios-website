@@ -1,0 +1,74 @@
+{
+ "390": {
+  "oxblood": [
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 69 €",
+    "top": 753,
+    "h": 52,
+    "w": 350
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=256&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=256&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Termin buchen · SOMA",
+  "h1": [
+   "Termin buchen."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Termin buchen.",
+   "HB",
+   "JH",
+   "HB"
+  ],
+  "url": "http://localhost:3100/buchen?angebot=cb8edf51-9804-4c3d-83bb-f0bfb91d32eb&start=2026-11-04T08%3A00%3A00.000Z&plz=10115",
+  "text": "Demo-Umgebung · Beispieldaten und Testzahlungen – es werden keine echten Termine gebucht.\nZum Inhalt springen\nZurück\n\nSicher\n\nDEINE BUCHUNG\n\nTermin buchen.\n\nPrüf deine Angaben. Der Termin ist sofort bestätigt.\n\nÜbersicht\n, erledigt\n2\nOrt\n3\nKontakt\n4\nZahlung\nÜbersicht\nÄndern\nHB\n\nHanna B.\n\n4,3\n(3)\nSofort bestätigt\n\nBehandlung\nRücken- & Nackenmassage\nTermin\nMi., 4. Nov.\n09:00–09:45\nDauer\n45 Min.\n2\nOrt\n\nWo findet dein Termin statt?\n\nZuhause\nHotel\nBüro\nGespeicherte Adressen\nZuhause\nStandard\nOderberger Straße 21, 10435 Berlin\nVorderhaus, 3. OG rechts, Klingel „Hartmann“\nBüro\nFriedrichstraße 68, 10117 Berlin\nEmpfang 4. OG, bitte bei „Hartmann“ melden\nHotel Frankfurt\nBraubachstraße 24, 60311 Frankfurt am Main\nHotel am Dom, Zimmer 412 – bitte an der Rezeption anmelden\nNeue Adresse\nIn 10115 Berlin\nStraße\nNr.\nPLZ\n\nÄndern\n\nOrt\nEtage (optional)\nKlingelname (optional)\nAdresse für künftige Buchungen speichern\nHinweise zur Anfahrt (optional)\nPlatz für eine Massageliege (ca. 2 × 3 m) ist vorhanden.\nHanna B. bringt Liege, Tücher und Öle mit.\n\nSOMA vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen führen zur Sperrung des Kontos.\n\nKontakt\nJH\n\nAngemeldet als Julia Hartmann\n\ntestkunde@soma.test · +49 170 1112233\n\n4\nZahlung\n\nVisa •••• 4242\n\nTestkarte · simulierte Zahlung\n\nTest\n\nTestmodus – es wird keine echte Zahlung ausgeführt\n\nBeim Buchen wird eine Testzahlung (Visa •••• 4242) simuliert. Es fließt kein Geld.\n\nSOMA-Guthaben verwenden\n15,00 € verfügbar\nIch verlange ausdrücklich, dass die Fachkraft vor Ablauf der Widerrufsfrist mit der Behandlung beginnt. Mir ist bekannt, dass ich mein Widerrufsrecht bei vollständiger Erbringung der Leistung verliere.\nPflichtangabe nach § 356 Abs. 4 BGB. Widerrufsbelehrung\n\nMit Klick auf „Zahlungspflichtig buchen“ schließt du einen kostenpflichtigen Vertrag mit Hanna B. ab; es gelten die AGB.\n\nHB\n\nHanna B.\n\nRücken- & Nackenmassage · 45 Min.\n\nMi., 4. Nov., 09:00–09:45\nZuhause\n10115 Berlin\nPreis & Bedingungen\nBehandlung\nRücken- & Nackenmassage · 45 Min.\n62,00 €\nAnfahrt\n5,2 km\n7,00 €\nGesamtpreis\n69,00 €\nGemäß § 19 UStG wird keine Umsatzsteuer berechnet.\nSOMA vermittelt; Vertragspartner für die Behandlung ist Hanna B. (selbstständig).\n\nKostenlos stornierbar bis Dienstag, 3. November, 09:00 Uhr.\n\nIn den ersten 15 Minuten nach der Buchung immer kostenlos stornierbar.\n\nStornobedingungen im Detail\nZahlungspflichtig buchen · 69 €\n\nSofort bestätigt. Du erhältst die Bestätigung per E-Mail.\n\n© 2026 SOMA · vermittelt Termine bei selbstständigen Profis\n\nImpressum\nDatenschutz\nAGB\nWiderruf\nHilfe"
+ },
+ "1440": {
+  "oxblood": [
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 69 €",
+    "top": 787,
+    "h": 52,
+    "w": 365
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=96&q=75"
+  ],
+  "aiLabels": [],
+  "title": "Termin buchen · SOMA",
+  "h1": [
+   "Termin buchen."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Termin buchen.",
+   "HB",
+   "JH",
+   "HB"
+  ],
+  "url": "http://localhost:3100/buchen?angebot=cb8edf51-9804-4c3d-83bb-f0bfb91d32eb&start=2026-11-04T08%3A00%3A00.000Z&plz=10115",
+  "text": "Demo\nDemo-Umgebung · Beispieldaten und Testzahlungen – es werden keine echten Termine gebucht.\nZum Inhalt springen\nZurück\n\nSichere Buchung\n\nDEINE BUCHUNG\n\nTermin buchen.\n\nPrüf deine Angaben. Der Termin ist sofort bestätigt.\n\nÜbersicht\n, erledigt\n2\nOrt\n3\nKontakt\n4\nZahlung\nÜbersicht\nÄndern\nHB\n\nHanna B.\n\n4,3\n(3)\n·\nSofort bestätigt\n\nBehandlung\nRücken- & Nackenmassage\nTermin\nMi., 4. Nov.\n09:00–09:45\nDauer\n45 Min.\n2\nOrt\n\nWo findet dein Termin statt?\n\nZuhause\nHotel\nBüro\nGespeicherte Adressen\nZuhause\nStandard\nOderberger Straße 21, 10435 Berlin\nVorderhaus, 3. OG rechts, Klingel „Hartmann“\nBüro\nFriedrichstraße 68, 10117 Berlin\nEmpfang 4. OG, bitte bei „Hartmann“ melden\nHotel Frankfurt\nBraubachstraße 24, 60311 Frankfurt am Main\nHotel am Dom, Zimmer 412 – bitte an der Rezeption anmelden\nNeue Adresse\nIn 10115 Berlin\nStraße\nNr.\nPLZ\n\nÄndern\n\nOrt\nEtage (optional)\nKlingelname (optional)\nAdresse für künftige Buchungen speichern\nHinweise zur Anfahrt (optional)\nPlatz für eine Massageliege (ca. 2 × 3 m) ist vorhanden.\nHanna B. bringt Liege, Tücher und Öle mit.\n\nSOMA vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen führen zur Sperrung des Kontos.\n\nKontakt\nJH\n\nAngemeldet als Julia Hartmann\n\ntestkunde@soma.test · +49 170 1112233\n\nAngemeldet\n4\nZahlung\n\nVisa •••• 4242\n\nTestkarte · simulierte Zahlung\n\nTest\n\nTestmodus – es wird keine echte Zahlung ausgeführt\n\nBeim Buchen wird eine Testzahlung (Visa •••• 4242) simuliert. Es fließt kein Geld.\n\nSOMA-Guthaben verwenden\n15,00 € verfügbar\nIch verlange ausdrücklich, dass die Fachkraft vor Ablauf der Widerrufsfrist mit der Behandlung beginnt. Mir ist bekannt, dass ich mein Widerrufsrecht bei vollständiger Erbringung der Leistung verliere.\nPflichtangabe nach § 356 Abs. 4 BGB. Widerrufsbelehrung\n\nMit Klick auf „Zahlungspflichtig buchen“ schließt du einen kostenpflichtigen Vertrag mit Hanna B. ab; es gelten die AGB.\n\nHB\n\nHanna B.\n\nRücken- & Nackenmassage · 45 Min.\n\nMi., 4. Nov., 09:00–09:45\nZuhause\n10115 Berlin\nPreis & Bedingungen\nBehandlung\nRücken- & Nackenmassage · 45 Min.\n62,00 €\nAnfahrt\n5,2 km\n7,00 €\nGesamtpreis\n69,00 €\nGemäß § 19 UStG wird keine Umsatzsteuer berechnet.\nSOMA vermittelt; Vertragspartner für die Behandlung ist Hanna B. (selbstständig).\n\nKostenlos stornierbar bis Dienstag, 3. November, 09:00 Uhr.\n\nIn den ersten 15 Minuten nach der Buchung immer kostenlos stornierbar.\n\nStornobedingungen im Detail\nZahlungspflichtig buchen · 69 €\n\nSofort bestätigt. Du erhältst die Bestätigung per E-Mail.\n\n© 2026 SOMA · vermittelt Termine bei selbstständigen Profis\n\nImpressum\nDatenschutz\nAGB\nWiderruf\nHilfe"
+ }
+}
