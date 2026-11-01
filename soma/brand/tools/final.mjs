@@ -85,3 +85,9 @@ export function word(m = P) {
     { kern: { SO: -22, OM: -12, MA: -46 }, tracking: m.tracking },
   );
 }
+
+/** The symbol is the S, redrawn heavier and a touch wider so it holds at 16 px. */
+export const SYMBOL = { V: 124, h: 46 };
+export const SYMBOL_OPTS = { w: 246 };
+/** Micro symbol for favicons (16-32 px): hairlines opened up so the waist survives rasterisation. */
+export const SYMBOL_MICRO = { V: 138, h: 74 };

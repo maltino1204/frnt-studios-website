@@ -38,8 +38,8 @@ export function glyphS({ V, h, o, H } = P, { xr = 398, xl = 38, bh = 140, thA = 
   };
   const e = ysAt(xr - 0.6), f = ysAt(xl + 0.6);
   const yT = e[0], yB = f[f.length - 1];
-  const lensT = intersect(oval({ cx: xr - 4, cy: yT + bh * 0.42, rx: 34, ry: bh * 0.5, kx: 0.5, ky: 0.62 }), rect(xr - 200, yT - 1, 200, 400));
-  const lensB = intersect(oval({ cx: xl + 4, cy: yB - bh * 0.42, rx: 34, ry: bh * 0.5, kx: 0.5, ky: 0.62 }), rect(xl, yB - 400, 200, 401));
+  const lensT = intersect(oval({ cx: xr - 2, cy: yT + bh * 0.4, rx: 22, ry: bh * 0.44, kx: 0.5, ky: 0.62 }), rect(xr - 200, yT - 1, 200, 400));
+  const lensB = intersect(oval({ cx: xl + 2, cy: yB - bh * 0.4, rx: 22, ry: bh * 0.44, kx: 0.5, ky: 0.62 }), rect(xl, yB - 400, 200, 401));
   return unite(g, lensT, lensB);
 }
 

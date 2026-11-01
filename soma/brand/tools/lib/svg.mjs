@@ -15,6 +15,7 @@ export const PALETTE = {
   white: "#FFFFFF",
 };
 const n = (v) => +v.toFixed(2);
+export const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 /**
  * groups: [{ id, d, fill?, transform? }]. bg: colour or null. title: accessible title.
  */
@@ -22,8 +23,8 @@ export function svgDoc({ viewBox, width, height, title = "SOMA", desc, bg, group
   const [vx, vy, vw, vh] = viewBox;
   const w = width ?? n(vw), h = height ?? n(vh);
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${n(vx)} ${n(vy)} ${n(vw)} ${n(vh)}" width="${w}" height="${h}" role="img" aria-labelledby="t">\n`;
-  s += `  <title id="t">${title}</title>\n`;
-  if (desc) s += `  <desc>${desc}</desc>\n`;
+  s += `  <title id="t">${esc(title)}</title>\n`;
+  if (desc) s += `  <desc>${esc(desc)}</desc>\n`;
   if (bg) s += `  <rect id="background" x="${n(vx)}" y="${n(vy)}" width="${n(vw)}" height="${n(vh)}" fill="${bg}"/>\n`;
   for (const g of groups) {
     s += `  <g id="${g.id}"${g.fill ? ` fill="${g.fill}"` : ""}${g.transform ? ` transform="${g.transform}"` : ""}>\n`;
