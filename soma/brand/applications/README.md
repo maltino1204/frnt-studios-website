@@ -1,13 +1,13 @@
 # SOMA brand applications
 
-*Digital Art Director · phase B2 · 1 Nov 2026. Every artwork is generated from code (`_src/*.mjs`, HTML/SVG → PNG/PDF with Playwright and the final logo SVGs). To change one, edit the source and rebuild: `node brand/applications/_src/build-all.mjs`.*
+*Digital Art Director · phase B2 · 1 Nov 2026 · rebuilt against symbol v1.2 (every symbol occurrence checked). Every artwork is generated from code (`_src/*.mjs`, HTML/SVG → PNG/PDF with Playwright and the final logo SVGs). To change one, edit the source and rebuild: `node brand/applications/_src/build-all.mjs`.*
 *All photographs are **AI-generated development assets** and are labelled as such. All names, prices, codes and numbers are **demo data** (BRAND_VOICE examples), never real bookings.*
 
 ![Overview](overview.jpg)
 
 | # | Application | Files | Preview |
 |---|---|---|---|
-| 1 | **App icons** (new mark: the S in the O): iOS and Android home screens, light and dark (themed icons), App Store 1024 and Play 512; AI wallpapers labelled | `app-icons/app-icons-board.png`, `ios-home-light.png`, `ios-home-dark.png`, `android-home-light.png`, `android-home-themed-dark.png` · masters in `brand/assets/icons/` | ![](_thumbs/app-icons.jpg) |
+| 1 | **App icons** (symbol v1.2: the S in the O with the Versatz, rebuilt from `brand/assets/icons`): iOS and Android home screens, light and dark (themed icons), App Store 1024 and Play 512; AI wallpapers labelled | `app-icons/app-icons-board.png`, `ios-home-light.png`, `ios-home-dark.png`, `android-home-light.png`, `android-home-themed-dark.png` · masters in `brand/assets/icons/` | ![](_thumbs/app-icons.jpg) |
 | 2 | **Social**: avatar, 9 Instagram posts (1080×1350; post 03 = the signature pair), 3 stories (1080×1920), LinkedIn banner (1584×396), grid preview; AI labels at 22 px | `social/avatar-1080.png`, `social/instagram/post-01…09.png` (`post-03-evening.png` replaces `post-03-arrival.png`), `social/stories/story-01…03.png`, `social/linkedin-banner-1584x396.png`, `social/instagram-grid-preview.png`, `social/captions.md` | ![](_thumbs/social-grid.jpg) |
 | 3 | **Digital advertising**: concepts A „Schon zu Hause“, B „Zimmer 614“, C „Dein Kalender“ × 1080×1080, 1080×1920, 1200×628, 300×250, 728×90. **Every format carries the signature** (offset arch pair + Ortszeile, guidelines § 10.2); the wordmark sits only on calm Bone | `ads/<concept>/<concept>-<size>.png` (15 files) + `ads/<concept>/board.png` | ![](_thumbs/ads-b.jpg) |
 | 4 | **Booking confirmation**: mobile 390×844 comp of `/buchung/[id]` (Start-Code, place, time, price, free-cancellation deadline) | `booking-confirmation/booking-confirmed-390x844@3x.png`, `booking-confirmed-full@2x.png`, `board.png` | ![](_thumbs/booking.jpg) |
@@ -16,7 +16,7 @@
 | 7 | **SOMA Pro welcome kit**: A4 PDF, 7 pages (welcome, how SOMA works for you, verification checklist, Start-Code, safety and zero tolerance, payouts, back cover). **Tagged PDF** (`Tagged: yes`, outline from h1/h2, `lang="de"`), static font instances (no Type 3), no placeholders, no unverified payout timing | `onboarding/soma-pro-willkommensmappe-a4.pdf` · `onboarding/pages/page-01…07.png` | ![](_thumbs/onboarding.jpg) |
 | 8 | **Customer app and SOMA Pro showcase**: screenshots of the app in the new brand (demo environment, captured 1 Nov 2026, v2 imagery, product AI labels visible) composed into boards labelled „Bilder KI-generiert · Demo-Daten“, plus the app-on-table environment | `showcase/customer-app.png`, `showcase/pro-dashboard.png`, `showcase/app-on-table.png` · raw captures `showcase/live/*.png` (`_src/capture-live.cjs`) | ![](_thumbs/showcase-customer.jpg) |
 | 9 | **Landing page input** (not built here): key-visual directions, image per section, crop rules | `LANDING_ART_DIRECTION_INPUT.md` | ![](_thumbs/app-on-table.jpg) |
-| — | **Motion identity**: principles, tokens, patterns, reduced motion, the no-count-up rule for money and ratings; specimen (mark draw-on with the new S-in-O) and storyboards | `motion/MOTION.md`, `motion/specimen.html`, `motion/storyboard-1…3.png` | ![](_thumbs/motion-2.jpg) |
+| — | **Motion identity**: principles, tokens, patterns, reduced motion, the no-count-up rule for money and ratings; specimen (draw-on traces the v1.2 O with the Versatz, then the S) and storyboards | `motion/MOTION.md`, `motion/specimen.html`, `motion/storyboard-1…3.png` | ![](_thumbs/motion-2.jpg) |
 
 ## Rules every application follows
 - **One Oxblood moment per screen**: the app icon, the primary CTA, the brand band or the gift-card front. The booking confirmation and the Pro request card use Espresso, because nothing on them is the single primary action.

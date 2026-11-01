@@ -1,7 +1,16 @@
 # SOMA: Brand guidelines
 
-*v1.2 · 1 Nov 2026 (after Brand Audit 2). Identity sections by the Identity Designer. The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director.*
+*v1.2.1 · 1 Nov 2026 (after Brand Audit 3). Identity sections by the Identity Designer. The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director.*
 
+> **Pending client actions** (open after Brand Audit 3):
+> 1. **Human tests O1b, O4a/O4b and O7** (recall, line-ups against rings and against filled badges, unwanted associations). They need at least 8 people outside the team; the protocol, the pass/fail rule and the fallback are in `LOGO_USAGE.md` § 2.1. They decide whether Originality reaches 8.
+> 2. **Trademark search (O6, with L4)** for the word mark "SOMA" and the figurative mark (S im O with the Versatz). Vienna classes 27.5 and 26.1 / 26.3; Nice classes 35, 44 and 9/42; DE and EU. The client's lawyer does it, and the decision is logged in `PLAN.md`. It blocks a public launch.
+
+> **v1.2.1 (Brand Audit 3, documentation only):**
+> - The seal's genre figure is corrected (N10): 0.24 against rings, but **0.71–0.75 against filled S badges** (§ 2).
+> - The people-test protocol now has a badge line-up and an association question, with pass/fail rules (N9).
+> - `assets/splash/SPLASH.md` separates what is shipped from the PWA intro concept (N11).
+>
 > **What changed in v1.2 (Brand Audit 2):**
 > - **The symbol has its ownable detail: the Versatz** (O5). The O's upper half sits one hairline left, its lower half one hairline right, like shoulders against hips. A typed "S in an oval" cannot have it. The line cut, the seal, every app icon, the favicon and the launch images are rebuilt (§ 2, `LOGO_USAGE.md` § 2.1).
 > - The iOS 20 and 29 px icons use the seal cut (N5).
@@ -76,9 +85,10 @@ The complete rules are in **`LOGO_USAGE.md`**. In short:
     |---|---:|---:|---:|
     | v1.1 S im O | 0.24 | 0.52 | 0.83 |
     | **v1.2 line cut** | **0.19** | **0.31** | **0.44** |
-    | **v1.2 seal** | **0.26** | **0.24** | **0.39** |
+    | v1.2 seal | 0.26 | 0.24 *(against rings: the wrong genre for a solid)* | 0.39 |
 
-  - The human tests O1b (5-second recall) and O4 (genre line-up) are **pending client tests**; the protocol is in `LOGO_USAGE.md` § 2.1.
+  - **The seal against its own genre** (Brand Audit 3, N10): against filled ovals with a white serif S, the v1.2 seal overlaps **0.71–0.75**. The v1.1 seal scored 0.85–0.88, and two generic badges score 0.92 against each other. The Versatz moves the seal away from the badge genre but not out of it. At 16–32 px, SOMA is still close to "a white S on a dark oval, with two notches". No target is claimed; people decide (O4b, O7).
+  - The human tests O1b (recall), O4a/O4b (line-ups against rings and against filled badges) and O7 (unwanted associations) are **pending client tests** (see the box above and `LOGO_USAGE.md` § 2.1).
 - **Secondary lockups:** with the descriptor, with the tagline, and stacked (symbol over wordmark).
 - **App icon:** the Bone S im O on an Oxblood tile. It is the brand's most visible Oxblood moment. Tiles under 32 px (iOS 20 and 29 px) carry the seal.
 - **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim that follows the Versatz outline. The rim gives 14.0:1 against a dark tab bar (`#202124`) and disappears into light ones.

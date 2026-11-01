@@ -39,7 +39,7 @@ const typePost = ({ bg = C.bone, head, foot = "", archOutline = true }) => `
   <div style="position:absolute;left:64px;bottom:72px">${wm(C.espresso, 150)}</div>`;
 const brandMoment = () => `
   <div style="position:absolute;inset:0;background:${C.oxblood}"></div>
-  <div style="position:absolute;left:50%;top:330px;transform:translateX(-50%);width:250px">${L.logo("soma-symbol", C.bone, 'style="width:250px;height:auto"')}</div>
+  <div style="position:absolute;left:50%;top:300px;transform:translateX(-50%);width:320px">${L.logo("soma-symbol", C.bone, 'style="width:320px;height:auto"')}</div>
   <div class="it" lang="en" style="position:absolute;left:0;right:0;top:820px;text-align:center;color:${C.bone};font-size:86px;line-height:1">Your body. Your place.</div>
   <div style="position:absolute;left:0;right:0;top:940px;text-align:center;color:${C.ox200};font-size:24px;letter-spacing:.01em">Beauty &amp; Wellness. Bei dir.</div>
   <div style="position:absolute;left:436px;top:1220px">${wm(C.bone, 208)}</div>`;
@@ -102,7 +102,7 @@ for (const [name, body, bg] of stories) {
 }
 
 // ── Avatar and LinkedIn banner ────────────────────────────────────────────────────────────────
-await L.png(L.page(`<div style="width:1080px;height:1080px;background:${C.oxblood};display:flex;align-items:center;justify-content:center"><div style="width:330px;margin-top:-6px">${L.logo("soma-symbol", C.bone, 'style="width:330px;height:auto"')}</div></div>`, { w: 1080, h: 1080 }), path.join(OUT, "avatar-1080.png"), { w: 1080, h: 1080 });
+await L.png(L.page(`<div style="width:1080px;height:1080px;background:${C.oxblood};display:flex;align-items:center;justify-content:center"><div style="width:460px;margin-top:-6px">${L.logo("soma-symbol", C.bone, 'style="width:460px;height:auto"')}</div></div>`, { w: 1080, h: 1080 }), path.join(OUT, "avatar-1080.png"), { w: 1080, h: 1080 });
 await L.png(L.page(`<div style="position:relative;width:1584px;height:396px;background:${C.bone};overflow:hidden">
   <div style="position:absolute;left:420px;top:92px"><div class="serif" style="font-size:58px">Du bleibst. <em>Dein Profi kommt.</em></div>
   <div style="font-size:21px;color:${C.umberDeep};margin-top:16px">Beauty &amp; Wellness bei dir zu Hause, im Hotel und im Büro.</div></div>

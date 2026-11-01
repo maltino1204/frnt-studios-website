@@ -27,9 +27,11 @@ export function startStage(ctx: MotionContext): Stop {
       const run = r.height - stage.offsetHeight;
       const p = run > 0 ? clamp01(-r.top / run) : 0;
       state = r.top > 0 ? "idle" : r.bottom > stage.offsetHeight + 1 ? "active" : "done";
-      const raw = Math.min(STEPS, Math.floor(p * STEPS) + 1);
-      if (raw > step && p >= (raw - 1) / STEPS + HYSTERESIS) step = raw;
-      else if (raw < step && p <= step - 1 - (STEPS * HYSTERESIS) / STEPS && p < (step - 1) / STEPS - HYSTERESIS) step = raw;
+      // the step p has passed by at least the hysteresis going down, and going up
+      const ahead = Math.min(STEPS, Math.floor((p - HYSTERESIS) * STEPS) + 1);
+      const behind = Math.min(STEPS, Math.floor((p + HYSTERESIS) * STEPS) + 1);
+      if (ahead > step) step = ahead;
+      else if (behind < step) step = Math.max(1, behind);
     },
     write() {
       attr(scene, "data-step", String(step));

@@ -1,7 +1,11 @@
 # SOMA: Logo usage
 
-*Identity Designer · 1 Nov 2026 · v1.2 (Brand Audit 1: S im O, honest exploration record, favicon rim. Brand Audit 2: the Versatz, the seal for small iOS sizes)*
+*Identity Designer · 1 Nov 2026 · v1.2.1 (Brand Audit 1: S im O, honest exploration record, favicon rim. Brand Audit 2: the Versatz, the seal for small iOS sizes. Brand Audit 3: the seal's badge-genre figure corrected, the people-test protocol extended; documentation only)*
 *Masters: `brand/assets/logo/final/*.svg` (authoritative). Raster exports: `brand/assets/logo/final/png/`. Build: `node brand/tools/build-logo.mjs`.*
+
+> **Pending client actions** (open after Brand Audit 3). The human tests decide whether Originality reaches 8. The trademark search blocks a public launch.
+> 1. **Human tests O1b, O4a/O4b and O7** with at least 8 people outside the team. The protocol and pass/fail rule are in § 2.1, and the results go to `brand/audit/symbol-recall-test.md`. Until they pass, the mark's originality is argued, not proven.
+> 2. **Trademark search (O6, with L4)** for the **word mark** "SOMA" *and* the **figurative mark** (the S im O with the Versatz). Use Vienna classes 27.5 (letters) and 26.1 / 26.3 (ovals), and Nice classes 35, 44 and 9/42, in DE and the EU. This is done by the client's lawyer, and the decision is logged in `PLAN.md`. "SOMA" is a working title until then.
 
 The SOMA logo system has four parts: the **wordmark** (primary), the **symbol** (the S im O: the wordmark's S inside its O, whose halves are offset at the waist: the Versatz), the **secondary lockups** and the **app icon**. Every shape is a hand-built path. No font was used as raw material for the letterforms (§ 1.4).
 
@@ -96,7 +100,7 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 - The O is cut at its waist, and its two halves slide against each other by **one hairline each**: the upper half to the left, the lower half to the right.
 - These are the shoulders against the hips of *contrapposto*, the same gesture as the S the O holds, whose upper bowl leans left and lower bowl right.
 - The result is two small shoulders at the waist, one on each side. They are calm, architectural and exact: an S typed into an oval cannot have them.
-- In the seal cut, the same Versatz gives the silhouette its shape, so at 16 px it is no longer "a white S on a dark dot".
+- In the seal cut, the same Versatz gives the silhouette two notches at the waist. Against its own genre, filled S badges, this moves the seal away from the genre but not out of it (see the correction below). At 16–32 px the seal is still close to "a white S on a dark oval, with two notches".
 
 **Construction** (`brand/tools/final.mjs` → `MARK`, `versatz()`, `symbolMark()`):
 - **O:** the wordmark's O, outer contour rx 332, ry 362 (tensions 0.57 / 0.585).
@@ -120,7 +124,20 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 | Control: the S (v1.0) | 0.52 | 0.26 | 0.32 |
 | S im O (v1.1) | 0.24 | **0.52** ✗ | **0.83** ✗ |
 | **S im O with Versatz (v1.2), line cut** | **0.19** ✓ | **0.31** ✓ | **0.44** ✓ |
-| **Seal with Versatz (v1.2), < 32 px** | **0.26** ✓ | **0.24** ✓ | **0.39** ✓ |
+| Seal with Versatz (v1.2), < 32 px | 0.26 ✓ | 0.24 *(against rings: the wrong genre for a solid, see below)* | 0.39 ✓ |
+
+**Correction: the seal against its own genre** (Brand Audit 3, N10). The 0.24 above compares the *filled* seal with *rings*, so it overstates how distinct the seal is. A solid oval is the right comparison: a filled even oval with a white serif S. The auditor measured it in `brand/audit/scripts/audit-3/s-in-o-compare3.cjs`, with the results in `genre-iou-a3.json`; the figures are fill IoU, with the aspect-preserving value in brackets.
+
+| Mark | Filled oval + white Bodoni Moda S | Filled oval + white Gloock S |
+|---|---:|---:|
+| Seal v1.1 (no Versatz) | 0.85 (0.85) | 0.88 (0.88) |
+| **Seal v1.2 (Versatz)** | **0.71** (0.72) | **0.73** (0.75) |
+| Line cut v1.2, for comparison | 0.41 (0.38) | 0.39 (0.38) |
+| *Baseline: one generic badge against another* | *0.92* | |
+
+- **Both statements hold.** Against rings, the seal is far from the generic monogram (0.21–0.26). Against filled badges, which is how it is seen at 16–32 px (favicon, tabs, Admin tile, iOS 20/29), it sits at **0.71–0.75**: below the badge-to-badge baseline of 0.92, but inside the genre.
+- No IoU target is claimed for the seal against badges. Whether its two notches and SOMA's S are enough is a question for people: the badge line-up **O4b** and the association question **O7** below.
+- `concepts/symbol-studies-3.png` / `.json` predate this correction and show the ring figure only. This round is documentation only, so they were not rebuilt.
 
 **Rejected in this round:**
 - **Vertical Versatz** (the left half up, the right half down; the literal construction of the S): the O falls apart into two brackets, and at 24 px it reads as a swirl.
@@ -132,15 +149,29 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 - The shoulders become a 1 px notch: present, never noisy.
 - Below 32 px, the line cut is not used; the small iOS sizes (20 and 29 px) use the seal (Brand Audit 2, N5).
 
-**Human tests: pending client tests.** Neither test can be run by a script. Run both with the same 8+ people (unfamiliar with SOMA, mixed age 25–55) and record raw answers and photos of drawings in `brand/audit/symbol-recall-test.md`.
-- **O1b, 5-second recall:**
-  - Show the iOS app icon (`icons/ios/AppIcon-1024.png`, shown at 120 px) for 5 seconds. Then ask: "Describe or draw what you saw."
-  - **Pass:** at least 6 of 8 recall a feature beyond "an S" (the oval or O, the step or shift, "SO").
-- **O4, genre line-up:**
-  - Generate six Oxblood tiles: the SOMA icon plus five generic "serif S in an oval" icons (Bodoni Moda, Gloock, Newsreader, Playfair Display, Libre Bodoni in an even Bone ring; the same layout as `genre-iou.mjs`). Show the six in random order for 5 seconds.
-  - After one minute of distraction, show them again in a new order and ask: "Which one did you see first / which is SOMA?"
-  - **Pass:** at least 6 of 8 pick SOMA.
-- **If either test fails:** increase the Versatz to 1.5 hairlines (60) and test again. The generic IoU then drops to about 0.29; keep the S's clearance ≥ 0.3 stem.
+**Human tests O1b, O4a, O4b and O7: pending client tests.** No script can run them.
+
+*Setup:*
+- **Who:** at least **8 people outside the team.** Nobody from SOMA, the agency or this project, and nobody who has seen the mark. Mix ages 25–55 and genders. Colleagues or friends of the client are fine; a paid panel needs client approval.
+- **How:** one unmoderated session of about 10 minutes per person, on a phone, in the order below.
+- **Records:** write raw answers, picks and photos of drawings, unedited, to `brand/audit/symbol-recall-test.md`.
+- **Tiles:** generate the line-up tiles with the shapes in `brand/tools/lib/genre-iou.mjs` and the auditor's `s-in-o-compare3.cjs` (the filled-badge references), in the same colours and size as the SOMA tile. Show the tiles in random order.
+
+| Test | Procedure | Pass (8 people; with more, the same share) |
+|---|---|---|
+| **O1b**, 5-second recall | Show the iOS app icon (`icons/ios/AppIcon-1024.png`, displayed at 120 px) for 5 s. Then ask: "Describe or draw what you saw." | **≥ 6 / 8** recall a feature beyond "an S": the oval or O, the step, the shoulders or the shift, or "SO". |
+| **O7**, unwanted associations (part 1) | Directly after O1b, before any line-up, ask: "Did anything look wrong, or remind you of something?" Ask no leading follow-up. | **≤ 2 / 8** answer with any of: a *broken, misprinted or misaligned O*; *refresh, sync, reload, arrows or recycling*; a *dollar sign*. Record every other association as well (yin-yang, a coin, a brand name …). |
+| **O4a**, line-up against rings (line cut) | Six Oxblood tiles at 120 px: the SOMA app icon and five generic "serif S in an even Bone ring" icons (Bodoni Moda, Gloock, Newsreader, Playfair Display, Libre Bodoni). Show them for 5 s, then give 1 minute of distraction. Show them again in a new order and ask: "Which one did you see first? Which one is SOMA?" | **≥ 6 / 8** pick SOMA. |
+| **O4b**, line-up against filled badges (seal) | The same procedure, at the seal's real size: six tiles at **32 px** (and again at 16 px in a mock browser tab, light and dark). The tiles are the SOMA seal (Oxblood with a Bone S) and five **filled even ovals in the same Oxblood with a Bone serif S** (the same five fonts, with the S height matched to the seal's 444 / 724). | **≥ 6 / 8** pick SOMA at 32 px. At 16 px the result is recorded, but it does not gate the test. |
+| **O7** (part 2) | After O4b, show the SOMA seal alone at 32 px and ask the O7 question again. | **≤ 2 / 8**, as in part 1. |
+
+*Decision:*
+- **Pass:** O1b, O4a, O4b and O7 (both parts) each pass with the same people. The mark is then final; the auditor has committed to Originality 8 on that result (Brand Audit 3).
+- **Fail:** if any one test fails, apply the **fallback**:
+  1. Increase the Versatz to **1.5 hairlines (60 units per half)**. In `final.mjs`, set `MARK.shift = 60`; keep the S's clearance at ≥ 0.3 stem. The generic ring IoU then drops to about 0.29.
+  2. Rebuild everything: `build-logo.mjs final`, `build-icons.mjs`, `build-splash.mjs`, `build-symbol-studies.mjs`, `build-kit-data.mjs`. Sync `logo.tsx`, `public/brand`, `src/app` and `public/splash`.
+  3. Re-run the failed tests with **8 new people**.
+- **Exception:** if O7 fails mainly on *sync, refresh or arrows*, a larger offset would make that worse. Do not apply the fallback; return the raw answers to the Identity Designer instead.
 
 ---
 
