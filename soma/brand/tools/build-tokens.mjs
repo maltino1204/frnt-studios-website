@@ -40,7 +40,9 @@ function json() {
       $description: `${min}→${max} px (360→1440 viewport). ${note}`,
     };
   }
-  t.dimension = { space: {}, radius: {}, breakpoint: {}, container: {} };
+  // DTCG tools (Tokens Studio, Style Dictionary) cannot read clamp(): the endpoints as plain dimensions
+  t.dimension = { space: {}, radius: {}, breakpoint: {}, container: {}, fontSize: {} };
+  for (const [k, [min, max]] of Object.entries(T.type)) t.dimension.fontSize[k] = { min: { $type: "dimension", $value: `${min}px`, $description: "at 360 px viewport" }, max: { $type: "dimension", $value: `${max}px`, $description: "at 1440 px viewport" } };
   for (const [k, v] of Object.entries(T.space)) t.dimension.space[k] = { $type: "dimension", $value: `${v}px` };
   for (const [k, v] of Object.entries(T.radii)) t.dimension.radius[k] = { $type: typeof v === "number" ? "dimension" : "string", $value: typeof v === "number" ? `${v}px` : v };
   for (const [k, v] of Object.entries(T.breakpoints)) t.dimension.breakpoint[k] = { $type: "dimension", $value: `${v}px` };
@@ -381,6 +383,7 @@ ${typeBlock("display-xl", "display-xl", "44 -> 104, Newsreader")}${typeBlock("di
   --transition-duration-spring: ${T.motion.duration.arrive}ms;
   --transition-duration-arrive: ${T.motion.duration.arrive}ms;
   --transition-duration-calm: ${T.motion.duration.calm}ms;
+  --transition-duration-reveal: ${T.motion.duration.reveal}ms;  /* brand animation only: photo settle in the arch */
 
   --default-transition-duration: ${T.motion.duration.fast}ms;
   --default-transition-timing-function: ${T.motion.easing.standard};

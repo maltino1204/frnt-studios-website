@@ -293,7 +293,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                 <Status tone={statusTone(b.status)}>{b.statusLabel}</Status>
                 <span className="type-caption text-ink-muted">
-                  Buchung <span className="code-ref text-ink">{b.reference}</span>
+                  Buchung <span className="font-semibold tracking-[0.02em] text-ink num">{b.reference}</span>
                 </span>
               </div>
               <div className="flex flex-col gap-4">

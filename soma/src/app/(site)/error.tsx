@@ -34,7 +34,7 @@ export default function SiteError({ error, retry }: { error: unknown; retry: () 
             Zur Startseite
           </ButtonLink>
         </div>
-        {digest ? <p className="type-caption text-ink-muted">Fehlercode: <span className="code-ref">{digest}</span></p> : null}
+        {digest ? <p className="type-caption text-ink-muted">Fehlercode: <span className="font-semibold num">{digest}</span></p> : null}
       </div>
     </Container>
   );

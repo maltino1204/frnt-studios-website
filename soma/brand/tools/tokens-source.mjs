@@ -175,7 +175,7 @@ export const shadow = {
   overlay: "0 0 0 1px rgb(37 33 31 / 0.07), 0 8px 16px -6px rgb(37 33 31 / 0.08), 0 32px 64px -20px rgb(37 33 31 / 0.22)",
 };
 export const motion = {
-  duration: { instant: 100, fast: 160, base: 220, slow: 320, arrive: 480, calm: 640 },
+  duration: { instant: 100, fast: 160, base: 220, slow: 320, arrive: 480, calm: 640, reveal: 900 },
   easing: {
     standard: "cubic-bezier(0.2, 0, 0, 1)",
     arrive: "cubic-bezier(0.16, 1, 0.3, 1)",

@@ -392,6 +392,7 @@
   --transition-duration-spring: 480ms;
   --transition-duration-arrive: 480ms;
   --transition-duration-calm: 640ms;
+  --transition-duration-reveal: 900ms;  /* brand animation only: photo settle in the arch */
 
   --default-transition-duration: 160ms;
   --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
