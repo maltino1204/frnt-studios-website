@@ -7,8 +7,8 @@ import { setWord } from "./lib/word.mjs";
 import { sEdge, sFromEdges } from "./lib/s.mjs";
 
 export const MASTERS = {
-  display: { H: 700, o: 12, V: 100, h: 32, waist: [146, -34, 118, -62], tracking: 74 },
-  micro: { H: 700, o: 12, V: 112, h: 52, waist: [148, -32, 114, -66], tracking: 112 },
+  display: { H: 700, o: 12, V: 100, h: 32, waist: [150, -30, 124, -56], tracking: 74 },
+  micro: { H: 700, o: 12, V: 112, h: 52, waist: [150, -30, 124, -56], tracking: 112 },
 };
 export const P = MASTERS.display;
 
@@ -25,17 +25,21 @@ export function glyphO({ V, h, o, H } = P, { rx = 332 } = {}) {
  * (thick on the right) shifted right; a cubic waist joins them. Terminals cut on the same vertical as the
  * opposite bowl's extreme, so the S sits in a calm rectangle.
  */
-export function glyphS({ V, h, o, H, waist } = P, { w = 226, sh = 0.36, sr = 0.66, cut = 'perp', tT = [-30, -30], tB = [150, 150], xr = 404, xl = 40, wv, kA = 0.36, kB = 0.36, r1 = 182, r2 = 190 } = {}) {
+export function glyphS({ V, h, o, H, waist } = P, { w = 240, sh = 0.36, sr = 0.64, cut = 'perp', tT = [-30, -30], tB = [150, 150], xr = 404, xl = 40, wv, kA = 0.36, kB = 0.36, r1 = 170, r2 = 178 } = {}) {
   const top = -o, bot = H + o;
   const [a1, a2, b1, b2] = wv ?? waist;
-  const o1 = { cx: 236, rx: w - 14, cy: top + r1, ry: r1 };
-  const i1 = { cx: 236 + V * sh, rx: w - 14 - V * sr, cy: top + h + r1 - h * 0.5, ry: r1 - h * 0.5 };
-  const o2 = { cx: 230, rx: w, cy: bot - r2, ry: r2 };
-  const i2 = { cx: 230 - V * sh, rx: w - V * sr, cy: bot - h - r2 + h * 0.5, ry: r2 - h * 0.5 };
+  const o1 = { cx: 248, rx: w - 14, cy: top + r1, ry: r1 };
+  const i1 = { cx: 248 + V * sh, rx: w - 14 - V * sr, cy: top + h + r1 - h * 0.5, ry: r1 - h * 0.5 };
+  const o2 = { cx: 242, rx: w, cy: bot - r2, ry: r2 };
+  const i2 = { cx: 242 - V * sh, rx: w - V * sr, cy: bot - h - r2 + h * 0.5, ry: r2 - h * 0.5 };
   const vert = cut === "vertical";
   const A = sEdge({ up: o1, lo: i2, tTop: vert ? -10 : tT[0], th1: a1, th2: a2, tBot: vert ? 170 : tB[0], k1: kA, k2: kA });
   const B = sEdge({ up: i1, lo: o2, tTop: vert ? -10 : tT[1], th1: b1, th2: b2, tBot: vert ? 170 : tB[1], k1: kB, k2: kB });
   const path = sFromEdges(A, B);
+  // waist geometry (centre between both spine curves, spine direction) for the symbol's cut
+  const mid = (E) => ({ x: (E.P1.x + E.P2.x) / 2, y: (E.P1.y + E.P2.y) / 2 });
+  const ma = mid(A), mb = mid(B);
+  path.data = { waist: { x: (ma.x + mb.x) / 2, y: (ma.y + mb.y) / 2, angle: Math.atan2(A.P2.y - A.P1.y + B.P2.y - B.P1.y, A.P2.x - A.P1.x + B.P2.x - B.P1.x) } };
   if (!vert) return path;
   return subtract(path, rect(xr, -200, 600, o1.cy + 10), rect(xl - 600, o2.cy - 10, 600, 600));
 }
@@ -78,6 +82,6 @@ export function word(m = P) {
       { name: "M", item: g.M, lsb: 46, rsb: 36 },
       { name: "A", item: g.A, lsb: 0, rsb: 0 },
     ],
-    { kern: { SO: 0, OM: 0, MA: -34 }, tracking: m.tracking },
+    { kern: { SO: -22, OM: -12, MA: -46 }, tracking: m.tracking },
   );
 }
