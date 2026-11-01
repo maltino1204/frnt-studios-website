@@ -46,8 +46,11 @@ export default function LandingLayout({ children }: LayoutProps<"/">) {
       <RouteTransition as="main" id="inhalt" tabIndex={-1} className="lp flex-1 focus:outline-none">
         {children}
       </RouteTransition>
-      <SiteFooter />
-      <FooterNote />
+      {/* The dock hides while any part of the footer is in view (spec § 5.6; INTEGRATION § 3.7: no legal links covered). */}
+      <div data-dock-hide="0">
+        <SiteFooter tagline={false} />
+        <FooterNote />
+      </div>
       <ChapterOverlay />
       <ChapterLinks />
       <BookingBar />

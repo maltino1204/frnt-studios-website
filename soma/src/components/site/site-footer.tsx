@@ -21,7 +21,8 @@ async function loadFooterData(): Promise<{ categories: CategoryDTO[]; cities: Ci
 }
 
 /** Footer on Linen (brand § 9.3): the micro wordmark, the tagline in Newsreader Italic, quiet link columns. */
-export async function SiteFooter() {
+/** `tagline={false}` where the page itself just closed on the tagline (the landing page's final band). */
+export async function SiteFooter({ tagline = true }: { tagline?: boolean } = {}) {
   const { categories, cities } = await loadFooterData();
   const columns: Array<{ title: string; links: FooterLink[] }> = [
     {
@@ -73,9 +74,11 @@ export async function SiteFooter() {
             <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start rounded-control px-2 focus-ring">
               <Wordmark title={null} className="h-[18px] lg:h-5" />
             </Link>
-            <p lang="en" className="max-w-[16ch] type-accent text-[1.75rem] leading-[1.1] text-ink lg:text-[2rem]">
-              {BRAND_TAGLINE}
-            </p>
+            {tagline ? (
+              <p lang="en" className="max-w-[16ch] type-accent text-[1.75rem] leading-[1.1] text-ink lg:text-[2rem]">
+                {BRAND_TAGLINE}
+              </p>
+            ) : null}
           </div>
           {/* The link style lives once on the nav (not on ~50 links), which keeps every page's HTML and RSC payload smaller (A5-9). */}
           <nav
