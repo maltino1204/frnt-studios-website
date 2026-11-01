@@ -343,7 +343,8 @@ html[data-booking-open] .lp-dock {
     grid-column: 7 / span 6;
   }
   .lp-sill {
-    --lp-sill-w: max(calc(8 * var(--lp-col) + 7 * var(--gap)), 820px);
+    /* 8 columns, at least 860 px: below that Wo?'s default placeholder would truncate (§ 14.1) */
+    --lp-sill-w: max(calc(8 * var(--lp-col) + 7 * var(--gap)), 860px);
   }
 }
 /* Short desktop viewports (§ 2.2): the tagline steps down to display-l, the lead may run to 4 lines. */
@@ -485,11 +486,12 @@ html[data-booking-open] .lp-dock {
   width: 100%;
   height: 100%;
 }
+/* Below the springline (54.5 % of the width = 43.6 % of a 4:5 height), centred in the flanks. */
 .lp-walk-frame > .lp-walk-vignette {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 5%;
+  top: 48%;
   width: calc(100% - 28px);
   max-width: 360px;
   margin-inline: auto;
@@ -536,7 +538,7 @@ html[data-booking-open] .lp-dock {
     align-items: center;
     justify-content: space-between;
     width: min(240px, 96%);
-    right: -8%;
+    right: -4%;
   }
 }
 
@@ -583,6 +585,7 @@ html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-steps {
 }
 html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-step {
   display: flex;
+  flex-direction: row;
   align-items: center;
   min-height: 80svh;
 }
@@ -629,11 +632,9 @@ html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item > .lp-walk-vig
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(var(--lp-outline-w) * 1.25 - 24px);
+  top: calc(var(--lp-outline-w) * 0.6);
   width: min(360px, calc(var(--lp-outline-w) - 48px));
   margin-inline: auto;
-  translate: none;
-  transform: translateY(-100%);
 }
 html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item-pair {
   display: flex;

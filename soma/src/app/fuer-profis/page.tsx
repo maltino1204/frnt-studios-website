@@ -417,7 +417,7 @@ export default async function ForProsPage() {
           <Reveal className="flex flex-col gap-5">
             <Overline>Wo wir starten</Overline>
             <p className="max-w-[48rem] type-display-m">
-              Jetzt in {cityText}. <em className="text-ink-muted">Weitere Städte folgen.</em>
+              Jetzt in {cityText}. <span className="text-ink-muted">Weitere Städte folgen.</span>
             </p>
             <ul className="flex flex-wrap gap-2" aria-label="Startstädte">
               {activeCities.map((x) => (

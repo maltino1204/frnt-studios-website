@@ -46,7 +46,7 @@ export function EarningsCalculator({ rates }: { rates: { rate: number; repeatCli
           onChange={(v) => setTier(v as Tier)}
           options={[
             { value: "base", label: "Neu" },
-            { value: "repeat", label: <span className="condensed">Stammkundschaft</span> },
+            { value: "repeat", label: "Stammkundschaft" },
             { value: "own_client", label: "Eigene" },
           ]}
         />

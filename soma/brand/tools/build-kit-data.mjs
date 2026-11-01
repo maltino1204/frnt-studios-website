@@ -57,8 +57,13 @@ const data = {
     tagline: lock(L.tagline),
     stacked: lock(L.stacked),
     appIcon: { size: 1024, paths: icon },
+    favicon: (() => {
+      const svg = fs.readFileSync(new URL("../assets/icons/favicon.svg", import.meta.url), "utf8");
+      const d = (id) => (svg.match(new RegExp(`id="${id}"[^>]*d="([^"]+)"`)) || [])[1];
+      return { size: 32, rim: d("rim"), seal: d("seal"), s: d("symbol-s") };
+    })(),
     drawOn: JSON.parse(fs.readFileSync(new URL("../assets/splash/soma-mark-draw.json", import.meta.url), "utf8")),
-    symbolStudies: JSON.parse(fs.readFileSync(new URL("../assets/logo/concepts/symbol-studies-2.json", import.meta.url), "utf8")).rows,
+    symbolStudies: JSON.parse(fs.readFileSync(new URL("../assets/logo/concepts/symbol-studies-3.json", import.meta.url), "utf8")).rows,
   },
   palette: Object.fromEntries(Object.entries(T.primitives).map(([k, v]) => [k, { value: v.value, note: v.note ?? null, brand: !!v.brand }])),
   semantic,

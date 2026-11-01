@@ -1,7 +1,13 @@
 # SOMA: Brand guidelines
 
-*v1.1 · 1 Nov 2026 (after Brand Audit 1). Identity sections by the Identity Designer. The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director.*
+*v1.2 · 1 Nov 2026 (after Brand Audit 2). Identity sections by the Identity Designer. The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director.*
 
+> **What changed in v1.2 (Brand Audit 2):**
+> - **The symbol has its ownable detail: the Versatz** (O5). The O's upper half sits one hairline left, its lower half one hairline right, like shoulders against hips. A typed "S in an oval" cannot have it. The line cut, the seal, every app icon, the favicon and the launch images are rebuilt (§ 2, `LOGO_USAGE.md` § 2.1).
+> - The iOS 20 and 29 px icons use the seal cut (N5).
+> - The footer sign-off tagline is part of the logo lockup and does not count as the page's italic clause (§ 4.4, N3).
+> - The signature (offset arch pair + Ortszeile) is mirrored in § 5.1 from the Art Director's § 10.2.
+>
 > **What changed in v1.1 (Brand Audit 1):**
 > - **The symbol is the S im O.** The S of the wordmark sits inside its O; below 32 px it becomes a seal. It replaces the plain S (O1). It is used in the app icons, the favicon and the stacked lockup.
 > - The launch treatment and the animation in which the mark draws itself (M3, `assets/splash/`) are new.
@@ -20,7 +26,7 @@
 | `brand/BRAND_STRATEGY.md`, `brand/BRAND_VOICE.md` | Positioning, audiences, messaging, voice (Strategist) |
 | `brand/LOGO_USAGE.md` | Logo exploration, selection, construction, clear space, minimum sizes, colours, placement, misuse |
 | `brand/DESIGN_TOKENS/` | `tokens.json` (W3C), `tokens.css` (app drop-in), `contrast.md`, `README.md` (old → new mapping, migration steps) |
-| `brand/assets/logo/` | `concepts/` (A/B/C, symbol studies 1 and 2), `final/` (masters + PNG), `misuse/` |
+| `brand/assets/logo/` | `concepts/` (A/B/C, symbol studies 1, 2 and 3), `final/` (masters + PNG), `misuse/` |
 | `brand/assets/icons/` | iOS, Android adaptive, PWA, favicon (svg, ico), apple-touch-icon |
 | `brand/assets/splash/` | Launch screen, iOS startup images, the animation in which the mark draws itself (`SPLASH.md`) |
 | `brand/assets/motif/` | The SOMA arch: master, construction, pair, crops, social frame |
@@ -60,13 +66,22 @@ The complete rules are in **`LOGO_USAGE.md`**. In short:
   - The vertical stress is shared by O, M and A.
   - The S is built from the O's halves.
   - There are two optical masters: **display** (≥ 32 px cap height) and **micro** (< 32 px: heavier hairlines, wider spacing).
-- **Symbol: the S im O.**
-  - It is the wordmark's S (the body) inside the wordmark's O (the place), and it carries a non-letter feature: the enclosure.
-  - The **line cut** is used from 32 px. Below that, the **seal cut** is used: the O filled, with the S set into it.
-  - Its silhouette overlaps the S of five serif typefaces by at most **0.24** IoU (the old S: 0.52; the target was < 0.35). The evidence is in `concepts/symbol-studies-2.png`.
+- **Symbol: the S im O, with the Versatz.**
+  - It is the wordmark's S (the body) inside the wordmark's O (the place).
+  - **The Versatz** (v1.2) is its ownable detail: the O is cut at its waist, and the upper half sits one hairline (40 units) to the left, the lower half one hairline to the right. It is the contrapposto of § 1 (shoulders against hips) applied to the place itself, and it leaves two small shoulders at the waist.
+  - The **line cut** is used from 32 px. Below that, the **seal cut** is used: the O filled, with the same Versatz and the S knocked out.
+  - **Overlap (IoU), before → after** (`concepts/symbol-studies-3.png`):
+
+    | | Serif S (target < 0.35) | Generic S-in-oval (target < 0.35) | SOMA O + typed S (target ≤ 0.65) |
+    |---|---:|---:|---:|
+    | v1.1 S im O | 0.24 | 0.52 | 0.83 |
+    | **v1.2 line cut** | **0.19** | **0.31** | **0.44** |
+    | **v1.2 seal** | **0.26** | **0.24** | **0.39** |
+
+  - The human tests O1b (5-second recall) and O4 (genre line-up) are **pending client tests**; the protocol is in `LOGO_USAGE.md` § 2.1.
 - **Secondary lockups:** with the descriptor, with the tagline, and stacked (symbol over wordmark).
-- **App icon:** the Bone S im O on an Oxblood tile. It is the brand's most visible Oxblood moment.
-- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim. The rim gives 14.0:1 against a dark tab bar (`#202124`) and disappears into light ones.
+- **App icon:** the Bone S im O on an Oxblood tile. It is the brand's most visible Oxblood moment. Tiles under 32 px (iOS 20 and 29 px) carry the seal.
+- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim that follows the Versatz outline. The rim gives 14.0:1 against a dark tab bar (`#202124`) and disappears into light ones.
 - **Clear space:** 3x, where x is the main stem (1/7 of the cap height). **Minimum sizes:** micro wordmark 12 px cap height (≈ 50 px wide) or 15 mm wide; symbol 16 px (seal cut) or 4 mm.
 - **Colours:** Espresso (default), Bone (dark grounds), Oxblood (print only), black, white.
 
@@ -280,10 +295,11 @@ Every candidate is SIL OFL from Google Fonts, licensed for web, app and logo use
   - **Quotes:** at most one serif quote per view. Further testimonials use the sans (`body-l`).
   - Forms, tables, buttons, labels, numbers and navigation are always sans.
 - **Italic accents: at most one per page** (Brand Audit 1, L1). The italic is a signature, not a habit.
-  - Marketing pages may have **one** italic accent clause, in the hero: *Du bleibst. <em>Dein Profi kommt.</em>* All other headlines on that page are roman. When the tagline "Your body. Your place." appears, it *is* the page's italic moment.
+  - Marketing pages may have **one** italic accent clause, in the hero: *Du bleibst. <em>Dein Profi kommt.</em>* All other headlines on that page are roman. When the tagline "Your body. Your place." appears in the page content, it *is* the page's italic moment.
+  - **The footer sign-off is exempt** (Brand Audit 2, N3). The tagline under the wordmark in the site footer is the **tagline lockup** (`LOGO_USAGE.md` § 2): it belongs to the logo, like the descriptor, and it does not count as the page's italic clause. It stays exempt only as the lockup: the wordmark with the tagline directly beneath it (`lang="en"`, `type-accent`), inside `<footer>`, once per page, with nothing else in italic in the footer (as built in `components/site/site-footer.tsx`).
   - **App screens** (account, booking, SOMA Pro, Admin) have **no** italic accent clause. A greeting is roman: "Guten Abend, Julia."
   - Mechanics: inside serif headlines (`display-*`, `h1`, `h2`), `<em>` switches to Newsreader **Italic** at the same size and weight. Inside sans headings it becomes a serif italic clause at 1.08em with no extra leading. Never in buttons, labels, inputs or tables.
-  - Check: count the `<em>` inside `h1`/`h2` per route: ≤ 1, and 0 in `/konto`, `/buchung`, `/pro` and `/admin`.
+  - Check: count the italic clauses (`<em>` in `h1`–`h3`, and any element set in Newsreader Italic) per route **outside `<footer>`**: ≤ 1, and 0 in `/konto`, `/buchung`, `/pro` and `/admin`.
 - **The tagline** "Your body. Your place." is always Newsreader Display Italic, `lang="en"`, and never set in the sans.
 - **Numbers** use tabular lining figures everywhere they align (`num`, `type-numeric`). German formats with non-breaking spaces: `84 €`, `14:30 Uhr`, `Fr., 14. Nov.`, `1.284,50 €`.
 - **German line breaks:**
@@ -317,11 +333,23 @@ Every candidate is SIL OFL from Google Fonts, licensed for web, app and logo use
 |---|---|
 | **Use** | Crop editorial and hero photography; service-card and category images; empty image slots; social posts; gift card and onboarding covers. |
 | **Count** | One arch or one **pair** per view on marketing pages. In lists, every card image can be an arch, because a repeated arch is a rhythm, not a decoration. |
-| **The pair (contrapposto)** | Two arches side by side: the left one higher, the right one lower by 18 % of its width, like the S's two halves. Use it for two places ("Zuhause · Hotel"), before/after, or Profi and client. |
+| **The pair (contrapposto)** | Two arches side by side: the left one higher, the right one lower by 18 % of its width, like the S's two halves. Use it for two places ("Zuhause · Hotel"), before/after, or Profi and client. With the Ortszeile it is the **signature** (below). |
 | **Scale** | The arch never falls below 120 px wide; below that, use a rounded tile (radius 12). In the UI, the arch is always an image frame or an outline, never a filled decorative shape. |
 | **Crop** | Keep the subject's head or hands below the arch's springline (the point where curve meets flank): nothing important sits in the top 20 %. Keep 4:5 as the default. Avatars and portraits use the full **O-oval** (332 : 362). |
 | **Colour** | Photography inside; Stone or the category wash as the empty fill; Espresso 1.5 px or `line-mid` 1 px as an outline. Oxblood fill only as the single brand moment (splash, gift card). Never a gradient, never a shadow on the arch itself; the card carries elevation. |
 | **Never** | Rotate it; stretch it off its O ratio; use it as a pattern or texture; nest arches; put the logo inside the curve. |
+
+**The signature: offset arch pair + Ortszeile** (mirrors the Art Director's § 10.2, which is authoritative for campaigns).
+
+The one composition that is SOMA's in every campaign. It joins the arch and the Ortszeile (§ 5.2) into a fixed unit.
+
+| | Rule |
+|---|---|
+| **Geometry** | Two arches of equal size, side by side. The **right arch drops by 18 % of its width**; the left one is always the higher. The gap is about 7 % of the arch width. |
+| **Ortszeile** | One line under the **left** arch, left-aligned to its edge: *Ort · Stadtteil · Uhrzeit* in `type-place`, tabular figures, wrapping only between segments. Two different places may each carry their own line. |
+| **Content** | One evening in two moments (the left arch is the earlier one), two places, or Profi and customer. Never two near-identical frames. |
+| **Where** | Every campaign format carries it (the smallest banners a single arch with the short Ortszeile, *Berlin · 19:30*); social at least once per grid of nine; hero and editorial at most once per page. |
+| **Never** | Offset the left arch lower; change the 18 %; tilt, nest or overlap the arches; drop the Ortszeile from a campaign format; put the wordmark on the photographs. |
 
 **Motion.**
 - **Arrival:** the arch rises 16 px and fades in (640 ms, `ease-arrive`). The photograph inside settles from scale 1.04 to 1 (900 ms). The movement stops: no loop and no parallax.
@@ -427,7 +455,7 @@ Easings: `standard` (state changes), `arrive` (entrances), `settle` (coming to r
 1. **Quiet surfaces, clear actions.**
    - Bone page, Paper cards with a hairline shadow, Espresso type.
    - Colour appears only where it means something: Oxblood for the one primary action, and the functional colours with an icon and a word.
-2. **Editorial where it speaks, functional where it works.** One serif headline per view (names in cards excepted, § 4.4), at most one italic clause per page; every control, number and form is the sans.
+2. **Editorial where it speaks, functional where it works.** One serif headline per view (names in cards excepted, § 4.4), at most one italic clause per page (the footer sign-off lockup excepted); every control, number and form is the sans.
 3. **The truth is the design material** (strategy): *Endpreis inkl. Anfahrt*, the dated cancellation deadline and the Start-Code are shown plainly. Never fake ratings or badges.
 4. **Arrive and rest.** Interactions answer within 100–220 ms. Elements settle and stop.
 5. **Built for German, thumbs and screen readers.**
@@ -554,7 +582,7 @@ Every asset is generated from code. To change one, edit the source and rebuild; 
 | `node brand/tools/build-tokens.mjs` | `DESIGN_TOKENS/tokens.json`, `tokens.css`, `contrast.*` |
 | `node brand/tools/build-boards.mjs` | Logo system, construction, symbol studies, colour, type-scale boards |
 | `node brand/tools/type-specimens.mjs` (after `fetch-fonts.mjs`) | `assets/typography/*.png` |
-| `node brand/tools/build-symbol-studies.mjs` | `assets/logo/concepts/symbol-studies-2.png` + `.json` (IoU against five serif S, 16/24/32 px renders) |
+| `node brand/tools/build-symbol-studies.mjs` | `assets/logo/concepts/symbol-studies-3.png` + `.json`: IoU against five serif S (`lib/iou.mjs`) and against the auditor's generic S-in-oval set (`lib/genre-iou.mjs`, a replica of `audit/scripts/audit-2/s-in-o-compare.cjs`), 16/24/32 px renders. Studies 1 and 2 stay as the record. |
 | `node brand/tools/build-splash.mjs` | `assets/splash/**` (the animated SVG of the mark drawing itself, launch screen, iOS startup images, storyboard) |
 | `node brand/tools/build-kit-data.mjs` | `src/app/kit/marke/data.generated.ts` (artwork and tokens for the brand book) |
 

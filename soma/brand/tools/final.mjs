@@ -93,31 +93,52 @@ export const SYMBOL_OPTS = { w: 246 };
 export const SYMBOL_MICRO = { V: 138, h: 74 };
 
 /**
- * The SOMA mark, "S im O" (Brand Audit 1, O1): the S, the body, held inside the O, the place. Both parts are the
- * wordmark's own geometry: the O's outer contour (rx 332, ry 362, tensions 0.57 / 0.585) and the S of the wordmark
- * at symbol weight, scaled to 64 % of the O's height. "Your body. Your place." in one sign, and the first two letters
- * of the name. Two cuts:
+ * The SOMA mark, "S im O": the S, the body, held inside the O, the place. Both parts are the wordmark's own geometry:
+ * the O's outer contour (rx 332, ry 362, tensions 0.57 / 0.585) and the S of the wordmark at symbol weight.
+ *
+ * v1.2 (Brand Audit 2, O5), the ownable detail: **the Versatz**. The O is cut at its waist and its halves slide
+ * against each other by one hairline each (40 units): the upper half to the left, the lower half to the right,
+ * the shoulders against the hips of contrapposto and the same gesture as the S it holds (upper bowl left, lower bowl
+ * right). A typed S in an oval cannot have it. Two cuts:
  *   line  (>= 32 px): the O as a vertical-stress ring, the S floating in its counter;
- *   solid (< 32 px): the O as a filled oval with the S set into it (the seal), for favicons, tabs and stamps.
- * Returned centred on (0, 0); the O spans 664 x 724 units.
+ *   solid (< 32 px): the O filled with the S set into it (the seal), for favicons, small app icons and stamps.
+ * Returned centred on (0, 0); the O spans (664 + 2 x 40) x 724 units.
  */
 export const MARK = {
   rx: 332,
   ry: 362,
-  line: { OV: 108, Oh: 40, S: { V: 120, h: 46 }, SH: 466 },
-  solid: { S: { V: 156, h: 82 }, SH: 452 },
+  shift: 40,
+  line: { OV: 108, Oh: 40, S: { V: 120, h: 46 }, SH: 446, sx: 0.96 },
+  solid: { S: { V: 156, h: 82 }, SH: 444, sx: 0.98 },
 };
 function centred(g, H) {
   const b = bounds(g);
   return transform(transform(g, { tx: -b.x - b.w / 2, ty: -b.y - b.h / 2 }), { sx: H / b.h });
 }
-export function symbolMark(cut = "line") {
-  const { rx, ry } = MARK;
+/** The Versatz: cut at the waist (y = 0), upper half to the left, lower half to the right, by `shift` each. */
+export function versatz(g, shift = MARK.shift) {
+  const up = transform(intersect(g, rect(-4000, -4000, 8000, 4000)), { tx: -shift });
+  const lo = transform(intersect(g, rect(-4000, 0, 8000, 4000)), { tx: shift });
+  return unite(up, lo);
+}
+/** grow: enlarge the O outline (for the favicon rim) while keeping the same Versatz. */
+export function symbolMark(cut = "line", { grow = 0 } = {}) {
+  const { rx, ry, shift } = MARK;
   const c = MARK[cut];
-  const outer = oval({ cx: 0, cy: 0, rx, ry, kx: 0.57, ky: 0.585 });
-  const S = centred(glyphS({ ...MASTERS.display, ...c.S }, SYMBOL_OPTS), c.SH);
-  if (cut === "solid") return { cut, seal: outer, s: S, item: subtract(outer, S) };
+  const outer = oval({ cx: 0, cy: 0, rx: rx + grow, ry: ry + grow, kx: 0.57, ky: 0.585 });
+  const S = transform(centred(glyphS({ ...MASTERS.display, ...c.S }, SYMBOL_OPTS), c.SH), { sx: c.sx, sy: 1 });
+  if (cut === "solid") {
+    const seal = versatz(outer, shift);
+    return { cut, seal, s: S, item: subtract(seal, S) };
+  }
   const inner = oval({ cx: 0, cy: 0, rx: rx - c.OV, ry: ry - c.Oh, kx: 0.6, ky: 0.54 });
-  const o = subtract(outer, inner);
+  const o = versatz(subtract(outer, inner), shift);
   return { cut, o, s: S, item: unite(o, S) };
+}
+/** The previous mark (v1.1, no Versatz), kept as the control for studies. */
+export function symbolMarkV11() {
+  const outer = oval({ cx: 0, cy: 0, rx: 332, ry: 362, kx: 0.57, ky: 0.585 });
+  const inner = oval({ cx: 0, cy: 0, rx: 224, ry: 322, kx: 0.6, ky: 0.54 });
+  const S = centred(glyphS({ ...MASTERS.display, V: 120, h: 46 }, SYMBOL_OPTS), 466);
+  return unite(subtract(outer, inner), S);
 }

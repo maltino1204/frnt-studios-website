@@ -201,6 +201,8 @@ export default async function ProTodayPage() {
                 <EmptyState
                   className="py-6!"
                   seed="pro-heute-frei"
+                  headingLevel="h3"
+                  serif={false}
                   title="Heute ist frei."
                   action={
                     <ButtonLink href={`${routes.pro.calendar()}?ansicht=arbeitszeiten`} variant="secondary">

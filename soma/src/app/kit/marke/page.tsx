@@ -123,20 +123,14 @@ function AppIcon({ size = 120, radius = 0.2237 }: { size?: number; radius?: numb
     </svg>
   );
 }
-/** Favicon as shipped (brand/assets/icons/favicon.svg): the seal in Oxblood over a Bone rim (keeps its edge on dark tabs). */
+/** Favicon as shipped (brand/assets/icons/favicon.svg): the seal in Oxblood, Bone S, a Bone rim that follows the Versatz. */
 function Favicon({ size = 16 }: { size?: number }) {
-  const sym = BRAND.final.seal;
-  const [, , w, h] = sym.viewBox;
-  const k = (size * 0.875) / h;
-  const rim = size * 0.05;
+  const f = BRAND.final.favicon;
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} aria-hidden style={{ display: "block", flex: "none", width: size, height: size, maxHeight: "none" }}>
-      <ellipse cx={size / 2} cy={size / 2} rx={(w * k) / 2 + rim} ry={(h * k) / 2 + rim} fill="#F3EFE8" />
-      <g transform={`translate(${(size - w * k) / 2} ${(size - h * k) / 2}) scale(${k})`} fill="#542C35">
-        {sym.paths.map((p) => (
-          <path key={p.id} d={p.d} />
-        ))}
-      </g>
+    <svg viewBox={`0 0 ${f.size} ${f.size}`} width={size} height={size} aria-hidden style={{ display: "block", flex: "none", width: size, height: size, maxHeight: "none" }}>
+      <path d={f.rim} fill="#F3EFE8" />
+      <path d={f.seal} fill="#542C35" />
+      <path d={f.s} fill="#F3EFE8" />
     </svg>
   );
 }
@@ -327,22 +321,19 @@ export default function MarkePage() {
           </p>
         </div>
 
-        <h3 className={s.h3}>Zeichen-Studien 2 · die Konstruktion sichtbar machen</h3>
+        <h3 className={s.h3}>Zeichen-Studien 3 · ein eigenes Detail: der Versatz</h3>
         <p className={s.p}>
-          Kriterium (Brand Audit 1, O1): Überlappung (IoU) mit dem S von fünf Serifenschriften unter 0,35, ein Merkmal jenseits des Buchstabens, lesbar bei 16 px. Die
-          Serifen-S überlappen einander mit 0,52–0,62.
+          Kriterien (Brand Audit 2, O5): Überlappung (IoU) mit dem S von fünf Serifenschriften unter 0,35, mit generischen Monogrammen „S im Oval“ unter 0,35
+          (Methode des Auditors) und mit „SOMA-O + getipptes S“ höchstens 0,65. Der Wiedererkennungstest mit Menschen (O1b, O4) steht noch aus.
         </p>
         <div className={s.tableWrap}>
           <table className={s.table} style={{ minWidth: 640 }}>
             <thead>
               <tr>
                 <th>Studie</th>
-                {Object.keys(BRAND.final.symbolStudies[0].iou).map((k) => (
-                  <th key={k} style={{ textAlign: "right" }}>
-                    {k}
-                  </th>
-                ))}
-                <th style={{ textAlign: "right" }}>Max.</th>
+                <th style={{ textAlign: "right" }}>Serifen-S</th>
+                <th style={{ textAlign: "right" }}>Monogramm im Oval</th>
+                <th style={{ textAlign: "right" }}>SOMA-O + S</th>
                 <th>Befund</th>
               </tr>
             </thead>
@@ -350,13 +341,14 @@ export default function MarkePage() {
               {BRAND.final.symbolStudies.map((r) => (
                 <tr key={r.key} style={r.chosen ? { background: "var(--oxblood-50)" } : undefined}>
                   <td style={{ fontWeight: r.chosen ? 600 : 400 }}>{r.name}</td>
-                  {Object.values(r.iou).map((v, i) => (
-                    <td key={i} style={{ textAlign: "right" }}>
-                      {v.toFixed(2).replace(".", ",")}
-                    </td>
-                  ))}
-                  <td style={{ textAlign: "right" }} className={r.maxIoU < 0.35 ? s.pass : s.fail}>
-                    {r.maxIoU.toFixed(2).replace(".", ",")}
+                  <td style={{ textAlign: "right" }} className={r.maxPlain < 0.35 ? s.pass : s.fail}>
+                    {r.maxPlain.toFixed(2).replace(".", ",")}
+                  </td>
+                  <td style={{ textAlign: "right" }} className={r.maxGeneric < 0.35 ? s.pass : s.fail}>
+                    {r.maxGeneric.toFixed(2).replace(".", ",")}
+                  </td>
+                  <td style={{ textAlign: "right" }} className={r.maxSomaO <= 0.65 ? s.pass : s.fail}>
+                    {r.maxSomaO.toFixed(2).replace(".", ",")}
                   </td>
                   <td className={s.small}>{r.note}</td>
                 </tr>
@@ -426,11 +418,12 @@ export default function MarkePage() {
           </div>
         </div>
 
-        <h3 className={s.h3}>Das Zeichen: das S im O</h3>
+        <h3 className={s.h3}>Das Zeichen: das S im O, mit Versatz</h3>
         <p className={s.p}>
           Das S der Wortmarke (der Körper) steht im O der Wortmarke (dem Ort): „Your body. Your place.“ als ein Zeichen, und zugleich die ersten zwei Buchstaben des
-          Namens. Ab 32 px der Linienschnitt; darunter der Siegel-Schnitt, in dem das O gefüllt ist und das S eingesetzt. Das Favicon ist das Siegel mit einer feinen
-          Bone-Kante, damit es auch in dunklen Tab-Leisten seine Form behält.
+          Namens. Das eigene Detail ist der Versatz: Das O ist an der Taille geschnitten, die obere Hälfte gleitet um eine Haarlinie nach links, die untere nach
+          rechts. Schulter gegen Hüfte, dieselbe Geste wie das S, das es hält. Ab 32 px der Linienschnitt; darunter der Siegel-Schnitt (das O gefüllt, das S
+          eingesetzt), auch für die kleinen App-Icons. Das Favicon ist das Siegel mit einer feinen Bone-Kante für dunkle Tab-Leisten.
         </p>
         <div className={s.grid4}>
           <div className={`${s.stage} ${s.onBone}`}>

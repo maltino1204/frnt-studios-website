@@ -734,6 +734,17 @@ export function BookingEntry({
   const datum = whenDate(when);
   const showPanel = loc.status === "outside" && dismissedPanel !== loc.data.postalCode;
 
+  // The anchored waitlist panel overlays the page under the sill; when the visitor's own input brings it up and it
+  // runs past the viewport, bring it into view (never on load, so a remembered PLZ never scrolls the page).
+  const panelRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!showPanel || !anchored || !el || !formRef.current?.contains(document.activeElement)) return;
+    if (el.getBoundingClientRect().bottom <= window.innerHeight) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }, [showPanel, anchored]);
+
   /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero, sill). */
   const segment = cn(
     "relative flex min-w-0 flex-col justify-center px-5 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-line after:content-['']",
@@ -939,6 +950,7 @@ export function BookingEntry({
           <p id={hintId} className="mt-3 type-caption text-ink-muted">{loc.message}</p>
         ) : loc.status === "outside" && showPanel ? (
           <div
+            ref={panelRef}
             data-booking-panel="waitlist"
             className={cn(
               "relative mt-4 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised animate-rise sm:p-5",

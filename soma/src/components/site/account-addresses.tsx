@@ -47,12 +47,8 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
         onChange={(v) => setKind(v as LocationKind)}
         options={(["home", "hotel", "office"] as const).map((k) => ({
           value: k,
-          label: (
-            <span className="inline-flex items-center gap-1.5">
-              <PlaceIcon kind={k} size={16} className="hidden min-[360px]:block" />
-              {LOCATION_LABELS[k]}
-            </span>
-          ),
+          icon: <PlaceIcon kind={k} size={16} />,
+          label: LOCATION_LABELS[k],
         }))}
       />
       <Input label="Bezeichnung" name="label" optional placeholder={`z. B. ${LOCATION_LABELS[kind]}`} defaultValue={address?.label ?? ""} maxLength={60} error={fe?.label} />

@@ -306,7 +306,7 @@ Messages render in one `aria-live="polite"` region. The input references exactly
   **Termin finden** (primary, 48 px; Bone in dark scopes);
 - visible until the hero booking card is ≥ 25 % in view (`data-dock-hide="0.25"` sits on the entry wrapper rendered by
   `HeroBookingEntry`); hidden while chapter 10's CTAs are ≥ 30 % in view, a text field has focus, or a dialog is open
-  (`html[data-booking-overlay]` is set while the bar or sheet is open);
+  (`html[data-booking-open]` is set while the bar or sheet is open);
 - `<nav aria-label="Schnellzugriff">` directly after the header in the DOM;
 - the footer gets `padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom))` below 1024 (spec § 4.10), so the legal row
   is never covered.
@@ -625,7 +625,7 @@ File `tests/e2e/landing-conversion.spec.ts` (T1–T22 as below; T12b adds the ch
    - render the 09 accordion from `loadLandingConversion().faq` without `FaqSection`, and `<LandingJsonLd>` once;
    - re-export `generateLandingMetadata` as `generateMetadata`;
    - remove the `(site)/page.tsx` home when `(landing)/page.tsx` takes `/` (two pages cannot both serve `/`).
-2. **Motion developer:** the dock rules read `[data-dock-hide]` (the hero wrapper carries 0.25) and `html[data-booking-overlay]`.
+2. **Motion developer:** the dock rules read `[data-dock-hide]` (the hero wrapper carries 0.25) and `html[data-booking-open]`.
    Animate the bar through `[data-booking-surface="bar"]` / `[data-closing]` if the kit `animate-rise` is not wanted. Share one
    `IntersectionObserver` for stage, dock and index.
 3. **Lead:**

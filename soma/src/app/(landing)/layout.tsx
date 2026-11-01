@@ -8,7 +8,25 @@ import { FooterNote } from "@/components/landing/nav/footer-note";
 import { LandingDock } from "@/components/landing/nav/landing-dock";
 import { LandingHeader } from "@/components/landing/nav/landing-header";
 import { SkipLinks } from "@/components/landing/nav/skip-links";
+import localFont from "next/font/local";
+import type { CSSProperties } from "react";
 import "./landing.css";
+
+/*
+ * Fonts on / (spec § 10.5): the hero's first line is the italic tagline, so the landing preloads Newsreader Display
+ * Italic next to the root's Instrument Sans and Newsreader roman (3 files, 102 KB, within the 150 KB budget) without
+ * touching the root layout, which keeps the italic on demand for every other route. The landing's accent family is
+ * this preloaded face (same file, metric-matched Times fallback, so no layout shift when it swaps in).
+ */
+const accent = localFont({
+  src: "../../styles/fonts/newsreader-display-italic.woff2",
+  style: "italic",
+  weight: "400",
+  display: "swap",
+  preload: true,
+  adjustFontFallback: "Times New Roman",
+});
+const accentScope = { "--font-accent": `${accent.style.fontFamily}, Georgia, "Times New Roman", serif` } as CSSProperties;
 
 /**
  * Landing layout (docs/landing/LANDING_DESIGN_SPEC.md D8, § 11.1): skip links · LandingHeader · LandingDock (< 1024,
@@ -21,7 +39,7 @@ import "./landing.css";
  */
 export default function LandingLayout({ children }: LayoutProps<"/">) {
   return (
-    <>
+    <div className="contents" style={accentScope}>
       <SkipLinks />
       <LandingHeader />
       <LandingDock />
@@ -34,6 +52,6 @@ export default function LandingLayout({ children }: LayoutProps<"/">) {
       <ChapterLinks />
       <BookingBar />
       <BookingSheet />
-    </>
+    </div>
   );
 }

@@ -25,6 +25,7 @@ import { CountPill, Status } from "@/components/ui/feedback";
 import { RouteTransition } from "@/components/ui/motion";
 import { BottomNav, LinkPending } from "@/components/ui/nav";
 import { cn } from "@/lib/cn";
+import { isAiImage } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
 import type { ProviderStatus } from "@/server/dto";
@@ -143,7 +144,9 @@ export function ProShell({
           </Status>
         ) : (
           <Link href={routes.pro.profile()} className="-mr-1 inline-flex size-touch items-center justify-center rounded-full pressable focus-ring">
-            <Avatar src={avatarUrl} name={displayName} size={32} />
+            {/* 32 px leaves no room for the KI label (§ 7.4), so an AI-generated demo portrait shows initials here;
+                the sidebar card (desktop) and the profile page carry the labelled photo. */}
+            <Avatar src={isAiImage(avatarUrl) ? null : avatarUrl} name={displayName} size={32} />
             <span className="sr-only">Dein Profil</span>
           </Link>
         )}

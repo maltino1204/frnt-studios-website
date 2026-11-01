@@ -21,7 +21,7 @@ export function ProviderCard({ provider }: { provider: DiscoveryProviderDTO }) {
       </span>
       <span className="flex flex-col gap-1.5 px-1">
         <span className="flex min-w-0 items-center gap-1.5">
-          <span className="truncate type-title-serif text-ink">{provider.displayName}</span>
+          <h3 className="truncate type-title-serif text-ink">{provider.displayName}</h3>
           <VerifiedBadge className="shrink-0" />
         </span>
         {meta ? <span className="truncate type-body-s text-ink-muted">{meta}</span> : null}

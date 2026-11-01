@@ -30,8 +30,8 @@ function iconSvg({ size = 1024, bg = OX, fg = BONE, frac = 0.62, radius = 0, cut
   if (cut === "line") {
     body = `  <g id="symbol" fill="${fg}">\n    <path id="symbol-o" d="${toD(t(m.o))}"/>\n    <path id="symbol-s" d="${toD(t(m.s))}"/>\n  </g>\n`;
   } else {
-    const rx = F.MARK.rx * sc, ry = F.MARK.ry * sc;
-    if (rim) body += `  <ellipse id="rim" cx="${size / 2}" cy="${size / 2}" rx="${+(rx + rim.w).toFixed(2)}" ry="${+(ry + rim.w).toFixed(2)}" fill="${rim.c}"/>\n`;
+    // the rim follows the seal's outline, Versatz included (the O grown by rim.w, same shift)
+    if (rim) body += `  <path id="rim" fill="${rim.c}" d="${toD(t(F.symbolMark("solid", { grow: rim.w / sc }).seal))}"/>\n`;
     body += `  <path id="seal" fill="${sealFill}" d="${toD(t(m.seal))}"/>\n  <path id="symbol-s" fill="${fg}" d="${toD(t(m.s))}"/>\n`;
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img" aria-labelledby="t">
@@ -56,7 +56,8 @@ async function ios() {
   const tinted = iconSvg({ bg: "#000000", fg: "#FFFFFF", frac: 0.62, title: "SOMA (getönt)" });
   await out(tinted, "ios/AppIcon-1024-tinted.png", 1024);
   for (const px of [180, 167, 152, 120, 87, 80, 76, 60, 58, 40, 29, 20]) {
-    const svg = iconSvg({ frac: px <= 40 ? 0.66 : 0.62 });
+    // below the line cut's 32 px minimum (Brand Audit 2, N5) the seal cut: a Bone seal on the tile, the S in Oxblood
+    const svg = px < 32 ? iconSvg({ frac: 0.7, cut: "solid", sealFill: BONE, fg: OX }) : iconSvg({ frac: 0.62 });
     await out(svg, `ios/AppIcon-${px}.png`, px);
   }
 }
@@ -101,7 +102,7 @@ async function pwa() {
 }
 /**
  * Favicon: the solid cut (the seal) in Oxblood with a Bone S, no tile. A 1 px Bone rim (at 16 px) keeps the edge on
- * dark browser chrome (#202124: 14.0:1, #35363A: 10.5:1) and disappears into light tab bars.
+ * dark browser chrome (#202124: 14.0:1, #35363A: 10.5:1). The rim follows the Versatz outline and disappears into light tab bars.
  */
 const favicon = (title = "SOMA") => iconSvg({ size: 32, bg: null, cut: "solid", frac: 0.875, rim: { w: 1.6, c: BONE }, title });
 async function favicons() {

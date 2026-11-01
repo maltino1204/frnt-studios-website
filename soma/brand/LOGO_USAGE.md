@@ -1,9 +1,9 @@
 # SOMA: Logo usage
 
-*Identity Designer · 1 Nov 2026 · v1.1 (after Brand Audit 1: new symbol, honest exploration record, favicon rim)*
+*Identity Designer · 1 Nov 2026 · v1.2 (Brand Audit 1: S im O, honest exploration record, favicon rim. Brand Audit 2: the Versatz, the seal for small iOS sizes)*
 *Masters: `brand/assets/logo/final/*.svg` (authoritative). Raster exports: `brand/assets/logo/final/png/`. Build: `node brand/tools/build-logo.mjs`.*
 
-The SOMA logo system has four parts: the **wordmark** (primary), the **symbol** (the S im O: the wordmark's S inside its O), the **secondary lockups** and the **app icon**. Every shape is a hand-built path. No font was used as raw material for the letterforms (§ 1.4).
+The SOMA logo system has four parts: the **wordmark** (primary), the **symbol** (the S im O: the wordmark's S inside its O, whose halves are offset at the waist: the Versatz), the **secondary lockups** and the **app icon**. Every shape is a hand-built path. No font was used as raw material for the letterforms (§ 1.4).
 
 ---
 
@@ -75,10 +75,10 @@ If the client wants a broader comparison, a fourth direction outside the genre (
 |---|---|---|
 | **Primary wordmark** | `soma-wordmark.svg` (+ `-espresso`, `-bone`, `-oxblood`, `-black`, `-white`) | Every brand surface from 32 px cap height (about 128 px wide) upwards. |
 | **Micro wordmark** | `soma-wordmark-micro.svg` (+ colourways) | Below 32 px cap height: app header (15–24 px tall), footers, email headers, favicons with a name, small print. |
-| **Symbol (the S im O)**, line cut | `soma-symbol.svg` (+ colourways): groups `symbol-o`, `symbol-s` | From 32 px: app icon, avatar, social profile, stamps, splash, the stacked lockup; small spaces where the name is already present or implied. |
+| **Symbol (the S im O with Versatz)**, line cut | `soma-symbol.svg` (+ colourways): groups `symbol-o`, `symbol-s` | From 32 px: app icon, avatar, social profile, stamps, splash, the stacked lockup; small spaces where the name is already present or implied. |
 | **Symbol, seal cut** | `soma-symbol-solid.svg` (+ colourways) | Below 32 px: favicon, browser tabs, the admin tile, small stamps. The O is filled and the S set into it (knocked out). |
 | **Lockup: descriptor** | `soma-lockup-descriptor.svg` | Brand introductions: decks, press, gift cards, onboarding covers. The descriptor is set to the wordmark's measure. |
-| **Lockup: tagline** | `soma-lockup-tagline.svg` | Campaign end frames, splash, the brand book cover. Never together with the descriptor. |
+| **Lockup: tagline** | `soma-lockup-tagline.svg` | Campaign end frames, splash, the brand book cover, the site footer sign-off (wordmark with the tagline beneath; part of the logo, so it does not count as the page's italic clause, guidelines § 4.4). Never together with the descriptor. |
 | **Lockup: stacked** | `soma-lockup-stacked.svg` | Square and portrait formats: social, packaging, the splash screen. |
 | **App icon** | `brand/assets/icons/**` | Oxblood tile with the Bone S im O (iOS light/dark/tinted, Android adaptive + monochrome, PWA any + maskable); favicon = the seal with a Bone rim. |
 | **Launch** | `brand/assets/splash/**` | Launch screen (stacked lockup in Oxblood on Bone), iOS startup images, the animation in which the mark draws itself (`SPLASH.md`). |
@@ -88,37 +88,59 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 
 ---
 
-### 2.1 The symbol: the S im O (v1.1)
+### 2.1 The symbol: the S im O, with the Versatz (v1.2)
 
-**Idea.** The S of the wordmark (the body) sits inside the O of the wordmark (the place): *Your body. Your place.* in one sign. It is also the first two letters of the name. The construction that was only documented in v1.0 (the S drawn from the O's halves) is now visible: the S and the O share their curvature, stress and contrast, and the O holds the S.
+**Idea.** The S of the wordmark (the body) sits inside the O of the wordmark (the place): *Your body. Your place.* in one sign, and the first two letters of the name.
 
-**Construction** (`brand/tools/final.mjs` → `symbolMark()`):
-- **O:** the wordmark's O, outer contour rx 332, ry 362 (tensions 0.57 / 0.585). In the line cut it becomes a ring with stems 108 and hairlines 40.
-- **S:** the wordmark's S at symbol weight (stems 120, hairlines 46), scaled to **64 % of the O's height** and centred. Its bowls echo the counter: about 0.55 stem at the sides and 0.9 stem above and below.
-- **Seal cut** (< 32 px): the O filled, the S (stems 156, hairlines 82) knocked out. It is the same sign at favicon resolution.
-- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim (at 16 px). The rim gives 14.0:1 against `#202124` and 10.5:1 against `#35363A`, and it vanishes into light tab bars.
+**The ownable detail (v1.2, Brand Audit 2, O5): the *Versatz*.**
+- The O is cut at its waist, and its two halves slide against each other by **one hairline each**: the upper half to the left, the lower half to the right.
+- These are the shoulders against the hips of *contrapposto*, the same gesture as the S the O holds, whose upper bowl leans left and lower bowl right.
+- The result is two small shoulders at the waist, one on each side. They are calm, architectural and exact: an S typed into an oval cannot have them.
+- In the seal cut, the same Versatz gives the silhouette its shape, so at 16 px it is no longer "a white S on a dark dot".
 
-**Brand Audit 1, O1 pass criteria and evidence** (`concepts/symbol-studies-2.png`, `.json`). IoU is measured on silhouettes normalised to the same height, at 512 px, best of five horizontal shifts. The serif S of these typefaces overlap one another at 0.52–0.62.
+**Construction** (`brand/tools/final.mjs` → `MARK`, `versatz()`, `symbolMark()`):
+- **O:** the wordmark's O, outer contour rx 332, ry 362 (tensions 0.57 / 0.585).
+  - In the line cut it is a ring with stems 108 and hairlines 40.
+  - **Versatz:** cut at y = 0, the upper half moves −40 and the lower half +40 (40 = the O's hairline). The overlap of the stems at the waist stays at 28 units, so the ring is one continuous shape.
+  - The mark measures 744 × 724 units.
+- **S:** the wordmark's S at symbol weight (stems 120, hairlines 46), 446 units tall (62 % of the O), at 96 % width, centred.
+- **Seal cut** (< 32 px): the O filled and the same Versatz, with the S (stems 156, hairlines 82, 444 tall, 98 % width) knocked out.
+- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim that follows the Versatz outline. The rim gives 14.0:1 against `#202124` and 10.5:1 against `#35363A`, and it vanishes into light tab bars.
 
-| Study | Bodoni Moda | Newsreader | Gloock | Playfair Display | Libre Bodoni | Max. | Verdict |
-|---|---:|---:|---:|---:|---:|---:|---|
-| Control: the S (v1) | 0.39 | 0.44 | 0.50 | 0.52 | 0.43 | 0.52 | Well drawn, but a letter: no feature beyond type. |
-| **S im O (chosen)** | 0.17 | 0.23 | 0.24 | 0.24 | 0.24 | 0.24 | The body in its place: the wordmark's S inside the wordmark's O. Reads as a sign, not a letter; the first two letters of the name. |
-| Seal (cut < 32 px) | 0.17 | 0.23 | 0.25 | 0.22 | 0.28 | 0.28 | The same idea as a solid: the O filled, the S set in. Robust at 16 px; the small cut of the mark. |
-| Versatz: the O halved and shifted | 0.04 | 0.08 | 0.07 | 0.09 | 0.09 | 0.09 | Shows the construction literally, but reads as a sync/reload arrow at 16 px. Rejected. |
-| Fuge: the S shifted at its waist | 0.30 | 0.36 | 0.32 | 0.36 | 0.36 | 0.36 | A feature in the letter, but it looks like a glitch, and its overlap with serif S (0.30–0.36) sits at the threshold. Rejected. |
+**Overlap tests, before and after** (`concepts/symbol-studies-3.png`, `.json`; generator `brand/tools/build-symbol-studies.mjs`):
+- *Serif S:* IoU against the S of Bodoni Moda, Newsreader, Gloock, Playfair Display and Libre Bodoni. Silhouettes are normalised to the same height, 512 px, best of five shifts.
+- *Generic monograms:* **the auditor's method**, replicated in `brand/tools/lib/genre-iou.mjs` from `brand/audit/scripts/audit-2/s-in-o-compare.cjs`. It renders, trims, resizes to 240 × 262 "fill" and computes IoU against:
+  - an even oval ring with a typed Bodoni Moda, Gloock and Newsreader S;
+  - the circled-S glyph U+24C8;
+  - the SOMA O ring with a typed S.
+- The replica reproduces the auditor's figures for v1.1 exactly: 0.49 / 0.52 / 0.83 / 0.71.
 
-- **(a) IoU < 0.35 and a non-letter feature:** passed. The maximum is 0.24 (the old S: 0.52). The enclosure, an O holding an S, is not a feature of any letter S.
-- **(c) Legible at 16 px:** passed with the seal cut (`previews/icons-check.png`: tab bars light and dark, 8× pixel view). The line cut holds from 24–32 px (`symbol-studies-2.png`).
-- **(b) 5-second test:** *not run yet*; it needs people, not a script. The protocol for Audit 2:
-  - Show the app icon for 5 seconds to at least 8 people who do not know the brand, then ask them to describe or draw it.
-  - **Pass:** ≥ 6 people recall a feature beyond "an S" ("an S in an O", "an oval with an S", "SO").
-  - Record the answers in `brand/audit/`.
+| Mark | Serif S (max.) · target < 0.35 | Generic S-in-oval (max.) · target < 0.35 | SOMA O + typed S (max.) · target ≤ 0.65 |
+|---|---:|---:|---:|
+| Control: the S (v1.0) | 0.52 | 0.26 | 0.32 |
+| S im O (v1.1) | 0.24 | **0.52** ✗ | **0.83** ✗ |
+| **S im O with Versatz (v1.2), line cut** | **0.19** ✓ | **0.31** ✓ | **0.44** ✓ |
+| **Seal with Versatz (v1.2), < 32 px** | **0.26** ✓ | **0.24** ✓ | **0.39** ✓ |
 
-**Rejected studies, and why:**
-- **Versatz** (the O halved and shifted) reads as a refresh/sync arrow at 16 px.
-- **Fuge** (the S shifted at its waist) looks like a glitch and sits at 0.30–0.36.
-- **The control S** is a letter.
+**Rejected in this round:**
+- **Vertical Versatz** (the left half up, the right half down; the literal construction of the S): the O falls apart into two brackets, and at 24 px it reads as a swirl.
+- **The same with a connecting stem:** it reads as a dollar sign ($).
+- **The v1.1 study "Versatz"** (studies 2) was different: two *separate* half-rings forming an S, without an S inside. It read as a sync arrow. The v1.2 Versatz keeps the O whole and moves it by only one hairline.
+
+**Legibility.** I checked the line cut at 32 px and the seal at 16 and 24 px on light, dark and Oxblood (`previews/icons-check.png`, `concepts/symbol-studies-3.png`):
+- At 16 px the seal reads as an S in a shouldered oval.
+- The shoulders become a 1 px notch: present, never noisy.
+- Below 32 px, the line cut is not used; the small iOS sizes (20 and 29 px) use the seal (Brand Audit 2, N5).
+
+**Human tests: pending client tests.** Neither test can be run by a script. Run both with the same 8+ people (unfamiliar with SOMA, mixed age 25–55) and record raw answers and photos of drawings in `brand/audit/symbol-recall-test.md`.
+- **O1b, 5-second recall:**
+  - Show the iOS app icon (`icons/ios/AppIcon-1024.png`, shown at 120 px) for 5 seconds. Then ask: "Describe or draw what you saw."
+  - **Pass:** at least 6 of 8 recall a feature beyond "an S" (the oval or O, the step or shift, "SO").
+- **O4, genre line-up:**
+  - Generate six Oxblood tiles: the SOMA icon plus five generic "serif S in an oval" icons (Bodoni Moda, Gloock, Newsreader, Playfair Display, Libre Bodoni in an even Bone ring; the same layout as `genre-iou.mjs`). Show the six in random order for 5 seconds.
+  - After one minute of distraction, show them again in a new order and ask: "Which one did you see first / which is SOMA?"
+  - **Pass:** at least 6 of 8 pick SOMA.
+- **If either test fails:** increase the Versatz to 1.5 hairlines (60) and test again. The generic IoU then drops to about 0.29; keep the S's clearance ≥ 0.3 stem.
 
 ---
 
@@ -138,7 +160,7 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 | Wordmark (both masters) | **3x** = 0.43 × cap height |
 | Symbol | **0.25 × symbol height** |
 | Lockups | 3x of the wordmark inside them |
-| App icon | Platform masks: the O of the mark takes 62 % of the tile height (iOS, apple-touch, Play Store), 50 % of the 108 dp canvas (Android adaptive; the 49.5 × 54 dp oval sits inside the 66 dp safe circle) and 56 % of maskable PWA icons (inside the 80 % circle). The PWA "any" icon is 64 % on a tile with a 112/512 radius. |
+| App icon | Platform masks: the mark (744 × 724 units with the Versatz) takes 62 % of the tile height (iOS from 40 px, apple-touch, Play Store), 50 % of the 108 dp canvas (Android adaptive; the 55.5 × 54 dp mark, 56.7 dp at its widest diagonal, sits inside the 66 dp safe circle) and 56 % of maskable PWA icons (59 % diameter, inside the 80 % circle). The PWA "any" icon is 64 % on a tile with a 112/512 radius. The iOS 20 and 29 px icons use the seal at 70 % (§ 3.3). |
 
 Nothing enters the clear space: no text, edges, UI or busy image detail. Edges of the screen or the page count.
 
@@ -149,7 +171,7 @@ Nothing enters the clear space: no text, edges, UI or busy image detail. Edges o
 | Wordmark, display master | 32 px cap height (≈ 128 px wide) | 30 mm wide |
 | Wordmark, micro master | **12 px cap height (≈ 50 px wide)** | **15 mm wide** |
 | Symbol, line cut | **32 px** tall | 8 mm tall |
-| Symbol, seal cut | **16 px** tall (favicon) | 4 mm tall |
+| Symbol, seal cut | **16 px** tall (favicon, iOS 20 and 29 px icons, everything under 32 px) | 4 mm tall |
 | Descriptor lockup | 260 px wide (descriptor cap ≥ 6 px) | 45 mm wide |
 | Tagline lockup | 200 px wide | 40 mm wide |
 | Stacked lockup | 64 px wide | 18 mm wide |
@@ -213,3 +235,4 @@ Also never:
 - use the descriptor and tagline lockups together;
 - animate the letters individually;
 - crop the S or the wordmark at a frame edge (the arch motif crops photographs, not the logo).
+- remove, exaggerate or reverse the Versatz: the upper half always sits left, the lower half right, by one hairline (40 units). Never redraw the mark as an even ring, never use a vertical split.

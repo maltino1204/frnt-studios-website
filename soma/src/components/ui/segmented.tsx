@@ -1,14 +1,21 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
-export type SegmentOption = { value: string; label: ReactNode };
+export type SegmentOption = {
+  value: string;
+  label: ReactNode;
+  /** optional leading icon (e.g. a place icon); the check replaces it while the option is selected */
+  icon?: ReactNode;
+};
 
 /**
- * Segmented control built on native radios, so it works inside <form> without JS.
- * Pill track (Linen), an Espresso thumb that settles on the checked
- * option (CSS :has(), up to 6 options), 44px (36 dense).
+ * Segmented control on native radios, so it works inside <form> without JS (brand § 9.3 "Chips, segmented").
+ * Linen track; the selected segment is Espresso with a Bone label and a check (never colour alone). The check
+ * replaces the option's leading icon instead of adding width, labels use the condensed width (§ 4.4), and segments
+ * size to their content: equal shares where they fit, wider where a label needs it, two rows below that. 44 px
+ * (36 dense).
  */
 export function SegmentedControl({
   name,
@@ -34,15 +41,13 @@ export function SegmentedControl({
       role="radiogroup"
       aria-label={label}
       className={cn(
-        "segmented relative isolate inline-flex w-full rounded-full bg-surface-sunken p-[3px] inset-shadow-sunken",
-        dense ? "h-control-s" : "h-control",
+        "relative isolate flex w-full flex-wrap gap-[3px] bg-surface-sunken p-[3px] inset-shadow-sunken",
+        dense ? "min-h-control-s rounded-[18px]" : "min-h-control rounded-[22px]",
         className,
       )}
-      style={{ "--n": options.length } as CSSProperties}
     >
-      <span aria-hidden className="segmented-thumb absolute inset-y-[3px] left-[3px] -z-10 rounded-full bg-selected" />
       {options.map((o) => (
-        <label key={o.value} className="relative flex min-w-0 flex-1">
+        <label key={o.value} className="relative flex min-w-fit flex-1 basis-0">
           <input
             type="radio"
             name={name}
@@ -50,9 +55,17 @@ export function SegmentedControl({
             className="peer sr-only"
             {...(value !== undefined ? { checked: value === o.value, onChange: () => onChange?.(o.value) } : { defaultChecked: defaultValue === o.value })}
           />
-          <span className="flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 type-label-s whitespace-nowrap text-ink-muted transition-[color,scale] duration-fast ease-standard peer-checked:text-ink-inverse peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:outline-focus hover:text-ink peer-checked:hover:text-ink-inverse active:scale-[0.97] peer-checked:[&>.seg-check]:inline-block">
-            {/* Selection is never colour alone (brand § 9.3): the checked option shows a check. */}
-            <Icon icon={Check} size={14} className="seg-check hidden shrink-0" />
+          <span
+            className={cn(
+              "flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 type-label-s condensed whitespace-nowrap text-ink-muted",
+              "transition-[background-color,color,scale] duration-base ease-standard hover:text-ink active:scale-[0.97]",
+              "peer-checked:bg-selected peer-checked:text-ink-inverse peer-checked:hover:text-ink-inverse",
+              "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:outline-focus",
+              "[&>.seg-check]:hidden peer-checked:[&>.seg-check]:inline-block peer-checked:[&>.seg-icon]:hidden",
+            )}
+          >
+            <Icon icon={Check} size={14} className="seg-check shrink-0" />
+            {o.icon ? <span className="seg-icon hidden shrink-0 min-[360px]:inline-flex">{o.icon}</span> : null}
             {o.label}
           </span>
         </label>

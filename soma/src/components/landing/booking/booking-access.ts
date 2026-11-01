@@ -10,7 +10,7 @@
  *   The request is also announced as `window` event `soma:booking:open` { source, categorySlug? }.
  *
  *   Markup: use <BookingLink source="…"> from ./booking-link (an <a href="#termin">, so it works without JS).
- *   While a bar or sheet is open, <html data-booking-overlay="bar|sheet"> is set (Motion: hide the dock).
+ *   While a bar or sheet is open, <html data-booking-open="bar|sheet"> is set (Motion: hide the dock).
  */
 
 export const BOOKING_OPEN_EVENT = "soma:booking:open";
@@ -104,6 +104,6 @@ export function openBooking(detail: BookingOpenDetail = { source: "unknown" }): 
 /** Marks the page while a booking surface is open (the dock hides; spec § 5.6). */
 export function setBookingOpenFlag(surface: BookingSurface | null): void {
   if (typeof document === "undefined") return;
-  if (surface) document.documentElement.dataset.bookingOverlay = surface;
-  else delete document.documentElement.dataset.bookingOverlay;
+  if (surface) document.documentElement.dataset.bookingOpen = surface;
+  else delete document.documentElement.dataset.bookingOpen;
 }

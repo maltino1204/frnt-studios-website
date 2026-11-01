@@ -292,7 +292,7 @@ test("T12 mobile dock opens the booking sheet: shared PLZ, inline pickers, focus
   const sheet = page.getByRole("dialog", { name: "Termin finden" });
   await expect(sheet).toBeVisible();
   await expect(plzIn(sheet)).toHaveValue("10115");
-  expect(await page.evaluate(() => document.documentElement.dataset.bookingOverlay)).toBe("sheet");
+  expect(await page.evaluate(() => document.documentElement.dataset.bookingOpen)).toBe("sheet");
 
   await sheet.getByRole("button", { name: /^Was\?/ }).click();
   await expect(sheet.getByRole("group", { name: "Behandlung wählen" })).toBeVisible();

@@ -51,6 +51,7 @@ export function EmptyState({
   tone,
   align = "start",
   headingLevel = "h2",
+  serif = true,
 }: {
   title: ReactNode;
   children?: ReactNode;
@@ -64,6 +65,8 @@ export function EmptyState({
   /** category slug for the artwork hues */
   tone?: string;
   align?: "start" | "center";
+  /** false when the view already has its serif statement (one per view, § 4.4): the title sets in sans */
+  serif?: boolean;
 }) {
   const s = seed ?? (typeof title === "string" ? title : "leer");
   const Heading = headingLevel;
@@ -76,7 +79,7 @@ export function EmptyState({
       )}
     >
       {art ? <EmptyArt seed={s} tone={tone} className="mb-1" /> : null}
-      <Heading className="type-title-serif">{title}</Heading>
+      <Heading className={serif ? "type-title-serif" : "type-heading-m"}>{title}</Heading>
       {children ? <div className="type-body-s text-ink-muted">{children}</div> : null}
       {action ? <div className="pt-2">{action}</div> : null}
     </div>

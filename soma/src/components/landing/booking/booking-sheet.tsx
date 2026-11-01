@@ -7,7 +7,7 @@
  *
  * The kit `Sheet` (bottom sheet, drag to dismiss; centred dialog from 768) holds the stacked entry (`id="termin-sheet"`).
  * Was? and Wann? expand inline (no second sheet). Focus: the PLZ when none is known, else the close button (no
- * keyboard covering the sheet). The page does not scroll behind it. `html[data-booking-overlay="sheet"]` while open.
+ * keyboard covering the sheet). The page does not scroll behind it. `html[data-booking-open="sheet"]` while open.
  */
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

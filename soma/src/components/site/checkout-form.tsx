@@ -497,12 +497,8 @@ export function CheckoutForm(props: CheckoutFormProps) {
             label="Art des Ortes"
             options={(["home", "hotel", "office"] as const).map((k) => ({
               value: k,
-              label: (
-                <span className="inline-flex items-center gap-1.5">
-                  <PlaceIcon kind={k} size={16} className="hidden min-[360px]:block" />
-                  {LOCATION_LABELS[k]}
-                </span>
-              ),
+              icon: <PlaceIcon kind={k} size={16} />,
+              label: LOCATION_LABELS[k],
             }))}
             value={shownKind}
             onChange={(v) => {
