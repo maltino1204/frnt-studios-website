@@ -21,7 +21,7 @@ function edgeY(path, x, pick) {
   return pick(ys);
 }
 
-export function glyphS({ V, h, o, H } = P, { xr = 398, xl = 38, bh = 140, thA = [166, -16], thB = [98, -84], k = [0.3, 0.3] } = {}) {
+export function glyphS({ V, h, o, H } = P, { xr = 398, xl = 38, bh = 140, thA = [160, -22], thB = [104, -78], k = [0.26, 0.26] } = {}) {
   const top = -o, bot = H + o;
   const o1 = { cx: 230, rx: 200, cy: top + 172, ry: 172 };
   const i1 = { cx: 230 + 28, rx: 200 - 56, cy: top + h + 166, ry: 166 - 4 };
@@ -31,25 +31,16 @@ export function glyphS({ V, h, o, H } = P, { xr = 398, xl = 38, bh = 140, thA = 
   const B = sEdge({ up: i1, lo: o2, tTop: -10, th1: thB[0], th2: thB[1], tBot: 170, k1: k[0], k2: k[1] });
   let g = sFromEdges(A, B);
   g = subtract(g, rect(xr, -200, 600, o1.cy + 10), rect(xl - 600, o2.cy - 10, 600, 600));
-  // beak serifs hanging from the vertical cuts: vertical outer edge, concave return into the hairline
+  // lens beaks: a narrow vertical ellipse clipped by the vertical cut, fused to the hairline
   const ysAt = (x) => {
     const line = new g.constructor({ segments: [[x, -2000], [x, 3000]], insert: false });
     return g.getIntersections(line).map((c) => c.point.y).sort((a, b) => a - b);
   };
-  const beak = (x, dir) => {
-    const e = ysAt(x - dir * 0.6), f = ysAt(x - dir * 54);
-    const y0 = dir > 0 ? e[0] : e[e.length - 1];
-    const yo = dir > 0 ? f[0] : f[f.length - 1];
-    const yi = dir > 0 ? f[1] : f[f.length - 2];
-    return contour([
-      [x, y0 - dir * 0.5],
-      [x, y0 + dir * bh],
-      [x - dir * 10, y0 + dir * (bh - 10), 0, 0, -dir * 4, -dir * bh * 0.45],
-      [x - dir * 54, yi - dir * 0.5, dir * 26, -dir * 6, 0, 0],
-      [x - dir * 54, yo + dir * 1.5],
-    ]);
-  };
-  return unite(g, beak(xr, 1), beak(xl, -1));
+  const e = ysAt(xr - 0.6), f = ysAt(xl + 0.6);
+  const yT = e[0], yB = f[f.length - 1];
+  const lensT = intersect(oval({ cx: xr - 4, cy: yT + bh * 0.42, rx: 34, ry: bh * 0.5, kx: 0.5, ky: 0.62 }), rect(xr - 200, yT - 1, 200, 400));
+  const lensB = intersect(oval({ cx: xl + 4, cy: yB - bh * 0.42, rx: 34, ry: bh * 0.5, kx: 0.5, ky: 0.62 }), rect(xl, yB - 400, 200, 401));
+  return unite(g, lensT, lensB);
 }
 
 function serifFoot(cx, w, H, sh) {
@@ -81,7 +72,7 @@ export function glyphA({ V, h, H, serif } = P, { W = 660, apexY = -14, bar = 0.6
   const ll = band([cx, apexY], [80, H], hs, "left");
   const rl = band([cx, apexY], [W - 70, H], V * 1.02, "right");
   const tri = poly([[cx - 1, apexY], [cx + 1, apexY], [W + 40, H + 40], [W - 70, H], [80, H], [40, H + 40]]);
-  let a = intersect(unite(ll, rl), poly([[cx, apexY], [W - 70, H], [80 - hs * 1.6, H]]));
+  let a = intersect(unite(ll, rl), poly([[cx, apexY], [W - 70, H], [80, H]]));
   const cb = intersect(rect(-50, H * bar, W + 100, h * 1.05), poly([[cx, apexY], [W - 70, H], [80, H]]));
   const fL = serifFoot(80 + hs * 0.3, 170, H, serif), fR = serifFoot(W - 70 - V * 0.5, 210, H, serif);
   a = unite(a, cb, fL, fR);

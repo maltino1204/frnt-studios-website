@@ -30,17 +30,18 @@ export function glyphS({ V, h, o, H } = P, {
   return subtract(path, rect(xr, -200, 600, o1.cy + 10), rect(xl - 600, o2.cy - 10, 600, 600));
 }
 
-export function glyphM({ V, h, H, o } = P, { W = 700 } = {}) {
-  // Didone logic without serifs: thin left stem, thick left diagonal, thin right diagonal, thick right stem.
-  const hs = h * 1.5;
-  const vx = W * 0.5 - V * 0.18, vy = H + o * 1.2;
-  const lst = rect(0, -50, hs, H + 100);
-  const rst = rect(W - V, -50, V, H + 100);
+export function glyphM({ V, h, H, o } = P, { W = 700, logic = "didone", vxOff = -0.18 } = {}) {
+  const thin = h * 1.5, thick = V;
+  const [sL, dL, dR, sR] =
+    logic === "didone" ? [thin, thick * 0.98, thin, thick] : logic === "stems" ? [thick * 0.92, thin, thin, thick * 0.92] : [thin, thick * 0.9, thick * 0.9, thin];
+  const vx = W * 0.5 + V * (logic === "didone" ? vxOff : 0), vy = H + o * 1.2;
+  const lst = rect(0, -50, sL, H + 100);
+  const rst = rect(W - sR, -50, sR, H + 100);
   const angL = Math.atan2(vx, vy);
-  const ld = band([0, 0], [vx, vy], V * 0.98 / Math.cos(angL), "left");
-  const xr = W - V + hs * 0.15;
+  const ld = band([0, 0], [vx, vy], dL / Math.cos(angL), "left");
+  const xr = W;
   const angR = Math.atan2(xr - vx, vy);
-  const rd = band([xr, 0], [vx, vy], hs / Math.cos(angR), "right");
+  const rd = band([xr, 0], [vx, vy], dR / Math.cos(angR), "right");
   const vee = poly([[0, -200], [0, 0], [vx, vy], [xr, 0], [xr, -200]]);
   const m = unite(lst, rst, intersect(unite(ld, rd), vee));
   return intersect(m, rect(-500, 0, W + 1000, H + o * 1.2));

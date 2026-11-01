@@ -7,6 +7,8 @@ export const P = {
   H: 700, o: 11, V: 78, h: 68, // cap height, overshoot, vertical stem, horizontal stroke
 };
 
+// The datum: one horizontal line at 0.6 H carries the M vertex, the A crossbar and the S spine centre.
+export const DATUM = 420;
 const clipCap = (item, H = P.H) => intersect(item, rect(-2000, 0, 6000, H));
 
 export function glyphO({ V, h, o, H } = P) {
@@ -33,7 +35,7 @@ export function glyphS({ V, h, o, H } = P, { tTop = -28, tBot = 152, r1 = 138, r
   return expand(pts, w);
 }
 
-export function glyphM({ V, h, H, o } = P, { W = 700, dw = 66, vertexY = H + 26 } = {}) {
+export function glyphM({ V, h, H, o } = P, { W = 730, dw = 64, vertexY = DATUM + 34 } = {}) {
   const ls = rect(0, -40, V, H + 80), rs = rect(W - V, -40, V, H + 80);
   const cx = W / 2;
   const ang = Math.atan2(cx, vertexY);
@@ -44,7 +46,7 @@ export function glyphM({ V, h, H, o } = P, { W = 700, dw = 66, vertexY = H + 26 
   return clipCap(unite(ls, rs, intersect(unite(ld, rd), aboveV)));
 }
 
-export function glyphA({ V, h, H, o } = P, { W = 640, apexY = -26, bar = 0.64, dw = 72 } = {}) {
+export function glyphA({ V, h, H, o } = P, { W = 640, apexY = -26, bar = DATUM / 700, dw = 72 } = {}) {
   const cx = W / 2;
   const ang = Math.atan2(cx, H - apexY);
   const wh = dw / Math.cos(ang);
@@ -64,6 +66,6 @@ export function word(opts = {}) {
       { name: "M", item: glyphM(p), lsb: 70, rsb: 70 },
       { name: "A", item: glyphA(p), lsb: 8, rsb: 0 },
     ],
-    { kern: { SO: 0, OM: 0, MA: 0 }, tracking: 90 },
+    { kern: { SO: 0, OM: 0, MA: 0 }, tracking: 120 },
   );
 }
