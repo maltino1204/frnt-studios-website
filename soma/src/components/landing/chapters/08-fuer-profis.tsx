@@ -47,7 +47,7 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
 
   return (
     <Chapter n={8} padded={false} cv={{ desktop: 1600, mobile: 2100 }} className="lp-pros">
-      <div className="lp-band">
+      <div data-scene="band" className="lp-band">
         <div className="lp-band-media" data-header-theme="dark">
           <LandingImage
             src="/images/editorial/provider-cta-v2.jpg"

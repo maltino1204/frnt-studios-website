@@ -335,7 +335,6 @@ export default async function ForProsPage() {
                   src={images.editorial.providerCta}
                   alt="Ein Profi mit Arbeitstasche auf der Altbautreppe, unterwegs zum nächsten Termin"
                   tone="nacht"
-                  word="Zwischen zwei Terminen."
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   ratio="16/10"
                   className="rounded-card"

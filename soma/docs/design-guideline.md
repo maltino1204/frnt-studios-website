@@ -12,7 +12,7 @@ not reintroduce it.
 | File | Purpose |
 |---|---|
 | `src/styles/tokens.css` | A verbatim copy of `brand/DESIGN_TOKENS/tokens.css` (generated, v1.1: no aura, grain, ambient or spotlight utilities; `reveal` 900 ms). Never hand-edit; regenerate in `brand/tools/` and copy. |
-| `src/app/globals.css` | App-level additions: scrollbars, reveal, segmented thumb, overlay exits, view transitions, reduced motion, night-scope soft status colours, `type-title-serif`. |
+| `src/app/globals.css` | App-level additions: scrollbars, reveal, overlay exits, view transitions, reduced motion, night-scope soft status colours, `type-title-serif`. |
 | `src/app/layout.tsx` | Fonts (`next/font/local`, files and OFL licences in `src/styles/fonts/`). |
 | `src/components/brand/logo.tsx` | `Wordmark` (micro master by default, `master="display"` from 32 px cap height), `Mark` / `Symbol` (the S; `size="small"` is the favicon cut), `ProLockup` (wordmark + "Pro"), `AdminMark`. Inline SVG outlines from `brand/assets/logo/final/`, `currentColor`, accessible name "SOMA" (pass `title={null}` inside an already-labelled link). |
 | `src/components/ui/motif.tsx` | `ToneFill` (category wash, arch outline, category word), `ArchLine` (standalone outline), `archPath()`. |
@@ -52,7 +52,7 @@ The APIs are unchanged from v2 unless noted; props that only drove the retired v
 |---|---|
 | `Button`, `ButtonLink`, `IconButton` | Variants `accent` (Oxblood, one per screen), `primary` (Espresso), `secondary` (1 px control ring), `ghost`, `link`, `destructive` (vermilion). Sizes S 36 (44 hit area), M 48, L 52. Loading keeps the width and sets `aria-busy`. |
 | `Input`, `Textarea`, `Select`, `Checkbox`, `Switch`, `RadioRow` | 48 px, Paper, `line-control` border; focus = focus border + 3 px glow; errors with `CircleAlert`, `aria-invalid`, `aria-describedby`. |
-| `Chip`, `ChipLink`, `ChipRow`, `SegmentedControl`, `TabLinks` | Selected = Espresso fill with Bone label and a check icon (never Oxblood, never colour alone). |
+| `Chip`, `ChipLink`, `ChipRow`, `SegmentedControl`, `TabLinks` | Selected = Espresso fill with Bone label and a check icon (never Oxblood, never colour alone). `SegmentedControl` takes an optional leading `icon` per option; the check replaces it while selected, labels are condensed and segments size to content (wrapping below that), so nothing clips at 360 px. |
 | `DateStrip`, `TimeSlots` | Radiogroups with arrow keys. Today carries the small arch mark; the selected slot shows a check. |
 | `Notice`, `Status`, `Badge`, `CountPill` | `Badge tone="accent"` and `CountPill accent` are neutral now (kept for API compatibility). |
 | `EmptyState`, `EmptyArt` | 72 px arch outline in stone-deep, `type-title-serif` title. `seed` / `tone` are ignored. |

@@ -463,6 +463,12 @@ html[data-booking-open] .lp-dock {
   /* wider than the scroller's padding, so the next panel never peeks in at rest */
   gap: calc(2 * var(--space-gutter));
 }
+/* The scroller's end padding is not part of the list's overflow: a spacer lets the last panel snap fully home. */
+.lp-walk-steps::after {
+  content: "";
+  flex: 0 0 var(--space-gutter);
+  margin-left: calc(-2 * var(--space-gutter));
+}
 .lp-walk-step {
   display: flex;
   flex: 0 0 100%;
@@ -475,26 +481,36 @@ html[data-booking-open] .lp-dock {
   display: flex;
   justify-content: center;
 }
+/* < 768: the Paper vignette alone (spec § 4.4 lite, 350 wide); from 768 inside the Espresso outline, below the
+   springline (54.5 % of the width = 43.6 % of a 4:5 height), centred between the flanks. */
 .lp-walk-frame {
   position: relative;
-  width: min(100%, 420px);
-  aspect-ratio: 4/5;
+  width: 100%;
 }
 .lp-walk-outline {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  display: none;
 }
-/* Below the springline (54.5 % of the width = 43.6 % of a 4:5 height), centred in the flanks. */
-.lp-walk-frame > .lp-walk-vignette {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 48%;
-  width: calc(100% - 28px);
-  max-width: 360px;
-  margin-inline: auto;
+@media (min-width: 768px) {
+  .lp-walk-frame {
+    width: min(100%, 440px);
+    aspect-ratio: 4/5;
+  }
+  .lp-walk-outline {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .lp-walk-frame > .lp-walk-vignette {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 47%;
+    width: calc(100% - 40px);
+    max-width: 360px;
+    margin-inline: auto;
+  }
 }
 .lp-walk-text {
   min-width: 0;
@@ -514,13 +530,19 @@ html[data-booking-open] .lp-dock {
 .lp-pair > figure {
   margin: 0;
 }
-.lp-pair-right {
+.lp-pair > .lp-pair-right {
   margin-top: 18%;
+}
+/* 169 px arches at 390: a long segment („Berlin-Prenzlauer Berg“) may wrap rather than overlap the other arch. */
+@media (max-width: 767px) {
+  .lp-pair [data-ortszeile] > span {
+    white-space: normal;
+  }
 }
 .lp-start-code {
   position: absolute;
-  right: -4%;
-  bottom: calc(1.25rem + 22%);
+  right: -3%;
+  bottom: 7%;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -538,7 +560,7 @@ html[data-booking-open] .lp-dock {
     align-items: center;
     justify-content: space-between;
     width: min(240px, 96%);
-    right: -4%;
+    right: -5%;
   }
 }
 

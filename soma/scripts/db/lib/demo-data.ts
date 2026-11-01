@@ -59,7 +59,7 @@ export const PROVIDERS: DemoProvider[] = [
     key: "selin", email: "testkunde-b2b@soma.test", firstName: "Selin", lastName: "Aydın", displayName: "Selin A.", slug: "selin-a-berlin",
     city: "berlin", basePostalCode: "10405", avatar: pic(1), phone: "+49 151 20304050",
     headline: "Wellnessmassagen mit Ruhe und warmen Ölen",
-    bio: "Seit zwölf Jahren schenke ich Menschen eine Stunde nur für sich. Ich arbeite mit warmen Ölen, ruhigen Griffen und bringe Liege, Tücher und Musik mit. Bei mir darfst du loslassen – zu Hause, im Hotel oder in der Mittagspause im Büro.",
+    bio: "Seit zwölf Jahren massiere ich: klassisch, mit Aromaöl oder Hot Stone, Rücken und Nacken auch in 30 Minuten. Ich arbeite mit warmem Öl und ruhigen, fließenden Griffen und bringe Liege, Tücher und leise Musik mit – zu dir nach Hause, ins Hotel oder in der Mittagspause ins Büro.",
     yearsExperience: 12, languages: ["de", "tr", "en"], bookingMode: "request", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 12,
     travelFee: { baseCents: 500, includedKm: 4, perKmCents: 60 }, hours: HOURS.long,
     offerings: [
@@ -179,7 +179,7 @@ export const PROVIDERS: DemoProvider[] = [
     key: "theresa", firstName: "Theresa", lastName: "Hofmann", displayName: "Theresa H.", slug: "theresa-h-muenchen",
     city: "muenchen", basePostalCode: "81667", avatar: pic(30), phone: "+49 171 6677881",
     headline: "Aromaöl- und Hot-Stone-Massagen",
-    bio: "Warme Steine, duftende Öle und eine ruhige Atmosphäre – meine Massagen sind eine kleine Reise. Ich arbeite bevorzugt abends und am Wochenende.",
+    bio: "Aromaölmassage oder Hot Stone mit warmen Basaltsteinen: ruhige, gleichmäßige Griffe, der Druck nach deinem Wunsch. Liege, Steine, Öle und Tücher bringe ich mit. Termine vergebe ich vor allem abends und am Wochenende.",
     yearsExperience: 6, languages: ["de", "en"], bookingMode: "request", leadTimeMinutes: 240, bufferMinutes: 45, radiusKm: 10,
     travelFee: { baseCents: 600, includedKm: 3, perKmCents: 80 }, hours: HOURS.partTime,
     offerings: [{ service: "aromaoelmassage", duration: 90, price: 12900 }, { service: "hot-stone-massage", price: 14500 }],
@@ -188,8 +188,8 @@ export const PROVIDERS: DemoProvider[] = [
   {
     key: "marcia", firstName: "Márcia", lastName: "Santos", displayName: "Márcia S.", slug: "marcia-s-hamburg",
     city: "hamburg", basePostalCode: "22765", avatar: pic(8), phone: "+49 151 7788990",
-    headline: "Massagen mit brasilianischer Wärme",
-    bio: "Ich massiere seit über zwanzig Jahren – erst in São Paulo, seit 2009 in Hamburg. Fließende Griffe, warmes Öl und viel Gelassenheit: Bei mir darfst du ankommen und durchatmen.",
+    headline: "Klassische Massage, Aromaöl & Hot Stone",
+    bio: "Ich massiere seit über zwanzig Jahren – erst in São Paulo, seit 2009 in Hamburg. Klassische Ganzkörpermassage, Aromaöl oder Hot Stone, mit warmem Öl und fließenden Griffen. Liege und Tücher bringe ich mit.",
     yearsExperience: 22, languages: ["de", "pt", "es"], bookingMode: "request", leadTimeMinutes: 180, bufferMinutes: 30, radiusKm: 14,
     travelFee: { baseCents: 500, includedKm: 4, perKmCents: 60 }, hours: HOURS.officeWeek,
     offerings: [{ service: "entspannungsmassage", duration: 90, price: 12500 }, { service: "aromaoelmassage", duration: 60, price: 8900 }, { service: "hot-stone-massage", price: 13500 }],

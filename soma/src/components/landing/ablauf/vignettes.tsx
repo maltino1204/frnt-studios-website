@@ -189,21 +189,23 @@ export function VignetteStay({ className }: { className?: string }) {
         </LandingArch>
         <Ortszeile text={`Wohnungstür, 4.${NBSP}OG · Berlin-Prenzlauer Berg · 19:25`} className="mt-3" />
       </figure>
-      <figure className="lp-pair-right relative min-w-0">
-        <LandingArch tone="kosmetik" reveal="arch">
-          <LandingImage src="/images/editorial/after-v2.jpg" alt="" sizes="(min-width: 1024px) 296px, 42vw" focal="12% 50%" />
-        </LandingArch>
-        <Ortszeile text="Sofa, danach · Berlin-Prenzlauer Berg · 20:10" className="mt-3" />
-        <div data-start-code="" className="lp-start-code">
-          <span className="type-caption text-ink-muted">Start-Code</span>
-          <span className="flex gap-1">
-            {["4", "8", "2", "7"].map((d, i) => (
-              <span key={i} data-reveal-order={i} className="inline-flex h-8 w-7 items-center justify-center rounded-[8px] bg-surface-sunken type-label text-ink num md:h-9 md:w-8">
-                {d}
-              </span>
-            ))}
-          </span>
+      <figure className="lp-pair-right min-w-0">
+        <div className="relative">
+          <LandingArch tone="kosmetik" reveal="arch">
+            <LandingImage src="/images/editorial/after-v2.jpg" alt="" sizes="(min-width: 1024px) 296px, 42vw" focal="12% 50%" />
+          </LandingArch>
+          <div data-start-code="" className="lp-start-code">
+            <span className="type-caption text-ink-muted">Start-Code</span>
+            <span className="flex gap-1">
+              {["4", "8", "2", "7"].map((d, i) => (
+                <span key={i} data-reveal-order={i} className="inline-flex h-8 w-7 items-center justify-center rounded-[8px] bg-surface-sunken type-label text-ink num md:h-9 md:w-8">
+                  {d}
+                </span>
+              ))}
+            </span>
+          </div>
         </div>
+        <Ortszeile text="Sofa, danach · Berlin-Prenzlauer Berg · 20:10" className="mt-3" />
       </figure>
     </div>
   );

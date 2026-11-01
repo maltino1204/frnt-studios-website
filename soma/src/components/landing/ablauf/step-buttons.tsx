@@ -42,7 +42,7 @@ export function StepButtons({ rowId, steps }: { rowId: string; steps: Array<{ id
             if (!row || !panel) return;
             e.preventDefault();
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            row.scrollTo({ left: panel.offsetLeft, behavior: reduce ? "auto" : "smooth" });
+            row.scrollTo({ left: panel.offsetLeft - parseFloat(getComputedStyle(row).paddingLeft || "0"), behavior: reduce ? "auto" : "smooth" });
             setActive(i);
           }}
           className={cn(

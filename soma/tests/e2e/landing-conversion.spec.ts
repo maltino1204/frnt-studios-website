@@ -334,6 +334,22 @@ test("T12a dock visibility: hidden for the hero entry and a focused field, shown
   await expect(dock(page).getByRole("link", { name: "Termin finden" })).toBeVisible();
   await page.evaluate(() => document.querySelector<HTMLInputElement>('#termin input[name="plz"]')?.focus({ preventScroll: true }));
   await expect.poll(() => dockState(page)).toBe("hidden");
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+  await page.evaluate(() => document.querySelector("#soma [data-dock-hide]")?.scrollIntoView({ block: "center", behavior: "instant" }));
+  await expect.poll(() => dockState(page)).toBe("hidden");
+});
+
+test("T12b the mobile dock never covers the footer's legal links", async ({ page }, ti) => {
+  test.skip(ti.project.name !== "mobile", "the dock exists below 1024 px only");
+  await openLanding(page);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(600);
+  const shown = await dock(page).evaluate((el) => getComputedStyle(el).visibility !== "hidden" && getComputedStyle(el).display !== "none");
+  if (shown) {
+    const last = await page.locator('footer a[href="/datenschutz#cookies"]').boundingBox();
+    const bar = await dock(page).boundingBox();
+    expect(last && bar && last.y + last.height <= bar.y, "the last legal link stays above the dock").toBeTruthy();
+  }
 });
 
 test("T13 desktop header „Termin finden“: hero in view → focus; scrolled → booking bar", async ({ page }, ti) => {

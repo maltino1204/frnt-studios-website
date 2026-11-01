@@ -50,7 +50,7 @@ document on routes and data**. The sections below were edited accordingly; this 
 | Spec § 4.1.6 | `variant="sill"`, `placeHint`, `popoverPlacement`, `statusLayout`; wrapper `src/components/landing/booking/hero-booking-entry.tsx` |
 | Keyboard fix | `WasPicker` keeps focus inside the popover when drilling into a category (focus fell to `<body>`, and the next Tab closed the popover) |
 | Copy, FAQ, SEO | `landing-copy.ts`, `faq-data.ts`, `metadata.ts` (`generateLandingMetadata`, `loadLandingConversion`), `landing-json-ld.tsx` |
-| Tests | `tests/unit/landing-conversion.test.ts`, `tests/e2e/landing-conversion.spec.ts` (T1–T22) |
+| Tests | `tests/unit/landing-conversion.test.ts`, `tests/integration/landing-conversion.test.ts`, `tests/e2e/landing-conversion.spec.ts` (T1–T22) |
 
 C10 was covered by the brand remediation; C11 is covered by the Frontend's `LandingImage` (`preload`, no fade), so `Photo` stays untouched.
 
@@ -573,7 +573,7 @@ overload existing params: `von` on `/buchen` means "rebooked from booking id" (`
 
 ## 8. Acceptance tests
 
-File `tests/e2e/landing-conversion.spec.ts` (T1–T22 as below; T12b adds the chapter-10/footer dock check). It runs in both Playwright projects, `mobile` (iPhone 13 profile on Chromium) and `desktop`
+File `tests/e2e/landing-conversion.spec.ts` (T1–T22 as below; T12 is split into T12 = dock → sheet flow, T12a = the dock's visibility rules, skipped until the motion layer writes `html[data-dock]`, and T12b = the footer's legal row is never covered). It runs in both Playwright projects, `mobile` (iPhone 13 profile on Chromium) and `desktop`
 (1440 × 900) (`playwright.config.ts:29-32`), against the production build with the demo seed. Use the helpers in
 `tests/e2e/helpers.ts` (`berlinDate`, `login`). Assert URLs through `URLSearchParams`, not by string order.
 
