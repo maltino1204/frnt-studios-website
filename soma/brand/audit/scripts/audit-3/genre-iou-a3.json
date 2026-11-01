@@ -1,0 +1,242 @@
+[
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Even ring + Bodoni S",
+  "fill": 0.28,
+  "aspect": 0.32
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Even ring + Gloock S",
+  "fill": 0.31,
+  "aspect": 0.34
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Even ring + Newsreader S",
+  "fill": 0.24,
+  "aspect": 0.27
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Circled S U+24C8",
+  "fill": 0.22,
+  "aspect": 0.24
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "SOMA plain O + Bodoni S",
+  "fill": 0.44,
+  "aspect": 0.45
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "SOMA plain O + Newsreader S",
+  "fill": 0.41,
+  "aspect": 0.4
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Versatz ring + Bodoni S",
+  "fill": 0.82,
+  "aspect": 0.82
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Versatz ring + Newsreader S",
+  "fill": 0.73,
+  "aspect": 0.73
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Solid oval + white Bodoni S",
+  "fill": 0.41,
+  "aspect": 0.38
+ },
+ {
+  "mark": "v1.2 line (Versatz)",
+  "ref": "Solid oval + white Gloock S",
+  "fill": 0.39,
+  "aspect": 0.38
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Even ring + Bodoni S",
+  "fill": 0.21,
+  "aspect": 0.23
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Even ring + Gloock S",
+  "fill": 0.21,
+  "aspect": 0.24
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Even ring + Newsreader S",
+  "fill": 0.24,
+  "aspect": 0.26
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Circled S U+24C8",
+  "fill": 0.12,
+  "aspect": 0.15
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "SOMA plain O + Bodoni S",
+  "fill": 0.36,
+  "aspect": 0.39
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "SOMA plain O + Newsreader S",
+  "fill": 0.39,
+  "aspect": 0.42
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Versatz ring + Bodoni S",
+  "fill": 0.48,
+  "aspect": 0.48
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Versatz ring + Newsreader S",
+  "fill": 0.53,
+  "aspect": 0.53
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Solid oval + white Bodoni S",
+  "fill": 0.71,
+  "aspect": 0.72
+ },
+ {
+  "mark": "v1.2 seal (Versatz)",
+  "ref": "Solid oval + white Gloock S",
+  "fill": 0.73,
+  "aspect": 0.75
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Even ring + Bodoni S",
+  "fill": 0.49,
+  "aspect": 0.49
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Even ring + Gloock S",
+  "fill": 0.52,
+  "aspect": 0.52
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Even ring + Newsreader S",
+  "fill": 0.4,
+  "aspect": 0.4
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Circled S U+24C8",
+  "fill": 0.27,
+  "aspect": 0.2
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "SOMA plain O + Bodoni S",
+  "fill": 0.83,
+  "aspect": 0.83
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "SOMA plain O + Newsreader S",
+  "fill": 0.71,
+  "aspect": 0.71
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Versatz ring + Bodoni S",
+  "fill": 0.47,
+  "aspect": 0.46
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Versatz ring + Newsreader S",
+  "fill": 0.4,
+  "aspect": 0.39
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Solid oval + white Bodoni S",
+  "fill": 0.46,
+  "aspect": 0.46
+ },
+ {
+  "mark": "v1.1 line",
+  "ref": "Solid oval + white Gloock S",
+  "fill": 0.44,
+  "aspect": 0.44
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Even ring + Bodoni S",
+  "fill": 0.28,
+  "aspect": 0.28
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Even ring + Gloock S",
+  "fill": 0.28,
+  "aspect": 0.28
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Even ring + Newsreader S",
+  "fill": 0.33,
+  "aspect": 0.33
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Circled S U+24C8",
+  "fill": 0.14,
+  "aspect": 0.14
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "SOMA plain O + Bodoni S",
+  "fill": 0.48,
+  "aspect": 0.48
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "SOMA plain O + Newsreader S",
+  "fill": 0.54,
+  "aspect": 0.54
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Versatz ring + Bodoni S",
+  "fill": 0.4,
+  "aspect": 0.39
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Versatz ring + Newsreader S",
+  "fill": 0.46,
+  "aspect": 0.42
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Solid oval + white Bodoni S",
+  "fill": 0.85,
+  "aspect": 0.85
+ },
+ {
+  "mark": "v1.1 seal",
+  "ref": "Solid oval + white Gloock S",
+  "fill": 0.88,
+  "aspect": 0.88
+ }
+]

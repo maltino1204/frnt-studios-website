@@ -1,0 +1,232 @@
+{
+ "after-login@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-23-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-03-v2.jpg&w=96&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Guten Abend, Julia."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "J",
+   "Guten Abend, Julia.",
+   "SA",
+   "SA",
+   "JW",
+   "LN"
+  ],
+  "url": "http://localhost:3000/konto"
+ },
+ "konto@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-23-v2.jpg&w=96&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-03-v2.jpg&w=96&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Guten Abend, Julia."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "J",
+   "Guten Abend, Julia.",
+   "SA",
+   "SA",
+   "JW",
+   "LN"
+  ],
+  "url": "http://localhost:3000/konto"
+ },
+ "konto-termine@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Termine · Konto · SOMA",
+  "h1": [
+   "Termine"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Termine"
+  ],
+  "url": "http://localhost:3000/konto/termine"
+ },
+ "buchung-detail@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Deine Buchung · SOMA",
+  "h1": [
+   "Bestätigt."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Bestätigt.",
+   "SA"
+  ],
+  "url": "http://localhost:3000/buchung/638181ed-6840-4ad4-a501-47f0060df54d"
+ },
+ "after-login@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-23-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-03-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Guten Abend, Julia."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "J",
+   "Guten Abend, Julia.",
+   "SA",
+   "SA",
+   "JW",
+   "LN"
+  ],
+  "url": "http://localhost:3000/konto"
+ },
+ "konto@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-23-v2.jpg&w=48&q=75",
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-03-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Übersicht · SOMA",
+  "h1": [
+   "Guten Abend, Julia."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "J",
+   "Guten Abend, Julia.",
+   "SA",
+   "SA",
+   "JW",
+   "LN"
+  ],
+  "url": "http://localhost:3000/konto"
+ },
+ "konto-termine@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "title": "Termine · Konto · SOMA",
+  "h1": [
+   "Termine"
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Termine"
+  ],
+  "url": "http://localhost:3000/konto/termine"
+ },
+ "buchung-detail@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=48&q=75"
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "title": "Deine Buchung · SOMA",
+  "h1": [
+   "Bestätigt."
+  ],
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "serif": [
+   "Bestätigt.",
+   "SA"
+  ],
+  "url": "http://localhost:3000/buchung/638181ed-6840-4ad4-a501-47f0060df54d"
+ }
+}

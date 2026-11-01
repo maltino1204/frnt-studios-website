@@ -100,7 +100,8 @@ export default async function BehandlungenPage() {
                     <p className="type-overline text-ink-muted num">
                       {c.services.length} Leistungen{from != null ? ` · ${fromPrice(from)}` : ""}
                     </p>
-                    <h2 id={`${c.slug}-titel`} className="type-display-m">
+                    {/* Sans: the page's one serif headline is the h1 (brand guidelines § 4.4, audit-3 N12). */}
+                    <h2 id={`${c.slug}-titel`} className="type-heading-l">
                       {c.name}
                     </h2>
                     {c.description ? <p className="max-w-[36rem] type-body-l text-ink-muted">{c.description}</p> : null}

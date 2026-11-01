@@ -1,0 +1,381 @@
+{
+ "suche": {
+  "fails": [],
+  "small": [],
+  "count": 85,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "So sortieren wir",
+    "w": 88,
+    "h": 15
+   }
+  ]
+ },
+ "profil": {
+  "fails": [],
+  "small": [],
+  "count": 143,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Stornobedingungen",
+    "w": 114,
+    "h": 15
+   }
+  ]
+ },
+ "fuer-profis": {
+  "fails": [],
+  "small": [],
+  "count": 209,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "hilfe": {
+  "fails": [],
+  "small": [],
+  "count": 79,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "hallo@soma.example",
+    "w": 153,
+    "h": 20
+   },
+   {
+    "t": "Stornierung",
+    "w": 88,
+    "h": 20
+   }
+  ]
+ },
+ "anmelden": {
+  "fails": [],
+  "small": [],
+  "count": 16,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Jetzt registrieren",
+    "w": 109,
+    "h": 18
+   }
+  ]
+ },
+ "konto": {
+  "fails": [],
+  "small": [],
+  "count": 50,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "termine": {
+  "fails": [],
+  "small": [],
+  "count": 27,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "buchen": {
+  "fails": [
+   {
+    "text": "Bis Dienstag, 3. November, 09:00 Uhr: kostenlos",
+    "ratio": 1,
+    "size": 12,
+    "fg": "rgb(94, 85, 77)",
+    "bgc": "rgb(236,230,220)"
+   },
+   {
+    "text": "Bis Mittwoch, 4. November, 07:00 Uhr: 50 % der Beh",
+    "ratio": 1,
+    "size": 12,
+    "fg": "rgb(94, 85, 77)",
+    "bgc": "rgb(236,230,220)"
+   },
+   {
+    "text": "Danach: 100 % der Behandlung zzgl. Anfahrt",
+    "ratio": 1,
+    "size": 12,
+    "fg": "rgb(94, 85, 77)",
+    "bgc": "rgb(236,230,220)"
+   },
+   {
+    "text": "Sagt Hanna B. ab, entstehen dir keine Kosten.",
+    "ratio": 1,
+    "size": 12,
+    "fg": "rgb(94, 85, 77)",
+    "bgc": "rgb(236,230,220)"
+   }
+  ],
+  "small": [],
+  "count": 104,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "Zuhause · Standard",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "Büro",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "Hotel Frankfurt",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "Neue Adresse",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "INPUT",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "INPUT",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 20,
+    "h": 20
+   },
+   {
+    "t": "Widerrufsbelehrung",
+    "w": 115,
+    "h": 15
+   },
+   {
+    "t": "AGB",
+    "w": 25,
+    "h": 15
+   }
+  ]
+ },
+ "focus": {
+  "tag": "A",
+  "text": "SOMA – zur Startseite",
+  "outline": "solid 2px rgb(84, 44, 53) off 2px",
+  "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(84, 44, 53, 0"
+ },
+ "pro": {
+  "fails": [],
+  "small": [],
+  "count": 124,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "Aromaölmassage",
+    "w": 155,
+    "h": 23
+   },
+   {
+    "t": "Entspannungsmassage (klassisch",
+    "w": 306,
+    "h": 23
+   },
+   {
+    "t": "Portfolio pflegen",
+    "w": 96,
+    "h": 15
+   }
+  ]
+ },
+ "pro-einnahmen": {
+  "fails": [],
+  "small": [],
+  "count": 238,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "Einladungslink",
+    "w": 83,
+    "h": 15
+   },
+   {
+    "t": "Entspannungsmassage (klassisch",
+    "w": 222,
+    "h": 18
+   },
+   {
+    "t": "Hot-Stone-Massage",
+    "w": 131,
+    "h": 18
+   },
+   {
+    "t": "Hot-Stone-Massage",
+    "w": 131,
+    "h": 18
+   },
+   {
+    "t": "Rücken- & Nackenmassage",
+    "w": 177,
+    "h": 18
+   },
+   {
+    "t": "Entspannungsmassage (klassisch",
+    "w": 222,
+    "h": 18
+   },
+   {
+    "t": "Rücken- & Nackenmassage",
+    "w": 177,
+    "h": 18
+   },
+   {
+    "t": "Aromaölmassage",
+    "w": 113,
+    "h": 18
+   },
+   {
+    "t": "Entspannungsmassage (klassisch",
+    "w": 222,
+    "h": 18
+   },
+   {
+    "t": "Rücken- & Nackenmassage",
+    "w": 177,
+    "h": 18
+   },
+   {
+    "t": "Rücken- & Nackenmassage",
+    "w": 177,
+    "h": 18
+   },
+   {
+    "t": "Aromaölmassage",
+    "w": 113,
+    "h": 18
+   },
+   {
+    "t": "Entspannungsmassage (klassisch",
+    "w": 222,
+    "h": 18
+   }
+  ]
+ },
+ "pro-kalender": {
+  "fails": [],
+  "small": [],
+  "count": 76,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "admin": {
+  "fails": [],
+  "small": [],
+  "count": 406,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 32,
+    "h": 16
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   },
+   {
+    "t": "INPUT",
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "admin-profis": {
+  "fails": [],
+  "small": [],
+  "count": 274,
+  "minSize": 12,
+  "targets": [
+   {
+    "t": "Zum Inhalt springen",
+    "w": 32,
+    "h": 16
+   }
+  ]
+ }
+}
