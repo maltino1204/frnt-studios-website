@@ -342,17 +342,48 @@ The spec is in **`brand/assets/iconography/ICONOGRAPHY.md`**, the board in `icon
 
 ## 7. Photography
 
-> **Owned by the Digital Art Director (phase B2).** Direction, shot list, grading, development-asset labelling and replacement requirements go here (`brand/photography/**`).
-> Identity constraints already fixed: the arch and O-oval crops (§ 5.1, 5.3), the 62 % flat scrim, the Ortszeile under key images, and no Oxblood on photographs.
+*Digital Art Director (phase B2). The full direction is in **`brand/photography/PHOTOGRAPHY.md`**; the audit of all 131 v1 images is in **`brand/photography/AUDIT.md`**.*
+
+**In one sentence:** the place is the hero. A real room at a real time of day, a Profi's hands at work, the customer at ease and covered, warm window light with Espresso shadows, and nothing that says "spa".
+
+| | Rule |
+|---|---|
+| **Light** | Side window daylight with real shadows; in the evening, blue hour outside and one warm lamp inside. No flash, ring light or high key. |
+| **Grade** | Highlights roll off to Bone `#F3EFE8`, shadows settle in Espresso `#25211F` (lifted about 6 %, never blue), saturation −10 to −15 %, white balance 3800–4300 K. No Oxblood and no staged accent object in the frame. Grade masters: `landing/hero-wide`, `landing/philosophy`, `editorial/after-v2`, `editorial/hotel-v2`. |
+| **Crop** | The arch (4:5 default), the pair (right arch −18 %), the O-oval for portraits. Heads and hands below the springline; ≥ 30 % room; text only on calm zones or a flat 62 % scrim. |
+| **Discretion** | During treatments faces are turned away or eyes closed; linen covers to the shoulder blades or higher; nothing reads as erotic. |
+| **Skin** | Pores, lines, freckles and body hair stay. No smoothing, reshaping or retouching of the treatment result. |
+| **Casting** | Customers 25–70, every body type; Profis 24–60 in plain dark work clothes; men as customers and Profis; diverse origins (cast list in `photography/generation/shotlist-v2.mjs`). |
+| **Places** | Altbau (tilt-turn windows, radiators, herringbone), hotel (real skyline, oak, bouclé), office (concrete, oak, glass, unbranded laptop), threshold (banister, terrazzo, the kit at the door). |
+| **Never** | Candles, orchids or staged flowers, stones, bamboo, cucumbers, petals, rolled towels, spa robes, salon furniture, rose-gold, fake text or logos, film borders, nudity, couples' massage (not offered). |
+| **Ortszeile** | *Ort · Stadtteil · Uhrzeit* under every key image (`type-place`). It matches the light and the city, and is illustrative, never a booking. |
+| **Status** | Every current image is an AI development asset (131 v1 + 109 v2), labelled „Bild KI-generiert“ / „Demo-Profil · Foto KI-generiert“. The audit: **2 keep, 32 recrop, 97 replace**. The v2 replacements are in `scripts/images/sources.json` (`replacedBy`). Before launch every key image is reshot (shot list, rights and releases: `PHOTOGRAPHY.md` § 12). |
 
 ## 8. Motion
 
-> **Owned by the Digital Art Director (phase B2).** Principles for page transitions, overlays, navigation, loading, interactive elements and brand animations go here.
-> The identity's motion tokens are already in `DESIGN_TOKENS`:
-> - **Durations:** instant 100, fast 160, base 220, slow 320, arrive 480, calm 640 ms.
-> - **Easings:** standard `(0.2, 0, 0, 1)`, arrive `(0.16, 1, 0.3, 1)`, settle `(0.22, 1, 0.36, 1)`, exit `(0.4, 0, 1, 1)`. There is no overshoot, no bounce and no ambient loop.
-> - The arch arrival (§ 5.1).
-> - Reduced motion is honoured globally.
+*Digital Art Director (phase B2). The full identity is in **`brand/applications/motion/MOTION.md`**; the replayable specimen is `motion/specimen.html`, with storyboards `motion/storyboard-1…3.png`.*
+
+**Arrival:** every movement eases out, comes to rest and stops. Motion confirms; it never decorates or delays. The principles are fluid, controlled, subtle, responsive, intuitive and premium (each with a test in `MOTION.md` § 1).
+
+| Token | ms | Typical use |
+|---|---|---|
+| instant | 100 | Press (scale 0.98), focus, checkbox fill |
+| fast | 160 | Hover, fills, page exit, toast exit, price crossfade |
+| base | 220 | Fades, overlay exit, tab indicator, backdrop, skeleton → content |
+| slow | 320 | Dialog and page entrance, accordion |
+| arrive | 480 | Sheet, drawer and toast entrance, wordmark settle |
+| calm | 640 | Arch rise, photo over its wash, outline draw |
+| reveal *(proposed)* | 900 | Only the photo settling inside the arch (1.04 → 1) |
+
+Easings: `standard` (state changes), `arrive` (entrances), `settle` (coming to rest), `exit` (leaving, about half the entrance duration), `calm` (shimmer, long fades). Staggers are 60–90 ms, at most 6 items; distances are 8–16 px.
+
+- **Page transitions:** out 160 ms fade, in 320 ms with a 10 px rise; the shared arch image goes from card to profile header in 480 ms. Content is interactive from the first frame.
+- **Overlays:** sheet 480 in / 220 out; dialog 320 in (8 px) / 220 out; toast 480 in (12 px) / 160 out. No springs, no scale from zero.
+- **Navigation:** tab indicator 220 ms; bottom-nav pill 160 ms; the header hairline appears after 8 px of scroll; no scroll hijacking.
+- **Loading:** skeleton shimmer 1.8 s (the only loop); the spinner appears after 300 ms and stays at least 400 ms; numbers never count up.
+- **Brand animations:** (1) **arch rise**: the mask opens bottom-up and rises 16 px (640 ms) while the photo settles (900 ms); (2) **the S draws on**: arch outline, then S contour, then fill (1.2 s), for splash and end frames only; (3) **wordmark reveal**: the mark settles as one shape (480 ms, 8 px), then the rule and the tagline follow. No letter-by-letter, no morphs, no loops.
+- **Reduced motion:** transforms become fades of ≤ 160 ms or nothing; brand animations show the final frame; shimmer and spinner stay (slower) because they are feedback. Nothing carries meaning through motion alone.
+- **Never:** bounce or overshoot, parallax or multi-speed layers, 3D tilts and flips, ambient loops, intros that delay interaction, counting numbers, confetti.
 
 ---
 
@@ -421,8 +452,33 @@ The rendered references are on `/kit/marke` § 6. API names refer to `src/compon
 
 ## 10. Applications
 
-> **Owned by the Digital Art Director (phase B2).** Landing page, mobile app, professional dashboard, app icon mock-ups, social, ads, booking confirmation, transactional email, gift card and onboarding kit go here (`brand/applications/**`).
-> Identity inputs ready for them: the lockups (`assets/logo/final`), the app icons (`assets/icons`), the arch social frame (`assets/motif/soma-arch-social-1080x1350.svg`), the tokens, and `/kit/marke` as the component reference.
+*Digital Art Director (phase B2). Index with thumbnails: **`brand/applications/README.md`**. Every artwork is generated from code (`brand/applications/_src/`), uses the final logo SVGs and the OFL fonts, and labels AI photos and demo data.*
+
+| Application | Where | Brand moment |
+|---|---|---|
+| App icons (iOS, Android, light/dark/themed, store) | `applications/app-icons/` | The Bone S on Oxblood: the most visible Oxblood. A PWA today; native apps are not built. |
+| Social (avatar, 9 posts, 3 stories, LinkedIn) | `applications/social/` + `captions.md` | Arch frame posts, one Oxblood brand post per grid of nine, Ortszeile captions, AI labels. |
+| Digital ads (3 concepts × 5 sizes) | `applications/ads/` | Voice § 7.13: „Schon zu Hause“, „Zimmer 614“, „Dein Kalender“; the CTA is the one Oxblood. |
+| Booking confirmation (390×844) | `applications/booking-confirmation/` | The arch-check glyph, „Bestätigt.“, the Start-Code; no Oxblood (no primary action). |
+| Transactional e-mail „Buchung bestätigt“ | `applications/email/` | Table-based, inline, dark-mode aware; the Oxblood button becomes Bone in dark mode. |
+| Gift card (**future concept**) | `applications/giftcard/` | The Oxblood front with a Bone arch outline crossing the edge. |
+| SOMA Pro welcome kit (A4 PDF) | `applications/onboarding/` | The safety rule on the one Oxblood panel. |
+| Customer app and SOMA Pro (live screens) | `applications/showcase/` | As built by the migration (1 Nov 2026, demo environment). |
+| Landing page (input only) | `applications/LANDING_ART_DIRECTION_INPUT.md` | Three key-visual directions, an image per section, crop rules. |
+
+### 10.1 UI translation: photography, motif and motion in the product
+
+These rules align with the component specs in § 9.3 and the `/kit/marke` components.
+
+| Surface | Photography | Motif | Motion |
+|---|---|---|---|
+| **Service and category cards** | The category image (`categories/*-v2`) at `focal`, inside a 12 px inset. Without a photo, show the category wash. | Arch 4:3 crop on the image (tile radius 12 below 120 px width). The wash fallback carries a 1.5 px `line-mid` arch outline and the category word in Newsreader Italic. | The first row rises with a 90 ms stagger (≤ 6) on first view only; hover lifts 2 px (220 ms, pointer only); press scale 0.99. The photo fades in over its wash (640 ms). |
+| **Profile hero** (`/profis/[slug]`) | The Profi's own portrait (portrait guide); in demo mode the label „Demo-Profil · Foto KI-generiert“ must be visible next to the image. Portfolio as 1:1 tiles with the caption below. | The portrait sits in the arch (3:4) or O-oval. Name in Newsreader (the view's one serif). Never Oxblood on the photo; „Termin wählen“ is the view's Oxblood. | The shared-element transition from the card arch to the header arch (480 ms arrive). With reduced motion it is an instant swap. |
+| **Empty states** | No photo. | A 72 px arch outline in `stone-deep`, title in Newsreader 26, one or two lines and one secondary action. Dense contexts: the text line only. | The outline draws in (640 ms) once per session; otherwise static. |
+| **Loading** | Images load over their wash; never a grey box or an image icon. | Skeletons take the final shapes: an arch for arch images, pills for text. | Shimmer 1.8 s calm (3 s with reduced motion); spinner after 300 ms, only inside buttons and inline status. Prices appear final and never count up. |
+| **Confirmation moments** (booking confirmed, request accepted, Profi approved) | No photo on the screen; an e-mail may carry none either. | The arch-check glyph (arch outline + check) replaces a generic check circle; the status is a word („Bestätigt“). | Outline 640 ms → check 320 ms → title rises 10 px → Start-Code digits with a 90 ms stagger. A haptic `success` fires once. With reduced motion, everything appears at once. |
+| **Hero and editorial bands** (home, `/fuer-profis`, city pages) | v2 key visuals (`landing/*`, `editorial/*-v2`) with their Ortszeile. | Full-bleed 16:9 or the 4:5 arch; the pair at most once per page. | Arch rise on viewport entry, once; no parallax. |
+| **Admin** (`/admin`) | None. | None. | Functional patterns only (`MOTION.md` §§ 3.1–3.5), no brand animation. |
 
 ---
 

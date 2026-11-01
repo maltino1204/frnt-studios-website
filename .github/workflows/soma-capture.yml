@@ -31,9 +31,11 @@ jobs:
         working-directory: soma
         run: node scripts/images/fetch.mjs
       - name: Install Chromium
+        if: hashFiles('research/reference/theoneagency/capture-log.txt') == ''
         working-directory: soma
         run: npx playwright install --with-deps chromium
-      - name: Capture the landing-page reference
+      - name: Capture the landing-page reference (only once)
+        if: hashFiles('research/reference/theoneagency/capture-log.txt') == ''
         working-directory: soma
         continue-on-error: true
         run: node ../research/capture-reference.mjs ../research/reference/theoneagency
