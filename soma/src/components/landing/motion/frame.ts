@@ -10,6 +10,10 @@ export type Stop = () => void;
 
 export type MotionContext = {
   tier: MotionTier;
+  /** scenes upgraded to their full-tier layout or mask this page view (`data-scene-ready`, written last) */
+  ready: Set<Element>;
+  /** below the viewport at start-up, from one layout snapshot taken before any write */
+  below: (el: Element) => boolean;
   /** CSS scroll-driven animations are available (and used) for the scroll-linked masks and tones */
   timeline: boolean;
   /** run `job` on every scroll frame while `el` is within one viewport of the screen */
@@ -18,7 +22,7 @@ export type MotionContext = {
   onStop: (stop: Stop) => void;
 };
 
-export function createContext(tier: MotionTier): MotionContext & { stop: Stop } {
+export function createContext(tier: MotionTier, ready: Set<Element>, below: (el: Element) => boolean): MotionContext & { stop: Stop } {
   const jobs = new Set<Job>();
   const stops: Stop[] = [];
   let raf = 0;
@@ -35,6 +39,8 @@ export function createContext(tier: MotionTier): MotionContext & { stop: Stop } 
 
   return {
     tier,
+    ready,
+    below,
     timeline: typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()"),
     whileNear(el, job) {
       const io = new IntersectionObserver(

@@ -48,7 +48,7 @@ export function DeinOrtChapter() {
           />
         </LpContainer>
       </div>
-      <div data-scene="dawn" aria-hidden className="lp-spacer lp-spacer-dawn" />
+      <div data-scene="dawn" data-header-theme="light" aria-hidden className="lp-spacer lp-spacer-dawn" />
     </Chapter>
   );
 }

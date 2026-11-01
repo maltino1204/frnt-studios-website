@@ -12,9 +12,10 @@ const HYSTERESIS = 0.03;
  * arrives only once the stage is pinned, so it never shares a view with the chapter headline (two serif lines).
  */
 export function startStage(ctx: MotionContext): Stop {
-  const scene = document.querySelector<HTMLElement>('[data-scene="stage"][data-scene-ready]');
-  const stage = scene?.querySelector<HTMLElement>("[data-stage]");
-  if (!scene || !stage) return () => {};
+  const scene = document.querySelector<HTMLElement>('[data-scene="stage"]');
+  if (!scene || !ctx.ready.has(scene)) return () => {};
+  const stage = scene.querySelector<HTMLElement>("[data-stage]");
+  if (!stage) return () => {};
 
   let step = 1;
   let state = "idle";

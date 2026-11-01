@@ -10,9 +10,10 @@ const LINE_MARKS = [0.35, 0.65, 0.95];
  * written here. The three lines are triggered (never scrubbed) as the progress crosses 0.35 / 0.65 / 0.95.
  */
 export function startDoorway(ctx: MotionContext): Stop {
-  const scene = document.querySelector<HTMLElement>('[data-scene="doorway"][data-scene-ready]');
-  const face = scene?.querySelector<HTMLElement>('[data-arch-mask="doorway"]');
-  if (!scene || !face) return () => {};
+  const scene = document.querySelector<HTMLElement>('[data-scene="doorway"]');
+  if (!scene || !ctx.ready.has(scene)) return () => {};
+  const face = scene.querySelector<HTMLElement>('[data-arch-mask="doorway"]');
+  if (!face) return () => {};
   const lines = Array.from(scene.querySelectorAll<HTMLElement>('p[data-reveal="clause"] [data-reveal-order]'));
   for (const l of lines) attr(l, "data-reveal-state", "pending");
 

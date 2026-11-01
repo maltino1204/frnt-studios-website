@@ -107,6 +107,12 @@
   padding-top: env(safe-area-inset-top);
   background-color: transparent;
 }
+/* The root's scroll-padding-top (header + 1rem) makes Chromium treat a focused control inside the sticky header as
+   obscured and scroll the page by several hundred px on Tab (the chapter overlay then marks the wrong chapter). */
+.lp-header,
+.lp-header * {
+  scroll-margin-top: calc(-1 * (var(--header-height) + 1rem));
+}
 .lp-header[data-scrolled] {
   background-color: var(--glass-bg-strong);
   -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
@@ -599,7 +605,9 @@ html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-scroller {
   grid-row: 1;
   margin: 0;
   padding: 0;
-  overflow: visible;
+  /* stays a scroll container (nothing overflows the column): turning it into overflow: visible during the upgrade
+     makes Chromium report a phantom layout shift of the whole column (CLS 0.72) although it is below the fold */
+  overflow: hidden;
   scroll-snap-type: none;
 }
 html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-steps {

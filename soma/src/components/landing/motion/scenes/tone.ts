@@ -7,7 +7,7 @@ import { clamp01, type MotionContext, type Stop } from "../frame";
  */
 export function startTone(ctx: MotionContext): Stop {
   if (ctx.timeline) return () => {};
-  const spacers = Array.from(document.querySelectorAll<HTMLElement>('[data-scene="dusk"][data-scene-ready], [data-scene="dawn"][data-scene-ready]'));
+  const spacers = Array.from(document.querySelectorAll<HTMLElement>('[data-scene="dusk"], [data-scene="dawn"]')).filter((el) => ctx.ready.has(el));
   const stops = spacers.map((el) => {
     let p = 0;
     let written = -1;

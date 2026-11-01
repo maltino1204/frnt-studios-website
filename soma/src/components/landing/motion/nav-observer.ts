@@ -17,8 +17,12 @@ const HEADER_UP_DELTA = 8;
 /** Fields that open the virtual keyboard (the dock would sit on top of it). */
 const FIELD =
   'textarea, select, [contenteditable=""], [contenteditable="true"], input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"], [type="hidden"])';
-/** Booking surfaces hide the dock through Conversion's `html[data-booking-open]`; every other open dialog hides it here. */
-const OTHER_DIALOG = "dialog[open]:not([data-booking-surface]):not(:has([data-booking-surface]))";
+/**
+ * Open dialogs that hide the dock here. Booking surfaces hide it through Conversion's `html[data-booking-open]`. A
+ * modal dialog (the chapter overlay) already covers the dock in the top layer and makes it inert; the dock stays
+ * visible underneath, so that the platform can hand focus back to the dock button that opened it.
+ */
+const OTHER_DIALOG = "dialog[open]:not(:modal):not([data-booking-surface]):not(:has([data-booking-surface]))";
 
 type RootKey = "chapterActive" | "headerTheme" | "headerHidden" | "headerLogo" | "dock";
 
@@ -135,34 +139,52 @@ export function startNav(tier: MotionTier): () => void {
   // The hero: from the moment the arch's Ortszeile enters the viewport until the booking card has scrolled out
   // (< 25 % left at the top), the dock stays down. It never covers the Ortszeile, and it does not pop up for the
   // short stretch of lead text between the Ortszeile and the card (the card itself is the booking entry there).
-  const heroCaption = document.querySelector("#bei-dir figure figcaption");
-  const heroEntry = document.querySelector<HTMLElement>("#bei-dir [data-dock-hide]");
-  let captionSeen = false;
-  let entryPassed = false;
-  observe(
-    (entries) => {
+  const hero = document.getElementById("bei-dir");
+  const heroCaption = hero?.querySelector("figure figcaption");
+  const heroEntry = hero?.querySelector<HTMLElement>("[data-dock-hide]");
+  let heroHides = false;
+  if (hero && heroCaption && heroEntry) {
+    // Recomputed from fresh rects whenever any of the three crosses a threshold: a jump from the top straight to a
+    // far chapter crosses the hero's edge even when the entry itself goes from "not in view" to "not in view".
+    observe(
+      () => {
+        const vh = window.innerHeight;
+        const cap = heroCaption.getBoundingClientRect();
+        const r = heroEntry.getBoundingClientRect();
+        const visible = r.height ? (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height : 0;
+        heroHides = cap.top < vh && !(r.top < 0 && visible < 0.25);
+        later();
+      },
+      { threshold: [0, 0.25] },
+      [hero, heroCaption, heroEntry],
+    );
+  }
+  // A focused text field hides the dock (the virtual keyboard) until the reader scrolls that field out of view:
+  // Android keeps focus when the keyboard is dismissed with the back gesture, and the dock must come back then.
+  let field: Element | null = null;
+  let fieldSeen = false;
+  let fieldLeft = false;
+  let fieldIO: IntersectionObserver | null = null;
+  const watchField = (el: Element | null) => {
+    if (el === field) return;
+    fieldIO?.disconnect();
+    field = el;
+    fieldSeen = fieldLeft = false;
+    if (!el) return;
+    fieldIO = new IntersectionObserver((entries) => {
       const e = entries[entries.length - 1];
-      captionSeen = e.isIntersecting || e.boundingClientRect.top < 0;
+      if (e.isIntersecting) fieldSeen = true;
+      fieldLeft = fieldSeen && !e.isIntersecting;
       later();
-    },
-    {},
-    [heroEntry ? heroCaption : null],
-  );
-  observe(
-    (entries) => {
-      const e = entries[entries.length - 1];
-      entryPassed = e.boundingClientRect.top < 0 && e.intersectionRatio < 0.25;
-      later();
-    },
-    { threshold: [0, 0.25] },
-    [heroCaption ? heroEntry : null],
-  );
-  let fieldFocused = false;
+    });
+    fieldIO.observe(el);
+  };
+  stops.push(() => fieldIO?.disconnect());
   let focusInDock = false;
   let focusInHeader = false;
   const onFocus = (e: Event) => {
     const t = e.target as Element;
-    fieldFocused = !!t.matches?.(FIELD) && !t.closest("dialog");
+    watchField(t.matches?.(FIELD) && !t.closest("dialog") ? t : null);
     focusInDock = !!dock?.contains(t);
     focusInHeader = !!header?.contains(t);
     later();
@@ -170,21 +192,25 @@ export function startNav(tier: MotionTier): () => void {
   listen(document, "focusin", onFocus);
   listen(document, "focusout", (e) => {
     if ((e as FocusEvent).relatedTarget) return; // focusin follows
-    fieldFocused = focusInDock = focusInHeader = false;
+    watchField(null);
+    focusInDock = focusInHeader = false;
     later();
   });
   let dialogOpen = !!document.querySelector(OTHER_DIALOG);
   const dialogs = new MutationObserver(() => {
     dialogOpen = !!document.querySelector(OTHER_DIALOG);
-    later();
+    // At once, not on the next frame: when a dialog closes, focus goes back to its opener (often the dock's own
+    // chapter button), which must be visible again by then.
+    cancelAnimationFrame(frame);
+    apply();
   });
   dialogs.observe(document.body, { attributes: true, attributeFilter: ["open"], subtree: true });
   stops.push(() => dialogs.disconnect());
 
   const dockHidden = () => {
     if (focusInDock) return false; // never pull the dock away from under the keyboard user
-    if (dialogOpen || fieldFocused) return true;
-    if (captionSeen && !entryPassed) return true;
+    if (dialogOpen || (field && !fieldLeft)) return true;
+    if (heroHides) return true;
     for (const hide of zoneHides.values()) if (hide) return true;
     return false;
   };

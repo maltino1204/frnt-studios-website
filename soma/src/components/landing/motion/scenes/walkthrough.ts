@@ -9,9 +9,9 @@ import { attr, type MotionContext, type Stop } from "../frame";
  * - the stage's arch outline draws on when the stage comes into view (640 ms `ease-arrive`). Chromium misapplies a
  *   `pathLength` dash to a non-scaling stroke, so the dash is measured in screen pixels.
  */
-export function startWalkthrough(_ctx: MotionContext): Stop {
-  const scene = document.querySelector<HTMLElement>('[data-scene="walkthrough"][data-scene-ready]');
-  if (!scene) return () => {};
+export function startWalkthrough(ctx: MotionContext): Stop {
+  const scene = document.querySelector<HTMLElement>('[data-scene="walkthrough"]');
+  if (!scene || !ctx.ready.has(scene)) return () => {};
   attr(scene, "data-step", "1");
 
   const steps = new IntersectionObserver(
