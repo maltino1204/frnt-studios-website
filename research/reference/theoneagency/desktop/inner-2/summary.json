@@ -1,0 +1,390 @@
+{
+  "url": "https://theoneagency.de/webdesign/",
+  "title": "Webdesign Düsseldorf: Website-Erstellung | THEONEAGENCY",
+  "description": "Website erstellen lassen in Düsseldorf: Webdesign, das schnell lädt, in Suchmaschinen gefunden wird und das Ihr Team selbst pflegt. Mit festem Angebot.",
+  "generator": null,
+  "htmlAttrs": [
+    "lang=de",
+    "class=rvjs"
+  ],
+  "libs": [],
+  "headings": [
+    "H1: Webdesign in Düsseldorf: Website erstellen lassen, die Ihr Team selbst pflegt",
+    "H2: Was eine gute Website heute leisten muss",
+    "H3: Langsam und schwer zu bedienen",
+    "H3: Jede Änderung wird zum Auftrag",
+    "H3: In Suchmaschinen kaum sichtbar",
+    "H2: Vier Schritte vom Ziel zur fertigen Website",
+    "H3: Ziel und Zielgruppe",
+    "H3: Struktur und Inhalte",
+    "H3: Design und Entwicklung",
+    "H3: Launch und Pflege",
+    "H2: Webdesign in Düsseldorf: von der Landingpage bis zum Relaunch",
+    "H3: Design aus Ihrer Marke",
+    "H3: Mobil zuerst",
+    "H3: Schnelle Ladezeiten",
+    "H3: Suchmaschinenoptimierung von Anfang an",
+    "H3: Selbst pflegbar",
+    "H3: Barrierearm gestaltet",
+    "H3: Website-Relaunch",
+    "H3: Landingpages für Kampagnen",
+    "H3: Formulare und Anfragen",
+    "H3: Mehrsprachige Websites",
+    "H3: Eigene Funktionen",
+    "H3: Sicherer Betrieb und Wartung",
+    "H2: Ausgewählte Websites aus unserem Webdesign",
+    "H3: Corealis",
+    "H3: Colombella",
+    "H3: Sleep Inn Düsseldorf",
+    "H3: Eikelmann Galerie",
+    "H3: Titania Medien",
+    "H3: Bretton Woods",
+    "H2: Websites für Unternehmen in Düsseldorf und ganz Deutschland",
+    "H3: Mittelstand und Dienstleister",
+    "H3: Selbstständige und kleine Unternehmen",
+    "H3: Unternehmen mit veralteter Website",
+    "H3: Gastronomie und Hotellerie",
+    "H3: Kunst, Kultur und Verlage",
+    "H3: Marken mit mehreren Zielgruppen",
+    "H2: Technologie, die zu Ihrer Website passt",
+    "H2: So entsteht Ihre Website: in 4 bis 6 Wochen live",
+    "H3: Erstgespräch",
+    "H3: Konzept und Angebot",
+    "H3: Design und Entwicklung",
+    "H3: Launch und Betreuung",
+    "H2: Fragen zum Webdesign",
+    "H2: Weitere Leistungen aus einer Hand",
+    "H2: Ratgeber zum Thema",
+    "H2: Was soll Ihre neue Website für Ihr Unternehmen erreichen?"
+  ],
+  "nav": [
+    {
+      "text": "THEONEAGENCY",
+      "href": "../"
+    },
+    {
+      "text": "Leistungen",
+      "href": "#funktionen"
+    },
+    {
+      "text": "Referenzen",
+      "href": "#referenzen"
+    },
+    {
+      "text": "Ablauf",
+      "href": "#ablauf"
+    },
+    {
+      "text": "FAQ",
+      "href": "#faq"
+    },
+    {
+      "text": "Software",
+      "href": "../software/"
+    },
+    {
+      "text": "Projekt anfragen",
+      "href": "../anfrage/?ziel=website"
+    },
+    {
+      "text": "Startseite",
+      "href": "../"
+    },
+    {
+      "text": "Webdesign in Düsseldorf",
+      "href": "../webdesign/"
+    },
+    {
+      "text": "Onlineshop erstellen lassen",
+      "href": "../onlineshop/"
+    },
+    {
+      "text": "Individuelle Softwareentwicklung",
+      "href": "../software/"
+    },
+    {
+      "text": "App entwickeln lassen",
+      "href": "../app-entwicklung/"
+    },
+    {
+      "text": "KI-Agentur in Düsseldorf",
+      "href": "../ki/"
+    },
+    {
+      "text": "Unabhängige IT-Beratung",
+      "href": "../software/it-beratung/"
+    },
+    {
+      "text": "Kosten berechnen",
+      "href": "../anfrage/"
+    },
+    {
+      "text": "KI-Assistent für die Geschäftsführung",
+      "href": "../software/ceo-bot/"
+    },
+    {
+      "text": "Unternehmenssoftware für den Mittelstand",
+      "href": "../software/firmen-os/"
+    },
+    {
+      "text": "Dokumentenmanagement mit KI",
+      "href": "../software/dokumenten-ki/"
+    },
+    {
+      "text": "KI-Wissensdatenbank",
+      "href": "../software/wissens-ki/"
+    },
+    {
+      "text": "Außendienst-App",
+      "href": "../software/aussendienst-app/"
+    },
+    {
+      "text": "Kundenportal entwickeln lassen",
+      "href": "../software/kundenportal/"
+    },
+    {
+      "text": "B2B-Buchungsportal",
+      "href": "../software/buchungsportal/"
+    },
+    {
+      "text": "Ticketsystem für die Gastronomie",
+      "href": "../software/gastro-plattform/"
+    },
+    {
+      "text": "Online-Marktplatz mit Prüfprozess",
+      "href": "../software/marktplatz/"
+    },
+    {
+      "text": "Freigabeprozesse digitalisieren",
+      "href": "../software/freigabe-cockpit/"
+    },
+    {
+      "text": "Blog",
+      "href": "../blog/"
+    },
+    {
+      "text": "Was kostet eine Website?",
+      "href": "../blog/was-kostet-eine-website/"
+    },
+    {
+      "text": "Barrierefreie Website und BFSG",
+      "href": "../blog/barrierefreie-website-bfsg/"
+    },
+    {
+      "text": "Unternehmenssoftware im Überblick",
+      "href": "../blog/unternehmenssoftware/"
+    },
+    {
+      "text": "KI im Mittelstand einführen",
+      "href": "../blog/ki-im-mittelstand-einfuehren/"
+    },
+    {
+      "text": "Barrierefreie Website erstellen",
+      "href": "../blog/barrierefreie-website-erstellen/"
+    },
+    {
+      "text": "Was kostet eine App?",
+      "href": "../blog/was-kostet-eine-app/"
+    },
+    {
+      "text": "Website-Relaunch und SEO",
+      "href": "../blog/website-relaunch-checkliste/"
+    },
+    {
+      "text": "Individualsoftware oder Standardsoftware",
+      "href": "../blog/individualsoftware-oder-standardsoftware/"
+    },
+    {
+      "text": "Was kostet ein Onlineshop?",
+      "href": "../blog/was-kostet-ein-onlineshop/"
+    },
+    {
+      "text": "Startseite",
+      "href": "../"
+    },
+    {
+      "text": "Softwarelösungen",
+      "href": "../software/"
+    },
+    {
+      "text": "Impressum",
+      "href": "../impressum/"
+    },
+    {
+      "text": "Datenschutz",
+      "href": "../datenschutz/"
+    },
+    {
+      "text": "AGB",
+      "href": "../agb/"
+    }
+  ],
+  "buttons": [],
+  "scripts": [
+    "inline:164",
+    "https://theoneagency.de/software/proto.js?v=8e1516306e",
+    "https://theoneagency.de/software/lp.js?v=8e1516306e",
+    "inline:6097"
+  ],
+  "styles": [
+    "https://theoneagency.de/software/lp.css?v=8e1516306e",
+    "https://theoneagency.de/software/proto.css?v=8e1516306e"
+  ],
+  "fonts": [
+    "Space Grotesk 300 700 normal loaded",
+    "Inter 100 900 normal loaded"
+  ],
+  "videos": [],
+  "canvases": 0,
+  "images": 9,
+  "sticky": 3,
+  "fixed": 1,
+  "scrollSnap": 0,
+  "docHeight": 11410,
+  "sections": [
+    {
+      "tag": "main",
+      "id": "main",
+      "cls": "",
+      "top": 95,
+      "h": 10868,
+      "w": 1440,
+      "text": "Webdesign Websites aus Düsseldorf Webdesign in Düsseldorf: Website erstellen lassen, die Ihr Team selbst pflegt Sie möchten eine Website erstellen lassen, die s"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "cls": "orb",
+      "top": -65,
+      "h": 640,
+      "w": 640,
+      "text": ""
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "cls": "hero svc-hero",
+      "top": 95,
+      "h": 702,
+      "w": 1184,
+      "text": "Webdesign Websites aus Düsseldorf Webdesign in Düsseldorf: Website erstellen lassen, die Ihr Team selbst pflegt Sie möchten eine Website erstellen lassen, die s"
+    },
+    {
+      "tag": "section",
+      "id": "problem",
+      "cls": "sec",
+      "top": 945,
+      "h": 1017,
+      "w": 1184,
+      "text": "[ 01 ] DIE AUSGANGSLAGE Was eine gute Website heute leisten muss Ihre Website ist oft der erste Kontakt mit Ihrem Unternehmen, lange bevor jemand anruft oder sc"
+    },
+    {
+      "tag": "section",
+      "id": "so-funktionierts",
+      "cls": "sec",
+      "top": 1962,
+      "h": 652,
+      "w": 1184,
+      "text": "[ 02 ] SO FUNKTIONIERT ES Vier Schritte vom Ziel zur fertigen Website Gutes Webdesign beginnt nicht mit Farben, sondern mit der Frage, was Ihre Website erreiche"
+    },
+    {
+      "tag": "section",
+      "id": "funktionen",
+      "cls": "sec",
+      "top": 2614,
+      "h": 1672,
+      "w": 1184,
+      "text": "[ 03 ] LEISTUNGEN Webdesign in Düsseldorf: von der Landingpage bis zum Relaunch Jede Website entsteht für Ihr Unternehmen, mit Ihrer Marke und Ihren Inhalten. D"
+    },
+    {
+      "tag": "aside",
+      "id": null,
+      "cls": "band rv",
+      "top": 4358,
+      "h": 303,
+      "w": 1184,
+      "text": "PROJEKT-KALKULATOR RUND DREI MINUTEN Erst eine klare Zahl, dann ein festes Angebot. Beantworten Sie im Projekt-Kalkulator wenige Fragen zu Ihrem Vorhaben und er"
+    },
+    {
+      "tag": "section",
+      "id": "referenzen",
+      "cls": "sec",
+      "top": 4661,
+      "h": 1318,
+      "w": 1184,
+      "text": "[ 04 ] REFERENZEN Ausgewählte Websites aus unserem Webdesign Ein Auszug aus unseren Webprojekten: Websites für Gewerbeimmobilien, Gastronomie, Hotellerie, Kunst"
+    },
+    {
+      "tag": "section",
+      "id": "einsatz",
+      "cls": "sec",
+      "top": 5979,
+      "h": 891,
+      "w": 1184,
+      "text": "[ 05 ] FÜR WEN Websites für Unternehmen in Düsseldorf und ganz Deutschland Wer in Düsseldorf einen Webdesigner oder eine Webdesign-Agentur sucht, findet bei uns"
+    },
+    {
+      "tag": "section",
+      "id": "technologie",
+      "cls": "dark",
+      "top": 6957,
+      "h": 688,
+      "w": 1440,
+      "text": "WordPress Webflow Strapi Next.js React Vue.js Webdesign [ 06 ] TECHNOLOGIE Technologie, die zu Ihrer Website passt Ob Content-Management-System oder individuell"
+    },
+    {
+      "tag": "section",
+      "id": "ablauf",
+      "cls": "sec",
+      "top": 7645,
+      "h": 746,
+      "w": 1184,
+      "text": "[ 07 ] ABLAUF So entsteht Ihre Website: in 4 bis 6 Wochen live Ein klarer Weg vom ersten Gespräch bis zum Start, mit festem Angebot vor Projektstart. 01 Erstges"
+    },
+    {
+      "tag": "section",
+      "id": "faq",
+      "cls": "sec",
+      "top": 8391,
+      "h": 655,
+      "w": 1184,
+      "text": "[ 08 ] HÄUFIGE FRAGEN Fragen zum Webdesign Ihre Frage ist nicht dabei? Rufen Sie uns an oder schreiben Sie uns. Wir antworten innerhalb von 24 Stunden. 0211 387"
+    },
+    {
+      "tag": "section",
+      "id": "verwandt",
+      "cls": "sec",
+      "top": 9046,
+      "h": 613,
+      "w": 1184,
+      "text": "[ 09 ] PASST DAZU Weitere Leistungen aus einer Hand Strategie, Design und Technik greifen ineinander, weil alles aus einem Team kommt. Onlineshop erstellen lass"
+    },
+    {
+      "tag": "section",
+      "id": "ratgeber",
+      "cls": "sec",
+      "top": 9659,
+      "h": 651,
+      "w": 1184,
+      "text": "[ 10 ] AUS DEM BLOG Ratgeber zum Thema Hintergründe, Kosten und Entscheidungshilfen aus unseren Projekten. Alle Artikel im Blog KOSTEN UND PLANUNG Was kostet ei"
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "cls": "final",
+      "top": 10390,
+      "h": 573,
+      "w": 1184,
+      "text": "PROJEKT-KALKULATOR RUND DREI MINUTEN Was soll Ihre neue Website für Ihr Unternehmen erreichen? Beschreiben Sie Ihr Vorhaben im Projekt-Kalkulator. Unverbindlich"
+    },
+    {
+      "tag": "footer",
+      "id": null,
+      "cls": "foot",
+      "top": 11027,
+      "h": 383,
+      "w": 1184,
+      "text": "LEISTUNGEN Webdesign in Düsseldorf Onlineshop erstellen lassen Individuelle Softwareentwicklung App entwickeln lassen KI-Agentur in Düsseldorf Unabhängige IT-Be"
+    }
+  ]
+}

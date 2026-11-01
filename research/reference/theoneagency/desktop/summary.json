@@ -1,0 +1,724 @@
+{
+  "info": {
+    "url": "https://theoneagency.de/",
+    "title": "Digitalagentur Düsseldorf: Web, Software, KI | THEONEAGENCY",
+    "description": "Digitalagentur in Düsseldorf für Webdesign, Onlineshops, individuelle Software und KI-Lösungen. Strategie, Design und Technik aus einer Hand.",
+    "generator": null,
+    "htmlAttrs": [
+      "lang=de",
+      "class=js gl-on",
+      "style=--lx: 581.0px;"
+    ],
+    "libs": [],
+    "headings": [
+      "H1: [ 00 ] DIGITALAGENTUR IN DÜSSELDORF Wir entwickeln, was als Nächstes kommt.",
+      "H2: [ 01 ] REFERENZEN: WEBSITES, ONLINESHOPS UND SOFTWARE Ausgewählte Arbeiten",
+      "H3: Vom Punkt zum Produkt",
+      "H2: [ 02 ] STRATEGIE, KONZEPT UND IT-BERATUNG Jedes Projekt beginnt mit einer Richtung.",
+      "H3: Erstgespräch",
+      "H3: Konzept und Angebot",
+      "H3: Sie brauchen eine unabhängige Einschätzung?",
+      "H2: [ 03 ] BRANDING UND CORPORATE DESIGN Design gibt der Idee eine Gestalt.",
+      "H2: [ 04 ] LEISTUNGEN UNSERER DIGITALAGENTUR Acht Disziplinen. Ein System.",
+      "H3: IT- und Digitalberatung",
+      "H3: Performance Marketing",
+      "H3: Branding",
+      "H3: Grafik- und Produktdesign",
+      "H3: KI-Entwicklung",
+      "H3: Individuelle Software",
+      "H3: Webentwicklung",
+      "H3: E-Commerce",
+      "H2: [ 05 ] WEBDESIGN, SOFTWARE UND KI AUS EINER HAND Drei Disziplinen. Eine Form.",
+      "H2: [ 06 ] WEBENTWICKLUNG, ONLINESHOPS UND INDIVIDUELLE SOFTWARE Software, die trägt.",
+      "H3: Individuelle Softwarelösungen",
+      "H3: Design und Entwicklung",
+      "H3: Was würde Ihr Projekt kosten?",
+      "H2: [ 07 ] KI-LÖSUNGEN UND AUTOMATISIERUNG FÜR UNTERNEHMEN KI, die mitarbeitet.",
+      "H3: Welche Abläufe kosten Ihr Team Zeit?",
+      "H2: [ 08 ] TECHNOLOGIEN FÜR WEB, SOFTWARE UND KI 0 Technologien. Ein Team, das sie beherrscht.",
+      "H3: Launch und Betreuung",
+      "H2: Häufige Fragen zu Webdesign, Software und KI",
+      "H2: Ratgeber aus unserem Blog",
+      "H2: [ 09 ] KONTAKT ZUR DIGITALAGENTUR IN DÜSSELDORF Bauen wir das Nächste zusammen.",
+      "H3: Was möchten Sie umsetzen?"
+    ],
+    "nav": [
+      {
+        "text": "THEONEAGENCY",
+        "href": "#top"
+      },
+      {
+        "text": "Softwarelösungen",
+        "href": "software/"
+      },
+      {
+        "text": "Projekt anfragen",
+        "href": "anfrage/"
+      },
+      {
+        "text": "Anfragen",
+        "href": "anfrage/"
+      },
+      {
+        "text": "01Arbeiten",
+        "href": "#arbeiten"
+      },
+      {
+        "text": "02Showreel",
+        "href": "#showreel"
+      },
+      {
+        "text": "03Leistungen",
+        "href": "#leistungen"
+      },
+      {
+        "text": "04Software",
+        "href": "#softwareloesungen"
+      },
+      {
+        "text": "05KI",
+        "href": "#ki"
+      },
+      {
+        "text": "06Über uns",
+        "href": "#eins"
+      },
+      {
+        "text": "07Kontakt",
+        "href": "#kontakt"
+      },
+      {
+        "text": "WebdesignWebsites, die Ihr Team selbst pflegt",
+        "href": "webdesign/"
+      },
+      {
+        "text": "OnlineshopsE-Commerce für Marken und Händler",
+        "href": "onlineshop/"
+      },
+      {
+        "text": "SoftwarelösungenZehn Lösungen mit klickbarem Prototyp",
+        "href": "software/"
+      },
+      {
+        "text": "App-EntwicklungWeb-Apps und mobile Apps",
+        "href": "app-entwicklung/"
+      },
+      {
+        "text": "KI-LösungenKI, die in Ihrem Unternehmen mitarbeitet",
+        "href": "ki/"
+      },
+      {
+        "text": "IT-BeratungUnabhängig, für Unternehmen und Gründer",
+        "href": "software/it-beratung/"
+      },
+      {
+        "text": "BlogRatgeber zu Kosten, KI, Software und Recht",
+        "href": "blog/"
+      },
+      {
+        "text": "Projekt-KalkulatorErste Kostenschätzung in rund drei Minuten",
+        "href": "anfrage/"
+      },
+      {
+        "text": "Webdesign in Düsseldorf",
+        "href": "webdesign/"
+      },
+      {
+        "text": "Onlineshop erstellen lassen",
+        "href": "onlineshop/"
+      },
+      {
+        "text": "Individuelle Softwareentwicklung",
+        "href": "software/"
+      },
+      {
+        "text": "App entwickeln lassen",
+        "href": "app-entwicklung/"
+      },
+      {
+        "text": "KI-Agentur in Düsseldorf",
+        "href": "ki/"
+      },
+      {
+        "text": "Unabhängige IT-Beratung",
+        "href": "software/it-beratung/"
+      },
+      {
+        "text": "Kosten berechnen",
+        "href": "anfrage/"
+      },
+      {
+        "text": "KI-Assistent für die Geschäftsführung",
+        "href": "software/ceo-bot/"
+      },
+      {
+        "text": "Unternehmenssoftware für den Mittelstand",
+        "href": "software/firmen-os/"
+      },
+      {
+        "text": "Dokumentenmanagement mit KI",
+        "href": "software/dokumenten-ki/"
+      },
+      {
+        "text": "KI-Wissensdatenbank",
+        "href": "software/wissens-ki/"
+      },
+      {
+        "text": "Außendienst-App",
+        "href": "software/aussendienst-app/"
+      },
+      {
+        "text": "Kundenportal entwickeln lassen",
+        "href": "software/kundenportal/"
+      },
+      {
+        "text": "B2B-Buchungsportal",
+        "href": "software/buchungsportal/"
+      },
+      {
+        "text": "Ticketsystem für die Gastronomie",
+        "href": "software/gastro-plattform/"
+      },
+      {
+        "text": "Online-Marktplatz mit Prüfprozess",
+        "href": "software/marktplatz/"
+      },
+      {
+        "text": "Freigabeprozesse digitalisieren",
+        "href": "software/freigabe-cockpit/"
+      },
+      {
+        "text": "Blog",
+        "href": "blog/"
+      },
+      {
+        "text": "Was kostet eine Website?",
+        "href": "blog/was-kostet-eine-website/"
+      },
+      {
+        "text": "Barrierefreie Website und BFSG",
+        "href": "blog/barrierefreie-website-bfsg/"
+      },
+      {
+        "text": "Unternehmenssoftware im Überblick",
+        "href": "blog/unternehmenssoftware/"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "Kapitel",
+        "aria": null
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 0: Idee"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 1: Produkt"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 2: Linie"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 3: Form"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 4: Drei"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 5: Eins"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 6: Struktur"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 7: Netzwerk"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 8: Komplexität"
+      },
+      {
+        "text": "",
+        "aria": "Kapitel 9: Eins"
+      },
+      {
+        "text": "",
+        "aria": "Menü öffnen"
+      },
+      {
+        "text": "Kapitelübersicht öffnen, aktuelles Kapitel: Idee900 Punkte",
+        "aria": null
+      },
+      {
+        "text": "Schließen",
+        "aria": null
+      },
+      {
+        "text": "Schließen",
+        "aria": null
+      },
+      {
+        "text": "E-Mail kopieren",
+        "aria": null
+      },
+      {
+        "text": "Schließen",
+        "aria": null
+      },
+      {
+        "text": "Vorheriges Projekt",
+        "aria": null
+      },
+      {
+        "text": "Nächstes Projekt",
+        "aria": null
+      },
+      {
+        "text": "Corealis Webentwicklung, 2026",
+        "aria": "Corealis, Webentwicklung, 2026, Projekt öffnen"
+      },
+      {
+        "text": "Cocoon Betten Custom Development, 2025",
+        "aria": "Cocoon Betten, Custom Development, 2025, Projekt öffnen"
+      },
+      {
+        "text": "Colombella Web & Custom Dev, 2026",
+        "aria": "Colombella, Web & Custom Dev, 2026, Projekt öffnen"
+      },
+      {
+        "text": "Bretton Woods Web & Branding, 2025",
+        "aria": "Bretton Woods, Web & Branding, 2025, Projekt öffnen"
+      },
+      {
+        "text": "Sleep Inn Düsseldorf Web & Branding, 2025",
+        "aria": "Sleep Inn Düsseldorf, Web & Branding, 2025, Projekt öffnen"
+      },
+      {
+        "text": "Eikelmann Galerie Web & Branding, 2025",
+        "aria": "Eikelmann Galerie, Web & Branding, 2025, Projekt öffnen"
+      },
+      {
+        "text": "Titania Medien Web & Branding, 2023",
+        "aria": "Titania Medien, Web & Branding, 2023, Projekt öffnen"
+      },
+      {
+        "text": "Hatch Web & Branding, 2024",
+        "aria": "Hatch, Web & Branding, 2024, Projekt öffnen"
+      },
+      {
+        "text": "Nikibrah CI & Custom Dev, 2025",
+        "aria": "Nikibrah, CI & Custom Dev, 2025, Projekt öffnen"
+      },
+      {
+        "text": "The Body Shop E-Commerce, 2025",
+        "aria": "The Body Shop, E-Commerce, 2025, Projekt öffnen"
+      },
+      {
+        "text": "Paulberger Limo Produktdesign, 2024",
+        "aria": "Paulberger Limo, Produktdesign, 2024, Projekt öffnen"
+      },
+      {
+        "text": "Realogis Marketing, 2024",
+        "aria": "Realogis, Marketing, 2024, Projekt öffnen"
+      },
+      {
+        "text": "Isabella Patisserie E-Commerce, 2021",
+        "aria": "Isabella Patisserie, E-Commerce, 2021, Projekt öffnen"
+      },
+      {
+        "text": "Porsche Imagefilm, 2020",
+        "aria": "Porsche, Imagefilm, 2020, Projekt öffnen"
+      },
+      {
+        "text": "",
+        "aria": "Vorheriges Video"
+      },
+      {
+        "text": "Abspielen",
+        "aria": null
+      },
+      {
+        "text": "Ton an",
+        "aria": null
+      },
+      {
+        "text": "",
+        "aria": "Nächstes Video"
+      },
+      {
+        "text": "",
+        "aria": "Vom Punkt zum Produkt, Spot 2026"
+      },
+      {
+        "text": "",
+        "aria": "Showreel 2026, Showreel"
+      },
+      {
+        "text": "",
+        "aria": "Showreel 2024, Film"
+      }
+    ],
+    "scripts": [
+      "inline:148",
+      "inline:8276",
+      "https://theoneagency.de/app.js?v=8e1516306e",
+      "https://theoneagency.de/software/proto.js?v=8e1516306e",
+      "https://theoneagency.de/software/sc/ceo-bot.js?v=8e1516306e",
+      "inline:860",
+      "inline:13373"
+    ],
+    "styles": [
+      "https://theoneagency.de/app.css?v=8e1516306e",
+      "https://theoneagency.de/software/proto.css?v=8e1516306e",
+      "https://theoneagency.de/software/sc/ceo-bot.css?v=8e1516306e"
+    ],
+    "fonts": [
+      "Space Grotesk 300 700 normal loaded",
+      "Inter 100 900 normal loaded",
+      "JetBrains Mono 100 800 normal loaded"
+    ],
+    "videos": [
+      {
+        "src": "https://theoneagency.de/media/reel-spot.mp4?v=41",
+        "autoplay": false,
+        "loop": false,
+        "muted": true
+      }
+    ],
+    "canvases": 2,
+    "images": 25,
+    "sticky": 9,
+    "fixed": 12,
+    "scrollSnap": 1,
+    "docHeight": 31558,
+    "sections": [
+      {
+        "tag": "canvas",
+        "id": "gl",
+        "cls": "",
+        "top": 0,
+        "h": 900,
+        "w": 1440,
+        "text": ""
+      },
+      {
+        "tag": "canvas",
+        "id": "code",
+        "cls": "",
+        "top": 0,
+        "h": 900,
+        "w": 1440,
+        "text": ""
+      },
+      {
+        "tag": "main",
+        "id": "main",
+        "cls": "",
+        "top": 0,
+        "h": 31558,
+        "w": 1440,
+        "text": "Düsseldorf 16:41:59 Verfügbar für neue Projekte [ 00 ] DIGITALAGENTUR IN DÜSSELDORF Wir entwickeln, was als Nächstes kommt. Digitalagentur aus Düsseldorf für We"
+      },
+      {
+        "tag": "section",
+        "id": "top",
+        "cls": "ch ch-hero seen",
+        "top": 0,
+        "h": 1800,
+        "w": 1440,
+        "text": "Düsseldorf 16:41:59 Verfügbar für neue Projekte [ 00 ] DIGITALAGENTUR IN DÜSSELDORF Wir entwickeln, was als Nächstes kommt. Digitalagentur aus Düsseldorf für We"
+      },
+      {
+        "tag": "section",
+        "id": "arbeiten",
+        "cls": "ch ch-long",
+        "top": 1800,
+        "h": 6298,
+        "w": 1440,
+        "text": "01 [ 01 ] REFERENZEN: WEBSITES, ONLINESHOPS UND SOFTWARE Ausgewählte Arbeiten Websites, Shops, Software und Kampagnen für Marken von Düsseldorf bis internationa"
+      },
+      {
+        "tag": "section",
+        "id": "richtung",
+        "cls": "ch ch-long",
+        "top": 8098,
+        "h": 4021,
+        "w": 1440,
+        "text": "02 [ 02 ] STRATEGIE, KONZEPT UND IT-BERATUNG Jedes Projekt beginnt mit einer Richtung. Wir klären, was Ihr Projekt erreichen soll, und machen den Erfolg messbar"
+      },
+      {
+        "tag": "section",
+        "id": "form",
+        "cls": "ch",
+        "top": 12118,
+        "h": 1665,
+        "w": 1440,
+        "text": "03 [ 03 ] BRANDING UND CORPORATE DESIGN Design gibt der Idee eine Gestalt. Branding Visuelle Identitäten und Design-Systeme, die überall gleich stark wirken. DE"
+      },
+      {
+        "tag": "section",
+        "id": "leistungen",
+        "cls": "ch",
+        "top": 13783,
+        "h": 1665,
+        "w": 1440,
+        "text": "04 [ 04 ] LEISTUNGEN UNSERER DIGITALAGENTUR Acht Disziplinen. Ein System. Strategie, Design und Technologie greifen bei uns ineinander wie Module einer Software"
+      },
+      {
+        "tag": "section",
+        "id": "eins",
+        "cls": "ch",
+        "top": 15448,
+        "h": 1665,
+        "w": 1440,
+        "text": "05 [ 05 ] WEBDESIGN, SOFTWARE UND KI AUS EINER HAND Drei Disziplinen. Eine Form. Sie bekommen alles aus einer Hand, ohne Reibungsverluste zwischen Agenturen. Ge"
+      },
+      {
+        "tag": "section",
+        "id": "software",
+        "cls": "ch ch-long",
+        "top": 17113,
+        "h": 5906,
+        "w": 1440,
+        "text": "06 [ 06 ] WEBENTWICKLUNG, ONLINESHOPS UND INDIVIDUELLE SOFTWARE Software, die trägt. Individuelle Software Plattformen, Kundenportale und interne Tools, zugesch"
+      },
+      {
+        "tag": "section",
+        "id": "ki",
+        "cls": "ch ch-long",
+        "top": 23019,
+        "h": 2994,
+        "w": 1440,
+        "text": "07 [ 07 ] KI-LÖSUNGEN UND AUTOMATISIERUNG FÜR UNTERNEHMEN KI, die mitarbeitet. Wir bauen Automatisierungen, die Anfragen lesen, verstehen und weiterverarbeiten,"
+      },
+      {
+        "tag": "section",
+        "id": "stack",
+        "cls": "ch ch-long",
+        "top": 26012,
+        "h": 3521,
+        "w": 1440,
+        "text": "08 [ 08 ] TECHNOLOGIEN FÜR WEB, SOFTWARE UND KI 0 Technologien. Ein Team, das sie beherrscht. Wir sind an kein System gebunden. Für jedes Projekt wählen wir die"
+      },
+      {
+        "tag": "section",
+        "id": "kontakt",
+        "cls": "ch ch-end",
+        "top": 29534,
+        "h": 2024,
+        "w": 1440,
+        "text": "THEONEAGENCY [ 09 ] KONTAKT ZUR DIGITALAGENTUR IN DÜSSELDORF Bauen wir das Nächste zusammen. Was möchten Sie umsetzen? Website oder Online-Shop Unternehmensseit"
+      }
+    ]
+  },
+  "resources": [
+    {
+      "type": "link",
+      "name": "https://theoneagency.de/fonts/space-grotesk.woff2",
+      "kb": 22
+    },
+    {
+      "type": "link",
+      "name": "https://theoneagency.de/fonts/inter.woff2",
+      "kb": 47
+    },
+    {
+      "type": "link",
+      "name": "https://theoneagency.de/app.css?v=8e1516306e",
+      "kb": 16
+    },
+    {
+      "type": "script",
+      "name": "https://theoneagency.de/app.js?v=8e1516306e",
+      "kb": 30
+    },
+    {
+      "type": "video",
+      "name": "https://theoneagency.de/media/reel-spot.webp?v=41",
+      "kb": 51
+    },
+    {
+      "type": "link",
+      "name": "https://theoneagency.de/software/proto.css?v=8e1516306e",
+      "kb": 2
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/thebodyshop.svg",
+      "kb": 5
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/porsche.svg",
+      "kb": 4
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/corealis.webp",
+      "kb": 11
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/cocoon.webp",
+      "kb": 13
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/colombella.svg",
+      "kb": 9
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/brettonwoods.webp",
+      "kb": 13
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/sleepinn.svg",
+      "kb": 15
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/eikelmann.svg",
+      "kb": 30
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/titania.webp",
+      "kb": 13
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/hatch.svg",
+      "kb": 5
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/nikibrah.svg",
+      "kb": 12
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/paulberger.webp",
+      "kb": 8
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/realogis.svg",
+      "kb": 2
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/isabella.svg",
+      "kb": 15
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/logos/biertaxi.svg",
+      "kb": 13
+    },
+    {
+      "type": "css",
+      "name": "https://theoneagency.de/fonts/jetbrains-mono.woff2",
+      "kb": 40
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/corealis-320.avif",
+      "kb": 5
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/cocoon-beds-320.avif",
+      "kb": 4
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/colombella-320.avif",
+      "kb": 8
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/brettonwoods-320.avif",
+      "kb": 3
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/sleepinn-320.avif",
+      "kb": 3
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/eikelmann-320.avif",
+      "kb": 8
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/titania-320.avif",
+      "kb": 4
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/hatch-320.avif",
+      "kb": 4
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/nikibrah-320.avif",
+      "kb": 4
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/thebodyshop-320.avif",
+      "kb": 21
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/paulberger-320.avif",
+      "kb": 7
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/assets/v6/realogis-320.avif",
+      "kb": 5
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/atlas.webp?v=8e1516306e",
+      "kb": 12
+    },
+    {
+      "type": "img",
+      "name": "https://theoneagency.de/atlas-hd.webp?v=8e1516306e",
+      "kb": 36
+    },
+    {
+      "type": "fetch",
+      "name": "https://theoneagency.de/software/protos.json?v=8e1516306e",
+      "kb": 9
+    },
+    {
+      "type": "script",
+      "name": "https://theoneagency.de/software/proto.js?v=8e1516306e",
+      "kb": 3
+    },
+    {
+      "type": "link",
+      "name": "https://theoneagency.de/software/sc/ceo-bot.css?v=8e1516306e",
+      "kb": 5
+    },
+    {
+      "type": "script",
+      "name": "https://theoneagency.de/software/sc/ceo-bot.js?v=8e1516306e",
+      "kb": 7
+    }
+  ]
+}

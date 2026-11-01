@@ -1,0 +1,87 @@
+{
+  "url": "https://theoneagency.de/anfrage/#ziel",
+  "title": "Projekt-Kalkulator | THEONEAGENCY",
+  "description": "In rund drei Minuten zur ersten Kostenschätzung für Website, Shop, Software, KI oder IT-Beratung. Unverbindlich, ohne Konto, Antwort in 24 Stunden.",
+  "generator": null,
+  "htmlAttrs": [
+    "lang=de",
+    "class=js",
+    "style=--p: 0.000;"
+  ],
+  "libs": [],
+  "headings": [
+    "H1: Was dürfen wir für Sie umsetzen?"
+  ],
+  "nav": [
+    {
+      "text": "",
+      "href": "../"
+    }
+  ],
+  "buttons": [
+    {
+      "text": "Zurück",
+      "aria": null
+    },
+    {
+      "text": "Weiter",
+      "aria": null
+    }
+  ],
+  "scripts": [
+    "inline:70",
+    "https://theoneagency.de/anfrage/app.js?v=8e1516306e"
+  ],
+  "styles": [
+    "https://theoneagency.de/anfrage/app.css?v=8e1516306e"
+  ],
+  "fonts": [
+    "Space Grotesk 300 700 normal loaded",
+    "Inter 100 900 normal loaded"
+  ],
+  "videos": [],
+  "canvases": 0,
+  "images": 0,
+  "sticky": 1,
+  "fixed": 3,
+  "scrollSnap": 0,
+  "docHeight": 900,
+  "sections": [
+    {
+      "tag": "div",
+      "id": null,
+      "cls": "orb",
+      "top": 15,
+      "h": 446,
+      "w": 446,
+      "text": ""
+    },
+    {
+      "tag": "main",
+      "id": "main",
+      "cls": "",
+      "top": 76,
+      "h": 722,
+      "w": 704,
+      "text": "IHR PROJEKT Was dürfen wir für Sie umsetzen? Wählen Sie Ihren Bereich. Danach stellen wir nur die Fragen, die für Ihr Projekt zählen. Website oder Online-Shop U"
+    },
+    {
+      "tag": "form",
+      "id": "f",
+      "cls": "",
+      "top": 124,
+      "h": 554,
+      "w": 672,
+      "text": "IHR PROJEKT Was dürfen wir für Sie umsetzen? Wählen Sie Ihren Bereich. Danach stellen wir nur die Fragen, die für Ihr Projekt zählen. Website oder Online-Shop U"
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "cls": "scr",
+      "top": 124,
+      "h": 554,
+      "w": 672,
+      "text": "IHR PROJEKT Was dürfen wir für Sie umsetzen? Wählen Sie Ihren Bereich. Danach stellen wir nur die Fragen, die für Ihr Projekt zählen. Website oder Online-Shop U"
+    }
+  ]
+}

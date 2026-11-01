@@ -1,0 +1,408 @@
+{
+  "url": "https://theoneagency.de/software/",
+  "title": "Individuelle Softwareentwicklung Düsseldorf | THEONEAGENCY",
+  "description": "Softwareentwicklung in Düsseldorf: KI-Assistenten, Unternehmenssoftware, Portale, Apps und Plattformen nach Maß, mit klickbarem Prototyp vorab.",
+  "generator": null,
+  "htmlAttrs": [
+    "lang=de",
+    "class=rvjs"
+  ],
+  "libs": [],
+  "headings": [
+    "H1: Individuelle Softwareentwicklung in Düsseldorf: Software, die genau zu Ihrem Unternehmen passt",
+    "H2: Softwarelösungen, die wir immer wieder bauen",
+    "H3: CEO Bot",
+    "H3: Firmen OS",
+    "H3: Dokumenten-KI",
+    "H3: Wissens-KI",
+    "H3: Außendienst-App",
+    "H3: Kundenportal",
+    "H3: Buchungsportal",
+    "H3: Gastro-Plattform",
+    "H3: Marktplatz-Plattform",
+    "H3: Freigabe-Cockpit",
+    "H2: Unabhängige IT-Beratung",
+    "H2: Individualsoftware: Beispiele aus unseren Projekten",
+    "H3: Agrarbetrieb mit Saisonkräften",
+    "H3: Sanierungsbetrieb",
+    "H3: Eventpersonal-Agentur",
+    "H3: Hausverwaltung",
+    "H3: Verwaltungen mit vielen Objekten",
+    "H3: Hersteller technischer Produkte",
+    "H3: Hersteller von Industriekomponenten",
+    "H3: Kanzleien, Praxen und Verwaltungen",
+    "H3: Einrichtungshändler mit Filialnetz",
+    "H3: Gastronomie mit Köchen und Events",
+    "H3: Restaurant mit Lieferservice",
+    "H3: Marktplatz für Schmuck und Uhren",
+    "H3: Lifestyle-Marke mit Community-App",
+    "H3: Personalberatung im Gesundheitswesen",
+    "H3: Recruiting-Boutique für Steuer und Recht",
+    "H3: Immobilienmakler",
+    "H3: Sport-Startup",
+    "H3: Sportmarke",
+    "H3: Betreiber von Verkaufsautomaten",
+    "H3: Sammelkarten-Händler",
+    "H3: Fintech-Startup",
+    "H3: Privatkoch",
+    "H3: Restaurants, Bars und Weinbars",
+    "H3: Patisserie mit Cafés und Online-Shop",
+    "H3: Talent- und Creator-Management",
+    "H3: Architekturbüro",
+    "H3: Zahnarztpraxis",
+    "H3: Coaching und Persönlichkeitsentwicklung",
+    "H3: Optiker und Hörakustik",
+    "H3: Praxen, Institute und Beratung",
+    "H2: Individualsoftware oder Standardsoftware: wann sich eigene Software lohnt",
+    "H3: Individuelle Software lohnt sich, wenn",
+    "H3: Standardsoftware passt besser, wenn",
+    "H2: So lassen Sie Software entwickeln: vom Erstgespräch zur laufenden Software",
+    "H3: Erstgespräch",
+    "H3: Konzept und Angebot",
+    "H3: Prototyp und Entwicklung",
+    "H3: Launch und Betreuung",
+    "H2: Fragen zur individuellen Softwareentwicklung",
+    "H2: Ratgeber zum Thema",
+    "H2: Welche Software würde Ihren Alltag leichter machen?"
+  ],
+  "nav": [
+    {
+      "text": "THEONEAGENCY",
+      "href": "../"
+    },
+    {
+      "text": "Lösungen",
+      "href": "#loesungen"
+    },
+    {
+      "text": "Projektvielfalt",
+      "href": "#projekte"
+    },
+    {
+      "text": "Ablauf",
+      "href": "#ablauf"
+    },
+    {
+      "text": "FAQ",
+      "href": "#faq"
+    },
+    {
+      "text": "Projekt anfragen",
+      "href": "../anfrage/?ziel=software"
+    },
+    {
+      "text": "Startseite",
+      "href": "../"
+    },
+    {
+      "text": "Webdesign in Düsseldorf",
+      "href": "../webdesign/"
+    },
+    {
+      "text": "Onlineshop erstellen lassen",
+      "href": "../onlineshop/"
+    },
+    {
+      "text": "Individuelle Softwareentwicklung",
+      "href": "../software/"
+    },
+    {
+      "text": "App entwickeln lassen",
+      "href": "../app-entwicklung/"
+    },
+    {
+      "text": "KI-Agentur in Düsseldorf",
+      "href": "../ki/"
+    },
+    {
+      "text": "Unabhängige IT-Beratung",
+      "href": "../software/it-beratung/"
+    },
+    {
+      "text": "Kosten berechnen",
+      "href": "../anfrage/"
+    },
+    {
+      "text": "KI-Assistent für die Geschäftsführung",
+      "href": "../software/ceo-bot/"
+    },
+    {
+      "text": "Unternehmenssoftware für den Mittelstand",
+      "href": "../software/firmen-os/"
+    },
+    {
+      "text": "Dokumentenmanagement mit KI",
+      "href": "../software/dokumenten-ki/"
+    },
+    {
+      "text": "KI-Wissensdatenbank",
+      "href": "../software/wissens-ki/"
+    },
+    {
+      "text": "Außendienst-App",
+      "href": "../software/aussendienst-app/"
+    },
+    {
+      "text": "Kundenportal entwickeln lassen",
+      "href": "../software/kundenportal/"
+    },
+    {
+      "text": "B2B-Buchungsportal",
+      "href": "../software/buchungsportal/"
+    },
+    {
+      "text": "Ticketsystem für die Gastronomie",
+      "href": "../software/gastro-plattform/"
+    },
+    {
+      "text": "Online-Marktplatz mit Prüfprozess",
+      "href": "../software/marktplatz/"
+    },
+    {
+      "text": "Freigabeprozesse digitalisieren",
+      "href": "../software/freigabe-cockpit/"
+    },
+    {
+      "text": "Blog",
+      "href": "../blog/"
+    },
+    {
+      "text": "Was kostet eine Website?",
+      "href": "../blog/was-kostet-eine-website/"
+    },
+    {
+      "text": "Barrierefreie Website und BFSG",
+      "href": "../blog/barrierefreie-website-bfsg/"
+    },
+    {
+      "text": "Unternehmenssoftware im Überblick",
+      "href": "../blog/unternehmenssoftware/"
+    },
+    {
+      "text": "KI im Mittelstand einführen",
+      "href": "../blog/ki-im-mittelstand-einfuehren/"
+    },
+    {
+      "text": "Barrierefreie Website erstellen",
+      "href": "../blog/barrierefreie-website-erstellen/"
+    },
+    {
+      "text": "Was kostet eine App?",
+      "href": "../blog/was-kostet-eine-app/"
+    },
+    {
+      "text": "Website-Relaunch und SEO",
+      "href": "../blog/website-relaunch-checkliste/"
+    },
+    {
+      "text": "Individualsoftware oder Standardsoftware",
+      "href": "../blog/individualsoftware-oder-standardsoftware/"
+    },
+    {
+      "text": "Was kostet ein Onlineshop?",
+      "href": "../blog/was-kostet-ein-onlineshop/"
+    },
+    {
+      "text": "Startseite",
+      "href": "../"
+    },
+    {
+      "text": "Softwarelösungen",
+      "href": "../software/"
+    },
+    {
+      "text": "Impressum",
+      "href": "../impressum/"
+    },
+    {
+      "text": "Datenschutz",
+      "href": "../datenschutz/"
+    },
+    {
+      "text": "AGB",
+      "href": "../agb/"
+    }
+  ],
+  "buttons": [
+    {
+      "text": "",
+      "aria": "Vorherige Lösung"
+    },
+    {
+      "text": "",
+      "aria": "Nächste Lösung"
+    },
+    {
+      "text": "Alle 30",
+      "aria": null
+    },
+    {
+      "text": "KI 6",
+      "aria": null
+    },
+    {
+      "text": "Plattform 4",
+      "aria": null
+    },
+    {
+      "text": "Portal 5",
+      "aria": null
+    },
+    {
+      "text": "App 5",
+      "aria": null
+    },
+    {
+      "text": "Commerce 6",
+      "aria": null
+    },
+    {
+      "text": "Werkzeug 10",
+      "aria": null
+    },
+    {
+      "text": "Website 8",
+      "aria": null
+    }
+  ],
+  "scripts": [
+    "inline:164",
+    "https://theoneagency.de/software/proto.js?v=8e1516306e",
+    "https://theoneagency.de/software/lp.js?v=8e1516306e",
+    "inline:6124"
+  ],
+  "styles": [
+    "https://theoneagency.de/software/lp.css?v=8e1516306e",
+    "https://theoneagency.de/software/proto.css?v=8e1516306e"
+  ],
+  "fonts": [
+    "Space Grotesk 300 700 normal loaded",
+    "Inter 100 900 normal loaded"
+  ],
+  "videos": [],
+  "canvases": 0,
+  "images": 10,
+  "sticky": 2,
+  "fixed": 1,
+  "scrollSnap": 0,
+  "docHeight": 11027,
+  "sections": [
+    {
+      "tag": "main",
+      "id": "main",
+      "cls": "",
+      "top": 95,
+      "h": 10484,
+      "w": 1440,
+      "text": "Softwarelösungen aus Düsseldorf Individuelle Softwareentwicklung in Düsseldorf: Software, die genau zu Ihrem Unternehmen passt Wir entwickeln KI-Assistenten, Be"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "cls": "orb",
+      "top": -65,
+      "h": 640,
+      "w": 640,
+      "text": ""
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "cls": "hero hub-hero",
+      "top": 95,
+      "h": 802,
+      "w": 1184,
+      "text": "Softwarelösungen aus Düsseldorf Individuelle Softwareentwicklung in Düsseldorf: Software, die genau zu Ihrem Unternehmen passt Wir entwickeln KI-Assistenten, Be"
+    },
+    {
+      "tag": "div",
+      "id": null,
+      "cls": "hub-wheel rv",
+      "top": 961,
+      "h": 369,
+      "w": 1184,
+      "text": "CEO Bot KI-Assistent für die Geschäftsführung Prototyp ansehen Firmen OS Das Betriebssystem für Ihr Unternehmen Prototyp ansehen Dokumenten-KI Ablage, die mitde"
+    },
+    {
+      "tag": "section",
+      "id": "loesungen",
+      "cls": "sec",
+      "top": 1306,
+      "h": 1690,
+      "w": 1184,
+      "text": "[ 01 ] LÖSUNGEN Softwarelösungen, die wir immer wieder bauen Jede Lösung entsteht individuell. Diese Bausteine haben sich in vielen Projekten bewährt und lassen"
+    },
+    {
+      "tag": "aside",
+      "id": null,
+      "cls": "consult rv",
+      "top": 3092,
+      "h": 256,
+      "w": 1184,
+      "text": "IT-BERATUNG UNABHÄNGIG, FÜR UNTERNEHMEN UND GRÜNDER Unabhängige IT-Beratung Digitalisierungsberatung für Unternehmen, dazu Konzept, Zweitmeinung und technisches"
+    },
+    {
+      "tag": "section",
+      "id": "projekte",
+      "cls": "sec",
+      "top": 3323,
+      "h": 3703,
+      "w": 1184,
+      "text": "[ 02 ] PROJEKTVIELFALT Individualsoftware: Beispiele aus unseren Projekten Viele unserer Softwareprojekte dürfen wir nicht namentlich zeigen. Deshalb beschreibe"
+    },
+    {
+      "tag": "section",
+      "id": "eigene-software",
+      "cls": "sec",
+      "top": 7026,
+      "h": 734,
+      "w": 1184,
+      "text": "[ 03 ] EIGENE SOFTWARE Individualsoftware oder Standardsoftware: wann sich eigene Software lohnt Standardsoftware ist schnell eingerichtet, passt aber selten ge"
+    },
+    {
+      "tag": "section",
+      "id": "ablauf",
+      "cls": "sec",
+      "top": 7760,
+      "h": 801,
+      "w": 1184,
+      "text": "[ 04 ] ABLAUF So lassen Sie Software entwickeln: vom Erstgespräch zur laufenden Software Wir entwickeln Software in klaren Schritten, mit festem Angebot und ein"
+    },
+    {
+      "tag": "section",
+      "id": "faq",
+      "cls": "sec",
+      "top": 8561,
+      "h": 714,
+      "w": 1184,
+      "text": "[ 05 ] HÄUFIGE FRAGEN Fragen zur individuellen Softwareentwicklung Ihre Frage ist nicht dabei? Rufen Sie uns an oder schreiben Sie uns. Wir antworten innerhalb "
+    },
+    {
+      "tag": "section",
+      "id": "ratgeber",
+      "cls": "sec",
+      "top": 9275,
+      "h": 651,
+      "w": 1184,
+      "text": "[ 06 ] AUS DEM BLOG Ratgeber zum Thema Hintergründe, Kosten und Entscheidungshilfen aus unseren Projekten. Alle Artikel im Blog SOFTWARE UND APPS Unternehmensso"
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "cls": "final",
+      "top": 10006,
+      "h": 573,
+      "w": 1184,
+      "text": "PROJEKT-KALKULATOR RUND DREI MINUTEN Welche Software würde Ihren Alltag leichter machen? Beschreiben Sie Ihr Vorhaben im Projekt-Kalkulator. Unverbindlich und o"
+    },
+    {
+      "tag": "footer",
+      "id": null,
+      "cls": "foot",
+      "top": 10644,
+      "h": 383,
+      "w": 1184,
+      "text": "LEISTUNGEN Webdesign in Düsseldorf Onlineshop erstellen lassen Individuelle Softwareentwicklung App entwickeln lassen KI-Agentur in Düsseldorf Unabhängige IT-Be"
+    }
+  ]
+}
