@@ -501,7 +501,8 @@ export function BookingEntry({
   const flip = (popoverPlacement ?? (sill ? "auto" : "below")) === "auto";
   const anchored = (statusLayout ?? (sill ? "anchored" : "flow")) === "anchored";
 
-  const [plz, setPlz] = useState("");
+  // A seeded PLZ is state from the first render, so the first draft report never says "no PLZ".
+  const [plz, setPlz] = useState(() => (initialDraft?.plz && /^\d{5}$/.test(initialDraft.plz) ? initialDraft.plz : ""));
   const [loc, setLoc] = useState<Loc>({ status: "idle" });
   const [plzError, setPlzError] = useState<string | null>(null);
   const [locating, setLocating] = useState(false);
@@ -542,10 +543,13 @@ export function BookingEntry({
   useEffect(() => {
     const valid = (v: string | null | undefined): v is string => !!v && /^\d{5}$/.test(v);
     if (initialDraft) {
-      const p = valid(initialDraft.plz) ? initialDraft.plz : readStoredPlz();
-      if (p) {
-        setPlz(p);
-        void resolve(p);
+      if (valid(initialDraft.plz)) void resolve(initialDraft.plz);
+      else {
+        const stored = readStoredPlz();
+        if (stored) {
+          setPlz(stored);
+          void resolve(stored);
+        }
       }
       return;
     }

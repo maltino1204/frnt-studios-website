@@ -1,0 +1,1182 @@
+/* ==========================================================================
+   SOMA landing page: static layout (Frontend). docs/landing/LANDING_DESIGN_SPEC.md § 2, § 4, § 11.
+   Plain CSS on the design tokens (src/styles/tokens.css); unlayered, so it wins over the kit's utilities where a
+   landing composition needs it. Every rule here is a STATE or a LAYOUT, never an animation: keyframes, transitions
+   and scroll timelines live in components/landing/motion/landing-motion.css (Motion). The pinned layouts of 04 and
+   05 apply only under html[data-motion="full"] once the motion layer marks the scene [data-scene-ready].
+   Everything is scoped to landing classes or the landing's data attributes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Grid (§ 2.1): 4 / 8 / 12 columns, gaps 12 / 20 / 24, container 1376 px
+   -------------------------------------------------------------------------- */
+.lp,
+.lp-header,
+.lp-dock,
+.lp-overlay,
+.lp-footnote {
+  --lp-n: 4;
+  --gap: 12px;
+  --lp-col: calc((min(100vw, 1376px) - 2 * var(--space-gutter) - (var(--lp-n) - 1) * var(--gap)) / var(--lp-n));
+}
+@media (min-width: 768px) {
+  .lp,
+  .lp-header,
+  .lp-dock,
+  .lp-overlay,
+  .lp-footnote {
+    --lp-n: 8;
+    --gap: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .lp,
+  .lp-header,
+  .lp-dock,
+  .lp-overlay,
+  .lp-footnote {
+    --lp-n: 12;
+    --gap: 24px;
+  }
+}
+
+.lp-container {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: max(var(--space-gutter), env(safe-area-inset-left)) max(var(--space-gutter), env(safe-area-inset-right));
+}
+
+/* --------------------------------------------------------------------------
+   2. Chapters, surfaces, content-visibility (§ 2.2, § 5.1, § 10.4)
+   -------------------------------------------------------------------------- */
+.lp-chapter {
+  position: relative;
+  scroll-margin-top: var(--header-height);
+}
+.lp-tone-bone {
+  background-color: var(--soma-bone);
+}
+.lp-tone-stone {
+  background-color: var(--soma-stone);
+}
+.lp-tone-linen {
+  background-color: var(--soma-linen);
+}
+.lp-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--cv-m, 1200px);
+}
+@media (min-width: 1024px) {
+  .lp-cv {
+    contain-intrinsic-size: auto var(--cv-d, 1000px);
+  }
+}
+:root[data-automation] .lp-cv {
+  content-visibility: visible;
+}
+
+/* --------------------------------------------------------------------------
+   3. The arch (§ 1.3, Appendix A): container + O-curve face
+   -------------------------------------------------------------------------- */
+.lp-arch {
+  position: relative;
+  min-width: 0;
+  container-type: inline-size;
+}
+.lp-arch-face {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--lp-aspect, 4/5);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 50cqw 50cqw 0 0 / 54.5cqw 54.5cqw 0 0;
+}
+.lp-arch[data-aspect="fill"],
+.lp-arch[data-aspect="fill"] > .lp-arch-face {
+  height: 100%;
+}
+.lp-arch[data-aspect="fill"] > .lp-arch-face {
+  aspect-ratio: auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. Navigation: header themes, chapter labels, index arch, dock (§ 5)
+   -------------------------------------------------------------------------- */
+.lp-header {
+  padding-top: env(safe-area-inset-top);
+  background-color: transparent;
+}
+.lp-header[data-scrolled] {
+  background-color: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  box-shadow: 0 1px 0 var(--color-line);
+}
+/* Over a section that declares data-header-theme="dark" (html attribute written by the motion layer). */
+html[data-header-theme="dark"] .lp-header,
+html[data-header-theme="dark"] .lp-dock {
+  --color-ink: var(--soma-bone);
+  --color-ink-muted: #bfb4a7;
+  --color-link: var(--soma-bone);
+  --color-interactive: var(--soma-bone);
+  --color-interactive-hover: #ffffff;
+  --color-interactive-pressed: var(--soma-oat);
+  --color-ink-inverse: var(--soma-espresso);
+  --color-surface-sunken: rgb(243 239 232 / 0.08);
+  --color-surface-pressed: rgb(243 239 232 / 0.14);
+  --color-line: rgb(243 239 232 / 0.08);
+  --color-line-mid: rgb(243 239 232 / 0.16);
+  --color-focus: var(--soma-bone);
+  --color-focus-glow: rgb(243 239 232 / 0.2);
+  color: var(--color-ink);
+}
+html[data-header-theme="dark"] .lp-header {
+  background-color: rgb(37 33 31 / 0.78);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgb(243 239 232 / 0.08);
+}
+
+/* Chapter labels: only the active one shows (01 until the motion layer writes html[data-chapter-active]). */
+.lp-chapter-label {
+  display: none;
+  min-width: 0;
+}
+html:not([data-chapter-active]) .lp-chapter-label[data-chapter-label="01"],
+html[data-chapter-active="01"] .lp-chapter-label[data-chapter-label="01"],
+html[data-chapter-active="02"] .lp-chapter-label[data-chapter-label="02"],
+html[data-chapter-active="03"] .lp-chapter-label[data-chapter-label="03"],
+html[data-chapter-active="04"] .lp-chapter-label[data-chapter-label="04"],
+html[data-chapter-active="05"] .lp-chapter-label[data-chapter-label="05"],
+html[data-chapter-active="06"] .lp-chapter-label[data-chapter-label="06"],
+html[data-chapter-active="07"] .lp-chapter-label[data-chapter-label="07"],
+html[data-chapter-active="08"] .lp-chapter-label[data-chapter-label="08"],
+html[data-chapter-active="09"] .lp-chapter-label[data-chapter-label="09"],
+html[data-chapter-active="10"] .lp-chapter-label[data-chapter-label="10"] {
+  display: block;
+}
+
+/* The index arch: track + progress (--lp-progress 0–1 on html, motion layer). */
+.lp-progress-arch path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+.lp-progress-track {
+  opacity: 0.32;
+}
+.lp-progress-bar {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--lp-progress, 0));
+}
+
+/* Mobile dock (§ 5.6) */
+.lp-dock {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: var(--z-sticky-cta);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 56px;
+  padding: 4px;
+  border-radius: 9999px;
+  background-color: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+  box-shadow: var(--shadow-float);
+}
+html[data-header-theme="dark"] .lp-dock {
+  background-color: rgb(46 41 38 / 0.9);
+  box-shadow: 0 0 0 1px rgb(243 239 232 / 0.08), 0 12px 24px -8px rgb(0 0 0 / 0.3);
+}
+html[data-dock="hidden"] .lp-dock,
+html[data-booking-open] .lp-dock {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .lp-dock {
+    display: none;
+  }
+}
+
+/* Footer addition: the AI line, and room for the dock under the legal row (§ 4.10 "Footer"). */
+.lp-footnote {
+  margin-top: -1rem;
+  padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) {
+  .lp-footnote {
+    padding-bottom: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. 01 Bei dir (§ 4.1.1): stacked < 1024, the 12-column composition from 1024
+   -------------------------------------------------------------------------- */
+.lp-hero {
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+.lp-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.lp-hero-head,
+.lp-hero-rest,
+.lp-hero-figure {
+  min-width: 0;
+}
+.lp-hero-tagline {
+  max-inline-size: 6.2em;
+  margin-top: 12px;
+}
+.lp-hero-figure {
+  margin: 28px 0 0;
+}
+.lp-hero-figure .lp-arch,
+.lp-hero-figure .lp-arch > .lp-arch-face {
+  height: auto;
+}
+.lp-hero-figure .lp-arch > .lp-arch-face {
+  aspect-ratio: 4/5;
+}
+.lp-hero-rest {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+.lp-sill {
+  margin-top: 12px;
+}
+@media (min-width: 768px) {
+  .lp-hero-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+  .lp-hero-head,
+  .lp-hero-rest {
+    grid-column: 1 / span 6;
+  }
+  .lp-hero-figure {
+    grid-column: 2 / span 6;
+  }
+}
+@media (min-width: 1024px) {
+  .lp-hero {
+    padding-top: 32px;
+    padding-bottom: 16px;
+  }
+  .lp-hero-grid {
+    --lp-hero-arch-w: calc(5 * var(--lp-col) + 4 * var(--gap));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    min-height: min(calc(100svh - var(--header-height) - 48px), calc(1.25 * var(--lp-hero-arch-w) + 32px));
+  }
+  .lp-hero-head {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+  .lp-hero-tagline {
+    margin-top: 8px;
+  }
+  .lp-hero-rest {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+    margin-top: 16px;
+  }
+  .lp-hero-figure {
+    grid-column: 8 / span 5;
+    grid-row: 1 / span 2;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .lp-hero-arch-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .lp-hero-figure .lp-arch {
+    position: absolute;
+    inset: 0;
+  }
+  .lp-hero-figure .lp-arch,
+  .lp-hero-figure .lp-arch > .lp-arch-face {
+    height: 100%;
+  }
+  .lp-hero-figure .lp-arch > .lp-arch-face {
+    aspect-ratio: auto;
+  }
+  /* The sill (§ 4.1.6): its bottom 72 px above the arch base (+ 28 px Ortszeile), over the arch's lower-left flank. */
+  .lp-sill {
+    --lp-sill-w: calc(10 * var(--lp-col) + 9 * var(--gap));
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    margin-bottom: 100px;
+    padding-top: 24px;
+  }
+  /* The box reserves the pill's 72 px; the trust row and RebookRow hang below it (no shift, ever). */
+  .lp-sill-box {
+    height: 72px;
+  }
+}
+@media (min-width: 1280px) {
+  .lp-hero-grid {
+    --lp-hero-arch-w: calc(6 * var(--lp-col) + 5 * var(--gap));
+  }
+  .lp-hero-head,
+  .lp-hero-rest {
+    grid-column: 1 / span 5;
+  }
+  .lp-hero-figure {
+    grid-column: 7 / span 6;
+  }
+  .lp-sill {
+    --lp-sill-w: max(calc(8 * var(--lp-col) + 7 * var(--gap)), 820px);
+  }
+}
+/* Short desktop viewports (§ 2.2): the tagline steps down to display-l, the lead may run to 4 lines. */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .lp-hero-tagline {
+    font-size: var(--text-display-l);
+    line-height: var(--text-display-l--line-height);
+    letter-spacing: var(--text-display-l--letter-spacing);
+  }
+  .lp-hero-lead {
+    max-width: 44ch;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. 02 Idee (§ 4.2)
+   -------------------------------------------------------------------------- */
+.lp-idee {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.lp-idee-figure,
+.lp-idee-text {
+  min-width: 0;
+  margin: 40px 0 0;
+}
+@media (min-width: 768px) {
+  .lp-idee {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+  .lp-idee-head {
+    grid-column: 1 / -1;
+  }
+  .lp-idee-figure {
+    grid-column: 1 / span 6;
+    margin-top: 48px;
+  }
+  .lp-idee-text {
+    grid-column: 1 / span 7;
+    margin-top: 48px;
+  }
+}
+@media (min-width: 1024px) {
+  .lp-idee {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .lp-idee-head {
+    grid-column: 1 / span 10;
+  }
+  .lp-idee-figure {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+    margin-top: 64px;
+  }
+  .lp-idee-text {
+    grid-column: 8 / span 5;
+    grid-row: 2;
+    align-self: end;
+    margin-top: 64px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. 03 Behandlungen (§ 4.3): index + preview with a fine pointer, rail otherwise
+   -------------------------------------------------------------------------- */
+.lp-cat-index {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .lp-cat-head {
+    max-width: calc(7 * var(--lp-col) + 6 * var(--gap));
+  }
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .lp-cat-index {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
+  }
+  .lp-cat-list {
+    grid-column: 1 / span 6;
+  }
+  .lp-cat-preview {
+    grid-column: 8 / span 5;
+    position: sticky;
+    top: calc(var(--header-height) + 48px);
+  }
+  .lp-cat-rail {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. 04 Ablauf (§ 4.4): snap row (lite / none), sticky stage (full)
+   -------------------------------------------------------------------------- */
+.lp-walk-stage-col {
+  display: none;
+}
+.lp-walk-scroller {
+  position: relative;
+  margin-inline: calc(-1 * var(--space-gutter));
+  padding-inline: var(--space-gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--space-gutter);
+  scrollbar-width: none;
+}
+.lp-walk-scroller::-webkit-scrollbar {
+  display: none;
+}
+.lp-walk-steps {
+  display: flex;
+  gap: var(--gap);
+}
+.lp-walk-step {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.lp-walk-panel-visual {
+  display: flex;
+  justify-content: center;
+}
+.lp-walk-frame {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 4/5;
+}
+.lp-walk-outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.lp-walk-frame > .lp-walk-vignette {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5%;
+  width: calc(100% - 28px);
+  max-width: 360px;
+  margin-inline: auto;
+}
+.lp-walk-text {
+  min-width: 0;
+}
+.lp-walk-caption {
+  text-align: left;
+}
+
+/* The signature pair (§ 4.4 step 3; guidelines § 10.2) */
+.lp-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  width: 100%;
+  align-items: start;
+}
+.lp-pair > figure {
+  margin: 0;
+}
+.lp-pair-right {
+  margin-top: 18%;
+}
+.lp-start-code {
+  position: absolute;
+  right: -4%;
+  bottom: calc(1.25rem + 22%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface-raised);
+  box-shadow: var(--shadow-float);
+}
+@media (min-width: 768px) {
+  .lp-pair {
+    column-gap: 7%;
+  }
+  .lp-start-code {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: min(240px, 96%);
+    right: -8%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lp-walk-step {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: center;
+  }
+  .lp-walk-panel-visual {
+    grid-column: 7 / span 6;
+    grid-row: 1;
+  }
+  .lp-walk-text {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  .lp-walk-frame {
+    width: min(100%, 519px);
+  }
+}
+
+/* Full tier, once the scene is ready: steps column + sticky stage (pin 1). */
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-controls,
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-panel-visual {
+  display: none;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-scroller {
+  grid-column: 1 / span 5;
+  grid-row: 1;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-steps {
+  display: block;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-step {
+  display: flex;
+  align-items: center;
+  min-height: 80svh;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-text {
+  padding-left: 22px;
+  border-left: 2px solid transparent;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready]:not([data-step]) [data-step-trigger="1"] .lp-walk-text,
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="1"] [data-step-trigger="1"] .lp-walk-text,
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="2"] [data-step-trigger="2"] .lp-walk-text,
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-trigger="3"] .lp-walk-text {
+  border-left-color: var(--color-ink);
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage-col {
+  display: block;
+  grid-column: 7 / span 6;
+  grid-row: 1;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage {
+  position: sticky;
+  top: calc(var(--header-height) + 40px);
+  height: calc(100svh - 148px);
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage-box {
+  --lp-outline-w: min(519px, 100%, calc((100svh - 148px) * 0.8));
+  position: relative;
+  height: 100%;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage-outline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: var(--lp-outline-w);
+  margin-inline: auto;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item > .lp-walk-vignette {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--lp-outline-w) * 1.25 - 24px);
+  width: min(360px, calc(var(--lp-outline-w) - 48px));
+  margin-inline: auto;
+  translate: none;
+  transform: translateY(-100%);
+}
+html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item-pair {
+  display: flex;
+  align-items: center;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready]:not([data-step]) [data-step-item="1"],
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="1"] [data-step-item="1"],
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="2"] [data-step-item="2"],
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] {
+  opacity: 1;
+}
+html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] .lp-walk-stage-outline {
+  opacity: 0;
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+  html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage-box {
+    --lp-outline-w: min(519px, 100%, calc((100svh - 148px) * 0.72));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. 05 Dein Ort (§ 4.5): vertical photo essay (lite / none), stepped stage (full)
+   -------------------------------------------------------------------------- */
+.lp-spacer {
+  height: 0;
+}
+.lp-ort-body {
+  padding-block: var(--space-section);
+}
+.lp-stage-scene {
+  margin-top: 48px;
+}
+.lp-stage-counter,
+.lp-stage-cta {
+  display: none;
+}
+.lp-ort-foot {
+  margin-top: 56px;
+}
+.lp-essay {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+.lp-essay-fig {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.lp-essay-arch {
+  width: 86%;
+}
+.lp-essay-item:nth-child(even) .lp-essay-arch {
+  margin-left: auto;
+}
+.lp-essay-cap {
+  display: flex;
+  flex-direction: column;
+}
+.lp-essay-place {
+  order: -1;
+  margin: 12px 0 18px;
+}
+.lp-essay-line {
+  max-width: 16ch;
+}
+.lp-essay-item:nth-child(even) .lp-essay-cap {
+  padding-left: 14%;
+}
+@media (min-width: 768px) {
+  .lp-essay-arch {
+    width: 72%;
+  }
+  .lp-essay-item:nth-child(even) .lp-essay-cap {
+    padding-left: 28%;
+  }
+}
+@media (min-width: 1024px) {
+  .lp-essay {
+    gap: 112px;
+  }
+  .lp-essay-fig {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: center;
+  }
+  .lp-essay-arch,
+  .lp-essay-item:nth-child(even) .lp-essay-arch {
+    width: auto;
+    margin: 0;
+  }
+  .lp-essay-arch {
+    grid-column: 7 / span 5;
+    grid-row: 1;
+  }
+  .lp-essay-cap {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  .lp-essay-item:nth-child(even) .lp-essay-arch {
+    grid-column: 2 / span 5;
+  }
+  .lp-essay-item:nth-child(even) .lp-essay-cap {
+    grid-column: 8 / span 5;
+    padding-left: 0;
+  }
+  /* The Ortszeile under the arch, aligned to its left edge. */
+  .lp-essay-place {
+    position: absolute;
+    top: 100%;
+    left: calc(6 * (var(--lp-col) + var(--gap)));
+    margin: 12px 0 0;
+  }
+  .lp-essay-item:nth-child(even) .lp-essay-place {
+    left: calc(var(--lp-col) + var(--gap));
+  }
+}
+
+/* Full tier, once ready: the dusk / dawn spacers and the pinned stepped stage (pin 2). */
+html[data-motion="full"] .lp-spacer[data-scene-ready] {
+  height: 32svh;
+}
+html[data-motion="full"] .lp-spacer-dusk[data-scene-ready] {
+  background-color: var(--soma-stone);
+}
+html[data-motion="full"] .lp-spacer-dawn[data-scene-ready] {
+  background-color: var(--soma-bone);
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] {
+  height: calc(6 * 50svh + 100svh);
+  margin-top: 0;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] [data-stage] {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-inner {
+  position: relative;
+  height: 100%;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item {
+  position: absolute;
+  inset: 0;
+  padding-top: 120px;
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-fig {
+  align-items: start;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-arch {
+  grid-column: 7 / span 5;
+  width: min(100%, calc((100svh - 220px) * 0.8));
+  justify-self: start;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-cap {
+  grid-column: 1 / span 5;
+  padding: 0;
+  margin-top: calc(0.545 * min(5 * var(--lp-col) + 4 * var(--gap), (100svh - 220px) * 0.8));
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-place {
+  left: calc(6 * (var(--lp-col) + var(--gap)));
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-counter {
+  display: block;
+  position: absolute;
+  top: 120px;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-cta {
+  display: block;
+  position: absolute;
+  bottom: 64px;
+}
+.lp-stage-counter > span {
+  display: none;
+}
+.lp-stage-scene:not([data-step]) [data-step-counter="1"],
+.lp-stage-scene[data-step="1"] [data-step-counter="1"],
+.lp-stage-scene[data-step="2"] [data-step-counter="2"],
+.lp-stage-scene[data-step="3"] [data-step-counter="3"],
+.lp-stage-scene[data-step="4"] [data-step-counter="4"],
+.lp-stage-scene[data-step="5"] [data-step-counter="5"],
+.lp-stage-scene[data-step="6"] [data-step-counter="6"] {
+  display: inline;
+}
+html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-step]) [data-step-item="1"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"],
+html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   10. 06 Profis fallback (§ 4.6)
+   -------------------------------------------------------------------------- */
+.lp-profis-fallback {
+  display: grid;
+  gap: 40px;
+}
+.lp-profis-fallback-figure {
+  margin: 0;
+}
+@media (min-width: 1024px) {
+  .lp-profis-fallback {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: end;
+  }
+  .lp-profis-fallback-head {
+    grid-column: 1 / -1;
+  }
+  .lp-profis-fallback-figure {
+    grid-column: 1 / span 5;
+  }
+  .lp-profis-fallback-text {
+    grid-column: 7 / span 6;
+    padding-bottom: 40px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. 07 Deine Buchung (§ 4.7): tabs + the floating screen
+   -------------------------------------------------------------------------- */
+.lp-screens {
+  display: flex;
+  flex-direction: column;
+}
+.lp-screens-panel {
+  order: 1;
+  margin: 40px auto 0;
+}
+.lp-screens-tabs {
+  order: 2;
+  display: flex;
+  gap: 8px;
+  margin: 28px calc(-1 * var(--space-gutter)) 0;
+  padding: 2px var(--space-gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--space-gutter);
+  scrollbar-width: none;
+}
+.lp-screens-tabs::-webkit-scrollbar {
+  display: none;
+}
+.lp-screens-tab {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-line-emphasis);
+  border-radius: 9999px;
+  scroll-snap-align: start;
+  text-align: left;
+  cursor: pointer;
+}
+.lp-screens-tab > .type-heading-m {
+  font-size: var(--text-label);
+  font-weight: 560;
+  white-space: nowrap;
+}
+.lp-screens-tab-line {
+  display: none;
+}
+.lp-screens-tab.is-selected {
+  border-color: var(--color-selected);
+  background-color: var(--color-selected);
+}
+.lp-screens-tab.is-selected > span {
+  color: var(--color-ink-inverse);
+}
+.lp-screens-tab:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.lp-screens-active-line {
+  order: 3;
+  margin-top: 12px;
+  min-height: 3em;
+}
+
+.lp-screen {
+  --k: calc(280 / var(--screen-w, 390));
+  position: relative;
+  width: 280px;
+  height: 606px;
+  overflow: hidden;
+  border-radius: 40px;
+  background-color: var(--soma-paper);
+  box-shadow: var(--shadow-overlay);
+}
+.lp-screen-track {
+  position: absolute;
+  inset: 0 0 auto;
+  translate: 0 calc(var(--screen-y, 0) * var(--k) * -1px);
+}
+.lp-screen-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+}
+.lp-screen-img[data-state="current"] {
+  opacity: 1;
+}
+.lp-screen-ring {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: calc(var(--ring-y, 0) * var(--k) * 1px - 6px);
+  height: calc(var(--ring-h, 0) * var(--k) * 1px + 12px);
+  border: 1.5px solid var(--soma-espresso);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .lp-screens {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: var(--gap);
+  }
+  .lp-screens-head {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  .lp-screens-tabs {
+    grid-column: 1 / span 5;
+    grid-row: 2;
+    flex-direction: column;
+    gap: 4px;
+    margin: 40px 0 0;
+    padding: 0;
+    overflow: visible;
+    align-self: start;
+  }
+  .lp-screens-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    min-height: 0;
+    padding: 14px 20px 14px 22px;
+    border: 0;
+    border-radius: var(--radius-tile);
+    box-shadow: inset 2px 0 0 transparent;
+  }
+  .lp-screens-tab:hover {
+    background-color: rgb(251 249 245 / 0.55);
+  }
+  .lp-screens-tab > .type-heading-m {
+    font-size: var(--text-heading-m);
+    font-weight: 600;
+  }
+  .lp-screens-tab-line {
+    display: block;
+  }
+  .lp-screens-tab.is-selected {
+    background-color: var(--soma-paper);
+    box-shadow: inset 2px 0 0 var(--soma-espresso), var(--shadow-raised);
+  }
+  .lp-screens-tab.is-selected > span {
+    color: inherit;
+  }
+  .lp-screens-tab.is-selected > .type-heading-m {
+    color: var(--color-ink);
+  }
+  .lp-screens-tab.is-selected > .lp-screens-tab-line {
+    color: var(--color-ink-muted);
+  }
+  .lp-screens-active-line {
+    display: none;
+  }
+  .lp-screens-panel {
+    grid-column: 8 / span 4;
+    grid-row: 1 / span 2;
+    margin: 0;
+    justify-self: center;
+  }
+  .lp-screen {
+    --k: calc(360 / var(--screen-w, 390));
+    width: 360px;
+    height: 760px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. 08 Für Profis (§ 4.8): photo band ≥ 1024, arch + Bone below
+   -------------------------------------------------------------------------- */
+.lp-band-media,
+.lp-band-place {
+  display: none;
+}
+.lp-band-content {
+  padding-top: var(--space-section);
+}
+.lp-band-arch {
+  margin: 0 0 40px;
+}
+@media (min-width: 768px) {
+  .lp-band-arch {
+    width: calc(6 * var(--lp-col) + 5 * var(--gap));
+  }
+}
+@media (min-width: 1024px) {
+  .lp-band {
+    position: relative;
+    height: min(100svh, 56.25vw);
+    min-height: 600px;
+    overflow: hidden;
+    background-color: var(--soma-espresso);
+  }
+  .lp-band-media {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .lp-band-arch {
+    display: none;
+  }
+  .lp-band-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-block: 96px 72px;
+  }
+  /* The night scope on the photo's calm left third (measured: ≥ 12:1 left of 31 %, ≥ 4.7:1 to 43 %). */
+  .lp-band-text,
+  .lp-band-place {
+    --color-ink: var(--soma-bone);
+    --color-ink-muted: #bfb4a7;
+    --color-link: var(--soma-bone);
+    --color-interactive: var(--soma-bone);
+    --color-interactive-hover: #ffffff;
+    --color-interactive-pressed: var(--soma-oat);
+    --color-ink-inverse: var(--soma-espresso);
+    --color-line-control: var(--soma-bone);
+    --color-surface-sunken: rgb(243 239 232 / 0.1);
+    --color-surface-pressed: rgb(243 239 232 / 0.16);
+    --color-focus: var(--soma-bone);
+    --color-focus-glow: rgb(243 239 232 / 0.2);
+    color: var(--color-ink);
+  }
+  .lp-band-text {
+    max-width: min(41vw, calc(5 * var(--lp-col) + 4 * var(--gap)));
+  }
+  .lp-band-lead,
+  .lp-band-ctas {
+    max-width: min(35vw, calc(4 * var(--lp-col) + 3 * var(--gap)));
+  }
+  .lp-band-lead {
+    max-width: min(26ch, 35vw);
+  }
+  .lp-band-place {
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    max-width: 35vw;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   13. 09 Fragen (§ 4.9)
+   -------------------------------------------------------------------------- */
+.lp-faq {
+  display: grid;
+  gap: 40px;
+}
+.lp-faq-item > summary {
+  list-style: none;
+}
+@media (min-width: 1024px) {
+  .lp-faq {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
+  }
+  .lp-faq-aside {
+    grid-column: 1 / span 4;
+    position: sticky;
+    top: calc(var(--header-height) + 48px);
+  }
+  .lp-faq-list {
+    grid-column: 6 / span 7;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. 10 SOMA (§ 4.10): Oxblood band, the stacked lockup
+   -------------------------------------------------------------------------- */
+.lp-seal {
+  background-color: var(--soma-bone);
+  --color-line-control: var(--soma-bone);
+}
+.lp-seal-scene {
+  position: relative;
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88svh;
+}
+.lp-seal-mask {
+  position: absolute;
+  inset: 0;
+  background-color: var(--soma-oxblood);
+}
+.lp-seal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 96px var(--space-gutter);
+}
+.lp-seal-trace {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0;
+}
+@media (min-width: 1024px) {
+  .lp-seal-scene {
+    min-height: 100svh;
+  }
+}

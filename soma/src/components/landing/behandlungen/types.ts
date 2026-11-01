@@ -1,0 +1,15 @@
+/** One category of chapter 03, from `listCatalog()` and `getPriceFloors()` (real floors only). */
+export type CategoryItem = {
+  slug: string;
+  name: string;
+  /** the deck's tile line (the catalogue's tagline) */
+  tagline: string | null;
+  href: string;
+  /** „ab 45 €“, or null when no Profi offers the category yet */
+  price: string | null;
+  /** up to three service names from the catalogue */
+  services: string[];
+  /** v2 image (resolved through `replacedBy`) and its stored focal point */
+  image: string;
+  focal: string;
+};

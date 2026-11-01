@@ -1,7 +1,7 @@
 # Landing page: conversion and integration spec (Agent 5)
 
-*Conversion & Integration Specialist · phase L1 → L2 · 1 Nov 2026 · v1.0*
-*Inputs: `docs/landing/BRIEF.md` §§ 4, 8, 9 · `brand/PLAN.md` · `brand/COPY_DECK_LANDING.md` · `brand/BRAND_VOICE.md` · `docs/landing/REFERENCE_ANALYSIS.md` (principles 3, 11, 12) · `brand/applications/LANDING_ART_DIRECTION_INPUT.md`. `docs/landing/LANDING_DESIGN_SPEC.md` did not exist when this was written; § 4 lists what to reconcile with it.*
+*Conversion & Integration Specialist · phase L1 → L2 · 1 Nov 2026 · v1.1 (reconciled with `LANDING_DESIGN_SPEC.md` v1.0; implemented)*
+*Inputs: `docs/landing/BRIEF.md` §§ 4, 8, 9 · `brand/PLAN.md` · `brand/COPY_DECK_LANDING.md` · `brand/BRAND_VOICE.md` · `docs/landing/REFERENCE_ANALYSIS.md` (principles 3, 11, 12) · `brand/applications/LANDING_ART_DIRECTION_INPUT.md` · `docs/landing/LANDING_DESIGN_SPEC.md` (binding on design).*
 
 **How to read this.**
 - Every route claim cites `file:line` in `soma/` and was checked against the running production build on `:3100`
@@ -11,6 +11,48 @@
 - Ownership (PLAN.md, phase L2): Agent 5 owns `src/components/landing/booking/**`, the landing metadata, JSON-LD and OG.
   Changes to shared app files (`src/components/site/**`, `src/server/**`) are listed as small, backwards-compatible
   changes (C1–C12, § 1.9) for the Lead to approve.
+
+---
+
+## 0. Reconciliation with the design spec, and implementation status (v1.1)
+
+The Lead approved v1.0 (C1–C9 to implement). Where `LANDING_DESIGN_SPEC.md` differs, **the spec wins on design and this
+document on routes and data**. The sections below were edited accordingly; this table is the summary.
+
+| Topic | v1.0 said | Now (source) |
+|---|---|---|
+| Chapter ids | only the anchors CTAs need | spec § 5.1: `bei-dir` (entry `termin`), `idee`, `behandlungen`, `so-funktionierts`, `dein-ort`, `profis`, `deine-buchung`, `fuer-profis`, `fragen`, `soma` |
+| Desktop booking access | header CTA scrolls to the hero | spec § 5.5: hero ≥ 25 % in view → focus its PLZ; otherwise the **booking bar** (dialog under the header, `id="termin-leiste"`) |
+| Mobile dock | hidden at the top while the hero entry intersects; Conversion owns the rules | spec § 5.6: **visible until the hero booking card is ≥ 25 % in view**; hidden while chapter 10's CTAs are ≥ 30 % in view, a text field has focus, or a dialog is open. 56 px pill, left half = chapter control, right half „Termin finden“ (**primary**, not accent). DOM position directly after the header. Markup: Frontend (`nav/landing-dock.tsx`); rules: Motion (`html[data-dock]`). Conversion supplies `openBooking` and the sheet. |
+| Pickers in the sheet | stacked sheets | spec § 5.5: Was?/Wann? expand **inline** (`pickerLayout="inline"`) |
+| Button variants | chapter repeats „secondary“ | spec § 6.1/6.2: hero, bar and sheet submit = accent (Oxblood); header, dock and chapter CTAs = primary (Espresso; Bone in dark scopes); chapter 10: accent with Bone fill on the band + secondary |
+| Chapter 05 CTA | desktop-only quiet link | spec § 4.5: the chapter foot carries „Freie Termine finden“ at every width; 06's fallback has it too |
+| Provider ratings | „Neu auf SOMA“ under 3 reviews | spec § 4.6: rating only with ≥ 3 reviews, **otherwise nothing**; no proof band and no count-up on the landing (spec § 3.1) |
+| Demo label (C10) | add to cards | already shipped by the brand remediation: `AiLabel` (`src/components/ui/ai-label.tsx`) on `ProviderPortraitCard` and every portrait; the landing card uses it |
+| OG image | rebuild from `og-default-v2` | spec § 12.1: keep `/brand/og-default.jpg`; it is now the shared `OG_IMAGE` (C7) |
+| `SearchAction` | not added | the spec's file plan lists "WebSite + SearchAction (/suche?plz=)". **Kept out** (SEO is this document's remit): `/suche` has no free-text query, is noindex and robots-disallowed, and the sitelinks search box is retired (§ 6.2). Flagged to the Lead. |
+| Hero entry | `variant="hero"` | spec § 4.1.6: `variant="sill"` (width `--lp-sill-w`, popovers flip upward, anchored waitlist panel), `placeHint` from the place switch, `RebookRow` under the trust row from lg |
+
+**Implemented (Agent 5):**
+
+| Item | Where |
+|---|---|
+| C1 no-JS GET form + hidden inputs | `src/components/site/booking-entry.tsx` (form `action="/suche" method="get"`; hidden `kategorie`/`leistung`/`datum`/`zeit` at the end of the form) |
+| C2 deep links `kategorie`, `datum`, `zeit` | same file, mount effect (`whenFromDate`, `TIME_WINDOWS`) |
+| C3 shared draft | `BookingEntry` props `initialDraft`, `onDraftChange`, `syncDraft`; store `src/components/landing/booking/booking-draft.ts` |
+| C4 booking access | `src/components/landing/booking/booking-access.ts` (`openBooking`, `soma:booking:open` routed by one listener), `booking-bar.tsx`, `booking-sheet.tsx`, `booking-link.tsx` (`BookingLink`, `SearchLink`) |
+| C5 location-denied copy | `booking-entry.tsx`, `locate()` error callback (`err.code === 1`) |
+| C6 loading status | `booking-entry.tsx`, visually hidden `role="status"` „Termine werden gesucht …“ |
+| C7 OG constant | `src/lib/brand.ts` `OG_IMAGE`; `src/app/layout.tsx` uses it |
+| C8 revalidation | `src/server/actions/admin.ts` `revalidatePublicTerms()` (settings, commission rules) and `/` on review moderation |
+| C9 data-bound launch cities | `src/app/(site)/suche/page.tsx` (`listCities()` in the unserved-PLZ card) |
+| C12 remember a known PLZ | `booking-entry.tsx`, `resolve()` and `locate()` |
+| Spec § 4.1.6 | `variant="sill"`, `placeHint`, `popoverPlacement`, `statusLayout`; wrapper `src/components/landing/booking/hero-booking-entry.tsx` |
+| Keyboard fix | `WasPicker` keeps focus inside the popover when drilling into a category (focus fell to `<body>`, and the next Tab closed the popover) |
+| Copy, FAQ, SEO | `landing-copy.ts`, `faq-data.ts`, `metadata.ts` (`generateLandingMetadata`, `loadLandingConversion`), `landing-json-ld.tsx` |
+| Tests | `tests/unit/landing-conversion.test.ts`, `tests/e2e/landing-conversion.spec.ts` (T1–T22) |
+
+C10 was covered by the brand remediation; C11 is covered by the Frontend's `LandingImage` (`preload`, no fade), so `Photo` stays untouched.
 
 ---
 
@@ -97,16 +139,19 @@ values (`routes.ts:15-22`; `booking-entry.tsx:539-545`). Example:
 
 ### 1.8 In-page anchor contract (Frontend Engineer implements, tests check)
 
+Chapter ids per spec § 5.1: `#bei-dir` (01), `#idee`, `#behandlungen`, `#so-funktionierts`, `#dein-ort`, `#profis`,
+`#deine-buchung`, `#fuer-profis`, `#fragen`, `#soma` (10).
+
 | Anchor | Must exist on the landing | Referenced by |
 |---|---|---|
-| `#termin` | the hero `BookingEntry` wrapper (default `id`, `booking-entry.tsx:419, 585`) | header and menu (`/#termin`), R7, dock fallback |
-| `#so-funktionierts` | chapter 04 | R2 |
-| `#behandlungen` | chapter 03 | R4 |
+| `#termin` | the hero `BookingEntry` wrapper (`HeroBookingEntry` sets it) | header, dock, overlay and chapter CTAs (`href="#termin"`, enhanced to `openBooking`), deep links `/?plz=…#termin` |
+| `#so-funktionierts` | chapter 04 | R2, header link |
+| `#behandlungen` | chapter 03 | R4, chapter foot of 02 |
 | `#fuer-profis` | chapter 08 | R9 |
-| `#fragen` | chapter 09 (the `FaqSection` default id, `src/components/site/discovery-faq.tsx:48`) | chapter nav |
+| `#fragen` | chapter 09 | chapter index |
 
-Every `href="#…"` on the page must resolve to exactly one `id` (test T14). The other chapter ids belong to the Art Director and
-the Frontend Engineer. Only one element may carry `id="termin"`, so the dock's sheet uses `id="termin-sheet"`.
+Every `href="#…"` on the page must resolve to exactly one `id` (test T14). Only one element carries `id="termin"`; the bar
+and sheet entries use `termin-leiste` and `termin-sheet`, and they exist only while open.
 
 ### 1.9 Small app changes required or proposed
 
@@ -255,97 +300,76 @@ Messages render in one `aria-live="polite"` region. The input references exactly
 - The trust row under the entry is data-bound: „Verifizierte Profis · Endpreis inkl. Anfahrt · Kostenlos stornierbar bis
   {freeCancellationHours} vorher“. The last item is omitted when there is no free tier (current home `src/app/(site)/page.tsx:124-139`).
 
-### 3.7 Mobile booking dock (< 64rem)
-**Purpose.** Booking stays one tap away on every screen (brief § 5; reference principle 3). The dock has two halves. The
-chapter progress control belongs to the Motion developer and the Art Director. The CTA half, specified here, is
-**Termin finden**.
+### 3.7 Mobile dock and booking sheet (< 64rem)
+**Design and visibility: spec § 5.6** (Frontend `nav/landing-dock.tsx`, Motion `html[data-dock]`):
+- a 56 px pill, `left/right: 12px`, `bottom: max(12px, env(safe-area-inset-bottom))`; left half = chapter control, right half
+  **Termin finden** (primary, 48 px; Bone in dark scopes);
+- visible until the hero booking card is ≥ 25 % in view (`data-dock-hide="0.25"` sits on the entry wrapper rendered by
+  `HeroBookingEntry`); hidden while chapter 10's CTAs are ≥ 30 % in view, a text field has focus, or a dialog is open
+  (`html[data-booking-overlay]` is set while the bar or sheet is open);
+- `<nav aria-label="Schnellzugriff">` directly after the header in the DOM;
+- the footer gets `padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom))` below 1024 (spec § 4.10), so the legal row
+  is never covered.
 
-**Visibility (one `IntersectionObserver` plus focus listeners; server-rendered hidden, so there is no layout shift):**
+**Integration rules that still apply (Conversion):**
+- Hidden means not focusable: `inert` or `visibility: hidden` after the exit, never only `opacity: 0`.
+- The dock's outer height (56 + 12 px) stays within `--bottom-nav-height` (4 rem + safe area) above which toasts sit
+  (`src/components/ui/toast.tsx:36`).
+- While it is visible, `scroll-padding-bottom` on `<html>` equals its height (WCAG 2.2 SC 2.4.11).
+- Keep ≥ 8 px between the controls and the home indicator, so a tap never re-expands Safari's toolbar.
 
-| State | Dock |
-|---|---|
-| The hero entry `#termin` intersects the viewport | hidden (the entry itself is the CTA) |
-| Chapter 10 (final brand moment) or the footer intersects | hidden (its own CTAs; keeps Oxblood to one per screen; no legal links covered) |
-| An `input`, `select` or `textarea` has focus (virtual keyboard) | hidden, restored on `focusout` |
-| Any modal is open (menu, sheet, picker) | hidden |
-| Otherwise | visible |
+**The booking sheet** (`src/components/landing/booking/booking-sheet.tsx`):
+- opened by `openBooking({ source: "dock" })` when the hero entry is < 25 % in view;
+- the kit `Sheet` titled „Termin finden“ (bottom sheet, drag to dismiss; centred dialog from 768);
+- holds `BookingEntry variant="compact" id="termin-sheet" pickerLayout="inline"`, seeded from the shared draft, plus
+  `RebookRow`, ending with `pb-safe`;
+- Was? and Wann? expand inline, never as a second sheet;
+- initial focus: the PLZ when none is known, else the close button (no keyboard over the sheet);
+- page scroll locked while open; Esc, the close button, a backdrop tap or a drag down closes it, and focus returns to the
+  dock; a submit navigates to `/suche?…` and closes it;
+- no JS: the dock link is `href="#termin"`, a plain jump to the hero form.
 
-Hidden means `inert` plus `visibility: hidden` after the exit transition, so it is never in the tab order while invisible.
-Enter and exit: translate and opacity, ≤ 200 ms; instant under `prefers-reduced-motion`.
-
-**Layout and iOS Safari bottom bar.**
-- `position: fixed; inset-inline: var(--space-gutter); bottom: 0; padding-bottom: max(0.75rem, env(safe-area-inset-bottom))`.
-  `viewport-fit=cover` is already set (`src/app/layout.tsx:114`), so `env()` resolves. This is the existing sticky-bar pattern
-  (`profis/[slug]/_components/profile-booking.tsx:218`; `src/components/site/checkout-form.tsx:878`). Use `z-(--z-sticky-cta)` (`tokens.css:99`).
-- The outer height including the gap must be ≤ `--bottom-nav-height` (4 rem, `tokens.css:94`). Toasts already sit above that
-  height (`src/components/ui/toast.tsx:36`), so they clear the dock without changes.
-- Targets 48 px tall. Keep at least 8 px between the control and the home indicator, so a tap at the very bottom edge does not
-  re-expand Safari's toolbar instead of hitting the button.
-- No `100vh` arithmetic: the sheet already uses `max-h-[92dvh]` (`sheet.tsx:162`). Do not set `overscroll-behavior: none` on the
-  page.
-- While the dock is visible, set `scroll-padding-bottom` on `<html>` to the dock height. Anchor jumps and keyboard focus then never
-  land under it (WCAG 2.2 SC 2.4.11, Focus Not Obscured).
-- Landmark: `<nav aria-label="Schnellzugriff">`, placed after the last chapter in the DOM.
-- The CTA uses `variant="accent"`. The visibility rules ensure it never shares a screen with the hero submit or the Oxblood
-  final band. If the Art Director prefers Espresso for the dock, the rule still holds.
-
-**Opening the entry as a sheet.**
-- Tap **Termin finden** → `openBookingEntry()` (C4) → `Sheet` titled „Termin finden“ containing `BookingEntry variant="compact"
-  id="termin-sheet"`, seeded from the draft (C3).
-- Initial focus: the PLZ input when no valid PLZ is known (the keyboard opens, which is expected here). With a PLZ known, the
-  platform default (the close button), so the keyboard does not cover the sheet.
-- The sheet content ends with `pb-safe` (`src/app/globals.css:122-124`). Without a footer the sheet adds no safe-area padding
-  (`sheet.tsx:186`).
-- Lock page scroll while it is open, as the mobile menu does (`mobile-menu.tsx:45-49`).
-- Was? and Wann? inside the sheet open as stacked sheets (native modal dialogs stack in the top layer; the lower one turns
-  inert). Closing returns focus to the trigger (`booking-entry.tsx:556-562`; safety net `sheet.tsx:79-90`).
-- Close by Esc, the close button, a backdrop tap or dragging down. Focus returns to the dock button.
-- Submit → `/suche?…` exactly as from the hero (one implementation).
-- Tablets (48–64 rem) get a centred dialog through the same `Sheet` (`sheet.tsx:163`).
-- **No JS:** the dock is not rendered. Booking stays reachable through the hero entry (a real GET form with C1), the in-page
-  links `href="#termin"` and the final CTA (`/suche`).
-
-### 3.8 Header and menu CTA on the landing
-- **≥ lg:** the header's **Termin finden** (`site-header.tsx:82-89`) keeps `focusBookingEntry()`: smooth scroll to the hero entry
-  (instant under reduced motion) and focus on the PLZ. No dialog on desktop: the desktop pickers are absolutely positioned
-  popovers that a scrolling dialog would clip.
-- **< lg:** the mobile menu's **Termin finden** closes the menu and opens the sheet (C4).
-- In-page repeats (R7) use the same `openBookingEntry()`, with `href="#termin"` as the no-JS fallback.
-
----
+### 3.8 Header, overlay and chapter CTAs (spec § 5.5)
+- All of them call `openBooking({ source })` (`booking-access.ts`), or render `<BookingLink source="…">`. Both are
+  `<a href="#termin">` without JS.
+- **Hero ≥ 25 % in view:** the hero PLZ gets focus (no scroll, no overlay).
+- **≥ 1024, otherwise:** the **booking bar** (`booking-bar.tsx`). A modal dialog directly under the header, full content
+  width, Paper, `shadow-overlay`, radius 0 0 24 24, backdrop 48 %. It holds the pill entry (`id="termin-leiste"`) and
+  `RebookRow`. Focus goes to the PLZ; Esc or a backdrop click closes it, and focus returns to the trigger. Popovers in the bar
+  open downward.
+- **< 1024, otherwise:** the booking sheet (§ 3.7).
+- **No surface mounted:** smooth scroll to `#termin` (instant under reduced motion) and focus the PLZ.
+- A raw `window` event `soma:booking:open` from anyone is routed by the same rules (one listener, installed by the first
+  surface).
+- `categorySlug` in the request preselects that category in whichever entry opens.
 
 ## 4. Conversion map
 
-| Ch. | Intention | Primary CTA (weight) | Secondary | Notes |
+Button variants follow spec § 6.1–6.2; targets follow § 1.
+
+| Ch. | Intention | Primary CTA (variant) | Secondary | Notes |
 |---|---|---|---|---|
-| 01 Bei dir | understand the service within seconds; start | Entry submit **Freie Termine finden** (accent, Oxblood) → R1 | So funktioniert’s (text link) → R2 | Rebook row only for signed-in customers with history (R3) |
-| 02 Idee | buy into the idea | — | Behandlungen ansehen (quiet link) → R4 | no buttons |
-| 03 Behandlungen | choose a category | the tiles themselves (one link each) → R5 | Alle Behandlungen (text link) → R6 | price chips are data only (§ 5) |
-| 04 Ablauf | confidence in the process | Freie Termine finden (secondary button) → R7 | — | first repeat, after the explanation |
-| 05 Dein Ort | desire | — | Freie Termine finden as a quiet link, **≥ lg only** → R7 | below lg the dock carries it; avoids a third visible repeat |
-| 06 Profis | trust in people | each card → R8 | Selbst Profi? → R9 · So entstehen Bewertungen → R13 | no booking button in this chapter |
-| 07 Deine Buchung | confidence in the product | Freie Termine finden (secondary button) → R7 | — | second and last inline repeat |
-| 08 Für Profis | provider acquisition | **Profi werden** (primary, inverse on the night band) → R10 | Konditionen ansehen → R11 | no customer CTA in this chapter |
-| 09 Fragen | remove objections | — | Alle Fragen und Antworten → `/hilfe` · Stornobedingungen → R12 | no buttons |
-| 10 SOMA | close with both audiences | **Freie Termine finden** (Bone on the Oxblood band) → R14 | **Profi werden** (outline on the band) → R10 | the band is the screen's Oxblood moment; the dock is hidden |
-| Persistent | always one tap away | header **Termin finden** (≥ lg, Espresso) · dock (< lg) | — | § 3.7–3.8 |
+| 01 Bei dir | understand; start | entry submit **Freie Termine finden** (accent, the view's Oxblood) → R1 | So funktioniert’s (link style) → R2 | `RebookRow` under the trust row from lg |
+| 02 Idee | buy into the idea | — | chapter foot „Weiter: Behandlungen“ → `#behandlungen` | no buttons |
+| 03 Behandlungen | choose a category | each row or tile (one link) → R5 | Alle Behandlungen → R6 | price chips are data only (§ 5) |
+| 04 Ablauf | trust the process | **Freie Termine finden** (primary) → `openBooking({ source: "ch04" })` | Weiter: Dein Ort | vignettes never show checkout buttons |
+| 05 Dein Ort | desire | **Freie Termine finden** (primary; Bone in the night scope) → `openBooking` | Weiter: Profis | — |
+| 06 Profis | meet a Profi | each card → R8 | Selbst Profi? → R9 · Weiter: Deine Buchung | fallback without Profis: **Freie Termine finden** |
+| 07 Deine Buchung | product confidence | **Freie Termine finden** (primary) → `openBooking` | — | the screenshots' own Oxblood is the view's moment |
+| 08 Für Profis | provider acquisition | **Profi werden** (primary in the night scope) → R10 | Konditionen ansehen (secondary) → R11 | no customer CTA |
+| 09 Fragen | remove objections | — | Alle Fragen und Antworten → `/hilfe` · Stornobedingungen → R12 | accordion, no buttons |
+| 10 SOMA | close with both audiences | **Freie Termine finden** (accent, Bone fill on the Oxblood band) → `SearchLink` (R14) | **Profi werden** (secondary, Bone ring) → R10 | the band is the view's Oxblood moment; dock hidden |
+| Persistent | always one action away | header **Termin finden** (≥ 1024, primary) · dock (< 1024, primary) | chapter overlay „Termin finden“ | § 3.7–3.8 |
 
-**Rules against CTA overload.**
-1. At most one filled button per chapter, plus at most one text-link CTA.
-2. Booking appears inline in the hero, in 04, in 07 and in 10, plus the persistent header CTA or the dock. Chapter 05 shows it
-   only on desktop.
-3. A customer CTA and a provider CTA never compete in one chapter, except chapter 10, which closes for both audiences.
-4. Labels are verb + object; „Jetzt …“ and exclamation marks are not used (`BRAND_VOICE.md` § 7.3).
-5. **Oxblood once per screen.** Oxblood is used only for: the hero submit, the sheet submit, the dock CTA and the final band.
-   The dock visibility rules (§ 3.7) mean no two of them share a viewport. Chapters 02–09 use no Oxblood fills (link hover
-   colour is a state, `tokens.css:150`).
-6. Decorative product previews (chapters 04 and 07) are `aria-hidden`, not focusable and not clickable. Example values in them carry a
-   visible „Beispiel“ label, so an unfinished integration never looks functional (brief § 8).
-
-**Reconcile with `LANDING_DESIGN_SPEC.md`** once it exists: the chapter ids, the dock's visual design and its progress half, the
-button variants per chapter, the hero composition around the entry bar, and whether chapter 05 keeps its desktop link.
-
----
+**Rules against CTA overload:**
+1. At most one filled button per chapter plus one link-style CTA. The chapter foot's „Weiter: …“ is navigation, not a CTA.
+2. A customer CTA and a provider CTA share a chapter only in chapter 10, which closes for both audiences.
+3. Labels are verb + object, without „Jetzt …“ and without exclamation marks (`BRAND_VOICE.md` § 7.3).
+4. **Oxblood once per viewport** (spec § 6.2): the hero submit, the bar or sheet submit (their own dimmed view), the product
+   screenshots in 07, and the chapter 10 band. Everything else is Espresso or Bone. The dock is hidden while the hero entry
+   or chapter 10 is in view.
+5. Decorative product previews (04, 07) are `aria-hidden`, not focusable and not clickable, and carry the demo caption, so an
+   unfinished integration never looks functional (brief § 8).
 
 ## 5. Real data
 
@@ -358,8 +382,8 @@ button variants per chapter, the hero composition around the entry bar, and whet
 | „ab {x} €“ per category | `getPriceFloors()` → min over the category's services (as in `behandlungen/(uebersicht)/page.tsx:70-71`) | 03 tile chip | a floor exists (`fromPrice` returns `null` otherwise, `discovery-copy.ts:73-75`) | hide the chip. One caption per chapter: prices without travel; the total incl. travel appears in the search. Never display `services.price_hint_from_cents` (seed hints). |
 | Provider cards | `listDiscoveryProviders({ limit: 8 })` `site-ext.ts:75-116` (approved only, `:88`; Bayesian rating order, `:98`) | 06 | ≥ 3 providers | copy deck fallback without faces |
 | „Verifiziert“ badge | provider `status = 'approved'`, which requires every required document approved (`src/server/services/admin.ts:211`) | 06 cards (`discovery-tiles.tsx:91`) | always on approved cards | — |
-| Rating per provider | `ratingAvg`, `ratingCount` | 06 cards via `Rating` (`src/components/ui/trust.tsx:27-55`) | `count ≥ 3` → „★ 4,9 (87)“ | „Neu auf SOMA“ (`trust.tsx:40-46`) |
-| Aggregate rating, provider and city counts, quotes | `getSocialProof()` `src/server/services/site-ext-2.ts:65-101` | optional proof element (if the Art Director places one) | `reviewCount ≥ 3` and `ratingAvg != null`; counts > 0; quotes are real, published, rating ≥ 4, 40–180 characters, one per provider (`:87-88`) | omit the element. With quotes: „Auswahl aus {n} Bewertungen nach echten Terminen“ + link R13 (curated quotes must not read as representative; legal check) |
+| Rating per provider | `ratingAvg`, `ratingCount` | 06 cards | `count ≥ 3` → „★ 4,9 (87)“ | nothing (spec § 4.6; the kit `Rating` would show „Neu auf SOMA“, `trust.tsx:40-46`, so the landing card renders `Rating` only from 3 reviews) |
+| Aggregate rating, provider and city counts, quotes | `getSocialProof()` `src/server/services/site-ext-2.ts:65-101` | **not used in v1** (spec § 3.1: no proof band, no count-up); rules kept for later | `reviewCount ≥ 3` and `ratingAvg != null`; counts > 0; quotes are real, published, rating ≥ 4, 40–180 characters, one per provider (`:87-88`) | omit the element. With quotes: „Auswahl aus {n} Bewertungen nach echten Terminen“ + link R13 (curated quotes must not read as representative; legal check) |
 | Cities served | `listCities()` `catalog.ts:110-114` + `getCoverageMatrix()` `site-ext.ts:136-153` | FAQ 2, optional city links, `areaServed` | active city with providerCount > 0 in any category | omit the city |
 | Cancellation, dispute, payout, fee, documents | `getPublicTerms()` `site-ext.ts:165-181` | 01 trust row, 04 detail, 08 payment line, 09 FAQ and trust strip | value present | omit the clause (helpers: `freeCancellationHours`, `hoursLabel`, `policyRows` in `discovery-copy.ts:81-115`; grace minutes `cancellationPolicy.graceMinutes`, `src/server/dto.ts:144`) |
 | Commission strip | `getProviderTerms().commission` `src/server/services/pro-ext.ts:86-101` | 08 | `commission != null` | hide the strip. „0 % auf die Anfahrt“ is product logic (`src/server/domain/pricing.ts:11`), so it may be stated. |
@@ -398,7 +422,7 @@ button variants per chapter, the hero composition around the entry bar, and whet
 
 ## 6. SEO plan
 
-### 6.1 Metadata (`src/app/(site)/page.tsx`, `generateMetadata`)
+### 6.1 Metadata (`src/components/landing/booking/metadata.ts`, re-exported as the page's `generateMetadata`)
 ```ts
 // Sketch, final code in L2. One OG descriptor shared with the root layout (C7).
 export async function generateMetadata(): Promise<Metadata> {
@@ -420,18 +444,17 @@ export async function generateMetadata(): Promise<Metadata> {
   so the three never disagree. The copy deck's literal „24 Std.“ must not be hard-coded (`BRAND_VOICE.md` § 8, item 8).
 - **Canonical** resolves against `metadataBase = SITE_URL` (`layout.tsx:89`; `src/lib/brand.ts:17`). In production `APP_URL` must be the
   final https origin; `npm run check:launch` already blocks placeholders and `DEMO_MODE` (`scripts/check-launch.mjs:17, 25-37`).
-- **OG image:** today `/brand/og-default.jpg` (1200 × 630, 43 KB, the lockup plus the v1 massage photo; checked). The photo audit marks the
-  v1 photo "replace" (`brand/photography/AUDIT.md:49`), and the art direction asks for `og-default-v2.jpg` with the wordmark
-  bottom-left (`LANDING_ART_DIRECTION_INPUT.md:36`). Rebuild it with `scripts/brand/build-og.cjs` from
-  `public/images/og-default-v2.jpg` (AI-generated, EXIF says so) into a **new filename** (e.g. `/brand/og-default-v2.jpg`), so
-  share caches refresh. Update `OG_IMAGE` (url, size, German alt). Size ≤ 300 KB.
+- **OG image:** `/brand/og-default.jpg` (1200 × 630, 43 KB, the lockup plus one photograph in the arch; checked), now the shared
+  `OG_IMAGE` in `src/lib/brand.ts` (C7). The spec keeps it for v1 (§ 12.1). If the brand team rebuilds it (the photo audit marks
+  the v1 photo "replace", `brand/photography/AUDIT.md:49`), write it to a **new filename** so share caches refresh, and update
+  `OG_IMAGE` once.
 - **Twitter/X:** the current build already emits `twitter:card=summary_large_image` and the image from the OG fields (checked in
   the served HTML). Setting `twitter` explicitly keeps it deterministic. There are no handles to add.
 - `og:url` is missing today; the sketch adds it.
 
 ### 6.2 Structured data
-One JSON-LD graph at the top of the page (via `JsonLd`, which escapes `<`, `src/components/site/discovery-json-ld.tsx:5-7`), plus the
-`FAQPage` that `FaqSection` already emits:
+One JSON-LD graph (`<LandingJsonLd>`, via `JsonLd`, which escapes `<`, `src/components/site/discovery-json-ld.tsx:5-7`). It
+also carries the `FAQPage` node, so chapter 09 must **not** use `FaqSection`, which would emit a second one:
 
 ```jsonc
 { "@context": "https://schema.org", "@graph": [
@@ -453,13 +476,12 @@ One JSON-LD graph at the top of the page (via `JsonLd`, which escapes `<`, `src/
 - **WebSite without `SearchAction`.** `/suche` has no free-text query parameter (§ 1.2), is `noindex` (`suche/page.tsx:37-41`) and
   is disallowed in robots (`src/app/robots.ts:18`). Google also retired the sitelinks search box in November 2024. A
   `SearchAction` would describe a capability the site does not have.
-- **FAQPage:** only from the FAQ that is visible on the page, through `FaqSection`, which builds `faqLd` from the same `items`
-  (`discovery-faq.tsx:43-78`; `discovery-json-ld.tsx:22-28`). Requirements:
-  - build the items once, in code, from the copy deck § 09 with the data bindings (`landingFaq({ terms, liveCities, docs })`). Do
+- **FAQPage:** only from the FAQ that is visible on the page: `buildLandingFaq()` (`faq-data.ts`) feeds both the accordion and
+  the graph (the pattern of `FaqSection`, `discovery-faq.tsx:43-78`). Requirements:
+  - build the items once, in code, from the copy deck § 09 with the data bindings (`buildLandingFaq({ terms, liveCities, activeCategorySlugs })`). Do
     not use the `home.faq` content block, whose text cannot bind policy numbers;
-  - do **not** pass `mobileLimit`. It hides items 5+ below `md` with CSS while the JSON-LD still lists them
-    (`discovery-faq.tsx:56-57, 71-72`); with mobile-first indexing that is a mismatch;
-  - the optional questions 7–9 go in only if they are shown;
+  - show all nine at every width (spec § 4.9); never hide items with CSS (a `mobileLimit` like `discovery-faq.tsx:71-72` would leave
+    the JSON-LD listing hidden questions, a mismatch under mobile-first indexing);
   - the answer text in the JSON-LD equals the visible text, markup removed.
 
   Google shows FAQ rich results only for a few authoritative sites, so expect no snippet. The markup stays because it is
@@ -551,7 +573,7 @@ overload existing params: `von` on `/buchen` means "rebooked from booking id" (`
 
 ## 8. Acceptance tests
 
-New file `tests/e2e/landing.spec.ts`. It runs in both Playwright projects, `mobile` (iPhone 13 profile on Chromium) and `desktop`
+File `tests/e2e/landing-conversion.spec.ts` (T1–T22 as below; T12b adds the chapter-10/footer dock check). It runs in both Playwright projects, `mobile` (iPhone 13 profile on Chromium) and `desktop`
 (1440 × 900) (`playwright.config.ts:29-32`), against the production build with the demo seed. Use the helpers in
 `tests/e2e/helpers.ts` (`berlinDate`, `login`). Assert URLs through `URLSearchParams`, not by string order.
 
@@ -565,7 +587,7 @@ New file `tests/e2e/landing.spec.ts`. It runs in both Playwright projects, `mobi
 | T6 | Keyboard only (desktop) | Skip link → main. Tab to „Wo? Postleitzahl“, type. Tab to Was? → Enter opens the dialog „Behandlung wählen“ with focus inside. Esc closes and focus returns to Was?. Select with Enter. Tab to Wann? → choose → „Fertig“. Enter on submit → `/suche?…`. |
 | T7 | Screen reader semantics | `getByRole("search", { name: "Termin finden" })`; `getByLabel("Wo? Postleitzahl")`; `aria-expanded` toggles on Was? and Wann?; the error appears inside the polite live region and is referenced by `aria-describedby`. |
 | T8 | Category links | The number of tiles in `#behandlungen` equals the number of category links in the footer. Each `href` matches `^/behandlungen/[a-z0-9-]+$`, and `request.get(href)` returns 200. |
-| T9 | City and provider links | Each `/staedte/*` and `/profis/*` link on the page returns 200. A card shows „★ x,y (n)“ only if n ≥ 3, else „Neu auf SOMA“. In `DEMO_MODE` (read from `/api/health`) every card shows „Demo-Profil“. |
+| T9 | City and provider links | Each `/staedte/*` and `/profis/*` link on the page returns 200. A card shows „★ x,y (n)“ only if n ≥ 3, and never „Neu auf SOMA“. In `DEMO_MODE` (read from `/api/health`) the cards carry „Demo-Profil · Foto KI-generiert“. |
 | T10 | Provider onboarding | „Profi werden“ (chapter 08 and 10) → `/pro/registrieren`, H1 „Werde Profi auf SOMA.“. „Konditionen ansehen“ → `/fuer-profis#provision`, and the target exists. |
 | T11 | Login and legal | Header or menu „Anmelden“ → `/anmelden`. Every footer legal link returns 200; `/datenschutz#cookies` and `/ranking#bewertungen` targets exist. |
 | T12 | Mobile dock (mobile) | Hidden at the top. Visible after scrolling past `#termin`. Tap → dialog „Termin finden“; with no PLZ known, focus is in the PLZ field. A PLZ typed in the hero appears in the sheet. Submit from the sheet → `/suche?…`. Esc → focus back on the dock button. Hidden while an input has focus, in chapter 10 and at the footer. Its bounding box never overlaps a focused element or the footer's last link. |
@@ -580,10 +602,10 @@ New file `tests/e2e/landing.spec.ts`. It runs in both Playwright projects, `mobi
 | T21 | Deep links (C2) | `/?plz=10115&leistung=entspannungsmassage&datum={+2}&zeit=morgens` prefills all three fields. |
 | T22 | Reduced motion | `emulateMedia({ reducedMotion: "reduce" })`: the dock appears without a transition, and T1 still passes. This joins the existing no-loop checks (`tests/e2e/audit5.spec.ts:80-101`). |
 
-**Unit tests (`tests/unit/landing-*.test.ts`, Vitest):**
+**Unit tests (`tests/unit/landing-conversion.test.ts`, Vitest):**
 - `landingDescription` and `liveCategorySlugs` (words dropped when a category has no provider; the clause dropped without a
   free tier);
-- `landingFaq` (numbers bound to the terms; cities limited to live ones);
+- `buildLandingFaq` (numbers bound to the terms; cities limited to live ones);
 - the draft store (validation, URL beats draft).
 
 **Manual, on a real device (no WebKit in the sandbox; only Chromium is installed in `/opt/pw-browsers`):**
@@ -595,13 +617,20 @@ New file `tests/e2e/landing.spec.ts`. It runs in both Playwright projects, `mobi
 ---
 
 ## 9. Coordination and open points
-1. **Art Director (`LANDING_DESIGN_SPEC.md`):** the chapter ids (§ 1.8); the dock's design and progress half; the button
-   variants per chapter (§ 4); whether chapter 05 keeps its desktop-only link; whether a proof element with real quotes appears
-   (§ 5.1); the hero layout around the entry bar (§ 3.6).
-2. **Motion developer:** reuse `data-chapter` for stage and analytics. The dock and chapter-index observers should share one
-   `IntersectionObserver` with the stage, not run three.
-3. **Lead:** approve the shared-file changes C1–C12 (C1 is P0). Decide on optional `sessionStorage` (§ 2.3; recommendation: no) and on
-   any later measurement (§ 7).
-4. **Strategist:** the copy deck's literal „24 Std.“ in the meta description becomes data-bound (§ 6.1). The quote caption
-   „Auswahl aus {n} Bewertungen …“ (§ 5.1) needs wording if quotes are used.
-5. **Legal:** the curated-review disclosure (§ 5.1) and the wording of any future cookieless counter (§ 7).
+1. **Frontend Engineer:**
+   - render `HeroBookingEntry` in 01 (pass `place` or dispatch `soma:hero-place`; set `--lp-sill-w` in `landing.css`);
+   - mount `<BookingBar />` and `<BookingSheet />` once (layout or page);
+   - use `openBooking` / `BookingLink` for every „Termin finden“ and „Freie Termine finden → #termin“, and `SearchLink` in 10;
+   - in 06 render `Rating` only from 3 reviews, plus `AiLabel`;
+   - render the 09 accordion from `loadLandingConversion().faq` without `FaqSection`, and `<LandingJsonLd>` once;
+   - re-export `generateLandingMetadata` as `generateMetadata`;
+   - remove the `(site)/page.tsx` home when `(landing)/page.tsx` takes `/` (two pages cannot both serve `/`).
+2. **Motion developer:** the dock rules read `[data-dock-hide]` (the hero wrapper carries 0.25) and `html[data-booking-overlay]`.
+   Animate the bar through `[data-booking-surface="bar"]` / `[data-closing]` if the kit `animate-rise` is not wanted. Share one
+   `IntersectionObserver` for stage, dock and index.
+3. **Lead:**
+   - `SearchAction` stays out of the JSON-LD (§ 6.2), contrary to the spec's file-plan note; please confirm;
+   - decide on optional `sessionStorage` (§ 2.3; recommendation: no) and on any later measurement (§ 7).
+4. **Strategist:** sign-off for the place-hint strings „PLZ des Hotels / des Büros“ (spec § 13). `PLACE_HINT_COPY_APPROVED` in
+   `hero-booking-entry.tsx` switches to the fallback (only the example PLZ changes).
+5. **Legal:** the wording of any future cookieless counter (§ 7).
