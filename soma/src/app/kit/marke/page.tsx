@@ -324,7 +324,12 @@ export default function MarkePage() {
         <h3 className={s.h3}>Zeichen-Studien 3 · ein eigenes Detail: der Versatz</h3>
         <p className={s.p}>
           Kriterien (Brand Audit 2, O5): Überlappung (IoU) mit dem S von fünf Serifenschriften unter 0,35, mit generischen Monogrammen „S im Oval“ unter 0,35
-          (Methode des Auditors) und mit „SOMA-O + getipptes S“ höchstens 0,65. Der Wiedererkennungstest mit Menschen (O1b, O4) steht noch aus.
+          (Methode des Auditors) und mit „SOMA-O + getipptes S“ höchstens 0,65. Die Tests mit Menschen (O1b, O4a/b, O7) stehen noch aus.
+        </p>
+        <p className={s.p}>
+          Korrektur (Brand Audit 3): Die 0,24 des Siegels messen eine Fläche gegen Ringe. Gegen gefüllte Ovale mit weißem Serifen-S liegt das Siegel bei
+          0,71–0,75 (v1.1: 0,85–0,88; zwei generische Plaketten untereinander: 0,92). Der Versatz rückt es vom Genre ab, aber nicht heraus; das entscheiden
+          die Tests mit Menschen.
         </p>
         <div className={s.tableWrap}>
           <table className={s.table} style={{ minWidth: 640 }}>
@@ -462,8 +467,8 @@ export default function MarkePage() {
           </div>
         </div>
         <p className={s.caption}>
-          Rechts: das Zeichen zeichnet sich (1,2 s, einmal, kein Loop; bei reduzierter Bewegung sofort das Endbild). Einsatz: PWA-Start, Abspann von Videos,
-          Social-Avatar. Spezifikation: brand/assets/splash/SPLASH.md.
+          Rechts: das Zeichen zeichnet sich (1,2 s, einmal, kein Loop; bei reduzierter Bewegung sofort das Endbild). Einsatz: Schlussband der Landingpage, Abspann von Videos,
+          Social-Avatar; ein PWA-Intro ist nur Konzept. Spezifikation: brand/assets/splash/SPLASH.md.
         </p>
 
         <h3 className={s.h3}>Logo auf Fotografie</h3>

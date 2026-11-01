@@ -7,6 +7,7 @@ import { ChapterOverlay } from "@/components/landing/nav/chapter-overlay";
 import { FooterNote } from "@/components/landing/nav/footer-note";
 import { LandingDock } from "@/components/landing/nav/landing-dock";
 import { LandingHeader } from "@/components/landing/nav/landing-header";
+import { MotionLoader } from "@/components/landing/motion/loader";
 import { SkipLinks } from "@/components/landing/nav/skip-links";
 import localFont from "next/font/local";
 import type { CSSProperties } from "react";
@@ -55,6 +56,7 @@ export default function LandingLayout({ children }: LayoutProps<"/">) {
       <ChapterLinks />
       <BookingBar />
       <BookingSheet />
+      <MotionLoader />
     </div>
   );
 }

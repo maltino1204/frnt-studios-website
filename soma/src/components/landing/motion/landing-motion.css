@@ -1,0 +1,670 @@
+/* ==========================================================================
+   SOMA landing page: the motion layer (Motion & Creative Developer).
+   docs/landing/LANDING_DESIGN_SPEC.md § 4 (per chapter), § 5 (navigation), § 7 (transitions), § 8 (tiers),
+   § 11.3 (contract), Appendix A (the arch mask); brand/applications/motion/MOTION.md (tokens, rules).
+
+   Every keyframe, transition and scroll timeline of the landing lives here (the Frontend's landing.css holds the
+   states and layouts). Rules:
+   - Tokens only: durations 100 · 160 · 220 · 320 · 480 · 640 · 900, easings standard · arrive · settle · exit ·
+     calm, linear only for scroll-linked progress. No bounce, no parallax, no 3D, no loops, no counting numbers.
+   - Only opacity, translate/scale, clip-path, stroke-dashoffset and (spacers only) background-color animate.
+   - Tiers (html[data-motion], written by motion/loader.tsx): `full` and `lite` move; `none` (reduced motion,
+     automation) is the static page. Everything that moves sits in `prefers-reduced-motion: no-preference`; the global
+     guard in tokens.css (1 ms) must never touch a scroll timeline.
+   - Hidden states exist only as [data-reveal-state="pending"] / [data-scene-state="idle"], set by JS on elements
+     below the viewport. Without JS nothing is hidden.
+   ========================================================================== */
+
+@property --arch-l {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --arch-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --arch-t {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --arch-k {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes (the brand vocabulary, § 8.3). Missing `to` = the element's own resting value.
+   -------------------------------------------------------------------------- */
+@keyframes lp-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes lp-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes lp-rise8 {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+@keyframes lp-rise10 {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+@keyframes lp-rise12 {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+/* the wordmark (SVG, user units ≈ 0.1 px at the 285 px lockup): ≈ 8 px on screen */
+@keyframes lp-rise-mark {
+  from {
+    opacity: 0;
+    translate: 0 80px;
+  }
+}
+/* Arch rise (MOTION.md § 3.6.1): the arch opens bottom-up and the frame rises 16 px. */
+@keyframes lp-arch-rise {
+  from {
+    clip-path: inset(100% 0 0 0);
+    translate: 0 16px;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    translate: 0 0;
+  }
+}
+/* The same opening with the frame in place: a room or a place rising into an existing arch. */
+@keyframes lp-wipe {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes lp-settle {
+  from {
+    scale: 1.04;
+  }
+}
+@keyframes lp-draw {
+  from {
+    opacity: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes lp-grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes lp-progress {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes lp-doorway {
+  from {
+    --arch-l: 37cqw;
+    --arch-r: 25cqw;
+    --arch-t: 9%;
+  }
+  to {
+    --arch-l: 0px;
+    --arch-r: 0px;
+    --arch-t: 0%;
+  }
+}
+@keyframes lp-seal {
+  from {
+    --arch-l: 38cqw;
+    --arch-r: 38cqw;
+    --arch-t: 40%;
+    --arch-k: 1;
+  }
+  70% {
+    --arch-k: 1;
+  }
+  to {
+    --arch-l: 0px;
+    --arch-r: 0px;
+    --arch-t: 0%;
+    --arch-k: 0;
+  }
+}
+@keyframes lp-dusk {
+  from {
+    background-color: var(--soma-stone);
+  }
+  to {
+    background-color: var(--soma-espresso);
+  }
+}
+@keyframes lp-dawn {
+  from {
+    background-color: var(--soma-espresso);
+  }
+  to {
+    background-color: var(--soma-bone);
+  }
+}
+
+/* Stagger units: `data-reveal-order` 0…5 (MOTION.md § 2: 90 ms, ≤ 6 units; lite: ≤ 3). */
+[data-reveal-order="1"] {
+  --lp-o: 1;
+}
+[data-reveal-order="2"] {
+  --lp-o: 2;
+}
+[data-reveal-order="3"] {
+  --lp-o: 3;
+}
+[data-reveal-order="4"] {
+  --lp-o: 4;
+}
+[data-reveal-order="5"] {
+  --lp-o: 5;
+}
+html[data-motion="lite"] :is([data-reveal-order="3"], [data-reveal-order="4"], [data-reveal-order="5"]) {
+  --lp-o: 2;
+}
+
+/* ==========================================================================
+   1. Navigation (§ 5): progress arch, header, dock, overlay
+   ========================================================================== */
+
+/* The dock waits for the nav observer's first decision (no flash over the hero's first frame, § 5.6). */
+html:not([data-dock]) .lp-dock {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+/* The header's micro wordmark steps back while the closing lockup is in view (one logo per view, § 4.10). */
+html[data-header-logo="hidden"] .lp-header a[href="/"] {
+  visibility: hidden;
+  opacity: 0;
+}
+/* Mobile header hidden on scroll-down (lite, < 1024; nav-observer.ts). */
+@media (max-width: 1023px) {
+  html[data-header-hidden] .lp-header {
+    translate: 0 -100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The index arch draws with page progress, linear, in every tier (JS fallback: progress.ts). */
+  @supports (animation-timeline: scroll()) {
+    .lp-progress-bar {
+      animation: lp-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+
+  /* Header: theme and glass 160 ms standard; the mobile hide 220 ms (exit down, arrive back). */
+  html[data-motion] .lp-header {
+    transition:
+      background-color var(--transition-duration-fast) var(--ease-standard),
+      color var(--transition-duration-fast) var(--ease-standard),
+      box-shadow var(--transition-duration-fast) var(--ease-standard),
+      translate var(--transition-duration-base) var(--ease-arrive);
+  }
+  html[data-motion][data-header-hidden] .lp-header {
+    transition-timing-function: var(--ease-standard), var(--ease-standard), var(--ease-standard), var(--ease-exit);
+  }
+  html[data-motion] .lp-header a[href="/"] {
+    transition:
+      opacity var(--transition-duration-fast) var(--ease-standard),
+      visibility 0s;
+  }
+  html[data-motion][data-header-logo="hidden"] .lp-header a[href="/"] {
+    transition:
+      opacity var(--transition-duration-fast) var(--ease-exit),
+      visibility 0s linear var(--transition-duration-fast);
+  }
+  html[data-motion="none"] .lp-header,
+  html[data-motion="none"] .lp-header a[href="/"] {
+    transition: none;
+  }
+
+  /* Dock (§ 5.6): shows with a 24 px rise and a fade (320 ms arrive), hides in 220 ms (exit); none: opacity only. */
+  html:not([data-dock]) .lp-dock {
+    translate: 0 24px;
+  }
+  html[data-motion] .lp-dock {
+    transition:
+      opacity var(--transition-duration-slow) var(--ease-arrive),
+      translate var(--transition-duration-slow) var(--ease-arrive),
+      visibility 0s;
+  }
+  html[data-motion][data-dock="hidden"] .lp-dock,
+  html[data-motion][data-booking-open] .lp-dock {
+    translate: 0 24px;
+    transition:
+      opacity var(--transition-duration-base) var(--ease-exit),
+      translate var(--transition-duration-base) var(--ease-exit),
+      visibility 0s linear var(--transition-duration-base);
+  }
+  html[data-motion="none"] .lp-dock,
+  html[data-motion="none"][data-dock="hidden"] .lp-dock,
+  html[data-motion="none"][data-booking-open] .lp-dock {
+    translate: none;
+    transition:
+      opacity var(--transition-duration-fast) var(--ease-standard),
+      visibility 0s linear var(--transition-duration-fast);
+  }
+  html[data-motion="none"][data-dock="shown"]:not([data-booking-open]) .lp-dock {
+    transition:
+      opacity var(--transition-duration-fast) var(--ease-standard),
+      visibility 0s;
+  }
+
+  /* Chapter overlay (§ 5.4): fades in 220 ms, rows rise 10 px (320 ms arrive) on a 60 ms stagger for the first six
+     rows, the rest with row 6 (lite: no stagger); exit 160 ms fade. Focus moves in at once and never waits. */
+  html[data-motion] .lp-overlay {
+    transition:
+      opacity var(--transition-duration-fast) var(--ease-exit),
+      display var(--transition-duration-fast) allow-discrete,
+      overlay var(--transition-duration-fast) allow-discrete;
+  }
+  html[data-motion] .lp-overlay:not([open]) {
+    opacity: 0;
+  }
+  html[data-motion] .lp-overlay[open] {
+    opacity: 1;
+    transition-duration: var(--transition-duration-base);
+    transition-timing-function: var(--ease-standard);
+  }
+  @starting-style {
+    html[data-motion] .lp-overlay[open] {
+      opacity: 0;
+    }
+  }
+  html[data-motion="none"] .lp-overlay[open] {
+    transition-duration: var(--transition-duration-fast);
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-overlay[open] [data-overlay-row] {
+    animation: lp-rise10 var(--transition-duration-slow) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] .lp-overlay[open] [data-overlay-row="1"] {
+    animation-delay: 60ms;
+  }
+  html[data-motion="full"] .lp-overlay[open] [data-overlay-row="2"] {
+    animation-delay: 120ms;
+  }
+  html[data-motion="full"] .lp-overlay[open] [data-overlay-row="3"] {
+    animation-delay: 180ms;
+  }
+  html[data-motion="full"] .lp-overlay[open] [data-overlay-row="4"] {
+    animation-delay: 240ms;
+  }
+  html[data-motion="full"] .lp-overlay[open] [data-overlay-row]:not([data-overlay-row="0"], [data-overlay-row="1"], [data-overlay-row="2"], [data-overlay-row="3"], [data-overlay-row="4"]) {
+    animation-delay: 300ms;
+  }
+
+  /* FAQ (§ 4.9, MOTION.md § 3.5): height and opacity 320 ms standard; the chevron turns 180° in 220 ms. */
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-faq-item {
+    interpolate-size: allow-keywords;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-faq-item::details-content {
+    height: 0;
+    opacity: 0;
+    overflow: clip;
+    transition:
+      height var(--transition-duration-slow) var(--ease-standard),
+      opacity var(--transition-duration-slow) var(--ease-standard),
+      content-visibility var(--transition-duration-slow) allow-discrete;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-faq-chevron {
+    transition: rotate var(--transition-duration-base) var(--ease-standard);
+  }
+
+  /* ==========================================================================
+     2. Reveals (§ 8.2, § 8.3; reveal.ts): clause arrival, arch rise, Ortszeile, Start-Code, settle
+     ========================================================================== */
+  html:is([data-motion="full"], [data-motion="lite"]) [data-reveal="clause"][data-reveal-state="pending"] [data-reveal-order],
+  html:is([data-motion="full"], [data-motion="lite"]) [data-reveal-order][data-reveal-state="pending"],
+  html:is([data-motion="full"], [data-motion="lite"]) [data-ortszeile][data-reveal-state="pending"],
+  html:is([data-motion="full"], [data-motion="lite"]) [data-start-code][data-reveal-state="pending"] {
+    opacity: 0;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) :is([data-reveal="arch"], [data-arch="frame"])[data-reveal-state="pending"] {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  /* Clause arrival: 10 px + fade, 640 ms arrive, 90 ms between units (lite 480 ms, ≤ 3 steps). */
+  html:is([data-motion="full"], [data-motion="lite"]) [data-reveal="clause"][data-reveal-state="in"] [data-reveal-order] {
+    animation: lp-rise10 var(--transition-duration-calm) var(--ease-arrive) both;
+    animation-delay: calc(var(--lp-d, 0ms) + var(--lp-o, 0) * 90ms);
+  }
+  /* Units triggered one by one (02's lines at the doorway's progress marks). */
+  html:is([data-motion="full"], [data-motion="lite"]) [data-reveal-order][data-reveal-state="in"] {
+    animation: lp-rise10 var(--transition-duration-calm) var(--ease-arrive) both;
+    animation-delay: var(--lp-d, 0ms);
+  }
+  html[data-motion="lite"] [data-reveal="clause"][data-reveal-state="in"] [data-reveal-order],
+  html[data-motion="lite"] [data-reveal-order][data-reveal-state="in"] {
+    animation-duration: var(--transition-duration-arrive);
+  }
+
+  /* Arch rise: opens bottom-up and rises 16 px (640 ms arrive), the photo settles 1.04 → 1 (900 ms, full only),
+     the Ortszeile rises 8 px from 480 ms; lite: 480 ms, no settle. */
+  html:is([data-motion="full"], [data-motion="lite"]) :is([data-reveal="arch"], [data-arch="frame"])[data-reveal-state="in"] {
+    animation: lp-arch-rise var(--transition-duration-calm) var(--ease-arrive) both;
+    animation-delay: var(--lp-d, 0ms);
+  }
+  html[data-motion="lite"] :is([data-reveal="arch"], [data-arch="frame"])[data-reveal-state="in"] {
+    animation-duration: var(--transition-duration-arrive);
+  }
+  html[data-motion="full"] :is([data-reveal="arch"], [data-arch="frame"])[data-reveal-state="in"] img {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+    animation-delay: var(--lp-d, 0ms);
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-ortszeile][data-reveal-state="in"] {
+    animation: lp-rise8 var(--transition-duration-arrive) var(--ease-arrive) both;
+    animation-delay: calc(var(--lp-d, 0ms) + 480ms);
+  }
+  /* The Start-Code card rises 12 px from 480 ms; its four digits rise on the brand's 90 ms stagger. */
+  html:is([data-motion="full"], [data-motion="lite"]) [data-start-code][data-reveal-state="in"] {
+    animation: lp-rise12 var(--transition-duration-arrive) var(--ease-arrive) both;
+    animation-delay: calc(var(--lp-d, 0ms) + 480ms);
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-start-code][data-reveal-state="pending"] [data-reveal-order] {
+    opacity: 0;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-start-code][data-reveal-state="in"] [data-reveal-order] {
+    animation: lp-rise10 var(--transition-duration-arrive) var(--ease-arrive) both;
+    animation-delay: calc(var(--lp-d, 0ms) + 600ms + var(--lp-o, 0) * 90ms);
+  }
+
+  /* 08 band photo settles on entry (full; band.ts). */
+  html[data-motion="full"] [data-reveal="settle"][data-reveal-state="pending"] {
+    scale: 1.04;
+  }
+  html[data-motion="full"] [data-reveal="settle"][data-reveal-state="in"] {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+
+  /* ==========================================================================
+     3. 01 Bei dir: the „Ortswechsel“ (§ 4.1.5, § 4.1.7). CSS on the Frontend's layer states, so it works from the
+        first interaction; the mark's slide is scenes/hero.ts.
+     ========================================================================== */
+  /* The LCP photo is never faded or masked in: it paints at opacity 1 and only settles, from first paint. */
+  html:not([data-motion="none"]) [data-place-layer] img[data-lcp] {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+  /* The next room rises into the doorway (640 ms arrive; lite 480 ms); its photo settles (full). */
+  html[data-motion="full"] [data-place-layer][data-state="entering"] {
+    animation: lp-wipe var(--transition-duration-calm) var(--ease-arrive) both;
+  }
+  html[data-motion="lite"] [data-place-layer][data-state="entering"] {
+    animation: lp-wipe var(--transition-duration-arrive) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] [data-place-layer] img:not([data-lcp]) {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+  /* The new Ortszeile: the old one leaves at once, the new one rises 8 px from 320 ms (480 ms arrive). */
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-hero-figure [data-ortszeile][data-state="entering"] {
+    animation: lp-rise8 var(--transition-duration-arrive) var(--ease-arrive) 320ms both;
+  }
+
+  /* ==========================================================================
+     4. 02 Idee, „Schwelle“ (§ 4.2, Appendix A; scenes/doorway.ts) and the canonical arch mask
+     ========================================================================== */
+  html[data-motion="full"] [data-scene-ready] [data-arch-mask] {
+    --rx: calc((100cqw - var(--arch-l) - var(--arch-r)) / 2 * var(--arch-k));
+    --ry: calc(var(--rx) * 1.09);
+    clip-path: inset(var(--arch-t) var(--arch-r) 0 var(--arch-l) round var(--rx) var(--rx) 0 0 / var(--ry) var(--ry) 0 0);
+  }
+  /* JS fallback (no scroll timelines): the same four properties from --lp-scene (0 → 1). */
+  html[data-motion="full"] [data-scene="doorway"][data-scene-ready] [data-arch-mask="doorway"] {
+    --arch-l: calc(37cqw * (1 - var(--lp-scene, 0)));
+    --arch-r: calc(25cqw * (1 - var(--lp-scene, 0)));
+    --arch-t: calc(9% * (1 - var(--lp-scene, 0)));
+  }
+  html[data-motion="full"] [data-scene="seal"][data-scene-ready] [data-arch-mask="seal"] {
+    --arch-l: calc(38cqw * (1 - var(--lp-scene, 0)));
+    --arch-r: calc(38cqw * (1 - var(--lp-scene, 0)));
+    --arch-t: calc(40% * (1 - var(--lp-scene, 0)));
+    --arch-k: clamp(0, (1 - var(--lp-scene, 0)) / 0.3, 1);
+  }
+  @supports (animation-timeline: view()) {
+    html[data-motion="full"] [data-scene="doorway"][data-scene-ready] [data-arch-mask="doorway"] {
+      animation: lp-doorway linear both;
+      animation-timeline: view();
+      animation-range: entry 30% entry 100%;
+    }
+    html[data-motion="full"] [data-scene="seal"][data-scene-ready] [data-arch-mask="seal"] {
+      animation: lp-seal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+
+  /* ==========================================================================
+     5. 03 Behandlungen: the preview arch (§ 4.3, fine pointer, full tier). Lite and none swap instantly.
+     ========================================================================== */
+  html[data-motion="full"] [data-preview-layer][data-state="entering"] {
+    animation: lp-wipe var(--transition-duration-arrive) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] [data-preview-layer] img {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+  html[data-motion="full"] [data-preview-caption][data-state="entering"] {
+    animation: lp-fade var(--transition-duration-base) var(--ease-standard) both;
+  }
+
+  /* ==========================================================================
+     6. 04 Ablauf, pin 1 (§ 4.4; scenes/walkthrough.ts). Full tier, scene ready.
+     ========================================================================== */
+  html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-text {
+    transition: border-left-color var(--transition-duration-base) var(--ease-standard);
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-item {
+    transition: opacity var(--transition-duration-fast) var(--ease-exit);
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready] .lp-walk-stage-outline {
+    transition: opacity var(--transition-duration-base) var(--ease-standard);
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] .lp-walk-stage-outline {
+    transition: opacity var(--transition-duration-base) var(--ease-exit);
+  }
+  /* Steps 1–2: the vignette fades in (320 ms), its cards rise 10 px on a 60 ms stagger (≤ 4). */
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="1"] [data-step-item="1"],
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="2"] [data-step-item="2"] {
+    animation: lp-fade var(--transition-duration-slow) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="1"] [data-step-item="1"] .lp-walk-vignette > * > *,
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="2"] [data-step-item="2"] .lp-walk-vignette > * > * {
+    animation: lp-rise10 var(--transition-duration-slow) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready] [data-step-item] .lp-walk-vignette > * > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready] [data-step-item] .lp-walk-vignette > * > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready] [data-step-item] .lp-walk-vignette > * > :nth-child(n + 4) {
+    animation-delay: 180ms;
+  }
+  /* Step 3, the signature: the pair rises (left first, 90 ms), photos settle, Ortszeilen and the Start-Code follow
+     from 480 ms, the digits on the 90 ms stagger. */
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-arch {
+    animation: lp-arch-rise var(--transition-duration-calm) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-arch img {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-pair-right .lp-arch,
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-pair-right .lp-arch img {
+    animation-delay: 90ms;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] [data-ortszeile] {
+    animation: lp-rise8 var(--transition-duration-arrive) var(--ease-arrive) 480ms both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] [data-start-code] {
+    animation: lp-rise12 var(--transition-duration-arrive) var(--ease-arrive) 480ms both;
+  }
+  html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] [data-step-item="3"] [data-start-code] [data-reveal-order] {
+    animation: lp-rise10 var(--transition-duration-arrive) var(--ease-arrive) both;
+    animation-delay: calc(600ms + var(--lp-o, 0) * 90ms);
+  }
+
+  /* ==========================================================================
+     7. 04 → 05 → 06: dusk and dawn (§ 7; scenes/tone.ts). Full tier, spacers ready. Scroll-linked, linear.
+     ========================================================================== */
+  html[data-motion="full"] .lp-spacer-dusk[data-scene-ready] {
+    background-color: color-mix(in oklab, var(--soma-espresso) calc(var(--lp-scene, 0) * 100%), var(--soma-stone));
+  }
+  html[data-motion="full"] .lp-spacer-dawn[data-scene-ready] {
+    background-color: color-mix(in oklab, var(--soma-bone) calc(var(--lp-scene, 0) * 100%), var(--soma-espresso));
+  }
+  @supports (animation-timeline: view()) {
+    html[data-motion="full"] .lp-spacer-dusk[data-scene-ready] {
+      animation: lp-dusk linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    html[data-motion="full"] .lp-spacer-dawn[data-scene-ready] {
+      animation: lp-dawn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+
+  /* ==========================================================================
+     8. 05 Dein Ort, pin 2 (§ 4.5; scenes/stage.ts). Full tier, scene ready. The active place sits on top and rises
+        into the arch (640 ms arrive, photo settles 900 ms) over the previous one, which leaves once it is covered;
+        the old line leaves in 160 ms (exit), the new one rises 10 px from 160 ms (320 ms arrive); the Ortszeile
+        crossfades (220 ms). The counter changes instantly.
+     ========================================================================== */
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item {
+    z-index: 0;
+    transition: opacity 0s linear var(--transition-duration-calm);
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] {
+    --lp-active: 1;
+    z-index: 1;
+    transition: none;
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-cap {
+    opacity: var(--lp-active, 0);
+    transition: opacity var(--transition-duration-fast) var(--ease-exit);
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"] .lp-essay-arch,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"] .lp-essay-arch,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-essay-arch,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"] .lp-essay-arch,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"] .lp-essay-arch,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] .lp-essay-arch {
+    animation: lp-wipe var(--transition-duration-calm) var(--ease-arrive) both;
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"] .lp-essay-arch img,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"] .lp-essay-arch img,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"] .lp-essay-arch img,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"] .lp-essay-arch img,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"] .lp-essay-arch img,
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] .lp-essay-arch img {
+    animation: lp-settle var(--transition-duration-reveal) var(--ease-settle) both;
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"] [data-ortszeile],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"] [data-ortszeile],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"] [data-ortszeile],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"] [data-ortszeile],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"] [data-ortszeile],
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] [data-ortszeile] {
+    animation: lp-fade var(--transition-duration-base) var(--ease-standard) both;
+  }
+  /* The line (and note) rise from 160 ms, but only once the stage is pinned: until then the chapter headline may
+     still be in view, and two serif lines never share a view. */
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-scene-state="idle"] [data-step-item="1"] :is(.lp-essay-line, .lp-essay-note) {
+    opacity: 0;
+  }
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="1"] [data-step-item="1"] :is(.lp-essay-line, .lp-essay-note),
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="2"] [data-step-item="2"] :is(.lp-essay-line, .lp-essay-note),
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="3"] [data-step-item="3"] :is(.lp-essay-line, .lp-essay-note),
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="4"] [data-step-item="4"] :is(.lp-essay-line, .lp-essay-note),
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="5"] [data-step-item="5"] :is(.lp-essay-line, .lp-essay-note),
+  html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-scene-state="idle"])[data-step="6"] [data-step-item="6"] :is(.lp-essay-line, .lp-essay-note) {
+    animation: lp-rise10 var(--transition-duration-slow) var(--ease-arrive) var(--transition-duration-fast) both;
+  }
+
+  /* ==========================================================================
+     9. 07 Deine Buchung (§ 4.7; scenes/screens.ts): the move to the region, the crossfade between screen files.
+     ========================================================================== */
+  html[data-motion="full"] .lp-screen-track {
+    transition: translate var(--transition-duration-arrive) var(--ease-arrive);
+  }
+  html[data-motion="lite"] .lp-screen-track {
+    transition: translate var(--transition-duration-slow) var(--ease-arrive);
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) .lp-screen-img {
+    transition: opacity var(--transition-duration-base) var(--ease-standard);
+  }
+
+  /* ==========================================================================
+     10. 10 SOMA, the brand sequence (§ 4.10; scenes/seal.ts): idle (hidden, below the fold) → active → done.
+         0–640 the O traces · 320–960 the S traces · 960–1180 ring and S fill, contours fade · 1180–1660 the wordmark
+         settles · 1340–1660 the rule grows · 1500–1980 the tagline, then the German line.
+     ========================================================================== */
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="idle"] :is([data-seal-part="o-fill"], [data-seal-part="s-fill"], [data-seal-part="wordmark"], [data-seal-part="line"]),
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="idle"] [data-seal-part="tagline"] [data-reveal-order] {
+    opacity: 0;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="idle"] [data-seal-part="rule"] {
+    scale: 0 1;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="o-trace"] {
+    animation:
+      lp-draw var(--transition-duration-calm) var(--ease-arrive) both,
+      lp-fade-out var(--transition-duration-base) var(--ease-exit) 960ms forwards;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="s-trace"] {
+    animation:
+      lp-draw var(--transition-duration-calm) var(--ease-arrive) 320ms both,
+      lp-fade-out var(--transition-duration-base) var(--ease-exit) 960ms forwards;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] :is([data-seal-part="o-fill"], [data-seal-part="s-fill"]) {
+    animation: lp-fade var(--transition-duration-base) var(--ease-standard) 960ms both;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="wordmark"] {
+    animation: lp-rise-mark var(--transition-duration-arrive) var(--ease-arrive) 1180ms both;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="rule"] {
+    animation: lp-grow-x var(--transition-duration-slow) var(--ease-arrive) 1340ms both;
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="tagline"] [data-reveal-order] {
+    animation: lp-rise10 var(--transition-duration-arrive) var(--ease-arrive) both;
+    animation-delay: calc(1500ms + var(--lp-o, 0) * 90ms);
+  }
+  html:is([data-motion="full"], [data-motion="lite"]) [data-scene="seal"][data-scene-state="active"] [data-seal-part="line"] {
+    animation: lp-rise10 var(--transition-duration-arrive) var(--ease-arrive) 1680ms both;
+  }
+}

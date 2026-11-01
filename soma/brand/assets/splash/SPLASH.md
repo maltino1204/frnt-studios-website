@@ -1,6 +1,10 @@
 # SOMA launch treatment and "the mark draws on"
 
-*Identity Designer · v1.1 · Brand Audit 1, M3. Motion principles: `brand/applications/motion/MOTION.md` (Art Director); this file specifies the asset. The product engineer integrates it.*
+*Identity Designer · v1.2.1 · Brand Audit 1 (M3), Brand Audit 2 (the Versatz), Brand Audit 3 (N11: what is shipped vs. what is a concept). Motion principles: `brand/applications/motion/MOTION.md` (Art Director). This file specifies the asset; the product engineer integrates it.*
+
+> **Status (1 Nov 2026):**
+> - **Shipped:** the iOS startup images, and the draw-on in the landing page's closing band (§ 2).
+> - **Concept, not built:** the PWA first-paint intro (§ 3). No code in `src/` plays the draw-on on an app start.
 
 | File | Use |
 |---|---|
@@ -17,7 +21,7 @@ The mark is the S (the body) inside the O (the place). The animation tells that 
 
 | Time | Element | Property | Easing |
 |---|---|---|---|
-| 0–640 ms | O, both contours (outer and counter) | `stroke-dashoffset` 1 → 0 (`pathLength="1"`), stroke 5 units on 664 × 724 | `ease-arrive` `cubic-bezier(0.16, 1, 0.3, 1)` |
+| 0–640 ms | O, both contours (outer and counter) | `stroke-dashoffset` 1 → 0 (`pathLength="1"`), stroke 5 units on 744 × 724 (the mark with the Versatz) | `ease-arrive` `cubic-bezier(0.16, 1, 0.3, 1)` |
 | 320–960 ms | S contour | `stroke-dashoffset` 1 → 0 | `ease-arrive` |
 | 480–700 ms | O fill | opacity 0 → 1 | `ease-standard` |
 | 900–1120 ms | S fill | opacity 0 → 1 | `ease-standard` |
@@ -27,20 +31,28 @@ The mark is the S (the body) inside the O (the place). The animation tells that 
 - **Never:** a loader or spinner substitute, a loop, a morph from or into other letters, a scale-up from 0, a bounce. It never delays interaction (§ 2).
 - **Colours:** Oxblood on Bone (default), Bone on Oxblood or Espresso. One colour per mark.
 
-## 2. Where it runs
+## 2. Where it runs (as built)
 
-| Surface | Treatment |
-|---|---|
-| **PWA cold start** (standalone display) | The OS shows the static splash: on Android it is generated from `manifest.background_color` (#F3EFE8) + the icon; on iOS it is the `apple-splash-*.png` image. Then the app's first paint shows the **draw-on once per session**: centred overlay, mark 96 px tall on Bone. The overlay fades out (220 ms) at 1.2 s, or earlier as soon as the content is ready. `pointer-events: none` from the first frame, so it never blocks input. |
-| Browser tab (not standalone) | No splash, no animation. |
-| Video end frames, social avatar intro | The SVG or the storyboard frames; the wordmark lockup reveal (`MOTION.md` § 3.6.3) may follow. |
+| Surface | Status | Treatment |
+|---|---|---|
+| **iOS PWA cold start** | **Shipped** | Static startup images: `ios/apple-splash-*.png` are copied to `public/splash/` and wired in `src/app/layout.tsx` (`appleWebApp.startupImage`, 10 portrait sizes). Bone ground, the stacked mark in Oxblood. **No animation follows.** |
+| Android PWA cold start | Shipped (by the OS) | Android generates the splash from `manifest.background_color` (#F3EFE8) and the icon. No animation. |
+| **Landing page, closing band** (`/`, chapter 10) | **Shipped as the draw-on surface** | `src/components/landing/seal/closing-lockup.tsx` builds the stacked lockup with contour strokes (`data-seal-part="o-trace"`, `"s-trace"`, `pathLength 1`, from the left springline) and fills (`"o-fill"`, `"s-fill"`). The paths come from `logo.tsx`, so the band follows the masters. The landing motion layer plays the § 1 timeline **once**, when the band enters the viewport (`MOTION.md` § 3.6.2). Static state and reduced motion show the final frame: fills shown, contours hidden. The trace is driven by the landing's motion module (product engineer); until that module plays it, the band shows the final frame. |
+| Brand book `/kit/marke` | Shipped (demo) | `src/app/kit/marke/draw-on.tsx`: the same timeline, with a replay button. |
+| Video end frames, social avatar intro | Asset ready | `soma-mark-draw.svg`, or the storyboard frames. The wordmark lockup reveal (`MOTION.md` § 3.6.3) may follow. |
+| Browser tab (not standalone) | n/a | No splash, no animation. |
 
-**Session rule:** `sessionStorage['soma-intro'] = '1'` after the first play. Never on navigation, never on reload within a session.
+## 3. Concept, not built: the PWA first-paint intro
 
-## 3. Suggested implementation (product engineer)
+*This was the v1.1 proposal. It is **not implemented**, and nothing in the product depends on it. Build it only if the client wants a branded app start; then move it into § 2.*
+
+- **Idea:** after the OS splash, the app's first paint in standalone mode shows the draw-on **once per session**, as a centred overlay with the mark 96 px tall on Bone.
+- **Timing:** it fades out (220 ms) at 1.2 s, or earlier as soon as the content is ready.
+- **Input:** `pointer-events: none` from the first frame, so it never blocks input.
+- **Session rule:** set `sessionStorage['soma-intro'] = '1'` after the first play. Never on navigation, never on a reload within a session.
 
 ```tsx
-// src/components/brand/intro.tsx (client). Paths from brand/assets/splash/soma-mark-draw.json.
+// Sketch only. src/components/brand/intro.tsx (client). Paths from brand/assets/splash/soma-mark-draw.json.
 "use client";
 export function BrandIntro() {
   const [show, setShow] = useState(false);
@@ -61,6 +73,14 @@ export function BrandIntro() {
 }
 ```
 
-iOS startup images, in `layout.tsx` metadata (`appleWebApp.startupImage`), for example: `{ url: "/brand/splash/apple-splash-1179x2556.png", media: "(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" }`. Copy `ios/*.png` to `public/brand/splash/`.
+**Verify (if built):**
+- A screen recording at 390 px in standalone mode shows the mark draw once.
+- With `reducedMotion: "reduce"`, the first frame is the final mark.
+- Input is possible during the animation.
 
-**Verify:** a screen recording at 390 px in standalone mode shows the mark draw once; with `reducedMotion: "reduce"` the first frame is the final mark; input is possible during the animation.
+## 4. Verify what is shipped
+
+- **iOS startup images:** `public/splash/*.png` must be byte-identical to `ios/*.png`. Rebuild with `node brand/tools/build-splash.mjs`, then copy.
+- **Closing band:**
+  - Playwright at 390 and 1440 on `/`: scroll to chapter 10. The `o-trace` and `s-trace` contours animate once and end at opacity 0, and the fills are visible.
+  - With `reducedMotion: "reduce"`, the final frame shows immediately.
