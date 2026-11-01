@@ -31,7 +31,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
           <span className="sr-only"> von 5 Sternen</span>
         </>
       ),
-      label: `aus${NBSP}${proof.reviewCount.toLocaleString("de-DE")} verifizierten Bewertungen`,
+      label: `aus${NBSP}${proof.reviewCount.toLocaleString("de-DE")} Bewertungen nach echten Terminen`,
     });
   }
   if (proof && proof.approvedProviders > 0) {
@@ -45,7 +45,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
     <Section aria-labelledby="stimmen-titel" className="pt-4 pb-0 md:pt-6">
       <Container className="flex flex-col gap-6 md:gap-8">
         <h2 id="stimmen-titel" className="sr-only">
-          Verifizierte Bewertungen
+          Bewertungen nach echten Terminen
         </h2>
         {stats.length ? (
           <Reveal>
@@ -66,7 +66,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
             label="Stimmen"
             className="@container -mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) overflow-x-auto px-(--space-gutter) pt-4 pb-8 scrollbar-none md:mx-0 md:block md:snap-none md:overflow-visible md:px-0"
           >
-            <Reveal as="ul" stagger aria-label="Stimmen aus verifizierten Bewertungen" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
+            <Reveal as="ul" stagger aria-label="Stimmen aus Bewertungen nach echten Terminen" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
               {quotes.map((q) => (
                 <li key={q.id} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
                   <figure className="flex h-full flex-col justify-between gap-6 rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
@@ -115,7 +115,7 @@ export function GuaranteePanel({ disputeWindowHours, className }: { disputeWindo
         </Badge>
       </div>
       <h3 className="max-w-[34rem] type-display-s text-ink">
-        {`Wenn etwas nicht stimmt, melden Sie es innerhalb von ${disputeWindowHours}${NBSP}Stunden. Wir finden eine Lösung.`}
+        {`Stimmt etwas nicht, meldest du es bis ${disputeWindowHours}${NBSP}Stunden nach dem Termin. Wir finden mit dir eine Lösung.`}
       </h3>
       <ul className="flex flex-wrap gap-2" aria-label="Mögliche Lösungen">
         {["Nachbesserung", "Gutschrift", "Erstattung"].map((x) => (

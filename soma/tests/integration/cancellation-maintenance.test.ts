@@ -101,7 +101,7 @@ describe("cancellation fees by tier (total 90 € = 80 € service + 10 € trav
 
   it("no-show from 15 minutes after the start: 100 % of the service price plus travel", async () => {
     const { pro, b } = await confirmedBooking(3);
-    await expect(markNoShow(pro.session, b.bookingId)).rejects.toThrow(/15 Minuten/);
+    await expect(markNoShow(pro.session, b.bookingId)).rejects.toThrow(/15\sMinuten/);
     await timeTravel(b.bookingId, new Date(Date.now() - 20 * 60_000));
     expect(await markNoShow(pro.session, b.bookingId)).toEqual({ status: "no_show", feeCents: 9000 });
     expect(await payment(b.bookingId)).toEqual({ status: "captured", capturedCents: 9000 });

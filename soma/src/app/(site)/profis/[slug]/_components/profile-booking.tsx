@@ -131,7 +131,7 @@ function PlzField({ idPrefix }: { idPrefix: string }) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-4 rounded-tile bg-surface-sunken/70 py-1 pr-1.5 pl-4">
           <p className="type-body-s">
-            <span className="text-ink-muted">Ihre Postleitzahl </span>
+            <span className="text-ink-muted">Deine Postleitzahl </span>
             <span className="font-semibold num">{travel.postalCode}</span>
             {travel.within ? (
               <span className="text-ink-muted">{` · ${formatDistance(travel.distanceKm)} · Anfahrt ${formatPrice(travel.feeCents)}`}</span>
@@ -145,7 +145,7 @@ function PlzField({ idPrefix }: { idPrefix: string }) {
           <Notice kind="warning" title="Außerhalb des Einsatzgebiets">
             {`${providerName} fährt leider nicht bis ${travel.postalCode}. `}
             <Link href={routes.search({ plz: travel.postalCode, kategorie: picker.offering.categorySlug, leistung: picker.offering.serviceSlug })}>
-              Profis in Ihrer Nähe anzeigen
+              Profis in deiner Nähe anzeigen
             </Link>
           </Notice>
         ) : null}
@@ -158,17 +158,17 @@ function PlzField({ idPrefix }: { idPrefix: string }) {
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
-        if (!/^\d{5}$/.test(value)) return setError("Bitte geben Sie eine fünfstellige Postleitzahl ein.");
+        if (!/^\d{5}$/.test(value)) return setError("Bitte gib eine fünfstellige Postleitzahl ein.");
         quote(value);
       }}
     >
       <Input
         id={`${idPrefix}-plz`}
-        label="Ihre Postleitzahl"
+        label="Deine Postleitzahl"
         inputMode="numeric"
         autoComplete="postal-code"
         maxLength={5}
-        placeholder="z. B. 10115"
+        placeholder="z. B. 10115"
         value={value}
         onChange={(e) => setValue(e.target.value.replace(/\D/g, "").slice(0, 5))}
         error={error}
@@ -192,7 +192,7 @@ function BookingCta({ block }: { block?: boolean }) {
         <Button size="l" block={block} disabled>
           {blocked ? "Außerhalb des Einsatzgebiets" : "Uhrzeit wählen"}
         </Button>
-        {!blocked ? <p className="type-caption text-ink-muted">Wählen Sie oben Tag und Uhrzeit.</p> : null}
+        {!blocked ? <p className="type-caption text-ink-muted">Wähl oben Tag und Uhrzeit.</p> : null}
       </div>
     );
   }

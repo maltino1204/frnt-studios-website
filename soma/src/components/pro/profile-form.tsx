@@ -75,7 +75,7 @@ export function ProfileForm({
         maxLength={80}
         onChange={(e) => setDisplayName(e.target.value)}
         error={errors.displayName}
-        hint="Vorname und Initial, z. B. „Selin A.“ – so erscheinst du in der Suche."
+        hint="Vorname und Initial, z. B. „Selin A.“ – so erscheinst du in der Suche."
         autoComplete="nickname"
       />
       <Input
@@ -85,7 +85,7 @@ export function ProfileForm({
         maxLength={120}
         onChange={(e) => setHeadline(e.target.value)}
         error={errors.headline}
-        placeholder="z. B. Massagen mit Ruhe und Struktur – ich bringe alles mit."
+        placeholder="z. B. Massagen mit Ruhe und Struktur – ich bringe alles mit."
       />
       <div className="flex flex-col gap-1.5">
         <Textarea
@@ -95,7 +95,7 @@ export function ProfileForm({
           value={bio}
           onChange={(e) => setBio(e.target.value)}
           error={errors.bio}
-          hint="Erzähl, wie du arbeitest und was du mitbringst. Bitte ohne Heilversprechen (z. B. „lindert Schmerzen“) – SOMA bietet Wellness, keine Therapie."
+          hint="Erzähl, wie du arbeitest und was du mitbringst. Bitte ohne Heilversprechen (z. B. „lindert Schmerzen“) – SOMA bietet Wellness, keine Therapie."
         />
         <p className={cn("self-end type-caption num", bioLen < 40 ? "text-ink-muted" : "text-ink-muted")} aria-live="polite">
           {bioLen} / {BIO_MAX}

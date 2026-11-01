@@ -1,0 +1,25 @@
+Dein Termin ist bestätigt
+Shellac-Maniküre mit Anna, Do., 12. Nov., 18:30 Uhr
+
+Hallo Julia,
+dein Termin steht.
+
+Shellac-Maniküre · 60 Min.
+Do., 12. Nov., 18:30 Uhr
+Zuhause, Kastanienallee 12, 10435 Berlin
+mit Anna K.
+
+Gesamtpreis 54,00 € inkl. Anfahrt. Der Betrag ist auf deiner Karte reserviert und wird erst nach dem Termin belastet.
+Kostenlos stornierbar bis Mi., 11. Nov., 18:30 Uhr.
+
+Dein Start-Code steht in deiner Buchung. Nenn ihn Anna an der Tür – damit beginnt der Termin.
+Zur Vorbereitung: Ein Tisch mit gutem Licht genügt. Werkzeug, Lacke und Lampe bringt Anna mit.
+
+Buchung ansehen: https://soma.example/buchung/demo
+Zum Kalender hinzufügen: https://soma.example/buchung/demo/kalender
+
+—
+Buchungsnummer SM-7KX4Q2 · Fragen? Schreib uns an hilfe@soma.example und nenn deine Buchungsnummer.
+SOMA vermittelt diesen Termin. Vertragspartner für die Behandlung ist Anna K. (selbstständig).
+Impressum: https://soma.example/impressum · Datenschutz: https://soma.example/datenschutz · AGB: https://soma.example/agb
+Du erhältst diese E-Mail, weil du bei SOMA einen Termin gebucht hast.

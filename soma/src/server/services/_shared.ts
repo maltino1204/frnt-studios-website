@@ -13,8 +13,8 @@ z.config(z.locales.de());
 const deNumber = (n: number | bigint) => (typeof n === "bigint" ? n.toString() : n.toLocaleString("de-DE"));
 
 /**
- * Human German messages for the common issues (audit-1 R17), neutral voice so they fit
- * customers ("Sie") and providers ("du"). Schema-level messages still win; anything not
+ * Human German messages for the common issues (audit-1 R17), neutral voice (no pronoun) so they fit
+ * every role. Schema-level messages still win; anything not
  * handled here falls back to the zod German locale.
  */
 export function germanIssueMessage(iss: z.core.$ZodRawIssue): string | undefined {
@@ -55,6 +55,9 @@ export function endSentence(text: string): string {
   return /[.!?…]$/.test(text.trimEnd()) ? text.trimEnd() : `${text.trimEnd()}.`;
 }
 
+/** Summary message of a failed validation (customers and providers are both addressed with "du", BRAND_VOICE § 1). */
+export const VALIDATION_MESSAGE = "Bitte prüf deine Eingaben.";
+
 /** Validates `input` and throws a German ServiceError with field errors. */
 export function parse<S extends z.ZodType>(schema: S, input: unknown): z.output<S> {
   const res = schema.safeParse(input);
@@ -64,7 +67,7 @@ export function parse<S extends z.ZodType>(schema: S, input: unknown): z.output<
     const key = issue.path.map(String).join(".") || "_";
     if (!fieldErrors[key]) fieldErrors[key] = issue.message;
   }
-  throw new ServiceError("validation", "Bitte überprüfen Sie Ihre Eingaben.", fieldErrors);
+  throw new ServiceError("validation", VALIDATION_MESSAGE, fieldErrors);
 }
 
 /**
@@ -79,12 +82,12 @@ export function assertNoContactDetails(fields: Record<string, string | null | un
 }
 
 export const zUuid = z.guid("Ungültige ID.");
-export const zPostalCode = z.string().trim().regex(/^\d{5}$/, "Bitte geben Sie eine gültige fünfstellige Postleitzahl ein.");
+export const zPostalCode = z.string().trim().regex(/^\d{5}$/, "Bitte gib eine fünfstellige Postleitzahl ein.");
 export const zLocalDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Ungültiges Datum.");
 export const zIsoInstant = z.iso.datetime({ offset: true, error: "Ungültiger Zeitpunkt." });
 
 export function requireRoleIn(session: Session | null | undefined, ...roles: AppRole[]): Session {
-  if (!session) throw new ServiceError("unauthenticated", "Bitte melden Sie sich an.");
+  if (!session) throw new ServiceError("unauthenticated", "Bitte melde dich an.");
   if (!roles.includes(session.role)) throw new ServiceError("forbidden", "Dafür fehlt die Berechtigung.");
   return session;
 }

@@ -73,13 +73,13 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
         if (error?.status === 422 || /already/i.test(error?.message ?? "")) {
           throw new ServiceError("conflict", "Für diese E-Mail-Adresse besteht bereits ein Konto.", { email: "Diese E-Mail-Adresse ist bereits registriert." });
         }
-        throw new ServiceError("internal", "Die Registrierung ist fehlgeschlagen. Bitte versuchen Sie es erneut.");
+        throw new ServiceError("internal", "Die Registrierung hat nicht geklappt. Bitte versuch es noch einmal.");
       }
       return { userId: data.user.id };
     },
     async signIn(email, password) {
       const { data, error } = await client().auth.signInWithPassword({ email: normalizeEmail(email), password });
-      if (error?.status === 429) throw new ServiceError("rate_limited", "Zu viele Anmeldeversuche. Bitte warten Sie einige Minuten.");
+      if (error?.status === 429) throw new ServiceError("rate_limited", "Zu viele Anmeldeversuche. Bitte warte einige Minuten.");
       if (error || !data.user) throw new ServiceError("unauthenticated", INVALID_LOGIN);
       return { userId: data.user.id };
     },
@@ -103,7 +103,7 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       assertPasswordPolicy(newPassword);
       const sb = client();
       const { error: exErr } = await sb.auth.exchangeCodeForSession(code);
-      if (exErr) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.");
+      if (exErr) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.");
       const { error } = await sb.auth.updateUser({ password: newPassword });
       if (error) throw new ServiceError("internal", "Das Passwort konnte nicht geändert werden.");
     },
@@ -119,7 +119,7 @@ export function createSupabaseAuthAdapter(cookies: CookieJar): AuthAdapter {
       assertPasswordPolicy(next);
       const sb = client();
       const { data } = await sb.auth.getUser();
-      if (!data.user?.email) throw new ServiceError("unauthenticated", "Bitte melden Sie sich erneut an.");
+      if (!data.user?.email) throw new ServiceError("unauthenticated", "Bitte melde dich erneut an.");
       const check = await sb.auth.signInWithPassword({ email: data.user.email, password: current });
       if (check.error) throw new ServiceError("validation", "Das aktuelle Passwort ist falsch.", { currentPassword: "Das aktuelle Passwort ist falsch." });
       const { error } = await sb.auth.updateUser({ password: next });

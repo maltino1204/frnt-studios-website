@@ -39,7 +39,7 @@ describe("contact lint on free texts (audit-1 R7)", () => {
     expect(ok.bio).toContain("45–60 Minuten");
   });
 
-  it("rejects contact details in booking notes (Sie) and keeps the phone hidden until confirmation", async () => {
+  it("rejects contact details in booking notes (customer wording) and keeps the phone hidden until confirmation", async () => {
     const pro = await createProvider({ bookingMode: "request" });
     const c = await createCustomer();
     const slot = await slotAtLeast(pro.providerId, pro.offerings.entspannungsmassage, 30);
@@ -56,7 +56,7 @@ describe("contact lint on free texts (audit-1 R7)", () => {
     expect(asPro?.notes).toBe("Parkplatz im Hof.");
   });
 
-  it("rejects contact details in reviews (Sie) and replies (du)", async () => {
+  it("rejects contact details in reviews (customer wording) and replies (provider wording)", async () => {
     const { pro, c, b } = await completedBooking();
     await expect(createReview(c, b.bookingId, 5, "Super, buche sie direkt über anna@example.com")).rejects.toMatchObject({ message: CONTACT_LINT_MESSAGES.customerReview, fieldErrors: { comment: CONTACT_LINT_MESSAGES.customerReview } });
     const { reviewId } = await createReview(c, b.bookingId, 5, "Sehr entspannend, gerne wieder.");
@@ -79,7 +79,7 @@ describe("request-mode response window (audit-1 R9)", () => {
     expect((await quoteBooking({ providerServiceId: pro.offerings.entspannungsmassage, startsAt: tooSoon, postalCode: NEW_ADDRESS.postalCode }, c)).slotAvailable).toBe(false);
     await expect(createBooking(c, { providerServiceId: pro.offerings.entspannungsmassage, startsAt: tooSoon, address: NEW_ADDRESS })).rejects.toMatchObject({
       code: "unavailable",
-      message: "Für diesen Termin bliebe zu wenig Zeit für die Antwort des Profis. Bitte wählen Sie einen späteren Termin.",
+      message: "Für diesen Termin bliebe zu wenig Zeit für die Antwort des Profis. Bitte wähl einen späteren Termin.",
     });
   });
 });

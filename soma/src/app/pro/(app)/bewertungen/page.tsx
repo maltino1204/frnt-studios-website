@@ -52,7 +52,7 @@ export default async function ProReviewsPage({ searchParams }: PageProps<"/pro/b
               ))}
             </dl>
             {/* A5-3: the footnote sits after the <dl>, not inside it. */}
-            {total ? <p className="pt-1 type-caption text-ink-muted num">{Math.round(((list.distribution["5"] + list.distribution["4"]) / total) * 100)} % mit vier oder fünf Sternen</p> : null}
+            {total ? <p className="pt-1 type-caption text-ink-muted num">{Math.round(((list.distribution["5"] + list.distribution["4"]) / total) * 100)} % mit vier oder fünf Sternen</p> : null}
           </div>
         </section>
       ) : null}

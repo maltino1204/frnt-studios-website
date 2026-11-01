@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps<"/staedte/[stadt]">
   const city = await loadCity(stadt);
   if (!city) notFound();
   const title = `Beauty & Wellness zu Hause in ${city.name}`;
-  const description = `Massage, Maniküre, Kosmetik, Make-up und mehr in ${city.name}: geprüfte Profis kommen zu Ihnen nach Hause, ins Hotel oder ins Büro. Endpreise inklusive Anfahrt.`;
+  const description = `Massage, Maniküre, Kosmetik, Make-up und mehr in ${city.name}: geprüfte Profis kommen zu dir nach Hause, ins Hotel oder ins Büro. Endpreis inklusive Anfahrt.`;
   return { title, description, alternates: { canonical: routes.city(city.slug) }, openGraph: { title, description } };
 }
 
@@ -72,7 +72,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
   };
   const liveCount = catalog.filter((c) => count(c.slug) > 0).length;
   const cityFrom = floors.length ? Math.min(...floors.map((f) => f.fromCents)) : null;
-  const [title, emphasis] = splitHeadline(intro.title ? `${intro.title}.` : `Beauty & Wellness zu Hause. In ${city.name}.`);
+  const [title, emphasis] = splitHeadline(intro.title ? `${intro.title}.` : `Beauty & Wellness bei dir. In ${city.name}.`);
   const crumbs = [
     { name: "Start", path: routes.home() },
     { name: "Städte", path: "/staedte" },
@@ -89,7 +89,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
         overline={city.state && city.state !== city.name ? `${city.name} · ${city.state}` : `Stadt · ${city.name}`}
         title={title}
         emphasis={emphasis}
-        lead={intro.body ?? `Geprüfte Profis kommen in ${city.name} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}
+        lead={intro.body ?? `Geprüfte Profis kommen in ${city.name} zu dir – nach Hause, ins Hotel oder ins Büro.`}
         photo={{ src: images.editorial.arrival, alt: "", word: `${city.name}.`, tone: "brows-lashes", seed: `stadt:${city.slug}` }}
         badges={
           <>
@@ -121,7 +121,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
               <div className="flex max-w-reading flex-col gap-4">
                 <Overline>Behandlungen</Overline>
                 <h2 id="behandlungen-titel" className="type-display-l">
-                  Was in {city.name} <em>zu Ihnen kommt.</em>
+                  Was in {city.name} <em>zu dir kommt.</em>
                 </h2>
               </div>
             }
@@ -153,7 +153,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
                   <h2 id="profis-titel" className="type-display-l">
                     Profis in <em>{city.name}.</em>
                   </h2>
-                  <p className="type-body-l text-ink-muted">Verifiziert und bewertet von Kundschaft, die wirklich gebucht hat.</p>
+                  <p className="type-body-l text-ink-muted">Geprüft und bewertet von Kundschaft, die wirklich gebucht hat.</p>
                 </div>
               }
             >

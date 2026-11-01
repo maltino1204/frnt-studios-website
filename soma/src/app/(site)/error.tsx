@@ -20,7 +20,7 @@ export default function SiteError({ error, retry }: { error: unknown; retry: () 
           Das hat nicht geklappt.
         </h1>
         <p className="type-body-l text-ink-muted">
-          Beim Laden dieser Seite ist ein Fehler aufgetreten. Versuchen Sie es bitte noch einmal. Bleibt der Fehler, schreiben Sie uns an{" "}
+          Beim Laden dieser Seite ist ein Fehler aufgetreten. Bitte versuch es noch einmal. Bleibt der Fehler, schreib uns an{" "}
           <a href={`mailto:${SUPPORT_EMAIL}`} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             {SUPPORT_EMAIL}
           </a>

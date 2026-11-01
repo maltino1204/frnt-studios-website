@@ -133,7 +133,7 @@ export function ProviderRow({
               <li key={iso} className="shrink-0">
                 <SlotChipLink
                   href={`${routes.checkout({ angebot: r.offering.providerServiceId, start: iso, plz: postalCode })}${inviteCode ? `&einladung=${encodeURIComponent(inviteCode)}` : ""}`}
-                  aria-label={`${slotChipLabel(iso, true, now)} Uhr bei ${r.displayName} buchen`}
+                  aria-label={`${slotChipLabel(iso, true, now)} Uhr bei ${r.displayName} buchen`}
                 >
                   {slotChipLabel(iso, multiDay && !groupDay, now)}
                 </SlotChipLink>

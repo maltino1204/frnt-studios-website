@@ -46,7 +46,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
   const cat = primaryCategory(p);
   const title = `${p.displayName} – ${cat?.name ?? "Beauty & Wellness"}${p.cityName ? ` in ${p.cityName}` : ""}`;
   const description =
-    (p.bio ?? p.headline ?? `${p.displayName} kommt zu Ihnen nach Hause, ins Hotel oder ins Büro.`).slice(0, 155) +
+    (p.bio ?? p.headline ?? `${p.displayName} kommt zu dir nach Hause, ins Hotel oder ins Büro.`).slice(0, 155) +
     ((p.bio?.length ?? 0) > 155 ? "…" : "");
   const img = resolveImage(p.avatarUrl);
   return {
@@ -61,8 +61,8 @@ function travelExplanation(p: ProviderProfileDTO): string {
   const { baseCents, includedKm, perKmCents } = p.travelFee;
   if (baseCents === 0 && perKmCents === 0) return "Die Anfahrt ist im Preis enthalten.";
   const parts: string[] = [];
-  if (baseCents > 0) parts.push(`Anfahrtspauschale ${formatPriceExact(baseCents)}${includedKm > 0 ? `, inklusive ${includedKm.toLocaleString("de-DE")} km` : ""}`);
-  else if (includedKm > 0) parts.push(`Die ersten ${includedKm.toLocaleString("de-DE")} km sind inklusive`);
+  if (baseCents > 0) parts.push(`Anfahrtspauschale ${formatPriceExact(baseCents)}${includedKm > 0 ? `, inklusive ${includedKm.toLocaleString("de-DE")} km` : ""}`);
+  else if (includedKm > 0) parts.push(`Die ersten ${includedKm.toLocaleString("de-DE")} km sind inklusive`);
   if (perKmCents > 0) parts.push(`danach ${formatPriceExact(perKmCents)} je weiteren Kilometer`);
   return `${parts.join("; ")}. Der Endpreis inklusive Anfahrt steht vor der Buchung fest.`;
 }
@@ -214,7 +214,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
     <div className="flex flex-col gap-14 lg:gap-16">
       {profile.inviteValid ? (
         <Notice kind="info" title={`Persönliche Einladung von ${profile.displayName}`}>
-          Sie buchen über den Link Ihrer Fachkraft. Preise und Bedingungen sind dieselben.
+          {`Du buchst über den persönlichen Link von ${profile.displayName}. Preise und Bedingungen sind dieselben.`}
         </Notice>
       ) : null}
 
@@ -240,7 +240,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
             {travel?.within
               ? `Endpreise inklusive Anfahrt nach ${travel.postalCode}.`
               : minPrice != null
-                ? "Preise der Behandlung. Mit Ihrer Postleitzahl sehen Sie den Endpreis inklusive Anfahrt."
+                ? "Preise der Behandlung. Mit deiner Postleitzahl siehst du den Endpreis inklusive Anfahrt."
                 : null}
           </p>
         </div>
@@ -284,7 +284,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
         <div className="grid overflow-hidden rounded-card bg-surface-raised shadow-raised sm:grid-cols-[minmax(0,1fr)_14rem]">
           <div className="flex flex-col gap-3 p-5 md:p-6">
             <p className="type-body text-ink">
-              {`${firstName} kommt im Umkreis von ${profile.serviceRadiusKm.toLocaleString("de-DE")} km${profile.cityName ? ` in ${profile.cityName}` : ""} zu Ihnen – nach Hause, ins Hotel oder ins Büro.`}
+              {`${firstName} kommt im Umkreis von ${profile.serviceRadiusKm.toLocaleString("de-DE")}\u00a0km${profile.cityName ? ` in ${profile.cityName}` : ""} zu dir – nach Hause, ins Hotel oder ins Büro.`}
             </p>
             <p className="type-body-s text-ink-muted">{travelExplanation(profile)}</p>
             {travel ? (
@@ -302,7 +302,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
             <span className="absolute size-36 rounded-full border border-ink/20" />
             <span className="absolute size-20 rounded-full border border-ink/30" />
             <span className="relative inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">
-              {`${profile.serviceRadiusKm.toLocaleString("de-DE")} km`}
+              {`${profile.serviceRadiusKm.toLocaleString("de-DE")}\u00a0km`}
             </span>
           </div>
         </div>
@@ -326,7 +326,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
           ))}
         </ul>
         <p className="type-caption text-ink-muted">
-          Anfragen sind bis zur Zusage kostenlos stornierbar. Die genaue Frist sehen Sie vor der Buchung.{" "}
+          Anfragen sind bis zur Zusage kostenlos stornierbar. Die genaue Frist siehst du vor der Buchung.{" "}
           <Link href="/stornierung" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             Stornobedingungen
           </Link>
@@ -334,7 +334,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
       </section>
 
       <p className="type-caption text-ink-muted">
-        {`${BRAND_NAME} vermittelt. Vertragspartner für die Behandlung ist ${profile.displayName} als selbstständige Fachkraft.`}
+        {`${BRAND_NAME} vermittelt. Vertragspartner für die Behandlung ist ${profile.displayName} (selbstständig).`}
       </p>
     </div>
   );

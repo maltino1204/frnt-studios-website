@@ -49,7 +49,7 @@ function RebookPicker({ options, travelFeeCents }: { options: RebookOptionsDTO; 
           Uhrzeit wählen
         </Button>
       )}
-      <p className="type-caption text-ink-muted">Gleiche Fachkraft, gleiche Leistung{options.addressId ? ", gleiche Adresse" : ""}. Den Endpreis sehen Sie vor der Buchung.</p>
+      <p className="type-caption text-ink-muted">Gleicher Profi, gleiche Leistung{options.addressId ? ", gleiche Adresse" : ""}. Den Endpreis siehst du vor der Buchung.</p>
     </div>
   );
 }
@@ -115,8 +115,8 @@ export function RebookButton({
           ) : options ? (
             <div className="flex flex-col gap-4">
               <p className="type-body-s text-ink-muted">
-                {`${options.provider.displayName} hat in den nächsten 7 Tagen keinen freien Termin für ${options.serviceName}.`}
-                {options.alternatives.length ? " Diese Profis in Ihrer Nähe haben Zeit:" : ""}
+                {`${options.provider.displayName} hat in den nächsten 7 Tagen keinen freien Termin für ${options.serviceName}.`}
+                {options.alternatives.length ? " Diese Profis in deiner Nähe haben Zeit:" : ""}
               </p>
               {options.alternatives.length ? (
                 <div className="flex flex-col">
@@ -126,7 +126,7 @@ export function RebookButton({
                 </div>
               ) : (
                 <ButtonLink href={routes.search({ plz: options.postalCode })} variant="secondary">
-                  Profis in Ihrer Nähe finden
+                  Profis in deiner Nähe finden
                 </ButtonLink>
               )}
             </div>

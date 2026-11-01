@@ -110,7 +110,7 @@ export function MobileMenu({
               if (focusBookingEntry()) e.preventDefault();
             }}
           >
-            Termin buchen
+            Termin finden
           </ButtonLink>
           <ButtonLink
             href={account?.href ?? "/anmelden"}

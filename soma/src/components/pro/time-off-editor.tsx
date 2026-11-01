@@ -148,7 +148,7 @@ export function TimeOffEditor({ entries }: { entries: TimeOffDTO[] }) {
           {error ? <Notice kind="danger">{error}</Notice> : null}
           {conflicts > 0 ? (
             <Notice kind="warning" title={`${plural(conflicts, "Termin liegt", "Termine liegen")} in diesem Zeitraum.`}>
-              Bestehende Termine werden nicht automatisch storniert. Bitte prüfe sie unter <Link href={`${routes.pro.bookings()}?tab=bevorstehend`}>Termine</Link>.
+              Bestehende Termine werden nicht automatisch storniert. Bitte prüf sie unter <Link href={`${routes.pro.bookings()}?tab=bevorstehend`}>Termine</Link>.
             </Notice>
           ) : null}
         </div>

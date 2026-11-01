@@ -120,12 +120,12 @@ function PlzSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const v = value.trim();
-    if (!/^\d{5}$/.test(v)) return setError("Bitte geben Sie eine fünfstellige Postleitzahl ein.");
+    if (!/^\d{5}$/.test(v)) return setError("Bitte gib eine fünfstellige Postleitzahl ein.");
     onClose();
     go({ plz: v, cityName: null });
   };
   return (
-    <Sheet open={open} onClose={onClose} title="Wo findet die Behandlung statt?">
+    <Sheet open={open} onClose={onClose} title="Wo findet dein Termin statt?">
       <form onSubmit={submit} className="flex flex-col gap-5" noValidate>
         <Input
           label="Postleitzahl"
@@ -133,11 +133,11 @@ function PlzSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
           inputMode="numeric"
           autoComplete="postal-code"
           maxLength={5}
-          placeholder="z. B. 10115"
+          placeholder="z. B. 10115"
           value={value}
           onChange={(e) => setValue(e.target.value.replace(/\D/g, "").slice(0, 5))}
           error={error}
-          hint="Wir zeigen nur Profis, deren Einsatzgebiet Ihre Adresse abdeckt."
+          hint="Wir zeigen nur Profis, deren Einsatzgebiet deine Adresse abdeckt."
           autoFocus
         />
         <Button type="submit" size="l" block>
@@ -157,7 +157,7 @@ function ServiceSheet({ open, onClose, catalog }: { open: boolean; onClose: () =
     go({ ...patch, datum: state.datum });
   };
   return (
-    <Sheet open={open} onClose={onClose} title={category ? category.name : "Was dürfen wir für Sie tun?"}>
+    <Sheet open={open} onClose={onClose} title={category ? category.name : "Behandlung wählen"}>
       {!category ? (
         <ul className="flex flex-col">
           <li className="border-b border-line">
@@ -257,7 +257,7 @@ function DateSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
     <Sheet
       open={open}
       onClose={onClose}
-      title="Wann passt es Ihnen?"
+      title="Zeitpunkt wählen"
       footer={
         <Button size="l" block onClick={apply}>
           Übernehmen
@@ -289,7 +289,7 @@ function DateSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
               max={berlinDateKey(new Date(Date.now() + 60 * 86_400_000))}
               value={datum ?? ""}
               onChange={(e) => setDatum(e.target.value || null)}
-              hint="Buchbar bis zu 60 Tage im Voraus."
+              hint="Buchbar bis zu 60 Tage im Voraus."
             />
           </div>
         ) : null}
@@ -392,7 +392,7 @@ function FilterFields({
         <Switch
           id={`${idPrefix}-sofort`}
           label="Nur sofort bestätigt"
-          description={compact ? undefined : "Ohne Wartezeit auf die Zusage der Fachkraft."}
+          description={compact ? undefined : "Ohne Wartezeit auf die Zusage des Profis."}
           checked={value.sofort}
           onChange={(e) => onChange({ ...value, sofort: e.target.checked })}
         />
@@ -405,7 +405,7 @@ function FilterFields({
       </fieldset>
       <Select
         id={`${idPrefix}-sprache`}
-        label="Sprache der Fachkraft"
+        label="Sprache des Profis"
         value={value.sprache ?? ""}
         onChange={(e) => onChange({ ...value, sprache: e.target.value || null })}
       >

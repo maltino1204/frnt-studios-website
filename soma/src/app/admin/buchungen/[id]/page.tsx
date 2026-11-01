@@ -234,7 +234,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
               ))}
               <li className="flex flex-col gap-0.5 py-2.5">
                 <span className="type-caption text-ink-muted">Nicht angetroffen</span>
-                <span className="type-body-s text-ink num">{ops.policy.noShowFeePercent} % zzgl. Anfahrt</span>
+                <span className="type-body-s text-ink num">{ops.policy.noShowFeePercent} % zzgl. Anfahrt</span>
               </li>
             </ul>
           </PanelCard>

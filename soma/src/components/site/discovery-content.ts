@@ -1,6 +1,5 @@
 import "server-only";
 
-import { BRAND_NAME } from "@/lib/brand";
 import { getContentBlock } from "@/server/services/catalog";
 import type { FaqItem } from "./discovery-copy";
 
@@ -15,16 +14,17 @@ const str = (v: unknown): string | null => (typeof v === "string" && v.trim() ? 
 export type HeroCopy = { overline: string | null; title: string; lead: string };
 export type Step = { title: string; body: string };
 
+// Defaults mirror the seeded blocks (brand/COPY_DECK_LANDING.md): the hero uses the German signature line.
 const DEFAULT_HERO: HeroCopy = {
   overline: "Zu Hause · Hotel · Büro",
-  title: "Wellness, die zu Ihnen kommt. Zu Hause, im Hotel, im Büro.",
-  lead: "Geprüfte Profis für Massage, Nägel, Kosmetik und Make-up bringen alles mit. Sie wählen nur Zeit und Ort.",
+  title: "Du bleibst. Dein Profi kommt.",
+  lead: "Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir – nach Hause, ins Hotel oder ins Büro.",
 };
 
 const DEFAULT_STEPS: Step[] = [
-  { title: "Behandlung wählen", body: "Postleitzahl, Behandlung, Zeitfenster. Sie sehen nur echte freie Termine – mit Endpreis inklusive Anfahrt." },
-  { title: "Profi buchen", body: `Profil, Bewertungen und Preis vergleichen, Termin wählen. Bezahlt wird sicher über ${BRAND_NAME}.` },
-  { title: "Bleiben, wo Sie sind", body: "Ihr Profi kommt zur vereinbarten Zeit, baut auf und räumt danach wieder ab." },
+  { title: "Entdecken", body: "Finde deine Behandlung. PLZ, Behandlung, Zeitraum: Du siehst nur echte freie Termine – mit Endpreis inklusive Anfahrt." },
+  { title: "Buchen", body: "Wähl Ort und Uhrzeit – Zuhause, Hotel oder Büro. Bezahlt wird online, belastet erst nach dem Termin." },
+  { title: "Bleiben", body: "Dein Profi kommt zu dir. Mit deinem vierstelligen Start-Code beginnt der Termin." },
 ];
 
 async function block(key: string): Promise<Record<string, unknown> | null> {

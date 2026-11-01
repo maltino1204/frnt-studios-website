@@ -188,7 +188,7 @@ export const PORTFOLIO = [
   P("brows-lashes-3", "Close view of a brow professional's hand applying warm brown tint to a client's eyebrow with a fine angled brush, the client's eyes closed, soft window light."),
   P("brows-lashes-6", "Close view of a brow professional shaping a client's eyebrow with a fine cotton thread held between her fingers, the client's eyes closed, soft window light."),
   P("brows-lashes-7", "Close view of a lash professional tinting a client's lower lashes with a fine brush, the client's eyes closed, soft window light, real skin texture."),
-  P("brows-lashes-8", "Close portrait of a woman of about 30 with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window."),
+  P("brows-lashes-8", "Close portrait of a woman of about 30 of South Asian heritage with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window."),
 ];
 
 const v1 = JSON.parse(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), "../../../scripts/images/sources.json"), "utf8"));

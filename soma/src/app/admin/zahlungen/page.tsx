@@ -45,7 +45,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
-      <AdminPageHeader group="Finanzen" title="Zahlungen & Auszahlungen" description="Zahlungen werden bei Buchung reserviert und nach dem Termin eingezogen. Profis erhalten ihren Anteil 48 Stunden nach Abschluss." />
+      <AdminPageHeader group="Finanzen" title="Zahlungen & Auszahlungen" description="Zahlungen werden bei Buchung reserviert und nach dem Termin eingezogen. Profis erhalten ihren Anteil 48 Stunden nach Abschluss." />
       <div className="flex flex-col gap-6">
         {tabs}
         {failed.total > 0 && view === "zahlungen" && status !== "failed" ? (
@@ -198,7 +198,7 @@ async function PayoutsView({ session }: { session: S }) {
       <AdminSection
         id="balances"
         title="Guthaben je Profi"
-        description={`Auszahlbar ${preview.holdHours} Stunden nach Abschluss, ohne offenen Streitfall. Gilt auch für einbehaltene Stornogebühren.`}
+        description={`Auszahlbar ${preview.holdHours} Stunden nach Abschluss, ohne offenen Streitfall. Gilt auch für einbehaltene Stornogebühren.`}
         actions={<CreatePayoutBatchButton eligibleCents={preview.totals.eligibleCents} eligibleCount={preview.totals.eligibleCount} providers={preview.totals.providers} holdHours={preview.holdHours} />}
       >
         {rows.length === 0 ? (

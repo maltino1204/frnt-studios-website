@@ -18,7 +18,7 @@ export function RangeSwitch({ value, options = [7, 30, 90], className }: { value
         name="tage"
         label="Zeitraum"
         value={String(value)}
-        options={options.map((d) => ({ value: String(d), label: `${d} Tage` }))}
+        options={options.map((d) => ({ value: String(d), label: `${d} Tage` }))}
         onChange={(v) => {
           const sp = new URLSearchParams(params?.toString());
           sp.set("tage", v);

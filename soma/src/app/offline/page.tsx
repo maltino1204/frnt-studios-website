@@ -13,7 +13,7 @@ export default function OfflinePage() {
         <span aria-hidden className="block h-0.5 w-6 bg-ink" />
         <h1 className="type-display-m">Gerade keine Verbindung.</h1>
         <p className="type-body-l text-ink-muted">
-          Ihre Termine und Buchungen sind sicher gespeichert. Sobald Sie wieder online sind, geht es genau hier weiter.
+          Deine Termine sind gespeichert. Sobald du wieder online bist, geht es hier weiter.
         </p>
       </Container>
     </main>

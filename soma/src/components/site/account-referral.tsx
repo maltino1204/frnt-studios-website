@@ -27,7 +27,7 @@ export function ReferralShare({ code, url, text }: { code: string; url: string; 
       if (timer.current) window.clearTimeout(timer.current);
       timer.current = window.setTimeout(() => setCopied(false), 2500);
     } catch {
-      toast.show("Kopieren war nicht möglich. Bitte markieren Sie den Link.", { kind: "error" });
+      toast.show("Kopieren war nicht möglich. Bitte markier den Link.", { kind: "error" });
     }
   };
   const share = async () => {
@@ -44,7 +44,7 @@ export function ReferralShare({ code, url, text }: { code: string; url: string; 
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <p className="type-label-s text-ink">Ihr Code</p>
+        <p className="type-label-s text-ink">Dein Code</p>
         <p className="inline-flex h-12 w-fit items-center rounded-tile bg-surface-raised px-4 text-[1.375rem] leading-none font-[600] tracking-[0.16em] text-ink shadow-raised num">{code}</p>
       </div>
       <div

@@ -21,7 +21,7 @@ export async function verifyPasswordWithLimit(
     select count(*)::int as failures from app_private.reauth_attempts
     where user_id = ${userId} and not success and created_at > now() - make_interval(mins => ${REAUTH_WINDOW_MINUTES})`);
   if (failures >= MAX_REAUTH_FAILURES) {
-    throw new ServiceError("rate_limited", `Zu viele Versuche. Bitte warten Sie ${REAUTH_WINDOW_MINUTES} Minuten und versuchen Sie es erneut.`);
+    throw new ServiceError("rate_limited", `Zu viele Versuche. Bitte warte ${REAUTH_WINDOW_MINUTES}\u00a0Minuten und versuch es dann noch einmal.`);
   }
   const ok = await verify(userId, password);
   // withService: see above.

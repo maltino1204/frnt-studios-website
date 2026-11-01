@@ -37,7 +37,7 @@ export async function requireRole(role: AppRole, next?: string): Promise<Session
 /** Server Actions / route handlers: throws a ServiceError instead of redirecting. */
 export async function authorize(role?: AppRole | AppRole[]): Promise<Session> {
   const session = await getSession();
-  if (!session) throw new ServiceError("unauthenticated", "Bitte melden Sie sich an.");
+  if (!session) throw new ServiceError("unauthenticated", "Bitte melde dich an.");
   if (role) {
     const roles = Array.isArray(role) ? role : [role];
     if (!roles.includes(session.role)) throw new ServiceError("forbidden", "Dafür fehlt die Berechtigung.");

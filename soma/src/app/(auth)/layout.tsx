@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/logo";
 import { Photo } from "@/components/ui/photo";
+import { PLACE_LINES } from "@/components/site/discovery-copy";
+import { BRAND_SIGNATURE } from "@/lib/brand";
 import { images } from "@/lib/images";
 import { routes } from "@/lib/routes";
 
@@ -33,8 +35,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <figure className="sticky top-0 mx-auto flex h-dvh max-h-[64rem] min-h-[40rem] w-full max-w-[30rem] flex-col justify-center gap-6 px-12 py-16">
           <Photo src={images.editorial.arrival} alt="" tone="brows-lashes" seed="anmelden" sizes="(min-width: 1024px) 384px, 1px" shape="arch" ratio="4/5" className="w-full" />
           <figcaption className="flex flex-col gap-2">
-            <p className="type-accent text-[1.75rem] leading-[1.1] text-ink">Schon da.</p>
-            <p className="type-place text-ink-muted">Altbau, 3.&nbsp;OG · Berlin-Prenzlauer Berg · 19:30</p>
+            <p className="type-accent text-[1.75rem] leading-[1.1] text-ink">{BRAND_SIGNATURE}</p>
+            <p className="type-place text-ink-muted">{PLACE_LINES.arrival}</p>
           </figcaption>
         </figure>
       </div>

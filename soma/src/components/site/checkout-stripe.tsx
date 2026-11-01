@@ -43,7 +43,7 @@ function PaymentForm({ bookingUrl, ctaLabel }: { bookingUrl: string; ctaLabel: s
       redirect: "if_required",
     });
     if (err) {
-      setError(err.message ?? "Die Zahlung konnte nicht autorisiert werden. Bitte versuchen Sie es erneut.");
+      setError(err.message ?? "Die Zahlung hat nicht geklappt. Belastet wurde nichts. Prüf deine Angaben oder versuch es mit einer anderen Karte.");
       setBusy(false);
       return;
     }
@@ -58,7 +58,7 @@ function PaymentForm({ bookingUrl, ctaLabel }: { bookingUrl: string; ctaLabel: s
         {ctaLabel}
       </Button>
       <p className="type-caption text-ink-muted">
-        Der Betrag wird zunächst nur reserviert und erst nach Ihrem Termin eingezogen. Zahlungsdaten verarbeitet ausschließlich Stripe.
+        Der Betrag wird zunächst nur reserviert und erst nach deinem Termin belastet. Zahlungsdaten verarbeitet ausschließlich Stripe.
       </p>
     </div>
   );
@@ -80,7 +80,7 @@ export function StripePaymentSheet({
     <Sheet open={!!clientSecret} onClose={onClose} title="Zahlung">
       {!stripe || !clientSecret ? (
         <Notice kind="danger" title="Zahlung derzeit nicht verfügbar">
-          Die Zahlungsanbindung ist nicht konfiguriert. Ihr Termin ist noch nicht gebucht und wird nach Ablauf der Reservierung automatisch freigegeben.
+          Die Zahlungsanbindung ist nicht konfiguriert. Dein Termin ist noch nicht gebucht und wird nach Ablauf der Reservierung automatisch freigegeben.
         </Notice>
       ) : (
         <Elements

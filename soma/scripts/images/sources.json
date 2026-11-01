@@ -5,7 +5,8 @@
     "ratio": "4:5",
     "width": 2000,
     "height": 2500,
-    "focal": "60% 55%"
+    "focal": "60% 55%",
+    "replacedBy": "/images/hero/home-v2.jpg"
   },
   {
     "path": "/images/categories/massage.jpg",
@@ -13,7 +14,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 45%"
+    "focal": "50% 45%",
+    "replacedBy": "/images/categories/massage-v2.jpg"
   },
   {
     "path": "/images/categories/manikuere.jpg",
@@ -21,7 +23,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 55%"
+    "focal": "50% 55%",
+    "replacedBy": "/images/categories/manikuere-v2.jpg"
   },
   {
     "path": "/images/categories/kosmetik.jpg",
@@ -29,7 +32,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "48% 40%"
+    "focal": "48% 40%",
+    "replacedBy": "/images/categories/kosmetik-v2.jpg"
   },
   {
     "path": "/images/categories/haare-styling.jpg",
@@ -37,7 +41,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 40%"
+    "focal": "50% 40%",
+    "replacedBy": "/images/categories/haare-styling-v2.jpg"
   },
   {
     "path": "/images/categories/brows-lashes.jpg",
@@ -45,7 +50,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 42%"
+    "focal": "50% 42%",
+    "replacedBy": "/images/categories/brows-lashes-v2.jpg"
   },
   {
     "path": "/images/editorial/arrival.jpg",
@@ -53,7 +59,8 @@
     "ratio": "3:2",
     "width": 2400,
     "height": 1600,
-    "focal": "58% 50%"
+    "focal": "58% 50%",
+    "replacedBy": "/images/editorial/arrival-v2.jpg"
   },
   {
     "path": "/images/editorial/setup.jpg",
@@ -61,7 +68,8 @@
     "ratio": "3:2",
     "width": 2400,
     "height": 1600,
-    "focal": "45% 60%"
+    "focal": "45% 60%",
+    "replacedBy": "/images/editorial/setup-v2.jpg"
   },
   {
     "path": "/images/editorial/after.jpg",
@@ -69,7 +77,8 @@
     "ratio": "3:2",
     "width": 2400,
     "height": 1600,
-    "focal": "35% 50%"
+    "focal": "35% 50%",
+    "replacedBy": "/images/editorial/after-v2.jpg"
   },
   {
     "path": "/images/categories/pedikuere.jpg",
@@ -77,7 +86,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 60%"
+    "focal": "50% 60%",
+    "replacedBy": "/images/categories/pedikuere-v2.jpg"
   },
   {
     "path": "/images/categories/make-up.jpg",
@@ -85,7 +95,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "55% 38%"
+    "focal": "55% 38%",
+    "replacedBy": "/images/categories/make-up-v2.jpg"
   },
   {
     "path": "/images/editorial/hotel.jpg",
@@ -93,7 +104,8 @@
     "ratio": "3:2",
     "width": 2400,
     "height": 1600,
-    "focal": "62% 50%"
+    "focal": "62% 50%",
+    "replacedBy": "/images/editorial/hotel-v2.jpg"
   },
   {
     "path": "/images/editorial/office.jpg",
@@ -101,7 +113,8 @@
     "ratio": "3:2",
     "width": 2400,
     "height": 1600,
-    "focal": "55% 45%"
+    "focal": "55% 45%",
+    "replacedBy": "/images/editorial/office-v2.jpg"
   },
   {
     "path": "/images/editorial/details.jpg",
@@ -109,7 +122,8 @@
     "ratio": "1:1",
     "width": 1600,
     "height": 1600,
-    "focal": "50% 50%"
+    "focal": "50% 50%",
+    "replacedBy": "/images/editorial/details-v2.jpg"
   },
   {
     "path": "/images/editorial/provider-cta.jpg",
@@ -117,7 +131,8 @@
     "ratio": "16:9",
     "width": 2880,
     "height": 1620,
-    "focal": "68% 50%"
+    "focal": "68% 50%",
+    "replacedBy": "/images/editorial/provider-cta-v2.jpg"
   },
   {
     "path": "/images/og-default.jpg",
@@ -125,7 +140,8 @@
     "ratio": "1.91:1",
     "width": 1200,
     "height": 630,
-    "focal": "60% 45%"
+    "focal": "60% 45%",
+    "replacedBy": "/images/og-default-v2.jpg"
   },
   {
     "path": "/images/pros/pro-01.jpg",
@@ -349,7 +365,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-28-v2.jpg"
   },
   {
     "path": "/images/pros/pro-29.jpg",
@@ -374,7 +391,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Schultern und Nacken – klassische Massage"
+    "caption": "Schultern und Nacken – klassische Massage",
+    "replacedBy": "/images/portfolio/massage-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-2.jpg",
@@ -383,7 +401,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Leinentücher und Massageöl, mitgebracht"
+    "caption": "Leinentücher und Massageöl, mitgebracht",
+    "replacedBy": "/images/portfolio/massage-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-3.jpg",
@@ -392,7 +411,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Massageliege in der Hotelsuite, am Abend"
+    "caption": "Massageliege in der Hotelsuite, am Abend",
+    "replacedBy": "/images/portfolio/massage-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-4.jpg",
@@ -401,7 +421,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Unterarmtechnik entlang des oberen Rückens"
+    "caption": "Unterarmtechnik entlang des oberen Rückens",
+    "replacedBy": "/images/portfolio/massage-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-5.jpg",
@@ -410,7 +431,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Nach der Behandlung: noch einen Moment liegen bleiben"
+    "caption": "Nach der Behandlung: noch einen Moment liegen bleiben",
+    "replacedBy": "/images/portfolio/massage-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-1.jpg",
@@ -419,7 +441,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Maniküre in Taupe, kurze runde Form"
+    "caption": "Maniküre in Taupe, kurze runde Form",
+    "replacedBy": "/images/portfolio/manikuere-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-2.jpg",
@@ -428,7 +451,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Nude-Gel, natürlich, Mandelform"
+    "caption": "Nude-Gel, natürlich, Mandelform",
+    "replacedBy": "/images/portfolio/manikuere-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-3.jpg",
@@ -437,7 +461,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Micro-French auf kurzen Nägeln"
+    "caption": "Micro-French auf kurzen Nägeln",
+    "replacedBy": "/images/portfolio/manikuere-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-4.jpg",
@@ -446,7 +471,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Minimalistisches Nail-Art: eine feine schwarze Linie"
+    "caption": "Minimalistisches Nail-Art: eine feine schwarze Linie",
+    "replacedBy": "/images/portfolio/manikuere-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-5.jpg",
@@ -455,7 +481,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Nägel in Form feilen – am Esstisch zu Hause"
+    "caption": "Nägel in Form feilen – am Esstisch zu Hause",
+    "replacedBy": "/images/portfolio/manikuere-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-1.jpg",
@@ -464,7 +491,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Pediküre in gedecktem Ziegelrot"
+    "caption": "Pediküre in gedecktem Ziegelrot",
+    "replacedBy": "/images/portfolio/pedikuere-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-2.jpg",
@@ -473,7 +501,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Werkzeug für die Pediküre, sauber vorbereitet"
+    "caption": "Werkzeug für die Pediküre, sauber vorbereitet",
+    "replacedBy": "/images/portfolio/pedikuere-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-3.jpg",
@@ -482,7 +511,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Nägel polieren zum Abschluss"
+    "caption": "Nägel polieren zum Abschluss",
+    "replacedBy": "/images/portfolio/pedikuere-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-4.jpg",
@@ -491,7 +521,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Pediküre in Nude, am Fenster"
+    "caption": "Pediküre in Nude, am Fenster",
+    "replacedBy": "/images/portfolio/pedikuere-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-5.jpg",
@@ -500,7 +531,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Gepflegte Füße mit Klarlack"
+    "caption": "Gepflegte Füße mit Klarlack",
+    "replacedBy": "/images/portfolio/pedikuere-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-1.jpg",
@@ -509,7 +541,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Tonerde-Maske, mit dem Pinsel aufgetragen"
+    "caption": "Tonerde-Maske, mit dem Pinsel aufgetragen",
+    "replacedBy": "/images/portfolio/kosmetik-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-2.jpg",
@@ -518,7 +551,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Ebenmäßige Haut direkt nach dem Facial"
+    "caption": "Ebenmäßige Haut direkt nach dem Facial",
+    "replacedBy": "/images/portfolio/kosmetik-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-3.jpg",
@@ -527,7 +561,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Pflegeprodukte für die Behandlung im Hotel"
+    "caption": "Pflegeprodukte für die Behandlung im Hotel",
+    "replacedBy": "/images/portfolio/kosmetik-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-4.jpg",
@@ -536,7 +571,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Gesichtsmassage an den Schläfen"
+    "caption": "Gesichtsmassage an den Schläfen",
+    "replacedBy": "/images/portfolio/kosmetik-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-5.jpg",
@@ -545,7 +581,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Kühlende Augenpads gegen müde Augen"
+    "caption": "Kühlende Augenpads gegen müde Augen",
+    "replacedBy": "/images/portfolio/kosmetik-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-1.jpg",
@@ -554,7 +591,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Natürliches Braut-Make-up"
+    "caption": "Natürliches Braut-Make-up",
+    "replacedBy": "/images/portfolio/make-up-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-2.jpg",
@@ -563,7 +601,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Abend-Make-up mit Smokey Eyes in Braun"
+    "caption": "Abend-Make-up mit Smokey Eyes in Braun",
+    "replacedBy": "/images/portfolio/make-up-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-3.jpg",
@@ -572,7 +611,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Lippen in Terrakotta, mit dem Pinsel aufgetragen"
+    "caption": "Lippen in Terrakotta, mit dem Pinsel aufgetragen",
+    "replacedBy": "/images/portfolio/make-up-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-4.jpg",
@@ -581,7 +621,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Das Make-up-Case für den Hausbesuch"
+    "caption": "Das Make-up-Case für den Hausbesuch",
+    "replacedBy": "/images/portfolio/make-up-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-5.jpg",
@@ -590,7 +631,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Editorial-Look mit warmen Bronzetönen"
+    "caption": "Editorial-Look mit warmen Bronzetönen",
+    "replacedBy": "/images/portfolio/make-up-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-1.jpg",
@@ -599,7 +641,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Weiche Wellen auf langem Haar"
+    "caption": "Weiche Wellen auf langem Haar",
+    "replacedBy": "/images/portfolio/haare-styling-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-2.jpg",
@@ -617,7 +660,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Tiefer Brautdutt, locker gesteckt"
+    "caption": "Tiefer Brautdutt, locker gesteckt",
+    "replacedBy": "/images/portfolio/haare-styling-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-4.jpg",
@@ -626,7 +670,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Föhnen mit Rundbürste in der Küche"
+    "caption": "Föhnen mit Rundbürste in der Küche",
+    "replacedBy": "/images/portfolio/haare-styling-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-5.jpg",
@@ -635,7 +680,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Definierte Naturlocken"
+    "caption": "Definierte Naturlocken",
+    "replacedBy": "/images/portfolio/haare-styling-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-1.jpg",
@@ -644,7 +690,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Lash Lift mit Färbung"
+    "caption": "Lash Lift mit Färbung",
+    "replacedBy": "/images/portfolio/brows-lashes-1-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-2.jpg",
@@ -662,7 +709,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Brauen färben in warmem Braun"
+    "caption": "Brauen färben in warmem Braun",
+    "replacedBy": "/images/portfolio/brows-lashes-3-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-4.jpg",
@@ -689,7 +737,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Schulterdehnung, assistiert, in Rückenlage"
+    "caption": "Schulterdehnung, assistiert, in Rückenlage",
+    "replacedBy": "/images/portfolio/massage-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-7.jpg",
@@ -698,7 +747,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Fußmassage zum Abschluss"
+    "caption": "Fußmassage zum Abschluss",
+    "replacedBy": "/images/portfolio/massage-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-9.jpg",
@@ -707,7 +757,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Kopf- und Kopfhautmassage"
+    "caption": "Kopf- und Kopfhautmassage",
+    "replacedBy": "/images/portfolio/massage-9-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-10.jpg",
@@ -716,7 +767,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Massage in Seitenlage für Schwangere"
+    "caption": "Massage in Seitenlage für Schwangere",
+    "replacedBy": "/images/portfolio/massage-10-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-11.jpg",
@@ -725,7 +777,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Paarmassage in der Hotelsuite"
+    "caption": "Paarmassage in der Hotelsuite",
+    "replacedBy": "/images/portfolio/massage-11-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-12.jpg",
@@ -734,7 +787,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Massageöl, in den Händen angewärmt"
+    "caption": "Massageöl, in den Händen angewärmt",
+    "replacedBy": "/images/portfolio/massage-12-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-13.jpg",
@@ -743,7 +797,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Rückenmassage mit flachen Händen"
+    "caption": "Rückenmassage mit flachen Händen",
+    "replacedBy": "/images/portfolio/massage-13-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-8.jpg",
@@ -752,7 +807,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Schultermassage im Büro, im Sitzen"
+    "caption": "Schultermassage im Büro, im Sitzen",
+    "replacedBy": "/images/portfolio/massage-8-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-14.jpg",
@@ -761,7 +817,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Waden, gründlich gelockert"
+    "caption": "Waden, gründlich gelockert",
+    "replacedBy": "/images/portfolio/massage-14-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-15.jpg",
@@ -770,7 +827,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Vorbereitet: Liege im Hotelzimmer am Morgen"
+    "caption": "Vorbereitet: Liege im Hotelzimmer am Morgen",
+    "replacedBy": "/images/portfolio/massage-15-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-16.jpg",
@@ -779,7 +837,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Massagestuhl im Büro, bereit für die Mittagspause"
+    "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
+    "replacedBy": "/images/portfolio/massage-16-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-17.jpg",
@@ -788,7 +847,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Hand- und Unterarmmassage"
+    "caption": "Hand- und Unterarmmassage",
+    "replacedBy": "/images/portfolio/massage-17-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-18.jpg",
@@ -797,7 +857,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Sportmassage am Schulterblatt"
+    "caption": "Sportmassage am Schulterblatt",
+    "replacedBy": "/images/portfolio/massage-18-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-19.jpg",
@@ -806,7 +867,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Danach: ein Glas Wasser und Ruhe"
+    "caption": "Danach: ein Glas Wasser und Ruhe",
+    "replacedBy": "/images/portfolio/massage-19-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-20.jpg",
@@ -815,7 +877,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Nach dem Termin – alles wieder eingepackt"
+    "caption": "Nach dem Termin – alles wieder eingepackt",
+    "replacedBy": "/images/portfolio/massage-20-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-21.jpg",
@@ -824,7 +887,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Sanfte Nackenmassage in Rückenlage"
+    "caption": "Sanfte Nackenmassage in Rückenlage",
+    "replacedBy": "/images/portfolio/massage-21-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-6.jpg",
@@ -833,7 +897,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Sanfte Highlights, natürlich verblendet"
+    "caption": "Sanfte Highlights, natürlich verblendet",
+    "replacedBy": "/images/portfolio/haare-styling-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-7.jpg",
@@ -842,7 +907,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Kurzer Pixie Cut mit Textur"
+    "caption": "Kurzer Pixie Cut mit Textur",
+    "replacedBy": "/images/portfolio/haare-styling-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-8.jpg",
@@ -851,7 +917,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Klassischer Seitenscheitel"
+    "caption": "Klassischer Seitenscheitel",
+    "replacedBy": "/images/portfolio/haare-styling-8-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-9.jpg",
@@ -860,7 +927,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Bart in Form gebracht"
+    "caption": "Bart in Form gebracht",
+    "replacedBy": "/images/portfolio/haare-styling-9-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-10.jpg",
@@ -869,7 +937,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Glatter Bob auf Kinnlänge"
+    "caption": "Glatter Bob auf Kinnlänge",
+    "replacedBy": "/images/portfolio/haare-styling-10-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-11.jpg",
@@ -878,7 +947,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Geflochtene Krone für die Hochzeit"
+    "caption": "Geflochtene Krone für die Hochzeit",
+    "replacedBy": "/images/portfolio/haare-styling-11-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-12.jpg",
@@ -887,7 +957,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Volumen-Föhnfrisur"
+    "caption": "Volumen-Föhnfrisur",
+    "replacedBy": "/images/portfolio/haare-styling-12-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-13.jpg",
@@ -896,7 +967,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Lockenschnitt mit kurzen Seiten"
+    "caption": "Lockenschnitt mit kurzen Seiten",
+    "replacedBy": "/images/portfolio/haare-styling-13-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-14.jpg",
@@ -905,7 +977,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Spitzen schneiden, präzise"
+    "caption": "Spitzen schneiden, präzise",
+    "replacedBy": "/images/portfolio/haare-styling-14-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-15.jpg",
@@ -914,7 +987,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Hoher Pferdeschwanz für den Abend"
+    "caption": "Hoher Pferdeschwanz für den Abend",
+    "replacedBy": "/images/portfolio/haare-styling-15-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-16.jpg",
@@ -923,7 +997,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Kurzhaarschnitt für silbernes Haar"
+    "caption": "Kurzhaarschnitt für silbernes Haar",
+    "replacedBy": "/images/portfolio/haare-styling-16-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-17.jpg",
@@ -932,7 +1007,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Box Braids, im tiefen Dutt getragen"
+    "caption": "Box Braids, im tiefen Dutt getragen",
+    "replacedBy": "/images/portfolio/haare-styling-17-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-6.jpg",
@@ -941,7 +1017,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Kurze Nägel in tiefem Bordeaux"
+    "caption": "Kurze Nägel in tiefem Bordeaux",
+    "replacedBy": "/images/portfolio/manikuere-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-7.jpg",
@@ -950,7 +1027,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Klassische Maniküre ohne Lack"
+    "caption": "Klassische Maniküre ohne Lack",
+    "replacedBy": "/images/portfolio/manikuere-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-8.jpg",
@@ -959,7 +1037,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Milchweißes Gel, Mandelform"
+    "caption": "Milchweißes Gel, Mandelform",
+    "replacedBy": "/images/portfolio/manikuere-8-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-9.jpg",
@@ -968,7 +1047,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Herrenmaniküre, gepflegt und poliert"
+    "caption": "Herrenmaniküre, gepflegt und poliert",
+    "replacedBy": "/images/portfolio/manikuere-9-v2.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-10.jpg",
@@ -977,7 +1057,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Olivgrünes Gel, kurz und eckig"
+    "caption": "Olivgrünes Gel, kurz und eckig",
+    "replacedBy": "/images/portfolio/manikuere-10-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-6.jpg",
@@ -986,7 +1067,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Sanfte Reinigung mit warmen Pads"
+    "caption": "Sanfte Reinigung mit warmen Pads",
+    "replacedBy": "/images/portfolio/kosmetik-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-7.jpg",
@@ -995,7 +1077,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Enzympeeling für einen frischen Teint"
+    "caption": "Enzympeeling für einen frischen Teint",
+    "replacedBy": "/images/portfolio/kosmetik-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-8.jpg",
@@ -1004,7 +1087,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Feuchtigkeitsmaske aus Gel"
+    "caption": "Feuchtigkeitsmaske aus Gel",
+    "replacedBy": "/images/portfolio/kosmetik-8-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-9.jpg",
@@ -1013,7 +1097,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Gesichtsbehandlung für Männer"
+    "caption": "Gesichtsbehandlung für Männer",
+    "replacedBy": "/images/portfolio/kosmetik-9-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-10.jpg",
@@ -1022,7 +1107,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Hautanalyse vor der Behandlung"
+    "caption": "Hautanalyse vor der Behandlung",
+    "replacedBy": "/images/portfolio/kosmetik-10-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-11.jpg",
@@ -1031,7 +1117,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Massage von Hals und Dekolleté"
+    "caption": "Massage von Hals und Dekolleté",
+    "replacedBy": "/images/portfolio/kosmetik-11-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-12.jpg",
@@ -1040,7 +1127,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Alles vorbereitet für das Facial"
+    "caption": "Alles vorbereitet für das Facial",
+    "replacedBy": "/images/portfolio/kosmetik-12-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-13.jpg",
@@ -1049,7 +1137,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Augenbrauen gezupft und in Form gebracht"
+    "caption": "Augenbrauen gezupft und in Form gebracht",
+    "replacedBy": "/images/portfolio/kosmetik-13-v2.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-14.jpg",
@@ -1058,7 +1147,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Frischer Teint nach dem Facial"
+    "caption": "Frischer Teint nach dem Facial",
+    "replacedBy": "/images/portfolio/kosmetik-14-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-6.jpg",
@@ -1067,7 +1157,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Natürliches Tages-Make-up"
+    "caption": "Natürliches Tages-Make-up",
+    "replacedBy": "/images/portfolio/make-up-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-7.jpg",
@@ -1076,7 +1167,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Mascara, präzise aufgetragen"
+    "caption": "Mascara, präzise aufgetragen",
+    "replacedBy": "/images/portfolio/make-up-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-8.jpg",
@@ -1094,7 +1186,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Make-up für das Business-Fotoshooting"
+    "caption": "Make-up für das Business-Fotoshooting",
+    "replacedBy": "/images/portfolio/make-up-9-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-10.jpg",
@@ -1103,7 +1196,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Klassischer Abendlook mit rotem Lippenstift"
+    "caption": "Klassischer Abendlook mit rotem Lippenstift",
+    "replacedBy": "/images/portfolio/make-up-10-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-6.jpg",
@@ -1112,7 +1206,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Brauen mit dem Faden geformt"
+    "caption": "Brauen mit dem Faden geformt",
+    "replacedBy": "/images/portfolio/brows-lashes-6-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-7.jpg",
@@ -1121,7 +1216,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Wimpern färben"
+    "caption": "Wimpern färben",
+    "replacedBy": "/images/portfolio/brows-lashes-7-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-8.jpg",
@@ -1130,6 +1226,1186 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Fertig: Brauen und Wimpern natürlich betont"
+    "caption": "Fertig: Brauen und Wimpern natürlich betont",
+    "replacedBy": "/images/portfolio/brows-lashes-8-v2.jpg"
+  },
+  {
+    "path": "/images/landing/hero-wide.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165141_cbddfd28-fb5e-4028-a055-314350716a9f.png",
+    "ratio": "16:9",
+    "width": 2880,
+    "height": 1620,
+    "focal": "62% 55%",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L01"
+  },
+  {
+    "path": "/images/landing/hero-mobile.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170525_95c005df-4317-4cbe-91ac-d04477488290.png",
+    "ratio": "9:16",
+    "width": 1440,
+    "height": 2560,
+    "focal": "50% 62%",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L02"
+  },
+  {
+    "path": "/images/landing/philosophy.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165142_20814cee-d1d2-4d4d-b598-af1d45bdd447.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "50% 55%",
+    "place": "Flur · Berlin-Schöneberg · 18:40",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L03"
+  },
+  {
+    "path": "/images/landing/experience-time.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165141_a6ee2b86-a026-49cd-9524-ec7de6121b93.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "55% 50%",
+    "place": "Wohnzimmer · Hamburg-Eimsbüttel · 19:05",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L04"
+  },
+  {
+    "path": "/images/landing/experience-comfort.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165142_03894234-650f-49cb-8885-5211209e83ab.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "45% 55%",
+    "place": "Sofa, danach · München-Schwabing · 20:20",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L05"
+  },
+  {
+    "path": "/images/landing/experience-privacy.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165143_49283e4c-97b7-47f2-aef7-df60b6731b56.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "55% 50%",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L06"
+  },
+  {
+    "path": "/images/landing/experience-quality.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165142_533eff14-82d4-4e00-96cf-7d89c07e8480.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "55% 45%",
+    "place": "Wohnungstür, 2. OG · Köln-Ehrenfeld · 18:55",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L07"
+  },
+  {
+    "path": "/images/landing/experience-choice.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165143_97a077fa-fd47-4c4d-99ca-005b9dea7341.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "60% 50%",
+    "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L08"
+  },
+  {
+    "path": "/images/landing/experience-flexible.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170525_e3b0af06-8150-4991-8b50-cdd72f8f8711.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "55% 50%",
+    "place": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L09"
+  },
+  {
+    "path": "/images/landing/app-home.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170917_a730333b-344a-4377-abaa-e5f57ba0da31.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "50% 55%",
+    "place": "Küche · Berlin-Kreuzberg · 08:10",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L10"
+  },
+  {
+    "path": "/images/landing/app-pro.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170526_d08c056b-ddd6-40b7-9509-77717b822c38.png",
+    "ratio": "4:5",
+    "width": 2000,
+    "height": 2500,
+    "focal": "50% 50%",
+    "place": "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L11"
+  },
+  {
+    "path": "/images/landing/app-table.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170526_48fbe933-aca5-4f61-8a8f-75eb8be47dbe.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "50% 50%",
+    "place": "Esstisch · Berlin-Prenzlauer Berg · 09:00",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L12"
+  },
+  {
+    "path": "/images/editorial/arrival-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170527_4ffe410a-4a16-4a9d-8d42-43e9975f9a86.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "58% 50%",
+    "replaces": "/images/editorial/arrival.jpg",
+    "place": "Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 19:25",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E01"
+  },
+  {
+    "path": "/images/editorial/setup-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170526_18425ab4-4301-4c1e-8b85-daccb7f566fd.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "45% 60%",
+    "replaces": "/images/editorial/setup.jpg",
+    "place": "Wohnzimmer · Berlin-Prenzlauer Berg · 18:50",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E02"
+  },
+  {
+    "path": "/images/editorial/after-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170527_cacfd0f6-a404-48d7-9039-6748bf1fb459.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "35% 50%",
+    "replaces": "/images/editorial/after.jpg",
+    "place": "Sofa, danach · Berlin-Prenzlauer Berg · 20:10",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E03"
+  },
+  {
+    "path": "/images/editorial/hotel-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170636_e76206bc-c2f8-40cc-a639-694e061f47f8.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "62% 50%",
+    "replaces": "/images/editorial/hotel.jpg",
+    "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E04"
+  },
+  {
+    "path": "/images/editorial/office-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171125_4c259975-3ae2-4d1f-8094-41855f601e00.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "55% 45%",
+    "replaces": "/images/editorial/office.jpg",
+    "place": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E05"
+  },
+  {
+    "path": "/images/editorial/details-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170635_a1695ce6-16af-419c-b8b0-e7c191198934.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "replaces": "/images/editorial/details.jpg",
+    "place": "Was mitkommt",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E06"
+  },
+  {
+    "path": "/images/editorial/provider-cta-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170636_bc1540aa-ac3c-4746-b3b3-9ec1e883e3e3.png",
+    "ratio": "16:9",
+    "width": 2880,
+    "height": 1620,
+    "focal": "68% 50%",
+    "replaces": "/images/editorial/provider-cta.jpg",
+    "place": "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E07"
+  },
+  {
+    "path": "/images/og-default-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170636_62c26c24-40e3-406d-922b-d4f5b4f3723a.png",
+    "ratio": "1.91:1",
+    "width": 1200,
+    "height": 630,
+    "focal": "60% 50%",
+    "replaces": "/images/og-default.jpg",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E08"
+  },
+  {
+    "path": "/images/categories/massage-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170635_5828433c-f07c-4a35-88bb-a82e1de6e287.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "replaces": "/images/categories/massage.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C01"
+  },
+  {
+    "path": "/images/categories/manikuere-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170637_6f0e09ea-19a9-447c-b3a4-4b92c76c4504.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 55%",
+    "replaces": "/images/categories/manikuere.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C02"
+  },
+  {
+    "path": "/images/categories/pedikuere-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170636_09c9682a-bb5c-4c88-81f7-9cb615cb47b5.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 60%",
+    "replaces": "/images/categories/pedikuere.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C03"
+  },
+  {
+    "path": "/images/categories/kosmetik-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170917_3aeb89ce-3f89-4e3c-a4cd-02cf9a532285.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "48% 42%",
+    "replaces": "/images/categories/kosmetik.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C04"
+  },
+  {
+    "path": "/images/categories/haare-styling-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170916_18363ca6-d07b-42a4-9fc4-b853cfbfc95f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 42%",
+    "replaces": "/images/categories/haare-styling.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C05"
+  },
+  {
+    "path": "/images/categories/brows-lashes-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170915_31e04da0-ff4e-4521-a13d-707f459e30bc.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "replaces": "/images/categories/brows-lashes.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C06"
+  },
+  {
+    "path": "/images/categories/make-up-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170916_916f9d88-5f1f-4fdf-97e2-5380fd77eedb.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "55% 40%",
+    "replaces": "/images/categories/make-up.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C07"
+  },
+  {
+    "path": "/images/pros/pro-28-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171424_6e532783-d04d-492b-af85-5515847fd985.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 38%",
+    "replaces": "/images/pros/pro-28.jpg",
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot R01"
+  },
+  {
+    "path": "/images/portfolio/massage-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170915_a31fbd15-8230-472e-afc4-abd3b265f157.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schultern und Nacken – klassische Massage",
+    "replaces": "/images/portfolio/massage-1.jpg",
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P01"
+  },
+  {
+    "path": "/images/portfolio/massage-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171912_f0272d7c-a7b2-4145-8a57-696a56186707.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Leinentücher und Massageöl, mitgebracht",
+    "replaces": "/images/portfolio/massage-2.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P02"
+  },
+  {
+    "path": "/images/portfolio/massage-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171609_6e1d1d5a-d22d-4cfa-abfd-45b5948d4350.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massageliege in der Hotelsuite, am Abend",
+    "replaces": "/images/portfolio/massage-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P03"
+  },
+  {
+    "path": "/images/portfolio/massage-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171914_1c05c6f1-e920-49fd-9def-fce4b36b0589.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Unterarmtechnik entlang des oberen Rückens",
+    "replaces": "/images/portfolio/massage-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P04"
+  },
+  {
+    "path": "/images/portfolio/massage-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171607_d5e6447e-d3d6-466a-9775-2efda3238a7f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nach der Behandlung: noch einen Moment liegen bleiben",
+    "replaces": "/images/portfolio/massage-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P05"
+  },
+  {
+    "path": "/images/portfolio/massage-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171608_2298b2cd-d39b-4257-84a6-96e38aff5d06.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schulterdehnung, assistiert, in Rückenlage",
+    "replaces": "/images/portfolio/massage-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P06"
+  },
+  {
+    "path": "/images/portfolio/massage-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171126_97d0996f-6393-41c9-b825-404fdcdfc135.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Fußmassage zum Abschluss",
+    "replaces": "/images/portfolio/massage-7.jpg",
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P07"
+  },
+  {
+    "path": "/images/portfolio/massage-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171608_3ab39af3-034e-4d0b-910e-ab46b8150d6c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schultermassage im Büro, im Sitzen",
+    "replaces": "/images/portfolio/massage-8.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P08"
+  },
+  {
+    "path": "/images/portfolio/massage-9-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171608_8f5461cf-0caf-47e5-84e7-6c0f1ab25a1c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kopf- und Kopfhautmassage",
+    "replaces": "/images/portfolio/massage-9.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P09"
+  },
+  {
+    "path": "/images/portfolio/massage-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171912_3f1647ae-20cd-4a5f-bae6-ae2073df8ca0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage mit Lagerungskissen",
+    "replaces": "/images/portfolio/massage-10.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P10"
+  },
+  {
+    "path": "/images/portfolio/massage-11-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171912_bb9d747e-74cf-43a9-ada3-c339ecefb8db.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage in der Hotelsuite, nach dem letzten Termin des Tages",
+    "replaces": "/images/portfolio/massage-11.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P11"
+  },
+  {
+    "path": "/images/portfolio/massage-12-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171425_498eac8d-37d1-410a-b446-ec73b836f719.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massageöl, in den Händen angewärmt",
+    "replaces": "/images/portfolio/massage-12.jpg",
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P12"
+  },
+  {
+    "path": "/images/portfolio/massage-13-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171913_941ea814-2783-4691-b392-39613ccd52ae.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Rückenmassage mit flachen Händen",
+    "replaces": "/images/portfolio/massage-13.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P13"
+  },
+  {
+    "path": "/images/portfolio/massage-14-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172524_3b776c7c-251d-47bd-950d-9f6ef58f6122.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Waden, gründlich gelockert",
+    "replaces": "/images/portfolio/massage-14.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P14"
+  },
+  {
+    "path": "/images/portfolio/massage-15-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171913_01d3f845-66f7-48c5-9a45-b1569d9d574c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Vorbereitet: Liege im Hotelzimmer am Morgen",
+    "replaces": "/images/portfolio/massage-15.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P15"
+  },
+  {
+    "path": "/images/portfolio/massage-16-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171609_ec71bd65-7043-4b36-b8ce-bead3931d9c2.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
+    "replaces": "/images/portfolio/massage-16.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P16"
+  },
+  {
+    "path": "/images/portfolio/massage-17-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_171608_a8b07e44-188a-4dd1-a629-4217e36b06c1.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hand- und Unterarmmassage",
+    "replaces": "/images/portfolio/massage-17.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P17"
+  },
+  {
+    "path": "/images/portfolio/massage-18-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172145_63951f95-a3c0-4041-b848-962a23c939c7.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sportmassage am Schulterblatt",
+    "replaces": "/images/portfolio/massage-18.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P18"
+  },
+  {
+    "path": "/images/portfolio/massage-19-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172145_480d9e7d-69bd-49bc-9450-398e13282f4e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Danach: ein Glas Wasser und Ruhe",
+    "replaces": "/images/portfolio/massage-19.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P19"
+  },
+  {
+    "path": "/images/portfolio/massage-20-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172146_53c8ce98-bdc1-4da2-8e83-f625e157d520.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nach dem Termin – alles wieder eingepackt",
+    "replaces": "/images/portfolio/massage-20.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P20"
+  },
+  {
+    "path": "/images/portfolio/massage-21-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172146_d786ecb5-a3bd-4ddb-86c9-95fcf5d27962.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Nackenmassage in Rückenlage",
+    "replaces": "/images/portfolio/massage-21.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P21"
+  },
+  {
+    "path": "/images/portfolio/manikuere-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172145_8e40496f-2567-4a74-908e-05dba0b11ea0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Maniküre in Taupe, kurze runde Form",
+    "replaces": "/images/portfolio/manikuere-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P22"
+  },
+  {
+    "path": "/images/portfolio/manikuere-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172146_507d04a6-10c2-495a-acb6-b1675299da1b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nude-Gel, natürlich, Mandelform",
+    "replaces": "/images/portfolio/manikuere-2.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P23"
+  },
+  {
+    "path": "/images/portfolio/manikuere-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172145_a6ba148f-5fe6-4a3c-9cf9-cb7c07342b39.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Micro-French auf kurzen Nägeln",
+    "replaces": "/images/portfolio/manikuere-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P24"
+  },
+  {
+    "path": "/images/portfolio/manikuere-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172318_a5fc7947-9720-434d-9378-2d1fcb99b9ce.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Minimalistisches Nail-Art: eine feine schwarze Linie",
+    "replaces": "/images/portfolio/manikuere-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P25"
+  },
+  {
+    "path": "/images/portfolio/manikuere-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172320_916d7378-960b-43f8-88ab-eedc964a1a3c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nägel in Form feilen – am Esstisch zu Hause",
+    "replaces": "/images/portfolio/manikuere-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P26"
+  },
+  {
+    "path": "/images/portfolio/manikuere-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172320_0f0a358c-43cf-4ae1-aa5d-82441447e108.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurze Nägel in tiefem Bordeaux",
+    "replaces": "/images/portfolio/manikuere-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P27"
+  },
+  {
+    "path": "/images/portfolio/manikuere-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172320_f53fd7de-53e3-4a3c-ad70-f0b4748eae56.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassische Maniküre ohne Lack",
+    "replaces": "/images/portfolio/manikuere-7.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P28"
+  },
+  {
+    "path": "/images/portfolio/manikuere-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172319_2d8532bb-d6a0-4501-a8b6-d2f5f0e9c1be.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Milchweißes Gel, Mandelform",
+    "replaces": "/images/portfolio/manikuere-8.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P29"
+  },
+  {
+    "path": "/images/portfolio/manikuere-9-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172321_1c695f18-f736-4f94-bc84-d569c1742854.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Herrenmaniküre, gepflegt und poliert",
+    "replaces": "/images/portfolio/manikuere-9.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P30"
+  },
+  {
+    "path": "/images/portfolio/manikuere-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172321_82c548db-3d52-4678-8925-c31b04be0ac3.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Olivgrünes Gel, kurz und eckig",
+    "replaces": "/images/portfolio/manikuere-10.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P31"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172523_0f2510ad-d313-410d-b3c6-36424ba0c27d.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pediküre in gedecktem Ziegelrot",
+    "replaces": "/images/portfolio/pedikuere-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P32"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172523_c63a1ef6-c6a9-456c-add8-314f958dbe6f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Werkzeug für die Pediküre, sauber vorbereitet",
+    "replaces": "/images/portfolio/pedikuere-2.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P33"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172524_1ec798e8-cc9a-4642-b7fa-2aea29e1ddd9.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nägel polieren zum Abschluss",
+    "replaces": "/images/portfolio/pedikuere-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P34"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172522_1ca8f937-5cd1-4465-b5bb-7c2f5ce93ddd.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pediküre in Nude, am Fenster",
+    "replaces": "/images/portfolio/pedikuere-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P35"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172524_faa357c6-0d80-4b3d-8422-a74e9206a78e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gepflegte Füße mit Klarlack",
+    "replaces": "/images/portfolio/pedikuere-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P36"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172524_fcc18190-adb1-443e-b5d7-4c5b8a673e84.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Tonerde-Maske, mit dem Pinsel aufgetragen",
+    "replaces": "/images/portfolio/kosmetik-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P37"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172523_3df12d46-6d8c-43fe-8aa9-71ca553e2037.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Ebenmäßige Haut direkt nach dem Facial",
+    "replaces": "/images/portfolio/kosmetik-2.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P38"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172729_5c513d62-9b7f-44b3-a468-ecea45d4d931.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pflegeprodukte für die Behandlung im Hotel",
+    "replaces": "/images/portfolio/kosmetik-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P39"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172730_d0b43f32-87dc-4251-9744-bf0cb2c22ca6.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gesichtsmassage an den Schläfen",
+    "replaces": "/images/portfolio/kosmetik-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P40"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172728_8e8581cd-0a20-42cf-b3ee-d1fc025b7a7a.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kühlende Augenpads nach der Reinigung",
+    "replaces": "/images/portfolio/kosmetik-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P41"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172729_18594d85-e3e6-4e0c-a0cb-408dfdda8dd9.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Reinigung mit warmen Pads",
+    "replaces": "/images/portfolio/kosmetik-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P42"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172728_79e23de4-bb50-4ba5-952f-a5c278fe6fbb.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Enzympeeling für einen frischen Teint",
+    "replaces": "/images/portfolio/kosmetik-7.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P43"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172728_7da39b92-3746-461c-9fac-7acf25c9a52f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Feuchtigkeitsmaske aus Gel",
+    "replaces": "/images/portfolio/kosmetik-8.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P44"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-9-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_172729_43d1bf3f-192e-4d39-a7b8-d4092cd51ccb.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gesichtsbehandlung für Männer",
+    "replaces": "/images/portfolio/kosmetik-9.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P45"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173325_e3104f76-7490-4610-9bcf-2b4966b79a4d.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hautanalyse vor der Behandlung",
+    "replaces": "/images/portfolio/kosmetik-10.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P46"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-11-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173005_33332fc2-f8f1-4341-96b5-db79501add3b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage von Hals und Dekolleté",
+    "replaces": "/images/portfolio/kosmetik-11.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P47"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-12-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173003_64a1c4b9-5b0e-4fe2-86f7-51a578efed7c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Alles vorbereitet für das Facial",
+    "replaces": "/images/portfolio/kosmetik-12.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P48"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-13-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173004_a63d6a2d-fbe5-4379-a40c-1bb7afbcbcc5.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Augenbrauen gezupft und in Form gebracht",
+    "replaces": "/images/portfolio/kosmetik-13.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P49"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-14-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173004_43fd3f07-b25a-4520-8d37-8c5061e17260.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Frischer Teint nach dem Facial",
+    "replaces": "/images/portfolio/kosmetik-14.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P50"
+  },
+  {
+    "path": "/images/portfolio/make-up-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173004_f861a73c-be97-42d0-aeb8-513d28e2c181.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Natürliches Braut-Make-up",
+    "replaces": "/images/portfolio/make-up-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P51"
+  },
+  {
+    "path": "/images/portfolio/make-up-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173004_9585de6b-68e5-47b7-a5d9-02be5b93075b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Abend-Make-up mit Smokey Eyes in Braun",
+    "replaces": "/images/portfolio/make-up-2.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P52"
+  },
+  {
+    "path": "/images/portfolio/make-up-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173003_0599d065-73ce-4247-becd-21edf7808f87.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lippen in Terrakotta, mit dem Pinsel aufgetragen",
+    "replaces": "/images/portfolio/make-up-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P53"
+  },
+  {
+    "path": "/images/portfolio/make-up-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173004_447d9ef6-d9dc-49a2-9b1f-41626f1c118e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Das Make-up-Case, mitgebracht",
+    "replaces": "/images/portfolio/make-up-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P54"
+  },
+  {
+    "path": "/images/portfolio/make-up-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173325_5d8de9fc-bcbc-41c6-ab68-649496411cf3.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Editorial-Look mit warmen Bronzetönen",
+    "replaces": "/images/portfolio/make-up-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P55"
+  },
+  {
+    "path": "/images/portfolio/make-up-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173327_dcfde4b8-d758-48c2-abb5-5d4a286abe32.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Natürliches Tages-Make-up",
+    "replaces": "/images/portfolio/make-up-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P56"
+  },
+  {
+    "path": "/images/portfolio/make-up-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173325_fdca83a2-4c0f-4dfd-ad11-cc02e86385bc.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Mascara, präzise aufgetragen",
+    "replaces": "/images/portfolio/make-up-7.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P57"
+  },
+  {
+    "path": "/images/portfolio/make-up-9-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173326_4106d522-5745-4182-af76-164104e2ad2f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Make-up für das Business-Fotoshooting",
+    "replaces": "/images/portfolio/make-up-9.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P58"
+  },
+  {
+    "path": "/images/portfolio/make-up-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173326_000ad8de-87ad-48ad-bc99-639dbc77dc93.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassischer Abendlook mit rotem Lippenstift",
+    "replaces": "/images/portfolio/make-up-10.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P59"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173325_ace3d285-0eaf-402d-a2ba-d6dff53f8e57.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Weiche Wellen auf langem Haar",
+    "replaces": "/images/portfolio/haare-styling-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P60"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173325_1043ab21-0d4b-4a4c-a1c3-aa68ed2af1c6.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Tiefer Brautdutt, locker gesteckt",
+    "replaces": "/images/portfolio/haare-styling-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P61"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173449_170badd4-f80b-45bf-ab57-fbea1e998477.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Föhnen mit Rundbürste in der Küche",
+    "replaces": "/images/portfolio/haare-styling-4.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P62"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173449_ebfb4a42-dfbb-4171-9821-ec70ef2bf585.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Definierte Naturlocken",
+    "replaces": "/images/portfolio/haare-styling-5.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P63"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173448_e832c41e-9a79-49d0-aa3b-53f18e3a32c2.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Highlights, natürlich verblendet",
+    "replaces": "/images/portfolio/haare-styling-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P64"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173449_b37ef148-8d56-4211-a7dd-324879f57d49.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurzer Pixie Cut mit Textur",
+    "replaces": "/images/portfolio/haare-styling-7.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P65"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173451_cc81e6c9-fda6-497d-b44c-c91305d5bdc0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassischer Seitenscheitel",
+    "replaces": "/images/portfolio/haare-styling-8.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P66"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-9-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173450_77b41f87-9715-4e4d-9e9f-48ebcc80cb3a.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Bart in Form gebracht",
+    "replaces": "/images/portfolio/haare-styling-9.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P67"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173449_806e0adc-14f9-4c5f-adc2-257dc70de6eb.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Glatter Bob auf Kinnlänge",
+    "replaces": "/images/portfolio/haare-styling-10.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P68"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-11-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173450_305e745c-2b6b-4043-8096-ffdfdeac55ee.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Geflochtene Krone für die Hochzeit",
+    "replaces": "/images/portfolio/haare-styling-11.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P69"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-12-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_001594f0-8b58-4361-a297-602139f644e5.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Volumen-Föhnfrisur",
+    "replaces": "/images/portfolio/haare-styling-12.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P70"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-13-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_460ee775-68ce-43c1-9127-0b9a7c5c53e8.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lockenschnitt mit kurzen Seiten",
+    "replaces": "/images/portfolio/haare-styling-13.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P71"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-14-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_3e3c0943-dc77-4b21-8851-22c10381f804.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Spitzen schneiden, präzise",
+    "replaces": "/images/portfolio/haare-styling-14.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P72"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-15-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_89f14239-0088-45d1-9329-c9f35686f903.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hoher Pferdeschwanz für den Abend",
+    "replaces": "/images/portfolio/haare-styling-15.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P73"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-16-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_54d5dbd6-7d58-4546-b312-69f39fdffe3e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurzhaarschnitt für silbernes Haar",
+    "replaces": "/images/portfolio/haare-styling-16.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P74"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-17-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_fd50204d-f210-4b00-8d39-b6f6787da507.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Box Braids, im tiefen Dutt getragen",
+    "replaces": "/images/portfolio/haare-styling-17.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P75"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-1-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_93269376-1c4f-4eae-8124-b5fed1807c90.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lash Lift mit Färbung",
+    "replaces": "/images/portfolio/brows-lashes-1.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P76"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-3-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_4638686d-7c6f-40d1-b7b4-16e0f948d26d.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Brauen färben in warmem Braun",
+    "replaces": "/images/portfolio/brows-lashes-3.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P77"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-6-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174113_19058a86-5849-41d3-b5d3-748fd1179772.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Brauen mit dem Faden geformt",
+    "replaces": "/images/portfolio/brows-lashes-6.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P78"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-7-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174112_70825248-6532-438a-a9ad-b77d3a98bf5f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Wimpern färben",
+    "replaces": "/images/portfolio/brows-lashes-7.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P79"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174113_588ee552-9d99-4e57-ad71-1b597c63a53e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Fertig: Brauen und Wimpern natürlich betont",
+    "replaces": "/images/portfolio/brows-lashes-8.jpg",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P80"
+  },
+  {
+    "path": "/images/hero/home-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170525_95c005df-4317-4cbe-91ac-d04477488290.png",
+    "ratio": "4:5",
+    "width": 1520,
+    "height": 1900,
+    "focal": "50% 62%",
+    "replaces": "/images/hero/home.jpg",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L02 (4:5 cut)"
   }
 ]

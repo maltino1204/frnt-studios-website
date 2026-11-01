@@ -25,8 +25,8 @@ import { getDemandByCity } from "@/server/services/site-ext-2";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Für Profis – Kundschaft in deiner Nähe",
-  description: `Als selbstständiger Beauty- oder Wellness-Profi mit ${BRAND_NAME} Termine bei Kundschaft zu Hause, im Hotel und im Büro: transparente Provision, Auszahlung 48 Stunden nach dem Termin, eigene Preise und Zeiten.`,
+  title: "Für Profis – Dein Können. Deine Preise. Deine Zeiten.",
+  description: `${BRAND_NAME} für Profis: Werde von Kundschaft in deinem Einsatzgebiet gefunden – zu Hause, im Hotel und im Büro. Keine Grundgebühr, transparente Provision, eigene Preise und Zeiten.`,
   alternates: { canonical: routes.forPros() },
 };
 
@@ -50,8 +50,8 @@ export default async function ForProsPage() {
   const partial = tiers.find((t) => t.feePercent > 0 && t.feePercent < 100);
   const full = tiers.find((t) => t.feePercent === 100);
   const pct = (n: number) => `${n}\u00a0%`;
-  const cancelText = `Sagt Kundschaft weniger als ${freeHours} Stunden vorher ab, wird eine Gebühr auf den Behandlungspreis fällig${
-    partial ? ` (${pct(partial.feePercent)}${full && partial.minHoursBefore > 0 ? `, unter ${partial.minHoursBefore} Stunden ${pct(full.feePercent)} plus Anfahrt` : ""})` : ""
+  const cancelText = `Sagt Kundschaft weniger als ${freeHours}\u00a0Stunden vorher ab, wird eine Gebühr auf den Behandlungspreis fällig${
+    partial ? ` (${pct(partial.feePercent)}${full && partial.minHoursBefore > 0 ? `, unter ${partial.minHoursBefore}\u00a0Stunden ${pct(full.feePercent)} plus Anfahrt` : ""})` : ""
   }. Bei Nichterscheinen sind es ${pct(terms.cancellationPolicy.noShowFeePercent)} plus Anfahrt.`;
   const demandRows = demand?.cities.filter((x) => x.searches > 0 || x.waitlistSignups > 0) ?? [];
   const totalSearches = demandRows.reduce((a, x) => a + x.searches, 0);
@@ -62,31 +62,31 @@ export default async function ForProsPage() {
   const catDocs = categories.filter((x) => x.requiredDocuments.length > 0);
 
   const benefits: { icon: LucideIcon; title: string; body: string }[] = [
-    { icon: MapPinned, title: "Kundschaft in deiner Nähe", body: "Du erscheinst in Suchen innerhalb deines Radius – mit Endpreis inklusive Anfahrt. Keine Werbung, keine Akquise." },
-    { icon: Wallet, title: "Bezahlt, bevor du klingelst", body: `Die Zahlung ist bei der Buchung hinterlegt. Nach dem Termin wird sie eingezogen, dein Anteil ist ${hold} Stunden später verfügbar.` },
+    { icon: MapPinned, title: "Gefunden werden", body: "Du erscheinst in Suchen in deinem Radius – mit deinem Endpreis inklusive Anfahrt. Ohne Werbekosten und ohne bezahlte Platzierung." },
+    { icon: Wallet, title: "Bezahlt wird über SOMA", body: `Nicht an der Tür: Bei der Buchung wird der Betrag auf der Karte der Kundschaft reserviert und nach dem Termin belastet. Dein Anteil ist ${hold}\u00a0Stunden später verfügbar.` },
     { icon: CalendarCheck, title: "Du bestimmst", body: "Preise, Radius, Arbeitszeiten und Puffer legst du fest. Anfragen nimmst du an oder lehnst sie ab." },
     { icon: ShieldCheck, title: "Schutz bei kurzfristigen Absagen", body: cancelText },
     { icon: KeyRound, title: "Start-Code statt Diskussion", body: "Vor Ort startest du mit dem vierstelligen Code der Kundschaft. So ist belegt, dass du da warst." },
-    { icon: BadgeCheck, title: "Ein geprüftes Netzwerk", body: "Jedes Profil ist verifiziert, jede Buchung läuft über Konto und Karte. Du siehst vorab, wie oft jemand schon über SOMA gebucht hat." },
+    { icon: BadgeCheck, title: "Ein geprüftes Netzwerk", body: "Jedes Profil ist geprüft, jede Buchung läuft über Konto und Karte. Du siehst vorab, wie oft jemand schon über SOMA gebucht hat." },
   ];
 
   const steps = [
-    { n: "01", title: "Registrieren", body: "Konto, Profil, Leistungen, Preise und Arbeitszeiten. Dauert etwa 15 Minuten, jeder Schritt wird gespeichert." },
-    { n: "02", title: "Verifizieren", body: "Ausweis, Gewerbeanmeldung, Haftpflicht und Qualifikation hochladen. Wir prüfen meist innerhalb von 48 Stunden." },
-    { n: "03", title: "Anfragen annehmen", body: "Du siehst Leistung, Zeit, Entfernung und deinen Verdienst – und entscheidest. Die Adresse siehst du nach deiner Zusage." },
-    { n: "04", title: "Arbeiten, ausgezahlt werden", body: `Vor Ort mit Start-Code beginnen, danach abschließen. ${hold} Stunden später ist dein Geld verfügbar.` },
+    { n: "01", title: "Registrieren", body: "Konto, Profil, Leistungen, Preise und Arbeitszeiten. Jeder Schritt wird gespeichert, du kannst jederzeit unterbrechen." },
+    { n: "02", title: "Verifizieren", body: "Ausweis, Gewerbeanmeldung, Haftpflicht und – je nach Kategorie – deinen Qualifikationsnachweis hochladen. Wir melden uns, sobald alles geprüft ist." },
+    { n: "03", title: "Anfragen annehmen", body: "Du siehst Leistung, Zeit, Entfernung und deinen Verdienst – und entscheidest. Die Adresse siehst du, sobald der Termin bestätigt ist." },
+    { n: "04", title: "Arbeiten, ausgezahlt werden", body: `Vor Ort mit Start-Code beginnen, danach abschließen. ${hold}\u00a0Stunden später ist dein Anteil verfügbar.` },
   ];
 
   const faq: { q: string; a: string }[] = [
     {
       q: "Was kostet mich SOMA?",
-      a: `Keine Grundgebühr, keine Mindestlaufzeit. Du zahlst Provision nur auf vermittelte Behandlungen: ${formatPercent(c.rate)} bei neuer Kundschaft, ${formatPercent(c.repeatClientRate)} bei Stammkundschaft und ${formatPercent(c.ownClientRate)} bei Kundschaft, die du über deinen persönlichen Link mitbringst. Auf die Anfahrt fällt keine Provision an.`,
+      a: `Keine Grundgebühr, keine Mindestlaufzeit. Provision zahlst du nur auf das, was du über SOMA verdienst: ${formatPercent(c.rate)} bei neuer Kundschaft, ${formatPercent(c.repeatClientRate)} bei Stammkundschaft und ${formatPercent(c.ownClientRate)} bei Kundschaft, die du über deinen persönlichen Link mitbringst. Auf die Anfahrt fällt keine Provision an.`,
     },
     {
       q: "Wann bekomme ich mein Geld?",
-      a: `Die Kundschaft hinterlegt die Zahlung bei der Buchung. Nach dem Termin wird sie eingezogen; dein Anteil ist ${hold} Stunden später verfügbar, sofern kein Einspruch eingeht, und wird über unseren Zahlungspartner Stripe auf dein Konto überwiesen.`,
+      a: `Bei der Buchung wird der Betrag auf der Karte der Kundschaft reserviert und nach dem Termin belastet; dein Anteil ist ${hold}\u00a0Stunden später verfügbar, sofern kein Einspruch eingeht, und wird über unseren Zahlungspartner Stripe auf dein Konto überwiesen.`,
     },
-    { q: "Was passiert, wenn Kundschaft absagt oder nicht da ist?", a: `${cancelText} Du erhältst deinen Anteil an der Gebühr. Musst du selbst absagen, bekommt die Kundschaft den vollen Betrag zurück.` },
+    { q: "Was passiert, wenn Kundschaft absagt oder nicht da ist?", a: `${cancelText} Du erhältst deinen Anteil an der Gebühr. Musst du selbst absagen, entstehen der Kundschaft keine Kosten.` },
     {
       q: "Muss ich jede Anfrage annehmen?",
       a: "Nein. Im Modus „Auf Anfrage“ nimmst du an oder lehnst mit kurzer Begründung ab – innerhalb der angezeigten Antwortfrist. Nach drei abgeschlossenen Terminen kannst du auf Sofortbuchung umstellen.",
@@ -98,13 +98,18 @@ export default async function ForProsPage() {
     { q: "Welche Versicherung brauche ich?", a: "Eine Berufs- bzw. Betriebshaftpflichtversicherung, die Behandlungen bei Kundschaft vor Ort abdeckt. Den Nachweis lädst du bei der Registrierung hoch." },
     {
       q: "Kann ich meine bestehende Kundschaft mitbringen?",
-      a: `Ja. Mit deinem persönlichen Einladungslink bucht deine Stammkundschaft dich über SOMA – für dauerhaft nur ${formatPercent(c.ownClientRate)} Provision. Sie bekommen Erinnerungen, sichere Zahlung und Absicherung, du sparst dir Rechnungen und Nachfragen.`,
+      a: `Ja. Mit deinem persönlichen Einladungslink bucht deine Stammkundschaft dich über SOMA – für dauerhaft nur ${formatPercent(c.ownClientRate)} Provision. Deine Kundschaft bekommt Erinnerungen, sichere Zahlung und Absicherung, du sparst dir Zahlungserinnerungen und Nachfragen.`,
     },
     {
       q: "Wer sieht meine Adresse – und wann sehe ich die der Kundschaft?",
       a: "Deine Adresse ist nie öffentlich, wir rechnen die Entfernung über die Postleitzahl. Die genaue Adresse der Kundschaft siehst du erst, wenn der Termin bestätigt ist.",
     },
     { q: "Welche Leistungen sind auf SOMA nicht möglich?", a: "Medizinische und therapeutische Leistungen wie Physiotherapie, Podologie oder Heilpraktik. Werbung mit Heilversprechen ist nicht erlaubt – SOMA steht für Beauty und Wellness." },
+    // Zero-tolerance rule (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01).
+    {
+      q: "Was, wenn ich mich bei einem Termin unwohl fühle?",
+      a: "SOMA vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen führen zur Sperrung des Kontos. Fühlst du dich bei einem Termin unwohl, darfst du gehen. Melde es uns – wir kümmern uns darum.",
+    },
   ];
 
   const faqJsonLd = {
@@ -129,16 +134,16 @@ export default async function ForProsPage() {
         <AuraBackground placement="right" fade="both" />
         <Container className="grid gap-12 pt-8 pb-14 md:pt-12 lg:grid-cols-12 lg:items-center lg:gap-6 lg:pt-12 lg:pb-20">
           <div className="flex flex-col gap-6 lg:col-span-6">
-            <Overline>Für Profis · {activeCities.length} Städte</Overline>
+            <Overline>{BRAND_NAME} für Profis · {activeCities.length} Städte</Overline>
             <h1 className="type-display-l">
-              Du bringst das Können. <em>Wir die Kundschaft.</em>
+              Dein Können. Deine Preise. <em>Deine Zeiten.</em>
             </h1>
             <p className="max-w-reading type-body-l text-ink-muted">
-              {BRAND_NAME} vermittelt dir bezahlte Termine bei Kundschaft in deiner Nähe – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
+              {BRAND_NAME} macht dich für Kundschaft in deinem Einsatzgebiet sichtbar und kümmert sich um Buchung, Zahlung und Stornofristen – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <ButtonLink href={REGISTER} variant="accent" size="l" iconRight={<Icon icon={ArrowRight} />}>
-                Jetzt registrieren
+                Profi werden
               </ButtonLink>
               <ButtonLink href="#so-funktionierts" size="l" variant="ghost">
                 So funktioniert’s
@@ -163,7 +168,7 @@ export default async function ForProsPage() {
                   </div>
                 ))}
               </dl>
-              <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Auszahlung ${hold} Stunden nach dem Termin.`}</p>
+              <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Dein Anteil ist ${hold}\u00a0Stunden nach dem Termin verfügbar.`}</p>
             </div>
           </div>
           <div className="min-w-0 lg:col-span-6">
@@ -201,14 +206,14 @@ export default async function ForProsPage() {
             <SectionHeader
               overline="Provision"
               title={<>Transparent. <em>Ohne Grundgebühr.</em></>}
-              lead="Du zahlst nur, wenn ein Termin stattfindet. Je enger die Beziehung zur Kundschaft, desto weniger."
+              lead="Provision nur auf das, was du über SOMA verdienst. Je enger die Beziehung zur Kundschaft, desto weniger."
             />
             <dl className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised md:px-6">
               {[
                 { rate: formatPercent(c.rate), title: "Neue Kundschaft über SOMA", body: "Die erste Buchung einer Person bei dir." },
                 { rate: formatPercent(c.repeatClientRate), title: "Stammkundschaft", body: "Jede weitere Buchung derselben Person über SOMA." },
                 { rate: formatPercent(c.ownClientRate), title: "Eigene Kundschaft", body: "Kommt über deinen persönlichen Einladungslink – dauerhaft." },
-                { rate: "0 %", title: "Anfahrt", body: "Die Anfahrtspauschale geht immer vollständig an dich." },
+                { rate: "0 %", title: "Anfahrt", body: "Die Anfahrtspauschale geht immer vollständig an dich." },
               ].map((r) => (
                 <div key={r.title} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-x-6 py-5 md:grid-cols-[7rem_1fr]">
                   <dd className="type-stat">{r.rate}</dd>
@@ -262,7 +267,7 @@ export default async function ForProsPage() {
               size="m"
               overline="Voraussetzungen"
               title={<>Was du <em>mitbringst.</em></>}
-              lead="Du arbeitest in privaten Wohnungen, Hotels und Büros. Deshalb prüfen wir jedes Profil, bevor es sichtbar wird – meist innerhalb von 48 Stunden."
+              lead="Du arbeitest in privaten Wohnungen, Hotels und Büros. Deshalb prüfen wir jedes Profil, bevor es sichtbar wird."
             />
           </Reveal>
           <Reveal className="flex flex-col gap-8 lg:col-span-6 lg:col-start-7">
@@ -311,13 +316,13 @@ export default async function ForProsPage() {
                   Über deinen persönlichen Link bucht deine Kundschaft dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
                 </p>
                 <ButtonLink href={REGISTER} size="l" className="self-start" iconRight={<Icon icon={ArrowRight} />}>
-                  Kostenlos registrieren
+                  Profi werden
                 </ButtonLink>
               </div>
               <figure className="relative flex flex-col gap-3 lg:col-span-7">
                 <Photo
                   src={images.editorial.providerCta}
-                  alt="Eine Friseurin mit Arbeitstasche auf dem Weg die Altbautreppe hinauf zum nächsten Termin."
+                  alt="Ein Profi mit Arbeitstasche im Treppenhaus eines Altbaus, auf dem Weg zum nächsten Termin"
                   tone="nacht"
                   word="Zwischen zwei Terminen."
                   sizes="(min-width: 1024px) 50vw, 100vw"
@@ -328,7 +333,7 @@ export default async function ForProsPage() {
                   <Icon icon={Link2} size={16} className="text-ink" />
                   <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
                 </div>
-                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
+                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
               </figure>
             </div>
           </Reveal>
@@ -345,12 +350,12 @@ export default async function ForProsPage() {
                 Gesucht wird <em>schon.</em>
               </h2>
               <p className="max-w-reading type-body-l text-ink-muted">
-                {`${n(totalSearches)} Suchen nach Behandlungen in den letzten ${demand.days} Tagen. Auf der Warteliste stehen Menschen, die in ihrer Nähe noch niemanden gefunden haben.`}
+                {`${n(totalSearches)} Suchen nach Behandlungen in den letzten ${demand.days} Tagen. Auf der Warteliste stehen Menschen, die in ihrer Nähe noch niemanden gefunden haben.`}
               </p>
             </Reveal>
             <Reveal className="flex min-w-0 flex-col gap-3 lg:col-span-6 lg:col-start-7">
               <Table>
-                <caption className="sr-only">{`Suchen der letzten ${demand.days} Tage, Warteliste und Profis pro Stadt`}</caption>
+                <caption className="sr-only">{`Suchen der letzten ${demand.days} Tage, Warteliste und Profis pro Stadt`}</caption>
                 <thead>
                   <tr>
                     <th scope="col">Stadt</th>
@@ -386,7 +391,7 @@ export default async function ForProsPage() {
                   })}
                 </tbody>
               </Table>
-              <p className="type-caption text-ink-muted">{`Suchen der letzten ${demand.days} Tage in der ${BRAND_NAME}-Suche, stündlich aktualisiert. „Profis“ zählt freigeschaltete Profile mit Standort in der Stadt.`}</p>
+              <p className="type-caption text-ink-muted">{`Suchen der letzten ${demand.days} Tage in der ${BRAND_NAME}-Suche, stündlich aktualisiert. „Profis“ zählt freigeschaltete Profile mit Standort in der Stadt.`}</p>
             </Reveal>
           </Container>
         </Section>
@@ -430,14 +435,14 @@ export default async function ForProsPage() {
           <Reveal className="relative isolate flex flex-col items-start gap-6 overflow-clip rounded-panel p-6 md:flex-row md:items-end md:justify-between md:p-12">
             <AuraBackground variant="section" placement="full" fade="none" animate={false} />
             <div className="flex max-w-reading flex-col gap-4">
-              <Overline>Los geht’s</Overline>
+              <Overline>Registrierung</Overline>
               <h2 className="type-display-l">
-                In 15 Minuten <em>startklar.</em>
+                Schritt für Schritt <em>startklar.</em>
               </h2>
               <p className="type-body-l text-ink-muted">Konto anlegen, Profil einrichten, Dokumente hochladen. Wir melden uns, sobald du freigeschaltet bist.</p>
             </div>
             <ButtonLink href={REGISTER} size="l" iconRight={<Icon icon={ArrowRight} />}>
-              Jetzt registrieren
+              Profi werden
             </ButtonLink>
           </Reveal>
         </Container>
@@ -463,7 +468,7 @@ function ProShowcase({ hold, cities }: { hold: number; cities: number }) {
             <Avatar name="Kundin" size={40} />
             <div className="min-w-0">
               <p className="truncate type-heading-s">Entspannungsmassage</p>
-              <p className="truncate type-caption text-ink-muted num">60 Min. · Zu Hause · Prenzlauer Berg</p>
+              <p className="truncate type-caption text-ink-muted num">60 Min. · Zu Hause · Prenzlauer Berg</p>
             </div>
           </div>
           <div className="flex gap-2">

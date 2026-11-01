@@ -32,6 +32,6 @@ export const isServiceError = (e: unknown): e is ServiceError => e instanceof Se
 
 export const notFound = (what = "Eintrag") => new ServiceError("not_found", `${what} wurde nicht gefunden.`);
 export const forbidden = (msg = "Dafür fehlt die Berechtigung.") => new ServiceError("forbidden", msg);
-export const unauthenticated = () => new ServiceError("unauthenticated", "Bitte melden Sie sich an.");
+export const unauthenticated = () => new ServiceError("unauthenticated", "Bitte melde dich an.");
 export const invalidState = (msg: string) => new ServiceError("invalid_state", msg);
 export const validation = (msg: string, fieldErrors?: Record<string, string>) => new ServiceError("validation", msg, fieldErrors);

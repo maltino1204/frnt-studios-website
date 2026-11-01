@@ -58,12 +58,12 @@ export default function ImpressumPage() {
         </p>
       </ContentSection>
       <ContentSection id="verantwortlich" title="Verantwortlich für den Inhalt">
-        <p>Verantwortlich im Sinne von § 18 Abs. 2 Medienstaatsvertrag (MStV): [Vorname Nachname], Anschrift wie oben.</p>
+        <p>Verantwortlich im Sinne von § 18 Abs. 2 Medienstaatsvertrag (MStV): [Vorname Nachname], Anschrift wie oben.</p>
       </ContentSection>
       <ContentSection id="vermittlung" title="Rolle als Vermittler">
         <p>
           {BRAND_NAME} betreibt einen Online-Marktplatz und vermittelt Termine mit selbstständigen Profis. Vertragspartner für die jeweilige Behandlung ist der gebuchte Profi als
-          Unternehmer. Die Anbieterangaben der Profis finden Sie in deren Profil und in Ihrer Buchungsbestätigung.
+          Unternehmer. Die Anbieterangaben der Profis stehen in deren Profil und in der Buchungsbestätigung.
         </p>
         <p>
           Wie die Reihenfolge der Suchergebnisse zustande kommt und wie Bewertungen geprüft werden, erläutern wir unter <Link href="/ranking">So sortieren wir</Link>.
@@ -71,8 +71,8 @@ export default function ImpressumPage() {
       </ContentSection>
       <ContentSection id="streitbeilegung" title="Verbraucherstreitbeilegung">
         <p>
-          [Zu prüfen:] Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG). Bei Problemen mit einer
-          Buchung helfen wir Ihnen direkt: <Link href={routes.help()}>Hilfe & Kontakt</Link>.
+          [Zu prüfen:] Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG). Bei Problemen mit einer
+          Buchung helfen wir direkt weiter: <Link href={routes.help()}>Hilfe & Kontakt</Link>.
         </p>
       </ContentSection>
     </ContentPage>

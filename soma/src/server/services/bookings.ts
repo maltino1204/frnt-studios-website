@@ -135,12 +135,12 @@ export const QuoteInputSchema = z
     useCredits: z.boolean().optional().default(false),
     inviteCode: z.string().trim().max(20).optional(),
   })
-  .refine((v) => v.postalCode || v.addressId, { message: "Bitte geben Sie eine Adresse oder Postleitzahl an.", path: ["postalCode"] });
+  .refine((v) => v.postalCode || v.addressId, { message: "Bitte gib eine Adresse oder Postleitzahl an.", path: ["postalCode"] });
 
 /** Price breakdown + policy for one slot. Anonymous callers may pass a postal code; credits need a session. */
 export async function quoteBooking(input: QuoteInput, session?: Session | null): Promise<QuoteDTO> {
   const q = parse(QuoteInputSchema, input);
-  if (q.addressId && !session) throw new ServiceError("unauthenticated", "Bitte melden Sie sich an, um gespeicherte Adressen zu nutzen.");
+  if (q.addressId && !session) throw new ServiceError("unauthenticated", "Bitte melde dich an, um gespeicherte Adressen zu nutzen.");
   const viewerId = session?.role === "customer" ? session.userId : null;
   return withViewer(viewerId, async (tx) => {
     const o = await loadOffering(tx, q.providerServiceId);
@@ -202,10 +202,10 @@ export async function quoteBooking(input: QuoteInput, session?: Session | null):
 // ---------------------------------------------------------------------------
 const NewAddressSchema = z.object({
   kind: z.enum(["home", "hotel", "office", "other"]).default("home"),
-  street: z.string().trim().min(2, "Bitte geben Sie die Straße an.").max(120),
-  houseNumber: z.string().trim().min(1, "Bitte geben Sie die Hausnummer an.").max(12),
+  street: z.string().trim().min(2, "Bitte gib die Straße an.").max(120),
+  houseNumber: z.string().trim().min(1, "Bitte gib die Hausnummer an.").max(12),
   postalCode: zPostalCode,
-  city: z.string().trim().min(2, "Bitte geben Sie den Ort an.").max(80),
+  city: z.string().trim().min(2, "Bitte gib den Ort an.").max(80),
   details: z.string().trim().max(300).optional(),
   label: z.string().trim().max(60).optional(),
   save: z.boolean().optional().default(false),
@@ -275,10 +275,10 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
 
     const settings = await loadSettings(tx);
     if (o.bookingMode === "request" && !hasSufficientResponseWindow(now, startsAt, settings.requestResponseHours)) {
-      throw new ServiceError("unavailable", "Für diesen Termin bliebe zu wenig Zeit für die Antwort des Profis. Bitte wählen Sie einen späteren Termin.");
+      throw new ServiceError("unavailable", "Für diesen Termin bliebe zu wenig Zeit für die Antwort des Profis. Bitte wähl einen späteren Termin.");
     }
     if (!(await slotIsFree(tx, o, startsAt, settings.slotStepMinutes, now))) {
-      throw new ServiceError("unavailable", "Dieser Termin ist leider nicht mehr verfügbar. Bitte wählen Sie eine andere Uhrzeit.");
+      throw new ServiceError("unavailable", "Dieser Termin ist leider nicht mehr verfügbar. Bitte wähl eine andere Uhrzeit.");
     }
 
     // Commission tier: own client (provider invite) → repeat client → base.
@@ -336,7 +336,7 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
         returning id`;
       if (rows[0]) bookingId = rows[0].id;
     }
-    if (!bookingId) throw new ServiceError("internal", "Die Buchung konnte nicht angelegt werden. Bitte versuchen Sie es erneut.");
+    if (!bookingId) throw new ServiceError("internal", "Die Buchung konnte nicht angelegt werden. Bitte versuch es noch einmal.");
 
     if (price.discountCents > 0) {
       await tx`
@@ -382,7 +382,7 @@ export async function createBooking(session: Session, raw: CreateBookingInput): 
       if (b && b.status === "pending_payment") await cancelInTx(tx, b, { actor: "system", actorId: null, reason: "Zahlung konnte nicht gestartet werden" });
     });
     if (e instanceof ServiceError) throw e;
-    throw new ServiceError("payment", "Die Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es erneut.");
+    throw new ServiceError("payment", "Die Zahlung konnte nicht gestartet werden. Bitte versuch es noch einmal.");
   }
 
   return {
@@ -407,7 +407,7 @@ export async function confirmDevPayment(session: Session, bookingId: string): Pr
     if (!b) throw new ServiceError("not_found", "Buchung nicht gefunden.");
     if (b.status !== "pending_payment") throw new ServiceError("invalid_state", "Diese Buchung wurde bereits bezahlt oder ist nicht mehr aktiv.");
     if (b.holdExpiresAt && b.holdExpiresAt.getTime() < Date.now()) {
-      throw new ServiceError("invalid_state", "Ihre Reservierung ist abgelaufen. Bitte wählen Sie den Termin erneut.");
+      throw new ServiceError("invalid_state", "Deine Reservierung ist abgelaufen. Bitte wähl den Termin neu.");
     }
     const status = await authorizeInTx(tx, b, { cardBrand: "visa", cardLast4: "4242" });
     return { status };
@@ -487,7 +487,7 @@ export async function startBooking(session: Session, bookingId: string, code: st
     if (b.startCodeAttempts >= MAX_START_CODE_ATTEMPTS) {
       throw new ServiceError("rate_limited", "Der Start-Code wurde zu oft falsch eingegeben. Bitte wende dich an den SOMA-Support.");
     }
-    if (Date.now() < b.startsAt.getTime() - 30 * 60_000) throw new ServiceError("invalid_state", "Du kannst den Termin frühestens 30 Minuten vor Beginn starten.");
+    if (Date.now() < b.startsAt.getTime() - 30 * 60_000) throw new ServiceError("invalid_state", "Du kannst den Termin frühestens 30 Minuten vor Beginn starten.");
     const ok = b.startCode.length === input.code.length && timingSafeEqual(Buffer.from(b.startCode), Buffer.from(input.code));
     if (!ok) {
       const [r] = await tx<{ startCodeAttempts: number }[]>`
@@ -532,7 +532,7 @@ export async function markNoShow(session: Session, bookingId: string): Promise<{
     const b = await lockBooking(tx, id, { providerId: s.userId });
     if (!b) throw new ServiceError("not_found", "Termin nicht gefunden.");
     if (b.status !== "confirmed") throw new ServiceError("invalid_state", "Für diesen Termin ist „Nicht angetroffen“ nicht möglich.");
-    if (Date.now() < b.startsAt.getTime() + 15 * 60_000) throw new ServiceError("invalid_state", "Du kannst das frühestens 15 Minuten nach Terminbeginn melden.");
+    if (Date.now() < b.startsAt.getTime() + 15 * 60_000) throw new ServiceError("invalid_state", "Du kannst das frühestens 15 Minuten nach Terminbeginn melden.");
     const r = await noShowInTx(tx, b, "provider", s.userId);
     ops.push(r.op);
     return r.outcome.feeCents;
@@ -560,7 +560,7 @@ export async function cancelBooking(session: Session, bookingId: string, reason?
       throw new ServiceError("invalid_state", "Offene Anfragen lehnst du bitte über „Ablehnen“ ab.");
     }
     if (b.status === "confirmed" && Date.now() >= b.startsAt.getTime() && s.role === "customer") {
-      throw new ServiceError("invalid_state", "Der Termin hat bereits begonnen. Bitte melden Sie ein Problem über die Buchung.");
+      throw new ServiceError("invalid_state", "Der Termin hat bereits begonnen. Bitte melde ein Problem über die Buchung.");
     }
     if (s.role === "provider" && !input.reason) throw new ServiceError("validation", "Bitte gib einen Grund für die Stornierung an.", { reason: "Pflichtfeld." });
     const r = await cancelInTx(tx, b, { actor: s.role === "customer" ? "customer" : "provider", actorId: s.userId, reason: input.reason ?? null });

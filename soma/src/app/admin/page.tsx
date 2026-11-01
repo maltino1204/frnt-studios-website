@@ -75,7 +75,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
         title="Übersicht"
         description={
           <>
-            Letzte {days} Tage · Stand {formatDateTime(now)} · {formatInt(kpi.activeProviders)} aktive Profis
+            Letzte {days} Tage · Stand {formatDateTime(now)} · {formatInt(kpi.activeProviders)} aktive Profis
           </>
         }
         actions={<RangeSwitch value={days} options={RANGES} />}
@@ -297,7 +297,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
           </div>
         </AdminSection>
 
-        <AdminSection id="trend" title="Entwicklung" description={`Tageswerte der letzten ${days} Tage, Europe/Berlin.`}>
+        <AdminSection id="trend" title="Entwicklung" description={`Tageswerte der letzten ${days} Tage, Europe/Berlin.`}>
           <div className="grid gap-3 md:grid-cols-2 lg:gap-4 xl:grid-cols-3">
             <ChartCard
               label="Buchungen"

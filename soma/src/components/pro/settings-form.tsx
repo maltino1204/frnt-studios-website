@@ -17,14 +17,13 @@ const LEAD_TIMES = [60, 120, 180, 240, 360, 720, 1440, 2880];
 const BUFFERS = [15, 30, 45, 60];
 const ADVANCE = [7, 14, 30, 60, 90, 120, 180];
 
-const leadLabel = (m: number) => (m < 1440 ? `${m / 60} ${m === 60 ? "Stunde" : "Stunden"}` : `${m / 1440} ${m === 1440 ? "Tag" : "Tage"}`);
+const leadLabel = (m: number) => (m < 1440 ? `${m / 60}\u00a0${m === 60 ? "Stunde" : "Stunden"}` : `${m / 1440}\u00a0${m === 1440 ? "Tag" : "Tage"}`);
 
+// SMS and push are not built (BRAND_STRATEGY § 7.3): their switches stay hidden until they ship; the stored values are kept.
 const NOTIFY: { key: keyof NotificationPreferencesDTO; label: string; description: string }[] = [
   { key: "emailBookings", label: "E-Mail bei neuen Anfragen und Buchungen", description: "Empfohlen – damit dir keine Anfrage entgeht." },
-  { key: "pushBookings", label: "Push-Mitteilungen", description: "Auf diesem Gerät, wenn SOMA als App installiert ist." },
-  { key: "emailReminders", label: "Erinnerung per E-Mail", description: "24 Stunden vor jedem Termin." },
-  { key: "smsReminders", label: "Erinnerung per SMS", description: "Für kurzfristige Termine." },
-  { key: "emailMarketing", label: "Tipps und Neuigkeiten für Profis", description: "Höchstens zweimal im Monat." },
+  { key: "emailReminders", label: "Erinnerung per E-Mail", description: "24\u00a0Stunden vor jedem Termin." },
+  { key: "emailMarketing", label: "Tipps und Neuigkeiten für Profis", description: "Gelegentlich, jederzeit abbestellbar." },
 ];
 
 /** Booking mode, lead time, buffer, max advance and notification channels. */
@@ -112,14 +111,14 @@ export function SettingsForm({ settings, canUseInstant }: { settings: ProSetting
           <Select label="Puffer zwischen Terminen" value={String(buffer)} onChange={(e) => setBuffer(Number(e.target.value))} error={errors.travelBufferMinutes} hint="Für Anfahrt und Aufbau">
             {withCurrent(BUFFERS, buffer).map((m) => (
               <option key={m} value={m}>
-                {m} Min.
+                {m} Min.
               </option>
             ))}
           </Select>
           <Select label="Buchbar im Voraus" value={String(advance)} onChange={(e) => setAdvance(Number(e.target.value))} error={errors.maxAdvanceDays} hint="So weit reicht dein Kalender">
             {withCurrent(ADVANCE, advance).map((d) => (
               <option key={d} value={d}>
-                {d} Tage
+                {d} Tage
               </option>
             ))}
           </Select>

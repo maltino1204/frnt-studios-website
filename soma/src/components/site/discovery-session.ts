@@ -40,7 +40,7 @@ export function accountLink(session: SiteSession | null | undefined): { href: st
 }
 
 /**
- * "Termin buchen": scrolls to the booking entry on this page if there is one
+ * "Termin finden": scrolls to the booking entry on this page if there is one
  * (and focuses its first field), otherwise lets the link navigate to /#termin.
  * Returns true when it handled the click.
  */

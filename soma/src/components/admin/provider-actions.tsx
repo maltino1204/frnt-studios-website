@@ -209,7 +209,7 @@ export function DocumentReview({ documentId, status, label, expires }: { documen
             }}
           >
             <p>„{label}“ wird abgelehnt. Der Profi sieht den Hinweis und kann ein neues Dokument hochladen. Ist der Profi freigegeben und fehlt damit ein Pflichtdokument, wird das Profil automatisch pausiert.</p>
-            <Textarea label="Hinweis für den Profi" name="note" rows={3} value={note} onChange={(e) => setNote(e.target.value)} error={reject.fieldErrors.note} placeholder="z. B. Ablaufdatum nicht lesbar" maxLength={500} />
+            <Textarea label="Hinweis für den Profi" name="note" rows={3} value={note} onChange={(e) => setNote(e.target.value)} error={reject.fieldErrors.note} placeholder="z. B. Ablaufdatum nicht lesbar" maxLength={500} />
           </form>
           )}
         </ConfirmButton>
@@ -237,7 +237,7 @@ export function CommissionOverrideForm({ providerId, rate }: { providerId: strin
         }
         const r = parsePercentInput(value);
         if (r == null || r < 0 || r > 0.5) {
-          setError("Bitte einen Satz zwischen 0 und 50 % angeben.");
+          setError("Bitte einen Satz zwischen 0 und 50 % angeben.");
           return;
         }
         setError(null);
@@ -251,7 +251,7 @@ export function CommissionOverrideForm({ providerId, rate }: { providerId: strin
         inputMode="decimal"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="z. B. 15"
+        placeholder="z. B. 15"
         hint="In Prozent. Leer lassen, damit die Provisionsregeln gelten."
         error={error ?? m.fieldErrors.rate ?? m.error}
       />

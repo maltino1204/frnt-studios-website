@@ -52,7 +52,7 @@ describe("account services", () => {
     expect(proInbox[0].title).toMatch(/Neue Anfrage/);
     expect(proInbox[0].body).toMatch(/Du hast Zeit bis/);
     const custInbox = await listNotifications(c);
-    expect(custInbox[0].title).toMatch(/Ihre Anfrage ist bei/);
+    expect(custInbox[0].title).toMatch(/Deine Anfrage ist bei/);
     expect(await markNotificationsRead(c, "all")).toBeGreaterThanOrEqual(1);
     expect(await listNotifications(c, { unreadOnly: true })).toHaveLength(0);
     expect((await listCustomerBookings(c, "upcoming")).items.map((x) => x.id)).toContain(b.bookingId);

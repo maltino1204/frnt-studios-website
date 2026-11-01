@@ -1,0 +1,25 @@
+Dein Termin ist bestätigt
+{{service}} mit {{pro_first}}, {{date_short}}, {{time}} Uhr
+
+Hallo {{customer_first}},
+dein Termin steht.
+
+{{service}} · {{duration}}
+{{date_short}}, {{time}} Uhr
+{{place_kind}}, {{address}}
+mit {{pro_name}}
+
+Gesamtpreis {{total}} € inkl. Anfahrt. Der Betrag ist auf deiner Karte reserviert und wird erst nach dem Termin belastet.
+Kostenlos stornierbar bis {{free_until}}.
+
+Dein Start-Code steht in deiner Buchung. Nenn ihn {{pro_first}} an der Tür – damit beginnt der Termin.
+Zur Vorbereitung: {{prep_note}}
+
+Buchung ansehen: {{booking_url}}
+Zum Kalender hinzufügen: {{calendar_url}}
+
+—
+Buchungsnummer {{reference}} · Fragen? Schreib uns an {{support_email}} und nenn deine Buchungsnummer.
+SOMA vermittelt diesen Termin. Vertragspartner für die Behandlung ist {{pro_name}} (selbstständig).
+Impressum: {{site_url}}/impressum · Datenschutz: {{site_url}}/datenschutz · AGB: {{site_url}}/agb
+Du erhältst diese E-Mail, weil du bei SOMA einen Termin gebucht hast.

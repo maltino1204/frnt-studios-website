@@ -5,12 +5,12 @@ import { ServiceError } from "../errors";
 
 /**
  * Maps database errors (constraint violations, SOMA_* trigger codes, privilege
- * errors) to German, user-facing ServiceErrors. Customer-facing wording (Sie).
+ * errors) to German, user-facing ServiceErrors. Customer-facing wording ("du", BRAND_VOICE § 1).
  */
 const TRIGGER_MESSAGES: Record<string, [ServiceError["code"], string]> = {
   SOMA_OUTSIDE_HOURS: ["unavailable", "Dieser Termin liegt außerhalb der Arbeitszeiten des Profis."],
   SOMA_TIME_OFF: ["unavailable", "Der Profi ist zu diesem Zeitpunkt nicht verfügbar."],
-  SOMA_LEAD_TIME: ["unavailable", "Dieser Termin ist zu kurzfristig. Bitte wählen Sie einen späteren Zeitpunkt."],
+  SOMA_LEAD_TIME: ["unavailable", "Dieser Termin ist zu kurzfristig. Bitte wähl einen späteren Zeitpunkt."],
   SOMA_TOO_FAR_AHEAD: ["unavailable", "Dieser Termin liegt zu weit in der Zukunft."],
   SOMA_PROVIDER_NOT_BOOKABLE: ["unavailable", "Dieser Profi ist derzeit nicht buchbar."],
   SOMA_OFFERING_INVALID: ["unavailable", "Diese Leistung ist nicht mehr verfügbar."],
@@ -21,7 +21,7 @@ const TRIGGER_MESSAGES: Record<string, [ServiceError["code"], string]> = {
   SOMA_BOOKING_IMMUTABLE: ["invalid_state", "Die Buchungsdaten können nicht mehr geändert werden."],
   SOMA_REVIEW_NOT_ALLOWED: ["invalid_state", "Bewertungen sind nur für abgeschlossene Termine möglich."],
   SOMA_REPLY_EXISTS: ["conflict", "Du hast auf diese Bewertung bereits geantwortet."],
-  SOMA_CREDIT_INSUFFICIENT: ["conflict", "Ihr Guthaben reicht dafür nicht aus."],
+  SOMA_CREDIT_INSUFFICIENT: ["conflict", "Dein Guthaben reicht dafür nicht aus."],
 };
 
 /**
@@ -47,10 +47,10 @@ export function foreignKeyError(e: postgres.PostgresError): ServiceError {
   const column = /Key \(([^)]+)\)/.exec(detail)?.[1] ?? e.column_name ?? e.constraint_name ?? "";
   const hit = FK_MESSAGES.find((m) => m.column.test(column));
   if (hit) return new ServiceError("validation", hit.message, hit.field ? { [hit.field]: hit.message } : undefined);
-  return new ServiceError("validation", "Ein ausgewählter Eintrag existiert nicht mehr. Bitte laden Sie die Seite neu und versuchen Sie es erneut.");
+  return new ServiceError("validation", "Ein ausgewählter Eintrag existiert nicht mehr. Bitte lade die Seite neu und versuch es noch einmal.");
 }
 
-export const SLOT_TAKEN_MESSAGE = "Dieser Termin wurde gerade vergeben. Bitte wählen Sie eine andere Uhrzeit.";
+export const SLOT_TAKEN_MESSAGE = "Dieser Termin wurde gerade vergeben. Bitte wähl eine andere Uhrzeit.";
 
 export function isPostgresError(e: unknown): e is postgres.PostgresError {
   return e instanceof postgres.PostgresError;

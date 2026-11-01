@@ -125,7 +125,7 @@ export function RequestActions({
           maxLength={500}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="z. B. Ich bringe die Liege mit und klingle kurz vorher."
+          placeholder="z. B. Ich bringe die Liege mit und klingle kurz vorher."
         />
       ) : null}
       <div className="grid grid-cols-2 gap-2">
@@ -182,7 +182,7 @@ export function RequestActions({
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             error={reasonError}
-            placeholder="z. B. Ich bin an diesem Tag auf einer Fortbildung."
+            placeholder="z. B. Ich bin an diesem Tag auf einer Fortbildung."
           />
         </div>
       </Sheet>
@@ -385,7 +385,7 @@ export function StartBookingButton({
           setAttemptsLeft(Number(m[1]));
           setError("Der Start-Code ist falsch. Bitte frag noch einmal nach.");
         } else {
-          setError(res.fieldErrors?.code && res.error === "Bitte überprüfen Sie Ihre Eingaben." ? res.fieldErrors.code : proError(res.error));
+          setError(res.fieldErrors?.code && res.error === "Bitte prüf deine Eingaben." ? res.fieldErrors.code : proError(res.error));
         }
         if (/zu oft|Support/.test(res.error)) {
           setLocked(true);
@@ -409,9 +409,9 @@ export function StartBookingButton({
         <Icon icon={KeyRound} size={18} className="mt-0.5 shrink-0 text-ink-muted" />
         <div className="flex flex-col gap-0.5">
           <p className="type-label text-ink" suppressHydrationWarning>
-            {`Start ab ${berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}${formatTime(earliest)} Uhr möglich`}
+            {`Start ab ${berlinDateKey(earliest) === berlinDateKey() ? "" : `${formatDayShort(earliest)}, `}${formatTime(earliest)} Uhr möglich`}
           </p>
-          <p className="type-caption text-ink-muted">„Termin starten“ erscheint hier 30 Minuten vor Beginn.</p>
+          <p className="type-caption text-ink-muted">„Termin starten“ erscheint hier 30 Minuten vor Beginn.</p>
         </div>
       </div>
     );
@@ -526,7 +526,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
         <Button size="l" block disabled icon={<Icon icon={Check} />}>
           Termin abschließen
         </Button>
-        {startsAt ? <p className="type-caption text-ink-muted">Abschließen ab {formatTime(startsAt)} Uhr (geplanter Beginn).</p> : null}
+        {startsAt ? <p className="type-caption text-ink-muted">Abschließen ab {formatTime(startsAt)} Uhr (geplanter Beginn).</p> : null}
       </div>
     );
   }
@@ -556,7 +556,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
           <div className="flex animate-fade-in items-center gap-4 pt-2">
             <SuccessCheck size={52} />
             <p>
-              Deine Auszahlung von <span className="font-semibold text-ink num">{formatPrice(payoutCents)}</span> ist in 48 Stunden verfügbar.
+              Deine Auszahlung von <span className="font-semibold text-ink num">{formatPrice(payoutCents)}</span> ist in 48 Stunden verfügbar.
             </p>
           </div>
         ) : (
@@ -566,7 +566,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
               <span className="type-body-s text-ink-muted">Deine Auszahlung</span>
               <span className="type-heading-m text-ink num">{formatPrice(payoutCents)}</span>
             </div>
-            <p className="mt-3 type-caption">Verfügbar 48 Stunden nach dem Termin, sofern kein Einspruch eingeht.</p>
+            <p className="mt-3 type-caption">Verfügbar 48 Stunden nach dem Termin, sofern kein Einspruch eingeht.</p>
             {error ? <Notice kind="danger" className="mt-4">{error}</Notice> : null}
           </>
         )}
@@ -612,7 +612,7 @@ export function NoShowButton({ bookingId, firstName }: { bookingId: string; firs
         }
       >
         <p>
-          Melde das bitte nur, wenn du {firstName ?? "die Kundschaft"} trotz zwei Kontaktversuchen nicht erreicht hast. Es wird die volle Ausfallgebühr berechnet. Die Kundschaft kann innerhalb von 48 Stunden widersprechen – bis dahin hält SOMA deine Auszahlung zurück.
+          Melde das bitte nur, wenn du {firstName ?? "die Kundschaft"} trotz zwei Kontaktversuchen nicht erreicht hast. Es wird die volle Ausfallgebühr berechnet. Die Kundschaft kann innerhalb von 48 Stunden widersprechen – bis dahin hält SOMA deine Auszahlung zurück.
         </p>
         {error ? <Notice kind="danger" className="mt-4">{error}</Notice> : null}
       </Modal>
@@ -646,8 +646,8 @@ export function CancelBookingButton({ bookingId, startsAt }: { bookingId: string
     });
   const consequences = [
     { icon: Undo2, text: "Die Kundschaft erhält den vollen Betrag zurück. Du erhältst für diesen Termin nichts." },
-    ...(within24h ? [{ icon: CalendarX2, text: "Der Termin ist in weniger als 24 Stunden. Kurzfristige Absagen treffen die Kundschaft besonders – bitte nur, wenn es nicht anders geht." }] : []),
-    { icon: TrendingDown, text: "Stornierungen senken deine Zuverlässigkeit im Ranking. Ab der dritten Stornierung in 90 Tagen prüfen wir dein Profil." },
+    ...(within24h ? [{ icon: CalendarX2, text: "Der Termin ist in weniger als 24 Stunden. Kurzfristige Absagen treffen die Kundschaft besonders – bitte nur, wenn es nicht anders geht." }] : []),
+    { icon: TrendingDown, text: "Stornierungen senken deine Zuverlässigkeit im Ranking. Ab der dritten Stornierung in 90 Tagen prüfen wir dein Profil." },
   ];
   return (
     <>
@@ -695,7 +695,7 @@ export function CancelBookingButton({ bookingId, startsAt }: { bookingId: string
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           error={fieldError}
-          placeholder="z. B. Ich bin leider krank."
+          placeholder="z. B. Ich bin leider krank."
         />
         {error ? <Notice kind="danger" className="mt-4">{error}</Notice> : null}
       </Modal>

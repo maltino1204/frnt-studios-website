@@ -134,7 +134,7 @@ export function UserAnonymizeButton({ userId, name, blockers }: { userId: string
           }}
         >
           <p>Name, Telefonnummer, Profilbild, Adressen, Login und alle Sitzungen werden gelöscht. Buchungen und Zahlungen bleiben für die Buchhaltung erhalten, die Adresse darin wird entfernt. Das lässt sich nicht rückgängig machen.</p>
-          <Textarea label="Anlass" name="reason" rows={2} value={reason} onChange={(e) => setReason(e.target.value)} error={m.fieldErrors.reason} hint="z. B. „Löschantrag per E-Mail vom 30.10.“ – im Protokoll sichtbar." maxLength={500} />
+          <Textarea label="Anlass" name="reason" rows={2} value={reason} onChange={(e) => setReason(e.target.value)} error={m.fieldErrors.reason} hint="z. B. „Löschantrag per E-Mail vom 30.10.“ – im Protokoll sichtbar." maxLength={500} />
           <Input dense label="Zur Bestätigung ANONYMISIEREN eingeben" name="confirm" value={confirmText} onChange={(e) => setConfirmText(e.target.value)} error={m.fieldErrors.confirm} autoComplete="off" />
         </form>
       )}
@@ -167,7 +167,7 @@ export function CreditAdjustForm({ userId, balanceCents }: { userId: string; bal
         m.reset();
         const next: Record<string, string> = {};
         const cents = parseEuroInput(amount);
-        if (cents == null || cents <= 0 || cents > 50_000) next.amount = "Bitte einen Betrag zwischen 0,01 € und 500 € angeben.";
+        if (cents == null || cents <= 0 || cents > 50_000) next.amount = "Bitte einen Betrag zwischen 0,01 € und 500 € angeben.";
         else if (direction === "debit" && cents > balanceCents) next.amount = `Höchstens ${formatPriceExact(balanceCents)} (aktuelles Guthaben).`;
         if (note.trim().length < 3) next.note = "Bitte einen Grund angeben (mind. 3 Zeichen).";
         setErrors(next);
@@ -180,7 +180,7 @@ export function CreditAdjustForm({ userId, balanceCents }: { userId: string; bal
           <option value="credit">Gutschrift (+)</option>
           <option value="debit">Abzug (−)</option>
         </Select>
-        <Input dense label="Betrag in €" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} error={errors.amount ?? m.fieldErrors.amountCents} placeholder="z. B. 10" className="w-36" />
+        <Input dense label="Betrag in €" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} error={errors.amount ?? m.fieldErrors.amountCents} placeholder="z. B. 10" className="w-36" />
         <Select dense label="Art" value={reason} onChange={(e) => setReason(e.target.value as "goodwill" | "admin_adjustment")} className="w-48">
           <option value="goodwill">Kulanzgutschrift</option>
           <option value="admin_adjustment">Korrektur</option>

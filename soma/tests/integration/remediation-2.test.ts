@@ -56,7 +56,7 @@ describe("contact lint on notes, reasons and disputes (audit-2 N3)", () => {
     expect((await providerRespond(pro.session, b.bookingId, "accept", "Gern, bis Donnerstag um 18:00.")).status).toBe("confirmed");
   });
 
-  it("refuses contact details in cancellation reasons (customer: Sie, provider: du)", async () => {
+  it("refuses contact details in cancellation reasons (customer and provider messages, both du)", async () => {
     const one = await requestBooking();
     await providerRespond(one.pro.session, one.b.bookingId, "accept");
     await expect(cancelBooking(one.c, one.b.bookingId, "Bitte melden unter linh (at) gmail (punkt) com")).rejects.toMatchObject({
@@ -167,7 +167,7 @@ describe("form validation details (audit-2 N5)", () => {
   it("returns a clear rating field error", async () => {
     const c = await createCustomer();
     for (const rating of [Number.NaN, 0, 6, 2.5]) {
-      await expect(createReview(c, crypto.randomUUID(), rating, "Schön")).rejects.toMatchObject({ fieldErrors: { rating: "Bitte vergeben Sie 1 bis 5 Sterne." } });
+      await expect(createReview(c, crypto.randomUUID(), rating, "Schön")).rejects.toMatchObject({ fieldErrors: { rating: "Bitte vergib 1 bis 5 Sterne." } });
     }
   });
 });

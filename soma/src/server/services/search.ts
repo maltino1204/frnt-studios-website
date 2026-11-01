@@ -180,7 +180,7 @@ export async function searchProviders(raw: SearchInput, session?: Session | null
 }
 
 const WaitlistSchema = z.object({
-  email: z.string().trim().toLowerCase().email("Bitte geben Sie eine gültige E-Mail-Adresse ein.").max(254),
+  email: z.string().trim().toLowerCase().email("Bitte gib eine gültige E-Mail-Adresse ein.").max(254),
   postalCode: zPostalCode,
   categorySlug: z.string().trim().min(1).max(60).optional(),
 });

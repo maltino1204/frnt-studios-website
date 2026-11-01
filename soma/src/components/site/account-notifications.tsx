@@ -14,11 +14,10 @@ import { formatRelative } from "@/lib/format";
 import { markNotificationsReadAction, updateNotificationPreferencesAction } from "@/server/actions/account";
 import type { NotificationDTO, NotificationPreferencesDTO } from "@/server/dto";
 
+// SMS and push are not built (BRAND_STRATEGY § 7.3): their switches stay hidden until they ship; the stored values are kept.
 const PREFS: Array<{ key: keyof NotificationPreferencesDTO; label: string; description: string }> = [
-  { key: "emailBookings", label: "Buchungen per E-Mail", description: "Bestätigung, Absage, Änderungen – mit Kalenderdatei." },
-  { key: "emailReminders", label: "Erinnerungen per E-Mail", description: "24 Stunden vor Ihrem Termin." },
-  { key: "smsReminders", label: "Erinnerungen per SMS", description: "Kurz vor dem Termin, wenn die Fachkraft unterwegs ist." },
-  { key: "pushBookings", label: "Push-Mitteilungen", description: "Für die installierte App auf Ihrem Smartphone." },
+  { key: "emailBookings", label: "Buchungen per E-Mail", description: "Bestätigung, Absage, Änderungen." },
+  { key: "emailReminders", label: "Erinnerungen per E-Mail", description: "24\u00a0Stunden vor deinem Termin." },
   { key: "emailMarketing", label: "Neuigkeiten von SOMA", description: "Gelegentlich, jederzeit abbestellbar." },
 ];
 
@@ -91,7 +90,7 @@ export function NotificationInbox({ items, renderedAt }: { items: NotificationDT
     return (
       <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
         <EmptyState title="Alles gelesen." seed="konto-mitteilungen" className="py-8">
-          Neuigkeiten zu Ihren Terminen erscheinen hier.
+          Neuigkeiten zu deinen Terminen erscheinen hier.
         </EmptyState>
       </div>
     );

@@ -30,7 +30,7 @@ export function createStripePaymentProvider(): PaymentProvider {
     id: "stripe",
     async createAuthorization(input) {
       if (!input.providerAccountId) {
-        throw new ServiceError("unavailable", "Dieser Profi kann gerade keine Zahlungen empfangen. Bitte wählen Sie einen anderen Profi.");
+        throw new ServiceError("unavailable", "Dieser Profi kann gerade keine Zahlungen empfangen. Bitte wähl einen anderen Profi.");
       }
       const pi = await getStripe().paymentIntents.create(
         {

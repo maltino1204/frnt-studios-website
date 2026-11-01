@@ -16,7 +16,7 @@ import type { ActionResult } from "./types";
  * redirect()/notFound() thrown inside are re-thrown (unstable_rethrow).
  */
 
-export const GENERIC_ERROR = "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.";
+export const GENERIC_ERROR = "Das hat gerade nicht geklappt. Bitte versuch es in einem Moment noch einmal.";
 
 export function fail(error: string, fieldErrors?: Record<string, string>): ActionResult<never> {
   return fieldErrors ? { ok: false, error, fieldErrors } : { ok: false, error };

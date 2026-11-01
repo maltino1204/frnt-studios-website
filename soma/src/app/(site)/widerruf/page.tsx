@@ -88,7 +88,7 @@ export default async function WiderrufPage() {
           „Ich verlange ausdrücklich, dass die Fachkraft vor Ablauf der Widerrufsfrist mit der Behandlung beginnt. Mir ist bekannt, dass ich mein Widerrufsrecht bei vollständiger
           Erbringung der Leistung verliere.“
         </blockquote>
-        <p>Das bedeutet nach § 356 Abs. 4 BGB und § 357a Abs. 2 BGB:</p>
+        <p>Das bedeutet nach § 356 Abs. 4 BGB und § 357a Abs. 2 BGB:</p>
         <ul>
           <li>
             <strong>Vor dem Termin</strong> können Sie weiterhin widerrufen.

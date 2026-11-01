@@ -84,7 +84,7 @@ test("guest checkout asks for name, e-mail and mobile only — no password (R16)
   await expect(kontakt.getByRole("textbox", { name: "E-Mail" })).toBeVisible();
   await expect(kontakt.getByRole("textbox", { name: /Mobilnummer/ })).toBeVisible();
   await expect(kontakt.locator('input[type="password"]')).toHaveCount(0);
-  await expect(kontakt).toContainText("Ein Passwort brauchen Sie dafür nicht.");
+  await expect(kontakt).toContainText("Ein Passwort brauchst du dafür nicht.");
 });
 
 // ---------------------------------------------------------------------------
@@ -162,7 +162,7 @@ test("a declined request shows alternatives and a way onward (R8)", async ({ pag
   await login(page, USERS.customer);
   await page.goto(`/buchung/${id}`);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Leider abgesagt.");
-  const alt = page.getByRole("region", { name: /Diese Profis haben Zeit|Andere Profis in Ihrer Nähe/ });
+  const alt = page.getByRole("region", { name: /Diese Profis haben Zeit|Andere Profis in deiner Nähe/ });
   await expect(alt).toBeVisible();
   const onward = alt.getByRole("link", { name: "Andere Profis finden" });
   await expect(onward).toHaveAttribute("href", /\/suche\?.*plz=/);

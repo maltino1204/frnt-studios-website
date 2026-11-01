@@ -22,10 +22,10 @@ import { fail, input, toActionError } from "./_run";
 import type { ActionResult } from "./types";
 
 const CheckoutSignUpSchema = z.object({
-  firstName: z.string().trim().min(1, "Bitte geben Sie Ihren Vornamen an.").max(80),
-  lastName: z.string().trim().min(1, "Bitte geben Sie Ihren Nachnamen an.").max(80),
-  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein.").max(254),
-  phone: z.string().trim().regex(/^\+?[0-9 ()/-]{6,24}$/, "Bitte geben Sie eine gültige Mobilnummer an."),
+  firstName: z.string().trim().min(1, "Bitte gib deinen Vornamen an.").max(80),
+  lastName: z.string().trim().min(1, "Bitte gib deinen Nachnamen an.").max(80),
+  email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein.").max(254),
+  phone: z.string().trim().regex(/^\+?[0-9 ()/-]{6,24}$/, "Bitte gib eine gültige Mobilnummer an."),
   marketingOptIn: z.boolean().optional().default(false),
   inviteCode: z.string().trim().max(16).optional(),
 });
@@ -85,8 +85,8 @@ export async function checkoutSignUpAction(raw: CheckoutSignUpInput): Promise<Ac
 }
 
 const CheckoutSignInSchema = z.object({
-  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein."),
-  password: z.string().min(1, "Bitte geben Sie Ihr Passwort ein."),
+  email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein."),
+  password: z.string().min(1, "Bitte gib dein Passwort ein."),
 });
 
 /** Signs in without leaving the checkout. Only customer accounts can book. */
@@ -96,9 +96,9 @@ export async function checkoutSignInAction(raw: z.input<typeof CheckoutSignInSch
     const adapter = await getAuthAdapter();
     const { userId } = await adapter.signIn(v.email, v.password, await getRequestMeta());
     const session = await loadSession(userId);
-    if (!session) return fail("Dieses Konto ist gesperrt. Bitte wenden Sie sich an den SOMA-Support.");
+    if (!session) return fail("Dieses Konto ist gesperrt. Bitte wende dich an den SOMA-Support.");
     revalidatePath("/", "layout");
-    if (session.role !== "customer") return fail("Mit diesem Konto sind keine Buchungen möglich. Bitte melden Sie sich mit einem Kundenkonto an.");
+    if (session.role !== "customer") return fail("Mit diesem Konto sind keine Buchungen möglich. Bitte melde dich mit einem Kundenkonto an.");
     return { ok: true, data: { firstName: session.firstName } };
   } catch (e) {
     return toActionError(e);

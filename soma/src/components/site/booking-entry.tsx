@@ -24,6 +24,7 @@ import { Photo } from "@/components/ui/photo";
 import { Sheet } from "@/components/ui/sheet";
 import { Spinner } from "@/components/ui/spinner";
 import { SuccessCheck } from "@/components/ui/success";
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDayShort } from "@/lib/format";
 import { images } from "@/lib/images";
@@ -230,7 +231,7 @@ function WasPicker({
   return (
     <ul className="flex flex-col">
       <li>
-        <PickRow selected={!categorySlug} onClick={() => onPick(null, null)} title="Alle Behandlungen" meta="Alle verfügbaren Profis in Ihrer Nähe" />
+        <PickRow selected={!categorySlug} onClick={() => onPick(null, null)} title="Alle Behandlungen" meta="Alle verfügbaren Profis in deiner Nähe" />
       </li>
       {catalog.map((c) => (
         <li key={c.slug}>
@@ -499,7 +500,7 @@ export function BookingEntry({
 
   const locate = () => {
     if (!("geolocation" in navigator)) {
-      setLoc({ status: "error", message: "Ihr Gerät gibt keinen Standort frei. Bitte geben Sie Ihre Postleitzahl ein." });
+      setLoc({ status: "error", message: "Dein Gerät gibt keinen Standort frei. Bitte gib deine Postleitzahl ein." });
       return;
     }
     setLocating(true);
@@ -509,14 +510,14 @@ export function BookingEntry({
         const res = await nearestPostalCodeAction({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         setLocating(false);
         if (!res.ok) return setLoc({ status: "error", message: res.error });
-        if (!res.data) return setLoc({ status: "error", message: "Zu Ihrem Standort kennen wir keine Postleitzahl. Bitte geben Sie sie ein." });
+        if (!res.data) return setLoc({ status: "error", message: "Zu deinem Standort kennen wir keine Postleitzahl. Bitte gib sie ein." });
         reqRef.current++;
         setPlz(res.data.postalCode);
         setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
       },
       () => {
         setLocating(false);
-        setLoc({ status: "error", message: "Ihr Standort ist gerade nicht verfügbar. Bitte geben Sie Ihre Postleitzahl ein." });
+        setLoc({ status: "error", message: "Dein Standort ist gerade nicht verfügbar. Bitte gib deine Postleitzahl ein." });
       },
       { timeout: 10_000, maximumAge: 600_000 },
     );
@@ -525,12 +526,12 @@ export function BookingEntry({
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (!/^\d{5}$/.test(plz)) {
-      setPlzError(plz ? "Bitte geben Sie eine fünfstellige Postleitzahl ein." : "Bitte geben Sie Ihre Postleitzahl ein.");
+      setPlzError(plz ? "Bitte gib eine fünfstellige Postleitzahl ein." : "Bitte gib deine Postleitzahl ein.");
       inputRef.current?.focus();
       return;
     }
     if (loc.status === "unknown") {
-      setPlzError("Diese Postleitzahl kennen wir nicht. Bitte prüfen Sie die Eingabe.");
+      setPlzError("Diese Postleitzahl kennen wir nicht. Bitte prüf die Eingabe.");
       inputRef.current?.focus();
       return;
     }
@@ -609,7 +610,7 @@ export function BookingEntry({
               autoComplete="postal-code"
               enterKeyHint="search"
               maxLength={5}
-              placeholder={`PLZ, z. B. ${postalExample}`}
+              placeholder={`PLZ, z.\u00a0B. ${postalExample}`}
               aria-invalid={invalid || undefined}
               aria-describedby={describedBy}
               className={cn(
@@ -699,7 +700,7 @@ export function BookingEntry({
 
         <div className={cn("p-2 pt-1", bar && "lg:p-0 lg:pr-2.5")}>
           <Button type="submit" variant="accent" size="l" block loading={pending}>
-            Verfügbare Profis anzeigen
+            Freie Termine finden
           </Button>
         </div>
       </form>
@@ -714,14 +715,14 @@ export function BookingEntry({
         ) : loc.status === "unknown" ? (
           <p id={errorId} className="mt-3 flex items-start gap-1.5 type-caption text-danger">
             <Icon icon={CircleAlert} size={16} className="mt-px shrink-0" />
-            Diese Postleitzahl kennen wir nicht. Bitte prüfen Sie die Eingabe.
+            Diese Postleitzahl kennen wir nicht. Bitte prüf die Eingabe.
           </p>
         ) : loc.status === "error" ? (
           <p id={hintId} className="mt-3 type-caption text-ink-muted">{loc.message}</p>
         ) : loc.status === "outside" ? (
           <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised animate-rise sm:p-5">
             <p className="type-body-s text-ink">
-              In Ihrer Gegend sind wir noch nicht. Sollen wir Ihnen Bescheid geben, sobald es in {loc.data.postalCode} losgeht?
+              In {loc.data.postalCode} gibt es noch keine Profis auf {BRAND_NAME}. Sollen wir dir Bescheid geben, sobald es losgeht?
             </p>
             <Waitlist postalCode={loc.data.postalCode} categorySlug={categorySlug} />
           </div>

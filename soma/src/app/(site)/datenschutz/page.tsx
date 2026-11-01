@@ -21,7 +21,7 @@ export default function DatenschutzPage() {
     { id: "bewertungen", title: "Bewertungen" },
     { id: "cookies", title: "Cookies und Speicher" },
     { id: "speicherdauer", title: "Speicherdauer" },
-    { id: "rechte", title: "Ihre Rechte" },
+    { id: "rechte", title: "Rechte der Betroffenen" },
   ];
   return (
     <ContentPage
@@ -33,7 +33,7 @@ export default function DatenschutzPage() {
           Datenschutz. <em>Nur, was nötig ist.</em>
         </>
       }
-      lead="Diese Erklärung beschreibt, welche Daten wir verarbeiten, wenn Sie einen Termin suchen, buchen und wahrnehmen."
+      lead="Diese Erklärung beschreibt, welche Daten wir verarbeiten, wenn über SOMA ein Termin gesucht, gebucht und wahrgenommen wird."
       sections={sections}
       placeholder
     >
@@ -46,32 +46,32 @@ export default function DatenschutzPage() {
       <ContentSection id="ueberblick" title="Überblick">
         <p>
           Wir verarbeiten personenbezogene Daten, um Termine zu vermitteln, Zahlungen abzuwickeln und die Sicherheit auf der Plattform zu gewährleisten. Rechtsgrundlagen sind insbesondere
-          Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (rechtliche Pflichten), lit. f (berechtigtes Interesse) sowie – wo angegeben – Ihre Einwilligung nach lit. a bzw. Art. 9 Abs. 2 lit. a
+          Art. 6 Abs. 1 lit. b DSGVO (Vertrag), lit. c (rechtliche Pflichten), lit. f (berechtigtes Interesse) sowie – wo angegeben – eine Einwilligung nach lit. a bzw. Art. 9 Abs. 2 lit. a
           DSGVO. Hosting und Datenbank befinden sich in der EU [Anbieter, Standort].
         </p>
       </ContentSection>
       <ContentSection id="konto" title="Konto und Buchung">
         <p>
-          Für ein Kundenkonto speichern wir Name, E-Mail-Adresse und optional Ihre Telefonnummer. Zu jeder Buchung speichern wir Behandlung, Zeitpunkt, Ort, Preis und den Verlauf der Buchung.
-          Ihr gebuchter Profi erhält die Angaben, die für den Termin nötig sind.
+          Für ein Kundenkonto speichern wir Name, E-Mail-Adresse und optional die Telefonnummer. Zu jeder Buchung speichern wir Behandlung, Zeitpunkt, Ort, Preis und den Verlauf der Buchung.
+          Der gebuchte Profi erhält die Angaben, die für den Termin nötig sind.
         </p>
-        <p>Suchanfragen speichern wir ohne Bezug zu Ihrer Person (Postleitzahl, Behandlung, Zeitpunkt), um das Angebot dort auszubauen, wo es gebraucht wird.</p>
+        <p>Suchanfragen speichern wir ohne Personenbezug (Postleitzahl, Behandlung, Zeitpunkt), um das Angebot dort auszubauen, wo es gebraucht wird.</p>
       </ContentSection>
       <ContentSection id="adresse" title="Adresse und Standort">
         <p>
-          Ihre Adresse sieht nur der gebuchte Profi, und erst nachdem der Termin bestätigt ist. 24 Stunden nach dem Termin wird sie für den Profi wieder ausgeblendet. Nutzen Sie „Standort
-          verwenden“, fragt Ihr Browser vorher um Erlaubnis; wir ermitteln daraus nur die nächstgelegene Postleitzahl und speichern den Standort nicht.
+          Die Adresse sieht nur der gebuchte Profi, und erst nachdem der Termin bestätigt ist. 24 Stunden nach dem Termin wird sie für den Profi wieder ausgeblendet. Bei „Standort
+          verwenden“ fragt der Browser vorher um Erlaubnis; wir ermitteln daraus nur die nächstgelegene Postleitzahl und speichern den Standort nicht.
         </p>
       </ContentSection>
       <ContentSection id="gesundheit" title="Angaben zur Behandlung">
         <p>
-          Hinweise zur Behandlung, etwa zu Allergien, können Gesundheitsdaten sein. Wir verarbeiten sie nur mit Ihrer ausdrücklichen Einwilligung, zeigen sie ausschließlich dem gebuchten Profi
+          Hinweise zur Behandlung, etwa zu Allergien, können Gesundheitsdaten sein. Wir verarbeiten sie nur mit ausdrücklicher Einwilligung, zeigen sie ausschließlich dem gebuchten Profi
           und löschen sie [Frist] nach dem Termin.
         </p>
       </ContentSection>
       <ContentSection id="zahlung" title="Zahlung">
         <p>
-          Zahlungen wickeln wir über [Zahlungsdienstleister, z. B. Stripe Payments Europe Ltd.] ab. Kartendaten gelangen nicht auf unsere Server; wir erhalten nur Zahlungsstatus, Kartenmarke
+          Zahlungen wickeln wir über [Zahlungsdienstleister, z. B. Stripe Payments Europe Ltd.] ab. Kartendaten gelangen nicht auf unsere Server; wir erhalten nur Zahlungsstatus, Kartenmarke
           und die letzten vier Ziffern.
         </p>
       </ContentSection>
@@ -79,14 +79,14 @@ export default function DatenschutzPage() {
         <p>Bewertungen erscheinen mit Vornamen und dem ersten Buchstaben des Nachnamens. Bewerten kann nur, wer den Termin tatsächlich wahrgenommen hat.</p>
       </ContentSection>
       <ContentSection id="cookies" title="Cookies und Speicher">
-        <p>Wir setzen nur technisch notwendige Speichertechnologien ein und verzichten auf Werbe- und Analyse-Cookies. Eine Einwilligung ist dafür nicht erforderlich (§ 25 Abs. 2 TDDDG).</p>
+        <p>Wir setzen nur technisch notwendige Speichertechnologien ein und verzichten auf Werbe- und Analyse-Cookies. Eine Einwilligung ist dafür nicht erforderlich (§ 25 Abs. 2 TDDDG).</p>
         <ul>
           <li>
-            <strong>Sitzungs-Cookie</strong> – hält Sie angemeldet; bis zur Abmeldung, höchstens 30 Tage.
+            <strong>Sitzungs-Cookie</strong> – hält die Anmeldung aufrecht; bis zur Abmeldung, höchstens 30 Tage.
           </li>
           <li>
-            <strong>Zuletzt verwendete Postleitzahl</strong> – im lokalen Speicher Ihres Browsers, damit Sie sie nicht erneut eingeben müssen. Sie verlässt Ihr Gerät nicht und lässt sich
-            über die Browsereinstellungen löschen.
+            <strong>Zuletzt verwendete Postleitzahl</strong> – im lokalen Speicher des Browsers, damit sie nicht erneut eingegeben werden muss. Die Angabe verlässt das Gerät nicht und lässt
+            sich über die Browsereinstellungen löschen.
           </li>
         </ul>
         <p>[Sollten später Analyse-Dienste hinzukommen, werden sie hier ergänzt und nur nach Einwilligung aktiviert.]</p>
@@ -97,10 +97,10 @@ export default function DatenschutzPage() {
           zehn] Jahre auf.
         </p>
       </ContentSection>
-      <ContentSection id="rechte" title="Ihre Rechte">
+      <ContentSection id="rechte" title="Rechte der Betroffenen">
         <p>
-          Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine Einwilligung
-          jederzeit zu widerrufen. Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, etwa [zuständige Behörde].
+          Betroffene haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine
+          Einwilligung jederzeit zu widerrufen. Außerdem besteht ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde, etwa [zuständige Behörde].
         </p>
       </ContentSection>
     </ContentPage>

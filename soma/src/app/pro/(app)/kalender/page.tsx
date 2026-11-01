@@ -61,14 +61,14 @@ export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/
           <>
             {cal.weeklyHours.length === 0 ? (
               <Notice kind="warning" title="Noch keine Arbeitszeiten.">
-                Ohne Arbeitszeiten bist du nicht buchbar. <a href={`${routes.pro.calendar()}?ansicht=arbeitszeiten`}>Jetzt eintragen</a>
+                Ohne Arbeitszeiten bist du nicht buchbar. <a href={`${routes.pro.calendar()}?ansicht=arbeitszeiten`}>Arbeitszeiten eintragen</a>
               </Notice>
             ) : null}
 
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-3">
                 <nav aria-label="Zeitraum wechseln" className="flex items-center gap-1 rounded-full bg-surface-raised p-1 shadow-raised">
-                  <Link href={weekHref(offset - 1)} aria-label="Vorherige 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
+                  <Link href={weekHref(offset - 1)} aria-label="Vorherige 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
                     <Icon icon={ChevronLeft} size={18} />
                   </Link>
                   <Link
@@ -78,12 +78,12 @@ export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/
                   >
                     Heute
                   </Link>
-                  <Link href={weekHref(offset + 1)} aria-label="Nächste 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
+                  <Link href={weekHref(offset + 1)} aria-label="Nächste 7 Tage" className="inline-flex size-9 items-center justify-center rounded-full text-ink transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken">
                     <Icon icon={ChevronRight} size={18} />
                   </Link>
                 </nav>
                 <div className="flex flex-col">
-                  <h2 className="type-heading-m">{offset === 0 ? "Nächste 7 Tage" : offset > 0 ? `In ${offset} ${offset === 1 ? "Woche" : "Wochen"}` : `Vor ${-offset} ${offset === -1 ? "Woche" : "Wochen"}`}</h2>
+                  <h2 className="type-heading-m">{offset === 0 ? "Nächste 7 Tage" : offset > 0 ? `In ${offset} ${offset === 1 ? "Woche" : "Wochen"}` : `Vor ${-offset} ${offset === -1 ? "Woche" : "Wochen"}`}</h2>
                   <p className="type-caption text-ink-muted num">
                     {formatDayShort(berlinToIso(monday, "12:00"))} – {formatDayShort(berlinToIso(sunday, "12:00"))}
                   </p>
@@ -92,7 +92,7 @@ export default async function ProCalendarPage({ searchParams }: PageProps<"/pro/
               <ul className="flex flex-wrap gap-2" aria-label="Zeitraum in Zahlen">
                 <Figure icon={Users} label={`${figures.appts} ${figures.appts === 1 ? "Termin" : "Termine"}`} />
                 {figures.requests ? <Figure icon={Inbox} label={`${figures.requests} ${figures.requests === 1 ? "Anfrage" : "Anfragen"}`} tone="warning" /> : null}
-                <Figure icon={Clock} label={`${figures.bookableHours.toLocaleString("de-DE")} Std. buchbar`} />
+                <Figure icon={Clock} label={`${figures.bookableHours.toLocaleString("de-DE")} Std. buchbar`} />
               </ul>
             </div>
 

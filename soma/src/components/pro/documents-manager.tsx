@@ -170,7 +170,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
             );
           })}
         </ul>
-        <p className="border-t border-line bg-surface/60 px-5 py-3 type-caption text-ink-muted lg:px-6">PDF, JPG oder PNG bis 10 MB. Deine Dokumente sieht nur das SOMA-Prüfteam. Wir prüfen meist innerhalb von 48 Stunden.</p>
+        <p className="border-t border-line bg-surface/60 px-5 py-3 type-caption text-ink-muted lg:px-6">PDF, JPG oder PNG bis 10 MB. Deine Dokumente sieht nur das SOMA-Prüfteam. Wir prüfen meist innerhalb von 48 Stunden.</p>
       </section>
 
       <section className="flex flex-col gap-3" aria-labelledby="docs-title">

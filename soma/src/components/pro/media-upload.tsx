@@ -208,7 +208,7 @@ export function PortfolioManager({
             label="Bildunterschrift"
             optional
             maxLength={200}
-            placeholder="z. B. Shellac in Nude, Kreuzberg"
+            placeholder="z. B. Shellac in Nude, Kreuzberg"
             error={state && !state.ok && state.fieldErrors?.caption ? proError(state.fieldErrors.caption) : undefined}
           />
           {categories.length > 1 ? (
@@ -240,7 +240,7 @@ export function PortfolioManager({
           onClick={(e) => {
             if (!fileRef.current?.files?.length) {
               e.preventDefault();
-              setLocalError("Bitte wähle zuerst ein Bild aus.");
+              setLocalError("Bitte wähl zuerst ein Bild aus.");
             }
           }}
         >

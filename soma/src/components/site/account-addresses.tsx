@@ -55,7 +55,7 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
           ),
         }))}
       />
-      <Input label="Bezeichnung" name="label" optional placeholder={`z. B. ${LOCATION_LABELS[kind]}`} defaultValue={address?.label ?? ""} maxLength={60} error={fe?.label} />
+      <Input label="Bezeichnung" name="label" optional placeholder={`z. B. ${LOCATION_LABELS[kind]}`} defaultValue={address?.label ?? ""} maxLength={60} error={fe?.label} />
       <div className="grid grid-cols-[minmax(0,1fr)_6.5rem] gap-3">
         <Input label="Straße" name="street" autoComplete="address-line1" defaultValue={address?.street ?? ""} error={fe?.street} required />
         <Input label="Nr." name="houseNumber" autoComplete="address-line2" defaultValue={address?.houseNumber ?? ""} error={fe?.houseNumber} required />
@@ -113,7 +113,7 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
   const makeDefault = (a: AddressDTO) =>
     start(async () => {
       const r = await setDefaultAddressAction(a.id);
-      toast.show(r.ok ? `${a.label ?? LOCATION_LABELS[a.kind]} ist jetzt Ihre Standardadresse.` : r.error, { kind: r.ok ? "success" : "error" });
+      toast.show(r.ok ? `${a.label ?? LOCATION_LABELS[a.kind]} ist jetzt deine Standardadresse.` : r.error, { kind: r.ok ? "success" : "error" });
     });
 
   const full = addresses.length >= 20;
@@ -122,7 +122,7 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
       {!addresses.length ? (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
           <EmptyState title="Noch keine Adressen." seed="konto-adressen" className="py-8">
-            Speichern Sie Zuhause, Hotel oder Büro – beim nächsten Termin wählen Sie mit einem Tipp.
+            Speichere Zuhause, Hotel oder Büro – beim nächsten Termin wählst du mit einem Tipp.
           </EmptyState>
         </div>
       ) : null}

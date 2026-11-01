@@ -130,6 +130,6 @@ describe("database guards (triggers + exclusion constraint)", () => {
     await expect(second).rejects.toMatchObject({ code: "23P01", constraint_name: "bookings_no_overlap" });
     const { mapDbError } = await import("@/server/db/errors");
     const mapped = await second.then(() => null, (e: unknown) => mapDbError(e));
-    expect(mapped?.message).toBe("Dieser Termin wurde gerade vergeben. Bitte wählen Sie eine andere Uhrzeit.");
+    expect(mapped?.message).toBe("Dieser Termin wurde gerade vergeben. Bitte wähl eine andere Uhrzeit.");
   });
 });

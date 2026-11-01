@@ -44,7 +44,7 @@ export function RegisterForm({ next, referralCode, inviteCode }: { next?: string
         value={v.referral}
         onChange={(e) => setV({ ...v, referral: e.target.value.toUpperCase() })}
         error={fe?.referralCode}
-        hint={referralCode ? "Mit diesem Code erhalten Sie ein Startguthaben für Ihre erste Buchung." : undefined}
+        hint={referralCode ? "Mit diesem Code bekommst du ein Startguthaben für deine erste Buchung." : undefined}
       />
       <div className="flex flex-col">
         <Checkbox

@@ -24,7 +24,7 @@ import { anonymizeOwnAccount, exportFileName, exportMyData } from "../services/p
 import { fileFrom, formToObject, input, toActionError, withSession, zGuid } from "./_run";
 import type { ActionResult } from "./types";
 
-/** Customer account actions (voice: "Sie"). Profile/notification actions work for every role. */
+/** Customer account actions (voice: "du"). Profile/notification actions work for every role. */
 
 const ProfileSchema = z.object({
   firstName: z.string(),
@@ -39,7 +39,7 @@ export async function updateProfileAction(_prev: ActionResult<ProfileDTO> | null
     const r = await updateProfile(s, input(ProfileSchema, formToObject(formData)));
     revalidatePath("/konto", "layout");
     return r;
-  }, "Ihre Angaben wurden gespeichert.");
+  }, "Deine Angaben sind gespeichert.");
 }
 
 const AddressFormSchema = z.object({
@@ -124,10 +124,10 @@ export async function requestDataExportAction(): Promise<ActionResult<{ fileName
   return withSession(["customer", "provider"], async (s) => {
     const data = await exportMyData(s);
     return { fileName: exportFileName(s.userId), json: JSON.stringify(data, null, 2) };
-  }, "Ihr Datenexport ist bereit.");
+  }, "Dein Datenexport ist bereit.");
 }
 
-const DeletionSchema = z.object({ password: z.string().min(1, "Bitte geben Sie Ihr Passwort ein.").max(200) });
+const DeletionSchema = z.object({ password: z.string().min(1, "Bitte gib dein Passwort ein.").max(200) });
 
 /**
  * Form action — field: password. Re-confirms the password, anonymises the account

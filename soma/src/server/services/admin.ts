@@ -93,7 +93,7 @@ export async function setUserBlocked(session: Session, userId: string, blocked: 
 
 export async function adjustCredits(session: Session, userId: string, amountCents: number, note: string, reason: "admin_adjustment" | "goodwill" = "admin_adjustment"): Promise<void> {
   const v = parse(z.object({
-    userId: zUuid, amountCents: z.number().int().refine((n) => n !== 0 && Math.abs(n) <= 50_000, "Betrag zwischen −500 € und 500 €, nicht 0."),
+    userId: zUuid, amountCents: z.number().int().refine((n) => n !== 0 && Math.abs(n) <= 50_000, "Betrag zwischen −500 € und 500 €, nicht 0."),
     note: z.string().trim().min(3).max(300), reason: z.enum(["admin_adjustment", "goodwill"]),
   }), { userId, amountCents, note, reason });
   await asAdmin(session, async (tx, admin) => {
@@ -458,7 +458,7 @@ async function refundInTx(tx: Tx, adminId: string, bookingId: string, amountCent
     select id, provider, status, captured_cents, refunded_cents, external_id from public.payments where booking_id = ${bookingId} for update`;
   if (!p || !["captured", "partially_refunded"].includes(p.status)) throw new ServiceError("invalid_state", "Für diese Buchung gibt es keine erstattbare Zahlung.");
   const refundable = p.capturedCents - p.refundedCents;
-  if (amountCents > refundable) throw new ServiceError("validation", `Es können höchstens ${(refundable / 100).toFixed(2).replace(".", ",")} € erstattet werden.`);
+  if (amountCents > refundable) throw new ServiceError("validation", `Es können höchstens ${(refundable / 100).toFixed(2).replace(".", ",")} € erstattet werden.`);
   const provider = p.provider === "stripe" ? createStripePaymentProvider() : createDevPaymentProvider();
   const ext = p.externalId ? await provider.refund(p.externalId, amountCents) : { externalId: null };
   const [row] = await tx<{ id: string }[]>`

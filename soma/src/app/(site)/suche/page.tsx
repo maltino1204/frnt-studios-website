@@ -13,6 +13,7 @@ import { AuraBackground } from "@/components/ui/aura";
 import { chipClasses } from "@/components/ui/chip";
 import { EmptyArt } from "@/components/ui/feedback";
 import { Container, Overline } from "@/components/ui/layout";
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -35,7 +36,7 @@ import { WaitlistForm } from "./_components/waitlist-form";
 
 export const metadata: Metadata = {
   title: "Verfügbare Profis",
-  description: "Verifizierte Beauty- und Wellness-Profis mit freien Terminen in Ihrer Nähe – mit Endpreis inklusive Anfahrt.",
+  description: "Geprüfte Beauty- und Wellness-Profis mit freien Terminen in deiner Nähe – mit Endpreis inklusive Anfahrt.",
   robots: { index: false, follow: true },
 };
 
@@ -113,16 +114,16 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
     return (
       <PromptLayout
         overline={category ? category.name : "Termin finden"}
-        title="Wo dürfen wir Sie besuchen?"
+        title="Wo findet dein Termin statt?"
         tone={category?.slug}
-        lead="Geben Sie Ihre Postleitzahl ein. Wir zeigen Ihnen verifizierte Profis mit freien Terminen und dem Endpreis inklusive Anfahrt."
+        lead="Gib deine Postleitzahl ein. Wir zeigen dir geprüfte Profis mit freien Terminen und dem Endpreis inklusive Anfahrt."
       >
         <SearchPrompt
           catalog={lite}
           plz={plz}
           leistung={service?.slug}
           kategorie={category?.slug}
-          plzError={plz ? "Bitte geben Sie eine fünfstellige Postleitzahl ein." : null}
+          plzError={plz ? "Bitte gib eine fünfstellige Postleitzahl ein." : null}
         />
       </PromptLayout>
     );
@@ -163,7 +164,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
         overline="Postleitzahl unbekannt"
         title={`Die Postleitzahl ${plz} kennen wir nicht.`}
         tone={category?.slug}
-        lead="Bitte prüfen Sie die Eingabe. Wir arbeiten mit fünfstelligen deutschen Postleitzahlen."
+        lead="Bitte prüf die Eingabe. Wir arbeiten mit fünfstelligen deutschen Postleitzahlen."
       >
         <SearchPrompt catalog={lite} plz={plz} leistung={service?.slug} kategorie={category?.slug} plzError="Unbekannte Postleitzahl." />
       </PromptLayout>
@@ -268,7 +269,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                     </div>
                     {thin && (moreDays.length || nearby.length || filtersActive) ? (
                       <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-tint p-5 shadow-[inset_0_0_0_1px_var(--color-line-mid)]">
-                        <p className="type-heading-s text-ink">So finden Sie mehr Auswahl:</p>
+                        <p className="type-heading-s text-ink">So findest du mehr Auswahl:</p>
                         {moreDays.length ? (
                           <div className="flex flex-wrap items-center gap-2">
                             <span className="type-body-s text-ink-muted">An anderen Tagen</span>
@@ -281,7 +282,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                         ) : null}
                         {nearby.length ? (
                           <p className="type-body-s text-ink-muted">
-                            {"Wenn Sie auch an einem anderen Ort sein können, etwa im Büro: auch in der Nähe "}
+                            {"Wenn du auch an einem anderen Ort sein kannst, etwa im Büro: auch in der Nähe "}
                             {nearby.map((n, i) => (
                               <span key={n.postalCode}>
                                 {i > 0 ? " · " : null}
@@ -308,15 +309,15 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                     ) : null}
                   </>
                 ) : notLaunched ? (
-                  <EmptyCard seed={emptySeed} tone={category?.slug} title="In Ihrer Gegend sind wir noch nicht.">
+                  <EmptyCard seed={emptySeed} tone={category?.slug} title={`In ${plz} gibt es noch keine Profis auf ${BRAND_NAME}.`}>
                     <p className="type-body-s text-ink-muted">
-                      {`SOMA startet in Berlin, Hamburg, München, Köln, Frankfurt und Düsseldorf. Sollen wir Ihnen Bescheid geben, sobald es in ${plz} losgeht?`}
+                      {`${BRAND_NAME} startet in Berlin, Hamburg, München, Köln, Frankfurt und Düsseldorf. Sollen wir dir Bescheid geben, sobald es in ${plz} losgeht?`}
                     </p>
                     <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
                   </EmptyCard>
                 ) : noSupply ? (
                   <EmptyCard seed={emptySeed} tone={category?.slug} title={`In ${city ?? plz} gibt es noch keine Profis für ${what}.`}>
-                    <p className="type-body-s text-ink-muted">{`Hinterlassen Sie Ihre E-Mail-Adresse – wir melden uns, sobald ${what} in ${plz} buchbar ist.`}</p>
+                    <p className="type-body-s text-ink-muted">{`Hinterlass deine E-Mail-Adresse – wir melden uns, sobald ${what} in ${plz} buchbar ist.`}</p>
                     {service && category && categoryHasSupply ? (
                       <ButtonLink href={searchHref({ ...state, leistung: null, dauer: null })} variant="secondary">
                         {`Alle ${category.name}-Leistungen`}
@@ -341,7 +342,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                         </ul>
                       </>
                     ) : (
-                      <p className="type-body-s text-ink-muted">Auch an den Folgetagen ist nichts frei. Lassen Sie sich benachrichtigen, sobald ein Termin frei wird.</p>
+                      <p className="type-body-s text-ink-muted">Auch an den Folgetagen ist nichts frei. Wir sagen dir Bescheid, sobald ein Termin frei wird.</p>
                     )}
                     {filtersActive ? (
                       <Link href={resetFilters} className="type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
@@ -358,8 +359,8 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                   >
                     <p className="type-body-s text-ink-muted">
                       {filtersActive
-                        ? "Lockern Sie die Filter oder wählen Sie einen späteren Tag."
-                        : `Für ${what} ist in Ihrer Nähe derzeit kein Termin frei. Wählen Sie einen späteren Tag oder lassen Sie sich benachrichtigen.`}
+                        ? "Lockere die Filter oder wähl einen späteren Tag."
+                        : `Für ${what} ist in deiner Nähe gerade kein Termin frei. Wähl einen späteren Tag oder lass dich benachrichtigen.`}
                     </p>
                     {filtersActive || (service && category) ? (
                       <div className="flex flex-wrap gap-3">
@@ -381,10 +382,10 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
               </SearchResultsRegion>
             </div>
 
-            <aside aria-label="Ihre Suche und Filter" className="hidden lg:col-span-5 lg:block xl:col-span-4">
+            <aside aria-label="Deine Suche und Filter" className="hidden lg:col-span-5 lg:block xl:col-span-4">
               <div className="sticky top-[calc(var(--header-height)+1.5rem)] flex flex-col gap-6 rounded-card bg-surface-raised p-6 shadow-raised">
                 <div className="flex flex-col gap-3">
-                  <p className="type-overline text-ink-muted">Ihre Suche</p>
+                  <p className="type-overline text-ink-muted">Deine Suche</p>
                   <dl className="flex flex-col divide-y divide-line">
                     <SummaryRow label="Ort" value={`${plz}${city ? ` ${city}` : ""}`} num />
                     <SummaryRow label="Behandlung" value={what} />

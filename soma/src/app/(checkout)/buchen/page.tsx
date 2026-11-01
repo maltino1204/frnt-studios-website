@@ -56,7 +56,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     return (
       <Shell>
         <NotFoundState title="Kein Termin ausgewählt." action={<ButtonLink href={routes.search()}>Termin finden</ButtonLink>}>
-          Wählen Sie zuerst eine Fachkraft und eine freie Uhrzeit.
+          Wähl zuerst einen Profi und eine freie Uhrzeit.
         </NotFoundState>
       </Shell>
     );
@@ -68,7 +68,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     return (
       <Shell>
         <NotFoundState title="Mit diesem Konto ist keine Buchung möglich." action={<ButtonLink href={routes.home()}>Zur Startseite</ButtonLink>}>
-          Sie sind mit einem Profi- oder Admin-Konto angemeldet. Buchungen sind nur mit einem Kundenkonto möglich.
+          Du bist mit einem Profi- oder Admin-Konto angemeldet. Buchungen sind nur mit einem Kundenkonto möglich.
         </NotFoundState>
       </Shell>
     );
@@ -92,9 +92,9 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
         <section className="relative isolate mx-auto flex max-w-form flex-col gap-6 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
           <AuraBackground variant="subtle" placement="top" fade="bottom" animate={false} />
           <div className="flex flex-col gap-3">
-            <Overline>Ihre Buchung</Overline>
-            <h1 className="type-display-s">Wo findet die Behandlung statt?</h1>
-            <p className="type-body-s text-ink-muted">Mit Ihrer Postleitzahl berechnen wir den Endpreis inklusive Anfahrt und prüfen das Einsatzgebiet.</p>
+            <Overline>Deine Buchung</Overline>
+            <h1 className="type-display-s">Wo findet dein Termin statt?</h1>
+            <p className="type-body-s text-ink-muted">Mit deiner Postleitzahl berechnen wir den Endpreis inklusive Anfahrt und prüfen das Einsatzgebiet.</p>
           </div>
           <CheckoutPlzForm angebot={angebot} start={startsAt} einladung={einladung} von={von} />
         </section>
@@ -111,8 +111,8 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
         <Shell>
           <section className="mx-auto flex max-w-form flex-col gap-6 rounded-card bg-surface-raised p-6 shadow-float md:p-8">
             <div className="flex flex-col gap-3">
-              <Overline>Ihre Buchung</Overline>
-              <h1 className="type-display-s">Bitte prüfen Sie die Postleitzahl.</h1>
+              <Overline>Deine Buchung</Overline>
+              <h1 className="type-display-s">Bitte prüf die Postleitzahl.</h1>
             </div>
             <CheckoutPlzForm angebot={angebot} start={startsAt} einladung={einladung} von={von} error={e.fieldErrors?.postalCode ?? e.message} initial={plz} />
           </section>
@@ -123,7 +123,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
       return (
         <Shell>
           <NotFoundState title="Dieses Angebot ist nicht mehr verfügbar." action={<ButtonLink href={routes.search({ plz })}>Andere Profis finden</ButtonLink>}>
-            {/^Dieses Angebot ist nicht mehr verfügbar\.?$/.test(e.message) ? "Vielleicht hat die Fachkraft es geändert. In der Suche finden Sie freie Termine in Ihrer Nähe." : e.message}
+            {/^Dieses Angebot ist nicht mehr verfügbar\.?$/.test(e.message) ? "Vielleicht hat der Profi es geändert. In der Suche findest du freie Termine in deiner Nähe." : e.message}
           </NotFoundState>
         </Shell>
       );
@@ -142,7 +142,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     if (own) {
       return (
         <Shell>
-          <NotFoundState title="Diesen Termin haben Sie bereits." action={<ButtonLink href={routes.booking(own.id)}>Zur Buchung</ButtonLink>}>
+          <NotFoundState title="Diesen Termin hast du bereits." action={<ButtonLink href={routes.booking(own.id)}>Zur Buchung</ButtonLink>}>
             {`${own.serviceName} bei ${own.providerName} – ${own.statusLabel.toLowerCase()}.`}
           </NotFoundState>
         </Shell>
@@ -162,7 +162,7 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
           <p className="type-body-s text-ink-muted">
             {next.length
               ? `Jemand war schneller – oder der Zeitpunkt ist nicht mehr buchbar. Diese Zeiten sind bei ${quote.providerName} für ${quote.serviceName} noch frei:`
-              : `Bei ${quote.providerName} ist in den nächsten 7 Tagen leider nichts mehr frei.`}
+              : `Bei ${quote.providerName} ist in den nächsten 7 Tagen leider nichts mehr frei.`}
           </p>
           {next.length ? (
             <ul className="flex flex-wrap gap-2 stagger-rise">

@@ -27,7 +27,7 @@ export default async function GuthabenPage() {
   const welcome = formatPrice(referral.welcomeCents);
   return (
     <div className="flex flex-col gap-6 md:gap-8">
-      <PageHeader title="Guthaben & Empfehlen" description="Guthaben wird bei Ihrer nächsten Buchung automatisch angeboten." className="pb-0" />
+      <PageHeader title="Guthaben & Empfehlen" description="Guthaben wird dir bei der nächsten Buchung automatisch angeboten." className="pb-0" />
 
       <section aria-labelledby="stand" className="flex items-center justify-between gap-4 rounded-card bg-surface-raised p-5 shadow-raised md:p-7">
         <div className="flex flex-col gap-1.5">
@@ -47,9 +47,9 @@ export default async function GuthabenPage() {
         <AuraBackground variant="section" placement="full" fade="none" />
         <div className="flex flex-col gap-3">
           <Overline>Empfehlen</Overline>
-          <h2 id="empfehlen" className="max-w-[34rem] type-display-s">{`Empfehlen Sie SOMA: ${reward} für Sie, ${welcome} für alle, die Sie einladen.`}</h2>
+          <h2 id="empfehlen" className="max-w-[34rem] type-display-s">{`Empfiehl SOMA: ${reward} für dich, ${welcome} für alle, die du einlädst.`}</h2>
           <p className="max-w-reading type-body-s text-ink-muted">
-            {`Wer sich mit Ihrem Link registriert, erhält ${welcome} Startguthaben. Sie bekommen ${reward}, sobald die erste Buchung abgeschlossen ist.`}
+            {`Wer sich mit deinem Link registriert, bekommt ${welcome} Startguthaben. Du bekommst ${reward}, sobald die erste Buchung abgeschlossen ist.`}
           </p>
         </div>
         <div className="max-w-[34rem]">
@@ -58,7 +58,7 @@ export default async function GuthabenPage() {
       </section>
 
       <StatGrid className="lg:grid-cols-3!">
-        <StatTile label="Eingeladen" icon={<Icon icon={UsersRound} size={16} />} value={<CountUp value={referral.invitedCount} />} hint="Mit Ihrem Link registriert" />
+        <StatTile label="Eingeladen" icon={<Icon icon={UsersRound} size={16} />} value={<CountUp value={referral.invitedCount} />} hint="Mit deinem Link registriert" />
         <StatTile label="Gebucht" icon={<Icon icon={CircleCheck} size={16} />} value={<CountUp value={referral.rewardedCount} />} hint="Erste Buchung abgeschlossen" />
         <StatTile
           label="Verdient"

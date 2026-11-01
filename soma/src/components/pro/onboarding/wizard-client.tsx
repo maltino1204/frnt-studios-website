@@ -191,7 +191,7 @@ export function SubmitForReview({ canSubmit, openSteps, vatMode: initialVatMode 
     <div className="flex flex-col gap-5">
       {!canSubmit && openSteps.length ? (
         <Notice kind="warning" title="Noch nicht ganz fertig">
-          Bitte schließe zuerst ab: {openSteps.join(", ")}.
+          Bitte schließ zuerst ab: {openSteps.join(", ")}.
         </Notice>
       ) : null}
       <Select

@@ -23,7 +23,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Behandlungen zu Hause: Massage, Nägel, Kosmetik und mehr",
   description:
-    "Alle Behandlungen auf einen Blick: Massage, Maniküre, Pediküre, Kosmetik, Make-up, Haare und Brows & Lashes – von geprüften Profis bei Ihnen zu Hause, im Hotel oder im Büro.",
+    "Alle Behandlungen auf einen Blick: Massage, Maniküre, Pediküre, Kosmetik, Make-up, Haare und Brows & Lashes – von geprüften Profis bei dir zu Hause, im Hotel oder im Büro.",
   alternates: { canonical: routes.categories() },
 };
 
@@ -45,10 +45,10 @@ export default async function BehandlungenPage() {
         <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">
           <Overline>Behandlungen</Overline>
           <h1 className="type-display-l">
-            {capitalize(numberWord(catalog.length))} Behandlungen. <em>Alle bei Ihnen.</em>
+            {capitalize(numberWord(catalog.length))} Behandlungen. <em>Alle bei dir.</em>
           </h1>
           <p className="max-w-[34rem] type-body-l text-ink-muted">
-            Jede Leistung zeigt, ab welchem Preis sie gerade angeboten wird. Den Endpreis inklusive Anfahrt sehen Sie in der Suche für Ihre Adresse.
+            Jede Leistung zeigt, ab welchem Preis sie gerade angeboten wird. Den Endpreis inklusive Anfahrt siehst du in der Suche für deine Adresse.
           </p>
         </header>
       </Container>

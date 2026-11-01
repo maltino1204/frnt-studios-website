@@ -13,7 +13,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Stornierung: Bedingungen und Fristen",
-  description: `So stornieren Sie bei ${BRAND_NAME}: Fristen und Gebühren auf einen Blick. Offene Anfragen und Absagen durch den Profi sind immer kostenlos.`,
+  description: `So stornierst du bei ${BRAND_NAME}: Fristen und Gebühren auf einen Blick. Offene Anfragen und Absagen durch den Profi sind immer kostenlos.`,
   alternates: { canonical: "/stornierung" },
 };
 
@@ -33,7 +33,7 @@ export default async function StornierungPage() {
     { id: "fristen", title: "Fristen und Gebühren" },
     { id: "beispiel", title: "Ein Beispiel" },
     { id: "sonderfaelle", title: "Immer kostenlos" },
-    { id: "so-gehts", title: "So stornieren Sie" },
+    { id: "so-gehts", title: "So stornierst du" },
     { id: "widerruf", title: "Widerrufsrecht" },
   ];
 
@@ -47,12 +47,12 @@ export default async function StornierungPage() {
           Stornieren, <em>ohne Kleingedrucktes.</em>
         </>
       }
-      lead={`Pläne ändern sich. Deshalb sehen Sie bei jeder Buchung die genaue Frist mit Datum und Uhrzeit – und hier, wie ${BRAND_NAME} grundsätzlich rechnet.`}
+      lead={`Pläne ändern sich. Deshalb siehst du bei jeder Buchung die genaue Frist mit Datum und Uhrzeit – und hier, wie ${BRAND_NAME} grundsätzlich rechnet.`}
       sections={sections}
     >
       <ContentSection id="fristen" title="Fristen und Gebühren">
         <p>
-          Maßgeblich ist der Zeitpunkt, zu dem Sie in Ihrem Konto stornieren. Die Gebühr bezieht sich auf den Preis der Behandlung; wann die Anfahrt erstattet wird, steht in jeder
+          Maßgeblich ist der Zeitpunkt, zu dem du in deinem Konto stornierst. Die Gebühr bezieht sich auf den Preis der Behandlung; wann die Anfahrt erstattet wird, steht in jeder
           Zeile.
         </p>
         <dl className="mt-2 flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised">
@@ -83,7 +83,7 @@ export default async function StornierungPage() {
 
       <ContentSection id="beispiel" title="Ein Beispiel">
         <p>
-          Ihr Termin ist am <strong>{at(EXAMPLE_START)}</strong>.
+          Dein Termin ist am <strong>{at(EXAMPLE_START)}</strong>.
         </p>
         <ul>
           {tiers.map((t, i) => {
@@ -110,17 +110,17 @@ export default async function StornierungPage() {
         <ul>
           {graceMinutes > 0 ? (
             <li>
-              <strong>Bedenkzeit:</strong> In den ersten {graceMinutes} Minuten nach der Buchung stornieren Sie immer kostenlos, auch bei kurzfristigen Terminen.
+              <strong>Bedenkzeit:</strong> In den ersten {graceMinutes}{"\u00a0"}Minuten nach der Buchung stornierst du immer kostenlos, auch bei kurzfristigen Terminen.
             </li>
           ) : null}
           <li>
-            <strong>Offene Anfragen:</strong> Solange ein Profi Ihre Anfrage noch nicht bestätigt hat, stornieren Sie kostenlos. Ihre Karte wird erst nach der Zusage belastet.
+            <strong>Offene Anfragen:</strong> Solange dein Profi die Anfrage noch nicht bestätigt hat, ziehst du sie kostenlos zurück. Belastet wird erst nach dem Termin.
           </li>
           <li>
-            <strong>Absage durch den Profi:</strong> Sagt Ihr Profi ab, erhalten Sie den vollen Betrag zurück.
+            <strong>Absage durch den Profi:</strong> Sagt dein Profi ab, entstehen dir keine Kosten.
           </li>
           <li>
-            <strong>Reservierung:</strong> Brechen Sie die Zahlung ab, wird der Termin nach {terms.holdMinutes} Minuten wieder freigegeben. Es entstehen keine Kosten.
+            <strong>Reservierung:</strong> Brichst du die Zahlung ab, wird der Termin nach {terms.holdMinutes}{"\u00a0"}Minuten wieder freigegeben. Es entstehen keine Kosten.
           </li>
           <li>
             <strong>Guthaben:</strong> Eingelöstes Guthaben wird bei einer Stornierung anteilig wieder gutgeschrieben.
@@ -128,20 +128,20 @@ export default async function StornierungPage() {
         </ul>
       </ContentSection>
 
-      <ContentSection id="so-gehts" title="So stornieren Sie">
+      <ContentSection id="so-gehts" title="So stornierst du">
         <p>
-          Öffnen Sie <Link href={routes.account.bookings()}>Ihre Termine</Link>, wählen Sie die Buchung und tippen Sie auf „Termin stornieren“. Bevor Sie bestätigen, sehen Sie, was eine
-          Stornierung in diesem Moment kostet. Die Erstattung geht auf das Zahlungsmittel, mit dem Sie bezahlt haben.
+          Öffne <Link href={routes.account.bookings()}>deine Termine</Link>, wähl die Buchung und tipp auf „Termin stornieren“. Bevor du bestätigst, siehst du, was eine
+          Stornierung in diesem Moment kostet. Was nicht als Gebühr anfällt, geben wir auf dem Zahlungsmittel frei, mit dem du bezahlt hast.
         </p>
         <p>
-          Eine Umbuchung ist derzeit eine Stornierung mit neuer Buchung. Stornieren Sie früher als {hoursLabel(tiers[0]?.minHoursBefore ?? 24)} vor dem Termin, bleibt das kostenlos.
+          Eine Umbuchung ist derzeit eine Stornierung mit neuer Buchung. Stornierst du früher als {hoursLabel(tiers[0]?.minHoursBefore ?? 24)} vor dem Termin, bleibt das kostenlos.
         </p>
       </ContentSection>
 
       <ContentSection id="widerruf" title="Widerrufsrecht">
         <Notice kind="warning" title="Rechtliche Prüfung erforderlich">
-          Das Verhältnis dieser Gebühren zum gesetzlichen Widerrufsrecht bei online gebuchten Dienstleistungen (§§ 312g, 356 BGB) wird vor dem Start anwaltlich geprüft. Ihre Rechte und
-          das Muster-Formular finden Sie in der <Link href="/widerruf">Widerrufsbelehrung</Link>.
+          Das Verhältnis dieser Gebühren zum gesetzlichen Widerrufsrecht bei online gebuchten Dienstleistungen (§§ 312g, 356 BGB) wird vor dem Start anwaltlich geprüft. Deine Rechte und
+          das Muster-Formular findest du in der <Link href="/widerruf">Widerrufsbelehrung</Link>.
         </Notice>
       </ContentSection>
     </ContentPage>

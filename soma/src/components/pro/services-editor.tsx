@@ -80,7 +80,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
     if (!draft) return;
     setErrors({});
     setError(null);
-    if (priceCents === null) return setErrors({ price: "Bitte gib einen Preis in Euro an, z. B. 85." });
+    if (priceCents === null) return setErrors({ price: "Bitte gib einen Preis in Euro an, z. B. 85." });
     start(async () => {
       const res = await upsertProServiceAction({ serviceId: draft.serviceId, durationMinutes: draft.duration, priceCents, isActive: draft.isActive, createOnly: draft.mode === "add" });
       if (!res.ok) {
@@ -170,7 +170,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
       ) : (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised">
           <EmptyState className="py-6!" seed="pro-leistungen" title="Noch keine Leistungen.">
-            Wähle aus dem SOMA-Katalog, was du anbietest, und lege Dauer und Preis fest. Kundschaft sieht immer den Endpreis inklusive Anfahrt.
+            Wähle aus dem SOMA-Katalog, was du anbietest, und leg Dauer und Preis fest. Kundschaft sieht immer den Endpreis inklusive Anfahrt.
           </EmptyState>
         </div>
       )}
@@ -268,7 +268,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
               value={draft.price}
               onChange={(e) => setDraft({ ...draft, price: e.target.value })}
               error={errors.price}
-              placeholder="z. B. 85"
+              placeholder="z. B. 85"
               hint={service?.priceHintFromCents ? `Richtwert: ab ${formatPrice(service.priceHintFromCents)}. Du bestimmst deinen Preis selbst.` : "Du bestimmst deinen Preis selbst."}
             />
 

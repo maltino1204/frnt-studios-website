@@ -80,7 +80,7 @@ export function EarningsCalculator({ rates }: { rates: { rate: number; repeatCli
         <Slider id={weeklyId} label="Termine pro Woche" value={weekly} min={1} max={25} step={1} onChange={setWeekly} display={String(weekly)} valueText={`${weekly} Termine pro Woche`} />
         <dl className="flex flex-col" aria-live="polite">
           <Row
-            label={`${weekly} × ${WEEKS_PER_MONTH.toLocaleString("de-DE", { maximumFractionDigits: 2 })} Wochen × ${formatPrice(priceCents)} × (1 − ${formatPercent(rate)})`}
+            label={`${weekly} × ${WEEKS_PER_MONTH.toLocaleString("de-DE", { maximumFractionDigits: 2 })} Wochen × ${formatPrice(priceCents)} × (1 − ${formatPercent(rate)})`}
             value={formatPrice(monthlyNetTreatments)}
           />
           <Row label="Anfahrt, provisionsfrei" value={`+${formatPrice(monthlyTravel)}`} />

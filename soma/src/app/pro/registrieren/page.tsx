@@ -30,7 +30,7 @@ import { getProviderTerms } from "@/server/services/pro-ext";
 const TIPS: Record<WizardSlug, { title: string; body: ReactNode }> = {
   konto: {
     title: "Was dich erwartet",
-    body: "Etwa 15 Minuten. Du kannst jederzeit unterbrechen – jeder Schritt wird gespeichert, und du machst beim nächsten Login dort weiter.",
+    body: "Profil, Leistungen, Einsatzgebiet, Zeiten, Nachweise und Auszahlung. Du kannst jederzeit unterbrechen – jeder Schritt wird gespeichert, und du machst beim nächsten Login dort weiter.",
   },
   profil: {
     title: "Ein Profil, das bucht",
@@ -54,11 +54,11 @@ const TIPS: Record<WizardSlug, { title: string; body: ReactNode }> = {
   },
   auszahlung: {
     title: "Geld, auf das du dich verlassen kannst",
-    body: "Die Kundschaft zahlt bei der Buchung per Karte. Dein Anteil ist 48 Stunden nach dem Termin verfügbar und wird über Stripe auf dein Konto überwiesen.",
+    body: "Bezahlt wird über SOMA, nicht an der Tür: Bei der Buchung wird der Betrag auf der Karte der Kundschaft reserviert. Dein Anteil ist 48 Stunden nach dem Termin verfügbar und wird über Stripe auf dein Konto überwiesen.",
   },
   pruefen: {
     title: "Was nach dem Einreichen passiert",
-    body: "Das SOMA-Team prüft Profil und Dokumente, meist innerhalb von 48 Stunden. Du bekommst eine E-Mail, sobald du freigeschaltet bist.",
+    body: "Das SOMA-Team prüft Profil und Dokumente. Du bekommst eine E-Mail, sobald du freigeschaltet bist – oder wenn ein Nachweis noch etwas braucht.",
   },
 };
 
@@ -123,7 +123,7 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
   const doneSlugs: WizardSlug[] = onboarding.steps.filter((s) => s.done).map((s) => STEP_SLUG[s.key]);
   const rejectedNote = profile.status === "rejected" ? (
     <Notice kind="warning" title="Bitte überarbeite dein Profil">
-      {onboarding.lastDecisionNote ?? "Unser Team hat Rückfragen zu deinem Profil."} Danach kannst du es erneut einreichen.
+      {onboarding.lastDecisionNote ?? "Das SOMA-Team hat Rückfragen zu deinem Profil."} Danach kannst du es erneut einreichen.
     </Notice>
   ) : null;
 
@@ -229,7 +229,7 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
   const meta: Record<keyof typeof STEP_SLUG, string> = {
     profile: [profile.displayName, profile.headline].filter(Boolean).join(" · "),
     services: activeServices.length ? activeServices.map((x) => `${x.serviceName} ${formatPrice(x.priceCents)}`).join(", ") : "Noch keine Leistung",
-    area: profile.basePostalCode ? `${profile.basePostalCode} · ${profile.serviceRadiusKm} km Radius` : "Noch kein Standort",
+    area: profile.basePostalCode ? `${profile.basePostalCode} · ${profile.serviceRadiusKm} km Radius` : "Noch kein Standort",
     hours: days ? `${days} ${days === 1 ? "Tag" : "Tage"} pro Woche` : "Noch keine Zeiten",
     documents: `${documents.length} ${documents.length === 1 ? "Dokument" : "Dokumente"} hochgeladen`,
     payout: settings.payoutsEnabled ? "Eingerichtet" : "Noch nicht eingerichtet",
@@ -349,7 +349,7 @@ async function AccountAside() {
           </div>
         ))}
       </dl>
-      <p className="type-caption text-ink-muted">Auszahlung {terms.payoutHoldHours} Stunden nach dem Termin. Keine Fixkosten, keine Mindestlaufzeit.</p>
+      <p className="type-caption text-ink-muted">Auszahlung {terms.payoutHoldHours} Stunden nach dem Termin. Keine Fixkosten, keine Mindestlaufzeit.</p>
       <Link href={routes.forPros()} className="inline-flex h-touch items-center gap-1.5 self-start type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
         Mehr über SOMA für Profis
       </Link>
@@ -361,7 +361,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
   const first = name.split(/\s+/)[0];
   const suspended = onboarding.status === "suspended";
   const steps = [
-    { title: "Wir prüfen dein Profil", body: "Identität, Gewerbe, Versicherung und Qualifikation – meist innerhalb von 48 Stunden." },
+    { title: "Wir prüfen dein Profil", body: "Identität, Gewerbe, Versicherung und – je nach Kategorie – deine Qualifikation. Wir melden uns, sobald alles geprüft ist." },
     { title: "Du bekommst Bescheid", body: "Per E-Mail und hier in der App. Falls etwas fehlt, sagen wir dir genau, was." },
     { title: "Du wirst sichtbar", body: "Nach der Freischaltung erscheinst du in der Suche in deinem Einsatzgebiet." },
     { title: "Die erste Anfrage", body: "Du nimmst an oder lehnst ab – mit Countdown, damit niemand lange warten muss." },
@@ -391,7 +391,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
                 {suspended
                   ? onboarding.lastDecisionNote ?? "Bei Fragen hilft dir der SOMA-Support."
                   : onboarding.submittedAt
-                    ? `Eingereicht am ${formatDateLong(onboarding.submittedAt)} um ${formatTime(onboarding.submittedAt)} Uhr.`
+                    ? `Eingereicht am ${formatDateLong(onboarding.submittedAt)} um ${formatTime(onboarding.submittedAt)} Uhr.`
                     : "Dein Profil ist eingereicht."}
               </p>
             </div>
@@ -430,7 +430,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
           <aside className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
             {!payoutsEnabled ? (
               <Notice kind="warning" title="Auszahlungen noch offen">
-                Richte dein Auszahlungskonto ein, damit wir dir nach dem ersten Termin dein Geld überweisen können. <Link href={routes.pro.earnings()}>Jetzt einrichten</Link>
+                Richte dein Auszahlungskonto ein, damit wir dir nach dem ersten Termin dein Geld überweisen können. <Link href={routes.pro.earnings()}>Auszahlung einrichten</Link>
               </Notice>
             ) : null}
             {onboarding.missingDocuments.length ? (

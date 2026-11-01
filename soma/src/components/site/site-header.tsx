@@ -85,7 +85,7 @@ export function SiteHeader() {
                 if (focusBookingEntry()) e.preventDefault();
               }}
             >
-              Termin buchen
+              Termin finden
             </ButtonLink>
           </div>
         </div>

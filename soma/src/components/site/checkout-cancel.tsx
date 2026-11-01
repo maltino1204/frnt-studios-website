@@ -121,10 +121,10 @@ export function CancelBooking({
       haptic("warning");
       toast.show(
         res.data.feeCents > 0
-          ? `Storniert. Stornogebühr ${formatPriceExact(res.data.feeCents)}, Erstattung ${formatPriceExact(res.data.refundCents)}.`
+          ? `Storniert. Stornogebühr ${formatPriceExact(res.data.feeCents)}, freigegeben ${formatPriceExact(res.data.refundCents)}.`
           : isRequest
-            ? "Ihre Anfrage wurde zurückgezogen. Es wurde nichts belastet."
-            : "Ihr Termin wurde kostenlos storniert.",
+            ? "Deine Anfrage wurde zurückgezogen. Es wurde nichts belastet."
+            : "Dein Termin wurde kostenlos storniert.",
       );
       router.refresh();
     });
@@ -155,24 +155,24 @@ export function CancelBooking({
           {isRequest ? null : (
             <div aria-busy={refreshing || undefined} className={cn("grid grid-cols-2 gap-2 transition-[opacity,filter] duration-base", refreshing && "opacity-50 blur-[1px]")}>
               <Amount label="Stornogebühr" cents={preview.feeCents} tone={preview.feeCents > 0 ? "danger" : undefined} />
-              <Amount label="Erstattung" cents={preview.refundCents} tone="success" />
+              <Amount label="Freigabe" cents={preview.refundCents} tone="success" />
             </div>
           )}
           {isRequest ? (
-            <p>{`${providerName} hat noch nicht zugesagt. Die reservierte Testzahlung wird freigegeben – es wird nichts belastet.`}</p>
+            <p>{`${providerName} hat noch nicht zugesagt. Die Reservierung auf deiner Karte wird aufgehoben – belastet wird nichts.`}</p>
           ) : inGrace && graceEnd !== null ? (
             <>
-              <CheckLine>{`In den ersten ${graceMinutes} Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))} Uhr.`}</CheckLine>
-              <p>{`Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
+              <CheckLine>{`In den ersten ${graceMinutes}\u00a0Minuten nach der Buchung immer kostenlos stornierbar – noch bis ${formatTime(new Date(graceEnd))}\u00a0Uhr.`}</CheckLine>
+              <p>{`Die Reservierung über ${formatPriceExact(preview.refundCents)} geben wir vollständig frei.`}</p>
             </>
           ) : free ? (
-            <p>{`Die Stornierung ist jetzt noch kostenlos. Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}</p>
+            <p>{`Die Stornierung ist jetzt noch kostenlos. Die Reservierung über ${formatPriceExact(preview.refundCents)} geben wir vollständig frei.`}</p>
           ) : (
             <p className="num">
-              {`Es fällt eine Stornogebühr von ${formatPriceExact(preview.feeCents)} an (${preview.tierLabel}). Sie erhalten ${formatPriceExact(preview.refundCents)} zurück.`}
+              {`Es fällt eine Stornogebühr von ${formatPriceExact(preview.feeCents)} an (${preview.tierLabel}). Den Rest der Reservierung, ${formatPriceExact(preview.refundCents)}, geben wir frei.`}
             </p>
           )}
-          <Textarea label="Grund" optional rows={2} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} placeholder="Hilft der Fachkraft bei der Planung" />
+          <Textarea label="Grund" optional rows={2} value={reason} onChange={(e) => setReason(e.target.value)} maxLength={500} placeholder={`Hilft ${providerName} bei der Planung`} />
           {error ? <Notice kind="danger">{error}</Notice> : null}
         </div>
       </Modal>

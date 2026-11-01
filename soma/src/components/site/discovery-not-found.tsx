@@ -21,7 +21,7 @@ export function NotFoundContent() {
           Hier ist niemand. <em>Noch nicht.</em>
         </h1>
         <p className="max-w-[32rem] type-body-l text-ink-muted">
-          Diese Seite gibt es nicht oder nicht mehr. Vielleicht hat sich die Adresse geändert – die Behandlung, die Sie suchen, finden Sie bestimmt über die Startseite.
+          Diese Seite gibt es nicht oder nicht mehr. Vielleicht ist der Link veraltet – deine Behandlung findest du über die Startseite.
         </p>
         <div className="flex flex-wrap gap-3 pt-2">
           <ButtonLink href="/#termin" size="l">

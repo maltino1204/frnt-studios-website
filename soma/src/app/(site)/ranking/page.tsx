@@ -53,17 +53,17 @@ export default async function RankingPage() {
     {
       name: "Sofort bestätigt",
       weight: WEIGHTS.instant,
-      body: "Profis, bei denen Ihre Buchung ohne Rückfrage sofort feststeht, erhalten diesen Anteil vollständig.",
+      body: "Profis, bei denen deine Buchung ohne Rückfrage sofort feststeht, erhalten diesen Anteil vollständig.",
     },
     {
       name: "Entfernung",
       weight: WEIGHTS.proximity,
-      body: "Wie nah Ihre Postleitzahl am Standort des Profis liegt, gemessen an seinem Einsatzradius. Kürzere Wege bedeuten meist eine niedrigere Anfahrt.",
+      body: "Wie nah deine Postleitzahl am Standort des Profis liegt, gemessen an seinem Einsatzradius. Kürzere Wege bedeuten meist eine niedrigere Anfahrt.",
     },
     {
       name: "Neu auf SOMA",
       weight: WEIGHTS.newPro,
-      body: "Ein kleiner Startvorteil für neue Profis. Er nimmt in den ersten 30 Tagen oder bis zum fünften abgeschlossenen Termin auf null ab.",
+      body: "Ein kleiner Startvorteil für neue Profis. Er nimmt in den ersten 30 Tagen oder bis zum fünften abgeschlossenen Termin auf null ab.",
     },
     {
       name: "Vollständiges Profil",
@@ -82,21 +82,21 @@ export default async function RankingPage() {
           So sortieren wir. <em>Ohne bezahlte Plätze.</em>
         </>
       }
-      lead={`Welche Profis Sie in der Suche sehen und in welcher Reihenfolge, folgt festen Regeln. Hier steht, welche – mit der Gewichtung, die ${BRAND_NAME} tatsächlich verwendet.`}
+      lead={`Welche Profis du in der Suche siehst und in welcher Reihenfolge, folgt festen Regeln. Hier steht, welche – mit der Gewichtung, die ${BRAND_NAME} tatsächlich verwendet.`}
       sections={sections}
     >
       <ContentSection id="wer" title={sections[0].title}>
-        <p>Ein Profi erscheint in Ihren Ergebnissen nur, wenn alle diese Bedingungen erfüllt sind:</p>
+        <p>Ein Profi erscheint in deinen Ergebnissen nur, wenn alle diese Bedingungen erfüllt sind:</p>
         <ul>
           <li>Das Profil ist geprüft und freigeschaltet.</li>
-          <li>Ihre Postleitzahl liegt innerhalb des Einsatzradius, den der Profi selbst festgelegt hat.</li>
+          <li>Deine Postleitzahl liegt innerhalb des Einsatzradius, den der Profi selbst festgelegt hat.</li>
           <li>Die gesuchte Behandlung oder Kategorie wird aktiv angeboten.</li>
           <li>
             Es gibt mindestens einen freien Termin: am gewählten Tag oder, bei „So bald wie möglich“, in den nächsten {terms.searchDaysAhead}
             {NBSP}Tagen. Termine entstehen aus den Arbeitszeiten, Abwesenheiten, bestehenden Buchungen und der Vorlaufzeit des Profis.
           </li>
         </ul>
-        <p>Der Preis, den Sie sehen, ist immer der Endpreis inklusive Anfahrt zu Ihrer Postleitzahl.</p>
+        <p>Der Preis, den du siehst, ist immer der Endpreis inklusive Anfahrt zu deiner Postleitzahl.</p>
       </ContentSection>
 
       <ContentSection id="empfohlen" title={sections[1].title}>
@@ -142,7 +142,7 @@ export default async function RankingPage() {
             <strong>Keine Provision im Ranking.</strong> Wie viel {BRAND_NAME} an einer Buchung verdient, fließt nicht in die Reihenfolge ein.
           </li>
           <li>
-            <strong>Ihre Favoriten</strong> markieren wir in der Liste, sie werden aber nicht nach oben sortiert.
+            <strong>Deine Favoriten</strong> markieren wir in der Liste, sie werden aber nicht nach oben sortiert.
           </li>
         </ul>
       </ContentSection>
@@ -161,11 +161,11 @@ export default async function RankingPage() {
 
       <ContentSection id="auswahl" title={sections[5].title}>
         <p>
-          Auf der Startseite und auf den Seiten für Behandlungen und Städte zeigen wir eine Auswahl ohne Terminbezug. Sie folgt dem ausgeglichenen Bewertungsdurchschnitt, bei
-          Gleichstand der Zahl abgeschlossener Termine. Buchbare Zeiten sehen Sie in der <Link href={routes.search()}>Suche</Link>.
+          Auf der Startseite und auf den Seiten für Behandlungen und Städte zeigen wir eine Auswahl ohne Terminbezug. Die Reihenfolge folgt dem ausgeglichenen Bewertungsdurchschnitt,
+          bei Gleichstand der Zahl abgeschlossener Termine. Buchbare Zeiten siehst du in der <Link href={routes.search()}>Suche</Link>.
         </p>
         <p>
-          Mehr zu Rolle und Pflichten von {BRAND_NAME} lesen Sie in den <Link href={routes.terms()}>AGB</Link>.
+          Mehr zu Rolle und Pflichten von {BRAND_NAME} steht in den <Link href={routes.terms()}>AGB</Link>.
         </p>
       </ContentSection>
     </ContentPage>

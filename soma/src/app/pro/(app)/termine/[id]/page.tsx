@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { Lock, MapPin, Navigation, Phone, Quote } from "lucide-react";
+import { Lock, MapPin, Navigation, Phone, Quote, ShieldCheck } from "lucide-react";
 import {
   CancelBookingButton,
   CompleteBookingButton,
@@ -21,6 +21,7 @@ import { buttonClasses } from "@/components/ui/button";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { SuccessCheck } from "@/components/ui/success";
+import { SUPPORT_EMAIL } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { formatDay, formatDayShort, formatDistance, formatDuration, formatTime, plural } from "@/lib/format";
 import { routes } from "@/lib/routes";
@@ -79,14 +80,15 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
             {live ? <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-info" /> : null}
             <div className="relative flex flex-col gap-5 p-5 lg:p-6">
               <ActionArea booking={b} live={live} settled={settled} now={now} windowHours={terms.requestResponseHours} />
+              {b.status === "requested" || b.status === "confirmed" || b.status === "in_progress" ? <SafetyNote /> : null}
             </div>
             <div className="flex flex-col gap-2 border-t border-line bg-surface/50 p-5 lg:p-6">
               <h2 className="type-heading-s">Verdienst</h2>
               <EarningsLines earnings={b.earnings} settled={settled} />
               {confirmedish ? (
-                <p className="type-caption text-ink-muted">Auszahlung 48 Stunden nach dem Termin, sofern kein Einspruch eingeht.</p>
+                <p className="type-caption text-ink-muted">{`Dein Anteil ist ${terms.payoutHoldHours}\u00a0Stunden nach dem Termin verfügbar, sofern kein Einspruch eingeht.`}</p>
               ) : b.status === "requested" ? (
-                <p className="type-caption text-ink-muted">Die Zahlung ist reserviert und wird erst nach dem Termin eingezogen.</p>
+                <p className="type-caption text-ink-muted">Die Zahlung ist reserviert und wird erst nach dem Termin belastet.</p>
               ) : null}
             </div>
           </div>
@@ -233,7 +235,7 @@ function ActionArea({ booking: b, live, settled, now, windowHours }: { booking: 
     return (
       <div className="flex flex-col gap-5">
         <ActionHeading title="Termin läuft" tone="live">
-          Gestartet um {b.startedAt ? formatTime(b.startedAt) : "—"} Uhr. Schließe ab, wenn du fertig bist.
+          Gestartet um {b.startedAt ? formatTime(b.startedAt) : "—"}{"\u00a0"}Uhr. Schließ ab, wenn du fertig bist.
         </ActionHeading>
         <CompleteBookingButton bookingId={b.id} payoutCents={b.earnings.payoutCents} canComplete={b.actions.canComplete} startsAt={b.startsAt} />
       </div>
@@ -245,7 +247,7 @@ function ActionArea({ booking: b, live, settled, now, windowHours }: { booking: 
       <div className="flex flex-col gap-4">
         <ActionHeading title={live ? "Jetzt vor Ort" : ended ? "Termin vorbei" : "Bestätigt"} tone={live ? "live" : undefined}>
           {ended
-            ? "Starte mit dem Start-Code, um den Termin abzuschließen. Ohne Abschluss wird er 24 Stunden nach Ende automatisch abgeschlossen."
+            ? "Starte mit dem Start-Code, um den Termin abzuschließen. Ohne Abschluss wird er 24 Stunden nach Ende automatisch abgeschlossen."
             : `Starte den Termin vor Ort mit dem Start-Code von ${b.customer.firstName ?? "der Kundschaft"}.`}
         </ActionHeading>
         <div className="flex flex-col gap-2 pt-1">
@@ -259,7 +261,7 @@ function ActionArea({ booking: b, live, settled, now, windowHours }: { booking: 
   if (b.status === "completed") {
     return (
       <ActionHeading title="Abgeschlossen" tone="done">
-        {b.completedAt ? `Am ${formatDayShort(b.completedAt)} um ${formatTime(b.completedAt)} Uhr.` : null} Danke für deine Arbeit.
+        {b.completedAt ? `Am ${formatDayShort(b.completedAt)} um ${formatTime(b.completedAt)}\u00a0Uhr.` : null} Danke für deine Arbeit.
       </ActionHeading>
     );
   }
@@ -271,7 +273,7 @@ function ActionArea({ booking: b, live, settled, now, windowHours }: { booking: 
           {b.status === "expired"
             ? "Die Anfrage wurde nicht rechtzeitig beantwortet. Die Kundschaft wurde nicht belastet."
             : b.cancelledAt
-              ? `${title}${b.cancelledBy ? ` ${CANCELLED_BY[b.cancelledBy] ?? ""}` : ""} am ${formatDayShort(b.cancelledAt)} um ${formatTime(b.cancelledAt)} Uhr.`
+              ? `${title}${b.cancelledBy ? ` ${CANCELLED_BY[b.cancelledBy] ?? ""}` : ""} am ${formatDayShort(b.cancelledAt)} um ${formatTime(b.cancelledAt)}\u00a0Uhr.`
               : null}
         </ActionHeading>
         {b.cancellationReason ? <Notice kind="info" title="Grund">{b.cancellationReason}</Notice> : null}
@@ -279,6 +281,22 @@ function ActionArea({ booking: b, live, settled, now, windowHours }: { booking: 
     );
   }
   return <p className="type-body-s text-ink-muted">{b.statusLabel}</p>;
+}
+
+/** Zero-tolerance rule, SOMA Pro side (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01). */
+function SafetyNote() {
+  return (
+    <p className="flex gap-2 border-t border-line pt-4 type-caption text-ink-muted">
+      <Icon icon={ShieldCheck} size={16} className="mt-px shrink-0" />
+      <span>
+        Fühlst du dich bei einem Termin unwohl, darfst du gehen.{" "}
+        <a href={`mailto:${SUPPORT_EMAIL}`} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
+          Melde es uns
+        </a>{" "}
+        – wir kümmern uns darum.
+      </span>
+    </p>
+  );
 }
 
 type Entry = { label: string; at: string | null; state: "done" | "next" | "stop"; note?: string };

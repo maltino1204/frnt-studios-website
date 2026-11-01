@@ -58,7 +58,7 @@ export function StatTile({
           >
             <Icon icon={up ? ArrowUpRight : ArrowDownRight} size={14} />
             {up ? "+" : "−"}
-            {Math.abs(delta).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %
+            {Math.abs(delta).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %
           </span>
           <span className="text-ink-muted">{deltaLabel}</span>
         </p>

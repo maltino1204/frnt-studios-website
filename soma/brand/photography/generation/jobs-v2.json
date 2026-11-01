@@ -75,7 +75,8 @@
       {
         "job": "97a077fa-fd47-4c4d-99ca-005b9dea7341",
         "status": "approved",
-        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165143_97a077fa-fd47-4c4d-99ca-005b9dea7341.png"
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_165143_97a077fa-fd47-4c4d-99ca-005b9dea7341.png",
+        "note": "hotel, Frankfurt skyline; the Profi is barefoot: retouch shoes in or regenerate before paid use"
       }
     ]
   },
@@ -125,7 +126,7 @@
         "job": "e3b0af06-8150-4991-8b50-cdd72f8f8711",
         "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_170525_e3b0af06-8150-4991-8b50-cdd72f8f8711.png",
         "status": "approved",
-        "note": "Elbphilharmonie in view: real HafenCity place cue"
+        "note": "Elbphilharmonie in view; faint mark on the laptop lid: retouch before use (or crop at focal 60%)"
       }
     ]
   },
@@ -1116,6 +1117,116 @@
       {
         "job": "305e745c-2b6b-4043-8096-ffdfdeac55ee",
         "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173450_305e745c-2b6b-4043-8096-ffdfdeac55ee.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P70": {
+    "attempts": [
+      {
+        "job": "001594f0-8b58-4361-a297-602139f644e5",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_001594f0-8b58-4361-a297-602139f644e5.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P71": {
+    "attempts": [
+      {
+        "job": "460ee775-68ce-43c1-9127-0b9a7c5c53e8",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_460ee775-68ce-43c1-9127-0b9a7c5c53e8.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P72": {
+    "attempts": [
+      {
+        "job": "3e3c0943-dc77-4b21-8851-22c10381f804",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_3e3c0943-dc77-4b21-8851-22c10381f804.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P73": {
+    "attempts": [
+      {
+        "job": "89f14239-0088-45d1-9329-c9f35686f903",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_89f14239-0088-45d1-9329-c9f35686f903.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P74": {
+    "attempts": [
+      {
+        "job": "54d5dbd6-7d58-4546-b312-69f39fdffe3e",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_54d5dbd6-7d58-4546-b312-69f39fdffe3e.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P75": {
+    "attempts": [
+      {
+        "job": "fd50204d-f210-4b00-8d39-b6f6787da507",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173750_fd50204d-f210-4b00-8d39-b6f6787da507.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P76": {
+    "attempts": [
+      {
+        "job": "93269376-1c4f-4eae-8124-b5fed1807c90",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_93269376-1c4f-4eae-8124-b5fed1807c90.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P77": {
+    "attempts": [
+      {
+        "job": "4638686d-7c6f-40d1-b7b4-16e0f948d26d",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_173749_4638686d-7c6f-40d1-b7b4-16e0f948d26d.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P78": {
+    "attempts": [
+      {
+        "job": "19058a86-5849-41d3-b5d3-748fd1179772",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174113_19058a86-5849-41d3-b5d3-748fd1179772.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P79": {
+    "attempts": [
+      {
+        "job": "70825248-6532-438a-a9ad-b77d3a98bf5f",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174112_70825248-6532-438a-a9ad-b77d3a98bf5f.png",
+        "status": "approved",
+        "note": "gpt-low"
+      }
+    ]
+  },
+  "P80": {
+    "attempts": [
+      {
+        "job": "588ee552-9d99-4e57-ad71-1b597c63a53e",
+        "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261101_174113_588ee552-9d99-4e57-ad71-1b597c63a53e.png",
         "status": "approved",
         "note": "gpt-low"
       }

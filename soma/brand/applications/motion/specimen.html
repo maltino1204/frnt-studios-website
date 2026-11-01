@@ -1,0 +1,86 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>SOMA · Motion specimen</title><style>
+@font-face{font-family:"Instrument Sans";src:url("../../assets/typography/fonts/instrument-sans-variable-latin.woff2") format("woff2");font-weight:400 700;font-stretch:75% 100%;}
+@font-face{font-family:"Newsreader Display";src:url("../../assets/typography/fonts/newsreader-display-roman-latin.woff2") format("woff2");font-weight:400;}
+@font-face{font-family:"Newsreader Display";font-style:italic;src:url("../../assets/typography/fonts/newsreader-display-italic-latin.woff2") format("woff2");font-weight:400;}
+:root{--bone:#F3EFE8;--paper:#FBF9F5;--linen:#ECE6DC;--oat:#E3DBCF;--stone:#D8CFC3;--taupe:#A69A8D;--taupe-deep:#857A6E;
+--umber:#6E6359;--umber-deep:#5E554D;--espresso:#25211F;--espresso-deep:#171412;--oxblood:#542C35;--ox200:#D5B5BC;
+--shadow-raised:0 0 0 1px rgb(37 33 31/.07),0 1px 2px rgb(37 33 31/.04),0 4px 10px -4px rgb(37 33 31/.06);
+--shadow-float:0 0 0 1px rgb(37 33 31/.06),0 2px 4px -1px rgb(37 33 31/.05),0 12px 24px -8px rgb(37 33 31/.10);
+--shadow-overlay:0 0 0 1px rgb(37 33 31/.07),0 8px 16px -6px rgb(37 33 31/.08),0 32px 64px -20px rgb(37 33 31/.22);}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bone);color:var(--espresso);font-family:"Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-kerning:normal;font-feature-settings:"kern"}
+.serif{font-family:"Newsreader Display",Georgia,serif;font-weight:400;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+.serif em,.it{font-family:"Newsreader Display",Georgia,serif;font-style:italic;letter-spacing:-.008em}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:12px;line-height:1.2}
+.place{font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-variant-numeric:tabular-nums;font-size:12px;line-height:1.3}
+.arch{border-radius:50% 50% 0 0 / calc(54.5% * var(--a,.8)) calc(54.5% * var(--a,.8)) 0 0;overflow:hidden}
+.arch img,.cover{width:100%;height:100%;object-fit:cover;display:block}
+.ai{font-size:11px;letter-spacing:.02em;font-weight:500;opacity:.78}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:560;letter-spacing:-.004em;white-space:nowrap}
+html,body{width:auto;height:auto;overflow:auto}
+:root{
+  --dur-instant:100ms; --dur-fast:160ms; --dur-base:220ms; --dur-slow:320ms; --dur-arrive:480ms; --dur-calm:640ms; --dur-reveal:900ms;
+  --ease-standard:cubic-bezier(.2,0,0,1); --ease-arrive:cubic-bezier(.16,1,.3,1); --ease-settle:cubic-bezier(.22,1,.36,1); --ease-exit:cubic-bezier(.4,0,1,1); --ease-calm:cubic-bezier(.4,0,.2,1);
+  --stagger:90ms; --rise:16px; --rise-s:8px;}
+body{padding:56px 64px;background:#F3EFE8}
+h1{margin:10px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:40px}
+.stage{position:relative;height:520px;border-radius:24px;background:#FBF9F5;box-shadow:var(--shadow-raised);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cap{margin-top:16px;font-size:14px;line-height:1.5;color:#5E554D}
+.cap b{color:#25211F;font-weight:600}
+/* 1 · Arch rise: the arch crop reveals bottom-up; the photo settles inside and stops */
+.arch-rise{width:300px;height:375px;border-radius:50% 50% 0 0 / 43.6% 43.6% 0 0;overflow:hidden;
+  animation:arch-clip var(--dur-calm) var(--ease-arrive) both, arch-lift var(--dur-calm) var(--ease-arrive) both}
+.arch-rise img{width:100%;height:100%;object-fit:cover;display:block;animation:img-settle var(--dur-reveal) var(--ease-settle) both}
+.place-l{position:absolute;left:calc(50% - 150px);bottom:44px;animation:fade-rise var(--dur-arrive) var(--ease-arrive) both;animation-delay:calc(var(--dur-calm) - 160ms)}
+@keyframes arch-clip{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes arch-lift{from{transform:translateY(var(--rise));opacity:0}to{transform:none;opacity:1}}
+@keyframes img-settle{from{transform:scale(1.04)}to{transform:none}}
+@keyframes fade-rise{from{opacity:0;transform:translateY(var(--rise-s))}to{opacity:1;transform:none}}
+/* 2 · The S draws on: the arch outline traces, the S contour traces inside it, then the fill arrives and the stroke leaves */
+.s-draw{width:300px;height:375px;overflow:visible}
+.s-draw .arch-o{fill:none;stroke:#D8CFC3;stroke-width:6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--dur-calm) var(--ease-arrive) both}
+.s-draw .s-o{fill:none;stroke:#F3EFE8;stroke-width:10;stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--dur-calm) var(--ease-arrive) both, fade-out var(--dur-base) var(--ease-exit) both;animation-delay:calc(var(--dur-calm) * .5), calc(var(--dur-calm) * 1.5)}
+.s-draw .s-f{fill:#F3EFE8;opacity:0;animation:fade-in var(--dur-base) var(--ease-standard) both;animation-delay:calc(var(--dur-calm) * 1.35)}
+.s-stage{background:#542C35}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade-in{to{opacity:1}}
+@keyframes fade-out{to{opacity:0}}
+/* 3 · Wordmark lockup reveal: one movement for the whole mark (never letter by letter), the tagline follows */
+.lock{display:flex;flex-direction:column;align-items:center;gap:30px}
+.lock .wm{animation:fade-rise var(--dur-arrive) var(--ease-arrive) both}
+.lock .line{width:0;height:1.5px;background:#25211F;animation:grow var(--dur-slow) var(--ease-standard) both;animation-delay:var(--dur-fast)}
+.lock .tl{font-family:"Newsreader Display";font-style:italic;font-size:44px;animation:fade-rise var(--dur-arrive) var(--ease-arrive) both;animation-delay:calc(var(--dur-fast) * 2)}
+@keyframes grow{to{width:40px}}
+.replay{margin-top:28px;display:flex;gap:12px;align-items:center}
+.replay button{height:44px;padding:0 20px;border-radius:999px;border:0;background:#25211F;color:#F3EFE8;font:560 15px "Instrument Sans";cursor:pointer}
+.replay button:focus-visible{outline:2px solid #542C35;outline-offset:2px}
+.replay label{font-size:14px;color:#5E554D;display:flex;gap:8px;align-items:center}
+/* Reduced motion: the final frame, at once. Nothing carries meaning through motion alone. */
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important} }
+html.rm *,html.rm *::before,html.rm *::after{animation-duration:1ms!important;animation-delay:0ms!important}
+</style></head><body>
+<div class="eyebrow" style="color:#5E554D">SOMA · Bewegung · Markenanimationen</div>
+<h1 class="serif" style="font-size:56px">Ankommen. <em>Und ruhen.</em></h1>
+<p style="font-size:17px;color:#5E554D;max-width:880px;line-height:1.5">Jede Bewegung endet still: ease-out, kein Überschwingen, keine Schleife. Token in <code>DESIGN_TOKENS</code>; Regeln in <code>brand/applications/motion/MOTION.md</code>.</p>
+<div class="grid" id="g">
+  <figure><div class="stage"><div class="arch-rise"><img src="../../photography/v2-previews/L03-philosophy.jpg" alt=""></div>
+    <div class="place place-l" style="color:#5E554D">Flur · Berlin-Schöneberg · 18:40</div></div>
+    <figcaption class="cap"><b>1 · Bogen-Aufgang.</b> Maske öffnet von unten (640 ms, arrive), Bogen steigt 16 px, Foto setzt sich von 1,04 auf 1 (900 ms, settle). Ortszeile folgt nach 480 ms.</figcaption></figure>
+  <figure><div class="stage s-stage"><svg class="s-draw" viewBox="-180 -160 832 1040"><path class="arch-o" pathLength="1" d="M-120 880L-120 300C-120 40 60 -120 236 -120C412 -120 592 40 592 300L592 880"/><path class="s-f" d="M432.92 85.2C407.52 53.29 371.82 31.03 333.7 17.41C263.13 -7.82 181.23 -5.77 112.51 24.48C58.5 48.26 8.22 93.94 0.88 155.39C-0.18 164.23 -0.28 173.19 0.56 182.06C5.88 237.73 47.29 281.12 93.82 307.88C161.79 346.97 247.25 358.59 303.35 416.97C309.84 423.73 315.79 431.01 321.11 438.73C327.62 448.18 333.16 458.27 337.45 468.92C342.51 481.53 345.83 494.83 347.23 508.35C349.09 526.32 347.53 544.6 342.69 562.01C338.16 578.3 330.79 593.76 321.11 607.62C313.12 619.07 303.57 629.42 292.86 638.39C230.3 690.78 133.93 691.13 70.94 639.29C57.63 628.34 46.2 615.3 37.04 600.7L12.96 635.2C39.81 668.47 77.27 691.61 117.24 705.86C191.6 732.38 277.74 730.62 350.52 699.71C406.49 675.94 459.63 630.49 470.19 567.72C471.77 558.36 472.32 548.82 471.82 539.33C468.82 483.2 429.65 437.21 383.21 409.29C363.07 397.18 341.13 387.89 319.61 378.52C283.65 362.88 247.28 348.05 213.21 328.47C198.87 320.23 184.56 311.57 172.24 300.44C146.48 277.18 129.33 245.07 125.07 210.58C122.84 192.59 124.12 174.2 128.78 156.69C133.22 140.01 140.71 124.19 150.71 110.13C160.25 96.72 172.04 84.94 185.41 75.35C242.84 34.11 324.43 37.34 378.16 83.43C390.26 93.81 400.57 106.08 408.83 119.7Z"/><path class="s-o" pathLength="1" d="M432.92 85.2C407.52 53.29 371.82 31.03 333.7 17.41C263.13 -7.82 181.23 -5.77 112.51 24.48C58.5 48.26 8.22 93.94 0.88 155.39C-0.18 164.23 -0.28 173.19 0.56 182.06C5.88 237.73 47.29 281.12 93.82 307.88C161.79 346.97 247.25 358.59 303.35 416.97C309.84 423.73 315.79 431.01 321.11 438.73C327.62 448.18 333.16 458.27 337.45 468.92C342.51 481.53 345.83 494.83 347.23 508.35C349.09 526.32 347.53 544.6 342.69 562.01C338.16 578.3 330.79 593.76 321.11 607.62C313.12 619.07 303.57 629.42 292.86 638.39C230.3 690.78 133.93 691.13 70.94 639.29C57.63 628.34 46.2 615.3 37.04 600.7L12.96 635.2C39.81 668.47 77.27 691.61 117.24 705.86C191.6 732.38 277.74 730.62 350.52 699.71C406.49 675.94 459.63 630.49 470.19 567.72C471.77 558.36 472.32 548.82 471.82 539.33C468.82 483.2 429.65 437.21 383.21 409.29C363.07 397.18 341.13 387.89 319.61 378.52C283.65 362.88 247.28 348.05 213.21 328.47C198.87 320.23 184.56 311.57 172.24 300.44C146.48 277.18 129.33 245.07 125.07 210.58C122.84 192.59 124.12 174.2 128.78 156.69C133.22 140.01 140.71 124.19 150.71 110.13C160.25 96.72 172.04 84.94 185.41 75.35C242.84 34.11 324.43 37.34 378.16 83.43C390.26 93.81 400.57 106.08 408.83 119.7Z"/></svg></div>
+    <figcaption class="cap"><b>2 · Das S zeichnet sich.</b> Bogenkontur zieht (640 ms), die S-Kontur folgt ab 320 ms, die Fläche erscheint (220 ms), die Linie geht. Nur Splash und Endframes; nie als Ladeanimation, nie in Schleife.</figcaption></figure>
+  <figure><div class="stage"><div class="lock"><svg style="color:#25211F;display:block;width:420px;height:auto" class="wm"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 -16.8 2796 731.2" role="img" aria-labelledby="t">
+  <title id="t">SOMA</title>
+  <g id="wordmark" fill="currentColor">
+    <path id="wordmark-s" d="M421.72 73C396.77 40.82 361.35 18.22 323.29 4.56C255.02 -19.94 175.83 -17.65 109.6 12.28C54.89 37.01 5.52 84.95 0.42 147.62C-0.3 156.5 -0.09 165.46 1.04 174.29C8.21 230.33 50.68 273.3 98.29 299.49C139.22 322.01 184.4 334.94 227.23 353.13C259.19 366.71 290.31 383.66 314.56 408.96C321.28 415.98 327.42 423.55 332.88 431.58C339.48 441.29 345.07 451.67 349.38 462.59C354.61 475.8 357.98 489.74 359.33 503.88C361.12 522.69 359.28 541.79 354 559.93C349.18 576.48 341.54 592.16 331.6 606.23C323.43 617.81 313.74 628.3 302.9 637.44C236.04 693.84 131.96 693.84 65.09 637.44C52.02 626.41 40.73 613.45 31.58 599L12.15 623C38.65 656.65 75.99 680.16 116.05 694.44C188.71 720.34 272.94 718.05 343.55 686.6C399.61 661.64 451.14 613.91 459 550.22C460.16 540.8 460.31 531.26 459.44 521.81C454.2 465.29 413.58 419.74 365.88 392.66C312.98 362.62 253.25 346.93 199.65 318.23C184.5 310.11 169.3 301.4 156 290.46C135.43 273.54 119.23 251.45 109.72 226.54C105.32 215.01 102.36 202.94 100.95 190.68C98.85 172.31 100.26 153.59 105.08 135.75C109.66 118.75 117.3 102.62 127.44 88.24C135.91 76.23 146.1 65.46 157.57 56.27C217.26 8.42 306.24 8.31 366.07 55.98C380.45 67.44 392.67 81.34 402.29 97Z"/>
+    <path id="wordmark-o" d="M904 -12C1093.24 -12 1236 138.23 1236 350C1236 561.77 1093.24 712 904 712C714.76 712 572 561.77 572 350C572 138.23 714.76 -12 904 -12ZM672 350C672 528.2 764.8 680 904 680C1043.2 680 1136 528.2 1136 350C1136 171.8 1043.2 20 904 20C764.8 20 672 171.8 672 350Z"/>
+    <path id="wordmark-m" d="M1735.19 531.55L1941.5 0L2082 0L2082 714.4L1982 714.4L1982 23.91L1714 714.4L1424.4 98.66L1424.4 714.4L1378 714.4L1378 0L1485.19 0Z"/>
+    <path id="wordmark-a" d="M2580.91 460.9L2302.94 460.9L2191.87 700L2146 700L2479 -16.8L2796 700L2686.65 700ZM2445.35 154.36L2317.07 430.5L2567.47 430.5Z"/>
+  </g>
+</svg>
+<div class="line"></div><div class="tl" lang="en">Your body. Your place.</div></div></div>
+    <figcaption class="cap"><b>3 · Wortmarke.</b> Die ganze Marke kommt als eine Form (480 ms, 8 px), die Linie wächst, die Tagline folgt mit 320 ms Versatz. Nie Buchstabe für Buchstabe, nie gemorpht.</figcaption></figure>
+</div>
+<div class="replay"><button onclick="replay()">Noch einmal abspielen</button><label><input type="checkbox" onchange="document.documentElement.classList.toggle('rm',this.checked);replay()"> Reduzierte Bewegung simulieren</label></div>
+<script>function replay(){const g=document.getElementById('g');const c=g.cloneNode(true);g.replaceWith(c)}</script></body></html>

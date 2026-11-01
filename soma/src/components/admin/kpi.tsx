@@ -17,7 +17,7 @@ export function DeltaPill({ value, className }: { value: number; className?: str
     >
       <Icon icon={flat ? Minus : up ? ArrowUpRight : ArrowDownRight} size={14} />
       {flat ? "±" : up ? "+" : "−"}
-      {Math.abs(value).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %
+      {Math.abs(value).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %
     </span>
   );
 }

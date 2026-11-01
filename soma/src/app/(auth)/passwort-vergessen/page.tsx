@@ -19,8 +19,8 @@ export default async function PasswortPage({ searchParams }: { searchParams: Pro
         <h1 className="type-h1">{token ? "Passwort festlegen." : "Passwort vergessen."}</h1>
         <p className="type-body text-ink-muted">
           {token
-            ? "Wählen Sie ein Passwort mit mindestens 10 Zeichen. Damit melden Sie sich künftig an."
-            : "Geben Sie Ihre E-Mail-Adresse ein. Wir schicken Ihnen einen Link, mit dem Sie ein neues Passwort festlegen."}
+            ? "Wähl ein Passwort mit mindestens 10 Zeichen. Damit meldest du dich künftig an."
+            : "Gib deine E-Mail-Adresse ein. Wir schicken dir einen Link, mit dem du ein neues Passwort festlegst."}
         </p>
       </div>
       {token ? <ResetPasswordForm token={token} /> : <ResetRequestForm />}

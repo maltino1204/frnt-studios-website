@@ -1021,13 +1021,13 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
         select id, service_name, respond_by, created_at from public.bookings where provider_id = ${selinProv.id} and status = 'requested' order by respond_by`;
       for (const r of reqs) {
         await tx`insert into public.notifications (user_id, type, title, body, href, data, created_at)
-                 values (${selinProv.id}, 'booking.requested', ${`Neue Anfrage: ${r.service_name}`}, 'Bitte antworte rechtzeitig – die Kundin wartet auf deine Zusage.', ${`/pro/termine/${r.id}`}, ${tx.json({ bookingId: r.id })}, ${later(r.created_at, 60_000)})`;
+                 values (${selinProv.id}, 'booking.requested', ${`Neue Anfrage: ${r.service_name}`}, 'Bitte antworte rechtzeitig – die Kundschaft wartet auf deine Zusage.', ${`/pro/termine/${r.id}`}, ${tx.json({ bookingId: r.id })}, ${later(r.created_at, 60_000)})`;
       }
       const [lastPayout] = await tx<{ amount_cents: number; paid_at: Date }[]>`select amount_cents, paid_at from public.payouts where provider_id = ${selinProv.id} order by paid_at desc limit 1`;
       if (lastPayout) {
         await tx`insert into public.notifications (user_id, type, title, body, href, read_at, created_at)
                  values (${selinProv.id}, 'payout.paid', ${`Auszahlung unterwegs: ${(lastPayout.amount_cents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })}`},
-                         'Das Geld ist in 1–3 Werktagen auf deinem Konto.', '/pro/einnahmen', ${readAfter(lastPayout.paid_at)}, ${lastPayout.paid_at})`;
+                         'Das Geld ist in der Regel in 1–3 Werktagen auf deinem Konto.', '/pro/einnahmen', ${readAfter(lastPayout.paid_at)}, ${lastPayout.paid_at})`;
       }
       const [lastReview] = await tx<{ rating: number; created_at: Date }[]>`select rating, created_at from public.reviews where provider_id = ${selinProv.id} order by created_at desc limit 1`;
       if (lastReview) {
@@ -1038,18 +1038,23 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
       const jb = await tx<{ id: string; status: string; service_name: string; starts_at: Date; respond_by: Date | null; provider: string; created_at: Date; confirmed_at: Date | null; completed_at: Date | null; cancelled_at: Date | null; cancellation_fee_cents: number }[]>`
         select b.id, b.status, b.service_name, b.starts_at, b.respond_by, p.display_name as provider, b.created_at, b.confirmed_at, b.completed_at, b.cancelled_at, b.cancellation_fee_cents
         from public.bookings b join public.providers p on p.id = b.provider_id where b.customer_id = ${julia.id} order by b.starts_at`;
-      const when = (d: Date) => new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", weekday: "short", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).format(d) + " Uhr";
+      // Same format as the live notifications (src/server/services/format.ts formatWhen): "Do., 12. Nov., 18:30 Uhr".
+      const when = (d: Date) =>
+        new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })
+          .format(d)
+          .replace(/\s/g, "\u00a0")
+          .replace(/,\u00a0(\d{2}:\d{2})$/, ", $1") + "\u00a0Uhr";
       const upcomingJ = jb.filter((b) => b.status === "confirmed");
       const requestJ = jb.find((b) => b.status === "requested");
       const cancelledJ = jb.find((b) => b.status === "cancelled");
       const lastDone = [...jb].reverse().find((b) => b.status === "completed");
       const notes: Array<{ type: string; title: string; body: string; href: string; read: boolean; at: Date }> = [];
-      if (requestJ) notes.push({ type: "booking.requested", title: `Ihre Anfrage ist bei ${requestJ.provider}`, body: `${requestJ.service_name} am ${when(requestJ.starts_at)}. ${requestJ.provider} antwortet bis spätestens ${requestJ.respond_by ? when(requestJ.respond_by) : "kurz vor dem Termin"} – Ihre Zahlung ist bis dahin nur reserviert.`, href: `/buchung/${requestJ.id}`, read: false, at: later(requestJ.created_at, 60_000) });
-      if (upcomingJ[0]) notes.push({ type: "booking.confirmed", title: "Ihr Termin ist bestätigt", body: `${upcomingJ[0].service_name} mit ${upcomingJ[0].provider} am ${when(upcomingJ[0].starts_at)}. Ihren Start-Code finden Sie in der Buchungsübersicht.`, href: `/buchung/${upcomingJ[0].id}`, read: false, at: upcomingJ[0].confirmed_at ?? upcomingJ[0].created_at });
-      if (upcomingJ[1]) notes.push({ type: "booking.confirmed", title: "Ihr Termin ist bestätigt", body: `${upcomingJ[1].service_name} mit ${upcomingJ[1].provider} am ${when(upcomingJ[1].starts_at)}.`, href: `/buchung/${upcomingJ[1].id}`, read: true, at: upcomingJ[1].confirmed_at ?? upcomingJ[1].created_at });
-      if (lastDone?.completed_at) notes.push({ type: "booking.completed", title: `Wie war Ihr Termin mit ${lastDone.provider}?`, body: "Wir freuen uns über Ihre Bewertung – sie hilft anderen bei der Wahl.", href: `/buchung/${lastDone.id}`, read: true, at: later(lastDone.completed_at, 60_000) });
-      if (cancelledJ?.cancelled_at) notes.push({ type: "booking.cancelled", title: "Ihr Termin wurde storniert", body: `${cancelledJ.service_name} am ${when(cancelledJ.starts_at)}. Es fällt eine Stornogebühr von ${(cancelledJ.cancellation_fee_cents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })} an.`, href: `/buchung/${cancelledJ.id}`, read: true, at: later(cancelledJ.cancelled_at, 60_000) });
-      notes.push({ type: "referral.rewarded", title: "Ihre Empfehlung hat sich gelohnt", body: "Wir haben Ihnen 15,00 € SOMA-Guthaben gutgeschrieben.", href: "/konto/guthaben", read: true, at: maraFirst.completedAt ?? ago(60) });
+      if (requestJ) notes.push({ type: "booking.requested", title: `Deine Anfrage ist bei ${requestJ.provider}`, body: `${requestJ.service_name} am ${when(requestJ.starts_at)}. ${requestJ.provider} antwortet bis spätestens ${requestJ.respond_by ? when(requestJ.respond_by) : "kurz vor dem Termin"}. Bis dahin wird nichts belastet.`, href: `/buchung/${requestJ.id}`, read: false, at: later(requestJ.created_at, 60_000) });
+      if (upcomingJ[0]) notes.push({ type: "booking.confirmed", title: "Dein Termin ist bestätigt", body: `${upcomingJ[0].service_name} mit ${upcomingJ[0].provider}, ${when(upcomingJ[0].starts_at)}. Dein Start-Code steht in der Buchung.`, href: `/buchung/${upcomingJ[0].id}`, read: false, at: upcomingJ[0].confirmed_at ?? upcomingJ[0].created_at });
+      if (upcomingJ[1]) notes.push({ type: "booking.confirmed", title: "Dein Termin ist bestätigt", body: `${upcomingJ[1].service_name} mit ${upcomingJ[1].provider}, ${when(upcomingJ[1].starts_at)}. Dein Start-Code steht in der Buchung.`, href: `/buchung/${upcomingJ[1].id}`, read: true, at: upcomingJ[1].confirmed_at ?? upcomingJ[1].created_at });
+      if (lastDone?.completed_at) notes.push({ type: "booking.completed", title: `Wie war dein Termin mit ${lastDone.provider}?`, body: "Deine Bewertung hilft anderen bei der Wahl.", href: `/buchung/${lastDone.id}`, read: true, at: later(lastDone.completed_at, 60_000) });
+      if (cancelledJ?.cancelled_at) notes.push({ type: "booking.cancelled", title: "Dein Termin ist storniert", body: `${cancelledJ.service_name} am ${when(cancelledJ.starts_at)}. Es fällt eine Stornogebühr von ${(cancelledJ.cancellation_fee_cents / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })} an.`, href: `/buchung/${cancelledJ.id}`, read: true, at: later(cancelledJ.cancelled_at, 60_000) });
+      notes.push({ type: "referral.rewarded", title: "Deine Empfehlung hat sich gelohnt", body: "15,00\u00a0€ SOMA-Guthaben sind gutgeschrieben.", href: "/konto/guthaben", read: true, at: maraFirst.completedAt ?? ago(60) });
       for (const n of notes) {
         await tx`insert into public.notifications (user_id, type, title, body, href, read_at, created_at)
                  values (${julia.id}, ${n.type}, ${n.title}, ${n.body}, ${n.href}, ${n.read ? readAfter(n.at) : null}, ${n.at})`;

@@ -74,7 +74,7 @@ export async function upsertProServiceAction(raw: z.input<typeof ServiceSchema>)
       ? {
           ...res,
           message: res.data.awaitingDocuments
-            ? `Leistung gespeichert. Sie wird freigeschaltet, sobald dein Nachweis geprüft ist: ${res.data.missingDocuments.join(", ") || "Qualifikationsnachweis"}. Lade ihn unter „Verifizierung“ hoch.`
+            ? `Leistung gespeichert. Freigeschaltet wird sie, sobald dein Nachweis geprüft ist: ${res.data.missingDocuments.join(", ") || "Qualifikationsnachweis"}. Lade ihn unter „Verifizierung“ hoch.`
             : "Leistung gespeichert.",
         }
       : res,
@@ -130,7 +130,7 @@ export async function uploadDocumentAction(_prev: ActionResult<DocumentDTO> | nu
     const r = await uploadDocument(s, v.kind as DocumentKind, await fileFrom(formData), v.categoryId ?? null, v.validUntil ?? null);
     revalidatePro();
     return r;
-  }, "Dokument hochgeladen. Wir prüfen es innerhalb von 48 Stunden.");
+  }, "Dokument hochgeladen. Wir melden uns, sobald es geprüft ist.");
 }
 
 export async function deleteDocumentAction(documentId: string): Promise<ActionResult> {
@@ -180,7 +180,7 @@ export async function submitForReviewAction(raw: z.input<typeof SubmitSchema>): 
     const r = await submitForReview(s, input(SubmitSchema, raw ?? {}));
     revalidatePro();
     return r;
-  }, "Danke, wir prüfen dein Profil innerhalb von 48 Stunden.");
+  }, "Danke. Wir prüfen dein Profil und melden uns, sobald alles geprüft ist.");
 }
 
 const SettingsSchema = z.object({

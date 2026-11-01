@@ -125,7 +125,7 @@ export default async function KontoPage() {
         ) : (
           <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
             <EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href={routes.search()}>Behandlung finden</ButtonLink>} className="py-7">
-              Sobald Sie buchen, finden Sie Ihre Termine hier.
+              Wenn du buchst, findest du hier Zeit, Ort, Start-Code und Stornofrist.
             </EmptyState>
           </div>
         )}
@@ -137,7 +137,7 @@ export default async function KontoPage() {
             <h2 id="erneut" className="type-heading-m">
               Erneut buchen
             </h2>
-            <p className="type-body-s text-ink-muted">Gleiche Fachkraft, gleiche Behandlung – mit einem Tipp.</p>
+            <p className="type-body-s text-ink-muted">Gleicher Profi, gleiche Behandlung – mit einem Tipp.</p>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {rebook.map((b) => (
@@ -173,7 +173,7 @@ export default async function KontoPage() {
               <Icon icon={Wallet} size={18} />
             </span>
           </div>
-          <p className="type-caption text-ink-muted">Wird bei Ihrer nächsten Buchung automatisch angeboten.</p>
+          <p className="type-caption text-ink-muted">Wird dir bei der nächsten Buchung automatisch angeboten.</p>
         </section>
         <section aria-labelledby="empfehlen" className="relative isolate flex flex-col justify-between gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
           <AuraBackground variant="subtle" placement="full" fade="none" animate={false} />
@@ -182,7 +182,7 @@ export default async function KontoPage() {
               Freunde einladen
             </h2>
             <p className="type-heading-m text-balance">
-              {referral ? `${formatPrice(referral.rewardCents)} für Sie, ${formatPrice(referral.welcomeCents)} für Ihre Freunde.` : "Laden Sie Freunde zu SOMA ein."}
+              {referral ? `${formatPrice(referral.rewardCents)} für dich, ${formatPrice(referral.welcomeCents)} für deine Freunde.` : "Lade Freunde zu SOMA ein."}
             </p>
           </div>
           <ButtonLink href={routes.account.credits()} variant="secondary" size="s" className="self-start" iconRight={<Icon icon={ArrowRight} />}>

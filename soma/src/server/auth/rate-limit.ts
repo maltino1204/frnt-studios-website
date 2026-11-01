@@ -53,7 +53,7 @@ export async function assertLoginAllowed(tx: Tx, email: string, ipRaw: string | 
   if (row.byEmail >= MAX_FAILURES_PER_EMAIL || row.byIp >= MAX_FAILURES_PER_IP) {
     throw new ServiceError(
       "rate_limited",
-      `Zu viele fehlgeschlagene Anmeldeversuche. Bitte warten Sie ${LOGIN_WINDOW_MINUTES} Minuten und versuchen Sie es erneut.`,
+      `Zu viele fehlgeschlagene Anmeldeversuche. Bitte warte ${LOGIN_WINDOW_MINUTES}\u00a0Minuten und versuch es dann noch einmal.`,
     );
   }
   const wait = loginBackoffSeconds(row.byEmail);
@@ -62,7 +62,7 @@ export async function assertLoginAllowed(tx: Tx, email: string, ipRaw: string | 
     if (remaining > 0) {
       throw new ServiceError(
         "rate_limited",
-        `Bitte warten Sie ${remaining} ${remaining === 1 ? "Sekunde" : "Sekunden"}, bevor Sie es erneut versuchen.`,
+        `Bitte warte ${remaining}\u00a0${remaining === 1 ? "Sekunde" : "Sekunden"}, bevor du es noch einmal versuchst.`,
       );
     }
   }

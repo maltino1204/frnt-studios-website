@@ -65,7 +65,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
           onSubmit={async (e) => {
             e.preventDefault();
             const next: Record<string, string> = {};
-            if (!valid) next.feeCents = `Bitte einen Betrag zwischen 0,00 € und ${formatPriceExact(ctx.totalCents)} angeben.`;
+            if (!valid) next.feeCents = `Bitte einen Betrag zwischen 0,00 € und ${formatPriceExact(ctx.totalCents)} angeben.`;
             if (reason.trim().length < 3) next.reason = "Bitte einen Grund angeben (mind. 3 Zeichen).";
             setErrors(next);
             if (Object.keys(next).length) return;
@@ -107,7 +107,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
               setErrors((x) => ({ ...x, feeCents: "" }));
             }}
             error={errors.feeCents || m.fieldErrors.feeCents}
-            hint={`0,00 € = volle Erstattung · höchstens ${formatPriceExact(ctx.totalCents)}`}
+            hint={`0,00 € = volle Erstattung · höchstens ${formatPriceExact(ctx.totalCents)}`}
           />
           {valid ? (
             <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1.5 rounded-tile bg-surface-raised/70 px-4 py-3 type-body-s ring-1 ring-line ring-inset">
@@ -166,7 +166,7 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
           onSubmit={async (e) => {
             e.preventDefault();
             const next: Record<string, string> = {};
-            if (cents == null || cents < 1) next.amountCents = "Bitte einen Betrag größer als 0 angeben, z. B. 15,00.";
+            if (cents == null || cents < 1) next.amountCents = "Bitte einen Betrag größer als 0 angeben, z. B. 15,00.";
             else if (cents > ctx.refundableCents) next.amountCents = `Es können höchstens ${formatPriceExact(ctx.refundableCents)} erstattet werden.`;
             if (reason.trim().length < 3) next.reason = "Bitte einen Grund angeben (mind. 3 Zeichen).";
             setErrors(next);
@@ -211,7 +211,7 @@ export function RefundButton({ ctx }: { ctx: BookingActionContext }) {
           <Textarea label="Grund" name="reason" rows={3} value={reason} onChange={(e) => {
             setReason(e.target.value);
             setErrors((x) => ({ ...x, reason: "" }));
-          }} error={errors.reason || m.fieldErrors.reason} placeholder="z. B. Behandlung 15 Minuten kürzer als gebucht" maxLength={500} />
+          }} error={errors.reason || m.fieldErrors.reason} placeholder="z. B. Behandlung 15 Minuten kürzer als gebucht" maxLength={500} />
         </form>
       )}
     </ConfirmButton>

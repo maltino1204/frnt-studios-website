@@ -88,7 +88,7 @@ export async function readMedia(session: Session | null, key: string): Promise<M
   const [, bucket, ownerId] = m;
   const isPublic = bucket !== "documents";
   if (!isPublic) {
-    if (!session) throw new ServiceError("unauthenticated", "Bitte melden Sie sich an.");
+    if (!session) throw new ServiceError("unauthenticated", "Bitte melde dich an.");
     if (session.userId !== ownerId) {
       // withService: authorisation lookup (is the caller an active admin?).
       const [row] = await withService((tx) => tx<{ role: string; blockedAt: Date | null }[]>`select role, blocked_at from public.profiles where id = ${session.userId}`);

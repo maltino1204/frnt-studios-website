@@ -33,7 +33,7 @@ export function SearchPrompt({
         autoComplete="postal-code"
         pattern="\d{5}"
         maxLength={5}
-        placeholder="Postleitzahl, z. B. 10115"
+        placeholder="Postleitzahl, z. B. 10115"
         defaultValue={plz ?? ""}
         error={plzError}
         required
@@ -57,7 +57,7 @@ export function SearchPrompt({
         <option value={tomorrow}>Morgen</option>
       </Select>
       <Button type="submit" variant="accent" size="l" block iconRight={<Icon icon={ArrowRight} />}>
-        Verfügbare Profis anzeigen
+        Freie Termine finden
       </Button>
     </form>
   );

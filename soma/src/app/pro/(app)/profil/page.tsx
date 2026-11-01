@@ -38,7 +38,7 @@ export default async function ProProfilePage() {
 
   const hub: { href: string; label: string; meta: string; icon: LucideIcon; tone?: "warning" }[] = [
     { href: routes.pro.services(), label: "Leistungen & Preise", meta: plural(active.length, "Leistung", "Leistungen"), icon: Tag },
-    { href: routes.pro.area(), label: "Einsatzgebiet", meta: profile.basePostalCode ? `${profile.basePostalCode} · ${profile.serviceRadiusKm} km` : "Noch nicht festgelegt", icon: MapPinned },
+    { href: routes.pro.area(), label: "Einsatzgebiet", meta: profile.basePostalCode ? `${profile.basePostalCode} · ${profile.serviceRadiusKm} km` : "Noch nicht festgelegt", icon: MapPinned },
     {
       href: routes.pro.verification(),
       label: "Verifizierung",

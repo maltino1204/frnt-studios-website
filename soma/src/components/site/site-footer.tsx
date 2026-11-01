@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Wordmark } from "@/components/brand/logo";
 import { Container } from "@/components/ui/layout";
 import { cn } from "@/lib/cn";
-import { BRAND_NAME, BRAND_TAGLINE, SUPPORT_EMAIL } from "@/lib/brand";
+import { BRAND_DESCRIPTOR, BRAND_NAME, BRAND_TAGLINE, SUPPORT_EMAIL } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 import type { CategoryDTO, CityDTO } from "@/server/dto";
 import { listCategories, listCities } from "@/server/services/catalog";
@@ -38,7 +38,8 @@ export async function SiteFooter() {
     {
       title: "Für Profis",
       links: [
-        { href: routes.forPros(), label: `Profi werden bei ${BRAND_NAME}` },
+        { href: routes.pro.onboarding(), label: "Profi werden" },
+        { href: routes.forPros(), label: `${BRAND_NAME} für Profis` },
         { href: routes.login(routes.pro.root()), label: "Anmelden für Profis" },
       ],
     },
@@ -57,6 +58,7 @@ export async function SiteFooter() {
         { href: routes.imprint(), label: "Impressum" },
         { href: routes.privacy(), label: "Datenschutz" },
         { href: routes.terms(), label: "AGB" },
+        { href: "/agb-profis", label: "AGB für Profis" },
         { href: "/widerruf", label: "Widerrufsbelehrung" },
         { href: `${routes.privacy()}#cookies`, label: "Cookie-Einstellungen" },
       ],
@@ -99,7 +101,7 @@ export async function SiteFooter() {
         </div>
         <div className="mt-16 flex flex-col gap-2 border-t border-line-mid pt-6 md:flex-row md:items-center md:justify-between">
           <p className="inline-flex items-center gap-2 type-caption text-ink-muted">
-            © {new Date().getFullYear()} {BRAND_NAME}
+            © {new Date().getFullYear()} {BRAND_NAME} · {BRAND_DESCRIPTOR}
           </p>
           <p className="type-caption text-ink-muted">
             {BRAND_NAME} vermittelt Termine. Vertragspartner für die Behandlung ist der jeweilige Profi.

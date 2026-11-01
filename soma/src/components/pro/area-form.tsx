@@ -113,7 +113,7 @@ export function AreaForm({
             value={plz}
             onChange={(e) => setPlz(e.target.value.replace(/\D/g, "").slice(0, 5))}
             error={errors.basePostalCode}
-            placeholder="z. B. 10115"
+            placeholder="z. B. 10115"
             hint={cityLabel && plz === profile.basePostalCode ? `${plz} · ${cityLabel}. Deine genaue Adresse ist nie öffentlich.` : "Nur die PLZ – deine genaue Adresse ist nie öffentlich."}
             className="sm:max-w-xs"
           />
@@ -140,14 +140,14 @@ export function AreaForm({
               style={fill(radius, 3, MAX_KM)}
             />
             <div className="flex justify-between type-caption text-ink-muted num" aria-hidden>
-              <span>3 km</span>
-              <span>{MAX_KM} km</span>
+              <span>3 km</span>
+              <span>{MAX_KM} km</span>
             </div>
             {errors.serviceRadiusKm ? <p className="type-caption text-danger">{errors.serviceRadiusKm}</p> : null}
           </div>
           <ul className="flex flex-wrap gap-x-4 gap-y-1.5 type-caption text-ink-muted" aria-label="Legende">
             <li className="inline-flex items-center gap-1.5">
-              <span aria-hidden className="size-2.5 rounded-full bg-ink/80" /> nur Pauschale (bis {Math.min(included, radius)} km)
+              <span aria-hidden className="size-2.5 rounded-full bg-ink/80" /> nur Pauschale (bis {Math.min(included, radius)} km)
             </li>
             {radius > included ? (
               <li className="inline-flex items-center gap-1.5">
@@ -163,18 +163,18 @@ export function AreaForm({
           <h2 id={`${radiusId}-travel`} className="type-heading-m">
             Anfahrt
           </h2>
-          <p className="type-body-s text-ink-muted">Die Anfahrt zahlt die Kundschaft zusätzlich. Sie ist provisionsfrei und geht vollständig an dich.</p>
+          <p className="type-body-s text-ink-muted">Die Anfahrt zahlt die Kundschaft zusätzlich – provisionsfrei und vollständig an dich.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
-          <Input label="Pauschale (€)" inputMode="decimal" value={base} onChange={(e) => setBase(e.target.value)} error={errors.travelFeeBaseCents} placeholder="z. B. 5" hint="0–30 €" />
+          <Input label="Pauschale (€)" inputMode="decimal" value={base} onChange={(e) => setBase(e.target.value)} error={errors.travelFeeBaseCents} placeholder="z. B. 5" hint="0–30 €" />
           <Select label="Inklusive bis" value={String(included)} onChange={(e) => setIncluded(Number(e.target.value))} error={errors.travelFeeIncludedKm}>
             {Array.from({ length: 31 }, (_, i) => i).map((k) => (
               <option key={k} value={k}>
-                {k === 0 ? "0 km (ab dem ersten km)" : `${k} km`}
+                {k === 0 ? "0 km (ab dem ersten km)" : `${k} km`}
               </option>
             ))}
           </Select>
-          <Input label="Danach je km (€)" inputMode="decimal" value={perKm} onChange={(e) => setPerKm(e.target.value)} error={errors.travelFeePerKmCents} placeholder="z. B. 0,60" hint="höchstens 2 € pro km" />
+          <Input label="Danach je km (€)" inputMode="decimal" value={perKm} onChange={(e) => setPerKm(e.target.value)} error={errors.travelFeePerKmCents} placeholder="z. B. 0,60" hint="höchstens 2 € pro km" />
         </div>
 
         <div className="flex flex-col gap-4 rounded-tile bg-surface-sunken/80 p-4 inset-shadow-sunken sm:p-5" aria-live="polite">
@@ -201,7 +201,7 @@ export function AreaForm({
           <dl className="grid grid-cols-3 gap-2 sm:grid-cols-6">
             {marks.map((d) => (
               <div key={d} className={cn("flex flex-col gap-0.5 rounded-[10px] px-3 py-2 transition-colors duration-fast", d === ex ? "bg-ink text-ink-inverse shadow-ink" : "bg-surface-raised shadow-raised")}>
-                <dt className={cn("type-caption num", d === ex ? "text-ink-inverse/70" : "text-ink-muted")}>{d} km</dt>
+                <dt className={cn("type-caption num", d === ex ? "text-ink-inverse/70" : "text-ink-muted")}>{d} km</dt>
                 <dd className="type-label num">{formatPrice(travelFeeFor(d, cfg))}</dd>
               </div>
             ))}
@@ -229,7 +229,7 @@ function RadiusVisual({ radius, included, plz, city }: { radius: number; include
   return (
     <div aria-hidden className="relative isolate mx-auto aspect-square w-full max-w-[17rem] overflow-hidden rounded-panel md:max-w-[22rem] shadow-[inset_0_0_0_1px_rgb(37_33_31/0.08)]">
       <AuraArt seed={`radius-${plz || "x"}`} tone="brows-lashes" />
-      {/* scale rings: 10, 20, 30 km */}
+      {/* scale rings: 10, 20, 30 km */}
       {[10, 20, 30].map((km) => (
         <span key={km} className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full border border-dashed border-ink/25" style={{ width: pct(km) }} />
       ))}
@@ -239,7 +239,7 @@ function RadiusVisual({ radius, included, plz, city }: { radius: number; include
         style={{ width: pct(radius) }}
       >
         <span className="absolute -top-3 left-1/2 inline-flex h-6 -translate-x-1/2 items-center rounded-full bg-ink px-2.5 text-[12px] leading-none font-[600] whitespace-nowrap text-ink-inverse num">
-          {radius} km
+          {radius} km
         </span>
       </span>
       {/* included distance */}
@@ -254,7 +254,7 @@ function RadiusVisual({ radius, included, plz, city }: { radius: number; include
       </span>
       <span className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2">
         <span className="inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">{plz || "PLZ"}{city ? ` · ${city}` : ""}</span>
-        <span className="inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-caption text-ink num">max. {MAX_KM} km</span>
+        <span className="inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-caption text-ink num">max. {MAX_KM} km</span>
       </span>
     </div>
   );

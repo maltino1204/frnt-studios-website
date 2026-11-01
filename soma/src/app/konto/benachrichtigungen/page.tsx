@@ -12,7 +12,7 @@ export default async function BenachrichtigungenPage() {
   const [prefs, items] = await Promise.all([getNotificationPreferences(session), listNotifications(session, { limit: 50 })]);
   return (
     <div className="flex flex-col gap-10">
-      <PageHeader title="Benachrichtigungen" description="Neuigkeiten zu Ihren Terminen und wie wir Sie erreichen." className="pb-0" />
+      <PageHeader title="Benachrichtigungen" description="Neuigkeiten zu deinen Terminen und wie wir dich erreichen." className="pb-0" />
       <section aria-labelledby="eingang" className="flex flex-col gap-4">
         <h2 id="eingang" className="type-heading-m">
           Mitteilungen

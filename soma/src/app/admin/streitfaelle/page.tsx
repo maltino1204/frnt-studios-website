@@ -32,7 +32,7 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
-      <AdminPageHeader group="Betrieb" title="Streitfälle" description="Antwort innerhalb von 4 Stunden, Lösung innerhalb von 72 Stunden. Offene Fälle halten die Auszahlung der Buchung zurück." />
+      <AdminPageHeader group="Betrieb" title="Streitfälle" description="Antwort innerhalb von 4 Stunden, Lösung innerhalb von 72 Stunden. Offene Fälle halten die Auszahlung der Buchung zurück." />
       <div className="flex flex-col gap-5">
         <SegmentedLinks
           label="Ansicht"
@@ -46,7 +46,7 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
 
         {all.length === 0 ? (
           <EmptyState seed="streitfaelle-leer" title="Keine Streitfälle.">
-            Kundschaft und Profis können innerhalb von 48 Stunden nach einem Termin einen Streitfall eröffnen.
+            Kundschaft und Profis können innerhalb von 48 Stunden nach einem Termin einen Streitfall eröffnen.
           </EmptyState>
         ) : (
           <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-6">

@@ -24,7 +24,7 @@ export const LOCATION_LABELS: Record<LocationKind, string> = {
 };
 
 export const LOCATION_PHRASE: Record<LocationKind, string> = {
-  home: "bei Ihnen zu Hause",
+  home: "bei dir zu Hause",
   hotel: "im Hotel",
   office: "im Büro",
   other: "vor Ort",
@@ -33,7 +33,7 @@ export const LOCATION_PHRASE: Record<LocationKind, string> = {
 /** URL ↔ API mappings for /suche (names fixed in src/lib/routes.ts). */
 export const TIME_OF_DAY_PARAM: Record<string, TimeOfDay> = { morgens: "morning", mittags: "afternoon", abends: "evening" };
 export const TIME_OF_DAY_LABEL: Record<string, string> = { morgens: "Morgens", mittags: "Nachmittags", abends: "Abends" };
-export const TIME_OF_DAY_RANGE: Record<string, string> = { morgens: "7–12 Uhr", mittags: "12–17 Uhr", abends: "17–22 Uhr" };
+export const TIME_OF_DAY_RANGE: Record<string, string> = { morgens: "7–12 Uhr", mittags: "12–17 Uhr", abends: "17–22 Uhr" };
 export const SORT_PARAM: Record<string, SearchSort> = {
   empfohlen: "recommended",
   frueheste: "earliest",
@@ -157,7 +157,7 @@ export function statusTone(status: BookingStatus): StatusTone {
 
 export const EVENT_LABELS: Record<BookingStatus, string> = {
   pending_payment: "Buchung angelegt, Termin reserviert",
-  requested: "Anfrage an die Fachkraft gesendet",
+  requested: "Anfrage an den Profi gesendet",
   confirmed: "Termin bestätigt",
   in_progress: "Behandlung gestartet",
   completed: "Behandlung abgeschlossen",

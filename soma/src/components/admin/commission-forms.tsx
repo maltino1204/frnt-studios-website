@@ -55,7 +55,7 @@ export function CommissionRuleForm({ rules, categories, providers, initial }: { 
     const next: Record<string, string> = {};
     for (const f of RATE_FIELDS) {
       const v = parsed[f.key];
-      if (v == null || v < 0 || v > 0.5) next[f.key] = "0 bis 50 %, z. B. 18 oder 12,5.";
+      if (v == null || v < 0 || v > 0.5) next[f.key] = "0 bis 50 %, z. B. 18 oder 12,5.";
     }
     if (scope === "category" && !categoryId) next.categoryId = "Bitte eine Kategorie wählen.";
     if (scope === "provider" && !providerId) next.providerId = "Bitte einen Profi wählen.";
@@ -341,17 +341,17 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent, 
     tiers.forEach((t, i) => {
       const h = Number(t.h.replace(",", "."));
       const p = Number(t.p.replace(",", "."));
-      if (!/^\d+([.,]\d+)?$/.test(t.h.trim()) || h < 0 || h > 168) next[`h${i}`] = "0–168 Std.";
-      if (!/^\d+([.,]\d+)?$/.test(t.p.trim()) || p < 0 || p > 100) next[`p${i}`] = "0–100 %";
+      if (!/^\d+([.,]\d+)?$/.test(t.h.trim()) || h < 0 || h > 168) next[`h${i}`] = "0–168 Std.";
+      if (!/^\d+([.,]\d+)?$/.test(t.p.trim()) || p < 0 || p > 100) next[`p${i}`] = "0–100 %";
       out.push({ min_hours_before: h, fee_percent: p, travel_fee_retained: t.travel });
     });
     const hours = out.map((t) => t.min_hours_before);
     if (new Set(hours).size !== hours.length) next.tiers = "Jede Staffel braucht eine eigene Stundenangabe.";
-    if (!hours.includes(0)) next.tiers = "Eine Staffel muss bei 0 Std. beginnen (gilt bis zum Termin).";
+    if (!hours.includes(0)) next.tiers = "Eine Staffel muss bei 0 Std. beginnen (gilt bis zum Termin).";
     const ns = Number(noShow.replace(",", "."));
-    if (!/^\d+([.,]\d+)?$/.test(noShow.trim()) || ns < 0 || ns > 100) next.noShow = "0–100 %";
+    if (!/^\d+([.,]\d+)?$/.test(noShow.trim()) || ns < 0 || ns > 100) next.noShow = "0–100 %";
     const gm = Number(grace.trim());
-    if (!/^\d+$/.test(grace.trim()) || gm > 120) next.grace = "0–120 Min.";
+    if (!/^\d+$/.test(grace.trim()) || gm > 120) next.grace = "0–120 Min.";
     const sorted = [...out].sort((a, b) => b.min_hours_before - a.min_hours_before);
     if (sorted.some((t, i) => i > 0 && t.fee_percent < sorted[i - 1].fee_percent)) next.order = "Gebühren sollten zum Termin hin steigen.";
     setErrors(next);
@@ -419,12 +419,12 @@ export function CancellationPolicyForm({ tiers: initialTiers, noShowFeePercent, 
           <ul className="flex flex-col gap-1 type-body-s text-ink num">
             {pendingValue.tiers.map((t) => (
               <li key={t.min_hours_before}>
-                ab {t.min_hours_before} Std. vorher: {t.fee_percent === 0 ? "kostenlos" : `${t.fee_percent} % des Behandlungspreises`}
+                ab {t.min_hours_before} Std. vorher: {t.fee_percent === 0 ? "kostenlos" : `${t.fee_percent} % des Behandlungspreises`}
                 {t.travel_fee_retained ? " zzgl. Anfahrt" : t.fee_percent > 0 ? ", Anfahrt erstattet" : ""}
               </li>
             ))}
-            <li>Nicht angetroffen: {pendingValue.no_show_fee_percent} % zzgl. Anfahrt</li>
-            <li>Bedenkzeit: {pendingValue.grace_minutes} Min. nach der Buchung</li>
+            <li>Nicht angetroffen: {pendingValue.no_show_fee_percent} % zzgl. Anfahrt</li>
+            <li>Bedenkzeit: {pendingValue.grace_minutes} Min. nach der Buchung</li>
           </ul>
           <p>Neue Buchungen übernehmen diese Staffel ab sofort.</p>
         </ConfirmModal>

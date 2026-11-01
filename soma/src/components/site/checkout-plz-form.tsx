@@ -33,7 +33,7 @@ export function CheckoutPlzForm({
         pattern="\d{5}"
         maxLength={5}
         required
-        placeholder="z. B. 10115"
+        placeholder="z. B. 10115"
         defaultValue={initial ?? ""}
         error={error}
       />

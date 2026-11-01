@@ -31,7 +31,7 @@ export function ProfileForm({ profile }: { profile: ProfileDTO }) {
         <Input label="Vorname" name="firstName" autoComplete="given-name" value={v.firstName} onChange={(e) => setV({ ...v, firstName: e.target.value })} error={fe?.firstName} required />
         <Input label="Nachname" name="lastName" autoComplete="family-name" value={v.lastName} onChange={(e) => setV({ ...v, lastName: e.target.value })} error={fe?.lastName} required />
       </div>
-      <Input label="E-Mail" type="email" value={profile.email} readOnly aria-readonly hint="Ihre Anmeldeadresse. Zum Ändern schreiben Sie uns bitte." className="[&_input]:bg-surface-sunken" />
+      <Input label="E-Mail" type="email" value={profile.email} readOnly aria-readonly hint="Deine Anmeldeadresse. Zum Ändern schreib uns bitte." className="[&_input]:bg-surface-sunken" />
       <Input
         label="Mobilnummer"
         name="phone"
@@ -40,7 +40,7 @@ export function ProfileForm({ profile }: { profile: ProfileDTO }) {
         autoComplete="tel"
         optional
         placeholder="+49 151 23456789"
-        hint="Für Rückfragen der Fachkraft am Termintag."
+        hint="Nur für Rückfragen am Termintag. Dein Profi sieht sie erst nach der Bestätigung."
         value={v.phone}
         onChange={(e) => setV({ ...v, phone: e.target.value })}
         error={fe?.phone}
@@ -104,7 +104,7 @@ export function DataExportButton() {
       a.click();
       a.remove();
       window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
-      setResult({ ok: true, text: `Ihr Datenexport wurde heruntergeladen (${res.data.fileName}).` });
+      setResult({ ok: true, text: `Dein Datenexport wurde heruntergeladen (${res.data.fileName}).` });
     });
   };
   return (
@@ -149,9 +149,9 @@ export function DeleteAccount({ email }: { email: string }) {
         }
       >
         <ul className="flex list-disc flex-col gap-1.5 pl-5">
-          <li>Name, Mobilnummer, Adressen, Favoriten und Benachrichtigungen werden gelöscht. Sie können sich nicht mehr anmelden.</li>
-          <li>Ihr Guthaben verfällt. Vergangene Buchungen bleiben ohne Adresse und Hinweise erhalten, weil wir Rechnungsdaten aufbewahren müssen. Ihre Bewertungen bleiben ohne Namen sichtbar.</li>
-          <li>Offene Termine stornieren Sie bitte vorher. Das lässt sich nicht rückgängig machen.</li>
+          <li>Name, Mobilnummer, Adressen, Favoriten und Benachrichtigungen werden gelöscht. Du kannst dich nicht mehr anmelden.</li>
+          <li>Dein Guthaben verfällt. Vergangene Buchungen bleiben ohne Adresse und Hinweise erhalten, weil wir Rechnungsdaten aufbewahren müssen. Deine Bewertungen bleiben ohne Namen sichtbar.</li>
+          <li>Offene Termine storniere bitte vorher. Das lässt sich nicht rückgängig machen.</li>
         </ul>
         <form id={formId} action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="mt-5 flex flex-col gap-3 text-ink">
           <Input

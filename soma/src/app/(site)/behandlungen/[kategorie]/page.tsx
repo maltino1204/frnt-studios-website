@@ -104,7 +104,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
         breadcrumbs={<Breadcrumbs items={crumbs} />}
         overline={liveCities.length ? `${category.name} · ${numberWord(liveCities.length)} ${liveCities.length === 1 ? "Stadt" : "Städte"}` : category.name}
         title={`${shy(category.name)}.`}
-        emphasis="Bei Ihnen zu Hause."
+        emphasis="Bei dir zu Hause."
         lead={category.description ?? category.tagline ?? undefined}
         photo={{ src: category.imagePath ?? images.category(category.slug), alt: "", tone: category.slug, word: category.name }}
         ambient={false}
@@ -145,10 +145,10 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
               <Overline>Leistungen</Overline>
               <h2 id="leistungen-titel" className="type-display-l">
                 {services.length === 1 ? "Eine Leistung." : `${capitalize(numberWord(services.length))} Leistungen.`}{" "}
-                <em>Ihr Preis.</em>
+                <em>Dein Preis.</em>
               </h2>
               <p className="type-body text-ink-muted">
-                Die Profis legen ihre Preise selbst fest. „ab“ ist das günstigste aktuelle Angebot ohne Anfahrt; den Endpreis für Ihre Adresse sehen Sie in der Suche.
+                Die Profis legen ihre Preise selbst fest. „ab“ ist das günstigste aktuelle Angebot ohne Anfahrt; den Endpreis für deine Adresse siehst du in der Suche.
               </p>
             </div>
             <div className="lg:col-span-7 lg:col-start-6">
@@ -174,7 +174,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
                   <h2 id="profis-titel" className="type-display-l">
                     Profis für {category.name}.
                   </h2>
-                  <p className="type-body-l text-ink-muted">Verifiziert, bewertet nach echten Terminen und mit eigenem Preis.</p>
+                  <p className="type-body-l text-ink-muted">Geprüft, bewertet nach echten Terminen und mit eigenem Preis.</p>
                 </div>
               }
             >
@@ -193,7 +193,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>Städte</Overline>
               <h2 id="staedte-titel" className="type-display-l">
-                {category.name} in <em>Ihrer Stadt.</em>
+                {category.name} in <em>deiner Stadt.</em>
               </h2>
             </div>
             <LinkGrid

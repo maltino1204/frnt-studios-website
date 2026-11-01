@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE, DEMO_MODE, SITE_URL } from "@/lib/brand";
+import { BRAND_DESCRIPTOR, BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE, DEMO_MODE, SITE_URL } from "@/lib/brand";
 import { ToastProvider } from "@/components/ui/toast";
 import { DemoRibbon } from "@/components/ui/demo-ribbon";
 import { MotionRoot } from "@/components/ui/motion";
@@ -88,7 +88,7 @@ const ogImage = "/brand/og-default.jpg";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND_NAME} – Beauty & Wellness bei Ihnen zu Hause, im Hotel oder Büro`,
+    default: `${BRAND_NAME} – ${BRAND_DESCRIPTOR}`,
     template: `%s · ${BRAND_NAME}`,
   },
   description: BRAND_PROMISE,
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     siteName: BRAND_NAME,
     title: `${BRAND_NAME} – ${BRAND_TAGLINE}`,
     description: BRAND_PROMISE,
-    images: [{ url: ogImage, width: 1200, height: 630 }],
+    images: [{ url: ogImage, width: 1200, height: 630, alt: `${BRAND_NAME}-Logo mit „${BRAND_TAGLINE}“, daneben eine Massage in einem Altbauwohnzimmer` }],
   },
   robots: DEMO_MODE ? { index: false, follow: false } : undefined,
 };

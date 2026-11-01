@@ -134,7 +134,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
               <NumberSettingForm
                 settingKey="request_response_hours"
                 label="Antwortfrist für Anfragen"
-                description="Geschäftsstunden (8–21 Uhr), die Profis für eine Antwort haben, spätestens bis 2 Stunden vor dem Termin. Danach verfällt die Anfrage und die Reservierung wird freigegeben."
+                description="Geschäftsstunden (8–21 Uhr), die Profis für eine Antwort haben, spätestens bis 2 Stunden vor dem Termin. Danach verfällt die Anfrage und die Reservierung wird freigegeben."
                 value={num("request_response_hours", 4)}
                 min={1}
                 max={48}

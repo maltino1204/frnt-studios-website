@@ -14,7 +14,7 @@ import { initialActionState } from "@/server/actions/types";
 
 const REASONS: Array<[string, string]> = [
   ["quality", "Die Behandlung entsprach nicht der Buchung"],
-  ["provider_no_show", "Die Fachkraft ist nicht erschienen"],
+  ["provider_no_show", "Der Profi ist nicht erschienen"],
   ["damage", "Es ist ein Schaden entstanden"],
   ["payment", "Problem mit der Zahlung"],
   ["safety", "Ich habe mich nicht sicher gefühlt"],
@@ -52,7 +52,7 @@ export function ReportProblem({ bookingId }: { bookingId: string }) {
                   <Icon icon={ShieldCheck} size={18} />
                 </span>
                 <p className="type-body-s text-ink-muted">
-                  Wir melden uns innerhalb von 72 Stunden. Bis zur Klärung zahlen wir den Betrag nicht an die Fachkraft aus.
+                  Wir melden uns, sobald wir den Fall geprüft haben. Bis zur Klärung zahlen wir den Betrag nicht an den Profi aus.
                 </p>
               </div>
               <Select label="Worum geht es?" name="reason" defaultValue="quality" error={state && !state.ok ? state.fieldErrors?.reason : null}>

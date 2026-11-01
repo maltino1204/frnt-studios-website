@@ -121,7 +121,7 @@ export function SlotPicker({
   state,
   travelFeeCents,
   policy,
-  locationPhrase = "bei Ihnen vor Ort",
+  locationPhrase = "bei dir",
   className,
   idPrefix = "sp",
   inSheet,

@@ -31,11 +31,11 @@ export function splitHeadline(title: string): [string, string | null] {
 /* Place lines (Ortszeilen): the editorial signature                        */
 /* ------------------------------------------------------------------------ */
 export const PLACE_LINES = {
-  home: "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
-  arrival: "Wohnungstür, 2. OG · Köln-Ehrenfeld · 18:55",
+  home: "Altbau, 3.\u00a0OG · Berlin-Prenzlauer Berg · 19:30",
+  arrival: "Wohnungstür, 2.\u00a0OG · Köln-Ehrenfeld · 18:55",
   setup: "Wohnzimmer · Hamburg-Eimsbüttel · 19:05",
   after: "Sofa, danach · München-Schwabing · 20:20",
-  hotel: "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10",
+  hotel: "Hotelsuite, 6.\u00a0Stock · Frankfurt-Westend · 21:10",
   office: "Besprechungsraum · Hamburg-HafenCity · 13:00",
   pros: "Treppenhaus, Altbau · Berlin-Neukölln · 17:40",
 } as const;
@@ -76,9 +76,10 @@ export function fromPrice(cents: number | null | undefined): string | null {
 /* ------------------------------------------------------------------------ */
 /* Cancellation policy in words                                             */
 /* ------------------------------------------------------------------------ */
+/** "24 Stunden", "2 Tage", with a non-breaking space so number and unit never break apart (BRAND_VOICE § 4). */
 export function hoursLabel(h: number): string {
-  if (h > 0 && h % 24 === 0 && h >= 48) return plural(h / 24, "Tag", "Tage");
-  return plural(h, "Stunde", "Stunden");
+  const label = h > 0 && h % 24 === 0 && h >= 48 ? plural(h / 24, "Tag", "Tage") : plural(h, "Stunde", "Stunden");
+  return label.replace(" ", "\u00a0");
 }
 
 export type PolicyRow = { when: string; fee: string; feePercent: number; /** what happens to the travel fee, null when free */ travel: string | null };
@@ -115,39 +116,55 @@ export function freeCancellationHours(policy: CancellationPolicyDTO): number | n
 /** "Kostenlos stornierbar bis 24 Stunden vor dem Termin." */
 export function freeCancellationSentence(policy: CancellationPolicyDTO): string {
   const h = freeCancellationHours(policy);
-  return h == null ? "Die Stornobedingungen sehen Sie vor jeder Buchung." : h <= 0 ? "Kostenlos stornierbar bis zum Termin." : `Kostenlos stornierbar bis ${hoursLabel(h)} vor dem Termin.`;
+  return h == null ? "Die Stornobedingungen stehen vor jeder Buchung im Bezahlschritt." : h <= 0 ? "Kostenlos stornierbar bis zum Termin." : `Kostenlos stornierbar bis ${hoursLabel(h)} vor dem Termin.`;
 }
 
 /* ------------------------------------------------------------------------ */
 /* Category copy                                                            */
 /* ------------------------------------------------------------------------ */
 const PREP: Record<string, string> = {
-  massage: "Für die Liege braucht es etwa 2 × 3 Meter freie Fläche. Liege, Öl und Tücher bringt Ihr Profi mit.",
-  manikuere: "Ein Tisch mit gutem Licht genügt, am besten am Fenster. Werkzeug, Lacke und Lampe bringt Ihr Profi mit.",
-  pedikuere: "Ein bequemer Sessel und etwas Platz davor genügen. Fußbad, Werkzeug und Handtücher bringt Ihr Profi mit.",
-  kosmetik: "Ein ruhiger, gut beleuchteter Platz genügt. Produkte und Tücher bringt Ihr Profi mit.",
-  "make-up": "Ein Stuhl mit Tageslicht ist ideal. Das komplette Make-up-Set bringt Ihr Profi mit.",
-  "haare-styling": "Ein Stuhl und ein Platz, an dem Haare fallen dürfen – etwa Küche oder Bad. Werkzeug und Umhang bringt Ihr Profi mit.",
-  "brows-lashes": "Ein Platz zum bequemen Zurücklehnen und gutes Licht genügen. Alles Weitere bringt Ihr Profi mit.",
+  massage: "Für die Liege braucht es etwa 2\u00a0×\u00a03\u00a0m freie Fläche. Liege, Öl und Tücher bringt dein Profi mit.",
+  manikuere: "Ein Tisch mit gutem Licht genügt, am besten am Fenster. Werkzeug, Lacke und Lampe bringt dein Profi mit.",
+  pedikuere: "Ein bequemer Sessel und etwas Platz davor genügen. Fußbad, Werkzeug und Handtücher bringt dein Profi mit.",
+  kosmetik: "Ein ruhiger, gut beleuchteter Platz genügt. Produkte und Tücher bringt dein Profi mit.",
+  "make-up": "Ein Stuhl mit Tageslicht ist ideal. Das komplette Make-up-Set bringt dein Profi mit.",
+  "haare-styling": "Ein Stuhl und ein Platz, an dem Haare fallen dürfen – etwa Küche oder Bad. Werkzeug und Umhang bringt dein Profi mit.",
+  "brows-lashes": "Ein Platz zum bequemen Zurücklehnen und gutes Licht genügen. Alles Weitere bringt dein Profi mit.",
 };
+
+/**
+ * Zero-tolerance rule (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01). One wording for the massage
+ * checkout, the massage FAQ and /hilfe, so the rule reads the same everywhere.
+ */
+export const ZERO_TOLERANCE = `${BRAND_NAME} vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen führen zur Sperrung des Kontos.`;
+
+/** Preparation note per category; `who` names the booked Profi once there is a booking ("Werkzeug … bringt Anna K. mit."). */
+export function prepNote(slug: string | null | undefined, who?: string): string {
+  const note = (slug && PREP[slug]) || "Ein ruhiger, gut beleuchteter Platz genügt. Alles Weitere bringt dein Profi mit.";
+  return who ? note.replace("dein Profi", who) : note;
+}
 
 const EXTRA_FAQ: Record<string, FaqItem[]> = {
   massage: [
     {
       q: `Ist eine Massage auf ${BRAND_NAME} eine medizinische Behandlung?`,
-      a: `Nein. Massagen auf ${BRAND_NAME} sind Wellnessanwendungen für Entspannung und Wohlbefinden. Sie ersetzen keine ärztliche oder physiotherapeutische Behandlung.`,
+      a: `Nein. Massagen auf ${BRAND_NAME} sind Wellnessanwendungen für Entspannung und ein gutes Körpergefühl – keine ärztliche oder physiotherapeutische Behandlung.`,
+    },
+    {
+      q: "Welche Anfragen sind ausgeschlossen?",
+      a: ZERO_TOLERANCE,
     },
   ],
   pedikuere: [
     {
       q: "Ist das medizinische Fußpflege?",
-      a: `Nein. Auf ${BRAND_NAME} buchen Sie kosmetische Pediküre. Medizinische Fußpflege ist Podologinnen und Podologen vorbehalten.`,
+      a: `Nein. Auf ${BRAND_NAME} buchst du kosmetische Pediküre – klassisch, mit Shellac oder mit Fußmassage. Medizinische Fußpflege gibt es hier nicht.`,
     },
   ],
   "brows-lashes": [
     {
       q: "Gibt es vorab einen Verträglichkeitstest?",
-      a: "Auf Wunsch ja. Vermerken Sie es bei der Buchung in den Hinweisen; Ihr Profi stimmt den Test vorab mit Ihnen ab.",
+      a: "Auf Wunsch ja. Vermerk es bei der Buchung in den Hinweisen; dein Profi stimmt den Test vorab mit dir ab.",
     },
   ],
 };
@@ -163,12 +180,12 @@ export function categoryFaq(
   const items: FaqItem[] = [
     {
       q: "Was muss ich zu Hause vorbereiten?",
-      a: PREP[category.slug] ?? "Ein ruhiger, gut beleuchteter Platz genügt. Alles Weitere bringt Ihr Profi mit.",
+      a: PREP[category.slug] ?? "Ein ruhiger, gut beleuchteter Platz genügt. Alles Weitere bringt dein Profi mit.",
     },
     {
       q: `Wie setzt sich der Preis${where} zusammen?`,
       a:
-        "Die Preise legen die Profis selbst fest. In der Suche sehen Sie für jeden Profi den Endpreis inklusive Anfahrt, bevor Sie buchen." +
+        "Die Preise legen die Profis selbst fest. In der Suche siehst du für jeden Profi den Endpreis inklusive Anfahrt, bevor du buchst." +
         (opts.fromCents != null ? ` Aktuell beginnen die Preise${where} bei ${formatPrice(opts.fromCents)} ohne Anfahrt.` : ""),
     },
     {
@@ -179,9 +196,9 @@ export function categoryFaq(
     },
     {
       q: "Kann ich auch ins Hotel oder ins Büro buchen?",
-      a: "Ja. Bei der Buchung wählen Sie Zuhause, Hotel oder Büro und geben an, wie Ihr Profi Sie findet – etwa Zimmernummer, Name an der Rezeption oder Etage.",
+      a: "Ja. Bei der Buchung wählst du Zuhause, Hotel oder Büro und gibst an, wie dein Profi dich findet – etwa Zimmernummer, Name an der Rezeption oder Etage.",
     },
-    { q: "Bis wann kann ich kostenlos stornieren?", a: `${freeCancellationSentence(opts.policy)} Die genaue Frist sehen Sie vor der Buchung mit Datum und Uhrzeit.` },
+    { q: "Bis wann kann ich kostenlos stornieren?", a: `${freeCancellationSentence(opts.policy)} Die genaue Frist siehst du vor der Buchung mit Datum und Uhrzeit.` },
     ...(EXTRA_FAQ[category.slug] ?? []),
   ];
   return items;

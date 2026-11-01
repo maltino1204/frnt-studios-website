@@ -61,7 +61,7 @@ test("instant booking: search → checkout → confirmation → free cancellatio
   // Withdrawal consent is required before payment.
   await cta.click();
   await expect(page).toHaveURL(/\/buchen\?/);
-  await expect(page.getByText("Bitte prüfen Sie die markierten Angaben.").filter({ visible: true }).first()).toBeVisible();
+  await expect(page.getByText("Bitte prüf die markierten Angaben.").filter({ visible: true }).first()).toBeVisible();
 
   await page.getByLabel(/Ich verlange ausdrücklich/).check();
   await cta.click();
@@ -71,7 +71,7 @@ test("instant booking: search → checkout → confirmation → free cancellatio
 
   // Confirmation: status, Start-Code, same total.
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Bestätigt.");
-  await expect(page.getByText("Ihr Start-Code", { exact: false })).toBeVisible();
+  await expect(page.getByText("Dein Start-Code", { exact: false })).toBeVisible();
   await expect(page.locator("main")).toContainText(/\b\d{4}\b/);
   const confTotal = await page.getByText("Gesamtpreis", { exact: true }).locator("xpath=..").innerText();
   expect(euroToCents(confTotal), "confirmation total equals checkout total").toBe(checkoutCents);
@@ -85,7 +85,7 @@ test("instant booking: search → checkout → confirmation → free cancellatio
   await page.getByRole("button", { name: "Termin stornieren" }).click();
   const dialog = page.getByRole("dialog");
   // Free either by tier (≥ 24 h) or by the 15-minute Bedenkzeit right after booking (audit-1 R10).
-  await expect(dialog).toContainText(/Die Stornierung ist jetzt noch kostenlos\.|In den ersten 15 Minuten nach der Buchung immer kostenlos stornierbar/);
+  await expect(dialog).toContainText(/Die Stornierung ist jetzt noch kostenlos\.|In den ersten 15\s+Minuten nach der Buchung immer kostenlos stornierbar/);
   await dialog.getByRole("button", { name: "Kostenlos stornieren" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Storniert.", { timeout: 15_000 });
   await expect(page.locator("main")).toContainText("Es fallen keine Kosten an.");
@@ -111,7 +111,7 @@ test("approval mode: request is labelled 'anfragen', shows deadline, and can be 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/^Angefragt – Antwort bis /);
   await expect(page.locator("main")).toContainText("belastet wird erst nach der Zusage");
   // No Start-Code before the professional accepts.
-  await expect(page.getByText("Ihr Start-Code", { exact: false })).toHaveCount(0);
+  await expect(page.getByText("Dein Start-Code", { exact: false })).toHaveCount(0);
 
   expect(await cancelViaUi(page, bookingId)).toBe("cancelled");
   await expect(page.locator("main")).toContainText("Es fallen keine Kosten an.");

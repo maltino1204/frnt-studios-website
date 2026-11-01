@@ -30,7 +30,7 @@ export function CreatePayoutBatchButton({ eligibleCents, eligibleCount, provider
         Für <span className="font-[520] text-ink num">{providers}</span> Profi{providers === 1 ? "" : "s"} wird je eine offene Auszahlung angelegt:{" "}
         <span className="font-[520] text-ink num">{formatPriceExact(eligibleCents)}</span> aus <span className="num">{eligibleCount}</span> Buchungen.
       </p>
-      <p>Berücksichtigt werden nur Buchungen, die vor mehr als {holdHours} Stunden abgeschlossen wurden und keinen offenen Streitfall haben. Die Auszahlungen werden danach einzeln als bezahlt markiert.</p>
+      <p>Berücksichtigt werden nur Buchungen, die vor mehr als {holdHours} Stunden abgeschlossen wurden und keinen offenen Streitfall haben. Die Auszahlungen werden danach einzeln als bezahlt markiert.</p>
     </ConfirmButton>
   );
 }

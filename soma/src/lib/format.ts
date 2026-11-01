@@ -13,7 +13,7 @@ const eurWhole = new Intl.NumberFormat(LOCALE, {
   maximumFractionDigits: 0,
 });
 
-/** 8950 → "89,50 €"; whole euros drop the cents: 9000 → "90 €". */
+/** 8950 → "89,50 €"; whole euros drop the cents: 9000 → "90 €". Intl joins number and € with a non-breaking space. */
 export function formatPrice(cents: number): string {
   return cents % 100 === 0 ? eurWhole.format(cents / 100) : eur.format(cents / 100);
 }
@@ -63,19 +63,25 @@ export function formatSlotRange(start: DateInput, end: DateInput): string {
   return `${formatDayShort(start)} · ${formatTime(start)}–${formatTime(end)}`;
 }
 
-/** 90 → "90 Min.", 120 → "2 Std.", 150 → "2 Std. 30 Min." */
+/** Non-breaking space between a number and its unit (brand/BRAND_VOICE.md § 4): "18:30 Uhr", "15 Min.", "84 €". */
+export const NBSP = "\u00a0";
+
+/** 90 → "90 Min.", 120 → "2 Std.", 150 → "2 Std. 30 Min." (number and unit joined by a non-breaking space) */
 export function formatDuration(minutes: number): string {
-  if (minutes < 120) return `${minutes} Min.`;
+  if (minutes < 120) return `${minutes}${NBSP}Min.`;
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
-  return m === 0 ? `${h} Std.` : `${h} Std. ${m} Min.`;
+  return m === 0 ? `${h}${NBSP}Std.` : `${h}${NBSP}Std. ${m}${NBSP}Min.`;
 }
 
-/** 2.35 → "2,4 km"; < 1 → "< 1 km" */
+/** 2.35 → "2,4 km"; < 1 → "< 1 km" (non-breaking spaces) */
 export function formatDistance(km: number): string {
-  if (km < 1) return "< 1 km";
-  return `${km.toLocaleString(LOCALE, { maximumFractionDigits: km < 10 ? 1 : 0 })} km`;
+  if (km < 1) return `<${NBSP}1${NBSP}km`;
+  return `${km.toLocaleString(LOCALE, { maximumFractionDigits: km < 10 ? 1 : 0 })}${NBSP}km`;
 }
+
+/** 14:30 → "14:30 Uhr" for running text (chips and tables use formatTime alone). */
+export const formatClock = (d: DateInput) => `${formatTime(d)}${NBSP}Uhr`;
 
 /** 4.866 → "4,9" */
 export function formatRating(avg: number): string {

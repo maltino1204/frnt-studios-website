@@ -49,7 +49,7 @@ export function CatalogBoard({ categories }: { categories: CategoryWithServices[
       </div>
 
       {categories.length === 0 ? (
-        <EmptyState title="Noch keine Kategorien.">Legen Sie die erste Kategorie an.</EmptyState>
+        <EmptyState title="Noch keine Kategorien.">Die erste Kategorie anlegen, dann erscheint sie hier.</EmptyState>
       ) : (
         categories.map((c) => (
           <section key={c.id} aria-labelledby={`cat-${c.id}`} className="flex flex-col gap-3">
@@ -212,7 +212,7 @@ function CategorySheet({ value, nextSort, onClose }: { value: CategoryDTO | null
   const [docs, setDocs] = useState<RequiredDocumentDTO[]>(value?.requiredDocuments ?? []);
   const [slugTouched, setSlugTouched] = useState(!!value);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const m = useMutation(upsertCategoryAction, { success: value ? "Kategorie gespeichert." : "Kategorie angelegt. Sie ist sofort live.", onSuccess: onClose });
+  const m = useMutation(upsertCategoryAction, { success: value ? "Kategorie gespeichert." : "Kategorie angelegt und sofort live.", onSuccess: onClose });
   const fe = { ...m.fieldErrors, ...errors };
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF((x) => ({ ...x, [k]: e.target.value }));
 
@@ -279,7 +279,7 @@ function CategorySheet({ value, nextSort, onClose }: { value: CategoryDTO | null
           value={f.name}
           onChange={(e) => setF((x) => ({ ...x, name: e.target.value, slug: slugTouched ? x.slug : slugify(e.target.value) }))}
           error={fe.name}
-          placeholder="z. B. Yoga"
+          placeholder="z. B. Yoga"
           maxLength={80}
         />
         <Input
@@ -313,7 +313,7 @@ function CategorySheet({ value, nextSort, onClose }: { value: CategoryDTO | null
                   </option>
                 ))}
               </Select>
-              <Input dense label={`Nachweis ${i + 1}: Bezeichnung`} hideLabel value={d.label} onChange={(e) => setDocs((all) => all.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} error={fe[`requiredDocuments.${i}.label`]} placeholder="z. B. Kosmetikausbildung" className="min-w-0 flex-1" />
+              <Input dense label={`Nachweis ${i + 1}: Bezeichnung`} hideLabel value={d.label} onChange={(e) => setDocs((all) => all.map((x, j) => (j === i ? { ...x, label: e.target.value } : x)))} error={fe[`requiredDocuments.${i}.label`]} placeholder="z. B. Kosmetikausbildung" className="min-w-0 flex-1" />
               <Button size="s" variant="ghost" aria-label={`Nachweis ${i + 1} entfernen`} onClick={() => setDocs((all) => all.filter((_, j) => j !== i))} icon={<Icon icon={Minus} size={16} />} />
             </div>
           ))}
@@ -349,7 +349,7 @@ function ServiceSheet({ value, categoryId, categories, onClose }: { value: Servi
   });
   const [slugTouched, setSlugTouched] = useState(!!value);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const m = useMutation(upsertServiceAction, { success: value ? "Leistung gespeichert." : "Leistung angelegt. Sie ist sofort buchbar, sobald Profis sie anbieten.", onSuccess: onClose });
+  const m = useMutation(upsertServiceAction, { success: value ? "Leistung gespeichert." : "Leistung angelegt. Buchbar, sobald Profis sie anbieten.", onSuccess: onClose });
   const fe = { ...m.fieldErrors, ...errors };
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF((x) => ({ ...x, [k]: e.target.value }));
   const durations = f.durations.split(/[,;\s]+/).filter(Boolean).map(Number);
@@ -359,11 +359,11 @@ function ServiceSheet({ value, categoryId, categories, onClose }: { value: Servi
     const next: Record<string, string> = {};
     if (f.name.trim().length < 2) next.name = "Mindestens 2 Zeichen.";
     if (!/^[a-z0-9-]{2,80}$/.test(f.slug)) next.slug = "Nur Kleinbuchstaben, Ziffern und Bindestriche (2–80 Zeichen).";
-    if (!validDurations || durations.length > 6) next.durations = "1 bis 6 Dauern in Minuten (15–480), z. B. 60, 90.";
+    if (!validDurations || durations.length > 6) next.durations = "1 bis 6 Dauern in Minuten (15–480), z. B. 60, 90.";
     const def = Number(f.defaultDuration);
     if (validDurations && !durations.includes(def)) next.defaultDuration = "Muss eine der Dauern sein.";
     const price = f.price.trim() ? parseEuroInput(f.price) : null;
-    if (f.price.trim() && (price == null || price > 100_000)) next.priceHintFromCents = "Betrag bis 1.000 €, z. B. 69,00.";
+    if (f.price.trim() && (price == null || price > 100_000)) next.priceHintFromCents = "Betrag bis 1.000 €, z. B. 69,00.";
     const sort = Number(f.sortOrder);
     if (!Number.isInteger(sort) || sort < 0 || sort > 1000) next.sortOrder = "Ganze Zahl von 0 bis 1000.";
     setErrors(next);
@@ -441,7 +441,7 @@ function ServiceSheet({ value, categoryId, categories, onClose }: { value: Servi
         />
         <Textarea label="Beschreibung" optional value={f.description} onChange={set("description")} rows={3} maxLength={2000} hint="Keine Heilversprechen (HWG)." />
         <div className="grid grid-cols-2 gap-4">
-          <Input dense label="Dauern (Min.)" value={f.durations} onChange={set("durations")} error={fe.durations} hint="Kommagetrennt, z. B. 60, 90" />
+          <Input dense label="Dauern (Min.)" value={f.durations} onChange={set("durations")} error={fe.durations} hint="Kommagetrennt, z. B. 60, 90" />
           <Select dense label="Standarddauer" value={f.defaultDuration} onChange={set("defaultDuration")} error={fe.defaultDuration}>
             {(validDurations ? [...new Set(durations)].sort((a, b) => a - b) : [Number(f.defaultDuration)]).map((d) => (
               <option key={d} value={d}>

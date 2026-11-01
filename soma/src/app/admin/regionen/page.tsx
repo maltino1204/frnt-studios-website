@@ -44,7 +44,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
       <AdminPageHeader
         group="Marktplatz"
         title="Regionen"
-        description={`Angebot und Nachfrage, letzte ${days} Tage · ${formatInt(totals.searches)} Suchen, davon ${formatInt(totals.zero)} ohne Ergebnis${outsideCities ? ` und ${formatInt(outsideCities)} außerhalb der Startstädte` : ""} · ${formatInt(totals.waitlist)} auf der Warteliste`}
+        description={`Angebot und Nachfrage, letzte ${days} Tage · ${formatInt(totals.searches)} Suchen, davon ${formatInt(totals.zero)} ohne Ergebnis${outsideCities ? ` und ${formatInt(outsideCities)} außerhalb der Startstädte` : ""} · ${formatInt(totals.waitlist)} auf der Warteliste`}
         actions={<RangeSwitch value={days} options={RANGES} />}
       />
       <div className="flex flex-col gap-10 lg:gap-12">
@@ -85,7 +85,7 @@ export default async function RegionsPage({ searchParams }: { searchParams: Prom
           {gaps.length > 9 ? <p className="type-caption text-ink-muted">Weitere {gaps.length - 9} Lücken in der Matrix unten.</p> : null}
         </AdminSection>
 
-        <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
+        <AdminSection id="cities" title="Städte" description={`Live-Schwelle je Stadt (Annahme): mindestens ${GATE.providers} aktive Profis und ${GATE.hours} offene Termin-Stunden in den nächsten 7 Tagen.`}>
           <AdminTable label="Städte" compact>
             <thead>
               <tr>

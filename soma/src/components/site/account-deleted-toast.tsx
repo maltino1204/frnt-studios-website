@@ -15,7 +15,7 @@ export function AccountDeletedToast() {
   useEffect(() => {
     if (!deleted || shown.current) return;
     shown.current = true;
-    toast.show("Ihr Konto wurde gelöscht. Ihre persönlichen Angaben sind entfernt.");
+    toast.show("Dein Konto ist gelöscht. Deine persönlichen Angaben sind entfernt.");
     router.replace(pathname, { scroll: false });
   }, [deleted, pathname, router, toast]);
   return null;

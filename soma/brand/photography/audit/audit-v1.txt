@@ -1,0 +1,134 @@
+# v1 audit source. One line per image: path | issue codes | note. Verdict comes from recrops.json (recrop),
+# the v2 shot list (replace) or neither (keep). Codes: T fake text/logo/UI · F film border · S spa cliché ·
+# N exposure/sensual · C clinic or salon look · G grading off · X truth or voice issue · H anatomy · P posed/stock
+hero/home | S C N | flower in the client's hair and on the sideboard, rolled towel, an illuminated ring mirror (salon), back bare to the waist at hero scale
+categories/massage | S | orchid on the back, black hot stones on the back, candle: three spa clichés in one tile
+categories/manikuere | S | orchid and candle on the table (otherwise the best v1 tile)
+categories/pedikuere | S C | orchids on the sill, office stool on castors reads salon
+categories/kosmetik | S T | orchid; badge/logo on the tunic; white spa robe
+categories/haare-styling | S T | orchid and candle; UI icon top right
+categories/brows-lashes | S T | orchids and candle; garbled text on the client's sheet
+categories/make-up | S T N | orchid; fake print „UNIAC“ on the tee; client in a bra top
+editorial/arrival | T S | vertical fake text and logo on the left; orchids, candle and pebbles on the table
+editorial/setup | S | flowers and stones on the sofa
+editorial/after | S T | candles, orchid, rolled towels; a row of garbled text along the bottom edge
+editorial/hotel | T S | fake signage „BAKANΤΙΘΑ“ (Greek-looking letters) across the window; candles
+editorial/office | T S | fake logo „nordic“ and a dark disc; orchids, rolled towels, petals on the meeting table
+editorial/details | S | orchids, candle and stones in the only still life
+editorial/provider-cta | T | fake slogan „lner weakloiniga linat“ with a logo in the calm zone meant for the headline
+og-default | S | orchids and candle by the window
+pros/pro-01 | F T | film text bottom left, frame edge right
+pros/pro-02 | F T | frame top/right, burnt-in text, pocket label
+pros/pro-03 | F | black border right
+pros/pro-04 | F | frame top/left
+pros/pro-05 | F T | vertical fake text left
+pros/pro-06 | F | white film border
+pros/pro-07 | F T | vertical fake text right
+pros/pro-08 | F | thin border right
+pros/pro-09 | F T | film rebate with text on top
+pros/pro-10 | F | orange film edges
+pros/pro-11 | F T | film rebate with text left and right
+pros/pro-12 | - | clean
+pros/pro-13 | F | frame edge right
+pros/pro-14 | F T | film text right, red label on the shirt
+pros/pro-15 | F T | film rebate, red tag on the tunic
+pros/pro-16 | T | logo and text bottom right
+pros/pro-17 | - | clean
+pros/pro-18 | F | thin border
+pros/pro-19 | F G | film edges; wall cooler than the set
+pros/pro-20 | F G | white border; cool wall
+pros/pro-21 | F T | vertical fake text left
+pros/pro-22 | T G | sleeve label; green-grey wall
+pros/pro-23 | F T G | frame and fake text; green wall
+pros/pro-24 | F T | sleeve text, film text right
+pros/pro-25 | F G | wooden frame; green wall
+pros/pro-26 | T | translucent fake UI box with text top left
+pros/pro-27 | F | frame
+pros/pro-28 | T S | fake print „BROW ARSRCRY …“ across the tee (cannot be cropped), plant
+pros/pro-29 | F | black edges
+pros/pro-30 | F T | film rebate with text left
+portfolio/brows-lashes-1 | T | UI icon and caption burnt in
+portfolio/brows-lashes-2 | T | UI badge and caption along the bottom
+portfolio/brows-lashes-3 | T C | script text on the sheet; black nitrile gloves
+portfolio/brows-lashes-4 | T | vertical text right
+portfolio/brows-lashes-5 | T | UI icons in both bottom corners
+portfolio/brows-lashes-6 | T | large fake words „brow … anbing“
+portfolio/brows-lashes-7 | T | caption burnt in
+portfolio/brows-lashes-8 | T P | caption and counter; glossy beauty-ad pose
+portfolio/haare-styling-1 | T C | big fake word „VAQNGUN“; salon chairs
+portfolio/haare-styling-2 | T | UI badge bottom left
+portfolio/haare-styling-3 | T S | script text; flowers
+portfolio/haare-styling-4 | T C | small captions; salon basin and mirror
+portfolio/haare-styling-5 | N T | a nude client: violates the discretion rule; never use
+portfolio/haare-styling-6 | T C | script name; salon mirror lights
+portfolio/haare-styling-7 | S N | flowers; bare shoulders, seated pose reads boudoir
+portfolio/haare-styling-8 | C T | salon chairs behind; UI ring
+portfolio/haare-styling-9 | T | pink UI icons
+portfolio/haare-styling-10 | S T | peonies; caption
+portfolio/haare-styling-11 | S T | flower crown and flowers; caption
+portfolio/haare-styling-12 | T S | fake words „ORMSIEY“, „8OU.4“; flowers
+portfolio/haare-styling-13 | T | pink fake word „ERRUO“ over the head
+portfolio/haare-styling-14 | T | captions
+portfolio/haare-styling-15 | S T | roses; caption row
+portfolio/haare-styling-16 | S T | bouquet; @handle
+portfolio/haare-styling-17 | T S | huge fake word „ptcmGA“; tulips
+portfolio/kosmetik-1 | S T | orchid; „Gou“
+portfolio/kosmetik-2 | S T | orchid; caption
+portfolio/kosmetik-3 | S T | flowers; labels
+portfolio/kosmetik-4 | S T | candles, rolled towel
+portfolio/kosmetik-5 | S T X | cucumber; caption „gegen müde Augen“ (HWG wording)
+portfolio/kosmetik-6 | S | cucumbers, candles, flowers
+portfolio/kosmetik-7 | S T | cucumbers, orchid; UI header
+portfolio/kosmetik-8 | S T | cucumbers, candles
+portfolio/kosmetik-9 | S T | candles, cucumbers; tee print
+portfolio/kosmetik-10 | C | loupe and white coat: clinic
+portfolio/kosmetik-11 | N | towel at the bust line, hands on the chest
+portfolio/kosmetik-12 | S | candles and stones on the tray
+portfolio/kosmetik-13 | S T | candles; UI icons
+portfolio/kosmetik-14 | S N T | candles and flowers; client in a towel only
+portfolio/make-up-1 | S T | flowers in the hair, candles; caption
+portfolio/make-up-2 | T | fake word „SRAAORLA“
+portfolio/make-up-3 | T | text on the brush
+portfolio/make-up-4 | C X | bulb mirror (salon); caption „Hausbesuch“ (voice guide: avoid)
+portfolio/make-up-5 | N T | a nude client with magazine-cover text: never use
+portfolio/make-up-6 | N T | bare shoulders, implied topless
+portfolio/make-up-7 | T | tee print, caption
+portfolio/make-up-8 | F | thin dark border
+portfolio/make-up-9 | T | caption
+portfolio/make-up-10 | T | fake word „BOIYS“
+portfolio/manikuere-1 | S T | orchid, candle; captions
+portfolio/manikuere-2 | T | large fake knit lettering
+portfolio/manikuere-3 | S T | orchids, candle; „mecile“
+portfolio/manikuere-4 | S T | orchid; book titles
+portfolio/manikuere-5 | S T | orchid, candle
+portfolio/manikuere-6 | T S | page text and numbers; pressed flower
+portfolio/manikuere-7 | S T | candles
+portfolio/manikuere-8 | T | UI elements
+portfolio/manikuere-9 | T | caption; card stuck on the fingers
+portfolio/manikuere-10 | S T | candles, flowers; text on the cup
+portfolio/massage-1 | T | UI dots across the back
+portfolio/massage-2 | S | orchids, rolled towels
+portfolio/massage-3 | S T | petals and stones on the table; caption
+portfolio/massage-4 | N S T | topless client lying on her back: never use
+portfolio/massage-5 | S T | rolled towels, orchid; UI
+portfolio/massage-6 | S H | orchid; the stretched arm is anatomically unclear
+portfolio/massage-7 | S T | candles, bamboo, orchid; logo
+portfolio/massage-8 | T S | fake word „slonpe“; flowers
+portfolio/massage-9 | S N | orchid in the hair; sheet low
+portfolio/massage-10 | N T | two clients, exposed
+portfolio/massage-11 | X S | couples' massage (not offered); orchids, candles
+portfolio/massage-12 | T S | magazine text block; orchid, stone
+portfolio/massage-13 | T S | caption on the back; candles, orchids
+portfolio/massage-14 | N S | bare buttocks; petals: never use
+portfolio/massage-15 | S | rose petals on the table
+portfolio/massage-16 | C | treatment chair reads clinic
+portfolio/massage-17 | S T | orchid; UI
+portfolio/massage-18 | T S | tee print; candles
+portfolio/massage-19 | S T | hot stones
+portfolio/massage-20 | T | designer-style logo on the bag
+portfolio/massage-21 | S | orchids, candles
+portfolio/pedikuere-1 | S T | orchids, candles
+portfolio/pedikuere-2 | S T C | flowers; vertical text; salon foot basins
+portfolio/pedikuere-3 | T S | fake word „CUNIMIS“; orchid
+portfolio/pedikuere-4 | T S | red text, „VOAGB“; orchids, candle
+portfolio/pedikuere-5 | S | orchids, stones, candle

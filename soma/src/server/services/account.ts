@@ -46,12 +46,12 @@ export async function getProfile(session: Session): Promise<ProfileDTO> {
 }
 
 const ProfileSchema = z.object({
-  firstName: z.string().trim().min(1, "Bitte geben Sie Ihren Vornamen an.").max(80),
-  lastName: z.string().trim().min(1, "Bitte geben Sie Ihren Nachnamen an.").max(80),
+  firstName: z.string().trim().min(1, "Bitte gib deinen Vornamen an.").max(80),
+  lastName: z.string().trim().min(1, "Bitte gib deinen Nachnamen an.").max(80),
   phone: z
     .string()
     .trim()
-    .regex(/^\+?[0-9 ()/-]{6,24}$/, "Bitte geben Sie eine gültige Telefonnummer an.")
+    .regex(/^\+?[0-9 ()/-]{6,24}$/, "Bitte gib eine gültige Telefonnummer an.")
     .optional()
     .or(z.literal("").transform(() => undefined)),
   marketingOptIn: z.boolean().optional(),
@@ -87,10 +87,10 @@ export async function uploadAvatar(session: Session, file: UploadInput): Promise
 const AddressSchema = z.object({
   label: z.string().trim().max(60).optional().transform((v) => v || null),
   kind: z.enum(["home", "hotel", "office", "other"]).default("home"),
-  street: z.string().trim().min(2, "Bitte geben Sie die Straße an.").max(120),
-  houseNumber: z.string().trim().min(1, "Bitte geben Sie die Hausnummer an.").max(12),
+  street: z.string().trim().min(2, "Bitte gib die Straße an.").max(120),
+  houseNumber: z.string().trim().min(1, "Bitte gib die Hausnummer an.").max(12),
   postalCode: zPostalCode,
-  city: z.string().trim().min(2, "Bitte geben Sie den Ort an.").max(80),
+  city: z.string().trim().min(2, "Bitte gib den Ort an.").max(80),
   details: z.string().trim().max(300).optional().transform((v) => v || null),
   isDefault: z.boolean().optional().default(false),
 });
@@ -121,7 +121,7 @@ export async function createAddress(session: Session, input: AddressInput): Prom
   return withUser(s.userId, async (tx) => {
     await assertKnownPostalCode(tx, v.postalCode);
     const [{ n }] = await tx<{ n: number }[]>`select count(*)::int as n from public.addresses where user_id = ${s.userId}`;
-    if (n >= 20) throw new ServiceError("validation", "Sie können höchstens 20 Adressen speichern.");
+    if (n >= 20) throw new ServiceError("validation", "Du kannst höchstens 20 Adressen speichern.");
     const makeDefault = v.isDefault || n === 0;
     if (makeDefault) await tx`update public.addresses set is_default = false where user_id = ${s.userId} and is_default`;
     const [row] = await tx<AddressDTO[]>`
@@ -299,7 +299,7 @@ export async function openDispute(session: Session, bookingId: string, reason: D
       throw new ServiceError("invalid_state", "Für diese Buchung kann kein Problem gemeldet werden.");
     }
     if (Date.now() - ref.getTime() > settings.disputeWindowHours * 3_600_000) {
-      throw new ServiceError("invalid_state", `Probleme können bis ${settings.disputeWindowHours} Stunden nach dem Termin gemeldet werden.`);
+      throw new ServiceError("invalid_state", `Probleme können bis ${settings.disputeWindowHours} Stunden nach dem Termin gemeldet werden.`);
     }
     const [open] = await tx<{ id: string }[]>`select id from public.disputes where booking_id = ${v.bookingId} and status in ('open', 'investigating')`;
     if (open) throw new ServiceError("conflict", "Zu dieser Buchung gibt es bereits eine offene Meldung.");

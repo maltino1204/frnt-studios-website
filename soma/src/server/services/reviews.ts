@@ -52,7 +52,7 @@ export async function listProviderReviews(providerId: string, page = 1, pageSize
 const REVIEW_TAGS = ["Pünktlich", "Professionell", "Freundlich", "Entspannend", "Sauber gearbeitet", "Gute Beratung", "Wieder buchen"] as const;
 export const REVIEW_TAG_OPTIONS: readonly string[] = REVIEW_TAGS;
 
-const RATING_ERROR = "Bitte vergeben Sie 1 bis 5 Sterne.";
+const RATING_ERROR = "Bitte vergib 1 bis 5 Sterne.";
 
 const CreateReviewSchema = z.object({
   bookingId: zUuid,
@@ -74,10 +74,10 @@ export async function createReview(session: Session, bookingId: string, rating: 
     if (!b) throw new ServiceError("not_found", "Buchung nicht gefunden.");
     if (b.status !== "completed" || !b.completedAt) throw new ServiceError("invalid_state", "Bewertungen sind nur für abgeschlossene Termine möglich.");
     if (Date.now() - b.completedAt.getTime() > settings.reviewWindowDays * 86_400_000) {
-      throw new ServiceError("invalid_state", `Bewertungen sind bis ${settings.reviewWindowDays} Tage nach dem Termin möglich.`);
+      throw new ServiceError("invalid_state", `Bewertungen sind bis ${settings.reviewWindowDays} Tage nach dem Termin möglich.`);
     }
     const [existing] = await tx<{ id: string }[]>`select id from public.reviews where booking_id = ${input.bookingId}`;
-    if (existing) throw new ServiceError("conflict", "Sie haben diesen Termin bereits bewertet.");
+    if (existing) throw new ServiceError("conflict", "Du hast diesen Termin bereits bewertet.");
     const [row] = await tx<{ id: string }[]>`
       insert into public.reviews (booking_id, rating, comment, tags)
       values (${input.bookingId}, ${input.rating}, ${input.comment}, ${input.tags}::text[])

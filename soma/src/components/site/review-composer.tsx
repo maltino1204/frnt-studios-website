@@ -44,7 +44,7 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
     <form action={action} onSubmit={keepValuesOnSubmit(action)} className="flex flex-col gap-6" noValidate>
       <input type="hidden" name="bookingId" value={bookingId} />
       <fieldset className="flex flex-col gap-2" aria-describedby={fe?.rating ? ratingErrorId : undefined}>
-        <legend className="mb-2 type-label-s text-ink">{`Wie war Ihr Termin bei ${providerName}?`}</legend>
+        <legend className="mb-2 type-label-s text-ink">{`Wie war dein Termin bei ${providerName}?`}</legend>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="-ml-2 flex" onMouseLeave={() => setHover(0)}>
             {[1, 2, 3, 4, 5].map((n) => {
@@ -83,7 +83,7 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
             })}
           </div>
           <span className="min-w-24 type-label text-ink">
-            {shown ? <MorphText text={LABELS[shown]} /> : <span className="type-label-s text-ink-muted">Tippen Sie auf einen Stern</span>}
+            {shown ? <MorphText text={LABELS[shown]} /> : <span className="type-label-s text-ink-muted">Tipp auf einen Stern</span>}
           </span>
         </div>
         {fe?.rating ? (
@@ -128,7 +128,7 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
         </div>
       </fieldset>
       <Textarea
-        label="Ihre Worte"
+        label="Deine Worte"
         name="comment"
         optional
         rows={4}
@@ -136,14 +136,14 @@ export function ReviewComposer({ bookingId, providerName, tags }: { bookingId: s
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         error={fe?.comment}
-        hint="Ihre Bewertung erscheint mit Vorname und erstem Buchstaben des Nachnamens."
+        hint="Deine Bewertung erscheint mit Vorname und erstem Buchstaben des Nachnamens."
       />
       {state && !state.ok && !fe?.comment && !fe?.rating ? <FormMessage state={state} /> : null}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <SubmitButton disabled={rating === 0} loading={pending}>
           Bewertung senden
         </SubmitButton>
-        {rating === 0 ? <p className="type-caption text-ink-muted">Wählen Sie zuerst 1 bis 5 Sterne.</p> : null}
+        {rating === 0 ? <p className="type-caption text-ink-muted">Wähl zuerst 1 bis 5 Sterne.</p> : null}
       </div>
     </form>
   );

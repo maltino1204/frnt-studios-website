@@ -25,6 +25,7 @@ import { ReportProblem } from "@/components/site/checkout-dispute";
 import { DevPayButton } from "@/components/site/checkout-pay";
 import { ProviderRow } from "@/components/site/provider-row";
 import { ReviewComposer } from "@/components/site/review-composer";
+import { prepNote } from "@/components/site/discovery-copy";
 import {
   dayLabel,
   deadlineText,
@@ -41,7 +42,7 @@ import {
 import { berlinDateKey, formatDateLong, formatDay, formatDayShort, formatDuration, formatPriceExact, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 
-export const metadata: Metadata = { title: "Ihre Buchung", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Deine Buchung", robots: { index: false, follow: false } };
 
 function respondByText(iso: string | null): string {
   if (!iso) return "in Kürze";
@@ -54,31 +55,31 @@ function heroCopy(b: CustomerBookingDTO): { title: string; body: string } {
   const when = `${nbspDate(formatDay(b.startsAt))} um ${formatTime(b.startsAt)}${NBSP}Uhr`;
   switch (b.status) {
     case "confirmed":
-      return { title: "Bestätigt.", body: `${first} kommt am ${when} zu Ihnen.` };
+      return { title: "Bestätigt.", body: `${first} kommt am ${when} zu dir.` };
     case "requested":
       return {
         title: `Angefragt – Antwort bis ${respondByText(b.respondBy).replace(/[\s\u00a0]Uhr$/, "")}`,
-        body: `${withStop(`Ihre Anfrage ist bei ${first}`)} Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`,
+        body: `${withStop(`Deine Anfrage ist bei ${first}`)} Die Antwort kommt bis spätestens ${respondByText(b.respondBy)} – belastet wird erst nach der Zusage.`,
       };
     case "pending_payment":
       return b.canPay
         ? {
             title: "Zahlung ausstehend.",
-            body: `Der Termin ist bis ${b.holdExpiresAt ? `${formatTime(b.holdExpiresAt)}${NBSP}Uhr` : "in Kürze"} für Sie reserviert. Schließen Sie die Zahlung ab, um ihn zu sichern.`,
+            body: `Der Termin ist bis ${b.holdExpiresAt ? `${formatTime(b.holdExpiresAt)}${NBSP}Uhr` : "in Kürze"} für dich reserviert. Schließ die Zahlung ab, um ihn zu sichern.`,
           }
         : { title: "Reservierung abgelaufen.", body: "Die Zahlung wurde nicht rechtzeitig abgeschlossen. Es wurde nichts belastet." };
     case "in_progress":
-      return { title: "Die Behandlung läuft.", body: `${first} ist bei Ihnen. Wir wünschen Ihnen eine schöne Behandlung.` };
+      return { title: "Die Behandlung läuft.", body: `${first} ist bei dir. Wir wünschen dir eine schöne Behandlung.` };
     case "completed":
-      return { title: "Abgeschlossen.", body: `Ihr Termin bei ${first} am ${nbspDate(formatDateLong(b.startsAt))} ist abgeschlossen.` };
+      return { title: "Abgeschlossen.", body: `Dein Termin bei ${first} am ${nbspDate(formatDateLong(b.startsAt))} ist abgeschlossen.` };
     case "cancelled":
       return {
         title: "Storniert.",
         body:
           b.cancelledBy === "provider"
-            ? `${first} musste den Termin leider absagen. Sie erhalten den vollen Betrag zurück.`
+            ? `${first} musste den Termin leider absagen. Dir entstehen keine Kosten.`
             : b.cancellationFeeCents > 0
-              ? `Der Termin wurde storniert. Stornogebühr ${formatPriceExact(b.cancellationFeeCents)}, erstattet ${formatPriceExact(b.refundCents)}.`
+              ? `Der Termin wurde storniert. Stornogebühr ${formatPriceExact(b.cancellationFeeCents)}, freigegeben ${formatPriceExact(b.refundCents)}.`
               : "Der Termin wurde storniert. Es fallen keine Kosten an.",
       };
     case "declined":
@@ -86,7 +87,7 @@ function heroCopy(b: CustomerBookingDTO): { title: string; body: string } {
     case "expired":
       return { title: "Abgelaufen.", body: b.confirmedAt ? "Diese Buchung ist abgelaufen." : "Die Anfrage wurde nicht rechtzeitig bestätigt. Es wurde nichts belastet." };
     case "no_show":
-      return { title: "Nicht angetroffen.", body: "Die Fachkraft hat Sie zum vereinbarten Termin nicht angetroffen. Es gilt die volle Stornogebühr." };
+      return { title: "Nicht angetroffen.", body: `${first} hat dich zum vereinbarten Termin nicht angetroffen. Es gilt die volle Stornogebühr.` };
   }
 }
 
@@ -114,7 +115,7 @@ function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
     return (
       <GlassPanel as="section" aria-labelledby="startcode" className="flex flex-col gap-2 p-5 md:p-6">
         <p id="startcode" className="type-overline text-ink-muted">
-          Ihr Start-Code
+          Dein Start-Code
         </p>
         <CheckLine>{b.startedAt ? `Code bestätigt um ${formatTime(b.startedAt)}${NBSP}Uhr.` : "Code bestätigt."}</CheckLine>
       </GlassPanel>
@@ -123,7 +124,7 @@ function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
   return (
     <GlassPanel as="section" aria-labelledby="startcode" className="flex flex-col gap-4 p-5 md:p-6">
       <p id="startcode" className="type-overline text-ink-muted">
-        Ihr Start-Code
+        Dein Start-Code
       </p>
       <p className="leading-none">
         {" "}
@@ -141,7 +142,7 @@ function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
         <span className="sr-only">{b.startCode.split("").join(" ")}</span>
       </p>
       <p className="type-body-s text-ink-muted">
-        Nennen Sie diesen Code Ihrer Fachkraft bei Ankunft. Erst mit dem Code beginnt der Termin – so wissen Sie, dass die richtige Person vor Ihnen steht.
+        {`Nenn diesen Code ${b.provider.displayName} an der Tür. Erst mit dem Code beginnt der Termin – so weißt du, dass die richtige Person vor dir steht.`}
       </p>
     </GlassPanel>
   );
@@ -275,7 +276,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
   };
   const upcoming =
     b.status === "confirmed"
-      ? { label: "Ihr Termin", time: `${formatDayShort(b.startsAt)}, ${formatTime(b.startsAt)}` }
+      ? { label: "Dein Termin", time: `${formatDayShort(b.startsAt)}, ${formatTime(b.startsAt)}` }
       : b.status === "requested"
         ? { label: `Antwort von ${b.provider.displayName}`, time: `bis ${respondByText(b.respondBy)}` }
         : null;
@@ -323,8 +324,8 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
         </section>
 
         {newAccount ? (
-          <Notice kind="info" title="Ihr Kundenkonto ist angelegt.">
-            {`Wir haben Ihnen eine E-Mail geschickt, um ein Passwort festzulegen. Bis dahin bleiben Sie auf diesem Gerät angemeldet und finden die Buchung unter „Meine Termine“.`}
+          <Notice kind="info" title="Dein Kundenkonto ist angelegt.">
+            {`Wir haben dir eine E-Mail geschickt, um ein Passwort festzulegen. Bis dahin bleibst du auf diesem Gerät angemeldet und findest die Buchung unter „Meine Termine“.`}
           </Notice>
         ) : null}
 
@@ -334,12 +335,12 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
               <section aria-labelledby="alternativen" className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1.5 px-1">
                   <h2 id="alternativen" className="type-heading-m">
-                    {alternatives.results.length ? "Diese Profis haben Zeit" : "Andere Profis in Ihrer Nähe"}
+                    {alternatives.results.length ? "Diese Profis haben Zeit" : "Andere Profis in deiner Nähe"}
                   </h2>
                   <p className="type-body-s text-ink-muted">
                     {alternatives.results.length
                       ? alternativesCaption(alternatives, b)
-                      : `Für ${b.serviceName} in ${b.location.postalCode} finden wir gerade keinen freien Termin. In der Suche sehen Sie alle Profis und Tage.`}
+                      : `Für ${b.serviceName} in ${b.location.postalCode} finden wir gerade keinen freien Termin. In der Suche siehst du alle Profis und Tage.`}
                   </p>
                 </div>
                 {alternatives.results.length ? (
@@ -360,7 +361,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
 
             <Card aria-labelledby="details">
               <h2 id="details" className="type-heading-m">
-                Ihr Termin
+                Dein Termin
               </h2>
               <Link href={profileHref} className="group -m-2 flex items-center gap-4 rounded-tile p-2 transition-colors duration-fast focus-ring hover:bg-surface-sunken">
                 <Avatar src={b.provider.avatarUrl} name={b.provider.displayName} size={48} />
@@ -406,14 +407,14 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                   <h2 id="bewerten" className="type-heading-m">
                     Bewerten
                   </h2>
-                  <p className="type-body-s text-ink-muted">Ihre Bewertung hilft anderen bei der Wahl – und der Fachkraft.</p>
+                  <p className="type-body-s text-ink-muted">{`Deine Bewertung hilft anderen bei der Wahl – und ${b.provider.displayName}.`}</p>
                 </div>
                 <ReviewComposer bookingId={b.id} providerName={b.provider.displayName} tags={REVIEW_TAG_OPTIONS} />
               </Card>
             ) : b.review ? (
               <Card aria-labelledby="bewertung" className="gap-3">
                 <h2 id="bewertung" className="type-heading-m">
-                  Ihre Bewertung
+                  Deine Bewertung
                 </h2>
                 <Stars value={b.review.rating} size={20} />
                 {b.review.comment ? <p className="type-body text-ink">{b.review.comment}</p> : null}
@@ -476,7 +477,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                     ? [<span key="refund" className="num">{`Stornogebühr ${formatPriceExact(b.cancellationFeeCents)} · Erstattung ${formatPriceExact(b.refundCents)}`}</span>]
                     : []),
                   <span key="vat">{b.vatNote}</span>,
-                  <span key="agent">{withStop(`SOMA vermittelt; Vertragspartner ist ${b.provider.displayName}`)}</span>,
+                  <span key="agent">{withStop(`SOMA vermittelt; Vertragspartner für die Behandlung ist ${b.provider.displayName} (selbstständig)`)}</span>,
                 ]}
               />
               <div className="flex items-center gap-3 rounded-tile bg-surface-sunken p-3">
@@ -532,7 +533,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
 
             {b.status === "confirmed" ? (
               <Notice kind="info" title="Vorbereitung">
-                Halten Sie bitte etwas Platz frei und sorgen Sie für einen ruhigen Raum. Alles Weitere bringt die Fachkraft mit.
+                {prepNote(b.categorySlug, b.provider.displayName)}
               </Notice>
             ) : null}
 

@@ -21,7 +21,7 @@ import { joinWaitlist } from "../services/search";
 import { formToObject, input, publicAction, withSession, zGuid } from "./_run";
 import type { ActionResult } from "./types";
 
-/** Customer booking actions (voice: "Sie"). */
+/** Customer booking actions (voice: "du"). */
 
 const AvailabilitySchema = z.object({
   providerId: zGuid,
@@ -75,14 +75,14 @@ export async function cancelBookingAction(raw: z.input<typeof CancelSchema>): Pr
     revalidatePath(`/buchung/${v.bookingId}`);
     revalidatePath("/konto", "layout");
     return r;
-  }, "Ihr Termin wurde storniert.");
+  }, "Dein Termin wurde storniert.");
 }
 
 export async function rebookOptionsAction(bookingId: string): Promise<ActionResult<RebookOptionsDTO>> {
   return withSession("customer", async (s) => rebookOptions(s, input(zGuid, bookingId)));
 }
 
-const RATING_ERROR = "Bitte vergeben Sie 1 bis 5 Sterne.";
+const RATING_ERROR = "Bitte vergib 1 bis 5 Sterne.";
 
 const ReviewSchema = z.object({
   bookingId: zGuid,
@@ -99,7 +99,7 @@ export async function createReviewAction(_prev: ActionResult<{ reviewId: string 
     const r = await createReview(s, v.bookingId, v.rating, v.comment ?? null, v.tags);
     revalidatePath(`/buchung/${v.bookingId}`);
     return r;
-  }, "Danke für Ihre Bewertung.");
+  }, "Danke für deine Bewertung.");
 }
 
 const DisputeSchema = z.object({
@@ -115,16 +115,16 @@ export async function openDisputeAction(_prev: ActionResult<{ disputeId: string 
     const r = await openDispute(s, v.bookingId, v.reason as DisputeReason, v.description);
     revalidatePath(`/buchung/${v.bookingId}`);
     return r;
-  }, "Danke – wir kümmern uns darum und melden uns innerhalb von 72 Stunden.");
+  }, "Danke – wir kümmern uns darum und melden uns, sobald wir den Fall geprüft haben.");
 }
 
 const WaitlistSchema = z.object({
-  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein."),
-  postalCode: z.string().trim().regex(/^\d{5}$/, "Bitte geben Sie eine gültige Postleitzahl ein."),
+  email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein."),
+  postalCode: z.string().trim().regex(/^\d{5}$/, "Bitte gib eine gültige Postleitzahl ein."),
   categorySlug: z.string().trim().max(60).optional(),
 });
 
 /** "Benachrichtigen, sobald verfügbar" — public form action. */
 export async function joinWaitlistAction(_prev: ActionResult<{ joined: true }> | null, formData: FormData): Promise<ActionResult<{ joined: true }>> {
-  return publicAction(async () => joinWaitlist(input(WaitlistSchema, formToObject(formData))), "Danke, wir geben Ihnen Bescheid, sobald Profis in Ihrer Nähe verfügbar sind.");
+  return publicAction(async () => joinWaitlist(input(WaitlistSchema, formToObject(formData))), "Danke, wir sagen dir Bescheid, sobald Profis in deiner Nähe buchbar sind.");
 }

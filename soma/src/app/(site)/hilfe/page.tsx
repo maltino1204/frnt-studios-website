@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/site/discovery-content-page";
-import { freeCancellationSentence, type FaqItem } from "@/components/site/discovery-copy";
+import { freeCancellationSentence, ZERO_TOLERANCE, type FaqItem } from "@/components/site/discovery-copy";
 import { FaqList } from "@/components/site/discovery-faq";
 import { faqLd, JsonLd } from "@/components/site/discovery-json-ld";
 import { BRAND_NAME, SUPPORT_EMAIL } from "@/lib/brand";
@@ -12,7 +12,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Hilfe & häufige Fragen",
-  description: `Antworten rund um Buchung, Bezahlung, Stornierung und Ihren Termin bei ${BRAND_NAME} – und wie Sie uns erreichen.`,
+  description: `Antworten rund um Buchung, Bezahlung, Stornierung und deinen Termin bei ${BRAND_NAME} – und wie du uns erreichst.`,
   alternates: { canonical: routes.help() },
 };
 
@@ -27,23 +27,23 @@ export default async function HilfePage() {
       items: [
         {
           q: "Wie buche ich einen Termin?",
-          a: "Geben Sie Ihre Postleitzahl ein, wählen Sie eine Behandlung und ein Zeitfenster. Sie sehen nur Profis mit echten freien Terminen. Ein Tipp auf eine Uhrzeit führt direkt zur Buchung.",
+          a: "Gib deine Postleitzahl ein, wähl eine Behandlung und ein Zeitfenster. Du siehst nur Profis mit echten freien Terminen. Ein Tipp auf eine Uhrzeit führt direkt zur Buchung.",
         },
         {
           q: "Was bedeutet „Sofort bestätigt“ und „Auf Anfrage“?",
-          a: "Bei „Sofort bestätigt“ steht Ihr Termin mit der Buchung fest. Bei „Auf Anfrage“ bestätigt der Profi Ihren Wunschtermin selbst; bis zur Antwort ist die Zeit für Sie reserviert und Ihre Karte wird nicht belastet. Die Frist für die Antwort sehen Sie in Ihrer Buchung.",
+          a: "Bei „Sofort bestätigt“ steht dein Termin mit der Buchung fest. Bei „Auf Anfrage“ sagt dein Profi selbst zu; bis zur Antwort ist die Zeit für dich reserviert und deine Karte wird nicht belastet. Die Frist für die Antwort siehst du vor dem Absenden und in deiner Buchung.",
         },
         {
           q: "Wie lange wird ein Termin für mich freigehalten?",
-          a: `Während Sie bezahlen, halten wir den gewählten Termin ${terms.holdMinutes} Minuten für Sie frei. Danach wird er wieder für andere sichtbar.`,
+          a: `Während du bezahlst, halten wir den gewählten Termin ${terms.holdMinutes}\u00a0Minuten für dich frei. Danach wird er wieder für andere sichtbar.`,
         },
         {
           q: "Brauche ich ein Kundenkonto?",
-          a: "Ja, aber Sie legen es nebenbei an: Bei der ersten Buchung genügen Name, E-Mail-Adresse und Mobilnummer. Ein Passwort legen Sie später über den Link in unserer E-Mail fest. Im Konto sehen Sie Ihre Termine, den Start-Code und Ihr Guthaben.",
+          a: "Ja, aber du legst es nebenbei an: Bei der ersten Buchung genügen Name, E-Mail-Adresse und Mobilnummer. Ein Passwort legst du später über den Link in unserer E-Mail fest. Im Konto siehst du deine Termine, den Start-Code und dein Guthaben.",
         },
         {
           q: "Kann ich ins Hotel oder ins Büro buchen?",
-          a: "Ja. Bei der Buchung wählen Sie Zuhause, Hotel oder Büro und geben an, wie Ihr Profi Sie findet – etwa Zimmernummer, Name an der Rezeption oder Etage.",
+          a: "Ja. Bei der Buchung wählst du Zuhause, Hotel oder Büro und gibst an, wie dein Profi dich findet – etwa Zimmernummer, Name an der Rezeption oder Etage.",
         },
       ],
     },
@@ -53,7 +53,7 @@ export default async function HilfePage() {
       items: [
         {
           q: "Ist die Anfahrt im Preis enthalten?",
-          a: `Ja. In der Suche, im Profil und bei der Buchung sehen Sie den Gesamtpreis inklusive Anfahrt.${terms.customerServiceFeeCents === 0 ? ` ${BRAND_NAME} berechnet keine Servicegebühr.` : ""}`,
+          a: `Ja. In der Suche, im Profil und bei der Buchung siehst du den Endpreis inklusive Anfahrt.${terms.customerServiceFeeCents === 0 ? ` ${BRAND_NAME} berechnet keine Servicegebühr.` : ""}`,
         },
         {
           q: "Wer legt die Preise fest?",
@@ -61,7 +61,7 @@ export default async function HilfePage() {
         },
         {
           q: "Wann wird meine Karte belastet?",
-          a: "Bei der Buchung wird der Betrag nur reserviert. Belastet wird erst, wenn der Termin stattgefunden hat.",
+          a: "Bei der Buchung wird der Betrag nur reserviert. Belastet wird erst nach dem Termin. Bezahlt wird ausschließlich online über SOMA – kein Bargeld an der Tür.",
         },
         {
           q: "Kann ich Guthaben einlösen?",
@@ -75,11 +75,11 @@ export default async function HilfePage() {
       items: [
         {
           q: "Bis wann kann ich kostenlos stornieren?",
-          a: `${freeCancellationSentence(terms.cancellationPolicy)} Danach fallen gestaffelte Gebühren an. Die genaue Frist sehen Sie in jeder Buchung mit Datum und Uhrzeit.`,
+          a: `${freeCancellationSentence(terms.cancellationPolicy)} Danach fallen gestaffelte Gebühren an. Die genaue Frist siehst du in jeder Buchung mit Datum und Uhrzeit.`,
         },
         {
           q: "Was passiert, wenn der Profi absagt?",
-          a: "Dann erhalten Sie den vollen Betrag zurück. Offene Anfragen, die noch nicht bestätigt sind, können Sie jederzeit kostenlos zurückziehen.",
+          a: "Dann entstehen dir keine Kosten. Offene Anfragen, die noch nicht bestätigt sind, kannst du jederzeit kostenlos zurückziehen.",
         },
         {
           q: "Kann ich einen Termin verschieben?",
@@ -93,15 +93,15 @@ export default async function HilfePage() {
       items: [
         {
           q: "Was ist der Start-Code?",
-          a: "Ein vierstelliger Code in Ihrer Buchung. Ihr Profi startet den Termin erst, wenn Sie ihm den Code vor Ort nennen. So ist sicher, dass die richtige Person bei Ihnen ist.",
+          a: "Ein vierstelliger Code in deiner Buchung. Dein Profi startet den Termin erst, wenn du den Code an der Tür nennst. So ist sicher, dass die richtige Person bei dir ist.",
         },
         {
           q: "Was muss ich vorbereiten?",
-          a: "Etwas Platz, gutes Licht und für Massagen etwa 2 × 3 Meter freie Fläche für die Liege. Liege, Werkzeug und Tücher bringt Ihr Profi mit.",
+          a: "Etwas Platz, gutes Licht und für Massagen etwa 2\u00a0×\u00a03\u00a0m freie Fläche für die Liege. Liege, Werkzeug und Tücher bringt dein Profi mit.",
         },
         {
           q: "Sind die Behandlungen medizinisch?",
-          a: `Nein. Alle Angebote auf ${BRAND_NAME} sind Wellness- und Beautyanwendungen. Sie ersetzen keine ärztliche, physiotherapeutische oder podologische Behandlung.`,
+          a: `Nein. Alle Angebote auf ${BRAND_NAME} sind Beauty- und Wellnessanwendungen und ersetzen keine ärztliche, physiotherapeutische oder podologische Behandlung.`,
         },
       ],
     },
@@ -111,11 +111,11 @@ export default async function HilfePage() {
       items: [
         {
           q: "Wie bewerte ich meinen Profi?",
-          a: `Nach dem Termin können Sie ${terms.reviewWindowDays} Tage lang eine Bewertung abgeben. Bewerten kann nur, wer wirklich gebucht hat.`,
+          a: `Nach dem Termin kannst du ${terms.reviewWindowDays}\u00a0Tage lang eine Bewertung abgeben. Bewerten kann nur, wer wirklich gebucht hat.`,
         },
         {
           q: "Etwas war nicht in Ordnung. Was nun?",
-          a: `Melden Sie das Problem innerhalb von ${terms.disputeWindowHours} Stunden über Ihre Buchung. Bis zur Klärung halten wir die Auszahlung an den Profi zurück und finden mit Ihnen eine Lösung: Nachbesserung, Gutschrift oder Erstattung.`,
+          a: `Melde das Problem bis ${terms.disputeWindowHours}\u00a0Stunden nach dem Termin über „Problem melden“ in deiner Buchung. Bis zur Klärung halten wir die Auszahlung an den Profi zurück und finden mit dir eine Lösung: Nachbesserung, Gutschrift oder Erstattung.`,
         },
       ],
     },
@@ -125,11 +125,16 @@ export default async function HilfePage() {
       items: [
         {
           q: `Wie prüft ${BRAND_NAME} die Profis?`,
-          a: `Bevor ein Profi buchbar ist, prüfen wir ${docs.length ? docs.join(", ") : "Identität, Gewerbe und Versicherung"} sowie die Qualifikation für jede angebotene Behandlung.`,
+          a: `Bevor ein Profi buchbar ist, prüfen wir ${docs.length ? docs.join(", ") : "Identität, Gewerbe und Versicherung"} – und je nach Kategorie einen Qualifikationsnachweis, etwa eine Massageausbildung oder für Haare & Styling den Meisterbrief bzw. die Eintragung in die Handwerksrolle. Läuft ein Pflichtnachweis ab, pausieren wir das Profil.`,
         },
         {
           q: "Wer sieht meine Adresse?",
-          a: "Nur Ihr gebuchter Profi, und erst nachdem der Termin bestätigt ist. Nach dem Termin wird die Adresse für den Profi wieder ausgeblendet.",
+          a: "Nur dein gebuchter Profi, und erst nachdem der Termin bestätigt ist. Nach dem Termin wird die Adresse für den Profi wieder ausgeblendet.",
+        },
+        // Zero-tolerance rule (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01).
+        {
+          q: "Welche Anfragen sind ausgeschlossen?",
+          a: ZERO_TOLERANCE,
         },
       ],
     },
@@ -146,10 +151,10 @@ export default async function HilfePage() {
       path={routes.help()}
       title={
         <>
-          Antworten, <em>bevor Sie fragen.</em>
+          Antworten, <em>bevor du fragst.</em>
         </>
       }
-      lead="Die häufigsten Fragen rund um Buchung, Bezahlung und Ihren Termin. Ihre Frage ist nicht dabei? Schreiben Sie uns."
+      lead="Die häufigsten Fragen rund um Buchung, Bezahlung und deinen Termin. Deine Frage ist nicht dabei? Schreib uns."
       sections={sections}
     >
       <JsonLd data={faqLd(all)} />
@@ -163,22 +168,22 @@ export default async function HilfePage() {
       ))}
       <ContentSection id="garantie" title={guarantee}>
         <p>
-          Wenn etwas nicht stimmt, melden Sie es innerhalb von {terms.disputeWindowHours} Stunden – wir finden eine Lösung: Nachbesserung, Gutschrift oder Erstattung.
+          Stimmt etwas nicht, meldest du es bis {terms.disputeWindowHours}{"\u00a0"}Stunden nach dem Termin über deine Buchung. Wir finden mit dir eine Lösung: Nachbesserung, Gutschrift oder Erstattung.
         </p>
         <ul>
-          <li>Die Garantie gilt für alle Termine, die Sie über {BRAND_NAME} gebucht und bezahlt haben.</li>
+          <li>Die Garantie gilt für alle Termine, die du über {BRAND_NAME} gebucht und bezahlt hast.</li>
           <li>
-            Melden Sie das Problem in Ihrer Buchung über „Problem melden“. Bis zur Klärung halten wir die Auszahlung an den Profi zurück.
+            Melde das Problem in deiner Buchung über „Problem melden“. Bis zur Klärung halten wir die Auszahlung an den Profi zurück.
           </li>
-          <li>Wir hören beide Seiten an. Bei Schäden vermitteln wir zwischen Ihnen und der Haftpflichtversicherung des Profis.</li>
+          <li>Wir hören beide Seiten an. Bei Schäden vermitteln wir zwischen dir und der Haftpflichtversicherung des Profis.</li>
         </ul>
       </ContentSection>
       <ContentSection id="kontakt" title="Kontakt">
         <p>
-          Schreiben Sie uns an <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. Bei Fragen zu einer bestimmten Buchung nennen Sie bitte die Buchungsnummer aus Ihrer Bestätigung.
+          Schreib uns an <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>. Bei Fragen zu einer bestimmten Buchung nenn bitte die Buchungsnummer aus deiner Bestätigung.
         </p>
         <p>
-          Alles zu Fristen und Gebühren finden Sie unter <Link href="/stornierung">Stornierung</Link>.
+          Alles zu Fristen und Gebühren findest du unter <Link href="/stornierung">Stornierung</Link>.
         </p>
       </ContentSection>
     </ContentPage>

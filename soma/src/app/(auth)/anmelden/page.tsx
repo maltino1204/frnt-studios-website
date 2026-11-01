@@ -22,12 +22,12 @@ export default async function AnmeldenPage({ searchParams }: { searchParams: Pro
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <Overline>Ihr Konto</Overline>
+        <Overline>Dein Konto</Overline>
         <h1 className="type-h1">Willkommen zurück.</h1>
-        <p className="type-body text-ink-muted">Melden Sie sich an, um Termine zu buchen und zu verwalten.</p>
+        <p className="type-body text-ink-muted">Melde dich an, um Termine zu buchen und zu verwalten.</p>
       </div>
-      {one(sp.passwort) === "neu" ? <Notice kind="success">Ihr Passwort wurde geändert. Bitte melden Sie sich mit dem neuen Passwort an.</Notice> : null}
-      {next?.startsWith("/buchen") ? <Notice kind="info">Ihre Terminauswahl bleibt erhalten. Nach der Anmeldung geht es direkt weiter.</Notice> : null}
+      {one(sp.passwort) === "neu" ? <Notice kind="success">Dein Passwort wurde geändert. Bitte melde dich mit dem neuen Passwort an.</Notice> : null}
+      {next?.startsWith("/buchen") ? <Notice kind="info">Deine Terminauswahl bleibt erhalten. Nach der Anmeldung geht es direkt weiter.</Notice> : null}
       <LoginForm
         next={next}
         demo={

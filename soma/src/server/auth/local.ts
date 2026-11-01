@@ -97,7 +97,7 @@ export async function verifyLocalCredentials(emailRaw: string, password: string,
     if (ok && user) await tx`update auth.users set last_sign_in_at = now() where id = ${user.id}`;
   });
   if (!ok || !user) throw new ServiceError("unauthenticated", INVALID_LOGIN);
-  if (user.blockedAt) throw new ServiceError("forbidden", "Dieses Konto ist gesperrt. Bitte wenden Sie sich an den SOMA-Support.");
+  if (user.blockedAt) throw new ServiceError("forbidden", "Dieses Konto ist gesperrt. Bitte wende dich an den SOMA-Support.");
   return user.id;
 }
 
@@ -164,7 +164,12 @@ export async function requestLocalPasswordReset(emailRaw: string, opts: { ip?: s
       toUserId: user.id,
       template: "auth.password_reset",
       subject: "Passwort zurücksetzen",
-      payload: { url: `${await resolveAppUrl()}/passwort-vergessen?token=${token}`, validMinutes: RESET_TTL_MINUTES },
+      payload: {
+        title: "Passwort zurücksetzen",
+        body: `Mit diesem Link legst du ein neues Passwort fest. Er ist ${RESET_TTL_MINUTES}\u00a0Minuten gültig. Hast du keinen Link angefordert, kannst du diese E-Mail ignorieren.`,
+        url: `${await resolveAppUrl()}/passwort-vergessen?token=${token}`,
+        validMinutes: RESET_TTL_MINUTES,
+      },
     });
     return user.id;
   });
@@ -180,7 +185,7 @@ export async function resetLocalPassword(token: string, newPassword: string): Pr
       update app_private.password_resets set used_at = now()
       where token_hash = ${sha256(token)} and used_at is null and expires_at > now()
       returning user_id`;
-    if (!row) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.");
+    if (!row) throw new ServiceError("validation", "Der Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.");
     await assertNotDemoAccount(row.userId, tx);
     await tx`update auth.users set encrypted_password = ${hash}, updated_at = now() where id = ${row.userId}`;
     await tx`delete from app_private.local_sessions where user_id = ${row.userId}`;

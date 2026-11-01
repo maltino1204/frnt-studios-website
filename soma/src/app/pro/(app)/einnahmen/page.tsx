@@ -116,7 +116,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
 
   return (
     <ProPage>
-      <ProHeader title="Einnahmen" description={`Du bekommst dein Geld ${terms.payoutHoldHours} Stunden nach dem Termin, sofern kein Einspruch eingeht. Die Anfahrt ist immer provisionsfrei.`} />
+      <ProHeader title="Einnahmen" description={`Du bekommst dein Geld ${terms.payoutHoldHours} Stunden nach dem Termin, sofern kein Einspruch eingeht. Die Anfahrt ist immer provisionsfrei.`} />
 
       {justConnected && settings.payoutsEnabled ? (
         <Notice kind="success" title="Auszahlungen eingerichtet.">
@@ -126,7 +126,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
 
       <StatGrid>
         <StatTile label="Verfügbar" icon={<Icon icon={Wallet} size={16} />} value={<MoneyCount cents={totals.availableCents} />} hint="geht mit der nächsten Auszahlung raus" />
-        <StatTile label="Ausstehend" icon={<Icon icon={Hourglass} size={16} />} value={<MoneyCount cents={totals.pendingCents} />} hint={`frei nach ${terms.payoutHoldHours} Std.`} />
+        <StatTile label="Ausstehend" icon={<Icon icon={Hourglass} size={16} />} value={<MoneyCount cents={totals.pendingCents} />} hint={`frei nach ${terms.payoutHoldHours} Std.`} />
         <StatTile label="Ausgezahlt" icon={<Icon icon={Landmark} size={16} />} value={<MoneyCount cents={totals.paidOutCents} />} hint="insgesamt" spark={paidSeries.length > 2 ? paidSeries : undefined} />
         <StatTile
           label="Diesen Monat"

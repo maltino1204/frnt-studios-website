@@ -121,7 +121,7 @@ export default async function ProTodayPage() {
               <>Dein Profil ist pausiert und erscheint nicht in der Suche. {dash.onboarding.lastDecisionNote ? `Hinweis: ${dash.onboarding.lastDecisionNote}` : "Bei Fragen hilft dir der SOMA-Support."}</>
             ) : (
               <>
-                Wir prüfen dein Profil und deine Dokumente – meist innerhalb von 48 Stunden. Bis zur Freischaltung bist du in der Suche noch nicht sichtbar.{" "}
+                Wir prüfen dein Profil und deine Dokumente und melden uns, sobald alles geprüft ist. Bis zur Freischaltung bist du in der Suche noch nicht sichtbar.{" "}
                 <Link href={routes.pro.onboarding()}>Status ansehen</Link>
               </>
             )}
@@ -223,7 +223,7 @@ export default async function ProTodayPage() {
           <section className="flex flex-col gap-5 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6" aria-labelledby="profil-title">
             <div className="flex items-center gap-4">
               <ProgressRing value={percent / 100} size={64} stroke={5}>
-                <span className="type-label-s num text-ink">{percent} %</span>
+                <span className="type-label-s num text-ink">{percent} %</span>
               </ProgressRing>
               <div className="flex min-w-0 flex-col gap-0.5">
                 <h2 id="profil-title" className="type-heading-m">

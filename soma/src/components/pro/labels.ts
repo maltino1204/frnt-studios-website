@@ -160,15 +160,15 @@ export function travelFeeFor(distanceKm: number, cfg: { baseCents: number; inclu
 
 /** Remaining time as German text: "1 Std. 40 Min.", "25 Min.", "weniger als 1 Min." */
 export function formatRemaining(ms: number): string {
-  if (ms <= 0) return "0 Min.";
+  if (ms <= 0) return "0 Min.";
   const totalMin = Math.floor(ms / 60_000);
-  if (totalMin < 1) return "weniger als 1 Min.";
+  if (totalMin < 1) return "weniger als 1 Min.";
   const d = Math.floor(totalMin / 1440);
   const h = Math.floor((totalMin % 1440) / 60);
   const m = totalMin % 60;
-  if (d > 0) return h > 0 ? `${d} ${d === 1 ? "Tag" : "Tagen"} ${h} Std.` : `${d} ${d === 1 ? "Tag" : "Tagen"}`;
-  if (h > 0) return m > 0 ? `${h} Std. ${m} Min.` : `${h} Std.`;
-  return `${m} Min.`;
+  if (d > 0) return h > 0 ? `${d} ${d === 1 ? "Tag" : "Tagen"} ${h} Std.` : `${d} ${d === 1 ? "Tag" : "Tagen"}`;
+  if (h > 0) return m > 0 ? `${h} Std. ${m} Min.` : `${h} Std.`;
+  return `${m} Min.`;
 }
 
 /** Euro string from a German input ("45", "45,50", "45.5") → cents, or null. */
@@ -185,12 +185,13 @@ export function centsToInput(cents: number): string {
   return cents % 100 === 0 ? String(cents / 100) : (cents / 100).toFixed(2).replace(".", ",");
 }
 
-/** Shared server messages are written in "Sie" (src/server/services/_shared.ts, actions/_run.ts). In /pro we speak "du". */
+/**
+ * Shared server messages already speak "du" (src/server/services/_shared.ts, actions/_run.ts); SOMA Pro
+ * points at the highlighted fields and turns the few neutral messages into a direct request.
+ */
 const DU_MESSAGES: Record<string, string> = {
-  "Bitte überprüfen Sie Ihre Eingaben.": "Bitte prüfe die markierten Felder.",
-  "Bitte melden Sie sich an.": "Bitte melde dich an.",
-  "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.": "Etwas ist schiefgelaufen. Bitte versuch es noch einmal.",
-  "Bitte eine Datei auswählen.": "Bitte wähle eine Datei aus.",
+  "Bitte prüf deine Eingaben.": "Bitte prüf die markierten Felder.",
+  "Bitte eine Datei auswählen.": "Bitte wähl eine Datei aus.",
 };
 
 export function proError(message: string): string {

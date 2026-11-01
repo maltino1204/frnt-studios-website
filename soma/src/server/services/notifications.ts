@@ -6,13 +6,13 @@ import { withService, withUser, type Tx } from "../db/client";
 import type { NotificationDTO, Session } from "../dto";
 import { getEmailAdapter } from "../email/adapter";
 import { parse, requireRoleIn } from "./_shared";
-import { formatEuro, formatWhen } from "./format";
+import { formatClock, formatEuro, formatWhen } from "./format";
 
 /**
  * notify(tx, event, ctx) writes in-app notifications and queues e-mails in
  * email_outbox (respecting notification_preferences). Must run inside a
  * service transaction (it writes rows for other users).
- * Voice: customers "Sie", providers "du", admins neutral.
+ * Voice (brand/BRAND_VOICE.md § 7.7): customers and providers "du", admins neutral.
  */
 
 export type NotifyEvent =
@@ -107,44 +107,46 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
     const p = (title: string, body: string, topic: Topic = "bookings") => out.push({ userId: b.providerId, type: event, title, body, href: pHref, topic, data });
     switch (event) {
       case "booking.requested":
-        c(`Ihre Anfrage ist bei ${b.providerName}`,
-          `${b.serviceName} am ${when}. ${b.providerName} antwortet bis spätestens ${b.respondBy ? formatWhen(b.respondBy) : "kurz vor dem Termin"} – Ihre Zahlung ist bis dahin nur reserviert.`);
+        c(`Deine Anfrage ist bei ${b.providerName}`,
+          `${b.serviceName} am ${when}. ${b.providerName} antwortet bis spätestens ${b.respondBy ? formatWhen(b.respondBy) : "kurz vor dem Termin"}. Bis dahin wird nichts belastet.`);
         p(`Neue Anfrage: ${b.serviceName}`,
           `${when} in ${b.postalCode} ${b.city}. Du hast Zeit bis ${b.respondBy ? formatWhen(b.respondBy) : "kurz vor dem Termin"}, um zu antworten.`);
         break;
       case "booking.confirmed":
-        c("Ihr Termin ist bestätigt", `${b.serviceName} mit ${b.providerName} am ${when}. Ihren Start-Code finden Sie in der Buchungsübersicht.`);
-        p(`Termin bestätigt: ${b.serviceName}`, `${when} bei ${b.customerFirstName ?? "deiner Kundin bzw. deinem Kunden"} in ${b.city}. Die Adresse findest du jetzt im Termin.`);
+        // A request (respond_by set) that the Profi accepted reads "Anna hat zugesagt"; an instant booking "Dein Termin ist bestätigt".
+        if (b.respondBy) c(`${b.providerName} hat zugesagt`, `Dein Termin am ${when} steht: ${b.serviceName}. Der Start-Code ist jetzt in der Buchung.`);
+        else c("Dein Termin ist bestätigt", `${b.serviceName} mit ${b.providerName}, ${when}. Dein Start-Code steht in der Buchung.`);
+        p(`Termin bestätigt: ${b.serviceName}`, `${when}${b.customerFirstName ? ` bei ${b.customerFirstName}` : ""} in ${b.city}. Die Adresse steht jetzt im Termin.`);
         break;
       case "booking.declined":
-        c(`${b.providerName} kann den Termin leider nicht wahrnehmen`, `Ihre Anfrage für ${b.serviceName} am ${when} wurde abgelehnt. Die Reservierung auf Ihrer Karte wurde aufgehoben – wir zeigen Ihnen gern andere Profis.`);
+        c(`${b.providerName} kann den Termin leider nicht wahrnehmen`, `Deine Anfrage für ${b.serviceName} am ${when}: Die Reservierung auf deiner Karte ist aufgehoben, belastet wurde nichts. Andere Profis haben vielleicht Zeit.`);
         break;
       case "booking.expired":
         if (b.holdExpired) {
-          c("Ihre Reservierung ist abgelaufen", `Die Zahlung für ${b.serviceName} am ${when} wurde nicht rechtzeitig abgeschlossen. Der Termin ist wieder frei.`);
+          c("Deine Reservierung ist abgelaufen", `Die Zahlung für ${b.serviceName} am ${when} wurde nicht rechtzeitig abgeschlossen. Belastet wurde nichts; der Termin ist wieder frei.`);
         } else {
-          c("Ihre Anfrage ist abgelaufen", `${b.providerName} hat nicht rechtzeitig geantwortet. Die Reservierung auf Ihrer Karte wurde aufgehoben.`);
+          c("Deine Anfrage ist abgelaufen", `${b.providerName} hat nicht rechtzeitig geantwortet. Die Reservierung auf deiner Karte ist aufgehoben, belastet wurde nichts.`);
           p("Anfrage abgelaufen", `Die Anfrage für ${b.serviceName} am ${when} ist abgelaufen, weil du nicht rechtzeitig geantwortet hast.`);
         }
         break;
       case "booking.cancelled": {
         const byProvider = b.cancelledBy === "provider";
         const fee = b.cancellationFeeCents > 0 ? ` Es fällt eine Stornogebühr von ${formatEuro(b.cancellationFeeCents)} an.` : " Es fallen keine Kosten an.";
-        c(byProvider ? `${b.providerName} hat Ihren Termin storniert` : "Ihr Termin wurde storniert",
-          byProvider ? `${b.serviceName} am ${when} findet leider nicht statt. Sie erhalten den vollen Betrag zurück.` : `${b.serviceName} am ${when}.${fee}`);
+        c(byProvider ? `${b.providerName} hat deinen Termin abgesagt` : "Dein Termin ist storniert",
+          byProvider ? `${b.serviceName} am ${when} findet leider nicht statt. Dir entstehen keine Kosten.` : `${b.serviceName} am ${when}.${fee}`);
         if (!byProvider) p(`Termin storniert: ${b.serviceName}`, `Der Termin am ${when} wurde storniert.${b.cancellationFeeCents > 0 ? ` Dir steht ein Anteil der Stornogebühr zu.` : ""}`);
         break;
       }
       case "booking.reminder_24h":
-        c("Morgen ist es so weit", `${b.serviceName} mit ${b.providerName} am ${when}.`, "reminders");
+        c(`Morgen, ${formatClock(b.startsAt)}: ${b.serviceName}`, `${b.providerName} kommt zu dir. Deinen Start-Code findest du in der Buchung.`, "reminders");
         p(`Erinnerung: ${b.serviceName}`, `Dein Termin am ${when} in ${b.city}.`, "reminders");
         break;
       case "booking.completed":
-        c(`Wie war Ihr Termin mit ${b.providerName}?`, "Wir freuen uns über Ihre Bewertung – sie hilft anderen bei der Wahl.");
+        c(`Wie war dein Termin mit ${b.providerName}?`, "Deine Bewertung hilft anderen bei der Wahl.");
         p("Termin abgeschlossen", `${b.serviceName} am ${when}. Deine Einnahmen: ${formatEuro(b.providerPayoutCents)}.`);
         break;
       case "booking.no_show":
-        c("Termin nicht wahrgenommen", `${b.providerName} hat Sie am ${when} nicht angetroffen. Gemäß Stornobedingungen fällt eine Gebühr von ${formatEuro(b.cancellationFeeCents)} an.`);
+        c("Termin nicht wahrgenommen", `${b.providerName} hat dich am ${when} nicht angetroffen. Laut Stornobedingungen fällt eine Gebühr von ${formatEuro(b.cancellationFeeCents)} an.`);
         for (const a of await adminIds(tx)) out.push({ userId: a, type: event, title: `No-Show ${b.reference}`, body: `${b.serviceName}, ${when}`, href: `/admin/buchungen/${b.id}`, topic: "account" });
         break;
       default:
@@ -164,7 +166,7 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
       if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Du bist freigeschaltet", body: "Dein Profil ist jetzt sichtbar und buchbar. Viel Erfolg mit deinen ersten Terminen.", href: "/pro", topic: "account" });
       break;
     case "provider.rejected":
-      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Deine Verifizierung braucht noch etwas", body: ctx.note ? `Hinweis vom SOMA-Team: ${ctx.note}` : "Bitte prüfe deine Unterlagen in der Verifizierung.", href: "/pro/verifizierung", topic: "account" });
+      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: "Deine Verifizierung braucht noch etwas", body: ctx.note ? `Hinweis vom SOMA-Team: ${ctx.note}` : "Bitte prüf deine Unterlagen in der Verifizierung.", href: "/pro/verifizierung", topic: "account" });
       break;
     case "provider.suspended_documents":
       if (ctx.providerId) {
@@ -176,7 +178,7 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
       }
       break;
     case "payout.paid":
-      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: `Auszahlung unterwegs: ${formatEuro(ctx.amountCents ?? 0)}`, body: "Das Geld ist in 1–3 Werktagen auf deinem Konto.", href: "/pro/einnahmen", topic: "account" });
+      if (ctx.providerId) out.push({ userId: ctx.providerId, type: event, title: `Auszahlung unterwegs: ${formatEuro(ctx.amountCents ?? 0)}`, body: "Das Geld ist in der Regel in 1–3 Werktagen auf deinem Konto.", href: "/pro/einnahmen", topic: "account" });
       break;
     case "dispute.opened":
     case "dispute.resolved": {
@@ -186,17 +188,17 @@ async function buildMessages(tx: Tx, event: NotifyEvent, ctx: NotifyContext): Pr
         from public.disputes d join public.bookings b on b.id = d.booking_id where d.id = ${ctx.disputeId}`;
       if (!d) break;
       if (event === "dispute.opened") {
-        out.push({ userId: d.customerId, type: event, title: "Wir kümmern uns um Ihr Anliegen", body: `Ihre Meldung zu ${d.reference} ist eingegangen. Wir melden uns innerhalb von 72 Stunden.`, href: `/buchung/${d.bookingId}`, topic: "bookings" });
+        out.push({ userId: d.customerId, type: event, title: "Wir kümmern uns um dein Anliegen", body: `Deine Meldung zu ${d.reference} ist eingegangen. Wir melden uns, sobald wir den Fall geprüft haben.`, href: `/buchung/${d.bookingId}`, topic: "bookings" });
         out.push({ userId: d.providerId, type: event, title: "Zu einem Termin wurde ein Problem gemeldet", body: `Buchung ${d.reference}: Das SOMA-Team prüft den Fall. Die Auszahlung für diesen Termin ist bis dahin pausiert.`, href: `/pro/termine/${d.bookingId}`, topic: "bookings" });
-        for (const a of await adminIds(tx)) out.push({ userId: a, type: event, title: `Neuer Streitfall ${d.reference}`, body: "Bitte innerhalb von 4 Stunden reagieren.", href: "/admin/streitfaelle", topic: "account" });
+        for (const a of await adminIds(tx)) out.push({ userId: a, type: event, title: `Neuer Streitfall ${d.reference}`, body: "Bitte innerhalb von 4 Stunden reagieren.", href: "/admin/streitfaelle", topic: "account" });
       } else {
-        out.push({ userId: d.customerId, type: event, title: "Ihr Anliegen wurde geklärt", body: ctx.note ?? `Zu ${d.reference} gibt es eine Entscheidung.`, href: `/buchung/${d.bookingId}`, topic: "bookings" });
+        out.push({ userId: d.customerId, type: event, title: "Dein Anliegen ist geklärt", body: ctx.note ?? `Zu ${d.reference} gibt es eine Entscheidung.`, href: `/buchung/${d.bookingId}`, topic: "bookings" });
         out.push({ userId: d.providerId, type: event, title: "Streitfall abgeschlossen", body: `Buchung ${d.reference} wurde geklärt.`, href: `/pro/termine/${d.bookingId}`, topic: "bookings" });
       }
       break;
     }
     case "referral.rewarded":
-      if (ctx.userId) out.push({ userId: ctx.userId, type: event, title: "Ihre Empfehlung hat sich gelohnt", body: `Wir haben Ihnen ${formatEuro(ctx.amountCents ?? 0)} SOMA-Guthaben gutgeschrieben.`, href: "/konto/guthaben", topic: "account" });
+      if (ctx.userId) out.push({ userId: ctx.userId, type: event, title: "Deine Empfehlung hat sich gelohnt", body: `${formatEuro(ctx.amountCents ?? 0)} SOMA-Guthaben sind gutgeschrieben.`, href: "/konto/guthaben", topic: "account" });
       break;
     default:
       break;

@@ -279,12 +279,12 @@ export async function anonymizeUser(session: Session, userId: string, reason: st
   return dto;
 }
 
-/** Customer-facing blocker texts ("Sie"). */
+/** Customer-facing blocker texts ("du"). */
 function customerBlockerMessage(f: BlockerFacts): string | null {
-  if (f.anonymizedAt) return "Ihr Konto ist bereits gelöscht.";
-  if (f.role !== "customer") return "Bitte wenden Sie sich für die Löschung dieses Kontos an das SOMA-Team.";
-  if (f.activeBookings > 0) return "Sie haben noch offene Termine. Bitte stornieren Sie diese zuerst oder warten Sie, bis sie abgeschlossen sind.";
-  if (f.openDisputes > 0) return "Zu einem Ihrer Termine läuft noch eine Klärung. Wir löschen Ihr Konto gern, sobald sie abgeschlossen ist.";
+  if (f.anonymizedAt) return "Dein Konto ist bereits gelöscht.";
+  if (f.role !== "customer") return "Für die Löschung dieses Kontos wende dich bitte an den SOMA-Support.";
+  if (f.activeBookings > 0) return "Du hast noch offene Termine. Bitte storniere sie zuerst oder warte, bis sie abgeschlossen sind.";
+  if (f.openDisputes > 0) return "Zu einem deiner Termine läuft noch eine Klärung. Wir löschen dein Konto gern, sobald sie abgeschlossen ist.";
   return null;
 }
 

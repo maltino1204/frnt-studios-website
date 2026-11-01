@@ -99,11 +99,11 @@ export async function getProProfile(session: Session): Promise<ProProfileDTO> {
 }
 
 const ProProfileSchema = z.object({
-  displayName: z.string().trim().min(2, "Bitte gib deinen Anzeigenamen an (z. B. „Selin A.“).").max(80),
+  displayName: z.string().trim().min(2, "Bitte gib deinen Anzeigenamen an (z. B. „Selin A.“).").max(80),
   headline: z.string().trim().max(120).optional().transform((v) => v || null),
   bio: z.string().trim().max(400, "Höchstens 400 Zeichen.").optional().transform((v) => v || null),
   yearsExperience: z.number().int().min(0).max(60).nullable().optional(),
-  languages: z.array(z.string().trim().regex(/^[a-z]{2}$/, "Sprachcode, z. B. „de“.")).min(1, "Bitte wähle mindestens eine Sprache.").max(10),
+  languages: z.array(z.string().trim().regex(/^[a-z]{2}$/, "Sprachcode, z. B. „de“.")).min(1, "Bitte wähl mindestens eine Sprache.").max(10),
 });
 
 export async function updateProProfile(session: Session, input: z.input<typeof ProProfileSchema>): Promise<ProProfileDTO> {
@@ -121,8 +121,8 @@ export async function updateProProfile(session: Session, input: z.input<typeof P
 
 const AreaSchema = z.object({
   basePostalCode: zPostalCode,
-  serviceRadiusKm: z.number().min(3, "Mindestens 3 km.").max(30, "Höchstens 30 km."),
-  travelFeeBaseCents: z.number().int().min(0).max(3000, "Höchstens 30 € Anfahrt."),
+  serviceRadiusKm: z.number().min(3, "Mindestens 3 km.").max(30, "Höchstens 30 km."),
+  travelFeeBaseCents: z.number().int().min(0).max(3000, "Höchstens 30 € Anfahrt."),
   travelFeeIncludedKm: z.number().min(0).max(30),
   travelFeePerKmCents: z.number().int().min(0).max(200),
 });
@@ -182,7 +182,7 @@ export async function queryMissingCategoryDocuments(tx: Queryable, providerId: s
 const ProServiceSchema = z.object({
   serviceId: zUuid,
   durationMinutes: z.number().int().min(15).max(480),
-  priceCents: z.number().int().min(500, "Mindestens 5 €.").max(100_000, "Höchstens 1.000 €."),
+  priceCents: z.number().int().min(500, "Mindestens 5 €.").max(100_000, "Höchstens 1.000 €."),
   isActive: z.boolean().optional().default(true),
   /** "Leistung hinzufügen": refuse instead of overwriting an existing offering's price (audit-4 A4-2). */
   createOnly: z.boolean().optional().default(false),
@@ -197,7 +197,7 @@ export async function upsertProService(session: Session, input: z.input<typeof P
     if (!svc) throw new ServiceError("not_found", "Diese Leistung gibt es nicht (mehr).");
     const within = Math.abs(v.durationMinutes - svc.defaultDuration) <= svc.defaultDuration * 0.3 && v.durationMinutes % 5 === 0;
     if (!svc.durations.includes(v.durationMinutes) && !within) {
-      throw new ServiceError("validation", `Die Dauer muss zu dieser Leistung passen (${svc.durations.join(" / ")} Min. oder ±30 %).`, { durationMinutes: "Unpassende Dauer." });
+      throw new ServiceError("validation", `Die Dauer muss zu dieser Leistung passen (${svc.durations.join(" / ")} Min. oder ±30 %).`, { durationMinutes: "Unpassende Dauer." });
     }
     // The trigger provider_services_10_require_documents (migration 0008) stores the offering of an
     // approved provider inactive with awaiting_documents while the category's documents are incomplete.
@@ -523,7 +523,7 @@ export async function submitForReview(session: Session, input: { termsAccepted: 
   const state = await getOnboardingState(s);
   if (!state.canSubmit) {
     const open = state.steps.filter((st) => !st.done && st.key !== "payout").map((st) => st.label);
-    throw new ServiceError("validation", open.length ? `Bitte schließe zuerst ab: ${open.join(", ")}.` : "Dein Profil wurde bereits eingereicht.");
+    throw new ServiceError("validation", open.length ? `Bitte schließ zuerst ab: ${open.join(", ")}.` : "Dein Profil wurde bereits eingereicht.");
   }
   // withService: providers.status / terms_accepted_at are not column-granted to providers; readiness and consent were verified above.
   await withService(async (tx) => {
@@ -556,8 +556,8 @@ export async function getProSettings(session: Session): Promise<ProSettingsDTO> 
 
 const SettingsSchema = z.object({
   bookingMode: z.enum(["instant", "request"]),
-  leadTimeMinutes: z.number().int().min(60, "Mindestens 1 Stunde Vorlauf.").max(2880),
-  travelBufferMinutes: z.number().int().min(15, "Mindestens 15 Minuten Puffer.").max(60, "Höchstens 60 Minuten Puffer."),
+  leadTimeMinutes: z.number().int().min(60, "Mindestens 1 Stunde Vorlauf.").max(2880),
+  travelBufferMinutes: z.number().int().min(15, "Mindestens 15 Minuten Puffer.").max(60, "Höchstens 60 Minuten Puffer."),
   maxAdvanceDays: z.number().int().min(7).max(180),
   /** omitted → unchanged */
   vatMode: z.enum(["regular", "small_business"]).optional(),

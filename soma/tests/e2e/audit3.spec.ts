@@ -108,10 +108,10 @@ test("a refused review keeps stars and text (N5)", async ({ page }) => {
   const stars = page.getByRole("radio", { name: /Stern/ });
   await stars.nth(3).check({ force: true });
   const text = "Sehr angenehm! Für den nächsten Termin: 0170 1234567";
-  await page.getByLabel(/Ihre Worte/).fill(text);
+  await page.getByLabel(/Deine Worte/).fill(text);
   await page.getByRole("button", { name: "Bewertung senden" }).click();
   await expect(page.locator("main")).toContainText("Kontaktdaten", { timeout: 15_000 });
-  await expect(page.getByLabel(/Ihre Worte/)).toHaveValue(text);
+  await expect(page.getByLabel(/Deine Worte/)).toHaveValue(text);
   await expect(stars.nth(3)).toBeChecked();
 });
 

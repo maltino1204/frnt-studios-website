@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/agb-profis" },
 };
 
-const pct = (rate: number) => `${(rate * 100).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
+const pct = (rate: number) => `${(rate * 100).toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
 
 export default async function AgbProfisPage() {
   const [terms, publicTerms] = await Promise.all([getProviderTerms(), getPublicTerms()]);
@@ -42,7 +42,7 @@ export default async function AgbProfisPage() {
     >
       <ContentSection id="geltung" title={sections[0].title}>
         <p>
-          Diese Bedingungen gelten für Unternehmerinnen und Unternehmer (§ 14 BGB), die über {BRAND_NAME} Beauty- und Wellnessbehandlungen am Ort ihrer Kundschaft anbieten. Betreiber ist
+          Diese Bedingungen gelten für Unternehmerinnen und Unternehmer (§ 14 BGB), die über {BRAND_NAME} Beauty- und Wellnessbehandlungen am Ort ihrer Kundschaft anbieten. Betreiber ist
           die [Firmenname] GmbH (<Link href={routes.imprint()}>Impressum</Link>).
         </p>
       </ContentSection>
@@ -54,8 +54,8 @@ export default async function AgbProfisPage() {
       </ContentSection>
       <ContentSection id="pruefung" title={sections[2].title}>
         <p>
-          Vor der Freischaltung prüfen wir Identität, Gewerbeanmeldung, Qualifikation und Berufshaftpflichtversicherung. Für einzelne Kategorien gelten zusätzliche Nachweise, etwa für Haare
-          &amp; Styling ein Meisterbrief oder die Eintragung in die Handwerksrolle. Wir können eine Freischaltung ablehnen oder ein Profil sperren, wenn Nachweise fehlen oder Pflichten
+          Vor der Freischaltung prüfen wir Identität, Gewerbeanmeldung und Berufshaftpflichtversicherung sowie – je nach Kategorie – einen Qualifikationsnachweis, etwa für Haare
+          &amp; Styling einen Meisterbrief oder die Eintragung in die Handwerksrolle. Wir können eine Freischaltung ablehnen oder ein Profil sperren, wenn Nachweise fehlen oder Pflichten
           verletzt werden.
         </p>
       </ContentSection>
@@ -73,26 +73,32 @@ export default async function AgbProfisPage() {
           </li>
           <li>Auf Anfahrtskosten fällt keine Provision an.</li>
           <li>
-            Auszahlungen erfolgen {terms.payoutHoldHours} Stunden nach Abschluss eines Termins, sofern kein Problem gemeldet wurde, über unseren Zahlungsdienstleister auf dein Konto.
+            Auszahlungen erfolgen {terms.payoutHoldHours}{"\u00a0"}Stunden nach Abschluss eines Termins, sofern kein Problem gemeldet wurde, über unseren Zahlungsdienstleister auf dein Konto.
           </li>
         </ul>
       </ContentSection>
       <ContentSection id="absagen" title={sections[5].title}>
         <p>
-          Anfragen beantwortest du innerhalb von {terms.requestResponseHours} Stunden, gezählt zwischen 8 und 21 Uhr, spätestens aber 2 Stunden vor dem Termin. Bestätigte Termine sagst du nur aus wichtigem Grund ab; die Kundschaft erhält dann den vollen Betrag
-          zurück. Den Termin startest du vor Ort mit dem vierstelligen Start-Code der Kundschaft – er belegt, dass die Behandlung stattgefunden hat.
+          Anfragen beantwortest du innerhalb von {terms.requestResponseHours}{"\u00a0"}Stunden, gezählt zwischen 8 und 21 Uhr, spätestens aber 2 Stunden vor dem Termin. Bestätigte Termine sagst du nur aus wichtigem Grund ab; der Kundschaft entstehen
+          dann keine Kosten. Den Termin startest du vor Ort mit dem vierstelligen Start-Code der Kundschaft – er belegt, dass die Behandlung stattgefunden hat.
+        </p>
+        {/* ⚖ Zero-tolerance rule (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01); the binding wording is the lawyer's. */}
+        <p>
+          <strong>Null Toleranz bei anzüglichen Anfragen.</strong> {BRAND_NAME} vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen der
+          Kundschaft führen zur Sperrung ihres Kontos. Fühlst du dich bei einem Termin unwohl, darfst du gehen. Melde es uns – wir kümmern uns darum. [⚖ Anwaltlich zu formulieren:
+          Abbruch des Termins durch den Profi, Vergütung und Stornogebühr in diesem Fall, Beweisfragen, Sperrung und Kündigung aus wichtigem Grund.]
         </p>
       </ContentSection>
       <ContentSection id="plattform" title={sections[6].title}>
         <p>
-          Buchungen, Zahlungen und Kommunikation zu über {BRAND_NAME} vermittelter Kundschaft laufen über die Plattform. Nur so gelten Zahlungsgarantie, Stornoregeln und
+          Buchungen, Zahlungen und Kommunikation zu über {BRAND_NAME} vermittelter Kundschaft laufen über die Plattform. Nur so gelten sichere Zahlung, Stornoregeln und
           Problemklärung. Nach der Bestätigung siehst du die Mobilnummer deiner Kundschaft ausschließlich, um die Anfahrt abzustimmen; für andere Zwecke darfst du sie nicht nutzen.
           [Rechtlich zu prüfen: Zulässigkeit und Umfang einer Umgehungsklausel.]
         </p>
       </ContentSection>
       <ContentSection id="qualitaet" title={sections[7].title}>
         <p>
-          Kundinnen und Kunden können nach abgeschlossenen Terminen bewerten; du kannst öffentlich antworten. Meldet die Kundschaft innerhalb von {publicTerms.disputeWindowHours} Stunden ein
+          Kundinnen und Kunden können nach abgeschlossenen Terminen bewerten; du kannst öffentlich antworten. Meldet die Kundschaft innerhalb von {publicTerms.disputeWindowHours}{"\u00a0"}Stunden ein
           Problem, wird die Auszahlung für diesen Termin bis zur Klärung zurückgehalten.
         </p>
       </ContentSection>

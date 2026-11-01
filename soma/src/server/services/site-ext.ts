@@ -152,7 +152,7 @@ export async function getCoverageMatrix(): Promise<CoverageDTO[]> {
   });
 }
 
-/** Lowest PLZ per launch city, used as a realistic input example ("z. B. 10115"). */
+/** Lowest PLZ per launch city, used as a realistic input example ("z. B. 10115"). */
 export async function listCityPostalExamples(): Promise<Record<string, string>> {
   return withAnon(async (tx) => {
     const rows = await tx<Array<{ citySlug: string; postalCode: string }>>`

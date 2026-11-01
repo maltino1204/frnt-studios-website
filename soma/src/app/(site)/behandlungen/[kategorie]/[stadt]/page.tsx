@@ -42,8 +42,8 @@ export async function generateMetadata({ params }: PageProps<"/behandlungen/[kat
   const title = `${category.name} zu Hause in ${city.name}`;
   const description =
     coverage.providerCount > 0
-      ? `${category.name} in ${city.name}: ${providerCountLabel(coverage.providerCount)} kommen zu Ihnen nach Hause, ins Hotel oder ins Büro. Verifiziert, Endpreise inklusive Anfahrt, kostenlos stornierbar.`
-      : `${category.name} zu Hause in ${city.name}: Wir bauen das Angebot gerade auf. Geben Sie Ihre Postleitzahl ein und erfahren Sie, sobald es losgeht.`;
+      ? `${category.name} in ${city.name}: ${providerCountLabel(coverage.providerCount)} kommen zu dir nach Hause, ins Hotel oder ins Büro. Geprüft, Endpreis inklusive Anfahrt, kostenlos stornierbar.`
+      : `${category.name} zu Hause in ${city.name}: Wir bauen das Angebot gerade auf. Gib deine Postleitzahl ein, dann sagen wir dir Bescheid, sobald es losgeht.`;
   return {
     title,
     description,
@@ -126,7 +126,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
             </h1>
             <p className="max-w-[36rem] type-body-l text-ink-muted">
               {n > 0
-                ? `${providerCountLabel(n)} für ${category.name} ${n === 1 ? "kommt" : "kommen"} in ${city.name} zu Ihnen – nach Hause, ins Hotel oder ins Büro.${from != null ? ` Leistungen ${fromPrice(from)}, zuzüglich Anfahrt.` : ""}`
+                ? `${providerCountLabel(n)} für ${category.name} ${n === 1 ? "kommt" : "kommen"} in ${city.name} zu dir – nach Hause, ins Hotel oder ins Büro.${from != null ? ` Leistungen ${fromPrice(from)}, zuzüglich Anfahrt.` : ""}`
                 : `Für ${category.name} in ${city.name} bauen wir das Angebot gerade auf.`}
             </p>
           </header>
@@ -156,13 +156,13 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
                   ))}
                 </ul>
                 <p className="mt-4 type-caption text-ink-muted">
-                  „ab“ ist das günstigste Angebot des Profis ohne Anfahrt. Freie Termine und den Endpreis für Ihre Adresse sehen Sie nach Eingabe der Postleitzahl.
+                  „ab“ ist das günstigste Angebot des Profis ohne Anfahrt. Freie Termine und den Endpreis für deine Adresse siehst du nach Eingabe der Postleitzahl.
                 </p>
               </section>
             ) : (
               // EmptyState renders its own h2.
               <EmptyState title={`${category.name} in ${city.name} ist bald da.`} seed={`${category.slug}:${city.slug}`} tone={category.slug} className="rounded-card bg-surface-raised p-6 shadow-raised md:p-8">
-                Geben Sie Ihre Postleitzahl ein: Wir zeigen Ihnen Profis, die zu Ihnen fahren, oder geben Ihnen Bescheid, sobald es in Ihrer Gegend losgeht.
+                Gib deine Postleitzahl ein: Wir zeigen dir Profis, die zu dir kommen, oder sagen dir Bescheid, sobald es in deiner Gegend losgeht.
               </EmptyState>
             )}
 

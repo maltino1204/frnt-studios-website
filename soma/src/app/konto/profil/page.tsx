@@ -49,7 +49,7 @@ export default async function ProfilPage() {
   return (
     <div className="flex flex-col gap-5 md:gap-6">
       <PageHeader title="Profil & Sicherheit" description={`Bei ${BRAND_NAME} seit ${formatDateLong(profile.createdAt)}`} className="pb-1" />
-      <Card id="angaben" icon={UserRound} title="Ihre Angaben">
+      <Card id="angaben" icon={UserRound} title="Deine Angaben">
         <div className="flex items-center gap-3.5 rounded-tile bg-surface-sunken p-3.5">
           <Avatar src={profile.avatarUrl} name={fullName} size={48} />
           <div className="min-w-0">
@@ -65,8 +65,8 @@ export default async function ProfilPage() {
       <Card
         id="daten"
         icon={Download}
-        title="Ihre Daten"
-        lead="Laden Sie alles herunter, was wir zu Ihrem Konto speichern: Angaben, Adressen, Buchungen, Bewertungen und Guthaben, als JSON-Datei."
+        title="Deine Daten"
+        lead="Lade alles herunter, was wir zu deinem Konto speichern: Angaben, Adressen, Buchungen, Bewertungen und Guthaben, als JSON-Datei."
       >
         <DataExportButton />
       </Card>
@@ -77,7 +77,7 @@ export default async function ProfilPage() {
         danger
         lead={
           <>
-            Wir löschen Ihre persönlichen Angaben und Ihren Zugang. Offene Termine stornieren Sie bitte vorher; Rechnungsdaten bewahren wir ohne Ihre Kontaktdaten so lange auf,
+            Wir löschen deine persönlichen Angaben und deinen Zugang. Offene Termine storniere bitte vorher; Rechnungsdaten bewahren wir ohne deine Kontaktdaten so lange auf,
             wie es das Gesetz verlangt. Fragen dazu beantworten wir unter{" "}
             <a href={`mailto:${SUPPORT_EMAIL}`} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
               {SUPPORT_EMAIL}

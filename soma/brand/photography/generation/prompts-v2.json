@@ -1275,8 +1275,8 @@
     "focal": "50% 50%",
     "caption": "Natürliches Tages-Make-up",
     "captionChanged": false,
-    "scene": "Close portrait of a woman of about 29 with natural day make-up, light coverage, freckles visible, a plain white cotton shirt, by a window in soft daylight, calm expression.",
-    "prompt": "Close portrait of a woman of about 29 with natural day make-up, light coverage, freckles visible, a plain white cotton shirt, by a window in soft daylight, calm expression. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
+    "scene": "Close portrait of a woman of about 29 of East Asian heritage with natural day make-up, light coverage, freckles visible, a plain white cotton shirt, by a window in soft daylight, calm expression.",
+    "prompt": "Close portrait of a woman of about 29 of East Asian heritage with natural day make-up, light coverage, freckles visible, a plain white cotton shirt, by a window in soft daylight, calm expression. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
   },
   {
     "id": "P57",
@@ -1387,8 +1387,8 @@
     "focal": "50% 50%",
     "caption": "Definierte Naturlocken",
     "captionChanged": false,
-    "scene": "Portrait of a woman of about 30 with defined natural curls, in a plain rust-coloured cotton shirt, sitting by a window and looking out, soft daylight on the curls.",
-    "prompt": "Portrait of a woman of about 30 with defined natural curls, in a plain rust-coloured cotton shirt, sitting by a window and looking out, soft daylight on the curls. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
+    "scene": "Portrait of a Black woman of about 30 with defined natural curls, in a plain rust-coloured cotton shirt, sitting by a window and looking out, soft daylight on the curls.",
+    "prompt": "Portrait of a Black woman of about 30 with defined natural curls, in a plain rust-coloured cotton shirt, sitting by a window and looking out, soft daylight on the curls. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
   },
   {
     "id": "P64",
@@ -1659,7 +1659,7 @@
     "focal": "50% 50%",
     "caption": "Fertig: Brauen und Wimpern natürlich betont",
     "captionChanged": false,
-    "scene": "Close portrait of a woman of about 30 with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window.",
-    "prompt": "Close portrait of a woman of about 30 with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
+    "scene": "Close portrait of a woman of about 30 of South Asian heritage with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window.",
+    "prompt": "Close portrait of a woman of about 30 of South Asian heritage with naturally defined brows and lashes, no visible make-up, freckles, looking calmly to the side by a window. Candid 35 mm colour-negative documentary photo: soft window light, real shadows, warm creamy highlights, warm brown shadows, muted warm-neutral palette of bone, stone, taupe, oak and espresso, fine grain, natural unretouched skin, calm. Plain unbranded clothing, bare surfaces. No text, letters, logos, labels, borders, flowers, plants, candles or stones."
   }
 ]

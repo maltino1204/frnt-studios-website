@@ -11,7 +11,7 @@ export default function ProfilNotFound() {
           title="Dieses Profil ist nicht verfügbar."
           action={<ButtonLink href={routes.search()}>Andere Profis finden</ButtonLink>}
         >
-          Die Fachkraft ist auf SOMA gerade nicht buchbar oder der Link ist nicht mehr gültig.
+          Dieses Profil ist auf SOMA gerade nicht buchbar oder der Link ist nicht mehr gültig.
         </NotFoundState>
       </Container>
     </div>

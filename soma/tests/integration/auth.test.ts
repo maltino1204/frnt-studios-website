@@ -72,7 +72,7 @@ describe("local auth adapter", () => {
     // one typo: the immediate retry is allowed
     await expect(verifyLocalCredentials(email, "falsches-passwort", meta)).rejects.toThrow(/falsch/);
     // second failure → 2 s back-off, even with the right password
-    await expect(verifyLocalCredentials(email, PASSWORD, meta)).rejects.toMatchObject({ code: "rate_limited", message: expect.stringMatching(/Bitte warten Sie \d Sekunden?/) });
+    await expect(verifyLocalCredentials(email, PASSWORD, meta)).rejects.toMatchObject({ code: "rate_limited", message: expect.stringMatching(/Bitte warte \d\sSekunden?/) });
     await ageFailures(email, 3);
     expect(await verifyLocalCredentials(email, PASSWORD, meta)).toBe(id);
     // success clears the streak

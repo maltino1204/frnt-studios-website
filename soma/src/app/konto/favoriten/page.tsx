@@ -20,7 +20,7 @@ export default async function FavoritenPage() {
   const favorites = await listFavorites(session);
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="Favoriten" description="Ihre Profis – für den nächsten Termin mit einem Tipp." className="pb-0" />
+      <PageHeader title="Favoriten" description="Deine Profis, gespeichert für das nächste Mal." className="pb-0" />
       {favorites.length ? (
         <ul className="grid gap-3 md:grid-cols-2 md:gap-4">
           {favorites.map((f) => (
@@ -65,7 +65,7 @@ export default async function FavoritenPage() {
       ) : (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
           <EmptyState title="Noch keine Favoriten." seed="konto-favoriten" action={<ButtonLink href={routes.search()}>Profis entdecken</ButtonLink>} className="py-8">
-            Tippen Sie auf das Herz bei einer Fachkraft, um sie hier zu speichern.
+            Tipp bei einem Profil auf das Herz – dann findest du es hier wieder.
           </EmptyState>
         </div>
       )}

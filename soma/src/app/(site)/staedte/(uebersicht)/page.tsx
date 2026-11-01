@@ -18,7 +18,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Städte: Beauty & Wellness zu Hause",
-  description: "In diesen Städten kommen geprüfte Profis für Massage, Nägel, Kosmetik, Make-up und mehr zu Ihnen nach Hause, ins Hotel oder ins Büro.",
+  description: "In diesen Städten kommen geprüfte Profis für Massage, Nägel, Kosmetik, Make-up und mehr zu dir nach Hause, ins Hotel oder ins Büro.",
   alternates: { canonical: "/staedte" },
 };
 
@@ -42,7 +42,7 @@ export default async function StaedtePage() {
               Jetzt in {numberWord(cities.length)} Städten. <em>Weitere folgen.</em>
             </h1>
             <p className="max-w-[34rem] type-body-l text-ink-muted">
-              Ihre Stadt fehlt? Geben Sie auf der Startseite Ihre Postleitzahl ein – wir melden uns, sobald Profis in Ihrer Gegend buchbar sind.
+              Deine Stadt fehlt? Gib auf der Startseite deine Postleitzahl ein – wir sagen dir Bescheid, sobald Profis in deiner Gegend buchbar sind.
             </p>
           </header>
         </Container>

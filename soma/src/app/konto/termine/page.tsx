@@ -33,7 +33,7 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="Termine" description="Ihre Buchungen und Anfragen auf einen Blick." className="pb-0" />
+      <PageHeader title="Termine" description="Deine Buchungen und Anfragen auf einen Blick." className="pb-0" />
       <TabLinks
         label="Termine filtern"
         items={[
@@ -68,15 +68,15 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
         <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
           {tab === "bevorstehend" ? (
             <EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href={routes.search()}>Behandlung finden</ButtonLink>} className="py-8">
-              Sobald Sie buchen, finden Sie Ihre Termine hier.
+              Wenn du buchst, findest du hier Zeit, Ort, Start-Code und Stornofrist.
             </EmptyState>
           ) : tab === "vergangen" ? (
             <EmptyState title="Noch keine vergangenen Termine." seed="konto-vergangen" className="py-8">
-              Abgeschlossene Termine erscheinen hier – mit einem Tipp buchen Sie sie erneut.
+              Abgeschlossene Termine erscheinen hier – mit einem Tipp buchst du sie erneut.
             </EmptyState>
           ) : (
             <EmptyState title="Keine stornierten Termine." seed="konto-storniert" className="py-8">
-              Stornierte, abgelehnte und abgelaufene Buchungen sehen Sie hier.{" "}
+              Stornierte, abgelehnte und abgelaufene Buchungen siehst du hier.{" "}
               <Link href={routes.account.bookings()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                 Zu den anstehenden Terminen
               </Link>

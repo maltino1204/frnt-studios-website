@@ -33,7 +33,7 @@ export function JourneyError({
           </div>
         }
       >
-        {`Bitte versuchen Sie es in einem Moment noch einmal.${note ? ` ${note}` : ""}`}
+        {`Bitte versuch es in einem Moment noch einmal.${note ? ` ${note}` : ""}`}
         {error.digest ? <span className="mt-2 block type-caption">{`Fehlercode ${error.digest}`}</span> : null}
       </EmptyState>
     </div>

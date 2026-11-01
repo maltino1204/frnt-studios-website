@@ -51,7 +51,7 @@ export function FavoriteButton({
         return;
       }
       setFav(res.data.favorite);
-      toast.show(res.data.favorite ? `${providerName} ist jetzt in Ihren Favoriten.` : `${providerName} wurde aus Ihren Favoriten entfernt.`);
+      toast.show(res.data.favorite ? `${providerName} ist jetzt in deinen Favoriten.` : `${providerName} wurde aus deinen Favoriten entfernt.`);
     });
   };
 

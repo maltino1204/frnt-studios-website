@@ -19,7 +19,7 @@ export function tzName(d: string | Date = new Date()): string {
 /** 0.2 → "20 %", 0.125 → "12,5 %" */
 export function formatPercent(ratio: number | null | undefined, digits = 1): string {
   if (ratio == null || !Number.isFinite(ratio)) return "—";
-  return `${(ratio * 100).toLocaleString(LOCALE, { maximumFractionDigits: digits })} %`;
+  return `${(ratio * 100).toLocaleString(LOCALE, { maximumFractionDigits: digits })} %`;
 }
 
 export function formatInt(n: number | null | undefined): string {

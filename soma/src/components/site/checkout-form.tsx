@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BedDouble, Building2, CalendarDays, ChevronDown, CircleAlert, Clock, House, KeyRound, MapPin, Plus, UserRound, Wallet } from "lucide-react";
+import { BedDouble, Building2, CalendarDays, ChevronDown, CircleAlert, Clock, House, KeyRound, MapPin, Plus, ShieldCheck, UserRound, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Avatar } from "@/components/ui/avatar";
@@ -15,6 +15,7 @@ import { SegmentedControl } from "@/components/ui/segmented";
 import { CheckLine, PriceBreakdown, type PriceLine } from "@/components/ui/summary";
 import { Rating } from "@/components/ui/trust";
 import { useToast } from "@/components/ui/toast";
+import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDistance, formatDuration, formatPrice, formatPriceExact, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
@@ -24,6 +25,7 @@ import { checkoutSignInAction, checkoutSignUpAction } from "@/server/actions/che
 import type { AddressDTO, CreateBookingInput, LocationKind, QuoteDTO } from "@/server/dto";
 import { dayLabel, deadlineShort, deadlineText, freeUntilFor, graceSentence, LOCATION_LABELS, NBSP, scheduleLines, slotChipLabel, slotTileClasses, withStop } from "./checkout-format";
 import { CheckoutStepper, MorphText, OptionCard, PaymentTile, StepCard } from "./checkout-parts";
+import { ZERO_TOLERANCE } from "./discovery-copy";
 import { MetaLine, ModeLabel } from "./provider-row";
 import { StripePaymentSheet } from "./checkout-stripe";
 
@@ -97,7 +99,7 @@ function requestIntro(providerName: string, quote: QuoteDTO): string {
   const when = preview
     ? `bis ${deadlineShort(preview)}`
     : `innerhalb von ${quote.requestResponseHours}${NBSP}${quote.requestResponseHours === 1 ? "Stunde" : "Stunden"} (zwischen 8 und 21${NBSP}Uhr)`;
-  return `${providerName} antwortet ${when} – belastet wird erst nach der Zusage. Bis dahin ist der Termin für Sie reserviert.`;
+  return `${providerName} antwortet ${when} – belastet wird erst nach der Zusage. Bis dahin ist der Termin für dich reserviert.`;
 }
 
 /** Confirmation URL; `?konto=neu` tells a fresh guest that the "Passwort festlegen" e-mail is on its way. */
@@ -188,23 +190,23 @@ export function CheckoutForm(props: CheckoutFormProps) {
   const errors = useMemo(() => {
     const e: Record<string, string> = {};
     if (choice === "new") {
-      if (addr.street.trim().length < 2) e.street = "Bitte geben Sie die Straße an.";
-      if (!addr.houseNumber.trim()) e.houseNumber = "Bitte geben Sie die Hausnummer an.";
-      if (addr.city.trim().length < 2) e.city = "Bitte geben Sie den Ort an.";
-      if (kind === "hotel" && !addr.hotel.trim()) e.hotel = "Bitte geben Sie den Namen des Hotels an.";
-      if (kind === "office" && !addr.company.trim()) e.company = "Bitte geben Sie die Firma an.";
+      if (addr.street.trim().length < 2) e.street = "Bitte gib die Straße an.";
+      if (!addr.houseNumber.trim()) e.houseNumber = "Bitte gib die Hausnummer an.";
+      if (addr.city.trim().length < 2) e.city = "Bitte gib den Ort an.";
+      if (kind === "hotel" && !addr.hotel.trim()) e.hotel = "Bitte gib den Namen des Hotels an.";
+      if (kind === "office" && !addr.company.trim()) e.company = "Bitte gib die Firma an.";
     }
     if (!quote.withinServiceArea) e.area = withStop(`Diese Adresse liegt außerhalb des Einsatzgebiets von ${provider.name}`);
     if (!customer && !guest) {
-      if (mode === "login") e.login = "Bitte melden Sie sich an oder legen Sie ein neues Konto an.";
+      if (mode === "login") e.login = "Bitte melde dich an oder leg ein neues Konto an.";
       else {
-        if (!contact.firstName.trim()) e.firstName = "Bitte geben Sie Ihren Vornamen an.";
-        if (!contact.lastName.trim()) e.lastName = "Bitte geben Sie Ihren Nachnamen an.";
-        if (!EMAIL.test(contact.email.trim())) e.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
-        if (!PHONE.test(contact.phone.trim())) e.phone = "Bitte geben Sie eine gültige Mobilnummer an.";
+        if (!contact.firstName.trim()) e.firstName = "Bitte gib deinen Vornamen an.";
+        if (!contact.lastName.trim()) e.lastName = "Bitte gib deinen Nachnamen an.";
+        if (!EMAIL.test(contact.email.trim())) e.email = "Bitte gib eine gültige E-Mail-Adresse ein.";
+        if (!PHONE.test(contact.phone.trim())) e.phone = "Bitte gib eine gültige Mobilnummer an.";
       }
-    } else if (phone.trim() && !PHONE.test(phone.trim())) e.customerPhone = "Bitte geben Sie eine gültige Mobilnummer an.";
-    if (!consent) e.consent = "Bitte bestätigen Sie, dass die Behandlung vor Ablauf der Widerrufsfrist beginnen darf.";
+    } else if (phone.trim() && !PHONE.test(phone.trim())) e.customerPhone = "Bitte gib eine gültige Mobilnummer an.";
+    if (!consent) e.consent = "Bitte bestätige, dass die Behandlung vor Ablauf der Widerrufsfrist beginnen darf.";
     return e;
   }, [choice, addr, kind, quote.withinServiceArea, provider.name, customer, guest, mode, contact, phone, consent]);
 
@@ -221,7 +223,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
   const doLogin = () => {
     setLoginError(null);
     if (!EMAIL.test(login.email.trim()) || !login.password) {
-      setLoginError("Bitte geben Sie E-Mail-Adresse und Passwort ein.");
+      setLoginError("Bitte gib E-Mail-Adresse und Passwort ein.");
       return;
     }
     startLogin(async () => {
@@ -230,7 +232,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
         setLoginError(res.error);
         return;
       }
-      toast.show(`Willkommen zurück${res.data.firstName ? `, ${res.data.firstName}` : ""}. Ihre Auswahl ist erhalten geblieben.`);
+      toast.show(`Willkommen zurück${res.data.firstName ? `, ${res.data.firstName}` : ""}. Deine Auswahl ist erhalten geblieben.`);
       router.refresh();
     });
   };
@@ -361,10 +363,10 @@ export function CheckoutForm(props: CheckoutFormProps) {
     ...(price.discountCents > 0 ? [{ label: <span className="hyphens-none">Guthaben</span>, cents: price.discountCents, kind: "credit" as const }] : []),
   ];
 
-  const idleCaption = isRequest ? withStop(`Belastung erst nach Bestätigung durch ${provider.name}`) : "Sofort bestätigt. Sie erhalten die Bestätigung per E-Mail.";
+  const idleCaption = isRequest ? withStop(`Belastung erst nach Bestätigung durch ${provider.name}`) : "Sofort bestätigt. Du erhältst die Bestätigung per E-Mail.";
   const phaseCaption: Record<Phase, string> = {
-    konto: "Ihr Kundenkonto wird angelegt …",
-    reservieren: isRequest ? "Ihre Anfrage wird gesendet …" : "Ihr Termin wird reserviert …",
+    konto: "Dein Kundenkonto wird angelegt …",
+    reservieren: isRequest ? "Deine Anfrage wird gesendet …" : "Dein Termin wird reserviert …",
     zahlung: quote.paymentProvider === "dev" ? "Testzahlung wird autorisiert …" : "Zahlung wird vorbereitet …",
     weiter: isRequest ? "Anfrage gesendet. Einen Moment …" : "Bestätigt. Einen Moment …",
   };
@@ -374,7 +376,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
       {showErrors && Object.keys(errors).length ? (
         <p role="alert" className="flex animate-fade-in items-center justify-center gap-1.5 type-caption text-danger">
           <Icon icon={CircleAlert} size={14} className="shrink-0" />
-          Bitte prüfen Sie die markierten Angaben.
+          Bitte prüf die markierten Angaben.
         </p>
       ) : null}
       <Button variant="accent" size="l" block onClick={submit} loading={submitting} disabled={!quote.withinServiceArea || !!taken} className="num">
@@ -403,10 +405,10 @@ export function CheckoutForm(props: CheckoutFormProps) {
     <div className="lg:grid lg:grid-cols-12 lg:gap-8">
       <div className="flex min-w-0 flex-col gap-4 md:gap-5 lg:col-span-7">
         <div className="flex flex-col gap-3 pb-2">
-          <Overline>{isRequest ? "Ihre Anfrage" : "Ihre Buchung"}</Overline>
+          <Overline>{isRequest ? "Deine Anfrage" : "Deine Buchung"}</Overline>
           <h1 className="type-display-s">{isRequest ? "Termin anfragen." : "Termin buchen."}</h1>
           <p className="max-w-reading type-body-s text-ink-muted">
-            {isRequest ? requestIntro(provider.name, quote) : "Prüfen Sie Ihre Angaben. Der Termin ist sofort bestätigt."}
+            {isRequest ? requestIntro(provider.name, quote) : "Prüf deine Angaben. Der Termin ist sofort bestätigt."}
           </p>
         </div>
         <CheckoutStepper steps={STEPS} current={current} onStepClick={(i) => scrollTo(STEP_IDS[i])} className="lg:sticky lg:top-[calc(var(--header-height)+0.75rem)] lg:z-10" />
@@ -416,7 +418,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
             <h2 className="type-display-s">Dieser Termin wurde gerade vergeben.</h2>
             <p className="type-body-s text-ink-muted">
               {taken.length
-                ? `Jemand war einen Moment schneller. Diese Zeiten sind bei ${provider.name} noch frei – Ihre Angaben bleiben erhalten:`
+                ? `Jemand war einen Moment schneller. Diese Zeiten sind bei ${provider.name} noch frei – deine Angaben bleiben erhalten:`
                 : `Jemand war einen Moment schneller. In den nächsten 7${NBSP}Tagen ist bei ${provider.name} leider nichts mehr frei.`}
             </p>
             {taken.length ? (
@@ -431,7 +433,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               </ul>
             ) : null}
             <Link href={routes.search({ plz: postalCode, kategorie: props.categorySlug ?? undefined })} className="self-start rounded-control type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring">
-              Andere Profis in Ihrer Nähe
+              Andere Profis in deiner Nähe
             </Link>
           </section>
         ) : null}
@@ -484,7 +486,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
         </StepCard>
 
         {/* 2 · Ort */}
-        <StepCard id="ort" index={1} done={valid[1]} title="Ort" description="Wo dürfen wir Sie besuchen?">
+        <StepCard id="ort" index={1} done={valid[1]} title="Ort" description="Wo findet dein Termin statt?">
           <SegmentedControl
             name="kind"
             label="Art des Ortes"
@@ -567,7 +569,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               </div>
               {kind === "home" ? (
                 <div className="grid grid-cols-2 gap-3">
-                  <Input label="Etage" optional placeholder="z. B. 3. OG" value={addr.floor} onChange={(e) => set("floor", e.target.value)} maxLength={30} />
+                  <Input label="Etage" optional placeholder="z. B. 3. OG, Hinterhaus" value={addr.floor} onChange={(e) => set("floor", e.target.value)} maxLength={30} />
                   <Input label="Klingelname" optional value={addr.bell} onChange={(e) => set("bell", e.target.value)} maxLength={60} />
                 </div>
               ) : kind === "hotel" ? (
@@ -594,18 +596,25 @@ export function CheckoutForm(props: CheckoutFormProps) {
             label="Hinweise zur Anfahrt"
             optional
             rows={2}
-            placeholder="z. B. Parken im Hof, Aufzug vorhanden, eine Katze im Haushalt"
+            placeholder="z. B. Parkplatz im Hof, Aufzug, Hund in der Wohnung. Bitte keine Telefonnummern oder Links."
             value={addr.hints}
             onChange={(e) => set("hints", e.target.value)}
             maxLength={400}
           />
           {isMassage ? (
             <Checkbox
-              label="Es ist Platz für eine Massageliege (ca. 2 × 3 m)."
-              description="Die Fachkraft bringt Liege, Tücher und Öle mit."
+              label="Platz für eine Massageliege (ca. 2 × 3 m) ist vorhanden."
+              description={`${provider.name} bringt Liege, Tücher und Öle mit.`}
               checked={addr.table}
               onChange={(e) => set("table", e.target.checked)}
             />
+          ) : null}
+          {isMassage ? (
+            // Zero-tolerance rule (BRAND_VOICE § 7.9 P5, client-approved 2026-11-01).
+            <p className="flex gap-2 type-caption text-ink-muted">
+              <Icon icon={ShieldCheck} size={16} className="mt-px shrink-0" />
+              {ZERO_TOLERANCE}
+            </p>
           ) : null}
 
           {!quote.withinServiceArea ? (
@@ -622,7 +631,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
           index={2}
           done={valid[2]}
           title="Kontakt"
-          description={customer || guest ? undefined : mode === "signup" ? "Für Ihre Bestätigung und Rückfragen am Termintag. Ein Passwort brauchen Sie dafür nicht." : undefined}
+          description={customer || guest ? undefined : mode === "signup" ? "Für deine Bestätigung und Rückfragen am Termintag. Ein Passwort brauchst du dafür nicht." : undefined}
         >
           {customer || guest ? (
             <div className="flex flex-col gap-4">
@@ -652,7 +661,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                   autoComplete="tel"
                   inputMode="tel"
                   placeholder="+49 151 23456789"
-                  hint="Für kurzfristige Rückfragen der Fachkraft am Termintag."
+                  hint={`Nur für Rückfragen am Termintag. ${provider.name} sieht sie erst nach der Bestätigung.`}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   error={err("customerPhone")}
@@ -663,7 +672,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
             <div className="flex flex-col gap-5">
               <SegmentedControl
                 name="kontakt-modus"
-                label="Wie möchten Sie fortfahren?"
+                label="Wie möchtest du fortfahren?"
                 value={mode}
                 onChange={(v) => {
                   if (v === "signup") setExistingEmail(null);
@@ -685,7 +694,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                     type="email"
                     autoComplete="email"
                     inputMode="email"
-                    hint="Hierhin schicken wir die Bestätigung und den Link, mit dem Sie später ein Passwort festlegen."
+                    hint="Hierhin schicken wir deine Bestätigung und den Link, mit dem du später ein Passwort festlegst."
                     value={contact.email}
                     onChange={(e) => setContact({ ...contact, email: e.target.value })}
                     error={err("email")}
@@ -696,7 +705,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                     autoComplete="tel"
                     inputMode="tel"
                     placeholder="+49 151 23456789"
-                    hint="Nur für Rückfragen zu Ihrem Termin. Wir geben sie erst nach der Bestätigung an die Fachkraft weiter."
+                    hint={`Nur für Rückfragen am Termintag. ${provider.name} sieht sie erst nach der Bestätigung.`}
                     value={contact.phone}
                     onChange={(e) => setContact({ ...contact, phone: e.target.value })}
                     error={err("phone")}
@@ -704,11 +713,11 @@ export function CheckoutForm(props: CheckoutFormProps) {
                   <div className="flex gap-3 rounded-tile bg-surface-sunken p-3.5">
                     <Icon icon={UserRound} size={18} className="mt-px shrink-0 text-ink-muted" />
                     <p className="type-caption text-ink-muted">
-                      Mit der Buchung legen wir ein Kundenkonto für Sie an. Es gelten die{" "}
+                      Mit der Buchung legen wir ein Kundenkonto für dich an. Es gelten die{" "}
                       <Link href={routes.terms()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current" target="_blank">
                         AGB
                       </Link>
-                      ; wie wir Ihre Daten verarbeiten, steht in der{" "}
+                      ; wie wir deine Daten verarbeiten, steht in der{" "}
                       <Link href={routes.privacy()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current hyphens-none" target="_blank">
                         Datenschutzerklärung
                       </Link>
@@ -719,8 +728,8 @@ export function CheckoutForm(props: CheckoutFormProps) {
               ) : (
                 <div key="login" className="flex animate-fade-in flex-col gap-4">
                   {existingEmail ? (
-                    <Notice kind="info" title="Sie haben schon ein Konto.">
-                      {`Mit ${existingEmail} gibt es bereits ein Kundenkonto. Bitte melden Sie sich an – Ihre Auswahl bleibt erhalten.`}
+                    <Notice kind="info" title="Du hast schon ein Konto.">
+                      {`Mit ${existingEmail} gibt es bereits ein Kundenkonto. Bitte melde dich an – deine Auswahl bleibt erhalten.`}
                     </Notice>
                   ) : null}
                   <Input label="E-Mail" type="email" autoComplete="email" inputMode="email" value={login.email} onChange={(e) => setLogin({ ...login, email: e.target.value })} />
@@ -754,12 +763,12 @@ export function CheckoutForm(props: CheckoutFormProps) {
               noticeTitle="Testmodus – es wird keine echte Zahlung ausgeführt"
               notice={
                 isRequest
-                  ? `Beim Anfragen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) nur reserviert. Belastet wird erst, wenn die Fachkraft zusagt.`
+                  ? `Beim Anfragen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) nur reserviert. Belastet wird erst, wenn ${provider.name} zusagt.`
                   : `Beim Buchen wird eine Testzahlung (Visa${NBSP}••••${NBSP}4242) simuliert. Es fließt kein Geld.`
               }
             />
           ) : (
-            <PaymentTile stripe title="Kartenzahlung" meta="Die Zahlungsdaten geben Sie im nächsten Schritt bei unserem Zahlungsdienstleister Stripe ein." />
+            <PaymentTile stripe title="Kartenzahlung" meta="Die Zahlungsdaten gibst du im nächsten Schritt bei unserem Zahlungsdienstleister Stripe ein." />
           )}
           {customer && quote.creditsAvailableCents > 0 ? (
             <div className="flex items-center gap-3 rounded-tile bg-surface-sunken pr-4 pl-3.5">
@@ -796,7 +805,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               }
             />
             <p className="type-caption text-ink-muted">
-              Mit Klick auf „{isRequest ? "Zahlungspflichtig anfragen" : "Zahlungspflichtig buchen"}“ schließen Sie einen kostenpflichtigen Vertrag mit {provider.name} ab; es gelten die{" "}
+              Mit Klick auf „{isRequest ? "Zahlungspflichtig anfragen" : "Zahlungspflichtig buchen"}“ schließt du einen kostenpflichtigen Vertrag mit {provider.name} ab; es gelten die{" "}
               <Link href={routes.terms()} target="_blank" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                 AGB
               </Link>
@@ -839,7 +848,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 <PriceBreakdown
                   lines={lines}
                   totalCents={price.totalCents}
-                  notes={[<span key="vat">{quote.vatNote}</span>, <span key="agent">{`SOMA vermittelt; Vertragspartner ist ${provider.name} (selbstständige Fachkraft).`}</span>]}
+                  notes={[<span key="vat">{quote.vatNote}</span>, <span key="agent">{`${BRAND_NAME} vermittelt; Vertragspartner für die Behandlung ist ${provider.name} (selbstständig).`}</span>]}
                 />
               </div>
             </div>
@@ -856,7 +865,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                       {l}
                     </li>
                   ))}
-                  <li className="type-caption text-ink-muted">Sagt die Fachkraft ab, erhalten Sie den vollen Betrag zurück.</li>
+                  <li className="type-caption text-ink-muted">{`Sagt ${provider.name} ab, entstehen dir keine Kosten.`}</li>
                 </ul>
               </details>
             </div>

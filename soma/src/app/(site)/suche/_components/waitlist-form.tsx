@@ -27,7 +27,7 @@ export function WaitlistForm({ postalCode, categorySlug, cta = "Benachrichtigen"
         name="email"
         type="email"
         autoComplete="email"
-        placeholder="z. B. lena@beispiel.de"
+        placeholder="z. B. lena@beispiel.de"
         required
         className="flex-1"
         error={state && !state.ok ? (state.fieldErrors?.email ?? state.error) : null}

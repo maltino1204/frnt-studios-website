@@ -109,21 +109,21 @@ export default async function HomePage() {
         }}
       />
 
-      <DiscoveryHero overline={hero.overline} title={heroTitle} emphasis={heroEmphasis ?? "Schon da."} lead={hero.lead} visual={
+      <DiscoveryHero overline={hero.overline} title={heroTitle} emphasis={heroEmphasis} lead={hero.lead} visual={
           <ArchPair
             className="mx-auto max-w-[36rem] lg:mr-0"
             items={[
-              { src: images.hero, alt: "Eine Masseurin massiert am Abend den Rücken einer Kundin in einem Berliner Altbauwohnzimmer", tone: "massage", place: PLACE_LINES.home },
-              { src: images.editorial.after, alt: "Nach der Behandlung: Tee auf dem Sofa, der Profi packt zusammen", tone: "kosmetik", place: PLACE_LINES.after },
+              { src: images.hero, alt: "Ein Profi massiert am Abend den Rücken einer Frau auf einer Massageliege in einem Berliner Altbauwohnzimmer", tone: "massage", place: PLACE_LINES.home },
+              { src: images.editorial.after, alt: "Nach der Behandlung: Eine Frau sitzt mit einer Tasse Tee auf dem Sofa, im Hintergrund legt der Profi die Tücher zusammen", tone: "kosmetik", place: PLACE_LINES.after },
             ]}
           />
         }
       >
         <RebookRow />
         <BookingEntry catalog={entryCatalog} postalExample={examplePlz} />
-        <ul className="-mt-2 flex flex-wrap gap-x-5 gap-y-2" aria-label="Darauf können Sie sich verlassen">
+        <ul className="-mt-2 flex flex-wrap gap-x-5 gap-y-2" aria-label="Darauf kannst du dich verlassen">
           {[
-            "Verifizierte Profis",
+            "Geprüfte Profis",
             "Endpreis inkl. Anfahrt",
             freeHours != null && freeHours > 0 ? `Kostenlos stornierbar bis ${hoursLabel(freeHours)} vorher` : null,
           ]
@@ -156,9 +156,9 @@ export default async function HomePage() {
                 <div className="flex max-w-reading flex-col gap-4">
                   <Overline>Behandlungen</Overline>
                   <h2 id="behandlungen-titel" className="type-display-l">
-                    {capitalize(numberWord(catalog.length))} Behandlungen. <em>Ein Ort: Ihrer.</em>
+                    {capitalize(numberWord(catalog.length))} Behandlungen. <em>Ein Ort: deiner.</em>
                   </h2>
-                  <p className="type-body-l text-ink-muted">Jede Behandlung von geprüften Profis, die alles mitbringen – von der Liege bis zum Handtuch.</p>
+                  <p className="type-body-l text-ink-muted">Von Profis, die mitbringen, was die Behandlung braucht – von der Liege bis zur Lampe.</p>
                 </div>
               }
             >
@@ -178,7 +178,7 @@ export default async function HomePage() {
       <Section aria-labelledby="ablauf-titel" className="cv-auto pt-0 max-md:pb-14">
         <Container>
           <Reveal className="flex max-w-reading flex-col gap-4">
-            <Overline>So funktioniert&apos;s</Overline>
+            <Overline>So funktioniert’s</Overline>
             <h2 id="ablauf-titel" className="type-display-l">
               {capitalize(numberWord(steps.length))} Schritte. <em>Kein Weg.</em>
             </h2>
@@ -218,13 +218,13 @@ export default async function HomePage() {
         <Container>
           <Reveal className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-6">
             <div className="flex flex-col gap-5 lg:col-span-6">
-              <Overline>Ihr Ort</Overline>
+              <Overline>Dein Ort</Overline>
               <h2 id="orte-titel" className="type-display-l">
                 Zu&nbsp;Hause. Im&nbsp;Hotel. <em>Im&nbsp;Büro.</em>
               </h2>
             </div>
             <p className="max-w-[30rem] type-body-l text-ink-muted lg:col-span-5 lg:col-start-8">
-              Sie bleiben, wo Sie sind. Ihr Profi kommt mit allem, was es braucht, und hinterlässt den Raum, wie er war.
+              Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.
             </p>
           </Reveal>
           {/* A5-5: on phones the row scrolls sideways; the region makes it reachable and scrollable by keyboard. */}
@@ -235,9 +235,9 @@ export default async function HomePage() {
             <Reveal as="ul" stagger aria-label="Orte" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
               {(
                 [
-                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Hände klappen eine mobile Massageliege auf dem Parkett eines Wohnzimmers auf" },
-                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – Ihr Profi kommt direkt zu Ihnen.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Masseur massiert einen Geschäftsreisenden am Abend in einer Frankfurter Hotelsuite" },
-                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Schulter- und Nackenmassage auf einem Massagestuhl in einem Hamburger Besprechungsraum" },
+                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Ein Profi bezieht eine Massageliege mit einem Laken, in einem sonnigen Wohnzimmer mit Fischgrätparkett" },
+                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – dein Profi findet dich.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite, hinter dem Fenster die Lichter der Stadt" },
+                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Nackenmassage im Büro: Ein Mann sitzt mit geschlossenen Augen auf einem Bürostuhl, hinter ihm steht der Profi" },
                 ] satisfies Array<{ k: string; icon: LucideIcon; v: string; src: string; tone: string; place: string; alt: string }>
               ).map((row) => (
                 <li key={row.k} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
@@ -272,17 +272,17 @@ export default async function HomePage() {
                   Geprüft, <em>bevor es klingelt.</em>
                 </h2>
                 <p className="max-w-[28rem] type-body-l text-ink-muted">
-                  Wer zu Ihnen nach Hause kommt, muss mehr vorweisen als gute Fotos. Das prüfen wir – und das garantieren wir.
+                  Wer zu dir nach Hause kommt, muss mehr vorweisen als gute Fotos. Das prüfen wir, bevor jemand buchbar ist. Und stimmt etwas nicht, greift die {BRAND_NAME}-Garantie.
                 </p>
               </div>
             </Reveal>
             <Reveal as="ul" stagger className="grid gap-4 sm:grid-cols-2 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:gap-5">
-              <TrustItem icon={BadgeCheck} title="Jeder Profi ist verifiziert." badge>
+              <TrustItem icon={BadgeCheck} title="Jeder Profi ist geprüft." badge>
                 Bevor jemand buchbar ist, prüfen wir {listSentence(terms.baseRequiredDocuments.map((d) => d.label)) || "Identität, Gewerbe und Versicherung"} – und
-                für jede angebotene Behandlung die Qualifikation.
+                je nach Kategorie einen Qualifikationsnachweis.
               </TrustItem>
               <TrustItem icon={Receipt} title="Endpreis inklusive Anfahrt.">
-                In der Suche sehen Sie für jeden Profi den Gesamtpreis inklusive Anfahrt, bevor Sie buchen.
+                In der Suche siehst du für jeden Profi den Endpreis inklusive Anfahrt, bevor du buchst.
                 {terms.customerServiceFeeCents === 0 ? " Eine Servicegebühr gibt es nicht." : null}
               </TrustItem>
               <TrustItem icon={CalendarX2} title="Kostenlos stornieren.">
@@ -292,7 +292,7 @@ export default async function HomePage() {
                 </Link>
               </TrustItem>
               <TrustItem icon={CreditCard} title={`Bezahlt wird nur über ${BRAND_NAME}.`}>
-                Ihre Karte wird bei der Buchung reserviert und erst nach dem Termin belastet. Bis {terms.disputeWindowHours}
+                Der Betrag wird bei der Buchung auf deiner Karte reserviert und erst nach dem Termin belastet. Bis {terms.disputeWindowHours}
                 {NBSP}Stunden danach halten wir die Auszahlung an den Profi zurück – so greift die {BRAND_NAME}-Garantie, wenn etwas nicht stimmt.
               </TrustItem>
             </Reveal>
@@ -314,9 +314,9 @@ export default async function HomePage() {
                   <div className="flex max-w-reading flex-col gap-4">
                     <Overline>Profis</Overline>
                     <h2 id="profis-titel" className="type-display-l">
-                      Wer bei Ihnen <em>klingelt.</em>
+                      Wer bei dir <em>klingelt.</em>
                     </h2>
-                    <p className="type-body-l text-ink-muted">Selbstständige Fachkräfte mit eigener Handschrift. Bewertet wird nur nach einem echten Termin.</p>
+                    <p className="type-body-l text-ink-muted">Selbstständige Profis mit eigener Handschrift. Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben.</p>
                   </div>
                 }
               >
@@ -340,7 +340,7 @@ export default async function HomePage() {
                   Jetzt in {numberWord(cities.length)} Städten.
                 </h2>
                 <p className="type-body text-ink-muted">
-                  Ihre Stadt ist noch nicht dabei? Geben Sie oben Ihre Postleitzahl ein – wir melden uns, sobald es losgeht.
+                  Deine Stadt ist noch nicht dabei? Gib oben deine Postleitzahl ein – wir sagen dir Bescheid, sobald Profis bei dir buchbar sind.
                 </p>
               </div>
               <LinkGrid
@@ -371,7 +371,7 @@ export default async function HomePage() {
                     Selbstständig, <em>aber nicht allein.</em>
                   </h2>
                   <p className="max-w-[30rem] type-body-l text-ink-muted">
-                    Profis legen Preise, Zeiten und Einsatzgebiet selbst fest. {BRAND_NAME} bringt neue Kundschaft und sichert die Zahlung – auszahlbar{" "}
+                    Profis legen Preise, Zeiten und Einsatzgebiet selbst fest. {BRAND_NAME} macht sie für Kundschaft in ihrem Einsatzgebiet sichtbar und sichert die Zahlung – auszahlbar{" "}
                     {terms.payoutHoldHours}
                     {NBSP}Stunden nach dem Termin.
                   </p>
@@ -497,7 +497,7 @@ function StepArrive() {
       <div className="flex items-center gap-3 rounded-card bg-surface-raised p-3 shadow-float">
         <SuccessCheck size={32} glow={false} />
         <div className="min-w-0">
-          <p className="type-label-s">Ihr Profi ist da.</p>
+          <p className="type-label-s">Dein Profi ist da.</p>
           <p className="truncate type-caption text-ink-muted">{PLACE_LINES.home}</p>
         </div>
       </div>

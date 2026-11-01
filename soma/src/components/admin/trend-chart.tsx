@@ -23,7 +23,7 @@ const asDate = (d: string) => new Date(`${d}T12:00:00Z`);
 const formatCount = (n: number) => n.toLocaleString(LOCALE);
 const formatEuro = (cents: number) => formatPrice(Math.round(cents / 100) * 100);
 const axisCount = (n: number) => (n >= 10_000 ? `${(n / 1000).toLocaleString(LOCALE, { maximumFractionDigits: 0 })} T` : n.toLocaleString(LOCALE, { maximumFractionDigits: 1 }));
-const axisEuro = (cents: number) => (cents >= 100_000 ? `${(cents / 100_000).toLocaleString(LOCALE, { maximumFractionDigits: 1 })} T€` : `${Math.round(cents / 100).toLocaleString(LOCALE)} €`);
+const axisEuro = (cents: number) => (cents >= 100_000 ? `${(cents / 100_000).toLocaleString(LOCALE, { maximumFractionDigits: 1 })} T€` : `${Math.round(cents / 100).toLocaleString(LOCALE)} €`);
 
 /** A round step (1, 2, 2.5, 5 × 10ⁿ) so that `ticks` steps cover `v` (same rule as the kit AreaChart). */
 function niceStep(v: number, ticks: number): number {

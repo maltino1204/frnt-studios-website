@@ -8,9 +8,9 @@ import { getRebookSuggestion, nearestPostalCode, type RebookSuggestionDTO } from
 import { input, publicAction } from "./_run";
 import type { ActionResult } from "./types";
 
-/** Discovery & brand surfaces (Agent 3a). Public, read-only. Voice: "Sie". */
+/** Discovery & brand surfaces (Agent 3a). Public, read-only. Voice: "du". */
 
-const zPlz = z.string().trim().regex(/^\d{5}$/, "Bitte geben Sie eine fünfstellige Postleitzahl ein.");
+const zPlz = z.string().trim().regex(/^\d{5}$/, "Bitte gib eine fünfstellige Postleitzahl ein.");
 
 /** Booking entry "Wo?": resolves a PLZ to its city ("10115 · Berlin"). `null` = unknown PLZ. */
 export async function lookupPostalCodeAction(plz: string): Promise<ActionResult<PostalCodeDTO | null>> {

@@ -4,7 +4,7 @@ import { countUnreadNotifications } from "@/server/services/notifications";
 import { AccountBottomNav, AccountHeader, AccountRail } from "@/components/site/account-nav";
 import { RouteTransition } from "@/components/ui/motion";
 
-export const metadata: Metadata = { title: { default: "Ihr Konto", template: "%s · Konto · SOMA" }, robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: { default: "Dein Konto", template: "%s · Konto · SOMA" }, robots: { index: false, follow: false } };
 
 /** Customer account shell: compact header, bottom nav on mobile, side rail on desktop. */
 export default async function KontoLayout({ children }: { children: React.ReactNode }) {

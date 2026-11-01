@@ -15,8 +15,8 @@ import type { ActionResult } from "./types";
  */
 
 const SignInSchema = z.object({
-  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein."),
-  password: z.string().min(1, "Bitte geben Sie Ihr Passwort ein."),
+  email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein."),
+  password: z.string().min(1, "Bitte gib dein Passwort ein."),
   next: z.string().optional(),
 });
 
@@ -27,7 +27,7 @@ export async function signInAction(_prev: ActionResult | null, formData: FormDat
     const adapter = await getAuthAdapter();
     const { userId } = await adapter.signIn(v.email, v.password, await getRequestMeta());
     const session = await loadSession(userId);
-    if (!session) return fail("Dieses Konto ist gesperrt. Bitte wenden Sie sich an den SOMA-Support.");
+    if (!session) return fail("Dieses Konto ist gesperrt. Bitte wende dich an den SOMA-Support.");
     target = safeNext(v.next) ?? homeForRole(session.role);
   } catch (e) {
     return toActionError(e);
@@ -37,15 +37,15 @@ export async function signInAction(_prev: ActionResult | null, formData: FormDat
 }
 
 const SignUpSchema = z.object({
-  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein.").max(254),
+  email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein.").max(254),
   password: z.string().min(10, "Mindestens 10 Zeichen.").max(200),
-  firstName: z.string().trim().min(1, "Bitte geben Sie Ihren Vornamen an.").max(80),
-  lastName: z.string().trim().min(1, "Bitte geben Sie Ihren Nachnamen an.").max(80),
+  firstName: z.string().trim().min(1, "Bitte gib deinen Vornamen an.").max(80),
+  lastName: z.string().trim().min(1, "Bitte gib deinen Nachnamen an.").max(80),
   role: z.enum(["customer", "provider"]).default("customer"),
   referralCode: z.string().trim().max(16).optional(),
   inviteCode: z.string().trim().max(16).optional(),
   marketingOptIn: z.boolean().optional().default(false),
-  acceptTerms: z.literal(true, { error: "Bitte akzeptieren Sie die AGB und die Datenschutzerklärung." }),
+  acceptTerms: z.literal(true, { error: "Bitte akzeptiere die AGB und die Datenschutzerklärung." }),
   next: z.string().optional(),
 });
 
@@ -79,14 +79,14 @@ export async function signOutAction(): Promise<void> {
   redirect("/");
 }
 
-const EmailSchema = z.object({ email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein.") });
+const EmailSchema = z.object({ email: z.string().trim().email("Bitte gib eine gültige E-Mail-Adresse ein.") });
 
 /** Always answers with the same message (no account enumeration). */
 export async function requestPasswordResetAction(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
   try {
     const v = input(EmailSchema, formToObject(formData));
     await (await getAuthAdapter()).requestPasswordReset(v.email);
-    return { ok: true, data: undefined, message: "Falls ein Konto mit dieser E-Mail-Adresse existiert, haben wir Ihnen einen Link geschickt." };
+    return { ok: true, data: undefined, message: "Falls ein Konto mit dieser E-Mail-Adresse existiert, haben wir dir einen Link geschickt." };
   } catch (e) {
     return toActionError(e);
   }
@@ -107,14 +107,14 @@ export async function resetPasswordAction(_prev: ActionResult | null, formData: 
 }
 
 const ChangeSchema = z
-  .object({ currentPassword: z.string().min(1, "Bitte geben Sie Ihr aktuelles Passwort ein."), newPassword: z.string().min(10, "Mindestens 10 Zeichen.").max(200), newPasswordConfirm: z.string() })
+  .object({ currentPassword: z.string().min(1, "Bitte gib dein aktuelles Passwort ein."), newPassword: z.string().min(10, "Mindestens 10 Zeichen.").max(200), newPasswordConfirm: z.string() })
   .refine((v) => v.newPassword === v.newPasswordConfirm, { message: "Die Passwörter stimmen nicht überein.", path: ["newPasswordConfirm"] });
 
 export async function changePasswordAction(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
   return withSession(undefined, async (s) => {
     const v = input(ChangeSchema, formToObject(formData));
     await (await getAuthAdapter()).changePassword(s.userId, v.currentPassword, v.newPassword);
-  }, "Ihr Passwort wurde geändert.");
+  }, "Dein Passwort wurde geändert.");
 }
 
 /** Current session for Client Components that need it after hydration (null when signed out). */

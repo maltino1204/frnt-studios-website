@@ -45,7 +45,7 @@ export function DisputeResolution({
   const validate = () => {
     const next: Record<string, string> = {};
     if (outcome === "refund") {
-      if (cents == null || cents < 1) next.refundCents = "Bitte einen Erstattungsbetrag angeben, z. B. 20,00.";
+      if (cents == null || cents < 1) next.refundCents = "Bitte einen Erstattungsbetrag angeben, z. B. 20,00.";
       else if (cents > refundableCents) next.refundCents = `Höchstens ${formatPriceExact(refundableCents)} erstattbar.`;
     }
     if (note.trim().length < 5) next.note = "Bitte die Entscheidung begründen (mind. 5 Zeichen).";
@@ -106,7 +106,7 @@ export function DisputeResolution({
             checked={outcome === "close"}
             onChange={() => setOutcome("close")}
             label="Schließen ohne Entscheidung"
-            description="z. B. zurückgezogen oder außerhalb von SOMA geklärt."
+            description="z. B. zurückgezogen oder außerhalb von SOMA geklärt."
           />
         </fieldset>
         {outcome === "refund" ? (
@@ -128,7 +128,7 @@ export function DisputeResolution({
             <div className="flex flex-wrap gap-2">
               {[0.25, 0.5, 1].map((f) => (
                 <Button key={f} size="s" variant="secondary" onClick={() => setAmount(centsToInput(Math.round(refundableCents * f)))}>
-                  {f === 1 ? "Voller Betrag" : `${f * 100} %`}
+                  {f === 1 ? "Voller Betrag" : `${f * 100} %`}
                 </Button>
               ))}
             </div>

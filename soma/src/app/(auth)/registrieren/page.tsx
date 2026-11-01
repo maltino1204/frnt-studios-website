@@ -27,7 +27,7 @@ export default async function RegistrierenPage({ searchParams }: { searchParams:
       <div className="flex flex-col gap-4">
         <Overline>Neu bei SOMA</Overline>
         <h1 className="type-h1">Konto erstellen.</h1>
-        <p className="type-body text-ink-muted">Buchen Sie verifizierte Profis zu sich nach Hause, ins Hotel oder ins Büro – und behalten Sie Ihre Termine im Blick.</p>
+        <p className="type-body text-ink-muted">Mit einem Konto buchst du geprüfte Profis zu dir nach Hause, ins Hotel oder ins Büro – und behältst deine Termine im Blick.</p>
       </div>
       <RegisterForm next={next} referralCode={referral} inviteCode={one(sp.einladung)?.slice(0, 16) ?? null} />
       <Link
@@ -35,7 +35,7 @@ export default async function RegistrierenPage({ searchParams }: { searchParams:
         className="group flex min-h-touch items-center justify-between gap-4 rounded-card bg-surface-raised px-5 py-4 type-label text-ink shadow-raised pressable focus-ring hover:-translate-y-px hover:shadow-float"
       >
         <span>
-          Sie sind Profi? <span className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">Hier registrieren</span>
+          Du bist Profi? <span className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">Hier registrieren</span>
         </span>
         <Icon icon={ArrowRight} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
       </Link>

@@ -87,8 +87,8 @@ const DIGIT_WORD_RE = new RegExp(String.raw`\b${DIGIT_WORD}\b`, "gi");
 const NON_PHONE = [
   /\b\d{1,2}\.\s?\d{1,2}\.\s?(?:\d{4}|\d{2})\b/g, // 01.03.2019, 1. 3. 19
   /\b\d{4}-\d{2}-\d{2}\b/g, // 2019-03-01
-  /\b(?:[01]?\d|2[0-3])[:.][0-5]\d\b(?:\s?uhr)?/gi, // 09:00, 18.30 Uhr
-  /\b\d{1,3}(?:\.\d{3})*(?:,\d{1,2})?\s?(?:€|eur\b|euro\b)/gi, // 1.234,56 €, 45,00 €
+  /\b(?:[01]?\d|2[0-3])[:.][0-5]\d\b(?:\s?uhr)?/gi, // 09:00, 18.30 Uhr
+  /\b\d{1,3}(?:\.\d{3})*(?:,\d{1,2})?\s?(?:€|eur\b|euro\b)/gi, // 1.234,56 €, 45,00 €
   /€\s?\d+(?:[.,]\d{1,2})?/g, // € 45
 ];
 
@@ -170,7 +170,7 @@ export function hasContactDetails(text: string | null | undefined): boolean {
   return findContactDetails(text).length > 0;
 }
 
-/** German rejection messages per audience (customers "Sie", providers "du"). */
+/** German rejection messages per audience (customers and providers are both addressed with "du"). */
 export const CONTACT_LINT_MESSAGES = {
   providerProfile:
     "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile sind im Profil nicht erlaubt – Buchung und Kontakt laufen über SOMA.",
@@ -179,13 +179,13 @@ export const CONTACT_LINT_MESSAGES = {
   customerReview:
     "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile sind in Bewertungen nicht erlaubt.",
   customerNotes:
-    "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile sind in den Hinweisen nicht erlaubt – nach der Bestätigung erreicht Ihr Profi Sie über SOMA.",
+    "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile sind in den Hinweisen nicht erlaubt. Für Rückfragen am Termintag sieht dein Profi nach der Bestätigung deine Mobilnummer.",
   /** decline / acceptance note and provider cancellation reason (shown to the customer) */
   providerMessage:
     "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile darfst du hier nicht teilen – der Kontakt läuft über SOMA.",
   /** customer cancellation reason (shown to the provider) */
   customerMessage:
-    "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile können Sie hier nicht teilen – der Kontakt läuft über SOMA.",
-  customerDispute: "Bitte lassen Sie Kontaktdaten wie Telefonnummern oder E-Mail-Adressen weg – wir melden uns über SOMA bei Ihnen.",
+    "Kontaktdaten wie Telefonnummern, E-Mail-Adressen oder Profile kannst du hier nicht teilen – der Kontakt läuft über SOMA.",
+  customerDispute: "Bitte lass Kontaktdaten wie Telefonnummern oder E-Mail-Adressen weg – wir melden uns über SOMA bei dir.",
   providerDispute: "Bitte lass Kontaktdaten wie Telefonnummern oder E-Mail-Adressen weg – wir melden uns über SOMA bei dir.",
 } as const;
