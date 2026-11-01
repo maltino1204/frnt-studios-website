@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, CreditCard, TriangleAlert, type LucideIcon } from "lucide-react";
-import { useId, type ComponentProps, type ReactNode } from "react";
+import { isValidElement, useId, type ComponentProps, type ReactElement, type ReactNode } from "react";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/cn";
 
@@ -20,7 +20,7 @@ function DrawnCheck({ className }: { className?: string }) {
   );
 }
 
-/** Step node: ink + drawn check when done, aura ring when current, sunken number when upcoming. */
+/** Step node: ink + drawn check when done, an Espresso ring when current, sunken number when upcoming. */
 export function StepNode({ index, state, size = "m" }: { index: number; state: "done" | "current" | "upcoming"; size?: "s" | "m" }) {
   const box = size === "s" ? "size-6 text-[12px]" : "size-7 text-[13px]";
   if (state === "done") {
@@ -151,7 +151,8 @@ export function OptionCard({
   className,
   ...input
 }: {
-  icon: LucideIcon;
+  /** a Lucide icon, or a ready element (e.g. <PlaceIcon kind="hotel" />) */
+  icon: LucideIcon | ReactElement;
   title: ReactNode;
   badge?: ReactNode;
   description?: ReactNode;
@@ -178,7 +179,7 @@ export function OptionCard({
         aria-hidden
         className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink transition-[background-color,color] duration-base group-has-checked:bg-ink group-has-checked:text-ink-inverse"
       >
-        <Icon icon={icon} size={18} />
+        {isValidElement(icon) ? icon : <Icon icon={icon as LucideIcon} size={18} />}
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5 pt-0.5">
         <span className="flex flex-wrap items-center gap-x-2 gap-y-1 type-label text-ink">

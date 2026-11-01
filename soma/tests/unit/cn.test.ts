@@ -24,8 +24,9 @@ describe("cn (tailwind-merge with SOMA tokens)", () => {
     expect(cn("text-ink", "text-[15px]")).toBe("text-ink text-[15px]");
   });
 
-  it("treats the aura gradient as a background image, not a colour", () => {
-    expect(cn("bg-surface-raised", "bg-aura")).toBe("bg-surface-raised bg-aura");
+  // The v2 aura gradient (bg-aura) is retired (brand audit 1, L2); the rule itself still holds for real images.
+  it("treats a background image as an image, not a colour", () => {
+    expect(cn("bg-surface-raised", "bg-[url(/images/x.jpg)]")).toBe("bg-surface-raised bg-[url(/images/x.jpg)]");
     expect(cn("bg-surface", "bg-surface-sunken")).toBe("bg-surface-sunken");
   });
 

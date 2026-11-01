@@ -9,7 +9,7 @@ fs.mkdirSync(T, { recursive: true });
 export const ITEMS = [
   ["app-icons", "app-icons/app-icons-board.png"], ["social-grid", "social/instagram-grid-preview.png"], ["social-stories", "social/stories-overview.png"],
   ["linkedin", "social/linkedin-banner-1584x396.png"], ["ads-a", "ads/a-schon-zu-hause/board.png"], ["ads-b", "ads/b-zimmer-614/board.png"], ["ads-c", "ads/c-dein-kalender/board.png"],
-  ["booking", "booking-confirmation/board.png"], ["email", "email/preview-light-680.png"], ["email-dark", "email/preview-dark-680.png"], ["giftcard", "giftcard/board.png"],
+  ["booking", "booking-confirmation/board.png"], ["email", "email/preview-board.png"], ["email-fallback", "email/preview-fallback-light-680.png"], ["email-dark", "email/preview-fallback-dark-680.png"], ["social-signature", "social/instagram/post-03-evening.png"], ["giftcard", "giftcard/board.png"],
   ["onboarding", "onboarding/pages/page-01.png"], ["onboarding-6", "onboarding/pages/page-06.png"], ["showcase-customer", "showcase/customer-app.png"], ["showcase-pro", "showcase/pro-dashboard.png"],
   ["app-on-table", "showcase/app-on-table.png"], ["motion-1", "motion/storyboard-1.png"], ["motion-2", "motion/storyboard-2.png"], ["motion-3", "motion/storyboard-3.png"],
 ];

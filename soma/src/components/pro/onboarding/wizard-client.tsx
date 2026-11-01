@@ -21,7 +21,7 @@ import { proError, VAT_MODE_OPTIONS } from "../labels";
 
 /**
  * Premium progress indicator for the 8-step wizard. Desktop: numbered stepper
- * with connectors that fill in ink; the current step carries the aura ring.
+ * with connectors that fill in ink; the current step carries an Espresso ring.
  * Phone: a progress ring with "3/8", the step name and what comes next.
  * Completed steps (except Konto) link back.
  */

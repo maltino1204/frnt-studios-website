@@ -38,7 +38,7 @@ All images below are **AI development assets**, labelled. Paths are canonical (`
 ## 3. Crop and layout rules
 
 1. **The arch is the crop, not a decoration.** 4:5 by default; heads and hands below the springline (top ~20 %); never an arch under 120 px wide; never nested; the logo never inside the curve.
-2. **The pair:** the right arch drops by 18 % of its width. Use it at most once per chapter.
+2. **The pair is the signature** (guidelines § 10.2): the right arch drops by 18 % of its width, and the Ortszeile sits under the left arch. Use it at most once per chapter, and keep it exactly as specified; it is the brand's most recognisable composition (audit 1, memorability).
 3. **Full bleed only for 16:9 bands** (hero, 08) and the final Oxblood band.
 4. **Type on images** only on the calm half named above, or on a flat 62 % Espresso scrim. No gradient scrims. Bone type on dark images, Espresso on light ones, never Oxblood on photographs.
 5. **One serif statement per view**, one Oxblood moment per screen (the hero CTA *or* the final band, never both in one viewport).

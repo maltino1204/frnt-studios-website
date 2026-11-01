@@ -1,9 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="t">
-  <title id="t">brows-lashes</title>
-  <path d="M3 11.5c3.5 4.2 14.5 4.2 18 0"/>
-  <path d="M5.5 14l-1.2 2"/>
-  <path d="M9.3 15.6l-.6 2.2"/>
-  <path d="M14.7 15.6l.6 2.2"/>
-  <path d="M18.5 14l1.2 2"/>
-  <path d="M5 7.5c2.2-1.6 4.6-1.9 7-1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-icon="soma-brows-lashes">
+  <path d="M3 11.5C6.5 15.7 17.5 15.7 21 11.5"/>
+  <path d="M5.5 14L4.3 16"/>
+  <path d="M9.3 15.6L8.7 17.8"/>
+  <path d="M14.7 15.6L15.3 17.8"/>
+  <path d="M18.5 14L19.7 16"/>
+  <path d="M5 7.5C7.2 5.9 9.6 5.6 12 6.5"/>
 </svg>

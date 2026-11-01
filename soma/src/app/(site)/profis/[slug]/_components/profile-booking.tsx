@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/field";
 import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Sheet } from "@/components/ui/sheet";
+import { CategoryIcon } from "@/components/brand/brand-icon";
 import { cn } from "@/lib/cn";
 import { formatDistance, formatDuration, formatPrice, formatTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
@@ -252,7 +253,12 @@ export function OfferingList() {
     <div className="flex flex-col gap-6">
       {[...groups.entries()].map(([cat, list]) => (
         <div key={cat} className="flex flex-col gap-2.5">
-          {multi ? <p className="type-overline text-ink-muted">{cat}</p> : null}
+          {multi ? (
+            <p className="flex items-center gap-2 type-overline text-ink-muted">
+              <CategoryIcon slug={list[0]?.categorySlug} size={16} />
+              {cat}
+            </p>
+          ) : null}
           <ul className="flex flex-col gap-2.5">
             {list.map((o) => {
               const selected = o.providerServiceId === picker.offeringId;

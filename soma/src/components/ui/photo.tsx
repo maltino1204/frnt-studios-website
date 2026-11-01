@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, type CSSProperties } from "react";
 import { cn } from "@/lib/cn";
-import { imageFocal, resolveImage, toneFor } from "@/lib/images";
+import { AI_IMAGE_LABEL, imageFocal, isAiImage, resolveImage, toneFor } from "@/lib/images";
 import { ToneFill } from "./motif";
 
 /**
@@ -93,7 +93,7 @@ export function Photo({
       {url && state !== "error" ? (
         <Image
           src={url}
-          alt={alt}
+          alt={alt && isAiImage(src) ? `${alt} (${AI_IMAGE_LABEL})` : alt}
           fill
           sizes={sizes}
           priority={priority}

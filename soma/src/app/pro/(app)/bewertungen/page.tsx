@@ -1,6 +1,6 @@
 import { ProHeader, ProPage } from "@/components/pro/page";
 import { ReviewReply } from "@/components/pro/review-reply";
-import { CountUp } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { PaginationLabel } from "@/components/ui/data";
@@ -31,7 +31,7 @@ export default async function ProReviewsPage({ searchParams }: PageProps<"/pro/b
         <section className="grid gap-6 rounded-card bg-surface-raised p-5 shadow-raised sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:gap-10 lg:p-6" aria-label="Überblick">
           <div className="flex flex-col gap-2 sm:pr-10 sm:shadow-[1px_0_0_var(--color-line)]">
             <p className="type-display-m tracking-[-0.04em] num">
-              {list.ratingAvg ? <CountUp value={list.ratingAvg} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /> : "—"}
+              {list.ratingAvg ? <FormattedNumber value={list.ratingAvg} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /> : "—"}
             </p>
             <Stars value={list.ratingAvg ?? 0} size={18} />
             <p className="type-caption text-ink-muted">{plural(list.ratingCount, "Bewertung", "Bewertungen")}</p>

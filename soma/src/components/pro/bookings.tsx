@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CalendarClock, ChevronRight, MapPin, Quote } from "lucide-react";
-import { AuraLine } from "@/components/ui/aura";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Status } from "@/components/ui/feedback";
@@ -186,7 +185,6 @@ export function RequestPanel({
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 flex-col gap-1.5">
             <p className="flex items-center gap-2 type-overline text-ink-muted">
-              <AuraLine className="w-4" />
               Neue Anfrage
             </p>
             {/* Long one-word services ("Entspannungsmassage") may hyphenate so the card never exceeds 320 px (F9). */}

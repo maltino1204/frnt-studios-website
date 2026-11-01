@@ -380,8 +380,9 @@ Easings: `standard` (state changes), `arrive` (entrances), `settle` (coming to r
 - **Page transitions:** out 160 ms fade, in 320 ms with a 10 px rise; the shared arch image goes from card to profile header in 480 ms. Content is interactive from the first frame.
 - **Overlays:** sheet 480 in / 220 out; dialog 320 in (8 px) / 220 out; toast 480 in (12 px) / 160 out. No springs, no scale from zero.
 - **Navigation:** tab indicator 220 ms; bottom-nav pill 160 ms; the header hairline appears after 8 px of scroll; no scroll hijacking.
-- **Loading:** skeleton shimmer 1.8 s (the only loop); the spinner appears after 300 ms and stays at least 400 ms; numbers never count up.
-- **Brand animations:** (1) **arch rise**: the mask opens bottom-up and rises 16 px (640 ms) while the photo settles (900 ms); (2) **the S draws on**: arch outline, then S contour, then fill (1.2 s), for splash and end frames only; (3) **wordmark reveal**: the mark settles as one shape (480 ms, 8 px), then the rule and the tagline follow. No letter-by-letter, no morphs, no loops.
+- **Loading:** skeleton shimmer 1.8 s (the only loop); the spinner appears after 300 ms and stays at least 400 ms.
+- **Numbers:** money, ratings and counts **never count up**, in the product, SOMA Pro and Admin. They render final on the first frame; a changed value crossfades in 160 ms (`MOTION.md` § 3.4).
+- **Brand animations:** (1) **arch rise**: the mask opens bottom-up and rises 16 px (640 ms) while the photo settles (900 ms); (2) **the mark draws on**: the O contour, then the S contour, then both fill (1.2 s), for splash and end frames only; (3) **wordmark reveal**: the mark settles as one shape (480 ms, 8 px), then the rule and the tagline follow. No letter-by-letter, no morphs, no loops.
 - **Reduced motion:** transforms become fades of ≤ 160 ms or nothing; brand animations show the final frame; shimmer and spinner stay (slower) because they are feedback. Nothing carries meaning through motion alone.
 - **Never:** bounce or overshoot, parallax or multi-speed layers, 3D tilts and flips, ambient loops, intros that delay interaction, counting numbers, confetti.
 
@@ -456,14 +457,14 @@ The rendered references are on `/kit/marke` § 6. API names refer to `src/compon
 
 | Application | Where | Brand moment |
 |---|---|---|
-| App icons (iOS, Android, light/dark/themed, store) | `applications/app-icons/` | The Bone S on Oxblood: the most visible Oxblood. A PWA today; native apps are not built. |
+| App icons (iOS, Android, light/dark/themed, store) | `applications/app-icons/` | The Bone mark on Oxblood: the most visible Oxblood. A PWA today; native apps are not built. Wallpapers labelled as AI images. |
 | Social (avatar, 9 posts, 3 stories, LinkedIn) | `applications/social/` + `captions.md` | Arch frame posts, one Oxblood brand post per grid of nine, Ortszeile captions, AI labels. |
-| Digital ads (3 concepts × 5 sizes) | `applications/ads/` | Voice § 7.13: „Schon zu Hause“, „Zimmer 614“, „Dein Kalender“; the CTA is the one Oxblood. |
+| Digital ads (3 concepts × 5 sizes) | `applications/ads/` | Voice § 7.13: „Schon zu Hause“, „Zimmer 614“, „Dein Kalender“. Every format carries the signature (§ 10.2); the CTA is the one Oxblood. |
 | Booking confirmation (390×844) | `applications/booking-confirmation/` | The arch-check glyph, „Bestätigt.“, the Start-Code; no Oxblood (no primary action). |
-| Transactional e-mail „Buchung bestätigt“ | `applications/email/` | Table-based, inline, dark-mode aware; the Oxblood button becomes Bone in dark mode. |
+| Transactional e-mail „Buchung bestätigt“ | `applications/email/` | Table-based, inline, dark-mode aware; the Oxblood button becomes Bone in dark mode. Hosted webfonts with a stated fallback (§ 10.3). |
 | Gift card (**future concept**) | `applications/giftcard/` | The Oxblood front with a Bone arch outline crossing the edge. |
 | SOMA Pro welcome kit (A4 PDF) | `applications/onboarding/` | The safety rule on the one Oxblood panel. |
-| Customer app and SOMA Pro (live screens) | `applications/showcase/` | As built by the migration (1 Nov 2026, demo environment). |
+| Customer app and SOMA Pro (app screenshots) | `applications/showcase/` | As built (1 Nov 2026, demo environment); boards labelled „Bilder KI-generiert · Demo-Daten“. |
 | Landing page (input only) | `applications/LANDING_ART_DIRECTION_INPUT.md` | Three key-visual directions, an image per section, crop rules. |
 
 ### 10.1 UI translation: photography, motif and motion in the product
@@ -479,6 +480,31 @@ These rules align with the component specs in § 9.3 and the `/kit/marke` compon
 | **Confirmation moments** (booking confirmed, request accepted, Profi approved) | No photo on the screen; an e-mail may carry none either. | The arch-check glyph (arch outline + check) replaces a generic check circle; the status is a word („Bestätigt“). | Outline 640 ms → check 320 ms → title rises 10 px → Start-Code digits with a 90 ms stagger. A haptic `success` fires once. With reduced motion, everything appears at once. |
 | **Hero and editorial bands** (home, `/fuer-profis`, city pages) | v2 key visuals (`landing/*`, `editorial/*-v2`) with their Ortszeile. | Full-bleed 16:9 or the 4:5 arch; the pair at most once per page. | Arch rise on viewport entry, once; no parallax. |
 | **Admin** (`/admin`) | None. | None. | Functional patterns only (`MOTION.md` §§ 3.1–3.5), no brand animation. |
+
+### 10.2 The signature: offset arch pair + Ortszeile
+
+The one composition that is SOMA's in every campaign. It joins the motif (§ 5.1) and the Ortszeile (§ 5.2) into a fixed unit. *For the Identity Designer: mirror this in § 5.1 as the signature rule.*
+
+| | Rule |
+|---|---|
+| **Geometry** | Two arches of equal size, side by side. The **right arch drops by 18 % of its width**, like the S's two halves. The gap is about 7 % of the arch width. The arch aspect follows the format (4:5 to 2:3; 4:3 in leaderboards). |
+| **Ortszeile** | One line under the **left** arch, left-aligned to its edge: *Ort · Stadtteil · Uhrzeit* in `type-place` with tabular figures. It wraps only between its segments, never inside one. When the two arches show two different places, the right arch may carry its own line under its own edge. |
+| **Content** | One evening in two moments (19:25 at the door → 20:10 on the sofa), two places (Zuhause · Hotel), or Profi and customer. The left arch is the earlier moment. Never two near-identical frames. |
+| **Where** | Every ad format: 1080×1080, 1080×1920 and 1200×628 carry the pair; 300×250 carries a single arch (≥ 120 px wide) with the short Ortszeile (*Berlin · 19:30*); 728×90 carries a 4:3 pair cropped at the bottom edge. Social: a pair post at least once per grid of nine, arch-frame posts with the Ortszeile under the arch. Hero and editorial: at most one pair per page. |
+| **With it** | The wordmark sits on calm Bone, never on the photographs. The headline sits below or beside the pair, never inside it. AI images carry their label in the same row as the Ortszeile. |
+| **Never** | Offset the left arch lower; change the 18 %; tilt, nest or overlap the arches (a UI card may overlap the right arch's lower part, as in the SOMA Pro ads); drop the Ortszeile from a campaign format. |
+| **Build** | `brand/applications/_src/lib.mjs` → `signature()` and `ortszeile()`; examples: `applications/ads/*/board.png`, `applications/social/instagram/post-03-evening.png`. |
+
+### 10.3 E-mail typography
+
+| | Stack |
+|---|---|
+| Title (`h1`) | `"Newsreader Display", Georgia, "Times New Roman", serif` |
+| Text | `"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif` |
+| Outlook (MSO) | A conditional style forces Georgia for titles and Arial for text, because Outlook ignores webfonts and would otherwise fall back to Times New Roman. |
+
+- **Webfonts** are hosted with the e-mail assets (`{{asset_base}}/fonts/*.woff2`, OFL) and loaded through `@font-face` (`font-display: swap`). Apple Mail, iOS Mail and Thunderbird show them. **Gmail, Outlook and Yahoo do not:** they show Georgia and Arial or Helvetica.
+- The layout is designed to hold with the fallbacks: no fixed-width text boxes, buttons sized by padding. `applications/email/preview-board.png` shows both renders. The fallback is rendered with metric-compatible faces (Gelasio for Georgia, Liberation Sans for Arial).
 
 ---
 

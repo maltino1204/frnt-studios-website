@@ -3,7 +3,7 @@
 import { useId, useState, useTransition, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { MapPin } from "lucide-react";
-import { AuraArt } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/feedback";
 import { Input, Select } from "@/components/ui/field";
@@ -219,7 +219,7 @@ export function AreaForm({
 }
 
 /**
- * Radius visualisation: concentric rings on the aura, scaled to the 30 km
+ * Radius visualisation: concentric rings on the category wash, scaled to the 30 km
  * maximum. Inner disc = included distance, ring = service radius. Decorative;
  * the slider and its value are the accessible source.
  */
@@ -228,7 +228,7 @@ function RadiusVisual({ radius, included, plz, city }: { radius: number; include
   const pct = (km: number) => `${Math.max(8, (km / MAX_KM) * 92)}%`;
   return (
     <div aria-hidden className="relative isolate mx-auto aspect-square w-full max-w-[17rem] overflow-hidden rounded-panel md:max-w-[22rem] shadow-[inset_0_0_0_1px_rgb(37_33_31/0.08)]">
-      <AuraArt seed={`radius-${plz || "x"}`} tone="brows-lashes" />
+      <ToneFill seed={`radius-${plz || "x"}`} tone="brows-lashes" arch={false} />
       {/* scale rings: 10, 20, 30 km */}
       {[10, 20, 30].map((km) => (
         <span key={km} className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full border border-dashed border-ink/25" style={{ width: pct(km) }} />

@@ -169,7 +169,7 @@ export function CountPill({ children, accent, className }: { children: ReactNode
   return (
     <span
       className={cn(
-        "inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1.5 text-[11px] leading-none font-[600] num",
+        "inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[12px] leading-none font-[600] num",
         accent ? "bg-ink text-ink-inverse ring-2 ring-surface-raised" : "bg-ink text-ink-inverse",
         className,
       )}

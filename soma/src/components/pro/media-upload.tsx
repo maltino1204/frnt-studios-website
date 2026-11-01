@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ImagePlus, Trash, Upload } from "lucide-react";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar, Portrait } from "@/components/ui/avatar";
 import { Button, IconButton, buttonClasses } from "@/components/ui/button";
 import { EmptyState, Notice } from "@/components/ui/feedback";
@@ -71,6 +72,7 @@ export function AvatarUpload({ avatarUrl, name, onSaved }: { avatarUrl: string |
           </span>
         </label>
         <p className="type-caption text-ink-muted">JPG, PNG oder WebP, bis 8 MB. Ein helles Porträt, Gesicht gut erkennbar.</p>
+        <AiLabel src={state?.ok ? state.data.avatarUrl : avatarUrl} />
         <div aria-live="polite">
           {localError || (state && !state.ok) ? <p className="type-caption text-danger">{localError ?? (state && !state.ok ? state.fieldErrors?.file ?? proError(state.error) : "")}</p> : null}
         </div>
@@ -84,7 +86,10 @@ export function AvatarLine({ avatarUrl, name }: { avatarUrl: string | null; name
   return (
     <span className="inline-flex items-center gap-3">
       <Avatar src={avatarUrl} name={name} size={40} />
-      <span className="type-label">{name}</span>
+      <span className="flex flex-col">
+        <span className="type-label">{name}</span>
+        <AiLabel src={avatarUrl} />
+      </span>
     </span>
   );
 }
@@ -157,7 +162,8 @@ export function PortfolioManager({
             </li>
           ))}
         </ul>
-      ) : (
+      ) : null}
+      {items.length ? <AiLabel kind="images" srcs={items.map((it) => it.url)} className="-mt-3" /> : (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised">
           <EmptyState className="py-6!" seed="pro-portfolio" title="Noch kein Portfolio.">
             Zeig {minRecommended} oder mehr Arbeiten – Nägel, Make-up oder dein Set-up vor Ort. Profile mit Bildern werden deutlich häufiger gebucht.

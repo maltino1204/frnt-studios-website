@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 /**
  * Page-level empty state for not-found routes. Same geometry as the kit's EmptyState
- * (seeded aura art, display-s headline, one or two lines, one action), but the headline
+ * (arch outline, serif title, one or two lines, one action), but the headline
  * is the page's h1, because these states replace the whole page.
  */
 export function NotFoundState({

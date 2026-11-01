@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AuraArt } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline } from "@/components/ui/layout";
@@ -33,9 +33,9 @@ export function NotFoundContent() {
         </div>
       </div>
       <div className="flex flex-col gap-4 lg:col-span-5 lg:col-start-8">
-        {/* An empty doorstep: the aura with a glass card that names the missing page. Decorative. */}
+        {/* An empty doorstep: the category wash with a Paper card that names the missing page. Decorative. */}
         <div aria-hidden className="relative isolate flex h-56 items-center justify-center overflow-hidden rounded-panel shadow-float md:h-64">
-          <AuraArt seed="404" tone="brows-lashes" />
+          <ToneFill seed="404" tone="brows-lashes" arch={false} />
           <span className="relative z-[3] flex flex-col items-center gap-1 rounded-card bg-surface-raised px-8 py-5 shadow-float">
             <span className="type-display-m num">404</span>
             <span className="type-caption text-ink">Seite nicht gefunden</span>

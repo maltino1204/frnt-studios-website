@@ -19,6 +19,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { ProLockup } from "@/components/brand/logo";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill, Status } from "@/components/ui/feedback";
 import { RouteTransition } from "@/components/ui/motion";
@@ -112,6 +113,7 @@ export function ProShell({
               </Status>
             </div>
           </div>
+          <AiLabel src={avatarUrl} />
           <div className="flex flex-col border-t border-line pt-2">
             {publicHref ? (
               <Link href={publicHref} className="inline-flex min-h-9 items-center gap-2 rounded-control type-label-s text-ink-muted transition-colors hover:text-ink focus-ring">

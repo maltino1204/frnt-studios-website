@@ -60,7 +60,7 @@ export function ResponseCountdown({
   );
 }
 
-/** 40px ring: hairline track, arc in the aura (or danger) that empties as time runs out. */
+/** 40px ring: hairline track, an Espresso (or danger) arc that empties as time runs out. */
 function CountdownRing({ fraction, tone }: { fraction: number; tone: "accent" | "danger" | "muted" }) {
   const size = 40;
   const stroke = 3.5;

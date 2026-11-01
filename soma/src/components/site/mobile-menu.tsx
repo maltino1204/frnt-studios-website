@@ -15,7 +15,7 @@ export type NavLink = { href: string; label: string; active?: boolean };
 
 /**
  * Full-screen menu for < lg (design-guideline v2 §8 "Navigation"): a light
- * glass layer over a soft aura; links rise in with a short stagger.
+ * Bone layer; links rise in with a short stagger.
  * Built on <dialog>: focus trap, Esc and focus restore come from the platform.
  */
 export function MobileMenu({

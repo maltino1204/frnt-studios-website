@@ -69,7 +69,7 @@ export function BottomNav({ items, label = "Hauptnavigation", className }: { ite
                     </CountPill>
                   ) : null}
                 </span>
-                <span className={cn("text-[11px] leading-[1.2] font-[540]", it.active && "font-semibold")}>{it.label}</span>
+                <span className={cn("text-[12px] leading-[1.2] font-[540]", it.active && "font-semibold")}>{it.label}</span>
                 {it.count ? <span className="sr-only">, {it.count} offen</span> : null}
               </Link>
             </li>

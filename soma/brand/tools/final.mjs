@@ -86,8 +86,38 @@ export function word(m = P) {
   );
 }
 
-/** The symbol is the S, redrawn heavier and a touch wider so it holds at 16 px. */
+/** The S at symbol weight (also used inside the mark). */
 export const SYMBOL = { V: 124, h: 46 };
 export const SYMBOL_OPTS = { w: 246 };
-/** Micro symbol for favicons (16-32 px): hairlines opened up so the waist survives rasterisation. */
+/** Heavier S for the favicon cut: hairlines opened up so the waist survives rasterisation. */
 export const SYMBOL_MICRO = { V: 138, h: 74 };
+
+/**
+ * The SOMA mark, "S im O" (Brand Audit 1, O1): the S, the body, held inside the O, the place. Both parts are the
+ * wordmark's own geometry: the O's outer contour (rx 332, ry 362, tensions 0.57 / 0.585) and the S of the wordmark
+ * at symbol weight, scaled to 64 % of the O's height. "Your body. Your place." in one sign, and the first two letters
+ * of the name. Two cuts:
+ *   line  (>= 32 px): the O as a vertical-stress ring, the S floating in its counter;
+ *   solid (< 32 px): the O as a filled oval with the S set into it (the seal), for favicons, tabs and stamps.
+ * Returned centred on (0, 0); the O spans 664 x 724 units.
+ */
+export const MARK = {
+  rx: 332,
+  ry: 362,
+  line: { OV: 108, Oh: 40, S: { V: 120, h: 46 }, SH: 466 },
+  solid: { S: { V: 156, h: 82 }, SH: 452 },
+};
+function centred(g, H) {
+  const b = bounds(g);
+  return transform(transform(g, { tx: -b.x - b.w / 2, ty: -b.y - b.h / 2 }), { sx: H / b.h });
+}
+export function symbolMark(cut = "line") {
+  const { rx, ry } = MARK;
+  const c = MARK[cut];
+  const outer = oval({ cx: 0, cy: 0, rx, ry, kx: 0.57, ky: 0.585 });
+  const S = centred(glyphS({ ...MASTERS.display, ...c.S }, SYMBOL_OPTS), c.SH);
+  if (cut === "solid") return { cut, seal: outer, s: S, item: subtract(outer, S) };
+  const inner = oval({ cx: 0, cy: 0, rx: rx - c.OV, ry: ry - c.Oh, kx: 0.6, ky: 0.54 });
+  const o = subtract(outer, inner);
+  return { cut, o, s: S, item: unite(o, S) };
+}

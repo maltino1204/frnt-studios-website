@@ -50,7 +50,7 @@ async function finalBoard() {
   })();
   const f = (n) => `file://${FIN}/${n}`;
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>${fontFaces(["newsreader", "instrumentsans"])}${css}</style></head><body>
-  <h1>SOMA Logo-System</h1><div class="cap">Wortmarke (Display- und Mikro-Master), Zeichen, Lockups. Alle Formen sind eigene Pfade; Schriften nur für Deskriptor und Tagline, in Pfade umgewandelt.</div>
+  <h1>SOMA Logo-System · v1.1</h1><div class="cap">Wortmarke (Display- und Mikro-Master), Zeichen (S im O; Siegel unter 32 px), Lockups. Alle Formen sind eigene Pfade; Schriften nur für Deskriptor und Tagline, in Pfade umgewandelt.</div>
   <h2>Primäre Wortmarke · hell / dunkel / Oxblood</h2>
   <div class="g" style="grid-template-columns:1fr 1fr 1fr">
     <div class="c" style="background:${BONE};outline:1px solid ${STONE}"><img src="${f("soma-wordmark-espresso.svg")}" style="width:88%"></div>
@@ -69,13 +69,13 @@ async function finalBoard() {
     <div class="c" style="background:${ESP};min-height:200px"><img src="${f("soma-lockup-tagline-bone.svg")}" style="width:80%;max-height:none"></div>
     <div class="c" style="background:${OX};min-height:200px"><img src="${f("soma-lockup-stacked-bone.svg")}" style="height:170px;max-height:none"></div>
   </div>
-  <h2>Zeichen · das S · und App-Icon</h2>
+  <h2>Zeichen · das S im O · Siegel-Schnitt · App-Icon · Favicon</h2>
   <div class="g" style="grid-template-columns:repeat(5,1fr)">
     <div class="c" style="background:${BONE};outline:1px solid ${STONE}"><img src="${f("soma-symbol-espresso.svg")}" style="height:110px"></div>
     <div class="c" style="background:${ESP}"><img src="${f("soma-symbol-bone.svg")}" style="height:110px"></div>
-    <div class="c" style="background:${BONE};outline:1px solid ${STONE}"><img src="${f("soma-symbol-oxblood.svg")}" style="height:110px"></div>
+    <div class="c" style="background:${BONE};outline:1px solid ${STONE};gap:16px;align-items:flex-end"><img src="${f("soma-symbol-solid-espresso.svg")}" style="height:32px"><img src="${f("soma-symbol-solid-espresso.svg")}" style="height:24px"><img src="${f("soma-symbol-solid-espresso.svg")}" style="height:16px"></div>
     <div class="c" style="background:${BONE};outline:1px solid ${STONE}"><img src="file://${A}icons/ios/AppIcon-1024.png" style="height:120px;border-radius:27px"></div>
-    <div class="c" style="background:${BONE};outline:1px solid ${STONE};gap:14px"><img src="file://${A}icons/favicon-32.png" style="height:32px;image-rendering:auto"><img src="file://${A}icons/favicon-16.png" style="height:16px"></div>
+    <div class="c" style="background:#202124;gap:14px"><img src="file://${A}icons/favicon-32.png" style="height:32px;image-rendering:auto"><img src="file://${A}icons/favicon-16.png" style="height:16px"></div>
   </div>
   <h2>Konstruktion und Schutzraum · Kleinste Größen</h2>
   <div class="g" style="grid-template-columns:1.4fr 1fr">

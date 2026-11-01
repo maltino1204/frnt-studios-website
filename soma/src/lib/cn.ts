@@ -12,7 +12,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       radius: ["xs", "control", "tile", "card", "panel", "sheet"],
-      shadow: ["hairline", "raised", "float", "overlay", "modal", "sheet", "bar", "press", "ink", "accent", "aura"],
+      shadow: ["hairline", "raised", "float", "overlay", "modal", "sheet", "bar", "press", "ink", "accent"],
       "inset-shadow": ["field", "sunken"],
       spacing: ["touch", "control", "control-s", "control-l"],
       container: ["reading", "form", "sheet", "content", "page", "dashboard"],
@@ -24,16 +24,13 @@ const twMerge = extendTailwindMerge({
       font: ["sans", "display", "accent", "mono"],
       "font-weight": ["regular", "label", "button", "strong"],
       blur: ["glass"],
-      ease: ["standard", "enter", "arrive", "exit", "calm", "ambient", "spring", "settle"],
+      ease: ["standard", "enter", "arrive", "exit", "calm", "spring", "settle"],
       animate: [
         "skeleton", "spin", "fade-in", "sheet-in", "dialog-in", "toast-in", "pop", "settle", "rise", "draw", "arch-in",
-        "aura-drift", "aura-drift-2", "aura-breathe", "float", "float-in",
       ],
     },
     classGroups: {
       duration: [{ duration: ["instant", "fast", "base", "slow", "spring", "arrive", "calm"] }],
-      // bg-aura / bg-aura-soft (retired, now flat) are background images, not colours.
-      "bg-image": [{ bg: ["aura", "aura-soft"] }],
     },
   },
 });

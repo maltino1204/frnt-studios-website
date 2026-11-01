@@ -55,16 +55,18 @@ const variants = [
   ["android-home-light", { os: "android", dark: false, wallpaper: L.img.v2("L09-experience-flexible"), somaIcon: ICON.adaptive }],
   ["android-home-themed-dark", { os: "android", dark: true, wallpaper: L.img.v2("E04-hotel"), somaIcon: ICON.adaptive, themed: true }],
 ];
+const wallLabel = `<div class="ai" style="margin-top:22px;font-size:15px;color:${L.C.umberDeep};text-align:center">Hintergrund: Bild KI-generiert · andere Apps: neutrale Platzhalter</div>`;
 for (const [name, v] of variants) {
-  await L.png(L.page(phone(v), { w: 433, h: 892, css, bg: L.C.bone }), path.join(OUT, name + ".png"), { w: 433, h: 892, scale: 2 });
+  await L.png(L.page(`<div style="display:flex;flex-direction:column;align-items:center">${phone(v)}${wallLabel}</div>`, { w: 433, h: 940, css, bg: L.C.bone }), path.join(OUT, name + ".png"), { w: 433, h: 940, scale: 2 });
 }
 
 // Board: four phones + store icons, labelled honestly (PWA today; native apps not built).
 const board = `<div style="padding:72px 80px">
   <div class="eyebrow" style="color:${L.C.umberDeep}">Anwendung · App-Icon</div>
-  <h1 class="serif" style="font-size:64px;margin:14px 0 10px">Das S auf dem Home-Bildschirm.</h1>
-  <p style="font-size:18px;line-height:1.5;color:${L.C.umberDeep};max-width:980px">Bone-S auf Oxblood: der sichtbarste Oxblood-Moment der Marke. Heute als Web-App-Icon (PWA, „Zum Home-Bildschirm“). Native iOS- und Android-Apps sind <b>nicht gebaut</b>; die Store-Icons rechts sind vorbereitete Assets.</p>
-  <div style="display:flex;gap:58px;margin-top:56px;align-items:flex-start">
+  <h1 class="serif" style="font-size:64px;margin:14px 0 10px">Das S im O auf dem Home-Bildschirm.</h1>
+  <p style="font-size:18px;line-height:1.5;color:${L.C.umberDeep};max-width:980px">Das Zeichen, das S im O, in Bone auf Oxblood: der sichtbarste Oxblood-Moment der Marke. Heute als Web-App-Icon (PWA, „Zum Home-Bildschirm“). Native iOS- und Android-Apps sind <b>nicht gebaut</b>; die Store-Icons rechts sind vorbereitete Assets.</p>
+  <div style="margin-top:14px"><span style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:999px;background:${L.C.linen};box-shadow:inset 0 0 0 1px ${L.C.stoneDeep};font-size:14px;font-weight:600;color:${L.C.umberDeep}">Hintergrundbilder KI-generiert · andere App-Icons sind neutrale Platzhalter</span></div>
+  <div style="display:flex;gap:58px;margin-top:48px;align-items:flex-start">
     ${variants.map(([n, v], i) => `<figure style="width:393px"><div style="transform:scale(.86);transform-origin:top left;width:393px;height:733px">${phone(v)}</div><figcaption class="place" style="margin-top:22px;color:${L.C.umberDeep}">${["iOS · hell", "iOS · dunkel (Dark-Variante)", "Android · hell (adaptiv)", "Android · Themed Icons (monochrom)"][i]}</figcaption></figure>`).join("")}
     <div style="width:360px;display:flex;flex-direction:column;gap:36px">
       <div><img src="${ICON.ios}" style="width:200px;height:200px;border-radius:44.8px;display:block;box-shadow:var(--shadow-float)"><div class="place" style="margin-top:16px;color:${L.C.umberDeep}">App Store · 1024 × 1024</div><p style="font-size:14px;color:${L.C.umberDeep};margin-top:6px;line-height:1.45">AppIcon-1024.png · Dark und Tinted liegen bei (iOS 18).</p></div>
@@ -72,6 +74,6 @@ const board = `<div style="padding:72px 80px">
       <div><img src="${ICON.play}" style="width:200px;height:200px;border-radius:20%;display:block;box-shadow:var(--shadow-float)"><div class="place" style="margin-top:16px;color:${L.C.umberDeep}">Google Play · 512 × 512</div><p style="font-size:14px;color:${L.C.umberDeep};margin-top:6px;line-height:1.45">play-store-512.png · adaptives Icon mit Vorder-, Hinter- und Monochrom-Ebene.</p></div>
     </div>
   </div></div>`;
-await L.png(L.page(board, { w: 2400, h: 1140 }), path.join(OUT, "app-icons-board.png"), { w: 2400, h: 1140 });
+await L.png(L.page(board, { w: 2400, h: 1190 }), path.join(OUT, "app-icons-board.png"), { w: 2400, h: 1190 });
 await L.close();
 console.log("app-icons done");

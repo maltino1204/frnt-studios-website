@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { listFavorites } from "@/server/services/account";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Portrait } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/feedback";
@@ -43,6 +44,7 @@ export default async function FavoritenPage() {
                     <Rating avg={f.ratingAvg} count={f.ratingCount} />
                     <ModeLabel mode={f.bookingMode} />
                   </MetaLine>
+                  <AiLabel src={f.avatarUrl} />
                   {f.headline ? <p className="line-clamp-2 type-body-s text-ink-muted">{f.headline}</p> : null}
                 </div>
               </div>

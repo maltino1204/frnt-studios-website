@@ -9,7 +9,6 @@ import { searchProviders } from "@/server/services/search";
 import { getPriceFloors } from "@/server/services/site-ext";
 import { listNearbyPostalCodes, type NearbyPostalCodeDTO } from "@/server/services/site-ext-2";
 import type { CategoryWithServicesDTO, SearchInput, SearchResultDTO, ServiceDTO } from "@/server/dto";
-import { AuraBackground } from "@/components/ui/aura";
 import { chipClasses } from "@/components/ui/chip";
 import { EmptyArt } from "@/components/ui/feedback";
 import { Container, Overline } from "@/components/ui/layout";
@@ -432,11 +431,10 @@ function SummaryRow({ label, value, num }: { label: string; value: string; num?:
   );
 }
 
-/** Empty and zero-supply states: seeded aura art, a calm headline, the next useful action. */
+/** Empty and zero-supply states: the arch outline, a calm headline, the next useful action. */
 function EmptyCard({ seed, tone, title, children }: { seed: string; tone?: string | null; title: string; children: ReactNode }) {
   return (
     <section aria-labelledby="leer-titel" className="relative isolate mt-1 overflow-clip rounded-panel bg-surface-raised p-6 shadow-raised md:p-8">
-      <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
       <div className="flex max-w-reading flex-col items-start gap-4">
         <EmptyArt seed={seed} tone={tone ?? undefined} className="mb-2" />
         <h2 id="leer-titel" className="type-title-serif">
@@ -448,11 +446,10 @@ function EmptyCard({ seed, tone, title, children }: { seed: string; tone?: strin
   );
 }
 
-/** No or unknown PLZ: a calm prompt on a soft aura, the form as a floating card. */
+/** No or unknown PLZ: a calm prompt, the form as a card. */
 function PromptLayout({ overline, title, lead, children }: { overline: string; title: string; lead: string; tone?: string | null; children: ReactNode }) {
   return (
     <div className="relative isolate overflow-clip">
-      <AuraBackground placement="right" variant="section" fade="both" />
       <Container width="content" className="grid gap-8 pt-8 pb-16 lg:grid-cols-12 lg:items-start lg:gap-6 lg:pt-16 lg:pb-24">
         <div className="flex max-w-reading flex-col gap-4 lg:col-span-6">
           <Overline>{overline}</Overline>

@@ -7,8 +7,7 @@ import { AsideLink, ProPage, ProSection } from "@/components/pro/page";
 import { MoneyCount, RatingBars, weekKeyOf, weeklySeries } from "@/components/pro/stats";
 import { addDaysKey, berlinDateKey, berlinToIso, greetingFor } from "@/components/pro/time";
 import { ProgressRing } from "@/components/pro/ui";
-import { CountUp } from "@/components/ui/motion";
-import { AuraLine, AuraBackground } from "@/components/ui/aura";
+import { FormattedNumber } from "@/components/ui/number";
 import { ButtonLink } from "@/components/ui/button";
 import { StatGrid, StatTile } from "@/components/ui/data";
 import { EmptyState, Notice } from "@/components/ui/feedback";
@@ -85,12 +84,10 @@ export default async function ProTodayPage() {
     <ProPage>
       <div className="relative isolate flex flex-col gap-8 lg:gap-10">
         <div aria-hidden className="pointer-events-none absolute -inset-x-(--space-gutter) -top-6 -z-10 h-[20rem] lg:-top-10 lg:h-[24rem]">
-          {/* A5-15: no grain behind the muted greeting meta; it darkened pixels to 4.37:1. */}
-          <AuraBackground variant="subtle" placement="top" fade="bottom" grain={false} />
+
         </div>
         <header className="flex flex-col gap-2.5">
           <p className="flex items-center gap-2.5 type-overline text-ink-muted" suppressHydrationWarning>
-            <AuraLine className="w-5" />
             {formatDay(new Date())}
           </p>
           <h1 className="type-display-s" suppressHydrationWarning>
@@ -148,21 +145,21 @@ export default async function ProTodayPage() {
             <StatTile
               label="Bevorstehend"
               icon={<Icon icon={CalendarCheck2} size={16} />}
-              value={<CountUp value={dash.upcomingCount} />}
+              value={<FormattedNumber value={dash.upcomingCount} />}
               hint="bestätigte Termine"
               spark={perDay}
             />
             <StatTile
               label="Bewertung"
               icon={<Icon icon={Star} size={16} />}
-              value={showRating ? <CountUp value={dash.ratingAvg!} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /> : "—"}
+              value={showRating ? <FormattedNumber value={dash.ratingAvg!} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /> : "—"}
               hint={showRating ? plural(dash.ratingCount, "Bewertung", "Bewertungen") : "ab drei Bewertungen sichtbar"}
               sparkline={reviews.ratingCount > 0 ? <RatingBars distribution={reviews.distribution} /> : undefined}
             />
             <StatTile
               label="Abgeschlossen"
               icon={<Icon icon={CheckCircle2} size={16} />}
-              value={<CountUp value={dash.completedCount} />}
+              value={<FormattedNumber value={dash.completedCount} />}
               hint="seit Start"
               spark={countWeeks}
             />

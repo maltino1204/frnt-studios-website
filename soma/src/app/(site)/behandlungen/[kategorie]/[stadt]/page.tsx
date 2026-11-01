@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import type { CategoryDTO, CityDTO } from "@/server/dto";
 import { SeoPageSkeleton } from "@/components/site/discovery-skeletons";
 import { EmptyState } from "@/components/ui/feedback";
-import { AuraArt, AuraBackground } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
@@ -113,7 +113,6 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
         ]}
       />
       <div className="relative isolate overflow-clip">
-        <AuraBackground placement="right" variant="section" fade="both" className="max-h-[44rem]" />
       <Container className="pt-5 md:pt-7">
         <Breadcrumbs items={crumbs} />
         <div className="grid gap-10 pt-6 pb-(--space-section) md:pt-10 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
@@ -135,7 +134,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
           <aside aria-label="Termin finden" className="lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:self-start lg:sticky lg:top-[calc(var(--header-height)+2rem)]">
             <div className="mb-4 hidden items-center gap-3 lg:flex">
               <span aria-hidden className="relative size-10 shrink-0 overflow-hidden rounded-tile shadow-raised">
-                <AuraArt seed={`${category.slug}:${city.slug}`} tone={category.slug} grain={false} />
+                <ToneFill seed={`${category.slug}:${city.slug}`} tone={category.slug} arch={false} />
               </span>
               <p className="type-heading-m">
                 {category.name} in {city.name} buchen

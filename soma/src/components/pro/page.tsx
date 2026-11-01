@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, ChevronLeft } from "lucide-react";
 import { Icon } from "@/components/ui/icon";
-import { AuraLine } from "@/components/ui/aura";
 import { cn } from "@/lib/cn";
 
 /**
@@ -53,7 +52,6 @@ export function ProHeader({
         {overline ? (
           typeof overline === "string" ? (
             <p className="flex items-center gap-2.5 type-overline text-ink-muted">
-              <AuraLine className="w-5" />
               {overline}
             </p>
           ) : (

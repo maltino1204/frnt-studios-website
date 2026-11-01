@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { BedDouble, Building2, CalendarDays, ChevronDown, CircleAlert, Clock, House, KeyRound, MapPin, Plus, ShieldCheck, UserRound, Wallet } from "lucide-react";
+import { CalendarDays, ChevronDown, CircleAlert, Clock, KeyRound, Plus, ShieldCheck, UserRound, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { CategoryIcon, PlaceIcon } from "@/components/brand/brand-icon";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
@@ -67,7 +69,6 @@ type AddrFields = {
 
 const STEPS = ["Übersicht", "Ort", "Kontakt", "Zahlung"] as const;
 const STEP_IDS = ["uebersicht", "ort", "kontakt", "zahlung"] as const;
-const KIND_ICON = { home: House, hotel: BedDouble, office: Building2, other: MapPin } as const;
 /** Morphing caption while the booking runs: each phase names the step that is actually happening. */
 type Phase = "konto" | "reservieren" | "zahlung" | "weiter";
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -458,11 +459,15 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 <Rating avg={provider.ratingAvg} count={provider.ratingCount} />
                 <ModeLabel mode={quote.bookingMode} />
               </MetaLine>
+              <AiLabel src={provider.avatarUrl} />
             </div>
           </div>
           <dl className="grid grid-cols-2 gap-x-4 gap-y-4 rounded-tile bg-surface-sunken p-4 sm:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_auto] sm:gap-x-6">
             <div className="col-span-2 flex min-w-0 flex-col gap-1 sm:col-span-1">
-              <dt className="type-caption text-ink-muted hyphens-none">Behandlung</dt>
+              <dt className="flex items-center gap-1.5 type-caption text-ink-muted hyphens-none">
+                <CategoryIcon slug={props.categorySlug} size={14} />
+                Behandlung
+              </dt>
               <dd className="type-label text-ink">{quote.serviceName}</dd>
             </div>
             <div className="flex min-w-0 flex-col gap-1">
@@ -494,7 +499,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               value: k,
               label: (
                 <span className="inline-flex items-center gap-1.5">
-                  <Icon icon={KIND_ICON[k]} size={16} className="hidden min-[360px]:block" />
+                  <PlaceIcon kind={k} size={16} className="hidden min-[360px]:block" />
                   {LOCATION_LABELS[k]}
                 </span>
               ),
@@ -526,7 +531,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                         setKind(a.kind === "other" ? "home" : a.kind);
                         requote({ addressId: a.id, useCredits });
                       }}
-                      icon={KIND_ICON[a.kind]}
+                      icon={<PlaceIcon kind={a.kind} size={18} />}
                       title={name}
                       badge={a.isDefault ? <Badge size="s" tone="accent">Standard</Badge> : null}
                       accessibleName={`${name}${a.isDefault ? " · Standard" : ""}`}
@@ -825,6 +830,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               <div className="min-w-0">
                 <p className="type-heading-s">{provider.name}</p>
                 <p className="truncate type-caption text-ink-muted">{`${quote.serviceName} · ${formatDuration(quote.durationMinutes)}`}</p>
+                <AiLabel src={provider.avatarUrl} />
               </div>
             </div>
             <ul className="flex flex-col gap-3">
@@ -833,7 +839,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 <span className="num">{`${dayLabel(quote.startsAt)}, ${formatTime(quote.startsAt)}–${formatTime(endsAt)}`}</span>
               </li>
               <li className="flex items-start gap-3 type-body-s text-ink">
-                <Icon icon={KIND_ICON[savedChosen?.kind ?? kind]} size={18} className="mt-px shrink-0 text-ink-muted" />
+                <PlaceIcon kind={savedChosen?.kind ?? kind} size={18} className="mt-px shrink-0 text-ink-muted" />
                 <span className="min-w-0">
                   {LOCATION_LABELS[savedChosen?.kind ?? kind]}
                   <span className="block truncate type-caption text-ink-muted">{summaryAddress}</span>

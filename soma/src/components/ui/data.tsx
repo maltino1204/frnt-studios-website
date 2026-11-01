@@ -12,7 +12,7 @@ export function StatGrid({ children, className }: { children: ReactNode; classNa
 /**
  * KPI tile: label, tabular value, delta pill and an optional sparkline.
  * Pass `spark={[…]}` for the built-in gradient sparkline, or any node as `sparkline`.
- * For a count-up, pass `value={<CountUp value={38} />}`.
+ * For a count-up, pass `value={<FormattedNumber value={38} />}`.
  */
 export function StatTile({
   label,

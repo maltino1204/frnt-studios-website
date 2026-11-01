@@ -107,11 +107,10 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
         emphasis="Bei dir zu Hause."
         lead={category.description ?? category.tagline ?? undefined}
         photo={{ src: category.imagePath ?? images.category(category.slug), alt: "", tone: category.slug, word: category.name }}
-        ambient={false}
         badges={
           <>
             {from != null ? (
-              <HeroBadge className="top-[10%] -left-2 sm:-left-6 lg:-left-10">
+              <HeroBadge>
                 <span className="flex flex-col">
                   <span className="type-heading-l num">{fromPrice(from)}</span>
                   <span className="type-caption text-ink-muted">günstigstes Angebot, zzgl. Anfahrt</span>
@@ -119,7 +118,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
               </HeroBadge>
             ) : null}
             {rating && rating.count >= 3 ? (
-              <HeroBadge glass className="right-4 bottom-[12%] hidden sm:flex lg:-right-6">
+              <HeroBadge>
                 <Icon icon={Star} size={18} className="fill-ink text-ink" />
                 <span className="flex flex-col">
                   <span className="type-heading-s num">{formatRating(rating.value)}</span>

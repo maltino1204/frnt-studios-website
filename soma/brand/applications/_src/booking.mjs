@@ -67,7 +67,7 @@ const f = (p) => "file://" + path.join(OUT, p);
 await L.png(L.page(`<div style="padding:64px 72px;display:flex;gap:72px">
   <div style="width:520px"><div class="eyebrow" style="color:${C.umberDeep}">Anwendung · Buchungsbestätigung</div>
   <h1 class="serif" style="font-size:56px;margin:14px 0 18px">Bestätigt. <em>Und alles steht drin.</em></h1>
-  <p style="font-size:18px;line-height:1.55;color:${C.umberDeep}">Der echte Ablauf von <span class="num">/buchung/[id]</span> im neuen Brand: Status als Wort, die eine Serif-Zeile, der Start-Code als ruhiger Moment, Ort, Zeit, Endpreis und die datierte Stornofrist. Kein Oxblood auf diesem Screen: es gibt keine Primäraktion.</p>
+  <p style="font-size:18px;line-height:1.55;color:${C.umberDeep}">Komposition des Ablaufs von <span class="num">/buchung/[id]</span> mit Demo-Daten (das Produkt zeigt seit 1.&nbsp;Nov.&nbsp;2026 dasselbe Bogen-Häkchen): Status als Wort, die eine Serif-Zeile, der Start-Code als ruhiger Moment, Ort, Zeit, Endpreis und die datierte Stornofrist. Kein Oxblood auf diesem Screen: es gibt keine Primäraktion.</p>
   <ul style="margin-top:24px;font-size:15px;line-height:1.6;color:${C.espresso};padding-left:18px">
     <li>Bewegung: Bogen-Kontur zeichnet sich (640 ms), Haken folgt (320 ms), Ziffern steigen gestaffelt (+90 ms).</li>
     <li>Reduzierte Bewegung: alles erscheint sofort; nichts trägt Information nur durch Bewegung.</li>

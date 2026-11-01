@@ -27,7 +27,7 @@ export default async function ProOnboardingLayout({ children }: LayoutProps<"/pr
         <div className="mx-auto flex h-14 w-full max-w-content items-center justify-between gap-4 px-(--space-gutter) md:h-16">
           <Link href={routes.forPros()} className="inline-flex min-h-touch items-center gap-3 rounded-control text-ink focus-ring" aria-label="SOMA Pro – für Profis">
             <Wordmark className="h-[18px]! w-auto lg:h-5!" />
-            <span className="inline-flex h-5 items-center gap-1 rounded-full bg-ink px-2 text-[11px] leading-none font-[620] tracking-[0.02em] text-ink-inverse">
+            <span className="inline-flex h-5 items-center gap-1 rounded-full bg-ink px-2 text-[12px] leading-none font-[620] tracking-[0.02em] text-ink-inverse">
               <span aria-hidden className="size-1.5 rounded-full bg-ink" />
               Pro
             </span>

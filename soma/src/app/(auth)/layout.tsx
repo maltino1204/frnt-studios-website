@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/logo";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Photo } from "@/components/ui/photo";
 import { PLACE_LINES } from "@/components/site/discovery-copy";
 import { BRAND_SIGNATURE } from "@/lib/brand";
@@ -34,9 +35,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div aria-hidden className="relative hidden bg-surface-sunken lg:block">
         <figure className="sticky top-0 mx-auto flex h-dvh max-h-[64rem] min-h-[40rem] w-full max-w-[30rem] flex-col justify-center gap-6 px-12 py-16">
           <Photo src={images.editorial.arrival} alt="" tone="brows-lashes" seed="anmelden" sizes="(min-width: 1024px) 384px, 1px" shape="arch" ratio="4/5" className="w-full" />
+          {/* The form's heading is the view's one serif statement (guidelines § 4.4), so the signature here is sans. */}
           <figcaption className="flex flex-col gap-2">
-            <p className="type-accent text-[1.75rem] leading-[1.1] text-ink">{BRAND_SIGNATURE}</p>
+            <p className="type-heading-m text-ink">{BRAND_SIGNATURE}</p>
             <p className="type-place text-ink-muted">{PLACE_LINES.arrival}</p>
+            <AiLabel src={images.editorial.arrival} kind="image" />
           </figcaption>
         </figure>
       </div>

@@ -6,6 +6,7 @@ import { createContext, useContext, useMemo, useState, useTransition, type FormE
 import { DateStrip } from "@/components/ui/booking";
 import { Button } from "@/components/ui/button";
 import { Chip, ChipRow, chipClasses } from "@/components/ui/chip";
+import { CategoryIcon } from "@/components/brand/brand-icon";
 import { CountPill } from "@/components/ui/feedback";
 import { Input, RadioRow, Select, Switch } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
@@ -89,6 +90,7 @@ export function SearchChips({ catalog, showFilterChip = true }: { catalog: Catal
           <Icon icon={ChevronDown} size={16} />
         </button>
         <button type="button" className={chipClasses(false, "condensed")} onClick={() => setOpen("leistung")} aria-haspopup="dialog">
+          <CategoryIcon slug={category?.slug} size={16} />
           {serviceLabel}
           <Icon icon={ChevronDown} size={16} />
         </button>
@@ -179,7 +181,10 @@ function ServiceSheet({ open, onClose, catalog }: { open: boolean; onClose: () =
                   state.kategorie === c.slug && "font-semibold",
                 )}
               >
-                {c.name}
+                <span className="inline-flex items-center gap-3">
+                  <CategoryIcon slug={c.slug} size={20} className="text-ink-muted" />
+                  {c.name}
+                </span>
                 <span className="type-caption text-ink-muted">{c.services.length} Leistungen</span>
               </button>
             </li>

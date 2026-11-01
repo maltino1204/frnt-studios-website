@@ -7,9 +7,10 @@ import { CardSection, IconTile } from "@/components/pro/ui";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { formatPrice, plural } from "@/lib/format";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Portrait } from "@/components/ui/avatar";
 import { Rating, VerifiedBadge } from "@/components/ui/trust";
-import { Spotlight } from "@/components/ui/motion";
+
 import { languageLabel } from "@/components/pro/labels";
 import { routes } from "@/lib/routes";
 import { signOutAction } from "@/server/actions/auth";
@@ -103,7 +104,7 @@ export default async function ProProfilePage() {
             <h2 id="vorschau" className="flex items-center gap-2 type-overline text-ink-muted">
               Vorschau in der Suche
             </h2>
-            <Spotlight className="rounded-card">
+            <div className="rounded-card">
               <div className="flex flex-col gap-4 rounded-card bg-surface-raised p-4 shadow-float sm:p-5">
                 <div className="flex gap-4">
                   <Portrait src={profile.avatarUrl} name={profile.displayName} sizes="88px" className="w-[88px] shrink-0" />
@@ -118,6 +119,7 @@ export default async function ProProfilePage() {
                         .filter(Boolean)
                         .join(" · ") || "Noch keine Leistungen"}
                     </p>
+                    <AiLabel src={profile.avatarUrl} />
                   </div>
                 </div>
                 <p className="line-clamp-2 type-body-s text-ink">{profile.headline ?? <span className="text-ink-muted">Noch keine Kurzbeschreibung</span>}</p>
@@ -137,7 +139,7 @@ export default async function ProProfilePage() {
                   ) : null}
                 </div>
               </div>
-            </Spotlight>
+            </div>
             <p className="type-caption text-ink-muted">Änderungen an Foto, Name und Kurzbeschreibung erscheinen hier sofort nach dem Speichern.</p>
           </section>
         </div>

@@ -169,21 +169,6 @@
 .stagger-rise > :nth-child(6) { animation-delay: 250ms; }
 .stagger-rise > :nth-child(n + 7) { animation-delay: 300ms; }
 
-/* Scroll-linked parallax depth (see <Parallax>), CSS-only where supported. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .parallax {
-      animation: soma-parallax linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-  }
-}
-@keyframes soma-parallax {
-  from { translate: 0 calc(var(--depth, 16px) * 1); }
-  to { translate: 0 calc(var(--depth, 16px) * -1); }
-}
-
 /* --------------------------------------------------------------------------
    UI kit structure that needs :has() (see components/ui/segmented.tsx)
    -------------------------------------------------------------------------- */

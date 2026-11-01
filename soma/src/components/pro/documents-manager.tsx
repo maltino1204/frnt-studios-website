@@ -119,7 +119,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
     <div className="flex flex-col gap-8">
       <section className="flex flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised" aria-labelledby="req-title">
         <div className="flex items-center gap-4 border-b border-line p-5 lg:p-6">
-          <ProgressRing value={total ? doneCount / total : 0} size={64} stroke={5} tone={doneCount === total ? "success" : "aura"}>
+          <ProgressRing value={total ? doneCount / total : 0} size={64} stroke={5} tone={doneCount === total ? "success" : "ink"}>
             <span className="type-label-s text-ink num">
               {doneCount}/{total}
             </span>

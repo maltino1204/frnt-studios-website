@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import { CountUp } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { berlinDateKey } from "@/lib/format";
 import { addDaysKey, weekdayOfKey } from "./time";
 
@@ -8,13 +8,13 @@ import { addDaysKey, weekdayOfKey } from "./time";
  * Everything here is derived from service DTOs; nothing is invented.
  */
 
-/** Count-up for money: whole euros stay whole, otherwise two decimals (tabular). */
+/** Money, final on the first frame (no count-up): whole euros stay whole, otherwise two decimals (tabular). */
 export function MoneyCount({ cents, tile = true, className }: { cents: number; /** sized for a 2-up KPI tile on phones */ tile?: boolean; className?: string }) {
   const whole = cents % 100 === 0;
   const format: Intl.NumberFormatOptions = { style: "currency", currency: "EUR", minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 };
   // Long amounts ("2.561,54 €") step down a size in the 2-up phone grid instead of wrapping the "€".
   const long = new Intl.NumberFormat("de-DE", format).format(cents / 100).length > 8;
-  return <CountUp value={cents / 100} format={format} className={cn("whitespace-nowrap", tile && long && "max-sm:text-[1.5rem]", className)} />;
+  return <FormattedNumber value={cents / 100} format={format} className={cn("whitespace-nowrap", tile && long && "max-sm:text-[1.5rem]", className)} />;
 }
 
 /** Monday (Berlin) of the week containing `d`, as "YYYY-MM-DD". */

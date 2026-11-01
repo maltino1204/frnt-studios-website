@@ -38,7 +38,7 @@ await L.png(L.page(`<div style="position:relative;width:1200px;height:760px;back
   <div class="serif" style="position:absolute;left:624px;top:214px;width:520px;font-size:52px">Verschenk eine Stunde, <em>für die niemand das Haus verlassen muss.</em></div>
   <div style="position:absolute;left:624px;top:470px;display:flex;align-items:baseline;gap:16px"><span class="num" style="font-size:64px;font-weight:560;letter-spacing:-.02em">100${nb}€</span><span style="font-size:17px;color:${C.umberDeep}">für jede Behandlung auf SOMA</span></div>
   <div style="position:absolute;left:624px;top:580px;display:flex;gap:14px;align-items:center"><span class="btn" style="height:52px;padding:0 26px;font-size:16px;background:${C.oxblood};color:${C.bone}">Gutschein einlösen</span><span class="num" style="font-size:16px;font-weight:600;letter-spacing:.12em;color:${C.umberDeep}">MUST-ER00-0000</span></div>
-  <div style="position:absolute;left:624px;bottom:40px;font-size:13px;color:${C.umberDeep};width:520px;line-height:1.5">Gültig gemäß Gutscheinbedingungen (⚖ in Abstimmung, Entwurf: 3 Jahre).</div></div>`, { w: 1200, h: 760 }), path.join(OUT, "digital-1200x760.png"), { w: 1200, h: 760, scale: 2 });
+  <div style="position:absolute;left:624px;bottom:40px;font-size:13px;color:${C.umberDeep};width:520px;line-height:1.5">Gültig gemäß Gutscheinbedingungen (in rechtlicher Prüfung, Entwurf: 3 Jahre).</div></div>`, { w: 1200, h: 760 }), path.join(OUT, "digital-1200x760.png"), { w: 1200, h: 760, scale: 2 });
 
 // Presentation board, clearly labelled as a future concept
 const f = (p) => "file://" + path.join(OUT, p);
@@ -55,6 +55,6 @@ await L.png(L.page(`<div style="padding:64px 72px">
         <li>Vorderseite: die eine Oxblood-Fläche, Bone-Bogenkontur, die über die Kante läuft (der Bogen schneidet, er wird nicht gefüllt).</li>
         <li>Rückseite: Bone, Oxblood-Wortmarke (nur im Druck erlaubt), Betrag und Code in tabellarischen Ziffern. „MUST-ER…“ ist ein Mustercode.</li>
         <li>Druck: ungestrichener Bone-Karton ≥ 600 g/m² oder PVC-frei; Oxblood als Sonderfarbe nach Andruck; Wortmarke optional als Bone-Heißfolie.</li>
-        <li>Gültigkeit und Bedingungen kommen vom Anwalt (⚖). Nicht auf Landingpage oder in der App zeigen, bis Gutscheine gebaut sind.</li></ul></div></div></div>`, { w: 1480, h: 1000 }), path.join(OUT, "board.png"), { w: 1480, h: 1000 });
+        <li>Gültigkeit und Bedingungen kommen aus der rechtlichen Prüfung. Nicht auf Landingpage oder in der App zeigen, bis Gutscheine gebaut sind.</li></ul></div></div></div>`, { w: 1480, h: 1000 }), path.join(OUT, "board.png"), { w: 1480, h: 1000 });
 await L.close();
 console.log("giftcard done");

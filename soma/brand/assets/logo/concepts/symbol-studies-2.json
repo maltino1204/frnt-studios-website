@@ -1,0 +1,75 @@
+{
+  "method": "IoU of silhouettes, both normalised to the same height, centred on their bounding boxes, rasterised at 512 px; best of five horizontal shifts (±24 px). Reference: the S of each typeface. For comparison the five serif S overlap each other 0.52–0.62.",
+  "rows": [
+    {
+      "key": "control",
+      "name": "Kontrolle: das S (v1)",
+      "chosen": false,
+      "iou": {
+        "Bodoni Moda": 0.39,
+        "Newsreader": 0.44,
+        "Gloock": 0.5,
+        "Playfair Display": 0.52,
+        "Libre Bodoni": 0.43
+      },
+      "maxIoU": 0.52,
+      "note": "Gut gezeichnet, aber ein Buchstabe: kein Merkmal jenseits der Schrift."
+    },
+    {
+      "key": "s-im-o",
+      "name": "S im O (gewählt)",
+      "chosen": true,
+      "iou": {
+        "Bodoni Moda": 0.17,
+        "Newsreader": 0.23,
+        "Gloock": 0.24,
+        "Playfair Display": 0.24,
+        "Libre Bodoni": 0.24
+      },
+      "maxIoU": 0.24,
+      "note": "Der Körper im Ort: das S der Wortmarke im O der Wortmarke. Liest als Zeichen, nicht als Buchstabe; die ersten zwei Buchstaben des Namens."
+    },
+    {
+      "key": "siegel",
+      "name": "Siegel (Schnitt < 32 px)",
+      "chosen": false,
+      "iou": {
+        "Bodoni Moda": 0.17,
+        "Newsreader": 0.23,
+        "Gloock": 0.25,
+        "Playfair Display": 0.22,
+        "Libre Bodoni": 0.28
+      },
+      "maxIoU": 0.28,
+      "note": "Dieselbe Idee als Fläche: das O gefüllt, das S eingesetzt. Robust bei 16 px; der kleine Schnitt des Zeichens."
+    },
+    {
+      "key": "versatz",
+      "name": "Versatz: O halbiert, verschoben",
+      "chosen": false,
+      "iou": {
+        "Bodoni Moda": 0.04,
+        "Newsreader": 0.08,
+        "Gloock": 0.07,
+        "Playfair Display": 0.09,
+        "Libre Bodoni": 0.09
+      },
+      "maxIoU": 0.09,
+      "note": "Zeigt die Konstruktion wörtlich, liest bei 16 px aber als Sync-/Neu-laden-Pfeil. Verworfen."
+    },
+    {
+      "key": "fuge",
+      "name": "Fuge: S an der Taille verschoben",
+      "chosen": false,
+      "iou": {
+        "Bodoni Moda": 0.3,
+        "Newsreader": 0.36,
+        "Gloock": 0.32,
+        "Playfair Display": 0.36,
+        "Libre Bodoni": 0.36
+      },
+      "maxIoU": 0.36,
+      "note": "Ein Merkmal im Buchstaben, aber es wirkt wie ein Glitch, und die Überlappung mit Serifen-S liegt mit 0,30–0,36 an der Schwelle. Verworfen."
+    }
+  ]
+}

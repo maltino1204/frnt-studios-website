@@ -19,9 +19,22 @@ export const C = {
 
 const FONTS = path.join(SOMA, "brand/assets/typography/fonts");
 const url = (p) => "file://" + p;
+// v2 shot id → fetched full-resolution file (scripts/images/sources.json). Applications never use v1 images.
+const V2 = {
+  "L01-hero-wide": "landing/hero-wide", "L02-hero-mobile": "landing/hero-mobile", "L03-philosophy": "landing/philosophy",
+  "L04-experience-time": "landing/experience-time", "L05-experience-comfort": "landing/experience-comfort", "L06-experience-privacy": "landing/experience-privacy",
+  "L07-experience-quality": "landing/experience-quality", "L08-experience-choice": "landing/experience-choice", "L09-experience-flexible": "landing/experience-flexible",
+  "L10-app-home": "landing/app-home", "L11-app-pro": "landing/app-pro", "L12-app-table": "landing/app-table",
+  "E01-arrival": "editorial/arrival-v2", "E02-setup": "editorial/setup-v2", "E03-after": "editorial/after-v2", "E04-hotel": "editorial/hotel-v2", "E05-office": "editorial/office-v2",
+  "E06-details": "editorial/details-v2", "E07-provider-cta": "editorial/provider-cta-v2", "E08-og-default": "og-default-v2",
+  "C02-manikuere": "categories/manikuere-v2", "C04-kosmetik": "categories/kosmetik-v2", "C06-brows-lashes": "categories/brows-lashes-v2",
+};
 export const img = {
-  v1: (p) => url(path.join(SOMA, "public/images", p)),
-  v2: (name) => url(path.join(SOMA, "brand/photography/v2-previews", name + ".jpg")),
+  v2: (name) => {
+    const f = V2[name] && path.join(SOMA, "public/images", V2[name] + ".jpg");
+    if (!f || !fs.existsSync(f)) throw new Error("v2 image not local: " + name);
+    return url(f);
+  },
   asset: (p) => url(path.join(SOMA, "brand/assets", p)),
 };
 
@@ -57,9 +70,30 @@ html,body{background:var(--bone);color:var(--espresso);font-family:"Instrument S
 .place{font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-variant-numeric:tabular-nums;font-size:12px;line-height:1.3}
 .arch{border-radius:50% 50% 0 0 / calc(54.5% * var(--a,.8)) calc(54.5% * var(--a,.8)) 0 0;overflow:hidden}
 .arch img,.cover{width:100%;height:100%;object-fit:cover;display:block}
-.ai{font-size:11px;letter-spacing:.02em;font-weight:500;opacity:.78}
+.ai{font-size:11px;letter-spacing:.02em;font-weight:500;opacity:.9}
 .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:560;letter-spacing:-.004em;white-space:nowrap}
 `;
+
+/** Static font faces for PDFs: no variable fonts, so nothing is embedded as Type 3 (audit § 8 #16). */
+const FS = path.join(SOMA, "brand/applications/_src/fonts-static");
+export const CSS_STATIC = CSS.replace(/@font-face\{font-family:"Instrument Sans"[^}]*\}/, [400, 500, 600].map((w) => `@font-face{font-family:"Instrument Sans";src:url("${url(FS + `/instrument-sans-${w}.ttf`)}") format("truetype");font-weight:${w};}`).join(""));
+
+/**
+ * THE SIGNATURE (guidelines § 10.2): two arches, the right one dropped by 18 % of its width, the Ortszeile under the
+ * left arch (type-place, tabular time). w = arch width, h = arch height, gap = space between, place = the Ortszeile.
+ */
+/** Ortszeile: wraps only between its segments (Ort · Stadtteil · Uhrzeit), never inside one. */
+export const ortszeile = (place) => place.split(" · ").map((seg, i, arr) => `<span style="white-space:nowrap">${seg}${i < arr.length - 1 ? " ·" : ""}</span>`).join(" ");
+export function signature({ a, b, w, h, gap = Math.round(w * 0.07), place, placeColor = C.umberDeep, placeSize = 14, label = "" }) {
+  const drop = Math.round(w * 0.18);
+  const aspect = (w / h).toFixed(4);
+  const arch = (im, x, y) => `<div class="arch" style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;--a:${aspect}"><img src="${im.src}" style="object-position:${im.pos ?? "50% 50%"}"></div>`;
+  return `<div style="position:relative;width:${2 * w + gap}px;height:${h + drop + (place ? placeSize * 3.2 : 0)}px">
+    ${arch(a, 0, 0)}${arch(b, w + gap, drop)}
+    ${place ? `<div class="place" style="position:absolute;left:0;top:${h + Math.round(placeSize * 0.9)}px;width:${w + gap - 8}px;font-size:${placeSize}px;line-height:1.4;color:${placeColor}">${ortszeile(place)}</div>` : ""}
+    ${label ? `<div class="ai" style="position:absolute;right:0;top:${h + drop + Math.round(placeSize * 0.9)}px;font-size:${Math.max(12, Math.round(placeSize * 0.9))}px;color:${placeColor}">${label}</div>` : ""}
+  </div>`;
+}
 
 export const page = (body, { w, h, css = "", bg = C.bone, lang = "de" } = {}) => `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><style>${CSS}
 html,body{width:${w}px;height:${h}px;overflow:hidden;background:${bg}}${css}</style></head><body>${body}</body></html>`;

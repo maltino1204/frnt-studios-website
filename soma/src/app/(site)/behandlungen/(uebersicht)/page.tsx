@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AuraBackground } from "@/components/ui/aura";
 import { ChipLink, ChipRow } from "@/components/ui/chip";
+import { CategoryIcon } from "@/components/brand/brand-icon";
 import { Reveal } from "@/components/ui/motion";
 import { accentLinkClass } from "@/components/site/discovery-styles";
 import { Icon } from "@/components/ui/icon";
@@ -39,7 +39,6 @@ export default async function BehandlungenPage() {
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <div className="relative isolate overflow-clip">
-        <AuraBackground placement="right" variant="section" fade="both" />
       <Container className="pt-5 md:pt-7">
         <Breadcrumbs items={crumbs} />
         <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">
@@ -59,6 +58,7 @@ export default async function BehandlungenPage() {
           <ChipRow label="Zu einer Behandlung springen" className="py-2.5">
             {catalog.map((c) => (
               <ChipLink key={c.slug} href={`#${c.slug}`}>
+                <CategoryIcon slug={c.slug} size={16} />
                 {c.name}
               </ChipLink>
             ))}

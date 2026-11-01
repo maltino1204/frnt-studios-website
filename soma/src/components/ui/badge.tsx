@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type BadgeTone = "neutral" | "accent" | "success" | "warning" | "danger" | "ink" | "aura";
+export type BadgeTone = "neutral" | "accent" | "success" | "warning" | "danger" | "ink" | "outline";
 
 const TONES: Record<BadgeTone, string> = {
   neutral: "bg-surface-sunken text-ink-muted",
@@ -10,7 +10,7 @@ const TONES: Record<BadgeTone, string> = {
   warning: "bg-warning-soft text-warning",
   danger: "bg-danger-soft text-danger",
   ink: "bg-ink text-ink-inverse",
-  aura: "bg-surface-raised text-ink ring-1 ring-line-mid ring-inset",
+  outline: "bg-surface-raised text-ink ring-1 ring-line-mid ring-inset",
 };
 const DOTS: Partial<Record<BadgeTone, string>> = {
   neutral: "bg-ink-muted",
@@ -18,13 +18,13 @@ const DOTS: Partial<Record<BadgeTone, string>> = {
   success: "bg-success",
   warning: "bg-warning",
   danger: "bg-danger",
-  aura: "bg-ink",
+  outline: "bg-ink",
 };
 
 /**
  * Small pill label: "Neu", "Sofort bestätigt", "Demo", "Top bewertet".
  * Colour always comes with a word. Badges are never Oxblood (brand § 3.6): `accent` is a neutral Linen pill with
- * Espresso text, `aura` (one key badge per view) a Paper pill with a hairline.
+ * Espresso text, `outline` (one key badge per view) a Paper pill with a hairline.
  */
 export function Badge({
   tone = "neutral",
@@ -45,7 +45,7 @@ export function Badge({
     <span
       className={cn(
         "inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full whitespace-nowrap [&_svg]:size-3.5",
-        size === "s" ? "h-5 px-2 text-[11.5px] leading-none font-[560]" : "h-6 px-2.5 type-label-s",
+        size === "s" ? "h-5 px-2 text-[12px] leading-none font-[560]" : "h-6 px-2.5 type-label-s",
         TONES[tone],
         className,
       )}
@@ -62,7 +62,7 @@ export function Kbd({ children, className }: { children: ReactNode; className?: 
   return (
     <kbd
       className={cn(
-        "inline-flex h-5 min-w-5 items-center justify-center rounded-[6px] bg-surface-raised px-1.5 font-sans text-[11px] leading-none font-[560] text-ink-muted shadow-[0_0_0_1px_var(--color-line-mid),0_1px_0_1px_var(--color-line)] num",
+        "inline-flex h-5 min-w-5 items-center justify-center rounded-[6px] bg-surface-raised px-1.5 font-sans text-[12px] leading-none font-[560] text-ink-muted shadow-[0_0_0_1px_var(--color-line-mid),0_1px_0_1px_var(--color-line)] num",
         className,
       )}
     >

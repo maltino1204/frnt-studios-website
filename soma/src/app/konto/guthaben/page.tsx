@@ -3,12 +3,11 @@ import Link from "next/link";
 import { ArrowDownLeft, ArrowUpRight, CircleCheck, UsersRound, Wallet } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { getCreditSummary, getReferralInfo } from "@/server/services/account";
-import { AuraBackground } from "@/components/ui/aura";
 import { EmptyState } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Overline, PageHeader } from "@/components/ui/layout";
 import { StatGrid, StatTile } from "@/components/ui/data";
-import { CountUp } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { ReferralShare } from "@/components/site/account-referral";
 import { SITE_URL } from "@/lib/brand";
 import { cn } from "@/lib/cn";
@@ -35,7 +34,7 @@ export default async function GuthabenPage() {
             Verfügbares Guthaben
           </h2>
           <p className="type-stat">
-            <CountUp value={credits.balanceCents / 100} format={EURO} suffix={" €"} />
+            <FormattedNumber value={credits.balanceCents / 100} format={EURO} suffix={" €"} />
           </p>
         </div>
         <span aria-hidden className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink">
@@ -44,7 +43,6 @@ export default async function GuthabenPage() {
       </section>
 
       <section aria-labelledby="empfehlen" className="relative isolate flex flex-col gap-7 overflow-clip rounded-panel bg-surface-raised p-5 shadow-raised sm:p-8 lg:p-10">
-        <AuraBackground variant="section" placement="full" fade="none" />
         <div className="flex flex-col gap-3">
           <Overline>Empfehlen</Overline>
           <h2 id="empfehlen" className="max-w-[34rem] type-display-s">{`Empfiehl SOMA: ${reward} für dich, ${welcome} für alle, die du einlädst.`}</h2>
@@ -58,12 +56,12 @@ export default async function GuthabenPage() {
       </section>
 
       <StatGrid className="lg:grid-cols-3!">
-        <StatTile label="Eingeladen" icon={<Icon icon={UsersRound} size={16} />} value={<CountUp value={referral.invitedCount} />} hint="Mit deinem Link registriert" />
-        <StatTile label="Gebucht" icon={<Icon icon={CircleCheck} size={16} />} value={<CountUp value={referral.rewardedCount} />} hint="Erste Buchung abgeschlossen" />
+        <StatTile label="Eingeladen" icon={<Icon icon={UsersRound} size={16} />} value={<FormattedNumber value={referral.invitedCount} />} hint="Mit deinem Link registriert" />
+        <StatTile label="Gebucht" icon={<Icon icon={CircleCheck} size={16} />} value={<FormattedNumber value={referral.rewardedCount} />} hint="Erste Buchung abgeschlossen" />
         <StatTile
           label="Verdient"
           icon={<Icon icon={Wallet} size={16} />}
-          value={<CountUp value={referral.earnedCents / 100} format={referral.earnedCents % 100 ? EURO : { maximumFractionDigits: 0 }} suffix={" €"} />}
+          value={<FormattedNumber value={referral.earnedCents / 100} format={referral.earnedCents % 100 ? EURO : { maximumFractionDigits: 0 }} suffix={" €"} />}
           hint="Als Guthaben gutgeschrieben"
           className="col-span-2 lg:col-span-1"
         />

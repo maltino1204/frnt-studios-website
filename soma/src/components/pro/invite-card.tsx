@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { Check, Copy, Link2, Share2 } from "lucide-react";
-import { AuraBackground } from "@/components/ui/aura";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/lib/cn";
 
-/** Personal invite link on the aura: own clients book via SOMA for the own-client commission. */
+/** Personal invite link card: own clients book via SOMA for the own-client commission. */
 export function InviteCard({
   inviteUrl,
   ownClientRateLabel,
@@ -51,8 +50,7 @@ export function InviteCard({
       className={cn("relative isolate flex flex-col gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-raised lg:p-6", !compact && "lg:rounded-panel lg:p-8", className)}
       aria-labelledby="invite-title"
     >
-      {compact ? <AuraBackground variant="section" placement="full" fade="none" animate={false} /> : <AuraBackground variant="section" placement="full" fade="none" />}
-      <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
         <span className="inline-flex h-7 w-fit items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">
           Eigene Kundschaft · {ownClientRateLabel}
         </span>

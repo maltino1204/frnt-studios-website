@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDistance, formatDuration, formatPrice, formatPriceExact } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import type { ProviderSearchResult } from "@/server/dto";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Portrait } from "@/components/ui/avatar";
 import { Icon } from "@/components/ui/icon";
 import { Rating, VerifiedBadge } from "@/components/ui/trust";
@@ -103,6 +104,7 @@ export function ProviderRow({
                 <ModeLabel mode={r.bookingMode} />
               </MetaLine>
               {r.headline ? <p className="truncate type-body-s text-ink-muted">{r.headline}</p> : null}
+              <AiLabel src={r.avatarUrl} />
             </div>
             <p className="shrink-0 text-right">
               <span className="block type-heading-m num">{formatPrice(r.totalPriceCents)}</span>

@@ -204,7 +204,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
                     <p className="type-label text-ink hyphens-none">{TIER_LABEL[t]}</p>
                     <p className="type-caption text-ink-muted">{TIER_DESCRIPTION[t]}</p>
                   </div>
-                  {best ? <Badge tone="aura" size="s" dot>Dein Link</Badge> : null}
+                  {best ? <Badge tone="outline" size="s" dot>Dein Link</Badge> : null}
                 </div>
                 <p className="flex items-baseline gap-2">
                   <span className="type-stat">{rate != null ? formatPercent(rate) : "—"}</span>

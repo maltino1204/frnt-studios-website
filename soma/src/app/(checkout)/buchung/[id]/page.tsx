@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CalendarDays, CalendarPlus, CalendarX2, ChevronRight, CircleCheck, CirclePlay, ClipboardList, Clock, CreditCard, Hourglass, MapPin, StickyNote, type LucideIcon } from "lucide-react";
+import { isValidElement } from "react";
+import { ArrowRight, CalendarDays, CalendarPlus, CalendarX2, ChevronRight, CircleCheck, CirclePlay, ClipboardList, Clock, CreditCard, Hourglass, StickyNote, type LucideIcon } from "lucide-react";
 import { requireRole } from "@/server/auth/guards";
 import { getBookingForCustomer } from "@/server/services/bookings";
 import { REVIEW_TAG_OPTIONS } from "@/server/services/reviews";
 import { searchProviders } from "@/server/services/search";
 import type { CustomerBookingDTO, ProviderSearchResult, SearchInput, Session } from "@/server/dto";
-import { AuraBackground } from "@/components/ui/aura";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/layout";
-import { SuccessCheck } from "@/components/ui/success";
+import { ArchCheck } from "@/components/brand/arch-check";
+import { BrandIcon, PlaceIcon, isBrandIconName } from "@/components/brand/brand-icon";
 import { CheckLine, PriceBreakdown, type PriceLine } from "@/components/ui/summary";
 import { GlassPanel } from "@/components/ui/surface";
 import { Rating, Stars } from "@/components/ui/trust";
@@ -91,9 +93,9 @@ function heroCopy(b: CustomerBookingDTO): { title: string; body: string } {
   }
 }
 
-/** The status glyph above the headline: the drawn check on "Bestätigt.", calm icons otherwise. */
+/** The status glyph above the headline: the arch-check on "Bestätigt." (brand § 10.1), calm icons otherwise. */
 function StatusGlyph({ b }: { b: CustomerBookingDTO }) {
-  if (b.status === "confirmed") return <SuccessCheck size={56} glow={false} />;
+  if (b.status === "confirmed") return <ArchCheck size={48} />;
   const map: Partial<Record<CustomerBookingDTO["status"], { icon: LucideIcon; cls: string }>> = {
     requested: { icon: Hourglass, cls: "bg-warning-soft text-warning" },
     pending_payment: { icon: CreditCard, cls: "bg-warning-soft text-warning" },
@@ -149,12 +151,12 @@ function StartCodeCard({ b }: { b: CustomerBookingDTO }) {
 }
 
 /** One group of the booking facts: a single <div> directly in the <dl> (A5-3); the icon lives in the <dt>. */
-function Fact({ icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) {
+function Fact({ icon, label, children }: { icon: LucideIcon | React.ReactElement; label: string; children: React.ReactNode }) {
   return (
     <div className="relative flex min-w-0 min-h-9 flex-col gap-0.5 pl-12">
       <dt className="type-caption text-ink-muted hyphens-none">
         <span aria-hidden className="absolute top-0 left-0 inline-flex size-9 items-center justify-center rounded-full bg-surface-sunken text-ink-muted">
-          <Icon icon={icon} size={16} />
+          {isValidElement(icon) ? icon : <Icon icon={icon as LucideIcon} size={16} />}
         </span>
         {label}
       </dt>
@@ -263,8 +265,6 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
   // Haptic only right after the booking was confirmed or sent (not on later visits).
   const sentAt = b.status === "confirmed" ? (b.confirmedAt ? Date.parse(b.confirmedAt) : null) : b.status === "requested" ? bookedAt : null;
   const fresh = sentAt !== null && renderedAt - sentAt < 120_000;
-  // Calm aura for every state; the live states get the fuller wash (text stays left, away from the glow).
-  const aura = ["confirmed", "requested", "in_progress"].includes(b.status) ? "hero" : ["completed", "pending_payment"].includes(b.status) ? "section" : "subtle";
   const schedule = b.status === "confirmed" ? scheduleLines(b.cancellation.schedule, renderedAt) : [];
   // Same filter as scheduleLines, so each line gets the tone of its own fee.
   const tiers = b.cancellation.schedule.filter((e) => !e.until || Date.parse(e.until) > renderedAt);
@@ -285,12 +285,9 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
     <main id="inhalt" className="flex-1">
       <ConfirmHaptic bookingId={b.id} fresh={fresh} />
       <Container width="content" className="flex flex-col gap-5 pt-6 pb-16 md:gap-6 lg:pt-10 lg:pb-24">
-        {/* Status hero: calm aura, the confirmation moment and (when confirmed) the Start-Code card. */}
+        {/* Status hero: the confirmation moment and (when confirmed) the Start-Code card. */}
         <section aria-labelledby="status-titel" className="relative isolate overflow-clip rounded-panel bg-surface-raised shadow-raised">
-          {/* Muted text must stay AA (A5-15): phones stack the muted sentence over the glow, so they get the
-              subtle wash without grain (grain darkens pixels); from lg the text column stays left of the glow. */}
-          <AuraBackground variant="subtle" placement="right" fade="none" grain={false} className="lg:hidden" />
-          <AuraBackground variant={aura} placement="right" fade="none" className="hidden lg:block" />
+
           <div className="grid gap-8 p-5 pt-7 sm:p-8 lg:grid-cols-12 lg:items-center lg:gap-10 lg:p-12">
             <div className={cn("flex min-w-0 flex-col gap-5", b.startCode ? "lg:col-span-7" : "lg:col-span-9")}>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -368,11 +365,12 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="type-heading-s text-ink">{b.provider.displayName}</span>
                   <Rating avg={b.provider.ratingAvg} count={b.provider.ratingCount} />
+                  <AiLabel src={b.provider.avatarUrl} />
                 </span>
                 <Icon icon={ChevronRight} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
               </Link>
               <dl className="grid gap-x-6 gap-y-5 border-t border-line pt-5 sm:grid-cols-2">
-                <Fact icon={ClipboardList} label="Behandlung">
+                <Fact icon={isBrandIconName(b.categorySlug) ? <BrandIcon name={b.categorySlug} size={16} /> : ClipboardList} label="Behandlung">
                   {b.serviceName}
                 </Fact>
                 <Fact icon={CalendarDays} label="Wann">
@@ -382,7 +380,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                     {formatDuration(b.durationMinutes)}
                   </span>
                 </Fact>
-                <Fact icon={MapPin} label="Wo">
+                <Fact icon={<PlaceIcon kind={b.location.kind} size={16} />} label="Wo">
                   <span className="block">{LOCATION_LABELS[b.location.kind]}</span>
                   <span className="block">{b.location.addressLine}</span>
                   <span className="block num">{`${b.location.postalCode} ${b.location.city}`}</span>
@@ -509,7 +507,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                         <span aria-hidden className={cn("mt-1 size-2 shrink-0 rounded-full", tierTone(i), i === 0 && "shadow-[0_0_0_3px_rgb(37_33_31/0.08)]")} />
                         <span className={cn(i === 0 && "text-ink")}>
                           {l}
-                          {i === 0 ? <span className="ml-1.5 inline-flex h-[18px] items-center rounded-full bg-surface-raised px-1.5 text-[11px] font-[560] text-ink shadow-raised">jetzt</span> : null}
+                          {i === 0 ? <span className="ml-1.5 inline-flex h-5 items-center rounded-full bg-surface-raised px-1.5 text-[12px] font-[560] text-ink shadow-raised">jetzt</span> : null}
                         </span>
                       </li>
                     ))}

@@ -205,7 +205,7 @@ export function WeekGrid({ data }: { data: WeekData }) {
                     <span aria-hidden className={cn("w-[3px] shrink-0", tone.bar)} />
                     {/* A5-4: the name comes from the content, so it starts with the visible text; the rest is sr-only. */}
                     <span className={cn("flex min-w-0 flex-col px-2 py-1", tone.text)}>
-                      <span className="flex items-center gap-1 text-[11.5px] leading-tight font-[600] num">
+                      <span className="flex items-center gap-1 text-[12px] leading-tight font-[600] num">
                         {live ? (
                           <span aria-hidden className="relative size-1.5 rounded-full bg-info">
                           </span>

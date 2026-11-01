@@ -49,7 +49,7 @@ export function FilterForm({
           >
             <Icon icon={SlidersHorizontal} size={16} />
             Weitere Filter
-            {moreActive ? <span className="rounded-full bg-ink px-1.5 text-[11px] leading-[18px] font-[600] text-ink-inverse num">{moreActive}</span> : null}
+            {moreActive ? <span className="rounded-full bg-ink px-1.5 text-[12px] leading-[18px] font-[600] text-ink-inverse num">{moreActive}</span> : null}
           </label>
           <div className="flex w-full flex-wrap items-end gap-3 max-md:hidden max-md:peer-checked:flex md:contents">{more}</div>
         </>
@@ -135,7 +135,7 @@ export function SegmentedLinks({
                 )}
                 {it.label}
                 {it.count ? (
-                  <span className={cn("rounded-full px-1.5 text-[11px] leading-[18px] font-[600] num", it.active ? "bg-white/15 text-ink-inverse" : "bg-surface-raised text-ink-muted")}>
+                  <span className={cn("rounded-full px-1.5 text-[12px] leading-[18px] font-[600] num", it.active ? "bg-ink-inverse/15 text-ink-inverse" : "bg-surface-raised text-ink-muted")}>
                     {it.count}
                   </span>
                 ) : null}

@@ -10,7 +10,6 @@ import type { AddressDTO, QuoteDTO } from "@/server/dto";
 import { ButtonLink } from "@/components/ui/button";
 import { NotFoundState } from "@/components/site/not-found-state";
 import { Container } from "@/components/ui/layout";
-import { AuraBackground } from "@/components/ui/aura";
 import { CheckoutForm, type CheckoutCustomer } from "@/components/site/checkout-form";
 import { CheckoutPlzForm } from "@/components/site/checkout-plz-form";
 import { slotChipLabel, slotTileClasses } from "@/components/site/checkout-format";
@@ -90,7 +89,6 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     return (
       <Shell>
         <section className="relative isolate mx-auto flex max-w-form flex-col gap-6 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
-          <AuraBackground variant="subtle" placement="top" fade="bottom" animate={false} />
           <div className="flex flex-col gap-3">
             <Overline>Deine Buchung</Overline>
             <h1 className="type-display-s">Wo findet dein Termin statt?</h1>
@@ -157,7 +155,6 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
     return (
       <Shell>
         <section className="relative isolate flex max-w-reading flex-col items-start gap-5 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
-          <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
           <h1 className="type-display-s">Dieser Termin ist nicht mehr frei.</h1>
           <p className="type-body-s text-ink-muted">
             {next.length

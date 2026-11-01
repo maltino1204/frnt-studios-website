@@ -67,7 +67,7 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
               Demo-Zugänge
             </h2>
             <p className="type-caption text-ink-muted">
-              Füllt die Zugangsdaten aus. Passwort für alle: <span className="code-ref text-ink">{demoPassword}</span>
+              Füllt die Zugangsdaten aus. Passwort für alle: <span className="font-semibold text-ink num">{demoPassword}</span>
             </p>
           </div>
           <ul className="grid gap-2 sm:grid-cols-3">

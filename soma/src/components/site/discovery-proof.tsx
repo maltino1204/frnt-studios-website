@@ -5,7 +5,8 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
 import { Container, Section } from "@/components/ui/layout";
-import { CountUp, Reveal, ScrollRegion } from "@/components/ui/motion";
+import { Reveal, ScrollRegion } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
@@ -26,7 +27,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
       key: "rating",
       value: (
         <>
-          <CountUp value={Math.round(proof.ratingAvg * 10) / 10} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
+          <FormattedNumber value={Math.round(proof.ratingAvg * 10) / 10} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} />
           <Icon icon={Star} size={22} className="fill-ink text-ink" />
           <span className="sr-only"> von 5 Sternen</span>
         </>
@@ -35,8 +36,8 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
     });
   }
   if (proof && proof.approvedProviders > 0) {
-    stats.push({ key: "pros", value: <CountUp value={proof.approvedProviders} />, label: "geprüfte Profis" });
-    if (proof.cities > 0) stats.push({ key: "cities", value: <CountUp value={proof.cities} />, label: proof.cities === 1 ? "Stadt" : "Städte" });
+    stats.push({ key: "pros", value: <FormattedNumber value={proof.approvedProviders} />, label: "geprüfte Profis" });
+    if (proof.cities > 0) stats.push({ key: "cities", value: <FormattedNumber value={proof.cities} />, label: proof.cities === 1 ? "Stadt" : "Städte" });
   }
   const quotes = proof?.quotes ?? [];
   if (!stats.length && !quotes.length) return null;
@@ -110,7 +111,7 @@ export function GuaranteePanel({ disputeWindowHours, className }: { disputeWindo
         <span className="inline-flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised">
           <Icon icon={ShieldCheck} size={22} />
         </span>
-        <Badge tone="aura" dot>
+        <Badge tone="outline" dot>
           {guarantee}
         </Badge>
       </div>

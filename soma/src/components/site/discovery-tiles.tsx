@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { AiLabel } from "@/components/ui/ai-label";
+import { CategoryIcon } from "@/components/brand/brand-icon";
 import { Portrait } from "@/components/ui/avatar";
 import { Icon } from "@/components/ui/icon";
 import { Photo } from "@/components/ui/photo";
@@ -46,7 +48,10 @@ export function CategoryTile({
       />
       <span className="flex flex-col gap-1.5 px-1">
         <span className="flex items-center justify-between gap-2">
-          <span className="type-title-serif text-ink">{category.name}</span>
+          <span className="inline-flex min-w-0 items-center gap-2">
+            <CategoryIcon slug={category.slug} size={20} className="text-ink-muted" />
+            <span className="type-title-serif text-ink">{category.name}</span>
+          </span>
           <Icon
             icon={ArrowUpRight}
             size={18}
@@ -78,7 +83,10 @@ export function ProviderPortraitCard({
   const price = showFromPrice ? fromPrice(provider.fromPriceCents) : null;
   return (
     <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
-      <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" shape="arch" sizes={sizes} className="w-full" />
+      <span className="flex flex-col gap-2">
+        <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" shape="arch" sizes={sizes} className="w-full" />
+        <AiLabel src={provider.avatarUrl} className="px-1" />
+      </span>
       <span className="flex flex-col gap-1.5 px-1">
         {provider.bookingMode === "instant" ? (
           <span className="inline-flex items-center gap-1.5 type-caption font-semibold text-success">
@@ -116,6 +124,7 @@ export function ProviderListRow({ provider, categorySlug, className }: { provide
           </span>
           <Rating avg={provider.ratingAvg} count={provider.ratingCount} />
           {provider.headline ? <span className="line-clamp-2 type-body-s text-ink-muted">{provider.headline}</span> : null}
+          <AiLabel src={provider.avatarUrl} />
           <span className="type-caption text-ink-muted">
             {cats}
             {provider.bookingMode === "instant" ? " · Sofort bestätigt" : " · Auf Anfrage"}

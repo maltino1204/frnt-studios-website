@@ -9,10 +9,14 @@
 <meta name="supported-color-schemes" content="light dark">
 <title>Dein Termin ist bestätigt</title>
 <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+<!--[if mso]><style>h1, .h1 { font-family: Georgia, "Times New Roman", serif !important; } td, p, a, span { font-family: Arial, Helvetica, sans-serif !important; }</style><![endif]-->
 <style>
-  /* SOMA transactional e-mail · E1 „Buchung bestätigt“ · brand/applications/email · v1.0 */
-  @font-face { font-family: "Newsreader Display"; font-style: normal; font-weight: 400; src: url("{{asset_base}}/fonts/newsreader-display-roman-latin.woff2") format("woff2"); }
-  @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("{{asset_base}}/fonts/instrument-sans-variable-latin.woff2") format("woff2"); }
+  /* SOMA transactional e-mail · E1 „Buchung bestätigt“ · brand/applications/email · v1.1
+     Fonts: hosted webfonts (OFL) where the client loads @font-face (Apple Mail, iOS Mail, Thunderbird, some Android clients).
+     Gmail, Outlook and Yahoo ignore them and use the stated fallback: title Georgia → Times New Roman → serif;
+     text -apple-system / Segoe UI → Helvetica → Arial → sans-serif. Layout is built to hold with the fallbacks. */
+  @font-face { font-family: "Newsreader Display"; font-style: normal; font-weight: 400; font-display: swap; src: url("{{asset_base}}/fonts/newsreader-display-roman-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("{{asset_base}}/fonts/instrument-sans-variable-latin.woff2") format("woff2"); }
   body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
   table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
   img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }

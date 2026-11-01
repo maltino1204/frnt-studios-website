@@ -102,10 +102,13 @@ function board(inner) {
 function finalArt(master = "display") {
   return art(F.word(F.MASTERS[master]).items);
 }
-export function symbolArt() {
-  const S = F.glyphS({ ...F.MASTERS.display, ...F.SYMBOL }, F.SYMBOL_OPTS);
-  const b = bounds(S);
-  return { items: [{ name: "S", item: transform(S, { tx: -b.x, ty: -b.y }) }], vb: [0, 0, b.w, b.h] };
+/** The mark ("S im O"), normalised to its bounds. cut: "line" (>= 32 px) or "solid" (< 32 px, the seal). */
+export function symbolArt(cut = "line") {
+  const m = F.symbolMark(cut);
+  const b = bounds(m.item);
+  const n = (g) => transform(g, { tx: -b.x, ty: -b.y });
+  const items = cut === "line" ? [{ name: "O", item: n(m.o) }, { name: "S", item: n(m.s) }] : [{ name: "seal", item: n(m.item) }];
+  return { items, vb: [0, 0, b.w, b.h] };
 }
 function descriptor(text, capUnits, tracking = 0.08) {
   const size = capUnits / 0.72; // Instrument Sans cap height = 720/1000
@@ -134,8 +137,8 @@ function lockups() {
   }
   // 2. stacked: symbol above the wordmark, centred
   {
-    const sym = symbolArt();
-    const sh = 1180, sc = sh / sym.vb[3];
+    const sym = symbolArt("line");
+    const sh = 1100, sc = sh / sym.vb[3];
     const sw = sym.vb[2] * sc;
     const gap = 330;
     const sx = (W - sw) / 2;
@@ -143,7 +146,7 @@ function lockups() {
     out.stacked = {
       vb: [0, 0, W, shift + wm.vb[3]],
       groups: [
-        { id: "symbol", transform: `translate(${sx.toFixed(2)} 0) scale(${sc.toFixed(5)})`, paths: [{ d: toD(sym.items[0].item) }] },
+        { id: "symbol", transform: `translate(${sx.toFixed(2)} 0) scale(${sc.toFixed(5)})`, paths: sym.items.map((it) => ({ id: `symbol-${it.name.toLowerCase()}`, d: toD(it.item) })) },
         { id: "wordmark", transform: `translate(0 ${shift - wm.vb[1]})`, paths: wm.items.map((it) => ({ id: `wordmark-${it.name.toLowerCase()}`, d: toD(it.item) })) },
       ],
     };
@@ -172,9 +175,9 @@ async function finals() {
   const dir = path.join(LOGO, "final");
   fs.mkdirSync(dir, { recursive: true });
   const jobs = [];
-  const masters = { "soma-wordmark": finalArt("display"), "soma-wordmark-micro": finalArt("micro"), "soma-symbol": symbolArt() };
-  const titles = { "soma-wordmark": "SOMA", "soma-wordmark-micro": "SOMA (Mikro, unter 32 px Versalhöhe)", "soma-symbol": "SOMA Zeichen" };
-  const base1x = { "soma-wordmark": 320, "soma-wordmark-micro": 160, "soma-symbol": 96 };
+  const masters = { "soma-wordmark": finalArt("display"), "soma-wordmark-micro": finalArt("micro"), "soma-symbol": symbolArt("line"), "soma-symbol-solid": symbolArt("solid") };
+  const titles = { "soma-wordmark": "SOMA", "soma-wordmark-micro": "SOMA (Mikro, unter 32 px Versalhöhe)", "soma-symbol": "SOMA Zeichen: S im O", "soma-symbol-solid": "SOMA Zeichen: S im O, Siegel-Schnitt (unter 32 px)" };
+  const base1x = { "soma-wordmark": 320, "soma-wordmark-micro": 160, "soma-symbol": 96, "soma-symbol-solid": 32 };
   for (const [name, a] of Object.entries(masters)) {
     // currentColor master for code
     write(path.join(dir, `${name}.svg`), artSvg(a, { fill: "currentColor", title: titles[name], id: name.includes("symbol") ? "symbol" : "wordmark" }));

@@ -2,18 +2,17 @@ import type { Metadata } from "next";
 import { ArrowRight, BadgeCheck, CalendarCheck, Check, KeyRound, Link2, MapPin, MapPinned, ShieldCheck, Wallet, type LucideIcon } from "lucide-react";
 import { formatPercent } from "@/components/pro/labels";
 import { EarningsCalculator } from "@/components/pro/landing/earnings-calculator";
-import { AuraBackground } from "@/components/ui/aura";
-import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Table } from "@/components/ui/data";
-import { FloatingCard, FloatingStage } from "@/components/ui/floating";
-import { CountUp, Reveal, Spotlight } from "@/components/ui/motion";
-import { SuccessCheck } from "@/components/ui/success";
+import { Reveal } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { Surface } from "@/components/ui/surface";
 import { FaqList } from "@/components/site/discovery-faq";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline, Section, SectionHeader } from "@/components/ui/layout";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Photo } from "@/components/ui/photo";
+import { PLACE_LINES } from "@/components/site/discovery-copy";
 import { BRAND_NAME } from "@/lib/brand";
 import { images } from "@/lib/images";
 import { routes } from "@/lib/routes";
@@ -129,9 +128,8 @@ export default async function ForProsPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
-      {/* Hero: text + the provider tool itself, floating on the aura */}
+      {/* Hero: text + an editorial photograph in the arch */}
       <section className="relative isolate overflow-clip">
-        <AuraBackground placement="right" fade="both" />
         <Container className="grid gap-12 pt-8 pb-14 md:pt-12 lg:grid-cols-12 lg:items-center lg:gap-6 lg:pt-12 lg:pb-20">
           <div className="flex flex-col gap-6 lg:col-span-6">
             <Overline>{BRAND_NAME} für Profis · {activeCities.length} Städte</Overline>
@@ -163,7 +161,7 @@ export default async function ForProsPage() {
                   >
                     <dt className="order-2 type-caption text-ink-muted hyphens-none">{f.label}</dt>
                     <dd className="order-1 type-stat">
-                      <CountUp value={Math.round(f.value * 1000) / 10} format={{ maximumFractionDigits: 1 }} suffix={" %"} />
+                      <FormattedNumber value={Math.round(f.value * 1000) / 10} format={{ maximumFractionDigits: 1 }} suffix={" %"} />
                     </dd>
                   </div>
                 ))}
@@ -171,9 +169,23 @@ export default async function ForProsPage() {
               <p className="type-caption text-ink-muted">{`Keine Grundgebühr, keine Laufzeit. Dein Anteil ist ${hold}\u00a0Stunden nach dem Termin verfügbar.`}</p>
             </div>
           </div>
-          <div className="min-w-0 lg:col-span-6">
-            <ProShowcase hold={hold} cities={activeCities.length} />
-          </div>
+          {/* The place, not a dashboard: one editorial photograph in the arch with its Ortszeile (brand § 10.1). */}
+          <figure className="mx-auto w-full max-w-[26rem] min-w-0 lg:col-span-5 lg:col-start-8">
+            <Photo
+              src={images.editorial.setup}
+              alt="Ein Profi klappt die mobile Massageliege im Wohnzimmer einer Kundin auf"
+              tone="massage"
+              shape="arch"
+              ratio="4/5"
+              priority
+              sizes="(min-width: 1024px) 26rem, 88vw"
+              className="w-full"
+            />
+            <figcaption className="mt-3 flex flex-col gap-1">
+              <span className="type-place text-ink-muted">{PLACE_LINES.setup}</span>
+              <AiLabel src={images.editorial.setup} kind="image" />
+            </figcaption>
+          </figure>
         </Container>
       </section>
 
@@ -306,7 +318,6 @@ export default async function ForProsPage() {
         <Container>
           <Reveal>
             <div data-theme="night" className="relative isolate grid gap-10 overflow-clip rounded-panel px-6 py-10 md:px-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-14 lg:py-16">
-              <AuraBackground variant="night" placement="right" fade="none" />
               <div className="flex flex-col gap-6 lg:col-span-5">
                 <Overline>Einladungslink</Overline>
                 <h2 className="type-display-l">
@@ -333,7 +344,10 @@ export default async function ForProsPage() {
                   <Icon icon={Link2} size={16} className="text-ink" />
                   <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
                 </div>
-                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
+                <figcaption className="flex flex-col gap-1">
+                  <span className="type-place text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</span>
+                  <AiLabel src={images.editorial.providerCta} kind="image" />
+                </figcaption>
               </figure>
             </div>
           </Reveal>
@@ -433,7 +447,6 @@ export default async function ForProsPage() {
       <Section className="pt-0">
         <Container>
           <Reveal className="relative isolate flex flex-col items-start gap-6 overflow-clip rounded-panel p-6 md:flex-row md:items-end md:justify-between md:p-12">
-            <AuraBackground variant="section" placement="full" fade="none" animate={false} />
             <div className="flex max-w-reading flex-col gap-4">
               <Overline>Registrierung</Overline>
               <h2 className="type-display-l">
@@ -451,54 +464,3 @@ export default async function ForProsPage() {
   );
 }
 
-/** The provider tool, floating on the aura: real terms (commission, payout hold); the request and code are illustrative. */
-function ProShowcase({ hold, cities }: { hold: number; cities: number }) {
-  return (
-    <Spotlight className="rounded-panel">
-      <FloatingStage className="h-[24rem] sm:h-[28rem] lg:h-[34rem]" placement="center">
-        <FloatingCard className="top-[4%] left-0 w-[min(19rem,84%)] sm:left-[4%]" depth={10} tilt={-1.5} enter={0} cardClassName="flex flex-col gap-3 p-4">
-          <div className="flex items-center justify-between gap-3">
-            <span className="type-overline text-ink-muted">Neue Anfrage</span>
-            <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-info-soft px-2.5 type-label-s text-info">
-              <span className="size-1.5 rounded-full bg-info" />
-              Live
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Avatar name="Kundschaft" size={40} />
-            <div className="min-w-0">
-              <p className="truncate type-heading-s">Entspannungsmassage</p>
-              <p className="truncate type-caption text-ink-muted num">60 Min. · Zu Hause · Prenzlauer Berg</p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <span className="inline-flex h-9 flex-1 items-center justify-center rounded-full bg-ink type-label-s text-ink-inverse shadow-ink">Annehmen</span>
-            <span className="inline-flex h-9 flex-1 items-center justify-center rounded-full ring-1 ring-line-mid type-label-s">Ablehnen</span>
-          </div>
-        </FloatingCard>
-        <FloatingCard className="top-[46%] right-0 w-[min(16rem,70%)] lg:top-[40%]" depth={22} glass float enter={1} cardClassName="flex items-center gap-3 p-3.5">
-          <SuccessCheck size={36} glow={false} />
-          <div className="min-w-0">
-            <p className="type-heading-s">Auszahlung</p>
-            <p className="type-caption text-ink-muted">{`${hold} Stunden nach dem Termin`}</p>
-          </div>
-        </FloatingCard>
-        <FloatingCard className="bottom-[3%] left-[8%] w-[min(14rem,60%)] lg:bottom-[6%]" depth={16} tilt={1.5} enter={2} cardClassName="p-4">
-          <p className="type-overline text-ink-muted">Start-Code</p>
-          <p className="mt-2 flex gap-1.5 stagger-rise">
-            {["4", "8", "2", "7"].map((d, i) => (
-              <span key={i} className="inline-flex h-11 w-9 items-center justify-center rounded-tile bg-surface-sunken type-heading-l num">
-                {d}
-              </span>
-            ))}
-          </p>
-          <p className="mt-2.5 type-caption text-ink-muted">Termin starten, vor Ort.</p>
-        </FloatingCard>
-        <FloatingCard className="top-[2%] right-[3%] hidden w-[12.5rem] sm:block" depth={28} glass float enter={3} cardClassName="flex flex-col gap-1 px-4 py-3.5">
-          <p className="type-heading-l num">{cities}</p>
-          <p className="type-caption text-ink">{cities === 1 ? "Startstadt" : "Startstädte"}</p>
-        </FloatingCard>
-      </FloatingStage>
-    </Spotlight>
-  );
-}

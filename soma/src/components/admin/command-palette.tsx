@@ -261,7 +261,7 @@ export function CommandPalette({ groups }: { groups: NavGroup[] }) {
       <div ref={list} id={listId} role="listbox" aria-label="Ergebnisse" className="max-h-[min(60vh,26rem)] overflow-y-auto overscroll-contain p-1.5">
         {grouped.map((g) => (
           <div key={g.label} role="group" aria-labelledby={`${uid}-g-${g.label}`} className="pb-1">
-            <p id={`${uid}-g-${g.label}`} className="px-2.5 pt-2 pb-1 text-[11px] leading-none font-[600] tracking-[0.06em] text-ink-muted uppercase">
+            <p id={`${uid}-g-${g.label}`} className="px-2.5 pt-2 pb-1 type-eyebrow text-ink-muted">
               {g.label}
             </p>
             {g.items.map((o) => {

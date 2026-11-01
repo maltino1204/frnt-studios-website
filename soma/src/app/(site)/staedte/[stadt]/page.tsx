@@ -85,7 +85,6 @@ async function StadtContent({ city }: { city: CityDTO }) {
       <DiscoveryHero
         size="m"
         breadcrumbs={<Breadcrumbs items={crumbs} />}
-        ambient={false}
         overline={city.state && city.state !== city.name ? `${city.name} · ${city.state}` : `Stadt · ${city.name}`}
         title={title}
         emphasis={emphasis}
@@ -93,14 +92,14 @@ async function StadtContent({ city }: { city: CityDTO }) {
         photo={{ src: images.editorial.arrival, alt: "", word: `${city.name}.`, tone: "brows-lashes", seed: `stadt:${city.slug}` }}
         badges={
           <>
-            <HeroBadge className="top-[10%] -left-2 sm:-left-6 lg:-left-10">
+            <HeroBadge>
               <span className="flex flex-col">
                 <span className="type-heading-l num">{`${liveCount} von ${catalog.length}`}</span>
                 <span className="type-caption text-ink-muted">Behandlungen buchbar</span>
               </span>
             </HeroBadge>
             {cityFrom != null ? (
-              <HeroBadge glass className="right-4 bottom-[12%] hidden sm:flex lg:-right-6">
+              <HeroBadge>
                 <span className="flex flex-col">
                   <span className="type-heading-s num">{fromPrice(cityFrom)}</span>
                   <span className="type-caption text-ink">zzgl. Anfahrt</span>

@@ -77,7 +77,7 @@ There is no spring, no scale-up from 0 and no blur ramp. Focus moves into the ov
 - **Skeleton:** Linen with a quiet shimmer, 1.8 s `calm`, in the final shapes (an arch for arch images, pills for text). It is the only allowed loop, because it is feedback.
 - **Spinner:** 2 px, 0.9 s linear, only inside buttons and inline status („Freie Termine werden geladen …“). Show it only after 300 ms, so fast responses never flash; once shown, keep it at least 400 ms.
 - **Content replacing a skeleton:** crossfade 220 ms. Photos fade in over their category wash in 640 ms (`calm`) and never pop.
-- **Numbers never count up.** Prices, totals and the Start-Code appear as final values; a changed price crossfades in 160 ms.
+- **Money, ratings and counts never count up (audit L2, binding for product, Pro and Admin).** Prices, totals, earnings, payouts, credit, star ratings, review counts, booking counts and the Start-Code are rendered as their final value on the first frame. No `CountUp`, no ticking digits, no animated bars that "fill" to a value. When a value changes on screen (a price after a postcode, a payout after a refresh), the old and the new value crossfade in 160 ms (`fast`, standard). With reduced motion they swap instantly. Reason: a number is a fact or a promise; animating it makes it look like marketing.
 
 ### 3.5 Interactive elements
 | Element | Motion |
@@ -92,7 +92,7 @@ There is no spring, no scale-up from 0 and no blur ramp. Focus moves into the ov
 
 ### 3.6 Brand animations (specimen 1–3)
 1. **Arch rise (the signature).** The arch mask opens from the bottom up (`clip-path: inset(100% 0 0 0)` → `inset(0)`) while the frame rises 16 px, over 640 ms arrive. Inside it the photo settles from scale 1.04 to 1 over 900 ms. The Ortszeile follows, rising 8 px over 480 ms, starting 480 ms in. **Use it for:** hero and editorial images on marketing pages, the first card row of a list (stagger 90 ms, at most 6 cards), and the confirmation glyph. **Trigger:** the element enters the viewport (IntersectionObserver, 15 % visible), once; it never replays on scroll-up.
-2. **The S draws on.** The arch outline draws (640 ms arrive). The S contour traces inside it from 320 ms, then the S fill fades in (220 ms) and the contour fades out. The total is 1.2 s. **Use it only for:** the PWA splash on a cold start, video end frames, and the social avatar intro. It is never a loading indicator and never loops. It is not a morph: the S is never built from or turned into other letters (`LOGO_USAGE.md` § 6).
+2. **The mark draws on (S in O).** The O contour traces (640 ms arrive). The S contour traces inside it from 320 ms, then the ring and the S fill in together (220 ms) and the contours fade out. The total is 1.2 s. **Use it only for:** the PWA splash on a cold start, video end frames, and the social avatar intro. It is never a loading indicator and never loops. It is not a morph: the O and the S keep their final shapes and are only traced (`LOGO_USAGE.md` § 6).
 3. **Wordmark lockup reveal.** The whole wordmark settles as one shape (opacity 0 → 1, 8 px, 480 ms arrive). A 40 px rule grows (320 ms, from 160 ms), and the tagline in Newsreader Italic follows from 320 ms. The wordmark is never animated letter by letter, never typed on and never scaled up from small.
 
 **Confirmation moment** (booking confirmed, `ConfirmHaptic`): the arch-check glyph draws (outline 640 ms, check 320 ms), „Bestätigt.“ fades and rises 10 px, then the four Start-Code digits rise with a 90 ms stagger. The haptic `success` fires once, together with the check. With reduced motion, everything appears at once and the haptic stays.
@@ -112,7 +112,7 @@ There is no spring, no scale-up from 0 and no blur ramp. Focus moves into the ov
 | 3D: rotateX/Y, perspective tilts, card flips, WebGL depth for decoration | The identity is flat and architectural. |
 | Motion that delays interaction: intros, splash longer than 1.2 s, buttons that wait for an animation, scroll locks | Respect for time is the brand promise. |
 | Ambient loops: floating, breathing, drifting gradients (the retired v2 aura), autoplaying background video behind text | There is no ambient motion, and nothing moves without a cause. |
-| Counting numbers, ticking prices, confetti, particles, shimmer on text | Truth before effect; prices are facts. |
+| Counting numbers of any kind (money, ratings, counts, KPIs), ticking prices, bars that fill up, confetti, particles, shimmer on text | Truth before effect: prices and ratings are facts (§ 3.4). |
 | Letter-by-letter type, typing effects, logo morphs | `LOGO_USAGE.md` § 6. |
 | Rotating or bouncing the arch, putting the logo inside the arch | Guidelines § 5.1. |
 

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { imageFocal, resolveImage } from "@/lib/images";
+import { AI_PORTRAIT_LABEL, imageFocal, isAiImage, resolveImage } from "@/lib/images";
 import { toneKey, toneStyle } from "@/lib/tone";
 
 export function initials(name: string): string {
@@ -96,7 +96,7 @@ export function Portrait({
       {url && state !== "error" ? (
         <Image
           src={url}
-          alt={`Porträt von ${name}`}
+          alt={isAiImage(src) ? `Porträt von ${name} (${AI_PORTRAIT_LABEL})` : `Porträt von ${name}`}
           fill
           sizes={sizes}
           priority={priority}

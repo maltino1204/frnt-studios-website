@@ -8,7 +8,7 @@ import { dateParts } from "@/lib/format";
  */
 
 /**
- * Progress ring: Oat track, a flat arc with round caps (Espresso by default; `aura` is kept as an alias) that
+ * Progress ring: Oat track, a flat arc with round caps (Espresso by default) that
  * draws itself in once (stroke-dashoffset, final under reduced motion). Decorative; always pair it with the value
  * as text (children or a sibling).
  */
@@ -16,7 +16,7 @@ export function ProgressRing({
   value,
   size = 56,
   stroke = 5,
-  tone = "aura",
+  tone = "ink",
   className,
   children,
 }: {
@@ -24,7 +24,7 @@ export function ProgressRing({
   value: number;
   size?: number;
   stroke?: number;
-  tone?: "aura" | "ink" | "success" | "warning" | "danger";
+  tone?: "ink" | "success" | "warning" | "danger";
   className?: string;
   children?: ReactNode;
 }) {
@@ -55,7 +55,7 @@ export function ProgressRing({
   );
 }
 
-/** Date tile: weekday, day number, month (rounded-tile). Today: ink tile with an aura line. */
+/** Date tile: weekday, day number, month (rounded-tile). Today: an Espresso underline. */
 export function DateTile({ date, today = false, size = "m", className }: { date: string | Date; today?: boolean; size?: "s" | "m"; className?: string }) {
   const p = dateParts(date);
   return (
@@ -68,9 +68,9 @@ export function DateTile({ date, today = false, size = "m", className }: { date:
         className,
       )}
     >
-      <span className={cn("text-[11px] leading-none font-[560] tracking-[0.02em] uppercase", today ? "text-ink-inverse/70" : "text-ink-muted")}>{p.weekday}</span>
+      <span className={cn("text-[12px] leading-none font-[560] tracking-[0.02em] uppercase", today ? "text-ink-inverse/70" : "text-ink-muted")}>{p.weekday}</span>
       <span className={cn("leading-none font-[620] tracking-[-0.03em]", size === "s" ? "text-[18px]" : "text-[20px]")}>{p.day}</span>
-      {size === "m" ? <span className={cn("text-[11px] leading-none font-[520]", today ? "text-ink-inverse/70" : "text-ink-muted")}>{p.month}</span> : null}
+      {size === "m" ? <span className={cn("text-[12px] leading-none font-[520]", today ? "text-ink-inverse/70" : "text-ink-muted")}>{p.month}</span> : null}
       {today ? <span className="absolute inset-x-3 bottom-1 h-0.5 rounded-full bg-ink" /> : null}
     </span>
   );

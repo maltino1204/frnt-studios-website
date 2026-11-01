@@ -1,6 +1,7 @@
 "use client";
 
-import { BedDouble, Building2, House, MapPin, Pencil, Plus, Star, Trash2 } from "lucide-react";
+import { Pencil, Plus, Star, Trash2 } from "lucide-react";
+import { PlaceIcon } from "@/components/brand/brand-icon";
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button, IconButton } from "@/components/ui/button";
@@ -18,7 +19,6 @@ import type { AddressDTO, LocationKind } from "@/server/dto";
 import { LOCATION_LABELS } from "./checkout-format";
 import { keepValuesOnSubmit } from "./keep-values";
 
-const KIND_ICON = { home: House, hotel: BedDouble, office: Building2, other: MapPin } as const;
 
 function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null; onDone: () => void; isFirst: boolean }) {
   const [state, action, pending] = useActionState(saveAddressAction, initialActionState);
@@ -49,7 +49,7 @@ function AddressForm({ address, onDone, isFirst }: { address: AddressDTO | null;
           value: k,
           label: (
             <span className="inline-flex items-center gap-1.5">
-              <Icon icon={KIND_ICON[k]} size={16} className="hidden min-[360px]:block" />
+              <PlaceIcon kind={k} size={16} className="hidden min-[360px]:block" />
               {LOCATION_LABELS[k]}
             </span>
           ),
@@ -134,7 +134,7 @@ export function AddressManager({ addresses }: { addresses: AddressDTO[] }) {
                 aria-hidden
                 className={a.isDefault ? "inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-ink text-ink-inverse shadow-ink" : "inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-sunken text-ink"}
               >
-                <Icon icon={KIND_ICON[a.kind]} size={18} />
+                <PlaceIcon kind={a.kind} size={18} />
               </span>
               <div className="flex min-w-0 flex-col gap-0.5">
                 <p className="flex flex-wrap items-center gap-2 type-heading-s">

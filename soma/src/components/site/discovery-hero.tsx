@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Container, Overline } from "@/components/ui/layout";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Photo } from "@/components/ui/photo";
 import { cn } from "@/lib/cn";
 
@@ -36,9 +37,7 @@ export function DiscoveryHero({
   badges?: ReactNode;
   /** "xl" = home (type-display-xl, one per site), "m" = category and SEO pages */
   size?: "xl" | "m";
-  /** @deprecated ignored: the brand has no ambient motion */
-  ambient?: boolean;
-  /** SEO pages: the trail sits inside the hero, on the aura */
+  /** SEO pages: the trail sits inside the hero */
   breadcrumbs?: ReactNode;
 }) {
   // SEO heroes: the booking bar gets its own row under text and media, so it never covers the panel.
@@ -81,7 +80,7 @@ export function DiscoveryHero({
   );
 }
 
-/** One arch photograph (4:5) with the Ortszeile under it; badges (real facts) stack beside it. */
+/** One arch photograph (4:5) with the Ortszeile under it; badges (real facts) sit in a quiet row below, never floating. */
 function HeroMedia({ photo, badges }: { photo: NonNullable<Parameters<typeof DiscoveryHero>[0]["photo"]>; badges?: ReactNode }) {
   return (
     <figure className="relative min-w-0 lg:order-2 lg:col-span-5 lg:col-start-8">
@@ -99,8 +98,11 @@ function HeroMedia({ photo, badges }: { photo: NonNullable<Parameters<typeof Dis
         sizes="(min-width: 1024px) 36vw, (min-width: 640px) 60vw, 88vw"
         className="mx-auto w-full max-w-[24rem] lg:max-w-[26rem]"
       />
-      {photo.placeLine ? <figcaption className="mx-auto mt-3 max-w-[24rem] type-place text-ink-muted lg:max-w-[26rem]">{photo.placeLine}</figcaption> : null}
-      {badges ? <div className="pointer-events-none absolute inset-0">{badges}</div> : null}
+      <figcaption className="mx-auto mt-3 flex max-w-[24rem] flex-col gap-1 lg:max-w-[26rem]">
+        {photo.placeLine ? <span className="type-place text-ink-muted">{photo.placeLine}</span> : null}
+        <AiLabel src={photo.src} kind="image" />
+      </figcaption>
+      {badges ? <div className="mx-auto mt-4 flex max-w-[24rem] flex-wrap gap-2 lg:max-w-[26rem]">{badges}</div> : null}
     </figure>
   );
 }
@@ -115,7 +117,10 @@ export function ArchPair({ items, className }: { items: [ArchPairItem, ArchPairI
       {items.map((it, i) => (
         <figure key={it.src} className={cn("min-w-0", i === 1 && "mt-[18%]")}>
           <Photo src={it.src} alt={it.alt} tone={it.tone} focal={it.focal} priority={i === 0} shape="arch" ratio="4/5" sizes="(min-width: 1024px) 22vw, 45vw" className="w-full" />
-          <figcaption className="mt-3 type-place text-ink-muted">{it.place}</figcaption>
+          <figcaption className="mt-3 flex flex-col gap-1">
+            <span className="type-place text-ink-muted">{it.place}</span>
+            <AiLabel src={it.src} kind="image" />
+          </figcaption>
         </figure>
       ))}
     </div>
@@ -123,17 +128,7 @@ export function ArchPair({ items, className }: { items: [ArchPairItem, ArchPairI
 }
 export type ArchPairItem = { src: string; alt: string; tone: string; place: string; focal?: string };
 
-/** A small floating fact over the hero media (real numbers only). Position it with absolute offsets. */
-export function HeroBadge({ className, children }: { className?: string; /** @deprecated ignored */ glass?: boolean; children: ReactNode }) {
-  return (
-    <div
-      aria-hidden
-      className={cn(
-        "absolute flex items-center gap-3 rounded-card bg-surface-raised px-4 py-3 shadow-float animate-float-in",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
+/** A small fact next to the hero media (real numbers only), in the row under the photo. */
+export function HeroBadge({ className, children }: { className?: string; children: ReactNode }) {
+  return <div aria-hidden className={cn("flex items-center gap-3 rounded-tile bg-surface-raised px-4 py-3 shadow-raised", className)}>{children}</div>;
 }

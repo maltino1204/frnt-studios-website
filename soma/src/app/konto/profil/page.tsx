@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { requireRole } from "@/server/auth/guards";
 import { getProfile } from "@/server/services/account";
 import { Download, KeyRound, Trash2, UserRound, type LucideIcon } from "lucide-react";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
@@ -55,6 +56,7 @@ export default async function ProfilPage() {
           <div className="min-w-0">
             <p className="truncate type-label text-ink">{fullName}</p>
             <p className="truncate type-caption text-ink-muted">{profile.email}</p>
+            <AiLabel src={profile.avatarUrl} />
           </div>
         </div>
         <ProfileForm profile={profile} />

@@ -9,7 +9,7 @@ import { AdminTable, CellLink, hrefWith, numCell, rowAction, rowLink, TablePager
 import { ChipFilter, SegmentedLinks } from "@/components/admin/toolbar";
 import { ChipLink } from "@/components/ui/chip";
 import { StatGrid, StatTile } from "@/components/ui/data";
-import { CountUp as Count } from "@/components/ui/motion";
+import { FormattedNumber as Count } from "@/components/ui/number";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { TabLinks } from "@/components/ui/tabs";
 import { routes } from "@/lib/routes";

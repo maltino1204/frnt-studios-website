@@ -21,10 +21,18 @@ const DISPLAY = { viewBox: "0 -16.8 2796 731.2", paths: [
   "M1735.19 531.55L1941.5 0L2082 0L2082 714.4L1982 714.4L1982 23.91L1714 714.4L1424.4 98.66L1424.4 714.4L1378 714.4L1378 0L1485.19 0Z",
   "M2580.91 460.9L2302.94 460.9L2191.87 700L2146 700L2479 -16.8L2796 700L2686.65 700ZM2445.35 154.36L2317.07 430.5L2567.47 430.5Z",
 ] } as const;
-/** The symbol: the S drawn from the two halves of the O. */
-const SYMBOL = { viewBox: "0 0 472 724.43", d: "M432.92 85.2C407.52 53.29 371.82 31.03 333.7 17.41C263.13 -7.82 181.23 -5.77 112.51 24.48C58.5 48.26 8.22 93.94 0.88 155.39C-0.18 164.23 -0.28 173.19 0.56 182.06C5.88 237.73 47.29 281.12 93.82 307.88C161.79 346.97 247.25 358.59 303.35 416.97C309.84 423.73 315.79 431.01 321.11 438.73C327.62 448.18 333.16 458.27 337.45 468.92C342.51 481.53 345.83 494.83 347.23 508.35C349.09 526.32 347.53 544.6 342.69 562.01C338.16 578.3 330.79 593.76 321.11 607.62C313.12 619.07 303.57 629.42 292.86 638.39C230.3 690.78 133.93 691.13 70.94 639.29C57.63 628.34 46.2 615.3 37.04 600.7L12.96 635.2C39.81 668.47 77.27 691.61 117.24 705.86C191.6 732.38 277.74 730.62 350.52 699.71C406.49 675.94 459.63 630.49 470.19 567.72C471.77 558.36 472.32 548.82 471.82 539.33C468.82 483.2 429.65 437.21 383.21 409.29C363.07 397.18 341.13 387.89 319.61 378.52C283.65 362.88 247.28 348.05 213.21 328.47C198.87 320.23 184.56 311.57 172.24 300.44C146.48 277.18 129.33 245.07 125.07 210.58C122.84 192.59 124.12 174.2 128.78 156.69C133.22 140.01 140.71 124.19 150.71 110.13C160.25 96.72 172.04 84.94 185.41 75.35C242.84 34.11 324.43 37.34 378.16 83.43C390.26 93.81 400.57 106.08 408.83 119.7Z" } as const;
-/** Favicon cut of the symbol (16-32 px): hairlines opened so the waist survives small sizes. */
-const SYMBOL_MICRO = { viewBox: "8.6 4.3 15.2 23.2", d: "M22.26 7.31C21.48 6.32 20.37 5.63 19.2 5.21C17.03 4.44 14.52 4.49 12.41 5.41C10.76 6.12 9.21 7.48 8.92 9.34C8.88 9.63 8.87 9.92 8.89 10.21C9.01 11.87 10.17 13.2 11.54 14.04C13.57 15.29 16.16 15.64 17.88 17.39C18.07 17.59 18.25 17.81 18.41 18.03C18.61 18.31 18.78 18.61 18.91 18.93C19.05 19.27 19.14 19.63 19.18 20C19.24 20.49 19.19 20.99 19.06 21.47C18.94 21.91 18.74 22.32 18.49 22.69C18.26 23.02 17.99 23.32 17.69 23.58C15.76 25.21 12.68 25.17 10.82 23.45C10.55 23.19 10.31 22.91 10.11 22.6L9.28 24.31C10.12 25.36 11.31 26.08 12.57 26.52C14.9 27.33 17.59 27.25 19.85 26.25C21.67 25.44 23.38 23.85 23.47 21.73C23.54 20.07 22.54 18.6 21.23 17.66C20.56 17.18 19.81 16.84 19.07 16.5C18.04 16.03 17.01 15.57 16.03 15.03C15.54 14.76 15.04 14.49 14.61 14.13C13.89 13.53 13.38 12.69 13.21 11.77C13.12 11.28 13.12 10.78 13.23 10.3C13.32 9.85 13.49 9.42 13.73 9.03C13.96 8.67 14.24 8.35 14.56 8.07C16.26 6.6 18.95 6.61 20.64 8.09C20.95 8.36 21.22 8.68 21.44 9.02Z" } as const;
+/**
+ * The SOMA mark, "S im O": the S of the wordmark (the body) held in the O of the wordmark (the place). Line cut from
+ * 32 px; masters: brand/assets/logo/final/soma-symbol.svg.
+ */
+const SYMBOL = { viewBox: "0 0 664 724", paths: [
+  "M332 0C521.24 0 664 150.23 664 362C664 573.77 521.24 724 332 724C142.76 724 0 573.77 0 362C0 150.23 142.76 0 332 0ZM108 362C108 535.88 197.6 684 332 684C466.4 684 556 535.88 556 362C556 188.12 466.4 40 332 40C197.6 40 108 188.12 108 362Z",
+  "M453.78 190.69C438.07 170.96 416 157.19 392.42 148.76C348.78 133.17 298.13 134.43 255.63 153.14C222.23 167.85 191.14 196.09 186.6 234.09C185.95 239.56 185.88 245.1 186.4 250.59C189.66 284.7 214.88 311.47 243.38 327.97C286.12 352.71 340.08 359.32 375.66 395.8C379.74 399.99 383.49 404.51 386.84 409.3C390.93 415.14 394.41 421.38 397.11 427.99C400.29 435.77 402.38 444 403.25 452.37C404.42 463.49 403.44 474.8 400.4 485.56C397.63 495.37 393.17 504.69 387.35 513.06C381.88 520.92 375.23 527.94 367.75 533.9C326.93 566.4 264.62 564.91 225.76 529.92C219.1 523.92 213.3 517.05 208.48 509.48L194.07 530.82C210.67 551.39 233.84 565.7 258.56 574.51C304.97 591.07 358.85 589.82 404.13 570.15C438.54 555.2 471.01 526.82 477.01 488C477.9 482.19 478.16 476.29 477.77 470.43C475.46 436.17 451.44 408.19 423.04 391.11C410.47 383.56 396.77 377.76 383.31 371.98C360.52 362.19 337.42 353.05 315.79 340.8C306.97 335.8 298.2 330.55 290.59 323.8C274.49 309.49 263.63 289.65 260.94 268.23C259.58 257.4 260.3 246.34 263.04 235.78C265.57 226.02 269.81 216.72 275.47 208.37C281.04 200.15 287.97 192.87 295.85 186.83C332.55 158.68 386.69 160.25 421.49 190.81C428.48 196.95 434.48 204.11 439.36 212.03Z",
+] } as const;
+/** Seal cut (< 32 px: favicon, tabs, admin tile): the O filled, the S set into it. Master: soma-symbol-solid.svg. */
+const SYMBOL_SOLID = { viewBox: "0 0 664 724", paths: [
+  "M332 0C521.24 0 664 150.23 664 362C664 573.77 521.24 724 332 724C142.76 724 0 573.77 0 362C0 150.23 142.76 0 332 0ZM454.87 189.16C439.02 169.25 416.75 155.36 392.96 146.86C349.29 131.25 298.69 132.39 256.04 150.8C223.27 164.95 192.57 191.71 185.99 228.35C184.95 234.13 184.56 240.03 184.84 245.89C186.42 279.03 208.98 306.15 235.83 323.5C274.46 348.46 323.76 356.85 356.3 391.07C360.26 395.24 363.88 399.72 367.11 404.47C370.7 409.75 373.78 415.35 376.14 421.28C378.92 428.23 380.73 435.57 381.5 443.02C382.54 453.18 381.62 463.52 378.81 473.34C376.25 482.29 372.14 490.79 366.77 498.39C362.19 504.88 356.7 510.71 350.55 515.73C316.28 543.65 264.33 543.46 230.29 515.23C223 509.19 216.75 502 211.74 493.95L192.84 532.33C209.9 553.46 233.82 568.05 259.28 576.9C306.22 593.22 360.57 591.66 406.09 571.44C442.23 555.37 476.09 524.15 479.05 482.49C481.42 449.05 462.17 419.14 436.2 399.67C422.57 389.44 407.04 382.53 391.81 375.09C373.08 365.95 354.46 356.55 336.55 345.86C327.24 340.31 317.52 334.76 309.36 327.58C296.36 316.15 287.2 300.61 283.7 283.64C281.65 273.66 281.56 263.29 283.44 253.28C285.22 243.76 288.78 234.59 293.85 226.35C298.67 218.5 304.85 211.51 312.02 205.73C342.58 181.08 388 181.44 418.15 206.61C425.23 212.53 431.22 219.62 435.96 227.53Z",
+] } as const;
 
 type LabelProps = { className?: string; /** accessible name; pass null when a parent link already names it */ title?: string | null };
 
@@ -48,14 +56,17 @@ export function Wordmark({ className, title = BRAND_NAME, master = "micro" }: La
 }
 
 /**
- * The symbol (the S). For the app icon, avatars, stamps and small spaces where the name is already present.
- * Never set beside the wordmark in a line (the S would repeat). Below 24 px it switches to the favicon cut.
+ * The mark ("S im O"). For the app icon, avatars, stamps and small spaces where the name is already present or
+ * implied. Never set beside the wordmark in a line; together they only appear as the stacked lockup. From 32 px it
+ * uses the line cut; `size="small"` (16-31 px) switches to the seal cut, which keeps its shape at favicon size.
  */
-export function Mark({ className, title, size = "auto" }: Omit<LabelProps, "title"> & { title?: string; /** "small" forces the favicon cut (16-24 px) */ size?: "auto" | "small" }) {
-  const s = size === "small" ? SYMBOL_MICRO : SYMBOL;
+export function Mark({ className, title, size = "auto" }: Omit<LabelProps, "title"> & { title?: string; /** "small" forces the seal cut (16-31 px) */ size?: "auto" | "small" }) {
+  const s = size === "small" ? SYMBOL_SOLID : SYMBOL;
   return (
-    <svg viewBox={s.viewBox} {...a11y(title)} className={cn("block h-6 w-auto shrink-0 fill-current", className)}>
-      <path d={s.d} />
+    <svg viewBox={s.viewBox} {...a11y(title)} className={cn("block h-8 w-auto shrink-0 fill-current", className)}>
+      {s.paths.map((d) => (
+        <path key={d.slice(0, 16)} d={d} />
+      ))}
     </svg>
   );
 }
@@ -80,8 +91,8 @@ export function ProLockup({ className, title = "SOMA Pro" }: LabelProps) {
 }
 
 /**
- * Admin mark: the favicon-cut S in an Espresso tile plus "Admin" (no Oxblood brand moment in the console,
- * BRAND_STRATEGY § 5). Decorative by default; the surrounding link carries the name.
+ * Admin mark: the seal cut of the mark in Bone on an Espresso tile (no Oxblood brand moment in the console,
+ * BRAND_STRATEGY § 5). Decorative; the surrounding link carries the name.
  */
 export function AdminMark({ className }: { className?: string }) {
   return (
@@ -91,7 +102,7 @@ export function AdminMark({ className }: { className?: string }) {
   );
 }
 
-/** Retired v2 roof line, kept as a neutral 20 x 1.5 px Espresso rule for legacy call sites. */
+/** A neutral 20 x 1.5 px rule (the former v2 roof line), kept for existing call sites. */
 export function RoofLine({ className }: { className?: string }) {
   return <span aria-hidden className={cn("block h-[1.5px] w-5 bg-current", className)} />;
 }

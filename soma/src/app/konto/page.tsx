@@ -6,12 +6,12 @@ import { signOutAction } from "@/server/actions/auth";
 import { getCreditSummary, getReferralInfo } from "@/server/services/account";
 import { getBookingForCustomer, listCustomerBookings, listRebookSuggestions } from "@/server/services/bookings";
 import { countUnreadNotifications } from "@/server/services/notifications";
-import { AuraBackground } from "@/components/ui/aura";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { CountPill, EmptyState, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
-import { CountUp } from "@/components/ui/motion";
+import { FormattedNumber } from "@/components/ui/number";
 import { RebookButton } from "@/components/site/account-rebook";
 import { ACCOUNT_SECTIONS } from "@/components/site/account-sections";
 import { dayLabel, lastTimeText, statusTone } from "@/components/site/checkout-format";
@@ -76,7 +76,6 @@ export default async function KontoPage() {
             href={routes.booking(next.id)}
             className="group relative isolate grid gap-6 overflow-clip rounded-panel bg-surface-raised p-5 shadow-raised lift focus-ring sm:p-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8"
           >
-            <AuraBackground variant="section" placement="right" fade="none" />
             <span className="flex min-w-0 flex-col gap-4">
               <span className="flex flex-wrap items-center gap-2">
                 <Status tone={statusTone(next.status)}>{next.statusLabel}</Status>
@@ -99,6 +98,7 @@ export default async function KontoPage() {
                 <span className="flex min-w-0 flex-col">
                   <span className="type-label text-ink">{next.serviceName}</span>
                   <span className="type-caption text-ink-muted">{`bei ${next.providerName}`}</span>
+                  <AiLabel src={next.providerAvatarUrl} />
                 </span>
               </span>
             </span>
@@ -147,6 +147,7 @@ export default async function KontoPage() {
                   <div className="min-w-0">
                     <p className="line-clamp-2 type-label text-ink">{b.serviceName}</p>
                     <p className="mt-0.5 type-caption text-ink-muted">{`bei ${b.providerName} · zuletzt ${lastTimeText(b.startsAt)}`}</p>
+                    <AiLabel src={b.providerAvatarUrl} className="mt-0.5" />
                   </div>
                 </div>
                 <div className="mt-auto">
@@ -166,7 +167,7 @@ export default async function KontoPage() {
                 SOMA-Guthaben
               </h2>
               <p className="type-stat">
-                <CountUp value={credits.balanceCents / 100} format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} suffix={"\u00a0€"} />
+                <FormattedNumber value={credits.balanceCents / 100} format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} suffix={"\u00a0€"} />
               </p>
             </div>
             <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-surface-sunken text-ink-muted">
@@ -176,7 +177,6 @@ export default async function KontoPage() {
           <p className="type-caption text-ink-muted">Wird dir bei der nächsten Buchung automatisch angeboten.</p>
         </section>
         <section aria-labelledby="empfehlen" className="relative isolate flex flex-col justify-between gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
-          <AuraBackground variant="subtle" placement="full" fade="none" animate={false} />
           <div className="flex flex-col gap-1.5">
             <h2 id="empfehlen" className="type-label-s text-ink-muted">
               Freunde einladen

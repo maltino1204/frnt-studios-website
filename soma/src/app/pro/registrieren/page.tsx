@@ -13,8 +13,7 @@ import { buildRequirements } from "@/components/pro/requirements";
 import { ServicesEditor } from "@/components/pro/services-editor";
 import { ButtonLink, buttonClasses } from "@/components/ui/button";
 import { CardSection } from "@/components/pro/ui";
-import { AuraLine, AuraBackground } from "@/components/ui/aura";
-import { SuccessCheck } from "@/components/ui/success";
+import { ArchCheck } from "@/components/brand/arch-check";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/layout";
@@ -298,7 +297,6 @@ function WizardFrame({
   return (
     <>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[24rem] overflow-clip">
-        <AuraBackground variant="subtle" placement="top" fade="bottom" />
       </div>
       <Container width="content" className="flex flex-col gap-8 pt-6 md:gap-10 md:pt-10">
         <WizardSteps current={current} done={done} />
@@ -306,7 +304,6 @@ function WizardFrame({
           <div className="flex min-w-0 flex-col gap-6 lg:col-span-7">
             <header className="flex flex-col gap-2.5">
               <p className="flex items-center gap-2.5 type-overline text-ink-muted">
-                <AuraLine className="w-5" />
                 Profi werden
               </p>
               <h1 className="type-display-s">{title}</h1>
@@ -317,7 +314,6 @@ function WizardFrame({
           </div>
           <aside className="flex flex-col gap-6 lg:col-span-4 lg:col-start-9">
             <div className="flex flex-col gap-3 rounded-card bg-surface-raised p-5 shadow-raised lg:sticky lg:top-24 lg:p-6">
-              <AuraLine className="w-6" />
               <h2 className="type-heading-s">{tip.title}</h2>
               <p className="type-body-s text-ink-muted">{tip.body}</p>
             </div>
@@ -369,13 +365,12 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
   return (
     <>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] overflow-clip">
-        <AuraBackground variant="section" placement="top" fade="bottom" />
       </div>
       <Container width="content" className="flex flex-col gap-10 pt-10 md:pt-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="flex flex-col gap-8 lg:col-span-7">
             <div className="flex flex-col gap-5">
-              {suspended ? null : <SuccessCheck size={64} />}
+              {suspended ? null : <ArchCheck size={56} />}
               <Status tone={PROVIDER_STATUS_TONE[onboarding.status]}>{PROVIDER_STATUS_LABEL[onboarding.status]}</Status>
               <h1 className="type-display-m">
                 {suspended ? (
@@ -439,7 +434,6 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
               </Notice>
             ) : null}
             <div className="flex flex-col gap-2 rounded-card bg-surface-raised p-5 shadow-raised lg:p-6">
-              <AuraLine className="w-6" />
               <h2 className="type-heading-s">Bis dahin</h2>
               <p className="type-body-s text-ink-muted">
                 Pflege Portfolio und Abwesenheiten. Sobald du freigeschaltet bist, teilst du deinen Einladungslink mit deiner Stammkundschaft{ownClientRate ? ` – für sie zahlst du nur ${ownClientRate} Provision` : ""}.

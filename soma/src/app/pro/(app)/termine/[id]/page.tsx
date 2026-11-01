@@ -14,13 +14,13 @@ import { EarningsLines } from "@/components/pro/earnings-lines";
 import { LOCATION_LABEL, customerLabel } from "@/components/pro/labels";
 import { ProHeader, ProPage } from "@/components/pro/page";
 import { CardSection } from "@/components/pro/ui";
-import { AuraArt } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { buttonClasses } from "@/components/ui/button";
 import { Notice, Status } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
-import { SuccessCheck } from "@/components/ui/success";
+import { ArchCheck } from "@/components/brand/arch-check";
 import { SUPPORT_EMAIL } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { formatDay, formatDayShort, formatDistance, formatDuration, formatTime, plural } from "@/lib/format";
@@ -136,7 +136,7 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
 
           <section aria-labelledby="ort-title" className="flex flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised">
             <div aria-hidden className="relative h-28 overflow-hidden">
-              <AuraArt seed={`ort-${b.location.postalCode}`} tone="brows-lashes" />
+              <ToneFill seed={`ort-${b.location.postalCode}`} tone="brows-lashes" arch={false} />
               <span className="absolute top-1/2 left-1/2 size-40 -translate-1/2 rounded-full border border-ink/20" />
               <span className="absolute top-1/2 left-1/2 size-24 -translate-1/2 rounded-full border border-ink/30" />
               <span className="absolute top-1/2 left-1/2 flex size-10 -translate-1/2 items-center justify-center rounded-full bg-surface-raised text-ink shadow-float">
@@ -207,7 +207,7 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
 function ActionHeading({ title, children, tone }: { title: string; children?: ReactNode; tone?: "live" | "done" }) {
   return (
     <div className="flex items-start gap-3">
-      {tone === "done" ? <SuccessCheck size={40} glow={false} /> : null}
+      {tone === "done" ? <ArchCheck size={36} /> : null}
       {tone === "live" ? (
         <span aria-hidden className="relative mt-2 size-2.5 shrink-0 rounded-full bg-info" />
       ) : null}

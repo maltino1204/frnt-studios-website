@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AuraArt, AuraBackground } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { ChipLink } from "@/components/ui/chip";
 import { Reveal } from "@/components/ui/motion";
 import { Surface } from "@/components/ui/surface";
@@ -33,7 +33,6 @@ export default async function StaedtePage() {
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <div className="relative isolate overflow-clip">
-        <AuraBackground placement="right" variant="section" fade="both" />
         <Container className="pt-5 md:pt-7">
           <Breadcrumbs items={crumbs} />
           <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">
@@ -60,7 +59,7 @@ export default async function StaedtePage() {
                     href={routes.city(c.slug)}
                     className="group relative isolate flex h-32 items-end justify-between gap-4 overflow-hidden rounded-tile px-5 pb-4 focus-ring md:h-40"
                   >
-                    <AuraArt seed={`stadt:${c.slug}`} tone="brows-lashes" />
+                    <ToneFill seed={`stadt:${c.slug}`} tone="brows-lashes" arch={false} />
                     <h2 className="relative z-[2] type-display-m text-ink">{c.name}</h2>
                     <span className="relative z-[2] inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised transition-transform duration-base ease-settle group-hover:translate-x-0.5">
                       <Icon icon={ArrowRight} size={18} />

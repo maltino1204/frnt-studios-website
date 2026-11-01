@@ -11,7 +11,7 @@ import { Notice } from "@/components/ui/feedback";
 import { Textarea } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { Sheet } from "@/components/ui/sheet";
-import { SuccessCheck } from "@/components/ui/success";
+import { ArchCheck } from "@/components/brand/arch-check";
 import { useToast } from "@/components/ui/toast";
 import { haptic } from "@/lib/haptic";
 import { cn } from "@/lib/cn";
@@ -41,18 +41,18 @@ function animate(el: Element | null | undefined, frames: Keyframe[], opts: Keyfr
   (el as HTMLElement).animate(frames, opts);
 }
 
-/** Confirmation moment over the surrounding card: the ring pops, the check draws in. */
+/** Confirmation moment over the surrounding card (request accepted): the arch-check draws in (brand § 10.1). */
 function SuccessOverlay({ title, body }: { title: string; body?: string }) {
   return (
-    <div role="status" className="absolute inset-0 z-10 flex animate-fade-in flex-col items-center justify-center gap-3 bg-surface-raised/92 px-6 text-center backdrop-blur-sm">
-      <SuccessCheck size={56} />
+    <div role="status" className="absolute inset-0 z-10 flex animate-fade-in flex-col items-center justify-center gap-3 bg-surface-raised px-6 text-center">
+      <ArchCheck size={48} />
       <p className="type-heading-m">{title}</p>
       {body ? <p className="max-w-[18rem] type-body-s text-ink-muted">{body}</p> : null}
     </div>
   );
 }
 
-/** Annehmen / Ablehnen for open requests. Large buttons, decline needs a reason (sheet), accept ends in a SuccessCheck. */
+/** Annehmen / Ablehnen for open requests. Large buttons, decline needs a reason (sheet), accept ends in the arch-check. */
 export function RequestActions({
   bookingId,
   canRespond,
@@ -453,7 +453,7 @@ export function StartBookingButton({
             <div id={errorId} aria-live="polite" className="flex min-h-12 flex-col items-center justify-center gap-1.5 text-center">
               {verified ? (
                 <p className="flex animate-fade-in items-center gap-2.5 type-label text-success">
-                  <SuccessCheck size={28} glow={false} />
+                  <ArchCheck size={22} />
                   Code bestätigt. Der Termin läuft.
                 </p>
               ) : error ? (
@@ -554,7 +554,7 @@ export function CompleteBookingButton({ bookingId, payoutCents, canComplete = tr
       >
         {done ? (
           <div className="flex animate-fade-in items-center gap-4 pt-2">
-            <SuccessCheck size={52} />
+            <ArchCheck size={44} />
             <p>
               Deine Auszahlung von <span className="font-semibold text-ink num">{formatPrice(payoutCents)}</span> ist in 48 Stunden verfügbar.
             </p>

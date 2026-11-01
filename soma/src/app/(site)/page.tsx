@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Building2, CalendarX2, Check, CreditCard, Hotel, House, MapPin, Receipt, type LucideIcon } from "lucide-react";
-import { AuraArt, AuraBackground } from "@/components/ui/aura";
+import { ArrowRight, BadgeCheck, CalendarX2, Check, CreditCard, MapPin, ReceiptEuro, type LucideIcon } from "lucide-react";
+import { BrandIcon, type BrandIconName } from "@/components/brand/brand-icon";
+import { ToneFill } from "@/components/ui/motif";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -188,7 +190,7 @@ export default async function HomePage() {
               <li key={s.title} className="min-w-0">
                 <Surface className="flex h-full flex-col gap-5 p-1.5 pb-6">
                   <div className="relative isolate flex h-48 items-center justify-center overflow-hidden rounded-tile px-5 lg:h-56">
-                    <AuraArt seed={`schritt-${i}`} tone={["brows-lashes", "massage", "kosmetik"][i % 3]} />
+                    <ToneFill seed={`schritt-${i}`} tone={["brows-lashes", "massage", "kosmetik"][i % 3]} arch={false} />
                     <div className="relative z-[2] w-full max-w-[18.5rem]">
                       {i === 0 ? (
                         <StepSearch plz={examplePlz} city={firstCity?.name ?? null} categories={catalog.slice(0, 3).map((c) => c.name)} />
@@ -235,10 +237,10 @@ export default async function HomePage() {
             <Reveal as="ul" stagger aria-label="Orte" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
               {(
                 [
-                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Ein Profi klappt neben der Tragetasche eine Massageliege auf, in einem sonnigen Wohnzimmer mit Fischgrätparkett" },
-                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – dein Profi findet dich.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite, hinter dem Fenster die Frankfurter Skyline" },
-                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum am Hamburger Hafen" },
-                ] satisfies Array<{ k: string; icon: LucideIcon; v: string; src: string; tone: string; place: string; alt: string }>
+                  { k: "Zu Hause", icon: "zuhause", v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Ein Profi klappt neben der Tragetasche eine Massageliege auf, in einem sonnigen Wohnzimmer mit Fischgrätparkett" },
+                  { k: "Im Hotel", icon: "hotel", v: "Hotel, Zimmernummer und der Name an der Rezeption – dein Profi findet dich.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite, hinter dem Fenster die Frankfurter Skyline" },
+                  { k: "Im Büro", icon: "buero", v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum am Hamburger Hafen" },
+                ] satisfies Array<{ k: string; icon: BrandIconName; v: string; src: string; tone: string; place: string; alt: string }>
               ).map((row) => (
                 <li key={row.k} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
                   <Surface as="figure" className="flex h-full flex-col gap-4 p-1.5 pb-5">
@@ -247,7 +249,7 @@ export default async function HomePage() {
                       {/* The Ortszeile (brand § 5.2): under the image, aligned to its edge, never on the photo. */}
                       <span className="truncate type-place text-ink-muted">{row.place}</span>
                       <span className="flex items-center gap-2 type-heading-l text-ink">
-                        <Icon icon={row.icon} size={20} className="text-ink" />
+                        <BrandIcon name={row.icon} size={20} className="text-ink" />
                         {row.k}
                       </span>
                       <span className="type-body-s text-ink-muted">{row.v}</span>
@@ -281,7 +283,7 @@ export default async function HomePage() {
                 Bevor jemand buchbar ist, prüfen wir {listSentence(terms.baseRequiredDocuments.map((d) => d.label)) || "Identität, Gewerbe und Versicherung"} – und
                 je nach Kategorie einen Qualifikationsnachweis.
               </TrustItem>
-              <TrustItem icon={Receipt} title="Endpreis inklusive Anfahrt.">
+              <TrustItem icon={ReceiptEuro} title="Endpreis inklusive Anfahrt.">
                 In der Suche siehst du für jeden Profi den Endpreis inklusive Anfahrt, bevor du buchst.
                 {terms.customerServiceFeeCents === 0 ? " Eine Servicegebühr gibt es nicht." : null}
               </TrustItem>
@@ -364,7 +366,6 @@ export default async function HomePage() {
         <Container>
           <Reveal>
             <div data-theme="night" className="relative isolate grid gap-10 overflow-clip rounded-panel [clip-path:inset(0_round_var(--radius-panel))] px-6 py-10 md:px-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-6 lg:px-14 lg:py-16">
-                <AuraBackground variant="night" placement="right" fade="none" />
                 <div className="flex flex-col gap-5 lg:col-span-6">
                   <Overline>Für Profis</Overline>
                   <h2 id="fuer-profis-titel" className="type-display-l">
@@ -470,7 +471,10 @@ function StepBook({ result }: { result: ProviderSearchResult | null }) {
     <div aria-hidden className="flex flex-col gap-3 rounded-card bg-surface-raised p-3.5 shadow-float">
       <div className="flex items-center gap-2.5">
         <Avatar src={result.avatarUrl} name={result.displayName} size={32} />
-        <span className="min-w-0 flex-1 truncate type-label-s">{result.displayName}</span>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="truncate type-label-s">{result.displayName}</span>
+          <AiLabel src={result.avatarUrl} />
+        </span>
         <span className="type-label-s num">{formatPrice(result.totalPriceCents)}</span>
       </div>
       <div className="flex gap-1.5">
@@ -521,10 +525,7 @@ function ProSnippet({ payoutHoldHours, result }: { payoutHoldHours: number; resu
       <div className="flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-float">
         <div className="flex items-center justify-between gap-3">
           <span className="type-overline text-ink-muted">Neue Anfrage</span>
-          <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-info-soft px-2.5 type-label-s text-info">
-            <span className="size-1.5 rounded-full bg-info" />
-            Live
-          </span>
+          <span className="inline-flex h-6 items-center rounded-full bg-surface-sunken px-2.5 type-label-s text-ink-muted">Beispiel</span>
         </div>
         <p className="type-heading-m">{result ? `${result.offering.serviceName}` : "Entspannungsmassage"}</p>
         <div className="flex gap-2">

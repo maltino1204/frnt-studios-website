@@ -5,7 +5,12 @@ import * as L from "./lib.mjs";
 const { C } = L;
 const OUT = path.join(L.APPS, "motion");
 const sym = fs.readFileSync(path.join(L.SOMA, "brand/assets/logo/final/soma-symbol.svg"), "utf8");
-const sPath = /\sd="([^"]+)"/.exec(sym)[1];
+const pathById = (id) => new RegExp(`id="${id}"\\s+d="([^"]+)"`).exec(sym)?.[1];
+const sPath = pathById("symbol-s");
+const oRing = pathById("symbol-o");            // the O as a ring (outer + inner contour)
+const oOuter = oRing ? oRing.split("Z")[0] + "Z" : null;
+if (!sPath || !oRing) throw new Error("symbol paths not found");
+const vb = /viewBox="([^"]+)"/.exec(sym)[1];
 const wmSvg = L.logo("soma-wordmark", C.espresso, 'class="wm" style="width:420px;height:auto"');
 const tagSvg = L.logo("soma-lockup-tagline", C.espresso, 'class="tag" style="width:420px;height:auto"');
 
@@ -32,7 +37,8 @@ h1{margin:10px 0 8px}
 @keyframes fade-rise{from{opacity:0;transform:translateY(var(--rise-s))}to{opacity:1;transform:none}}
 /* 2 · The S draws on: the arch outline traces, the S contour traces inside it, then the fill arrives and the stroke leaves */
 .s-draw{width:300px;height:375px;overflow:visible}
-.s-draw .arch-o{fill:none;stroke:${C.stone};stroke-width:6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--dur-calm) var(--ease-arrive) both}
+.s-draw .o-o{fill:none;stroke:${C.bone};stroke-width:8;stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--dur-calm) var(--ease-arrive) both, fade-out var(--dur-base) var(--ease-exit) both;animation-delay:0ms, calc(var(--dur-calm) * 1.5)}
+.s-draw .o-f{fill:${C.bone};fill-rule:evenodd;opacity:0;animation:fade-in var(--dur-base) var(--ease-standard) both;animation-delay:calc(var(--dur-calm) * 1.35)}
 .s-draw .s-o{fill:none;stroke:${C.bone};stroke-width:10;stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--dur-calm) var(--ease-arrive) both, fade-out var(--dur-base) var(--ease-exit) both;animation-delay:calc(var(--dur-calm) * .5), calc(var(--dur-calm) * 1.5)}
 .s-draw .s-f{fill:${C.bone};opacity:0;animation:fade-in var(--dur-base) var(--ease-standard) both;animation-delay:calc(var(--dur-calm) * 1.35)}
 .s-stage{background:${C.oxblood}}
@@ -61,8 +67,8 @@ const body = `
   <figure><div class="stage"><div class="arch-rise"><img src="../../photography/v2-previews/L03-philosophy.jpg" alt=""></div>
     <div class="place place-l" style="color:${C.umberDeep}">Flur · Berlin-Schöneberg · 18:40</div></div>
     <figcaption class="cap"><b>1 · Bogen-Aufgang.</b> Maske öffnet von unten (640 ms, arrive), Bogen steigt 16 px, Foto setzt sich von 1,04 auf 1 (900 ms, settle). Ortszeile folgt nach 480 ms.</figcaption></figure>
-  <figure><div class="stage s-stage"><svg class="s-draw" viewBox="-180 -160 832 1040"><path class="arch-o" pathLength="1" d="M-120 880L-120 300C-120 40 60 -120 236 -120C412 -120 592 40 592 300L592 880"/><path class="s-f" d="${sPath}"/><path class="s-o" pathLength="1" d="${sPath}"/></svg></div>
-    <figcaption class="cap"><b>2 · Das S zeichnet sich.</b> Bogenkontur zieht (640 ms), die S-Kontur folgt ab 320 ms, die Fläche erscheint (220 ms), die Linie geht. Nur Splash und Endframes; nie als Ladeanimation, nie in Schleife.</figcaption></figure>
+  <figure><div class="stage s-stage"><svg class="s-draw" viewBox="-70 -110 804 1005"><path class="o-f" d="${oRing}"/><path class="s-f" d="${sPath}"/><path class="o-o" pathLength="1" d="${oOuter}"/><path class="s-o" pathLength="1" d="${sPath}"/></svg></div>
+    <figcaption class="cap"><b>2 · Das Zeichen zeichnet sich.</b> Die O-Kontur zieht (640 ms), die S-Kontur folgt ab 320 ms, dann erscheinen Ring und S als Fläche (220 ms) und die Linie geht. Nur Splash und Endframes; nie als Ladeanimation, nie in Schleife.</figcaption></figure>
   <figure><div class="stage"><div class="lock">${wmSvg}<div class="line"></div><div class="tl" lang="en">Your body. Your place.</div></div></div>
     <figcaption class="cap"><b>3 · Wortmarke.</b> Die ganze Marke kommt als eine Form (480 ms, 8 px), die Linie wächst, die Tagline folgt mit 320 ms Versatz. Nie Buchstabe für Buchstabe, nie gemorpht.</figcaption></figure>
 </div>
@@ -90,7 +96,7 @@ await ctx.close();
 const tmpDir = fs.mkdtempSync("/tmp/sb-");
 for (let i = 0; i < 3; i++) {
   const cells = frames.map(({ t, shots }, k) => { const f = path.join(tmpDir, `s${i}-${k}.png`); fs.writeFileSync(f, shots[i]); return `<figure><img src="file://${f}" style="width:200px;border-radius:12px;display:block"><figcaption class="num place" style="margin-top:8px;color:${C.umberDeep}">${t} ms</figcaption></figure>`; }).join("");
-  const title = ["Bogen-Aufgang (arch rise)", "Das S zeichnet sich (S draw-on)", "Wortmarke und Tagline (lockup reveal)"][i];
+  const title = ["Bogen-Aufgang (arch rise)", "Das Zeichen zeichnet sich: O, dann S (mark draw-on)", "Wortmarke und Tagline (lockup reveal)"][i];
   await L.png(L.page(`<div style="padding:40px 48px"><div class="eyebrow" style="color:${C.umberDeep}">Storyboard · aus specimen.html</div><div class="serif" style="font-size:36px;margin:8px 0 24px">${title}</div><div style="display:flex;gap:16px">${cells}</div></div>`, { w: 1600, h: 400 }), path.join(OUT, `storyboard-${i + 1}.png`), { w: 1600, h: 400 });
 }
 await L.close();

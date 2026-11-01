@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { DEMO_MODE } from "@/lib/brand";
 import { BRAND } from "./data.generated";
+import { DrawOn } from "./draw-on";
 import "./marke.css";
 
 /** Class names: every rule in marke.css is prefixed `mk-` and scoped to .mk-root. */
@@ -100,19 +101,42 @@ function Wordmark({ height, micro, label = "SOMA", style }: { height?: number; m
   const m = micro ? BRAND.final.micro : W;
   return <Mark viewBox={m.viewBox} paths={m.paths} label={label} style={{ height, width: height ? "auto" : "100%", display: "block", ...style }} />;
 }
+/** The mark, "S im O" (line cut from 32 px). */
 function Symbol({ height = 96, label = "SOMA Zeichen" }: { height?: number; label?: string }) {
   const sym = BRAND.final.symbol;
-  return (
-    <svg viewBox={sym.viewBox.join(" ")} role="img" aria-label={label} style={{ height, width: "auto", display: "block" }}>
-      <path fill="currentColor" d={sym.d} />
-    </svg>
-  );
+  return <Mark viewBox={sym.viewBox} paths={sym.paths} label={label} style={{ height, width: "auto", display: "block", maxHeight: "none" }} />;
+}
+/** The seal cut (under 32 px): the O filled, the S set into it. */
+function Seal({ height = 32, label = "SOMA Zeichen, Siegel-Schnitt" }: { height?: number; label?: string }) {
+  const sym = BRAND.final.seal;
+  return <Mark viewBox={sym.viewBox} paths={sym.paths} label={label} style={{ height, width: "auto", display: "block", maxHeight: "none" }} />;
 }
 function AppIcon({ size = 120, radius = 0.2237 }: { size?: number; radius?: number }) {
   return (
     <svg viewBox="0 0 1024 1024" width={size} height={size} role="img" aria-label="SOMA App-Icon" style={{ display: "block", flex: "none", width: size, height: size, maxHeight: "none" }}>
       <rect width="1024" height="1024" rx={1024 * radius} fill="#542C35" />
-      <path fill="#F3EFE8" d={BRAND.final.appIcon.d} />
+      <g fill="#F3EFE8">
+        {BRAND.final.appIcon.paths.map((d, i) => (
+          <path key={i} d={d} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+/** Favicon as shipped (brand/assets/icons/favicon.svg): the seal in Oxblood over a Bone rim (keeps its edge on dark tabs). */
+function Favicon({ size = 16 }: { size?: number }) {
+  const sym = BRAND.final.seal;
+  const [, , w, h] = sym.viewBox;
+  const k = (size * 0.875) / h;
+  const rim = size * 0.05;
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} aria-hidden style={{ display: "block", flex: "none", width: size, height: size, maxHeight: "none" }}>
+      <ellipse cx={size / 2} cy={size / 2} rx={(w * k) / 2 + rim} ry={(h * k) / 2 + rim} fill="#F3EFE8" />
+      <g transform={`translate(${(size - w * k) / 2} ${(size - h * k) / 2}) scale(${k})`} fill="#542C35">
+        {sym.paths.map((p) => (
+          <path key={p.id} d={p.d} />
+        ))}
+      </g>
     </svg>
   );
 }
@@ -187,7 +211,7 @@ export default function MarkePage() {
       <div className={`${s.wrap} ${s.hero}`}>
         <div className={s.heroGrid}>
           <div>
-            <p className={s.eyebrow}>SOMA · Markenidentität 2026 · v1.0</p>
+            <p className={s.eyebrow}>SOMA · Markenidentität 2026 · v1.1</p>
             <div className={s.heroMark}>
               <Wordmark label="SOMA" />
             </div>
@@ -202,9 +226,10 @@ export default function MarkePage() {
           <figure style={{ margin: 0 }}>
             <div className={`${s.arch} ${s.archIn} ${s.heroPhoto}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/editorial/arrival.jpg" alt="Ein Profi wird an der Wohnungstür empfangen, mit Liege und Tasche." />
+              <img src="/images/editorial/arrival-v2.jpg" alt="Eine Profi kommt mit Tasche und Liege durch die Wohnungstür. Bild KI-generiert." />
             </div>
-            <figcaption className={s.place}>Altbau, 2. OG · Hamburg-Eppendorf · 18:40 · Entwicklungsbild</figcaption>
+            <figcaption className={s.place}>Altbau, 2. OG · Hamburg-Eppendorf · 18:40</figcaption>
+            <p className={s.aiLabel}>Entwicklungsbild, KI-generiert</p>
           </figure>
         </div>
       </div>
@@ -215,10 +240,10 @@ export default function MarkePage() {
         eyebrow="1 · Logo"
         title={
           <>
-            Drei Richtungen, <em>eine Haltung.</em>
+            Drei Richtungen, ein Zeichen.
           </>
         }
-        lead="Jede Richtung ist aus eigenen Formen gebaut (Ellipsen, Bänder, analytische Kurven), keine Schrift diente als Rohmaterial. Bewertet nach Originalität, Eleganz, Skalierbarkeit und Einprägsamkeit (0–10)."
+        lead="Jede Richtung ist aus eigenen Formen gebaut (Ellipsen, Bänder, analytische Kurven), keine Schrift diente als Rohmaterial. Bewertet nach Originalität, Eleganz, Skalierbarkeit und Einprägsamkeit (0–10). Das Zeichen ist seit v1.1 das S im O."
       >
         <div className={s.grid3}>
           {BRAND.concepts.map((c) => {
@@ -292,6 +317,54 @@ export default function MarkePage() {
           })}
         </div>
 
+        <div className={s.tile} style={{ marginTop: 24 }}>
+          <p className={s.demoTitle}>Ehrlich eingeordnet</p>
+          <p className={s.p} style={{ margin: 0 }}>
+            Die drei Richtungen sind enger als ihre Namen: B und C teilen ein Genre (kontrastreiche Versalien mit vertikaler Achse), B fügt nur Serifen hinzu; A ist eine
+            bekannte geometrische Grotesk. Das war vertretbar, weil die Entscheidung über das Genre (ruhige, kontrastreiche Versalien statt Schreibschrift, Kleinbuchstaben
+            oder Monogramm-Ornament) vorher aus Strategie und Fotografie feststand und die Exploration die Frage beantworten sollte, wie eigenständig dieses Genre werden
+            kann. Die Antwort liegt nicht in den Buchstaben, sondern im Zeichen: das S im O.
+          </p>
+        </div>
+
+        <h3 className={s.h3}>Zeichen-Studien 2 · die Konstruktion sichtbar machen</h3>
+        <p className={s.p}>
+          Kriterium (Brand Audit 1, O1): Überlappung (IoU) mit dem S von fünf Serifenschriften unter 0,35, ein Merkmal jenseits des Buchstabens, lesbar bei 16 px. Die
+          Serifen-S überlappen einander mit 0,52–0,62.
+        </p>
+        <div className={s.tableWrap}>
+          <table className={s.table} style={{ minWidth: 640 }}>
+            <thead>
+              <tr>
+                <th>Studie</th>
+                {Object.keys(BRAND.final.symbolStudies[0].iou).map((k) => (
+                  <th key={k} style={{ textAlign: "right" }}>
+                    {k}
+                  </th>
+                ))}
+                <th style={{ textAlign: "right" }}>Max.</th>
+                <th>Befund</th>
+              </tr>
+            </thead>
+            <tbody>
+              {BRAND.final.symbolStudies.map((r) => (
+                <tr key={r.key} style={r.chosen ? { background: "var(--oxblood-50)" } : undefined}>
+                  <td style={{ fontWeight: r.chosen ? 600 : 400 }}>{r.name}</td>
+                  {Object.values(r.iou).map((v, i) => (
+                    <td key={i} style={{ textAlign: "right" }}>
+                      {v.toFixed(2)}
+                    </td>
+                  ))}
+                  <td style={{ textAlign: "right" }} className={r.maxIoU < 0.35 ? s.pass : s.fail}>
+                    {r.maxIoU.toFixed(2)}
+                  </td>
+                  <td className={s.small}>{r.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <h3 className={s.h3}>Das System: Wortmarke, Mikro-Master, Zeichen, Lockups</h3>
         <div className={s.grid3}>
           <div>
@@ -353,45 +426,69 @@ export default function MarkePage() {
           </div>
         </div>
 
-        <h3 className={s.h3}>Das Zeichen und das App-Icon</h3>
+        <h3 className={s.h3}>Das Zeichen: das S im O</h3>
         <p className={s.p}>
-          Das S besteht aus den zwei Hälften des O, gegeneinander verschoben wie Schulter und Hüfte im Kontrapost: Körper in Bewegung, Ort in Ruhe. Für kleine Größen ist
-          es kräftiger gezeichnet; der Favicon-Schnitt öffnet die Haarstriche noch weiter.
+          Das S der Wortmarke (der Körper) steht im O der Wortmarke (dem Ort): „Your body. Your place.“ als ein Zeichen, und zugleich die ersten zwei Buchstaben des
+          Namens. Ab 32 px der Linienschnitt; darunter der Siegel-Schnitt, in dem das O gefüllt ist und das S eingesetzt. Das Favicon ist das Siegel mit einer feinen
+          Bone-Kante, damit es auch in dunklen Tab-Leisten seine Form behält.
         </p>
         <div className={s.grid4}>
           <div className={`${s.stage} ${s.onBone}`}>
-            <Symbol height={120} />
+            <Symbol height={128} />
           </div>
           <div className={`${s.stage} ${s.onEspresso}`}>
-            <Symbol height={120} />
+            <Symbol height={128} />
           </div>
           <div className={`${s.stage} ${s.onBone}`} style={{ gap: 20 }}>
             <AppIcon size={120} />
             <AppIcon size={60} />
           </div>
-          <div className={`${s.stage} ${s.onBone}`} style={{ gap: 14, alignItems: "flex-end" }}>
-            <AppIcon size={48} radius={0.22} />
-            <AppIcon size={32} radius={0.22} />
-            <AppIcon size={16} radius={0.22} />
+          <div className={`${s.stage} ${s.onBone}`} style={{ gap: 14, alignItems: "flex-end", flexWrap: "wrap" }}>
+            <Seal height={32} />
+            <Seal height={24} />
+            <Seal height={16} />
+            <span style={{ display: "flex", gap: 10, alignItems: "flex-end", padding: "8px 10px", borderRadius: 8, background: "#202124" }}>
+              <Favicon size={32} />
+              <Favicon size={16} />
+            </span>
           </div>
         </div>
+        <div className={s.grid2} style={{ marginTop: 16 }}>
+          <div className={s.tile} style={{ display: "flex", flexDirection: "column", gap: 0, padding: 0, overflow: "hidden" }}>
+            <div className={s.tab} style={{ background: "#DEE1E6", color: "#3C4043" }}>
+              <Favicon size={16} />
+              SOMA – Beauty &amp; Wellness. Bei dir.
+            </div>
+            <div className={s.tab} style={{ background: "#202124", color: "#E8EAED", borderRadius: 0 }}>
+              <Favicon size={16} />
+              SOMA – Beauty &amp; Wellness. Bei dir.
+            </div>
+          </div>
+          <div className={`${s.stage} ${s.onBone}`}>
+            <DrawOn viewBox={BRAND.final.drawOn.viewBox} o={BRAND.final.drawOn.o} s={BRAND.final.drawOn.s} />
+          </div>
+        </div>
+        <p className={s.caption}>
+          Rechts: das Zeichen zeichnet sich (1,2 s, einmal, kein Loop; bei reduzierter Bewegung sofort das Endbild). Einsatz: PWA-Start, Abspann von Videos,
+          Social-Avatar. Spezifikation: brand/assets/splash/SPLASH.md.
+        </p>
 
         <h3 className={s.h3}>Logo auf Fotografie</h3>
         <div className={s.grid2}>
           <figure style={{ margin: 0 }}>
             <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 16, overflow: "hidden", background: P.stone.value }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/editorial/setup.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 0%", display: "block" }} />
-              <div style={{ position: "absolute", right: "6%", top: "9%", color: "#25211F", width: "24%" }}>
+              <img src="/images/landing/philosophy.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 28%", display: "block" }} />
+              <div style={{ position: "absolute", right: "5%", top: "10%", color: "#25211F", width: "22%" }}>
                 <Wordmark label="SOMA auf Foto" />
               </div>
             </div>
-            <figcaption className={s.caption}>Helles Bild: Espresso auf der ruhigsten Zone (Wand, Licht), Schutzraum frei.</figcaption>
+            <figcaption className={s.caption}>Helles Bild: Espresso auf der ruhigsten Zone (Wand), Schutzraum frei. Entwicklungsbild, KI-generiert.</figcaption>
           </figure>
           <figure style={{ margin: 0 }}>
             <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 16, overflow: "hidden", background: P.stone.value }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/hero/home.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              <img src="/images/hero/home-v2.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 35%", display: "block" }} />
               <div style={{ position: "absolute", inset: "auto 0 0 0", padding: "40px 24px 24px", background: "rgb(23 20 18 / 0.62)", color: "#F3EFE8" }}>
                 <div style={{ width: "30%" }}>
                   <Wordmark micro label="SOMA auf Foto mit Scrim" />
@@ -401,7 +498,7 @@ export default function MarkePage() {
                 </p>
               </div>
             </div>
-            <figcaption className={s.caption}>Unruhiges Bild: Scrim-Fläche (62 %, flach, kein Verlauf) unter Logo und Ortszeile.</figcaption>
+            <figcaption className={s.caption}>Unruhiges Bild: Scrim-Fläche (62 %, flach, kein Verlauf) unter Logo und Ortszeile. Entwicklungsbild, KI-generiert.</figcaption>
           </figure>
         </div>
       </Section>
@@ -412,7 +509,7 @@ export default function MarkePage() {
         eyebrow="2 · Farbe"
         title={
           <>
-            Bone und Espresso tragen. <em>Oxblood signiert.</em>
+            Bone und Espresso tragen. Oxblood signiert.
           </>
         }
         lead="Die Kundenpalette bleibt unverändert; ergänzt sind Tonleitern, Text- und Kontrollvarianten, Funktionsfarben und semantische Tokens. Oxblood erscheint höchstens einmal pro Screen."
@@ -557,7 +654,7 @@ export default function MarkePage() {
         eyebrow="3 · Typografie"
         title={
           <>
-            Die Serife spricht. <em>Die Grotesk arbeitet.</em>
+            Die Serife spricht. Die Grotesk arbeitet.
           </>
         }
         lead="Newsreader Display (opsz 72) für Tagline und redaktionelle Headlines, Instrument Sans für Interface, Zahlen und Formulare. Beide SIL OFL, beide mit vollem Deutsch. Auf der Startseite: 2 vorgeladene Dateien, 79 KB (mit Kursive 102 KB)."
@@ -633,7 +730,7 @@ export default function MarkePage() {
                   }}
                 >
                   {sample}
-                  {serif && (k === "display-xl" || k === "display-l" || k === "h1") ? (
+                  {k === "display-xl" ? (
                     <>
                       {" "}
                       <em style={{ fontFamily: "var(--serif-italic)", fontStyle: "italic" }}>Dein Profi kommt.</em>
@@ -652,7 +749,7 @@ export default function MarkePage() {
         eyebrow="4 · Motiv"
         title={
           <>
-            Der Bogen: <em>die obere Hälfte des O.</em>
+            Der Bogen: die obere Hälfte des O.
           </>
         }
         lead="Ein Fenster, eine Tür, ein Ort: Bilder öffnen sich im Bogen, der exakt aus dem Wortmarken-O konstruiert ist. Zwei Bögen stehen im Kontrapost-Versatz, wie die zwei Hälften des S. Bewegung heißt Ankommen: Bilder steigen 16 px und kommen zur Ruhe."
@@ -662,16 +759,18 @@ export default function MarkePage() {
             <figure>
               <div className={`${s.arch} ${s.archIn}`} style={{ aspectRatio: "4 / 5" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/editorial/after.jpg" alt="Nach der Behandlung: Tee auf dem Sofa, der Profi packt zusammen." />
+                <img src="/images/editorial/after-v2.jpg" alt="Nach der Behandlung: Tee auf dem Sofa, die Profi räumt die Liege ab. Bild KI-generiert." />
               </div>
               <figcaption className={s.place}>Zuhause · Hamburg-Winterhude · 19:30</figcaption>
+              <p className={s.aiLabel}>KI-generiert</p>
             </figure>
             <figure>
               <div className={`${s.arch} ${s.archIn}`} style={{ aspectRatio: "4 / 5", animationDelay: "120ms" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/categories/manikuere.jpg" alt="Maniküre am Tisch am Fenster." />
+                <img src="/images/categories/manikuere-v2.jpg" alt="Maniküre am Tisch am Fenster. Bild KI-generiert." />
               </div>
               <figcaption className={s.place}>Zuhause · Köln-Ehrenfeld · 12:30</figcaption>
+              <p className={s.aiLabel}>KI-generiert</p>
             </figure>
           </div>
           <div className={s.stack}>
@@ -711,9 +810,9 @@ export default function MarkePage() {
                 </div>
                 <div className={s.portrait} style={{ width: 120 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/pros/pro-02.jpg" alt="" />
+                  <img src="/images/pros/pro-02-v2.jpg" alt="Porträt, KI-generiert" />
                 </div>
-                <p className={s.caption}>Avatare: Initialen in Newsreader auf Kategorie-Ton. Porträts im O-Oval.</p>
+                <p className={s.caption}>Avatare: Initialen in Newsreader auf Kategorie-Ton. Porträts im O-Oval. Foto KI-generiert.</p>
               </div>
             </div>
           </div>
@@ -726,7 +825,7 @@ export default function MarkePage() {
         eyebrow="5 · Ikonografie"
         title={
           <>
-            Lucide, <em>auf SOMA gestimmt.</em>
+            Lucide, auf SOMA gestimmt.
           </>
         }
         lead="24-px-Raster, 2 px Schutzzone, 1,5 px absoluter Strich, runde Enden. Lucide passt mit diesen Einstellungen. Eigene Icons nur für Orte und Kategorien, wo Lucide keine klischeefreie Metapher hat; Tür und Finger tragen den Bogen."
@@ -775,10 +874,10 @@ export default function MarkePage() {
         eyebrow="6 · Komponenten"
         title={
           <>
-            Ruhig im Bild, <em>klar in der Funktion.</em>
+            Ruhig im Bild, klar in der Funktion.
           </>
         }
-        lead="Die Kernkomponenten im neuen Stil, mit Zuständen. Werte entsprechen brand/DESIGN_TOKENS/tokens.css; die App-Komponenten werden in Phase B2 umgestellt."
+        lead="Die Kernkomponenten mit ihren Zuständen. Die Werte entsprechen brand/DESIGN_TOKENS/tokens.css, die Produktkomponenten in src/components/ui folgen ihnen."
       >
         <div className={s.stack} style={{ gap: 24 }}>
           <div className={s.demo}>
@@ -895,7 +994,7 @@ export default function MarkePage() {
                   <small>Wann</small>
                   <span>Fr., 14.{NB}Nov.</span>
                 </div>
-                <button type="button" className={`${s.btn} ${s.btnStrong} ${s.searchBtn}`} aria-label="Suchen">
+                <button type="button" className={`${s.btn} ${s.btnAccent} ${s.searchBtn}`} aria-label="Suchen">
                   <Search {...lucide} />
                   Suchen
                 </button>
@@ -937,7 +1036,7 @@ export default function MarkePage() {
                 ))}
               </div>
               <p className={s.small} style={{ marginTop: 10 }}>
-                Auswahl ist Espresso mit Häkchen, nie Oxblood. „Heute“ trägt den kleinen Bogen. Vergeben: durchgestrichen und „ausgebucht“ im Screenreader.
+                Auswahl ist Espresso mit Häkchen, nie Oxblood. „Heute“ trägt den kleinen Bogen. Vergeben: durchgestrichen und „ausgebucht“ im Screenreader. Der Such-Button ist auf der Startseite die eine Oxblood-Aktion.
               </p>
             </div>
           </div>
@@ -947,7 +1046,7 @@ export default function MarkePage() {
               <div className={s.cardMedia}>
                 <div className={s.arch} style={{ aspectRatio: "4 / 3", ["--arch-aspect" as string]: 1.333 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/categories/massage.jpg" alt="" />
+                  <img src="/images/landing/experience-choice.jpg" alt="" />
                 </div>
               </div>
               <div className={s.cardBody}>
@@ -975,10 +1074,11 @@ export default function MarkePage() {
               <div className={s.profile}>
                 <div className={s.portrait}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/pros/pro-01.jpg" alt="" />
+                  <img src="/images/pros/pro-01-v2.jpg" alt="Demo-Profil, Foto KI-generiert" />
                 </div>
                 <div style={{ minWidth: 0 }}>
                   <h3 className={s.serifTitle}>Lea Hoffmann</h3>
+                  <p className={s.aiLabel} style={{ margin: "2px 0 0" }}>Demo-Profil · Foto KI-generiert</p>
                   <div className={s.meta}>
                     <span>Massage · Kosmetik</span>
                   </div>
@@ -1209,8 +1309,8 @@ export default function MarkePage() {
           <div className={`${s.demo} ${s.oxbloodScope}`} style={{ display: "grid", gap: 20, alignItems: "center", gridTemplateColumns: "auto 1fr" }}>
             <Symbol height={72} />
             <div>
-              <p className={s.display} style={{ fontSize: "clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem)" }} lang="en">
-                <em style={{ fontFamily: "var(--serif-italic)", fontStyle: "italic" }}>Your body. Your place.</em>
+              <p className={s.display} style={{ fontSize: "clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem)" }}>
+                Du bleibst. Dein Profi kommt.
               </p>
               <p style={{ margin: "6px 0 0", color: "var(--muted)" }}>Der eine Markenmoment: Oxblood-Fläche, Bone-Schrift, kein weiteres Oxblood im Screen.</p>
             </div>
@@ -1220,8 +1320,9 @@ export default function MarkePage() {
 
       <footer className={s.footer}>
         <div className={s.wrap}>
-          Quellen: <code>brand/assets/**</code>, <code>brand/DESIGN_TOKENS/**</code>, <code>brand/BRAND_GUIDELINES.md</code>, <code>brand/LOGO_USAGE.md</code>. Fotos: Entwicklungsbilder (KI-generiert), Ersatz siehe
-          Art-Direction. Fonts: Newsreader und Instrument Sans, SIL OFL 1.1.
+          Quellen: <code>brand/assets/**</code>, <code>brand/DESIGN_TOKENS/**</code>, <code>brand/BRAND_GUIDELINES.md</code>, <code>brand/LOGO_USAGE.md</code>. Alle Fotos sind
+          Entwicklungsbilder (KI-generiert, Fotoset v2); Ersatzanforderungen in brand/photography/PHOTOGRAPHY.md. Fonts: Newsreader und Instrument Sans, SIL OFL 1.1.
+          Icons: Lucide (ISC) und eigene SOMA-Icons.
         </div>
       </footer>
     </main>

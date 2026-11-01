@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronRight, Plus } from "lucide-react";
-import { AuraArt } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { Button } from "@/components/ui/button";
 import { EmptyState, Notice, Status } from "@/components/ui/feedback";
 import { Input, Select, Switch } from "@/components/ui/field";
@@ -122,7 +122,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
             <section key={id} className="overflow-hidden rounded-card bg-surface-raised shadow-raised" aria-label={g.name}>
               <div className="flex items-center gap-3 border-b border-line px-4 py-3.5 sm:px-5">
                 <span aria-hidden className="relative size-9 shrink-0 overflow-hidden rounded-[11px] shadow-[inset_0_0_0_1px_rgb(37_33_31/0.08)]">
-                  <AuraArt seed={`kat-${g.slug}`} tone={g.slug} grain={false} />
+                  <ToneFill seed={`kat-${g.slug}`} tone={g.slug} arch={false} />
                 </span>
                 <h2 className="min-w-0 flex-1 type-heading-s">{g.name}</h2>
                 <span className="type-caption text-ink-muted num">{g.items.length === 1 ? "1 Leistung" : `${g.items.length} Leistungen`}</span>

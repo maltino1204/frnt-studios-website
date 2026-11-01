@@ -13,6 +13,7 @@ import { formatDateLong, formatDistance, formatPrice, formatPriceExact, plural }
 import { resolveImage } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { Check, CalendarCheck2, Clock3 } from "lucide-react";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Portrait } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
@@ -160,16 +161,22 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
   const pill = "inline-flex h-touch items-center gap-1.5 rounded-full px-3.5 type-label-s text-ink";
   const hero = (
     <header className="grid gap-6 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:items-end sm:gap-8 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
-      {/* The portrait in the SOMA arch (brand § 5.3: 3:4 profile header); the person's wash while it loads. */}
-      <Portrait
-        src={profile.avatarUrl}
-        name={profile.displayName}
-        ratio="3/4"
-        shape="arch"
-        sizes="(min-width: 1024px) 240px, (min-width: 640px) 176px, 144px"
-        priority
-        className="w-36 shrink-0 sm:w-full"
-      />
+      {/* The portrait in the SOMA arch (brand § 5.3: 3:4 profile header); the person's wash while it loads.
+          In demo mode the AI disclosure sits directly under it (guidelines § 10.1). */}
+      <figure className="flex w-36 shrink-0 flex-col gap-2 sm:w-full">
+        <Portrait
+          src={profile.avatarUrl}
+          name={profile.displayName}
+          ratio="3/4"
+          shape="arch"
+          sizes="(min-width: 1024px) 240px, (min-width: 640px) 176px, 144px"
+          priority
+          className="w-full"
+        />
+        <figcaption>
+          <AiLabel src={profile.avatarUrl} />
+        </figcaption>
+      </figure>
       <div className="flex min-w-0 flex-col gap-5 sm:pb-1">
         <div className="flex min-w-0 flex-col gap-3">
           <div className="flex items-start justify-between gap-4">
@@ -267,6 +274,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
               </li>
             ))}
           </ul>
+          <AiLabel kind="images" srcs={profile.portfolio.slice(0, 9).map((item) => item.url)} />
         </section>
       ) : null}
 

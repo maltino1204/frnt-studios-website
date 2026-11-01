@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { AuraBackground } from "@/components/ui/aura";
 import { Notice } from "@/components/ui/feedback";
 import { Container, Overline } from "@/components/ui/layout";
 import { cn } from "@/lib/cn";
@@ -38,7 +37,6 @@ export function ContentPage({
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <div className="relative isolate overflow-clip">
-        <AuraBackground variant="subtle" placement="right" fade="both" animate={false} />
         <Container className="pt-5 md:pt-7">
           <Breadcrumbs items={crumbs} />
           <header className="flex max-w-[44rem] flex-col gap-5 pt-8 pb-10 md:pt-12 md:pb-14">

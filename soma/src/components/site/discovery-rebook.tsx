@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { Icon } from "@/components/ui/icon";
 import { formatDayShort, formatTime } from "@/lib/format";
@@ -48,6 +49,7 @@ export function RebookRow() {
         <span className="type-caption text-ink-muted num">
           {when ? `Nächster freier Termin ${when}` : "Freie Termine im Profil ansehen"}
         </span>
+        <AiLabel src={s.providerAvatarUrl} />
       </span>
       <Icon icon={ArrowRight} className="shrink-0 text-ink transition-transform duration-fast group-hover:translate-x-0.5" />
     </Link>

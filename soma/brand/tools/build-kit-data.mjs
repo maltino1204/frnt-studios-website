@@ -32,15 +32,14 @@ const concepts = [
   return { key: c.key, name: c.name, idea: c.idea, verdict: c.verdict, scores: c.scores, viewBox: vbOf(a), paths: pathsOf(a) };
 });
 
-const wm = finalArt("display"), micro = finalArt("micro"), sym = symbolArt();
+const wm = finalArt("display"), micro = finalArt("micro"), sym = symbolArt("line"), seal = symbolArt("solid");
 const L = lockups();
 const lock = (l) => ({ viewBox: l.vb.map(f2), groups: l.groups.map((g) => ({ id: g.id, transform: g.transform ?? null, paths: g.paths.map((p) => p.d) })) });
-// app icon: S on a 1024 tile, 50 % height (same as brand/assets/icons/ios/AppIcon.svg)
-const S = F.glyphS({ ...F.MASTERS.display, ...F.SYMBOL }, F.SYMBOL_OPTS);
-const sb = bounds(S);
-const sc = 512 / sb.h;
-const icon = toD(transform(transform(S, { tx: -sb.x - sb.w / 2, ty: -sb.y - sb.h / 2 }), { sx: sc, tx: 512 + sb.w * sc * 0.012, ty: 512 - 1024 * 0.006 }));
-
+// app icon: the line mark on a 1024 tile, O height 62 % (same as brand/assets/icons/ios/AppIcon.svg)
+const mk = F.symbolMark("line");
+const sc = (1024 * 0.62) / (2 * F.MARK.ry);
+const at = (g) => toD(transform(g, { sx: sc, tx: 512, ty: 512 }));
+const icon = [at(mk.o), at(mk.s)];
 const P = T.P;
 const res = (v) => (P[v] ? P[v] : v);
 const semantic = Object.fromEntries(Object.entries(T.semantic).map(([g, e]) => [g, Object.fromEntries(Object.entries(e).map(([k, [v, d]]) => [k, { value: res(v), ref: P[v] ? v : null, note: d }]))]));
@@ -52,11 +51,14 @@ const data = {
   final: {
     wordmark: { viewBox: vbOf(wm), paths: pathsOf(wm) },
     micro: { viewBox: vbOf(micro), paths: pathsOf(micro) },
-    symbol: { viewBox: vbOf(sym), d: toD(sym.items[0].item) },
+    symbol: { viewBox: vbOf(sym), paths: pathsOf(sym) },
+    seal: { viewBox: vbOf(seal), paths: pathsOf(seal) },
     descriptor: lock(L.descriptor),
     tagline: lock(L.tagline),
     stacked: lock(L.stacked),
-    appIcon: { size: 1024, d: icon },
+    appIcon: { size: 1024, paths: icon },
+    drawOn: JSON.parse(fs.readFileSync(new URL("../assets/splash/soma-mark-draw.json", import.meta.url), "utf8")),
+    symbolStudies: JSON.parse(fs.readFileSync(new URL("../assets/logo/concepts/symbol-studies-2.json", import.meta.url), "utf8")).rows,
   },
   palette: Object.fromEntries(Object.entries(T.primitives).map(([k, v]) => [k, { value: v.value, note: v.note ?? null, brand: !!v.brand }])),
   semantic,

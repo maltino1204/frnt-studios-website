@@ -74,9 +74,9 @@ async function motif() {
     <div class="c"><img src="file://${dir}/soma-arch-pair.svg"><div class="cap">Kontrapost-Versatz: zwei Bögen, links höher, rechts tiefer, wie die zwei Hälften des S.</div></div>
     <div class="c" style="grid-column:span 2"><img src="file://${dir}/soma-arch-crops.svg"><div class="cap">Ausschnitte: 4:5 (Standard), 3:4, 2:3 und das O-Oval für Porträts.</div></div>
   </div>
-  <h2>Mit echter Fotografie (Entwicklungsbilder)</h2>
+  <h2>Mit der Fotografie (Fotoset v2, Entwicklungsbilder)</h2>
   <div class="g">
-    ${["editorial/arrival.jpg", "editorial/hotel.jpg", "categories/massage.jpg", "editorial/details.jpg"].map((p, i) => `<div><div class="arch" style="aspect-ratio:4/5"><img src="file:///home/user/frnt-studios-website/soma/public/images/${p}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="cap">${["Ankunft · Altbau, 2. OG · Hamburg-Eppendorf · 18:40", "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10", "Zuhause · Berlin-Mitte · 10:00", "Details · Setup"][i]}</div></div>`).join("")}
+    ${["editorial/arrival-v2.jpg", "editorial/hotel-v2.jpg", "landing/experience-choice.jpg", "editorial/office-v2.jpg"].map((p, i) => `<div><div class="arch" style="aspect-ratio:4/5"><img src="${new URL(`../../public/images/${p}`, import.meta.url).href}" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="cap">${["Altbau, 2. OG · Hamburg-Eppendorf · 18:40", "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10", "Hotelzimmer · Frankfurt-Sachsenhausen · 19:30", "Büro, 4. OG · Hamburg-HafenCity · 12:30"][i]}<br><span style="font-size:12px">Entwicklungsbild, KI-generiert</span></div></div>`).join("")}
   </div>
   </body></html>`;
   await shot(html, path.join(A, "previews", "motif-board.png"), { width: 1400 });
@@ -84,22 +84,78 @@ async function motif() {
 
 /* ------------------------------------------------------------------ iconography */
 export const ICONS = {
-  zuhause: "M4 10.5 12 4l8 6.5V20H4z|M10 20v-3.5a2 2 0 0 1 4 0V20",
-  hotel: "M5.5 20V4h13v16|M3.5 20h17|M9 8h.01|M12 8h.01|M15 8h.01|M9 12h.01|M12 12h.01|M15 12h.01|M10.5 20v-2.5a1.5 1.5 0 0 1 3 0V20",
-  buero: "M4 8.5h16V19H4z|M9 8.5V6.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6.5v2|M4 13h6|M14 13h6|M10 12h4v2.5h-4z",
-  massage: "M3 10.5h18v2.5H3z|M6.5 13v6|M17.5 13v6|M6.5 16.5h11|M5 10.5V9.25A1.75 1.75 0 0 1 6.75 7.5h3.5A1.75 1.75 0 0 1 12 9.25v1.25",
-  manikuere: "M8 21V9.5a4 4 0 0 1 8 0V21|M10 11.5V10a2 2 0 0 1 4 0v1.5z",
-  pedikuere: "M8 3.5v9c0 1.6-1 2.6-2 3.7-.9 1-.7 3.3 1.3 3.3h11.4a1.6 1.6 0 0 0 .5-3.1l-5-1.7c-1.3-.4-2.2-1.6-2.2-3V3.5",
-  kosmetik: "M5 11h14v7.5A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5z|M6 7.5h12V11H6z|M9 15h6",
-  "make-up": "M4 20l8-8|M11.4 12.6c.9-3.2 3.7-6.3 8.1-8.1-1.8 4.4-4.9 7.2-8.1 8.1z",
-  "haare-styling": "M4 8.5h16v3.5H4z|M6 12v6|M9 12v6|M12 12v6|M15 12v6|M18 12v6",
-  "brows-lashes": "M3 11.5c3.5 4.2 14.5 4.2 18 0|M5.5 14l-1.2 2|M9.3 15.6l-.6 2.2|M14.7 15.6l.6 2.2|M18.5 14l1.2 2|M5 7.5c2.2-1.6 4.6-1.9 7-1",
+  zuhause: "M4 10.5L12 4L20 10.5L20 20L4 20Z|M10 20L10 16.5C10 15.4 10.9 14.5 12 14.5C13.1 14.5 14 15.4 14 16.5L14 20",
+  hotel: "M5.5 20L5.5 4L18.5 4L18.5 20|M3.5 20L20.5 20|M9 8L9.01 8|M12 8L12.01 8|M15 8L15.01 8|M9 12L9.01 12|M12 12L12.01 12|M15 12L15.01 12|M10.5 20L10.5 17.5C10.5 16.67 11.17 16 12 16C12.83 16 13.5 16.67 13.5 17.5L13.5 20",
+  buero: "M4 8.5L20 8.5L20 19L4 19Z|M9 8.5L9 6.5C9 5.67 9.67 5 10.5 5L13.5 5C14.33 5 15 5.67 15 6.5L15 8.5|M4 13L10 13|M14 13L20 13|M10 12L14 12L14 14.5L10 14.5Z",
+  massage: "M3 9.5L21 9.5L21 12L3 12Z|M6.5 12L6.5 18|M17.5 12L17.5 18|M6.5 15.5L17.5 15.5|M5 9.5L5 8.25C5 7.28 5.78 6.5 6.75 6.5L10.25 6.5C11.22 6.5 12 7.28 12 8.25L12 9.5",
+  manikuere: "M8 20L8 8.5C8 6.29 9.79 4.5 12 4.5C14.21 4.5 16 6.29 16 8.5L16 20|M10 10.5L10 9C10 7.9 10.9 7 12 7C13.1 7 14 7.9 14 9L14 10.5Z",
+  pedikuere: "M7 4L7 13C7 14.6 6 15.6 5 16.7C4.1 17.7 4.3 20 6.3 20L17.7 20C18.46 19.97 19.1 19.41 19.23 18.66C19.35 17.9 18.92 17.16 18.2 16.9L13.2 15.2C11.9 14.8 11 13.6 11 12.2L11 4",
+  kosmetik: "M5 9.5L19 9.5L19 17C19 17.83 18.33 18.5 17.5 18.5L6.5 18.5C5.67 18.5 5 17.83 5 17Z|M6 6L18 6L18 9.5L6 9.5Z|M9 13.5L15 13.5",
+  "make-up": "M4 20L12 12|M11.4 12.6C12.3 9.4 15.1 6.3 19.5 4.5C17.7 8.9 14.6 11.7 11.4 12.6Z",
+  "haare-styling": "M4 7.5L20 7.5L20 11L4 11Z|M6 11L6 17|M9 11L9 17|M12 11L12 17|M15 11L15 17|M18 11L18 17",
+  "brows-lashes": "M3 11.5C6.5 15.7 17.5 15.7 21 11.5|M5.5 14L4.3 16|M9.3 15.6L8.7 17.8|M14.7 15.6L15.3 17.8|M18.5 14L19.7 16|M5 7.5C7.2 5.9 9.6 5.6 12 6.5",
 };
+/** Production SVG: 24 grid, Lucide-compatible attributes, decorative (no title, no ids), stroke = currentColor. */
 function iconSvg(name, d, size = 24) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="t">
-  <title id="t">${name}</title>
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-icon="soma-${name}">
 ${d.split("|").map((p) => `  <path d="${p}"/>`).join("\n")}
 </svg>
+`;
+}
+export const ICON_LABELS = { zuhause: "Zuhause", hotel: "Hotel", buero: "Büro", massage: "Massage", manikuere: "Maniküre", pedikuere: "Pediküre", kosmetik: "Kosmetik", "make-up": "Make-up", "haare-styling": "Haare & Styling", "brows-lashes": "Brows & Lashes" };
+/** React module for the product (copy to src/components/brand/icons.tsx): Lucide-compatible props. */
+function reactModule() {
+  const pascal = (n) => n.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join("").replace("Buero", "Buero");
+  const entries = Object.entries(ICONS);
+  return `// GENERATED by brand/tools/build-graphics.mjs (icons). SOMA custom icons, 24 px grid, 1.5 px stroke.
+// Copy to src/components/brand/icons.tsx. Props mirror lucide-react (size, strokeWidth, absoluteStrokeWidth), so the
+// components also work in the existing <Icon icon={...} /> wrapper. Decorative by default; pass a title prop to label it.
+import type { SVGProps } from "react";
+
+export type SomaIconName = ${entries.map(([n]) => JSON.stringify(n)).join(" | ")};
+
+export const SOMA_ICON_NODES: Record<SomaIconName, readonly string[]> = {
+${entries.map(([n, d]) => `  ${JSON.stringify(n)}: ${JSON.stringify(d.split("|"))},`).join("\n")}
+};
+
+export const SOMA_ICON_LABELS: Record<SomaIconName, string> = ${JSON.stringify(ICON_LABELS, null, 2).replace(/\n/g, "\n")};
+
+export type SomaIconProps = Omit<SVGProps<SVGSVGElement>, "children" | "strokeWidth" | "name"> & {
+  size?: number;
+  strokeWidth?: number;
+  /** Keep the stroke at strokeWidth px whatever the size (SOMA default: true) */
+  absoluteStrokeWidth?: boolean;
+  /** Accessible name; omit for decorative icons next to a visible label */
+  title?: string;
+};
+
+export function SomaIcon({ name, size = 20, strokeWidth = 1.5, absoluteStrokeWidth = true, title, ...rest }: SomaIconProps & { name: SomaIconName }) {
+  const sw = absoluteStrokeWidth ? (strokeWidth * 24) / size : strokeWidth;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={sw}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role={title ? "img" : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+      focusable="false"
+      {...rest}
+    >
+      {SOMA_ICON_NODES[name].map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </svg>
+  );
+}
+
+${entries.map(([n]) => `export const Icon${pascal(n)} = (props: SomaIconProps) => <SomaIcon {...props} name=${JSON.stringify(n)} />;`).join("\n")}
 `;
 }
 function lucideNode(name) {
@@ -115,6 +171,8 @@ function lucideSvg(name, size = 24, sw = 1.5) {
 async function iconography() {
   const dir = path.join(A, "iconography");
   for (const [n, d] of Object.entries(ICONS)) write(path.join(dir, "custom", `${n}.svg`), iconSvg(n, d));
+  write(path.join(dir, "soma-icons.json"), JSON.stringify(Object.fromEntries(Object.entries(ICONS).map(([n, d]) => [n, { label: ICON_LABELS[n], paths: d.split("|") }])), null, 2) + "\n");
+  write(path.join(dir, "react", "soma-icons.tsx"), reactModule());
   // grid / keylines
   write(path.join(dir, "icon-grid.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="480" height="480" role="img" aria-labelledby="t">
   <title id="t">SOMA Icon-Raster 24 px: 2 px Schutzzone, Keylines, Strich 1,5</title>
@@ -167,14 +225,14 @@ async function misuse() {
     write(path.join(dir, `${name}.svg`), svg(W, H, `  <rect id="background" width="${W}" height="${H}" fill="${bg}"/>\n  ${body}\n`, `Falsch: ${title}`));
     return { name, title };
   };
-  const sym = F.glyphS({ ...F.MASTERS.display, ...F.SYMBOL }, F.SYMBOL_OPTS);
+  const sym = F.symbolMark("line").item;
   const sb = bounds(sym);
   const items = [
     frame("01-stretched", "verzerrt (nicht proportional skaliert)", `<g transform="translate(${W / 2} ${H / 2}) scale(1.2 0.78) translate(${-W / 2} ${-H / 2})">${place()}</g>`),
     frame("02-recoloured", "umgefärbt (Farbe außerhalb der Palette, Verlauf)", `<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#E58FB4"/><stop offset="1" stop-color="#F2C46D"/></linearGradient></defs>${place("", "url(#g)")}`),
     frame("03-effects", "mit Effekten (Schatten, Kontur, Glanz)", `<defs><filter id="s" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#000" flood-opacity=".45"/></filter></defs>${place(`filter="url(#s)" stroke="${OX}" stroke-width="18"`, "#FFFFFF")}`),
     frame("04-rotated", "gedreht oder schräg gestellt", `<g transform="rotate(-12 ${W / 2} ${H / 2})">${place()}</g>`),
-    frame("05-rearranged", "umgebaut (Zeichen vor der Wortmarke, Buchstaben neu gesperrt)", `<g fill="${ESP}" transform="translate(120 ${H / 2 - 130}) scale(${260 / sb.h})"><path d="${toD(transform(sym, { tx: -sb.x, ty: -sb.y }))}"/></g><g fill="${ESP}" transform="translate(330 ${H / 2 - 52}) scale(0.15)">${a.items.map((it, i) => `<path transform="translate(${i * 260} 0)" d="${toD(it.item)}"/>`).join("")}</g>`),
+    frame("05-rearranged", "umgebaut (Zeichen in einer Zeile vor der Wortmarke, Buchstaben neu gesperrt)", `<g fill="${ESP}" transform="translate(120 ${H / 2 - 130}) scale(${260 / sb.h})"><path d="${toD(transform(sym, { tx: -sb.x, ty: -sb.y }))}"/></g><g fill="${ESP}" transform="translate(330 ${H / 2 - 52}) scale(0.15)">${a.items.map((it, i) => `<path transform="translate(${i * 260} 0)" d="${toD(it.item)}"/>`).join("")}</g>`),
     frame("06-low-contrast", "zu wenig Kontrast (Taupe auf Stone)", place("", TAUPE), STONE),
     frame("07-outlined", "als Kontur", place(`stroke="${ESP}" stroke-width="10"`, "none")),
     frame("08-busy-background", "auf unruhigem Grund ohne Ruhefläche oder Scrim", `<g id="busy-pattern">${Array.from({ length: 60 }, (_, i) => { const c = [STONE, TAUPE, OX, "#C7BCAF", "#8F5E69", LINEN][i % 6]; const x = (i * 97) % 1200, y = (i * 53) % 600, r = 40 + ((i * 37) % 110); return `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" fill-opacity="0.85"/>`; }).join("")}</g>${place("", "#FFFFFF")}`),

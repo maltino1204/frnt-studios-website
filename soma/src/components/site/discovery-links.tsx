@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AuraArt } from "@/components/ui/aura";
+import { ToneFill } from "@/components/ui/motif";
 import { Icon } from "@/components/ui/icon";
 import { surfaceClasses } from "@/components/ui/surface";
 import { cn } from "@/lib/cn";
@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 export type LinkGridItem = { href: string; name: string; meta?: string | null; muted?: boolean; tone?: string };
 
 /**
- * Link cards (cities, categories): a small seeded aura swatch, the name and a
+ * Link cards (cities, categories): a small category-wash swatch, the name and a
  * caption in a level-1 card that lifts on hover. Muted items (no supply yet)
  * stay flat on the page so the live ones lead.
  */
@@ -25,7 +25,7 @@ export function LinkGrid({ items, columns = 2, size = "s", className }: { items:
             )}
           >
             <span aria-hidden className={cn("relative size-12 shrink-0 overflow-hidden rounded-tile", it.muted ? "opacity-50 grayscale-[0.4]" : "shadow-raised", size === "m" && "md:size-14")}>
-              <AuraArt seed={it.name} tone={it.tone} grain={false} />
+              <ToneFill seed={it.name} tone={it.tone} arch={false} />
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className={cn("truncate", size === "m" ? "type-heading-l" : "type-heading-m", it.muted ? "text-ink-muted" : "text-ink")}>{it.name}</span>
