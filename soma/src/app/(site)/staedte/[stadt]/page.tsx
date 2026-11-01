@@ -120,7 +120,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
               <div className="flex max-w-reading flex-col gap-4">
                 <Overline>Behandlungen</Overline>
                 <h2 id="behandlungen-titel" className="type-display-l">
-                  Was in {city.name} <em>zu dir kommt.</em>
+                  Was in {city.name} zu dir kommt.
                 </h2>
               </div>
             }
@@ -150,7 +150,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
                 <div className="flex max-w-reading flex-col gap-4">
                   <Overline>Profis</Overline>
                   <h2 id="profis-titel" className="type-display-l">
-                    Profis in <em>{city.name}.</em>
+                    Profis in {city.name}.
                   </h2>
                   <p className="type-body-l text-ink-muted">Geprüft und bewertet von Kundschaft, die wirklich gebucht hat.</p>
                 </div>
@@ -170,7 +170,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>Städte</Overline>
               <h2 id="andere-titel" className="type-display-l">
-                Auch in <em>diesen Städten.</em>
+                Auch in diesen Städten.
               </h2>
             </div>
             <LinkGrid

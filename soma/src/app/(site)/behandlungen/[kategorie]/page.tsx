@@ -144,7 +144,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
               <Overline>Leistungen</Overline>
               <h2 id="leistungen-titel" className="type-display-l">
                 {services.length === 1 ? "Eine Leistung." : `${capitalize(numberWord(services.length))} Leistungen.`}{" "}
-                <em>Dein Preis.</em>
+                Dein Preis.
               </h2>
               <p className="type-body text-ink-muted">
                 Die Profis legen ihre Preise selbst fest. „ab“ ist das günstigste aktuelle Angebot ohne Anfahrt; den Endpreis für deine Adresse siehst du in der Suche.
@@ -192,7 +192,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>Städte</Overline>
               <h2 id="staedte-titel" className="type-display-l">
-                {category.name} in <em>deiner Stadt.</em>
+                {category.name} in deiner Stadt.
               </h2>
             </div>
             <LinkGrid

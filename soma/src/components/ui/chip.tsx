@@ -20,17 +20,18 @@ export function chipClasses(selected?: boolean, className?: string) {
   );
 }
 
+/** Selected chips always show a 16 px check before the label: selection is never colour alone (brand § 9.3). */
 export function Chip({
   selected,
-  showCheck,
+  showCheck = true,
   className,
   children,
   type = "button",
   ...props
-}: ComponentProps<"button"> & { selected?: boolean; showCheck?: boolean }) {
+}: ComponentProps<"button"> & { selected?: boolean; /** set false only where the chip carries its own selected icon */ showCheck?: boolean }) {
   return (
     <button type={type} aria-pressed={selected} className={chipClasses(selected, className)} {...props}>
-      {selected && showCheck ? <Icon icon={Check} size={16} className="animate-pop" /> : null}
+      {selected && showCheck ? <Icon icon={Check} size={16} className="-ml-0.5 animate-pop" /> : null}
       {children}
     </button>
   );
@@ -44,6 +45,7 @@ export function ChipLink({
 }: ComponentProps<typeof Link> & { selected?: boolean }) {
   return (
     <Link aria-current={selected ? "true" : undefined} className={chipClasses(selected, className)} {...props}>
+      {selected ? <Icon icon={Check} size={16} className="-ml-0.5" /> : null}
       {children}
     </Link>
   );

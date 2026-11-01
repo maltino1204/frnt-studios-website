@@ -186,7 +186,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>{city.name}</Overline>
               <h2 id="mehr-titel" className="type-display-l">
-                Mehr in <em>{city.name}.</em>
+                Mehr in {city.name}.
               </h2>
             </div>
             <LinkGrid
@@ -208,7 +208,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
             <div className="flex flex-col gap-4 lg:col-span-4">
               <Overline>{category.name}</Overline>
               <h2 id="andere-staedte-titel" className="type-display-l">
-                {category.name} in <em>anderen Städten.</em>
+                {category.name} in anderen Städten.
               </h2>
             </div>
             <LinkGrid

@@ -91,6 +91,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
               delta={delta(kpi.gmvCents, prev.gmvCents)}
               deltaLabel={deltaLabel}
               spark={col("gmvCents")}
+              sparkLabel={`Tageswerte · letzte ${days} Tage`}
             />
             <StatTile
               icon={<Icon icon={CalendarRange} size={16} />}
@@ -99,6 +100,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
               delta={delta(kpi.bookingsCreated, prev.bookingsCreated)}
               deltaLabel={deltaLabel}
               spark={col("bookings")}
+              sparkLabel={`Tageswerte · letzte ${days} Tage`}
             />
             <StatTile
               icon={<Icon icon={CircleCheckBig} size={16} />}
@@ -107,6 +109,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
               delta={delta(kpi.completedBookings, prev.completedBookings)}
               deltaLabel={deltaLabel}
               spark={col("completed")}
+              sparkLabel={`Tageswerte · letzte ${days} Tage`}
             />
             <StatTile
               icon={<Icon icon={Search} size={16} />}
@@ -116,6 +119,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
               deltaLabel={deltaLabel}
               hint="ohne Vergleichswert"
               spark={col("searches")}
+              sparkLabel={`Tageswerte · letzte ${days} Tage`}
             />
           </StatGrid>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4 xl:grid-cols-6">

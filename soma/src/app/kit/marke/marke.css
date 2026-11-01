@@ -1,5 +1,5 @@
-/* SOMA brand book (/kit/marke). Global stylesheet, loaded only by this page; every class is prefixed mk- and every variable is scoped to .mk-root, so the page shows the new
-   identity without touching the app's v2 tokens. Values mirror brand/DESIGN_TOKENS/tokens.mk-css. */
+/* SOMA brand book (/kit/marke). Global stylesheet, loaded only by this page; every class is prefixed mk- and
+   every variable is scoped to .mk-root. Values mirror brand/DESIGN_TOKENS/tokens.css. */
 
 .mk-root {
   --paper: #fbf9f5;

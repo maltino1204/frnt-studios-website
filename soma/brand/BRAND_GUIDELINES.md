@@ -1,6 +1,18 @@
 # SOMA: Brand guidelines
 
-*v1.0 · 1 Nov 2026. Identity sections by the Identity Designer (phase B1). The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director (phase B2).*
+*v1.1 · 1 Nov 2026 (after Brand Audit 1). Identity sections by the Identity Designer. The sections **Photography**, **Motion** and **Applications** belong to the Digital Art Director.*
+
+> **What changed in v1.1 (Brand Audit 1):**
+> - **The symbol is the S im O.** The S of the wordmark sits inside its O; below 32 px it becomes a seal. It replaces the plain S (O1). It is used in the app icons, the favicon and the stacked lockup.
+> - The launch treatment and the animation in which the mark draws itself (M3, `assets/splash/`) are new.
+> - The exploration record is honest about how close the directions were (O3).
+> - The rules now match the product (C5):
+>   - the search button is Oxblood;
+>   - the text floor is 12 px;
+>   - the one-serif rule is precise;
+>   - there is at most one italic accent clause per page (L1).
+> - A trend guardrail with a yearly review is added (§ 12, L3).
+> - The brand book uses only the v2 photo set (C1).
 *Live brand book: `/kit/marke` (demo mode, noindex). Binding inputs: `brand/BRIEF.md`, `brand/PLAN.md`, `brand/BRAND_STRATEGY.md`, `brand/BRAND_VOICE.md`.*
 
 | Document or folder | Content |
@@ -8,8 +20,9 @@
 | `brand/BRAND_STRATEGY.md`, `brand/BRAND_VOICE.md` | Positioning, audiences, messaging, voice (Strategist) |
 | `brand/LOGO_USAGE.md` | Logo exploration, selection, construction, clear space, minimum sizes, colours, placement, misuse |
 | `brand/DESIGN_TOKENS/` | `tokens.json` (W3C), `tokens.css` (app drop-in), `contrast.md`, `README.md` (old → new mapping, migration steps) |
-| `brand/assets/logo/` | `concepts/` (A/B/C, symbol studies), `final/` (masters + PNG), `misuse/` |
+| `brand/assets/logo/` | `concepts/` (A/B/C, symbol studies 1 and 2), `final/` (masters + PNG), `misuse/` |
 | `brand/assets/icons/` | iOS, Android adaptive, PWA, favicon (svg, ico), apple-touch-icon |
+| `brand/assets/splash/` | Launch screen, iOS startup images, the animation in which the mark draws itself (`SPLASH.md`) |
 | `brand/assets/motif/` | The SOMA arch: master, construction, pair, crops, social frame |
 | `brand/assets/iconography/` | `ICONOGRAPHY.md`, grid, custom icons, board |
 | `brand/assets/typography/` | Candidate specimens, pairing specimen, scale renders, font files + OFL |
@@ -24,8 +37,10 @@
 
 **The visual idea: contrapposto.** *Sōma* is the body. In classical sculpture, *contrapposto* is the shift of shoulders against hips that makes a figure look alive and at ease at the same time. SOMA's identity is built on that one move:
 
-- **The S** is drawn from the two halves of the **O**, shifted against each other. The O is the place, whole and at rest; the S is the body in motion. That is *Your body. Your place.* in two letters, and it never shows a body.
-- **The symbol** is that S. **The motif** is the O's upper half: the arch of a door or window, the threshold the Profi crosses. **The layout move** is the shift: two arches offset like the two halves of the S.
+- **The S** is drawn from the two halves of the **O**, shifted against each other. The O is the place, whole and at rest; the S is the body in motion.
+- **The symbol shows it: the S im O.** The body sits inside its place. That is *Your body. Your place.* in one sign, and it never shows a body.
+- **The motif** is the O's upper half: the arch of a door or window, the threshold the Profi crosses.
+- **The layout move** is the shift: two arches offset like the two halves of the S.
 - **Colour** comes from a lived-in room: Bone walls, Stone plaster, Taupe linen, Espresso wood. **Oxblood** is the one deep, warm signal.
 - **Type:** an editorial serif speaks; a warm grotesk works.
 
@@ -45,10 +60,14 @@ The complete rules are in **`LOGO_USAGE.md`**. In short:
   - The vertical stress is shared by O, M and A.
   - The S is built from the O's halves.
   - There are two optical masters: **display** (≥ 32 px cap height) and **micro** (< 32 px: heavier hairlines, wider spacing).
-- **Symbol:** the S, drawn heavier for small sizes, plus a favicon cut with open hairlines.
+- **Symbol: the S im O.**
+  - It is the wordmark's S (the body) inside the wordmark's O (the place), and it carries a non-letter feature: the enclosure.
+  - The **line cut** is used from 32 px. Below that, the **seal cut** is used: the O filled, with the S set into it.
+  - Its silhouette overlaps the S of five serif typefaces by at most **0.24** IoU (the old S: 0.52; the target was < 0.35). The evidence is in `concepts/symbol-studies-2.png`.
 - **Secondary lockups:** with the descriptor, with the tagline, and stacked (symbol over wordmark).
-- **App icon:** a Bone S on an Oxblood tile. It is the brand's most visible Oxblood moment.
-- **Clear space:** 3x, where x is the main stem (1/7 of the cap height). **Minimum sizes:** micro wordmark 12 px cap height (≈ 50 px wide) or 15 mm wide; symbol 16 px or 4 mm.
+- **App icon:** the Bone S im O on an Oxblood tile. It is the brand's most visible Oxblood moment.
+- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim. The rim gives 14.0:1 against a dark tab bar (`#202124`) and disappears into light ones.
+- **Clear space:** 3x, where x is the main stem (1/7 of the cap height). **Minimum sizes:** micro wordmark 12 px cap height (≈ 50 px wide) or 15 mm wide; symbol 16 px (seal cut) or 4 mm.
 - **Colours:** Espresso (default), Bone (dark grounds), Oxblood (print only), black, white.
 
 Scores of the three directions:
@@ -58,6 +77,12 @@ Scores of the three directions:
 | A Architectural | 5 | 6 | 9 | 5 | 25 |
 | B Editorial | 5 | 8 | 4 | 6 | 23 |
 | **C Organic Modernism (chosen)** | **8** | **8** | **7 (8 with micro)** | **8** | **31** |
+
+**Read honestly** (Brand Audit 1, O3):
+- B and C share a genre: high-contrast capitals with vertical stress. B only adds serifs.
+- A is a familiar geometric sans.
+- The three letter directions are therefore narrower than their names suggest. That was acceptable because the genre followed from the strategy and the photography: calm capitals, not script, lowercase or ornament.
+- The originality now comes from the **symbol**, where the construction is visible, rather than from the letters. `LOGO_USAGE.md` § 1 records this in full.
 
 ---
 
@@ -249,11 +274,16 @@ Every candidate is SIL OFL from Google Fonts, licensed for web, app and logo use
 
 ### 4.4 Rules
 
-- **One serif statement per view** (strategy). That covers the tagline, a display headline or a quote. App screens, dialogs, forms and tables are sans only.
-- **`<em>` accents:**
-  - Inside serif headlines (`display-*`, `h1`, `h2`), `<em>` switches to Newsreader **Italic** at the same size and weight: *Du bleibst. <em>Dein Profi kommt.</em>*
-  - Inside sans headings (`heading-l`/`-m`), `<em>` is a serif italic clause at 1.08em with no extra leading.
-  - Use one accent clause per headline at most, and never in buttons, labels, inputs or tables.
+- **One serif headline per view** (strategy; made precise in v1.1, Brand Audit 1 C5).
+  - A view has at most one serif *headline*: the hero, the page title, a greeting ("Guten Abend, Julia."), an empty-state title or a dialog title. Every other heading in that view is set in the sans (`heading-*`).
+  - **Names are not headlines.** A Profi's name may be set in the serif on cards and in the profile header (`display-s` / 26 px). It is identity, like a signature.
+  - **Quotes:** at most one serif quote per view. Further testimonials use the sans (`body-l`).
+  - Forms, tables, buttons, labels, numbers and navigation are always sans.
+- **Italic accents: at most one per page** (Brand Audit 1, L1). The italic is a signature, not a habit.
+  - Marketing pages may have **one** italic accent clause, in the hero: *Du bleibst. <em>Dein Profi kommt.</em>* All other headlines on that page are roman. When the tagline "Your body. Your place." appears, it *is* the page's italic moment.
+  - **App screens** (account, booking, SOMA Pro, Admin) have **no** italic accent clause. A greeting is roman: "Guten Abend, Julia."
+  - Mechanics: inside serif headlines (`display-*`, `h1`, `h2`), `<em>` switches to Newsreader **Italic** at the same size and weight. Inside sans headings it becomes a serif italic clause at 1.08em with no extra leading. Never in buttons, labels, inputs or tables.
+  - Check: count the `<em>` inside `h1`/`h2` per route: ≤ 1, and 0 in `/konto`, `/buchung`, `/pro` and `/admin`.
 - **The tagline** "Your body. Your place." is always Newsreader Display Italic, `lang="en"`, and never set in the sans.
 - **Numbers** use tabular lining figures everywhere they align (`num`, `type-numeric`). German formats with non-breaking spaces: `84 €`, `14:30 Uhr`, `Fr., 14. Nov.`, `1.284,50 €`.
 - **German line breaks:**
@@ -336,6 +366,8 @@ Every candidate is SIL OFL from Google Fonts, licensed for web, app and logo use
 The spec is in **`brand/assets/iconography/ICONOGRAPHY.md`**, the board in `iconography-board.png`.
 - **Lucide, tuned:** 24 px grid, 2 px padding, **1.5 px absolute stroke** at 16/20/24, round caps and joins, `currentColor`. The existing `Icon` wrapper already does this.
 - **Ten custom icons** (`custom/*.svg`): *zuhause*, *hotel*, *buero*, *massage*, *manikuere*, *pedikuere*, *kosmetik*, *make-up*, *haare-styling*, *brows-lashes*. Doors and fingertips carry the arch.
+  - v1.1: every icon is recentred on the 24 grid. They are production SVGs: decorative, no ids, Lucide-compatible attributes.
+  - Also shipped: `soma-icons.json` and a ready React module, `react/soma-icons.tsx` (`SomaIcon name="…"` and `IconZuhause` …, with Lucide props).
 - Icons accompany words. Status always pairs an icon with a word; standalone icons need an accessible name.
 
 ---
@@ -395,7 +427,7 @@ Easings: `standard` (state changes), `arrive` (entrances), `settle` (coming to r
 1. **Quiet surfaces, clear actions.**
    - Bone page, Paper cards with a hairline shadow, Espresso type.
    - Colour appears only where it means something: Oxblood for the one primary action, and the functional colours with an icon and a word.
-2. **Editorial where it speaks, functional where it works.** The serif appears once per view; every control, number and form is the sans.
+2. **Editorial where it speaks, functional where it works.** One serif headline per view (names in cards excepted, § 4.4), at most one italic clause per page; every control, number and form is the sans.
 3. **The truth is the design material** (strategy): *Endpreis inkl. Anfahrt*, the dated cancellation deadline and the Start-Code are shown plainly. Never fake ratings or badges.
 4. **Arrive and rest.** Interactions answer within 100–220 ms. Elements settle and stop.
 5. **Built for German, thumbs and screen readers.**
@@ -414,6 +446,7 @@ Easings: `standard` (state changes), `arrive` (entrances), `settle` (coming to r
 | Radii | control 8 · tile 12 · card 16 · panel / sheet 24 · pill (buttons, chips, badges, avatars) · arch (motif) |
 | Elevation | `raised` (cards: ring 7 % + 1/2 + 4/10 px), `float` (hover, popovers, toasts), `overlay` (dialogs, sheets). All tinted with Espresso, at most 22 % opacity. No coloured glows. |
 | Touch | minimum 44 × 44 px; controls 48 (default), 52 (booking CTA), 36 dense (with a 44 px hit area) |
+| Text floor | **12 px everywhere**: bottom-nav labels, count badges, chips, booking references (DM Mono `max(12px, 0.875em)`), helper text. Customer pages load no third family: references and codes on customer pages use Instrument Sans with tabular figures. |
 | Z-index | header 30 · bottom nav 30 · sticky CTA 35 · overlay 40 · sheet 50 · modal 60 · toast 70 |
 
 ### 9.3 Components and states
@@ -424,10 +457,10 @@ The rendered references are on `/kit/marke` § 6. API names refer to `src/compon
 |---|---|---|
 | **Button** (`Button`, `ButtonLink`) | Pill. S 36 (44 hit area) · M 48 · L 52. `type-button` 15–16 / 560. Variants: **accent** (Oxblood, one per screen) · **primary** (Espresso; Bone label) · **secondary** (transparent, 1 px `line-control` ring) · **ghost** · **link** (underline 1 px `line-strong`, 4 px offset) · **destructive** (vermilion, white). Icon 20 px with an 8 px gap. | **hover:** accent → oxblood-700, primary → cocoa, secondary/ghost → linen fill. **pressed:** scale 0.98 for 100 ms, accent → oxblood-800. **focus:** 2 px Oxblood ring, 2 px offset (Bone in night/oxblood scopes). **disabled:** oat fill, taupe label, no shadow, `aria-disabled`. **loading:** spinner replaces the leading icon, label "Wird gebucht …", same width, `aria-busy`. |
 | **Input, Select, Textarea** (`Field`) | 48 px, radius 8, Paper fill, 1 px `line-control` border (3.7:1), `inset-shadow-field`. Label `label-s` above; helper `small` below; control text 16 px. | **focus:** border Oxblood + 3 px `focus-glow`. **error:** border danger, message below with `CircleAlert` + text, `aria-invalid`, `aria-describedby`. **success:** `CircleCheck` + text in success colour. **disabled:** linen fill, oat border, taupe text. **filled / placeholder:** the placeholder is umber (5.1:1), never the only label. |
-| **Search control** | Mobile: a stacked card (Behandlung / Ort / Wann, 1 px oat dividers) with a full-width Espresso button. From 768 px: one pill (radius full, `shadow-float`) with three segments and the button inside. | **Segment focus:** linen fill + focus ring on the segment. **Filled:** value in `body`, label in `small` 600. **Empty:** placeholder umber. **Loading results:** button spinner. |
+| **Search control** | Mobile: a stacked card (Behandlung / Ort / Wann, 1 px oat dividers) with a full-width **Oxblood** button. On the home page the search is the screen's one primary action, so it carries the accent; elsewhere (filters on `/suche`) the button is Espresso. From 768 px: one pill (radius full, `shadow-float`) with three segments and the button inside. | **Segment focus:** linen fill + focus ring on the segment. **Filled:** value in `body`, label in `small` 600. **Empty:** placeholder umber. **Loading results:** button spinner. |
 | **Chips, segmented** | 36 px pill, `line-mid` ring, `label` 540; long words in `condensed`. | **selected:** Espresso fill, Bone label, a check icon (never colour alone). **hover:** linen. **focus:** ring. **disabled:** taupe. |
-| **Navigation** | Header 60 / 68 px, glass Paper 92 %, micro wordmark left (15 / 18 px), actions right. Tabs: 44 px, active = Espresso text + 2 px Espresso bar. Bottom nav (mobile, `/konto`, `/pro`): 4 items, 22 px icons, 11 px labels. | **active:** Espresso, icon stroke 1.9, linen pill behind, `aria-current="page"`. **inactive:** umber-deep. **focus:** ring. On scroll the header gains a hairline. |
-| **Service card** | Paper, radius 16, `shadow-raised`. Image: an arch 4:3 inside a 12 px inset (or the wash fallback). Eyebrow = category; title in Newsreader 26; meta row (`Clock` duration, the custom category icon + what the Profi brings); a price row above a hairline: "Endpreis inkl. Anfahrt · **ab 84 €**" (tabular). | **hover** (pointer): lift 2 px → `shadow-float`. **pressed:** scale 0.99. **focus:** ring on the card link. **loading:** skeleton with the same shapes. **unavailable:** label "Gerade nicht buchbar" + muted image, never hidden silently. |
+| **Navigation** | Header 60 / 68 px, glass Paper 92 %, micro wordmark left (15 / 18 px), actions right. Tabs: 44 px, active = Espresso text + 2 px Espresso bar. Bottom nav (mobile, `/konto`, `/pro`): 4 items, 22 px icons, **12 px** labels (the text floor; condensed if a label is long). | **active:** Espresso, icon stroke 1.9, linen pill behind, `aria-current="page"`. **inactive:** umber-deep. **focus:** ring. On scroll the header gains a hairline. |
+| **Service card** | Paper, radius 16, `shadow-raised`. Image: an arch 4:3 inside a 12 px inset (or the wash fallback). Eyebrow = category; title in the sans (`heading-m`, 600: in a list of cards the serif would repeat; § 4.4); meta row (`Clock` duration, the custom category icon + what the Profi brings); a price row above a hairline: "Endpreis inkl. Anfahrt · **ab 84 €**" (tabular). | **hover** (pointer): lift 2 px → `shadow-float`. **pressed:** scale 0.99. **focus:** ring on the card link. **loading:** skeleton with the same shapes. **unavailable:** label "Gerade nicht buchbar" + muted image, never hidden silently. |
 | **Profile card** | O-oval portrait 96 px (wash + initials fallback); name in Newsreader 26; categories; "Profil geprüft" (`ShieldCheck`) only if true; location pills (Zuhause / Hotel / Büro, custom icons) for the places this Profi serves; "Nächster freier Termin · Fr., 14. Nov., 14:30". **No star rating until there are real reviews.** | hover / focus as the service card. Offline or unavailable: "Zurzeit keine Termine" in muted text. |
 | **Date strip, time slots** (`DateStrip`, `TimeSlots`) | Dates: 5–7 tiles, radius 12, day `small` + number 18 / 600 tabular. Slots: a 4-column grid, 44 px, radius 12, `label` tabular. Radiogroup semantics, arrow keys. | **selected:** Espresso fill, Bone text, a check icon in the slot. **today:** a small arch mark (14 × 7) under the number. **unavailable:** sunken fill, taupe, struck through, `aria-disabled` + „ausgebucht“. **focus:** ring. |
 | **Booking summary** (`PriceBreakdown`) | Lines `body-s`: label umber-deep left, amount right, tabular. Date and time line. A dashed `stone-deep` rule, then the **Endpreis** in `numeric` 28. The accent CTA "Zahlungspflichtig buchen · 84 €" (legal wording, fixed). The cancellation deadline below it in `small`, centred. | sticky on mobile (`shadow-bar`), static from `lg`. **Price changes:** the amount crossfades (160 ms). **Error:** a danger notice above the CTA. |
@@ -521,10 +554,54 @@ Every asset is generated from code. To change one, edit the source and rebuild; 
 | `node brand/tools/build-tokens.mjs` | `DESIGN_TOKENS/tokens.json`, `tokens.css`, `contrast.*` |
 | `node brand/tools/build-boards.mjs` | Logo system, construction, symbol studies, colour, type-scale boards |
 | `node brand/tools/type-specimens.mjs` (after `fetch-fonts.mjs`) | `assets/typography/*.png` |
+| `node brand/tools/build-symbol-studies.mjs` | `assets/logo/concepts/symbol-studies-2.png` + `.json` (IoU against five serif S, 16/24/32 px renders) |
+| `node brand/tools/build-splash.mjs` | `assets/splash/**` (the animated SVG of the mark drawing itself, launch screen, iOS startup images, storyboard) |
 | `node brand/tools/build-kit-data.mjs` | `src/app/kit/marke/data.generated.ts` (artwork and tokens for the brand book) |
 
 - **devDependencies added:**
   - `paper` 0.12: booleans and curve fitting for the outlines (MIT).
   - `opentype.js` 2.0: outlining the descriptor and tagline (MIT).
 - **Font files used by the scripts:** latin subsets from the Google Fonts API, cached in `/tmp/soma-fonts`, re-fetched by `fetch-fonts.mjs`. The shipped font files are in `assets/typography/fonts/`.
-- **SVG hygiene:** every master has an explicit `viewBox`, outlined paths, named groups (`wordmark`, `wordmark-s` …, `symbol`, `descriptor`), a `<title>`, no raster, and no live text.
+- **SVG hygiene:** every master has an explicit `viewBox`, outlined paths, named groups (`wordmark`, `wordmark-s` …, `symbol`, `symbol-o`, `symbol-s`, `descriptor`), a `<title>`, no raster, and no live text. Icons are the exception by design: stroked paths, decorative, no title.
+
+---
+
+## 12. Trend guardrail and yearly review
+
+Brand Audit 1 (L3): the quiet-luxury idiom of 2023–26 will date. The identity must evolve on purpose, not drift.
+
+**Core: fixed, changes only with a strategy decision**
+
+| Element | Why it is core |
+|---|---|
+| The wordmark and the **S im O** (masters in `assets/logo/final`) | The brand's signature; generated from code, used byte for byte |
+| The **Ortszeile** (*Ort · Stadtteil · Uhrzeit*) | "Where are we?": the verbal-visual signature no competitor has |
+| The **offset arch pair** (§ 10.2) and the arch derived from the O | The layout move of the S; the most memorable device |
+| The **Start-Code** moment and truth as design material (Endpreis inkl. Anfahrt, dated deadlines) | Product truth, not style |
+| **Oxblood restraint** (one moment per screen, never an error) | Recognition through scarcity |
+| Bone / Espresso foundation, the token architecture, the 2-font budget, the 12 px floor, contrast rules | Usability and accessibility |
+
+**Free to evolve, within the tokens**
+- **Photo style:** grade, casting, seasons. The `PHOTOGRAPHY.md` rules stay.
+- **The italic accent:** it may disappear entirely. It must never become more frequent than one per page.
+- **Card styling:** radii ± 4 px, elevation and shadow depth.
+- **Arch density:** fewer arches is always allowed.
+- **Display sizes and the tracking of headlines.**
+- **The motion choreography** (`MOTION.md`), as long as there is no overshoot and no loops.
+
+**Watch list:** these are trend markers. Each needs a reason every time it is used:
+- the italic clause in headlines;
+- oatmeal-on-oatmeal sections without photography;
+- arch frames on every image;
+- floating UI cards;
+- numbers that count up;
+- feature-icon grids;
+- gradients of any kind.
+
+**Yearly review.** Every year in Q4, the Lead and an independent reviewer, who is not the author:
+1. re-run the Brand Audit probes (Oxblood count, `<em>` count per route, text floor, contrast, the symbol test);
+2. compare the product against three new category entrants and two adjacent premium brands;
+3. retire at least one watch-list item that has become common in the category;
+4. record decisions in `brand/PLAN.md` and bump this document's version.
+
+Changes to the core need a written rationale and a strategy sign-off.

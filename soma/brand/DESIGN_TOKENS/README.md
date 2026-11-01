@@ -1,10 +1,12 @@
-# SOMA design tokens v3
+# SOMA design tokens v3 (v1.1)
+
+> **v1.1 (Brand Audit 1):** retired aura, grain, ambient and spotlight code deleted; `--transition-duration-reveal` added; DTCG font-size endpoints added. `tokens.css` now differs from `src/styles/tokens.css` only by its header and the reveal token: copy it over.
 
 *Identity Designer · phase B1 · 1 Nov 2026*
 
 | File | What it is |
 |---|---|
-| `tokens.json` | **Source format for tools**: W3C design tokens (DTCG: `$type`, `$value`, `{alias}`). It covers colour primitives and semantics, feedback, night, tones, charts, font families and weights, typography (fluid `clamp()` 360 → 1440 px), spacing (4 pt), radii, breakpoints, grid, containers, shadows, motion and z-index. |
+| `tokens.json` | **Source format for tools** (v1.1: font sizes also as `dimension.fontSize.<token>.min/.max` in px, because DTCG tools cannot read `clamp()`): W3C design tokens (DTCG: `$type`, `$value`, `{alias}`). It covers colour primitives and semantics, feedback, night, tones, charts, font families and weights, typography (fluid `clamp()` 360 → 1440 px), spacing (4 pt), radii, breakpoints, grid, containers, shadows, motion and z-index. |
 | `tokens.css` | **Drop-in replacement for `src/styles/tokens.css`** (Tailwind v4, `@theme static`). It keeps every semantic name the app uses and adds new ones. It compiles with Tailwind v4: checked with `@tailwindcss/node` against 21 utilities, including `xs:`. |
 | `contrast.json`, `contrast.md` | Every text/background and UI pair: 95 pairs, WCAG 2.2, computed. |
 
@@ -40,12 +42,12 @@ The single source is `brand/tools/tokens-source.mjs`. Regenerate with `node bran
    | `bg-accent` on buttons (30×) | Keep **only** on the one primary action of the view (`Button variant="accent"`). Everything else: `variant="primary"` (Espresso). |
    | `bg-accent-soft` / `bg-accent-tint` (34×): info notices, selected rows, *Verifiziert* pill | `bg-info-soft` (notices), `bg-surface-tint` (selection), `bg-surface-sunken` (pills) |
    | `ring-accent/*`, `shadow-accent` | `focus-ring` utility / `shadow-ink` |
-   | `bg-aura`, `aura-border`, `AuraArt`, `AuraBackground`, `--color-aura-*` | Removed from the brand. The tokens now render as flat neutrals so nothing breaks. Replace them with the tone wash + arch line (`brand/BRAND_GUIDELINES.md` § 5.4). |
+   | `bg-aura`, `aura-border`, `AuraArt`, `AuraBackground`, `--color-aura-*` | Removed (v1.1: the tokens and utilities are deleted, Brand Audit 1, L2). Use the tone wash + arch line (`brand/BRAND_GUIDELINES.md` § 5.4). |
 6. **Fallbacks.**
    - `TonePanel` and `Portrait`: the category wash (`--color-tone-*`), a 1.5 px arch line in `line-mid` and the word in the serif italic.
    - `Avatar`: Newsreader initials in Espresso on the wash, with a 1 px hairline ring.
    - No gradients, no film grain on fallbacks.
-7. **Motion.** `--ease-spring` and `--ease-settle` are now overshoot-free (`cubic-bezier(0.22, 1, 0.36, 1)`), and the ambient aura animations are `none`.
+7. **Motion.** `--ease-spring` and `--ease-settle` are now overshoot-free (`cubic-bezier(0.22, 1, 0.36, 1)`), and the ambient aura animations, `grain`, `ambient` and the cursor `spotlight` are deleted (v1.1).
    - Check the components that relied on overshoot (checkbox tick, toast) for a "pop": they now settle instead.
    - The press scale is 0.98 (was 0.97).
 8. **Type.**
@@ -82,7 +84,7 @@ The single source is `brand/tools/tokens-source.mjs`. Regenerate with `node bran
 | `--color-accent-soft` | `#EEF0FF` | `#EBDADD` | oxblood-100 | rare |
 | `--color-accent-tint` | `#F6F7FF` | `#F5EDEE` | oxblood-50 | rare |
 | `--color-on-accent` | `#FFFFFF` | `#F3EFE8` | bone | 10.2:1 |
-| `--color-aura-1…4` | ultramarine, violet, peach, apricot | stone, taupe, oat, linen | | retired |
+| `--color-aura-1…4` | ultramarine, violet, peach, apricot | deleted (v1.1) | | retired |
 | `--color-success` / `-soft` | `#157347` / `#EAF6F0` | `#336645` / `#E4ECE2` | | |
 | `--color-warning` / `-soft` | `#875800` / `#FDF4E2` | `#7D5310` / `#F5EAD3` | | |
 | `--color-danger` / `-soft` | `#BE3127` / `#FDEDEB` | `#B3261E` / `#F8E4E0` | | vermilion, never Oxblood |
@@ -137,12 +139,13 @@ The fluid range is now 360 → 1440 px (was 360 → 1280). **New utilities:** `t
 | `--radius-arch` | n/a | **new**: the top half of the O, `calc(54.5% × --arch-aspect)` (utility `arch`) |
 | `--shadow-raised` / `-float` / `-overlay` | violet-tinted, up to 28 % | Espresso-tinted, 4–22 %, quieter |
 | `--shadow-ink`, `--shadow-accent` | inset highlight + coloured drop | flat 1–2 px drop, **no glow** |
-| `--shadow-aura` | ultramarine/peach glow | = `--shadow-float` (retired) |
+| `--shadow-aura` | ultramarine/peach glow | deleted (v1.1) |
 | `--ease-spring`, `--ease-settle` | `linear()` with 7 % / 3 % overshoot | `cubic-bezier(0.22, 1, 0.36, 1)`: arrive and stop |
 | `--ease-arrive` | n/a | new: `cubic-bezier(0.16, 1, 0.3, 1)` |
 | `--transition-duration-slow` | 280 ms | 320 ms |
 | `--transition-duration-spring` | 420 ms | 480 ms (= `--transition-duration-arrive`) |
-| `--animate-aura-*`, `--animate-float` | ambient drift | `none` |
+| `--animate-aura-*`, `--animate-float*` | ambient drift | deleted (v1.1) |
+| `--transition-duration-reveal` | n/a | **new (v1.1)**: 900 ms, brand animation only (the photo settling in the arch, `MOTION.md` § 2) |
 | `--animate-arch-in` | n/a | new: an image rises 16 px into its arch and stops (640 ms) |
 | `--breakpoint-xs` | n/a | new: 22.5rem (360 px) |
 | `--z-*`, containers, `--spacing-*` | | unchanged |

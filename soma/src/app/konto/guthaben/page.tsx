@@ -45,7 +45,7 @@ export default async function GuthabenPage() {
       <section aria-labelledby="empfehlen" className="relative isolate flex flex-col gap-7 overflow-clip rounded-panel bg-surface-raised p-5 shadow-raised sm:p-8 lg:p-10">
         <div className="flex flex-col gap-3">
           <Overline>Empfehlen</Overline>
-          <h2 id="empfehlen" className="max-w-[34rem] type-display-s">{`Empfiehl SOMA: ${reward} für dich, ${welcome} für alle, die du einlädst.`}</h2>
+          <h2 id="empfehlen" className="max-w-[34rem] type-heading-l">{`Empfiehl SOMA: ${reward} für dich, ${welcome} für alle, die du einlädst.`}</h2>
           <p className="max-w-reading type-body-s text-ink-muted">
             {`Wer sich mit deinem Link registriert, bekommt ${welcome} Startguthaben. Du bekommst ${reward}, sobald die erste Buchung abgeschlossen ist.`}
           </p>

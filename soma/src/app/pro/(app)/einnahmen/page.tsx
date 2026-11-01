@@ -127,7 +127,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
       <StatGrid>
         <StatTile label="Verfügbar" icon={<Icon icon={Wallet} size={16} />} value={<MoneyCount cents={totals.availableCents} />} hint="geht mit der nächsten Auszahlung raus" />
         <StatTile label="Ausstehend" icon={<Icon icon={Hourglass} size={16} />} value={<MoneyCount cents={totals.pendingCents} />} hint={`frei nach ${terms.payoutHoldHours} Std.`} />
-        <StatTile label="Ausgezahlt" icon={<Icon icon={Landmark} size={16} />} value={<MoneyCount cents={totals.paidOutCents} />} hint="insgesamt" spark={paidSeries.length > 2 ? paidSeries : undefined} />
+        <StatTile label="Ausgezahlt" icon={<Icon icon={Landmark} size={16} />} value={<MoneyCount cents={totals.paidOutCents} />} hint="insgesamt" spark={paidSeries.length > 2 ? paidSeries : undefined} sparkLabel="Summe der Auszahlungen bisher" />
         <StatTile
           label="Diesen Monat"
           icon={<Icon icon={CalendarRange} size={16} />}
@@ -136,6 +136,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
           deltaLabel="ggü. Vormonat"
           hint={`${formatPrice(totals.yearCents)} in diesem Jahr`}
           spark={six.map((m) => m.value)}
+          sparkLabel="Je Monat · letzte 6 Monate"
         />
       </StatGrid>
 

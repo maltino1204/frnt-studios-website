@@ -10,9 +10,11 @@ export function StatGrid({ children, className }: { children: ReactNode; classNa
 }
 
 /**
- * KPI tile: label, tabular value, delta pill and an optional sparkline.
- * Pass `spark={[…]}` for the built-in gradient sparkline, or any node as `sparkline`.
- * For a count-up, pass `value={<FormattedNumber value={38} />}`.
+ * KPI tile: label, tabular value (final on the first frame, no count-up), delta and an optional sparkline.
+ * A sparkline only renders with `sparkLabel` ("letzte 8 Wochen"): the period is printed under it, so the line is
+ * never a wave without meaning (brand audit 1, § 3.7). Pass `spark={[…]}` for the built-in line or any node as
+ * `sparkline`. `deltaTone="neutral"` prints the change in Espresso (arrow + sign) instead of the status colours,
+ * for business fluctuations that are not alarms (SOMA Pro).
  */
 export function StatTile({
   label,
@@ -22,6 +24,8 @@ export function StatTile({
   hint,
   sparkline,
   spark,
+  sparkLabel,
+  deltaTone = "status",
   icon,
   className,
 }: {
@@ -35,12 +39,16 @@ export function StatTile({
   sparkline?: ReactNode;
   /** shorthand: values for the built-in sparkline */
   spark?: number[];
+  /** the period the sparkline covers, printed under it; without it no sparkline is shown */
+  sparkLabel?: string;
+  /** "status": success/danger pill (default); "neutral": Espresso arrow + sign */
+  deltaTone?: "status" | "neutral";
   /** small leading icon next to the label */
   icon?: ReactNode;
   className?: string;
 }) {
   const up = (delta ?? 0) >= 0;
-  const line = sparkline ?? (spark && spark.length > 1 ? <Sparkline values={spark} className={up ? "text-ink" : "text-ink-muted"} /> : null);
+  const line = sparkLabel ? (sparkline ?? (spark && spark.length > 1 ? <Sparkline values={spark} className={up ? "text-ink" : "text-ink-muted"} /> : null)) : null;
   return (
     <div className={cn("relative flex min-w-0 flex-col gap-2 overflow-hidden rounded-card bg-surface-raised p-4 shadow-raised sm:p-5 lg:p-6", className)}>
       <p className="flex items-center gap-2 type-label-s text-ink-muted [&_svg]:size-4">
@@ -53,7 +61,7 @@ export function StatTile({
           <span
             className={cn(
               "inline-flex h-5 items-center gap-0.5 rounded-full pr-1.5 pl-1 font-[560] num",
-              up ? "bg-success-soft text-success" : "bg-danger-soft text-danger",
+              deltaTone === "neutral" ? "bg-surface-sunken text-ink" : up ? "bg-success-soft text-success" : "bg-danger-soft text-danger",
             )}
           >
             <Icon icon={up ? ArrowUpRight : ArrowDownRight} size={14} />
@@ -65,7 +73,12 @@ export function StatTile({
       ) : hint ? (
         <p className="type-caption text-ink-muted">{hint}</p>
       ) : null}
-      {line ? <div className="-mx-1 mt-1 h-10">{line}</div> : null}
+      {line ? (
+        <div className="mt-1 flex flex-col gap-1">
+          <div className="-mx-1 h-10">{line}</div>
+          <p className="type-caption text-ink-muted">{sparkLabel}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

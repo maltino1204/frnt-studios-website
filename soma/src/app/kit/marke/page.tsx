@@ -30,9 +30,9 @@ import "./marke.css";
 const s = new Proxy({} as Record<string, string>, { get: (_, k) => `mk-${String(k)}` });
 
 /*
- * SOMA brand book (Identity Designer, phase B1). Renders the real masters from brand/assets via the generated
- * data module (brand/tools/build-kit-data.mjs) and the new fonts, scoped to this page only. The rest of the app
- * keeps Design v2 until the migration (phase B2).
+ * SOMA brand book (v1.1). Renders the real masters from brand/assets via the generated data module
+ * (brand/tools/build-kit-data.mjs). Styles and font variables are scoped to this page (marke.css, prefix mk-).
+ * Photos: the v2 development set only, each labelled as AI-generated.
  */
 
 const sans = localFont({
@@ -352,11 +352,11 @@ export default function MarkePage() {
                   <td style={{ fontWeight: r.chosen ? 600 : 400 }}>{r.name}</td>
                   {Object.values(r.iou).map((v, i) => (
                     <td key={i} style={{ textAlign: "right" }}>
-                      {v.toFixed(2)}
+                      {v.toFixed(2).replace(".", ",")}
                     </td>
                   ))}
                   <td style={{ textAlign: "right" }} className={r.maxIoU < 0.35 ? s.pass : s.fail}>
-                    {r.maxIoU.toFixed(2)}
+                    {r.maxIoU.toFixed(2).replace(".", ",")}
                   </td>
                   <td className={s.small}>{r.note}</td>
                 </tr>
@@ -454,7 +454,7 @@ export default function MarkePage() {
           </div>
         </div>
         <div className={s.grid2} style={{ marginTop: 16 }}>
-          <div className={s.tile} style={{ display: "flex", flexDirection: "column", gap: 0, padding: 0, overflow: "hidden" }}>
+          <div className={s.tile} style={{ display: "flex", flexDirection: "column", gap: 0, padding: 0, overflow: "hidden", alignSelf: "start" }}>
             <div className={s.tab} style={{ background: "#DEE1E6", color: "#3C4043" }}>
               <Favicon size={16} />
               SOMA – Beauty &amp; Wellness. Bei dir.
@@ -478,8 +478,8 @@ export default function MarkePage() {
           <figure style={{ margin: 0 }}>
             <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: 16, overflow: "hidden", background: P.stone.value }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/landing/philosophy.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 28%", display: "block" }} />
-              <div style={{ position: "absolute", right: "5%", top: "10%", color: "#25211F", width: "22%" }}>
+              <img src="/images/editorial/setup-v2.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 0%", display: "block" }} />
+              <div style={{ position: "absolute", right: "6%", top: "8%", color: "#25211F", width: "22%" }}>
                 <Wordmark label="SOMA auf Foto" />
               </div>
             </div>
@@ -1053,7 +1053,7 @@ export default function MarkePage() {
                 <p className={s.eyebrow} style={{ marginBottom: 8 }}>
                   Massage
                 </p>
-                <h3 className={s.serifTitle}>Klassische Massage</h3>
+                <h3 className={s.h3} style={{ margin: 0, fontSize: 19 }}>Klassische Massage</h3>
                 <div className={s.meta}>
                   <span>
                     <Clock size={16} strokeWidth={1.5} absoluteStrokeWidth aria-hidden />

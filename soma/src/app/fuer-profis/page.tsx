@@ -193,7 +193,7 @@ export default async function ForProsPage() {
       <Section>
         <Container className="flex flex-col gap-10 md:gap-12">
           <Reveal>
-            <SectionHeader overline="Was du bekommst" title={<>Mehr Zeit für die Arbeit, <em>weniger fürs Drumherum.</em></>} />
+            <SectionHeader overline="Was du bekommst" title={<>Mehr Zeit für die Arbeit, weniger fürs Drumherum.</>} />
           </Reveal>
           <Reveal as="ul" stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {benefits.map((b) => (
@@ -217,7 +217,7 @@ export default async function ForProsPage() {
           <Reveal className="flex flex-col gap-8 lg:col-span-6">
             <SectionHeader
               overline="Provision"
-              title={<>Transparent. <em>Ohne Grundgebühr.</em></>}
+              title={<>Transparent. Ohne Grundgebühr.</>}
               lead="Provision nur auf das, was du über SOMA verdienst. Je enger die Beziehung zur Kundschaft, desto weniger."
             />
             <dl className="flex flex-col divide-y divide-line rounded-card bg-surface-raised px-5 shadow-raised md:px-6">
@@ -253,7 +253,7 @@ export default async function ForProsPage() {
       <Section id="so-funktionierts" className="scroll-mt-(--header-height) pt-0">
         <Container className="flex flex-col gap-10 md:gap-12">
           <Reveal>
-            <SectionHeader overline="So funktioniert’s" title={<>In vier Schritten <em>startklar.</em></>} />
+            <SectionHeader overline="So funktioniert’s" title={<>In vier Schritten startklar.</>} />
           </Reveal>
           <Reveal as="ol" stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {steps.map((s) => (
@@ -278,7 +278,7 @@ export default async function ForProsPage() {
             <SectionHeader
               size="m"
               overline="Voraussetzungen"
-              title={<>Was du <em>mitbringst.</em></>}
+              title={<>Was du mitbringst.</>}
               lead="Du arbeitest in privaten Wohnungen, Hotels und Büros. Deshalb prüfen wir jedes Profil, bevor es sichtbar wird."
             />
           </Reveal>
@@ -321,7 +321,7 @@ export default async function ForProsPage() {
               <div className="flex flex-col gap-6 lg:col-span-5">
                 <Overline>Einladungslink</Overline>
                 <h2 className="type-display-l">
-                  Bring deine Stamm&shy;kundschaft mit. <em>Für {formatPercent(c.ownClientRate)}.</em>
+                  Bring deine Stamm&shy;kundschaft mit. Für {formatPercent(c.ownClientRate)}.
                 </h2>
                 <p className="type-body-l text-ink-muted">
                   Über deinen persönlichen Link bucht deine Kundschaft dich direkt – mit sicherer Zahlung, Erinnerungen und Absicherung. Du zahlst dafür dauerhaft nur {formatPercent(c.ownClientRate)} Provision.
@@ -361,7 +361,7 @@ export default async function ForProsPage() {
             <Reveal className="flex flex-col gap-5 lg:col-span-5">
               <Overline>Nachfrage</Overline>
               <h2 id="nachfrage-titel" className="type-display-l">
-                Gesucht wird <em>schon.</em>
+                Gesucht wird schon.
               </h2>
               <p className="max-w-reading type-body-l text-ink-muted">
                 {`${n(totalSearches)} Suchen nach Behandlungen in den letzten ${demand.days} Tagen. Auf der Warteliste stehen Menschen, die in ihrer Nähe noch niemanden gefunden haben.`}
@@ -450,7 +450,7 @@ export default async function ForProsPage() {
             <div className="flex max-w-reading flex-col gap-4">
               <Overline>Registrierung</Overline>
               <h2 className="type-display-l">
-                Schritt für Schritt <em>startklar.</em>
+                Schritt für Schritt startklar.
               </h2>
               <p className="type-body-l text-ink-muted">Konto anlegen, Profil einrichten, Dokumente hochladen. Wir melden uns, sobald du freigeschaltet bist.</p>
             </div>

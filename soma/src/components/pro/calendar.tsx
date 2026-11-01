@@ -214,11 +214,11 @@ export function WeekGrid({ data }: { data: WeekData }) {
                         <span className="sr-only">{`–${formatTime(b.endsAt)}`}</span>
                         {b.status === "requested" ? <span className="font-[520] text-warning"> · Anfrage</span> : null}
                       </span>
-                      <span className={h >= 40 ? "truncate text-[12px] leading-snug font-[520]" : "sr-only"}>
+                      <span className={h >= 40 ? "condensed truncate text-[12px] leading-snug font-[520]" : "sr-only"}>
                         <span className="sr-only">, </span>
                         {b.serviceName}
                       </span>
-                      <span className={h >= 60 ? "truncate text-[12px] leading-snug text-ink-muted" : "sr-only"}>
+                      <span className={h >= 60 ? "condensed truncate text-[12px] leading-snug text-ink-muted" : "sr-only"}>
                         <span className="sr-only">, </span>
                         {customerLabel(b.customer)}
                       </span>
@@ -300,7 +300,7 @@ export function WeekList({ data }: { data: WeekData }) {
                           <span className="w-11 shrink-0 type-label-s num text-ink">{formatTime(b.startsAt)}</span>
                           <span aria-hidden className={cn("size-1.5 shrink-0 rounded-full", dot)} />
                           <span className="flex min-w-0 flex-1 flex-col">
-                            <span className="truncate type-body-s font-[520] text-ink">{b.serviceName}</span>
+                            <span className="truncate type-body-s font-[520] text-ink max-sm:condensed">{b.serviceName}</span>
                             <span className="truncate type-caption text-ink-muted">
                               {customerLabel(b.customer)} · {live ? "Läuft jetzt" : st.label}
                             </span>

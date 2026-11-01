@@ -1,9 +1,9 @@
 # SOMA: Logo usage
 
-*Identity Designer · phase B1 · 1 Nov 2026 · v1.0*
+*Identity Designer · 1 Nov 2026 · v1.1 (after Brand Audit 1: new symbol, honest exploration record, favicon rim)*
 *Masters: `brand/assets/logo/final/*.svg` (authoritative). Raster exports: `brand/assets/logo/final/png/`. Build: `node brand/tools/build-logo.mjs`.*
 
-The SOMA logo system has four parts: the **wordmark** (primary), the **symbol** (the S), the **secondary lockups** and the **app icon**. Every shape is a hand-built path. No font was used as raw material for the letterforms (§ 1.4).
+The SOMA logo system has four parts: the **wordmark** (primary), the **symbol** (the S im O: the wordmark's S inside its O), the **secondary lockups** and the **app icon**. Every shape is a hand-built path. No font was used as raw material for the letterforms (§ 1.4).
 
 ---
 
@@ -22,9 +22,23 @@ All three are uppercase, so the comparison is about character, not case. Each co
 | Memorability | **5** | **6** | **8**: the S is the face of the brand. |
 | **Total** | **25 / 40** | **23 / 40** | **31 / 40: chosen** |
 
+### 1.1a An honest reading of the exploration (v1.1)
+
+Brand Audit 1 was right: the three directions are **narrower than their names**.
+- **B and C share a genre:** uppercase capitals with high contrast and vertical stress. B differs mainly by its serifs and the Didone S.
+- **A** is a familiar geometric sans.
+- None of them explores lowercase, a monolinear humanist mark or an ornamental monogram.
+
+That narrowness was a conscious, not an accidental, choice, for three reasons:
+1. The genre was effectively set before drawing began. The strategy asks for calm, hospitality-grade restraint ("sophisticated but approachable", no script, nothing overly feminine), and the photography is warm, analog and editorial. Lowercase or monolinear humanist marks read as tech or start-up (the retired v2 "soma"); script and ornament break the strategy.
+2. The exploration was therefore a test of *how ownable this genre can become*. Its answer: not through the letters, which stay in a crowded genre, but through a construction that can be seen.
+3. That construction became visible only in v1.1, in the **symbol** (§ 2.1), and that is where the identity's originality now lives.
+
+If the client wants a broader comparison, a fourth direction outside the genre (lowercase humanist, monolinear) can be drawn with the same tools (`brand/tools/concept-*.mjs`). We recommend the symbol work instead, because it addresses the audit's finding directly.
+
 ### 1.2 Why C
 
-- It is the only direction where an idea, not a style, carries the mark. *Sōma* is the body; the S is the O in motion. This gives the symbol, the app icon and the motif one shared source.
+- It is the only direction where an idea, not a style, carries the mark. *Sōma* is the body; the S is the O in motion. This gives the symbol (the S im O), the app icon and the motif (the O's arch) one shared source.
 - It sits between the brief's three worlds:
   - the precision of hospitality: straight stems, pointed vertex and apex;
   - the warmth of beauty and wellness: curvature and full bowls;
@@ -61,14 +75,50 @@ All three are uppercase, so the comparison is about character, not case. Each co
 |---|---|---|
 | **Primary wordmark** | `soma-wordmark.svg` (+ `-espresso`, `-bone`, `-oxblood`, `-black`, `-white`) | Every brand surface from 32 px cap height (about 128 px wide) upwards. |
 | **Micro wordmark** | `soma-wordmark-micro.svg` (+ colourways) | Below 32 px cap height: app header (15–24 px tall), footers, email headers, favicons with a name, small print. |
-| **Symbol (the S)** | `soma-symbol.svg` (+ colourways) | App icon, favicon, avatar, social profile, stamps, small spaces where the name is already present or implied. |
+| **Symbol (the S im O)**, line cut | `soma-symbol.svg` (+ colourways): groups `symbol-o`, `symbol-s` | From 32 px: app icon, avatar, social profile, stamps, splash, the stacked lockup; small spaces where the name is already present or implied. |
+| **Symbol, seal cut** | `soma-symbol-solid.svg` (+ colourways) | Below 32 px: favicon, browser tabs, the admin tile, small stamps. The O is filled and the S set into it (knocked out). |
 | **Lockup: descriptor** | `soma-lockup-descriptor.svg` | Brand introductions: decks, press, gift cards, onboarding covers. The descriptor is set to the wordmark's measure. |
 | **Lockup: tagline** | `soma-lockup-tagline.svg` | Campaign end frames, splash, the brand book cover. Never together with the descriptor. |
 | **Lockup: stacked** | `soma-lockup-stacked.svg` | Square and portrait formats: social, packaging, the splash screen. |
-| **App icon** | `brand/assets/icons/**` | Oxblood tile with a Bone S (iOS, Android adaptive, PWA, favicon). |
+| **App icon** | `brand/assets/icons/**` | Oxblood tile with the Bone S im O (iOS light/dark/tinted, Android adaptive + monochrome, PWA any + maskable); favicon = the seal with a Bone rim. |
+| **Launch** | `brand/assets/splash/**` | Launch screen (stacked lockup in Oxblood on Bone), iOS startup images, the animation in which the mark draws itself (`SPLASH.md`). |
 | **Construction** | `soma-construction-clearspace.svg` | Reference only. |
 
-Every master has a `currentColor` version (no suffix) for code, plus five fixed colourways. PNGs are in `final/png/` at @1x, @2x and @3x: the wordmark at 320/640/960 px, the micro wordmark at 160/320/480 px, the symbol at 96/192/288 px, the horizontal lockups at 400/800/1200 px and the stacked lockup at 240/480/720 px.
+Every master has a `currentColor` version (no suffix) for code, plus five fixed colourways. PNGs are in `final/png/` at @1x, @2x and @3x: the wordmark at 320/640/960 px, the micro wordmark at 160/320/480 px, the symbol at 96/192/288 px, the seal at 32/64/96 px, the horizontal lockups at 400/800/1200 px and the stacked lockup at 240/480/720 px.
+
+---
+
+### 2.1 The symbol: the S im O (v1.1)
+
+**Idea.** The S of the wordmark (the body) sits inside the O of the wordmark (the place): *Your body. Your place.* in one sign. It is also the first two letters of the name. The construction that was only documented in v1.0 (the S drawn from the O's halves) is now visible: the S and the O share their curvature, stress and contrast, and the O holds the S.
+
+**Construction** (`brand/tools/final.mjs` → `symbolMark()`):
+- **O:** the wordmark's O, outer contour rx 332, ry 362 (tensions 0.57 / 0.585). In the line cut it becomes a ring with stems 108 and hairlines 40.
+- **S:** the wordmark's S at symbol weight (stems 120, hairlines 46), scaled to **64 % of the O's height** and centred. Its bowls echo the counter: about 0.55 stem at the sides and 0.9 stem above and below.
+- **Seal cut** (< 32 px): the O filled, the S (stems 156, hairlines 82) knocked out. It is the same sign at favicon resolution.
+- **Favicon:** the seal in Oxblood with a Bone S and a 1 px Bone rim (at 16 px). The rim gives 14.0:1 against `#202124` and 10.5:1 against `#35363A`, and it vanishes into light tab bars.
+
+**Brand Audit 1, O1 pass criteria and evidence** (`concepts/symbol-studies-2.png`, `.json`). IoU is measured on silhouettes normalised to the same height, at 512 px, best of five horizontal shifts. The serif S of these typefaces overlap one another at 0.52–0.62.
+
+| Study | Bodoni Moda | Newsreader | Gloock | Playfair Display | Libre Bodoni | Max. | Verdict |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Control: the S (v1) | 0.39 | 0.44 | 0.50 | 0.52 | 0.43 | 0.52 | Well drawn, but a letter: no feature beyond type. |
+| **S im O (chosen)** | 0.17 | 0.23 | 0.24 | 0.24 | 0.24 | 0.24 | The body in its place: the wordmark's S inside the wordmark's O. Reads as a sign, not a letter; the first two letters of the name. |
+| Seal (cut < 32 px) | 0.17 | 0.23 | 0.25 | 0.22 | 0.28 | 0.28 | The same idea as a solid: the O filled, the S set in. Robust at 16 px; the small cut of the mark. |
+| Versatz: the O halved and shifted | 0.04 | 0.08 | 0.07 | 0.09 | 0.09 | 0.09 | Shows the construction literally, but reads as a sync/reload arrow at 16 px. Rejected. |
+| Fuge: the S shifted at its waist | 0.30 | 0.36 | 0.32 | 0.36 | 0.36 | 0.36 | A feature in the letter, but it looks like a glitch, and its overlap with serif S (0.30–0.36) sits at the threshold. Rejected. |
+
+- **(a) IoU < 0.35 and a non-letter feature:** passed. The maximum is 0.24 (the old S: 0.52). The enclosure, an O holding an S, is not a feature of any letter S.
+- **(c) Legible at 16 px:** passed with the seal cut (`previews/icons-check.png`: tab bars light and dark, 8× pixel view). The line cut holds from 24–32 px (`symbol-studies-2.png`).
+- **(b) 5-second test:** *not run yet*; it needs people, not a script. The protocol for Audit 2:
+  - Show the app icon for 5 seconds to at least 8 people who do not know the brand, then ask them to describe or draw it.
+  - **Pass:** ≥ 6 people recall a feature beyond "an S" ("an S in an O", "an oval with an S", "SO").
+  - Record the answers in `brand/audit/`.
+
+**Rejected studies, and why:**
+- **Versatz** (the O halved and shifted) reads as a refresh/sync arrow at 16 px.
+- **Fuge** (the S shifted at its waist) looks like a glitch and sits at 0.30–0.36.
+- **The control S** is a letter.
 
 ---
 
@@ -88,7 +138,7 @@ Every master has a `currentColor` version (no suffix) for code, plus five fixed 
 | Wordmark (both masters) | **3x** = 0.43 × cap height |
 | Symbol | **0.25 × symbol height** |
 | Lockups | 3x of the wordmark inside them |
-| App icon | Platform masks: the S takes 50 % of the tile height (iOS), 42 % of the 108 dp canvas (Android, inside the 66 dp safe circle) and 44 % of maskable PWA icons (inside the 80 % circle). |
+| App icon | Platform masks: the O of the mark takes 62 % of the tile height (iOS, apple-touch, Play Store), 50 % of the 108 dp canvas (Android adaptive; the 49.5 × 54 dp oval sits inside the 66 dp safe circle) and 56 % of maskable PWA icons (inside the 80 % circle). The PWA "any" icon is 64 % on a tile with a 112/512 radius. |
 
 Nothing enters the clear space: no text, edges, UI or busy image detail. Edges of the screen or the page count.
 
@@ -98,7 +148,8 @@ Nothing enters the clear space: no text, edges, UI or busy image detail. Edges o
 |---|---|---|
 | Wordmark, display master | 32 px cap height (≈ 128 px wide) | 30 mm wide |
 | Wordmark, micro master | **12 px cap height (≈ 50 px wide)** | **15 mm wide** |
-| Symbol | **16 px** tall (favicon cut: `SYMBOL_MICRO`) | 4 mm tall |
+| Symbol, line cut | **32 px** tall | 8 mm tall |
+| Symbol, seal cut | **16 px** tall (favicon) | 4 mm tall |
 | Descriptor lockup | 260 px wide (descriptor cap ≥ 6 px) | 45 mm wide |
 | Tagline lockup | 200 px wide | 40 mm wide |
 | Stacked lockup | 64 px wide | 18 mm wide |
@@ -128,7 +179,7 @@ Header sizes in the product: the micro master at **15 px tall on mobile and 18 p
   - The wordmark sits top-left or centred, never at random positions.
   - On a hero it sits in the top third or on the clear part of the image, at no more than 40 % of the layout width. Bigger reads as decoration.
   - One logo per view. The footer may repeat the micro wordmark.
-- **Pairing with the symbol:** use only the stacked lockup. Never place the symbol beside the wordmark in a line: the S would repeat.
+- **Pairing with the symbol:** use only the stacked lockup (the S im O over the wordmark). Never place the symbol beside the wordmark in a line: "SO" would repeat the first two letters.
 - **Co-branding (hotels, partners):** the partner's logo sits to the right of the wordmark, separated by a 1 px Stone rule of cap height. The gap on each side is 3x. Both logos are optically the same height.
 
 ---
@@ -152,7 +203,7 @@ The examples are in `brand/assets/logo/misuse/` (SVG) and on `misuse-board.png`.
 | `02-recoloured.svg` | Use colours outside § 4, gradients, or the retired v2 aura. |
 | `03-effects.svg` | Add shadows, outlines, glows, bevels or glass. |
 | `04-rotated.svg` | Rotate, slant, set on a path or in perspective. |
-| `05-rearranged.svg` | Rearrange: symbol beside the wordmark, letters re-spaced, retyped in a font, lowercase, swapped S. |
+| `05-rearranged.svg` | Rearrange: symbol beside the wordmark in a line, letters re-spaced, retyped in a font, lowercase, swapped S; the S taken out of the O, or the O used as a frame for other letters. |
 | `06-low-contrast.svg` | Place with too little contrast (Taupe on Stone, 1.8:1). |
 | `07-outlined.svg` | Use as an outline or keyline. |
 | `08-busy-background.svg` | Place on a busy background without a calm zone or scrim. |

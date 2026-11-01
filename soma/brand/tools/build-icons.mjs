@@ -96,10 +96,12 @@ async function pwa() {
   await out(any, "pwa/icon-512.png", 512);
   await out(mask, "pwa/icon-maskable-192.png", 192);
   await out(mask, "pwa/icon-maskable-512.png", 512);
+  // monochrome (Android themed icons via the manifest): the mark alone, white on transparent, inside the safe circle
+  await out(iconSvg({ size: 512, bg: null, fg: "#FFFFFF", frac: 0.56, title: "SOMA monochrom" }), "pwa/icon-monochrome-512.png", 512);
 }
 /**
  * Favicon: the solid cut (the seal) in Oxblood with a Bone S, no tile. A 1 px Bone rim (at 16 px) keeps the edge on
- * dark browser chrome (#202124: 13.6:1, #35363A: 10.6:1) and disappears into light tab bars.
+ * dark browser chrome (#202124: 14.0:1, #35363A: 10.5:1) and disappears into light tab bars.
  */
 const favicon = (title = "SOMA") => iconSvg({ size: 32, bg: null, cut: "solid", frac: 0.875, rim: { w: 1.6, c: BONE }, title });
 async function favicons() {

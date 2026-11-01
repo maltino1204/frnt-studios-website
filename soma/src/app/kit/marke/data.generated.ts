@@ -2094,7 +2094,8 @@ export const BRAND = {
    "base": 220,
    "slow": 320,
    "arrive": 480,
-   "calm": 640
+   "calm": 640,
+   "reveal": 900
   },
   "easing": {
    "standard": "cubic-bezier(0.2, 0, 0, 1)",

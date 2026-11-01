@@ -81,7 +81,7 @@ export default async function KontoPage() {
                 <Status tone={statusTone(next.status)}>{next.statusLabel}</Status>
               </span>
               <span className="flex flex-col gap-1.5">
-                <span className="type-display-s text-ink num">{dayLabel(next.startsAt)}</span>
+                <span className="type-heading-l text-ink num">{dayLabel(next.startsAt)}</span>
                 <span className="flex flex-wrap items-center gap-x-3 gap-y-1 type-body-s text-ink-muted num">
                   <span className="inline-flex items-center gap-1.5">
                     <Icon icon={Clock} size={16} />

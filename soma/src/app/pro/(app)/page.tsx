@@ -92,7 +92,7 @@ export default async function ProTodayPage() {
           </p>
           <h1 className="type-display-s" suppressHydrationWarning>
             {greetingFor()}
-            {first ? <>, <em>{first}.</em></> : "."}
+            {first ? `, ${first}.` : "."}
           </h1>
           <p className="type-body text-ink-muted">
             {summary.map((s, i) => (
@@ -140,7 +140,9 @@ export default async function ProTodayPage() {
               delta={weekDelta}
               deltaLabel="ggü. Vorwoche"
               hint="abgeschlossene Termine"
+              deltaTone="neutral"
               spark={payoutWeeks}
+              sparkLabel="Verlauf · letzte 8 Wochen"
             />
             <StatTile
               label="Bevorstehend"
@@ -148,6 +150,7 @@ export default async function ProTodayPage() {
               value={<FormattedNumber value={dash.upcomingCount} />}
               hint="bestätigte Termine"
               spark={perDay}
+              sparkLabel="Termine je Tag · nächste 7 Tage"
             />
             <StatTile
               label="Bewertung"
@@ -155,6 +158,7 @@ export default async function ProTodayPage() {
               value={showRating ? <FormattedNumber value={dash.ratingAvg!} format={{ minimumFractionDigits: 1, maximumFractionDigits: 1 }} /> : "—"}
               hint={showRating ? plural(dash.ratingCount, "Bewertung", "Bewertungen") : "ab drei Bewertungen sichtbar"}
               sparkline={reviews.ratingCount > 0 ? <RatingBars distribution={reviews.distribution} /> : undefined}
+              sparkLabel={reviews.ratingCount > 0 ? "Verteilung · 1 bis 5 Sterne" : undefined}
             />
             <StatTile
               label="Abgeschlossen"
@@ -162,6 +166,7 @@ export default async function ProTodayPage() {
               value={<FormattedNumber value={dash.completedCount} />}
               hint="seit Start"
               spark={countWeeks}
+              sparkLabel="Je Woche · letzte 8 Wochen"
             />
           </StatGrid>
         </section>
