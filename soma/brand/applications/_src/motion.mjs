@@ -67,7 +67,7 @@ const body = `
   <figure><div class="stage"><div class="arch-rise"><img src="../../photography/v2-previews/L03-philosophy.jpg" alt=""></div>
     <div class="place place-l" style="color:${C.umberDeep}">Flur · Berlin-Schöneberg · 18:40</div></div>
     <figcaption class="cap"><b>1 · Bogen-Aufgang.</b> Maske öffnet von unten (640 ms, arrive), Bogen steigt 16 px, Foto setzt sich von 1,04 auf 1 (900 ms, settle). Ortszeile folgt nach 480 ms.</figcaption></figure>
-  <figure><div class="stage s-stage"><svg class="s-draw" viewBox="-70 -110 804 1005"><path class="o-f" d="${oRing}"/><path class="s-f" d="${sPath}"/><path class="o-o" pathLength="1" d="${oOuter}"/><path class="s-o" pathLength="1" d="${sPath}"/></svg></div>
+  <figure><div class="stage s-stage"><svg class="s-draw" viewBox="${(() => { const [, , W, H] = vb.split(/\s+/).map(Number); const vw = W * 1.3, vh = vw * 1.25; return `${-(vw - W) / 2} ${-(vh - H) / 2} ${vw} ${vh}`; })()}"><path class="o-f" d="${oRing}"/><path class="s-f" d="${sPath}"/><path class="o-o" pathLength="1" d="${oOuter}"/><path class="s-o" pathLength="1" d="${sPath}"/></svg></div>
     <figcaption class="cap"><b>2 · Das Zeichen zeichnet sich.</b> Die O-Kontur zieht (640 ms), die S-Kontur folgt ab 320 ms, dann erscheinen Ring und S als Fläche (220 ms) und die Linie geht. Nur Splash und Endframes; nie als Ladeanimation, nie in Schleife.</figcaption></figure>
   <figure><div class="stage"><div class="lock">${wmSvg}<div class="line"></div><div class="tl" lang="en">Your body. Your place.</div></div></div>
     <figcaption class="cap"><b>3 · Wortmarke.</b> Die ganze Marke kommt als eine Form (480 ms, 8 px), die Linie wächst, die Tagline folgt mit 320 ms Versatz. Nie Buchstabe für Buchstabe, nie gemorpht.</figcaption></figure>
