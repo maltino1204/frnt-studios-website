@@ -32,7 +32,9 @@ ${bgEl}${extra}  <g id="symbol" fill="${fg}">
 `;
 }
 async function out(svg, file, px) {
-  return png(svg, path.join(DIR, file), { width: px, height: px });
+  // App-store and home-screen icons must be opaque: flatten onto the tile colour (no alpha channel).
+  const opaque = /^ios\/|apple-touch|play-store|ic_launcher_background/.test(file);
+  return png(svg, path.join(DIR, file), { width: px, height: px, ...(opaque ? { background: file.includes("tinted") ? "#000000" : file.includes("dark") ? ESP : OX } : {}) });
 }
 
 async function ios() {

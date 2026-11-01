@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 580" width="1640" height="580" role="img" aria-labelledby="t">
+  <title id="t">SOMA Bildausschnitte: Bogen 4:5, 3:4, 2:3 und O-Porträt</title>
+  <path id="crop-4x5" fill="#D8CFC3" d="M40 540L40 258.07C40 130.5 126 40 240 40C354 40 440 130.5 440 258.07L440 540Z"/>
+  <path id="crop-3x4" fill="#D8CFC3" d="M480 540L480 244.44C480 124.84 560.63 40 667.5 40C774.38 40 855 124.84 855 244.44L855 540Z"/>
+  <path id="crop-2x3" fill="#D8CFC3" d="M895 540L895 221.55C895 115.34 966.6 40 1061.5 40C1156.4 40 1228 115.34 1228 221.55L1228 540Z"/>
+  <ellipse id="crop-portrait-o" cx="1434" cy="221" rx="166" ry="181" fill="#D8CFC3"/>
+</svg>

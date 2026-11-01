@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="480" height="480" role="img" aria-labelledby="t">
+  <title id="t">SOMA Icon-Raster 24 px: 2 px Schutzzone, Keylines, Strich 1,5</title>
+  <rect id="canvas" width="24" height="24" fill="#FBF9F5"/>
+  <g id="pixel-grid" stroke="#E3DBCF" stroke-width="0.04"><path d="M0 0V24M0 0H24"/><path d="M1 0V24M0 1H24"/><path d="M2 0V24M0 2H24"/><path d="M3 0V24M0 3H24"/><path d="M4 0V24M0 4H24"/><path d="M5 0V24M0 5H24"/><path d="M6 0V24M0 6H24"/><path d="M7 0V24M0 7H24"/><path d="M8 0V24M0 8H24"/><path d="M9 0V24M0 9H24"/><path d="M10 0V24M0 10H24"/><path d="M11 0V24M0 11H24"/><path d="M12 0V24M0 12H24"/><path d="M13 0V24M0 13H24"/><path d="M14 0V24M0 14H24"/><path d="M15 0V24M0 15H24"/><path d="M16 0V24M0 16H24"/><path d="M17 0V24M0 17H24"/><path d="M18 0V24M0 18H24"/><path d="M19 0V24M0 19H24"/><path d="M20 0V24M0 20H24"/><path d="M21 0V24M0 21H24"/><path d="M22 0V24M0 22H24"/><path d="M23 0V24M0 23H24"/><path d="M24 0V24M0 24H24"/></g>
+  <rect id="live-area" x="2" y="2" width="20" height="20" fill="none" stroke="#A69A8D" stroke-width="0.06" stroke-dasharray="0.3 0.3"/>
+  <g id="keylines" fill="none" stroke="#542C35" stroke-width="0.06" opacity="0.7">
+    <circle cx="12" cy="12" r="10"/><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="2" y="4" width="20" height="16" rx="2"/>
+  </g>
+  <g id="example" fill="none" stroke="#25211F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5 12 4l8 6.5V20H4z"/><path d="M10 20v-3.5a2 2 0 0 1 4 0V20"/></g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864 1080" width="864" height="1080" role="img" aria-labelledby="t">
+  <title id="t">SOMA Bogen: Konstruktion aus der oberen Hälfte des O</title>
+  <path id="arch" fill="#542C35" transform="translate(100 112)" d="M0 868L0 350C0 138.23 142.76 -12 332 -12C521.24 -12 664 138.23 664 350L664 868Z"/>
+  <g id="construction" fill="none" stroke="#F3EFE8" stroke-width="2.5" transform="translate(100 112)">
+    <path id="o-outer" d="M332 -12C521.24 -12 664 138.23 664 350C664 561.77 521.24 712 332 712C142.76 712 0 561.77 0 350C0 138.23 142.76 -12 332 -12Z" stroke-dasharray="10 8"/>
+    <path id="axis" d="M332 -60V760M-60 350H724" stroke="#A69A8D"/>
+  </g>
+</svg>

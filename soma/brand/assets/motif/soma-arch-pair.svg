@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" width="1200" height="1000" role="img" aria-labelledby="t">
+  <title id="t">SOMA Bogenpaar (Kontrapost-Versatz)</title>
+  <g id="kontrapost-pair" fill="#D8CFC3">
+    <path id="arch-left" d="M80 800L80 301.69C80 148.6 183.2 40 320 40C456.8 40 560 148.6 560 301.69L560 800Z"/>
+    <path id="arch-right" d="M640 960L640 461.69C640 308.6 743.2 200 880 200C1016.8 200 1120 308.6 1120 461.69L1120 960Z"/>
+  </g>
+</svg>
