@@ -1,0 +1,47 @@
+# Client-approved (2026-11-01): fetches assets the cloud sandbox cannot reach and commits them back to the branch.
+# - SOMA's art-directed photo set: soma/public/images, soma/src/lib/images.local.json
+# - internal recordings of the landing-page reference site: research/reference/ (never shipped in soma/)
+# Trigger: change .github/capture-request on the working branch, or run it manually.
+name: soma-capture
+on:
+  push:
+    branches: [claude/soma-beauty-marketplace-luutg4]
+    paths: [".github/capture-request"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: soma-capture
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: soma/package-lock.json
+      - name: Install dependencies
+        working-directory: soma
+        run: npm ci --no-audit --no-fund
+      - name: Fetch the SOMA photo set
+        working-directory: soma
+        run: node scripts/images/fetch.mjs
+      - name: Install Chromium
+        working-directory: soma
+        run: npx playwright install --with-deps chromium
+      - name: Capture the landing-page reference
+        working-directory: soma
+        continue-on-error: true
+        run: node ../research/capture-reference.mjs ../research/reference/theoneagency
+      - name: Commit results
+        run: |
+          git config user.name "soma-capture-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add soma/public/images soma/src/lib/images.local.json research/reference || true
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "Capture: SOMA photo set and reference recordings [skip ci]"
+          for i in 1 2 3; do git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break; sleep 5; done
