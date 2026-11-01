@@ -113,8 +113,8 @@ export default async function HomePage() {
           <ArchPair
             className="mx-auto max-w-[36rem] lg:mr-0"
             items={[
-              { src: images.hero, alt: "Ein Profi massiert am Abend den Rücken einer Frau auf einer Massageliege in einem Berliner Altbauwohnzimmer", tone: "massage", place: PLACE_LINES.home },
-              { src: images.editorial.after, alt: "Nach der Behandlung: Eine Frau sitzt mit einer Tasse Tee auf dem Sofa, im Hintergrund legt der Profi die Tücher zusammen", tone: "kosmetik", place: PLACE_LINES.after },
+              { src: images.hero, alt: "Ein Profi massiert am Abend Schultern und Rücken einer Person auf einer Massageliege, in einem Berliner Altbauzimmer", tone: "massage", place: PLACE_LINES.home },
+              { src: images.editorial.after, alt: "Nach der Massage: Eine Frau sitzt mit einer Tasse und einer Decke auf dem Sofa, im Hintergrund legt der Profi das Laken zusammen", tone: "kosmetik", place: PLACE_LINES.after },
             ]}
           />
         }
@@ -235,9 +235,9 @@ export default async function HomePage() {
             <Reveal as="ul" stagger aria-label="Orte" className="flex shrink-0 gap-3 md:grid md:grid-cols-3 md:gap-5 lg:gap-6">
               {(
                 [
-                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Ein Profi bezieht eine Massageliege mit einem Laken, in einem sonnigen Wohnzimmer mit Fischgrätparkett" },
-                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – dein Profi findet dich.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite, hinter dem Fenster die Lichter der Stadt" },
-                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Nackenmassage im Büro: Ein Mann sitzt mit geschlossenen Augen auf einem Bürostuhl, hinter ihm steht der Profi" },
+                  { k: "Zu Hause", icon: House, v: "Wohnung, Etage, Klingelname – mehr braucht es nicht.", src: images.editorial.setup, tone: "massage", place: PLACE_LINES.setup, alt: "Ein Profi klappt neben der Tragetasche eine Massageliege auf, in einem sonnigen Wohnzimmer mit Fischgrätparkett" },
+                  { k: "Im Hotel", icon: Hotel, v: "Hotel, Zimmernummer und der Name an der Rezeption – dein Profi findet dich.", src: images.editorial.hotel, tone: "brows-lashes", place: PLACE_LINES.hotel, alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite, hinter dem Fenster die Frankfurter Skyline" },
+                  { k: "Im Büro", icon: Building2, v: "Firma und Empfang angeben. Ideal für die Mittagspause.", src: images.editorial.office, tone: "kosmetik", place: PLACE_LINES.office, alt: "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum am Hamburger Hafen" },
                 ] satisfies Array<{ k: string; icon: LucideIcon; v: string; src: string; tone: string; place: string; alt: string }>
               ).map((row) => (
                 <li key={row.k} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">

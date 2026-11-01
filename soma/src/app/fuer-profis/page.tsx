@@ -136,10 +136,10 @@ export default async function ForProsPage() {
           <div className="flex flex-col gap-6 lg:col-span-6">
             <Overline>{BRAND_NAME} für Profis · {activeCities.length} Städte</Overline>
             <h1 className="type-display-l">
-              Dein Können. Deine Preise. <em>Deine Zeiten.</em>
+              Dein Können. Deine Preise. <em>Deine Zeiten.</em>
             </h1>
             <p className="max-w-reading type-body-l text-ink-muted">
-              {BRAND_NAME} macht dich für Kundschaft in deinem Einsatzgebiet sichtbar und kümmert sich um Buchung, Zahlung und Stornofristen – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
+              {BRAND_NAME} macht dich für Kundschaft in deinem Einsatzgebiet sichtbar und kümmert sich um Buchung, Zahlung und Stornofristen – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <ButtonLink href={REGISTER} variant="accent" size="l" iconRight={<Icon icon={ArrowRight} />}>
@@ -322,7 +322,7 @@ export default async function ForProsPage() {
               <figure className="relative flex flex-col gap-3 lg:col-span-7">
                 <Photo
                   src={images.editorial.providerCta}
-                  alt="Ein Profi mit Arbeitstasche im Treppenhaus eines Altbaus, auf dem Weg zum nächsten Termin"
+                  alt="Ein Profi mit Arbeitstasche auf der Altbautreppe, unterwegs zum nächsten Termin"
                   tone="nacht"
                   word="Zwischen zwei Terminen."
                   sizes="(min-width: 1024px) 50vw, 100vw"

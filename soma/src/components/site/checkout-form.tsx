@@ -569,7 +569,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               </div>
               {kind === "home" ? (
                 <div className="grid grid-cols-2 gap-3">
-                  <Input label="Etage" optional placeholder="z. B. 3. OG, Hinterhaus" value={addr.floor} onChange={(e) => set("floor", e.target.value)} maxLength={30} />
+                  <Input label="Etage" optional placeholder="z. B. 3. OG" value={addr.floor} onChange={(e) => set("floor", e.target.value)} maxLength={30} />
                   <Input label="Klingelname" optional value={addr.bell} onChange={(e) => set("bell", e.target.value)} maxLength={60} />
                 </div>
               ) : kind === "hotel" ? (

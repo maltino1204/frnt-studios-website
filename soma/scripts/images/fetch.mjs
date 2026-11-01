@@ -18,6 +18,11 @@ const parseFocal = (f) => f.split(" ").map((v) => parseFloat(v) / 100);
 let failures = 0;
 for (const src of sources) {
   const out = path.join(root, "public", src.path);
+  // Recrops (brand/photography/tools/recrops.mjs) are derived locally from another entry and are committed as files.
+  if (src.recropOf) {
+    if (fs.existsSync(out)) done.add(src.path);
+    continue;
+  }
   if (fs.existsSync(out) && done.has(src.path) && !process.argv.includes("--force")) {
     console.log(`skip  ${src.path}`);
     continue;

@@ -149,7 +149,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-01-v2.jpg"
   },
   {
     "path": "/images/pros/pro-02.jpg",
@@ -157,7 +158,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-02-v2.jpg"
   },
   {
     "path": "/images/pros/pro-03.jpg",
@@ -165,7 +167,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-03-v2.jpg"
   },
   {
     "path": "/images/pros/pro-04.jpg",
@@ -173,7 +176,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-04-v2.jpg"
   },
   {
     "path": "/images/pros/pro-05.jpg",
@@ -181,7 +185,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-05-v2.jpg"
   },
   {
     "path": "/images/pros/pro-07.jpg",
@@ -189,7 +194,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-07-v2.jpg"
   },
   {
     "path": "/images/pros/pro-08.jpg",
@@ -197,7 +203,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-08-v2.jpg"
   },
   {
     "path": "/images/pros/pro-06.jpg",
@@ -205,7 +212,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-06-v2.jpg"
   },
   {
     "path": "/images/pros/pro-09.jpg",
@@ -213,7 +221,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-09-v2.jpg"
   },
   {
     "path": "/images/pros/pro-10.jpg",
@@ -221,7 +230,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-10-v2.jpg"
   },
   {
     "path": "/images/pros/pro-11.jpg",
@@ -229,7 +239,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-11-v2.jpg"
   },
   {
     "path": "/images/pros/pro-12.jpg",
@@ -245,7 +256,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-13-v2.jpg"
   },
   {
     "path": "/images/pros/pro-14.jpg",
@@ -253,7 +265,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-14-v2.jpg"
   },
   {
     "path": "/images/pros/pro-15.jpg",
@@ -261,7 +274,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-15-v2.jpg"
   },
   {
     "path": "/images/pros/pro-16.jpg",
@@ -269,7 +283,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-16-v2.jpg"
   },
   {
     "path": "/images/pros/pro-17.jpg",
@@ -285,7 +300,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-18-v2.jpg"
   },
   {
     "path": "/images/pros/pro-19.jpg",
@@ -293,7 +309,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-19-v2.jpg"
   },
   {
     "path": "/images/pros/pro-20.jpg",
@@ -301,7 +318,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-20-v2.jpg"
   },
   {
     "path": "/images/pros/pro-21.jpg",
@@ -309,7 +327,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-21-v2.jpg"
   },
   {
     "path": "/images/pros/pro-22.jpg",
@@ -317,7 +336,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-22-v2.jpg"
   },
   {
     "path": "/images/pros/pro-23.jpg",
@@ -325,7 +345,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-23-v2.jpg"
   },
   {
     "path": "/images/pros/pro-24.jpg",
@@ -333,7 +354,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-24-v2.jpg"
   },
   {
     "path": "/images/pros/pro-25.jpg",
@@ -341,7 +363,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-25-v2.jpg"
   },
   {
     "path": "/images/pros/pro-26.jpg",
@@ -349,7 +372,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-26-v2.jpg"
   },
   {
     "path": "/images/pros/pro-27.jpg",
@@ -357,7 +381,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-27-v2.jpg"
   },
   {
     "path": "/images/pros/pro-28.jpg",
@@ -374,7 +399,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-29-v2.jpg"
   },
   {
     "path": "/images/pros/pro-30.jpg",
@@ -382,7 +408,8 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 36%"
+    "focal": "50% 36%",
+    "replacedBy": "/images/pros/pro-30-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-1.jpg",
@@ -651,7 +678,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Skin Fade mit gepflegtem Bart"
+    "caption": "Skin Fade mit gepflegtem Bart",
+    "replacedBy": "/images/portfolio/haare-styling-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-3.jpg",
@@ -700,7 +728,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Brow Lamination, natürlich gebürstet"
+    "caption": "Brow Lamination, natürlich gebürstet",
+    "replacedBy": "/images/portfolio/brows-lashes-2-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-3.jpg",
@@ -719,7 +748,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Natürliche Wimpernverlängerung, klassisch"
+    "caption": "Natürliche Wimpernverlängerung, klassisch",
+    "replacedBy": "/images/portfolio/brows-lashes-4-v2.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-5.jpg",
@@ -728,7 +758,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Brow Mapping vor dem Formen"
+    "caption": "Brow Mapping vor dem Formen",
+    "replacedBy": "/images/portfolio/brows-lashes-5-v2.jpg"
   },
   {
     "path": "/images/portfolio/massage-6.jpg",
@@ -1177,7 +1208,8 @@
     "width": 1600,
     "height": 1600,
     "focal": "50% 50%",
-    "caption": "Rouge in warmem Terrakotta"
+    "caption": "Rouge in warmem Terrakotta",
+    "replacedBy": "/images/portfolio/make-up-8-v2.jpg"
   },
   {
     "path": "/images/portfolio/make-up-9.jpg",
@@ -2407,5 +2439,298 @@
     "replaces": "/images/hero/home.jpg",
     "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
     "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot L02 (4:5 cut)"
+  },
+  {
+    "path": "/images/pros/pro-01-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121136_b602fc10-ec8d-4257-a031-57ccaef9afcd.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-01.jpg"
+  },
+  {
+    "path": "/images/pros/pro-02-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121137_0f15fcd8-128e-41d2-9e4b-86ca892e4470.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-02.jpg"
+  },
+  {
+    "path": "/images/pros/pro-03-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121132_d4c441f7-b3f1-4bdf-83d7-61ff28357d60.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-03.jpg"
+  },
+  {
+    "path": "/images/pros/pro-04-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121148_4e6a6a28-75b5-4a58-8154-f2fcf180a11f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-04.jpg"
+  },
+  {
+    "path": "/images/pros/pro-05-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121142_bf84548d-5e94-4917-8536-953f810cd9c4.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-05.jpg"
+  },
+  {
+    "path": "/images/pros/pro-06-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_3c38b697-e148-4909-8dc7-7de5e7f41bea.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-06.jpg"
+  },
+  {
+    "path": "/images/pros/pro-07-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121133_6cb1c820-3197-431f-a38b-71fd380ae864.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-07.jpg"
+  },
+  {
+    "path": "/images/pros/pro-08-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121133_0b6c5551-4b28-4eb2-8925-5ae97103b0a7.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-08.jpg"
+  },
+  {
+    "path": "/images/pros/pro-09-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121252_43aafe78-2464-4eb0-8fb7-0325f4138236.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-09.jpg"
+  },
+  {
+    "path": "/images/pros/pro-10-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_5f65e3c6-e9a6-4c26-922e-7f766313b481.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-10.jpg"
+  },
+  {
+    "path": "/images/pros/pro-11-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121254_8081ffaa-3270-43a3-a981-b7250871956e.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-11.jpg"
+  },
+  {
+    "path": "/images/pros/pro-13-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121253_7fc76ce1-15df-4eaa-be8a-e57079013c45.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-13.jpg"
+  },
+  {
+    "path": "/images/pros/pro-14-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121254_909444d8-e054-42de-857b-5b714cba9a82.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-14.jpg"
+  },
+  {
+    "path": "/images/pros/pro-15-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121252_c8cd589a-e151-44bb-8a86-0282436a1733.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-15.jpg"
+  },
+  {
+    "path": "/images/pros/pro-16-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121344_9ecdc59e-b52b-41d3-8d79-b133de038811.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-16.jpg"
+  },
+  {
+    "path": "/images/pros/pro-18-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_121346_081135d5-4a7f-49de-bb68-4121db3c6414.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-18.jpg"
+  },
+  {
+    "path": "/images/pros/pro-19-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170856_a009a711-5ba6-457f-9de0-fdc9f2df207d.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-19.jpg"
+  },
+  {
+    "path": "/images/pros/pro-20-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170852_eb4d0f6e-fd87-4df6-8699-fee7cf2bda07.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-20.jpg"
+  },
+  {
+    "path": "/images/pros/pro-21-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170856_e6b903cd-f3e9-46c6-969f-87c631e1bd53.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-21.jpg"
+  },
+  {
+    "path": "/images/pros/pro-22-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170854_593ee1fa-f7eb-4272-9fd9-e918ee277982.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-22.jpg"
+  },
+  {
+    "path": "/images/pros/pro-23-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170853_255ab1dc-9b43-43b3-a81c-66ac38fdfe11.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-23.jpg"
+  },
+  {
+    "path": "/images/pros/pro-24-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170856_5779380a-1393-4bde-a7dd-21b1cab36cfd.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-24.jpg"
+  },
+  {
+    "path": "/images/pros/pro-25-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170857_d59f5990-616b-4dea-a03b-da8b030a0555.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-25.jpg"
+  },
+  {
+    "path": "/images/pros/pro-26-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170852_af007faa-8aee-4f89-84d3-5df237a87d7b.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-26.jpg"
+  },
+  {
+    "path": "/images/pros/pro-27-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170945_530f5fcf-ec53-4f33-88bc-e7b0ce72e15e.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-27.jpg"
+  },
+  {
+    "path": "/images/pros/pro-29-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170946_2959dc45-6a90-4005-898d-bfd7ef7dfc00.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-29.jpg"
+  },
+  {
+    "path": "/images/pros/pro-30-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_170947_00ee19f7-6c49-4920-8bb0-4d33c1f1a6b0.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "recropOf": "/images/pros/pro-30.jpg"
+  },
+  {
+    "path": "/images/portfolio/make-up-8-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_190612_81188b0c-bb1b-4df6-9ea4-e64a1bb24ebf.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Rouge in warmem Terrakotta",
+    "recropOf": "/images/portfolio/make-up-8.jpg"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_171410_a64ba870-a7f8-4a92-94e1-8a955907f552.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Brow Lamination, natürlich gebürstet",
+    "recropOf": "/images/portfolio/brows-lashes-2.jpg"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-4-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_171502_6ab94b69-7278-4e60-8d11-d0bb1892dbf2.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Natürliche Wimpernverlängerung, klassisch",
+    "recropOf": "/images/portfolio/brows-lashes-4.jpg"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-5-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_171503_9e5f25c9-5028-4cbf-8e85-2a4581387057.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Brow Mapping vor dem Formen",
+    "recropOf": "/images/portfolio/brows-lashes-5.jpg"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-2-v2.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261030_171409_4b50dc53-3eb5-4684-939b-16d2a0dc6c82.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Skin Fade mit gepflegtem Bart",
+    "recropOf": "/images/portfolio/haare-styling-2.jpg"
   }
 ]
