@@ -28,6 +28,17 @@ This plan sets the single creative direction, the order of work, file ownership 
    so the auditor can inspect the real artwork.
 8. **No external publishing or purchases.** Pushing to the project repos is fine; deploying is the client's step.
 
+## Client decisions log
+- **2026-11-01:** "SOMA" stays the **working title**. Trademark clearance comes before a real launch (production blocker).
+- **2026-11-01:** the **zero-tolerance rule** for sexualised requests is approved (`BRAND_VOICE.md` P5). Phase B2 puts it
+  into the product:
+  - the massage checkout note;
+  - the SOMA Pro safety note ("Fühlst du dich unwohl, darfst du gehen …");
+  - help/FAQ;
+  - the AGB placeholders, flagged ⚖ for the lawyer.
+- **2026-11-01** (Strategist, Lead-approved): customers are addressed with *du*; "Profi" stays; the provider product is
+  "SOMA Pro"; German signature line „Du bleibst. Dein Profi kommt.“
+
 ## File layout
 ```
 brand/

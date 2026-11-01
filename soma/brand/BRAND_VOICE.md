@@ -426,7 +426,7 @@ In-app notifications exist today. Push and SMS are not built; they will reuse th
 > - Erst mit dem Start-Code beginnen.
 > - Den Raum so verlassen, wie du ihn vorgefunden hast.
 
-**P5 · Zero-tolerance rule** (*recommended. Not yet in the product or terms; needs a legal and product decision, see strategy § 11*)
+**P5 · Zero-tolerance rule** (**approved by the client on 2026-11-01**; it is implemented in the product copy in phase B2; the terms wording still needs the lawyer, see strategy § 11)
 - Massage checkout: „SOMA vermittelt ausschließlich Wellness- und Beautybehandlungen. Anzügliche Anfragen oder Bemerkungen führen zur Sperrung des Kontos.“
 - SOMA Pro: „Fühlst du dich bei einem Termin unwohl, darfst du gehen. Melde es uns – wir kümmern uns darum.“
 
