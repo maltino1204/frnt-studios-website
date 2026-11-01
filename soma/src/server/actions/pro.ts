@@ -261,7 +261,7 @@ export async function cancelBookingAsProviderAction(raw: z.input<typeof ProCance
     const r = await cancelBooking(s, v.bookingId, v.reason);
     revalidatePro();
     return r;
-  }, "Termin storniert. Die Kundin bzw. der Kunde erhält den vollen Betrag zurück.");
+  }, "Termin storniert. Der Kundschaft entstehen keine Kosten.");
 }
 
 const ReplySchema = z.object({ reviewId: zGuid, reply: z.string() });

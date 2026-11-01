@@ -420,7 +420,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
             ) : null}
             <div className="flex flex-wrap gap-3">
               <ButtonLink href={routes.pro.root()} size="l" iconRight={<Icon icon={ArrowRight} />}>
-                Zur Profi-App
+                Zu SOMA Pro
               </ButtonLink>
               <ButtonLink href={`${routes.pro.calendar()}?ansicht=abwesenheiten`} size="l" variant="secondary">
                 Kalender pflegen

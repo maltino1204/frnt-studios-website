@@ -35,7 +35,7 @@ export function useSiteSession(): SiteSession | null | undefined {
 export function accountLink(session: SiteSession | null | undefined): { href: string; label: string } {
   if (!session) return { href: routes.login(), label: "Anmelden" };
   if (session.role === "admin") return { href: routes.admin.root(), label: "Admin" };
-  if (session.role === "provider") return { href: routes.pro.root(), label: "Profi-Bereich" };
+  if (session.role === "provider") return { href: routes.pro.root(), label: "SOMA Pro" };
   return { href: routes.account.root(), label: "Mein Konto" };
 }
 

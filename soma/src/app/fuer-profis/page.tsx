@@ -333,7 +333,7 @@ export default async function ForProsPage() {
                   <Icon icon={Link2} size={16} className="text-ink" />
                   <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
                 </div>
-                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
+                <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
               </figure>
             </div>
           </Reveal>
@@ -465,7 +465,7 @@ function ProShowcase({ hold, cities }: { hold: number; cities: number }) {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <Avatar name="Kundin" size={40} />
+            <Avatar name="Kundschaft" size={40} />
             <div className="min-w-0">
               <p className="truncate type-heading-s">Entspannungsmassage</p>
               <p className="truncate type-caption text-ink-muted num">60 Min. · Zu Hause · Prenzlauer Berg</p>

@@ -53,7 +53,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
     title,
     description,
     alternates: { canonical: routes.provider(p.slug) },
-    openGraph: { title: `${title} · ${BRAND_NAME}`, description, type: "profile", images: img ? [{ url: img }] : undefined },
+    openGraph: { title: `${title} · ${BRAND_NAME}`, description, type: "profile", images: img ? [{ url: img, alt: `Porträt von ${p.displayName}` }] : undefined },
   };
 }
 

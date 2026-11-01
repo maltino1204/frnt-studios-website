@@ -28,16 +28,17 @@ export function splitHeadline(title: string): [string, string | null] {
 }
 
 /* ------------------------------------------------------------------------ */
-/* Place lines (Ortszeilen): the editorial signature                        */
+/* Place lines (Ortszeilen): the editorial signature. A non-breaking space  */
+/* before each "·" keeps a separator from starting a line.                  */
 /* ------------------------------------------------------------------------ */
 export const PLACE_LINES = {
-  home: "Altbau, 3.\u00a0OG · Berlin-Prenzlauer Berg · 19:30",
-  arrival: "Wohnungstür, 2.\u00a0OG · Köln-Ehrenfeld · 18:55",
-  setup: "Wohnzimmer · Hamburg-Eimsbüttel · 19:05",
-  after: "Sofa, danach · München-Schwabing · 20:20",
-  hotel: "Hotelsuite, 6.\u00a0Stock · Frankfurt-Westend · 21:10",
-  office: "Besprechungsraum · Hamburg-HafenCity · 13:00",
-  pros: "Treppenhaus, Altbau · Berlin-Neukölln · 17:40",
+  home: "Altbau, 3.\u00a0OG · Berlin-Prenzlauer Berg · 19:30",
+  arrival: "Wohnungstür, 2.\u00a0OG · Köln-Ehrenfeld · 18:55",
+  setup: "Wohnzimmer · Hamburg-Eimsbüttel · 19:05",
+  after: "Sofa, danach · München-Schwabing · 20:20",
+  hotel: "Hotelsuite, 6.\u00a0Stock · Frankfurt-Westend · 21:10",
+  office: "Besprechungsraum · Hamburg-HafenCity · 13:00",
+  pros: "Treppenhaus, Altbau · Berlin-Neukölln · 17:40",
 } as const;
 
 /* ------------------------------------------------------------------------ */

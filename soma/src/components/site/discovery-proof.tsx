@@ -31,7 +31,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
           <span className="sr-only"> von 5 Sternen</span>
         </>
       ),
-      label: `aus${NBSP}${proof.reviewCount.toLocaleString("de-DE")} Bewertungen nach echten Terminen`,
+      label: `aus${NBSP}${proof.reviewCount.toLocaleString("de-DE")} Bewertungen`,
     });
   }
   if (proof && proof.approvedProviders > 0) {

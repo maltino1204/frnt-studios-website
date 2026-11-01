@@ -371,7 +371,7 @@ export default async function HomePage() {
                     Selbstständig, <em>aber nicht allein.</em>
                   </h2>
                   <p className="max-w-[30rem] type-body-l text-ink-muted">
-                    Profis legen Preise, Zeiten und Einsatzgebiet selbst fest. {BRAND_NAME} macht sie für Kundschaft in ihrem Einsatzgebiet sichtbar und sichert die Zahlung – auszahlbar{" "}
+                    Profis legen Preise, Zeiten und Einsatzgebiet selbst fest. {BRAND_NAME} macht sie für Kundschaft in ihrem Einsatzgebiet sichtbar und sichert die Zahlung{NBSP}– auszahlbar{" "}
                     {terms.payoutHoldHours}
                     {NBSP}Stunden nach dem Termin.
                   </p>
