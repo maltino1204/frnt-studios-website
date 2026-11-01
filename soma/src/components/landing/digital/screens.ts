@@ -6,7 +6,8 @@
 import generated from "./screens.generated.json";
 
 export type ScreenId = "suche" | "buchung" | "termine" | "favoriten";
-export type Region = { y: number; h: number };
+/** A callout region in the capture's CSS px (390 wide). */
+export type Region = { x: number; y: number; w: number; h: number };
 export type ScreenFile = { id: ScreenId; src: string; width: number; height: number; regions: Record<string, Region> };
 
 export type Callout = {

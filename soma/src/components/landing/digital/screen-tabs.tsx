@@ -46,7 +46,9 @@ export function ScreenTabs({ head, items, caption }: { head: ReactNode; items: I
   const style = {
     "--screen-y": String(y),
     "--screen-w": String(cur.file.width),
+    "--ring-x": String(cur.region.x),
     "--ring-y": String(cur.region.y - y),
+    "--ring-w": String(cur.region.w),
     "--ring-h": String(cur.region.h),
   } as CSSProperties;
 

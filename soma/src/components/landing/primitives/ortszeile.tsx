@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
  * aligned to its edge. Segments never break inside; a line may only wrap after a „ · “.
  */
 export function Ortszeile({ text, className, ...props }: { text: string; className?: string } & Omit<ComponentProps<"p">, "children">) {
-  const segments = text.split(" · ");
+  const segments = text.split(/[\s\u00a0]·\s/);
   return (
     <p data-ortszeile="" className={cn("type-place text-ink-muted", className)} {...props}>
       {segments.map((s, i) => (

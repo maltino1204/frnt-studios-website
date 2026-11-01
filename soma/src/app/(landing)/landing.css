@@ -163,7 +163,6 @@ html[data-chapter-active="10"] .lp-chapter-label[data-chapter-label="10"] {
   stroke: currentColor;
   stroke-width: 1.5;
   stroke-linecap: butt;
-  vector-effect: non-scaling-stroke;
 }
 .lp-progress-track {
   opacity: 0.32;
@@ -209,6 +208,7 @@ html[data-booking-open] .lp-dock {
 
 /* Footer addition: the AI line, and room for the dock under the legal row (§ 4.10 "Footer"). */
 .lp-footnote {
+  position: relative;
   margin-top: -1rem;
   padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom));
 }
@@ -236,7 +236,7 @@ html[data-booking-open] .lp-dock {
 }
 .lp-hero-tagline {
   max-inline-size: 6.2em;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 .lp-hero-figure {
   margin: 28px 0 0;
@@ -286,7 +286,7 @@ html[data-booking-open] .lp-dock {
     grid-row: 1;
   }
   .lp-hero-tagline {
-    margin-top: 8px;
+    margin-top: 18px;
   }
   .lp-hero-rest {
     grid-column: 1 / span 6;
@@ -327,6 +327,7 @@ html[data-booking-open] .lp-dock {
   }
   /* The box reserves the pill's 72 px; the trust row and RebookRow hang below it (no shift, ever). */
   .lp-sill-box {
+    width: calc(6 * var(--lp-col) + 5 * var(--gap));
     height: 72px;
   }
 }
@@ -458,7 +459,8 @@ html[data-booking-open] .lp-dock {
 }
 .lp-walk-steps {
   display: flex;
-  gap: var(--gap);
+  /* wider than the scroller's padding, so the next panel never peeks in at rest */
+  gap: calc(2 * var(--space-gutter));
 }
 .lp-walk-step {
   display: flex;
@@ -955,8 +957,8 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
 }
 .lp-screen-ring {
   position: absolute;
-  left: 10px;
-  right: 10px;
+  left: max(6px, calc(var(--ring-x, 0) * var(--k) * 1px - 6px));
+  width: min(calc(100% - 12px), calc(var(--ring-w, 390) * var(--k) * 1px + 12px));
   top: calc(var(--ring-y, 0) * var(--k) * 1px - 6px);
   height: calc(var(--ring-h, 0) * var(--k) * 1px + 12px);
   border: 1.5px solid var(--soma-espresso);
@@ -1169,8 +1171,8 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
 .lp-seal-trace {
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
+  /* user units of the mark (≈ 1.5 px at the 285 px lockup); no non-scaling-stroke, which breaks pathLength dashes */
+  stroke-width: 10;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
   opacity: 0;

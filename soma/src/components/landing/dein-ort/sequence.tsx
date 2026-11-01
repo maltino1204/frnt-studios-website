@@ -75,7 +75,7 @@ export function ExperienceSequence({ className }: { className?: string }) {
               <LandingImage src={it.src} alt={it.alt} sizes="(min-width: 1440px) 519px, (min-width: 1024px) 36vw, 86vw" focal={it.focal} />
             </LandingArch>
             <figcaption className="lp-essay-cap">
-              <p className="lp-essay-line type-display-s text-ink">{it.line}</p>
+              <p className="lp-essay-line type-display-s text-ink">{it.line.replace(/ – /g, "\u00a0– ")}</p>
               {it.note ? <p className="lp-essay-note mt-3 max-w-[36ch] type-body-s text-ink-muted">{it.note}</p> : null}
               <Ortszeile text={it.place} className="lp-essay-place" />
             </figcaption>

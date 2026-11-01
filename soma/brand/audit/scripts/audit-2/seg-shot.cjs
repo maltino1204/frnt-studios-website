@@ -1,0 +1,20 @@
+const { chromium } = require('/home/user/frnt-studios-website/soma/node_modules/@playwright/test');
+const OUT = '/home/user/frnt-studios-website/soma/brand/audit/brand-audit-2';
+(async () => {
+  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+  const p = await b.newPage({ viewport: { width: 360, height: 800 }, deviceScaleFactor: 2 });
+  await p.goto('http://localhost:3000/anmelden', { waitUntil: 'networkidle', timeout: 180000 });
+  await p.getByLabel('E-Mail').fill('testkunde@soma.test'); await p.getByLabel('Passwort', { exact: true }).fill('soma-demo-2026');
+  await p.getByRole('button', { name: 'Anmelden' }).click(); await p.waitForTimeout(2500);
+  await p.goto('http://localhost:3000/suche?plz=10115&kategorie=massage', { waitUntil: 'networkidle', timeout: 180000 });
+  await Promise.all([p.waitForURL(/buchen/), p.locator('a[aria-label*="bei Hanna B. buchen"]').first().click()]);
+  await p.waitForLoadState('networkidle'); await p.waitForTimeout(1200);
+  const g = p.locator('input[type=radio].peer:checked').first().locator('xpath=ancestor::label/..');
+  await g.scrollIntoViewIfNeeded(); const box = await g.boundingBox();
+  await p.screenshot({ path: `${OUT}/regression-checkout-place-switch-360.png`, clip: { x: 0, y: box.y - 12, width: 360, height: box.height + 24 } });
+  await p.goto('http://localhost:3000/fuer-profis', { waitUntil: 'networkidle', timeout: 180000 });
+  const g2 = p.locator('input[type=radio].peer:checked').first().locator('xpath=ancestor::label/..');
+  await g2.scrollIntoViewIfNeeded(); await p.waitForTimeout(500); const b2 = await g2.boundingBox();
+  await p.screenshot({ path: `${OUT}/regression-fuer-profis-segmented-360.png`, clip: { x: 0, y: b2.y - 12, width: 360, height: b2.height + 24 } });
+  await b.close();
+})();

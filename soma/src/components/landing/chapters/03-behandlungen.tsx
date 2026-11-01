@@ -49,7 +49,7 @@ export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
         </div>
 
         <ChapterFoot
-          className="mt-8 lg:mt-12"
+          className="mt-4 lg:mt-12"
           cta={{ label: "Alle Behandlungen", href: routes.categories(), kind: "link" }}
           next={{ id: next.id, name: next.name }}
         />

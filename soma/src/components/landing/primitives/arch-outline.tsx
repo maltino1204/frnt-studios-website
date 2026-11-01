@@ -5,7 +5,8 @@ const OUTLINE_4_5 = archPath(0.75, 0.75, 78.5, 99.25);
 
 /**
  * A 4:5 arch outline from the master geometry (`archPath`): `pathLength=1` so the motion layer can draw it
- * (`data-reveal="draw"`), non-scaling stroke. Static: fully drawn. Size it with a width class.
+ * (`data-reveal="draw"`), non-scaling stroke. Static: fully drawn, no dash pattern (Chromium misapplies a
+ * pathLength dash on a non-scaling stroke: the draw needs a screen-space dash, e.g. from getTotalLength()). Size it with a width class.
  */
 export function ArchOutline({
   className,
@@ -28,7 +29,7 @@ export function ArchOutline({
       className={cn("block aspect-[4/5] h-auto overflow-visible", className)}
       fill="none"
     >
-      <path d={OUTLINE_4_5} pathLength={1} stroke="currentColor" strokeWidth={strokeWidth} vectorEffect="non-scaling-stroke" strokeDasharray="1" strokeDashoffset="0" />
+      <path d={OUTLINE_4_5} pathLength={1} stroke="currentColor" strokeWidth={strokeWidth} vectorEffect="non-scaling-stroke" />
     </svg>
   );
 }

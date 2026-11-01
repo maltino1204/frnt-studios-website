@@ -46,11 +46,11 @@ export function StepButtons({ rowId, steps }: { rowId: string; steps: Array<{ id
             setActive(i);
           }}
           className={cn(
-            "inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full px-4 type-label-s whitespace-nowrap transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus md:flex-none",
+            "inline-flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full px-2 type-label-s whitespace-nowrap max-[359px]:condensed sm:px-4 transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-focus md:flex-none",
             i === active ? "bg-ink text-ink-inverse" : "text-ink hover:bg-surface-sunken",
           )}
         >
-          <span className="num">{String(i + 1).padStart(2, "0")}</span>
+          <span className="num max-[359px]:hidden">{String(i + 1).padStart(2, "0")}</span>
           {s.label}
         </a>
       ))}

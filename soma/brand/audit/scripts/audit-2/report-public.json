@@ -1,0 +1,1298 @@
+{
+ "suche@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=256&q=75",
+    "w": 72,
+    "top": 356
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=256&q=75",
+    "w": 72,
+    "top": 714
+   }
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "stars": [],
+  "title": "Verfügbare Profis · SOMA",
+  "h1": [
+   "Massage in 10115 Berlin"
+  ],
+  "docH": 2531,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "profil@390": {
+  "oxblood": [
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Termin wählen",
+    "top": 780,
+    "h": 52,
+    "w": 161
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=384&q=75",
+    "w": 144,
+    "top": 123
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-8-v2.jpg&w=384&q=75",
+    "w": 111,
+    "top": 1772
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-1-v2.jpg&w=384&q=75",
+    "w": 111,
+    "top": 1772
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-2-v2.jpg&w=384&q=75",
+    "w": 111,
+    "top": 1772
+   }
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Bilder KI-generiert"
+  ],
+  "stars": [
+   "Bewertungen",
+   "28 Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen"
+  ],
+  "title": "Selin A. – Massage in Berlin · SOMA",
+  "h1": [
+   "Selin A."
+  ],
+  "docH": 5872,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "anmelden@390": {
+  "oxblood": [
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Anmelden",
+    "top": 522,
+    "h": 52,
+    "w": 350
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "stars": [],
+  "title": "Anmelden · SOMA",
+  "h1": [
+   "Willkommen zurück."
+  ],
+  "docH": 968,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "fuer-profis@390": {
+  "oxblood": [
+   {
+    "tag": "A",
+    "hits": "bg",
+    "text": "Profi werden",
+    "top": 474,
+    "h": 52,
+    "w": 350
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8190,
+    "h": 4,
+    "w": 77
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8242,
+    "h": 4,
+    "w": 44
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8294,
+    "h": 4,
+    "w": 45
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8346,
+    "h": 4,
+    "w": 19
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8417,
+    "h": 4,
+    "w": 15
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8468,
+    "h": 4,
+    "w": 12
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fsetup-v2.jpg&w=828&q=75",
+    "w": 350,
+    "top": 882
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fprovider-cta-v2.jpg&w=828&q=75",
+    "w": 302,
+    "top": 7508
+   }
+  ],
+  "aiLabels": [
+   "Bild KI-generiert",
+   "Bild KI-generiert"
+  ],
+  "stars": [
+   "Beispielrechnung vor Steuern. Wie viele Termine du bekommst, hängt von Stadt, freien Zeiten und Bewertungen ab. Umsatzsteuer und Abgaben regelst du als selbstständiger Profi selbst – auch die Kleinunternehmerregelung ist möglich."
+  ],
+  "title": "Für Profis – Dein Können. Deine Preise. Deine Zeiten. · SOMA",
+  "h1": [
+   "Dein Können. Deine Preise. Deine Zeiten."
+  ],
+  "docH": 11804,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "hilfe@390": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "stars": [],
+  "title": "Hilfe & häufige Fragen · SOMA",
+  "h1": [
+   "Antworten, bevor du fragst."
+  ],
+  "docH": 4730,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "kit-marke@390": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Gewählt",
+    "top": 3374,
+    "h": 24,
+    "w": 67
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "",
+    "top": 6434,
+    "h": 180,
+    "w": 350
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "",
+    "top": 7928,
+    "h": 240,
+    "w": 350
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "Oxblood\n#542C35\nSignatur",
+    "top": 11059,
+    "h": 160,
+    "w": 175
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "600 · Oxblood\n#542C35",
+    "top": 12408,
+    "h": 104,
+    "w": 175
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "700\n#45232B",
+    "top": 12408,
+    "h": 104,
+    "w": 175
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "800\n#361B21",
+    "top": 12512,
+    "h": 104,
+    "w": 175
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 13696,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 14397,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 14428,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 14459,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 14651,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 15102,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 15399,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 15695,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 15992,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 16110,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17207,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17326,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17504,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17622,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17800,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 17919,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 18097,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 18215,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 18264,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 18413,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 19499,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 19559,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 19618,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 19677,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 19747,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 84 €",
+    "top": 28046,
+    "h": 52,
+    "w": 284
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 28328,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 28328,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 28413,
+    "h": 47,
+    "w": 95
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 28413,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Wird gebucht",
+    "top": 28497,
+    "h": 48,
+    "w": 164
+   },
+   {
+    "tag": "INPUT",
+    "hits": "border",
+    "text": "",
+    "top": 29049,
+    "h": 48,
+    "w": 302
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Suchen",
+    "top": 29637,
+    "h": 48,
+    "w": 282
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 84 €",
+    "top": 31003,
+    "h": 52,
+    "w": 310
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "Du bleibst. Dein Profi kommt.\n\nDer eine Markenmoment: Oxbloo",
+    "top": 33969,
+    "h": 210,
+    "w": 350
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "sans",
+   "display",
+   "italic",
+   "\"DM Mono\"",
+   "system-ui"
+  ],
+  "imgs": [
+   {
+    "src": "/images/editorial/arrival-v2.jpg",
+    "w": 350,
+    "top": 595
+   },
+   {
+    "src": "/images/editorial/setup-v2.jpg",
+    "w": 350,
+    "top": 9829
+   },
+   {
+    "src": "/images/hero/home-v2.jpg",
+    "w": 350,
+    "top": 10155
+   },
+   {
+    "src": "/images/editorial/after-v2.jpg",
+    "w": 167,
+    "top": 24954
+   },
+   {
+    "src": "/images/categories/manikuere-v2.jpg",
+    "w": 167,
+    "top": 24984
+   },
+   {
+    "src": "/images/pros/pro-02-v2.jpg",
+    "w": 120,
+    "top": 26188
+   },
+   {
+    "src": "/images/landing/experience-choice.jpg",
+    "w": 326,
+    "top": 30051
+   },
+   {
+    "src": "/images/pros/pro-01-v2.jpg",
+    "w": 96,
+    "top": 30512
+   }
+  ],
+  "aiLabels": [
+   "Entwicklungsbild, KI-generiert",
+   "Helles Bild: Espresso auf der ruhigsten Zone (Wand), Schutzraum frei. Entwicklungsbild, KI-generiert.",
+   "Unruhiges Bild: Scrim-Fläche (62 %, flach, kein Verlauf) unter Logo und Ortszeile. Entwicklungsbild, KI-generiert.",
+   "KI-generiert",
+   "KI-generiert",
+   "Avatare: Initialen in Newsreader auf Kategorie-Ton. Porträts im O-Oval. Foto KI-generiert.",
+   "Demo-Profil · Foto KI-generiert",
+   "Quellen: brand/assets/**, brand/DESIGN_TOKENS/**, brand/BRAND_GUIDELINES.md, brand/LOGO_USAGE.md. Alle Fotos sind Entwicklungsbilder (KI-generiert, Fotoset v2); Ersatzanforderungen in brand/photography/PHOTOGRAPHY.md. Fonts: Newsreader und Instrument Sans, SIL OFL 1.1. Icons: Lucide (ISC) und eigene SOMA-Icons."
+  ],
+  "stars": [],
+  "title": "Markenbuch · SOMA",
+  "h1": [],
+  "docH": 34560,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "suche@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=96&q=75",
+    "w": 80,
+    "top": 362
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=96&q=75",
+    "w": 80,
+    "top": 621
+   }
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Demo-Profil · Foto KI-generiert"
+  ],
+  "stars": [
+   "Bewertung",
+   "Bewertung ab 4,5"
+  ],
+  "title": "Verfügbare Profis · SOMA",
+  "h1": [
+   "Massage in 10115 Berlin"
+  ],
+  "docH": 1607,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "profil@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=256&q=75",
+    "w": 240,
+    "top": 133
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-8-v2.jpg&w=256&q=75",
+    "w": 194,
+    "top": 1572
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-1-v2.jpg&w=256&q=75",
+    "w": 194,
+    "top": 1572
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Fportfolio%2Fmassage-2-v2.jpg&w=256&q=75",
+    "w": 194,
+    "top": 1572
+   }
+  ],
+  "aiLabels": [
+   "Demo-Profil · Foto KI-generiert",
+   "Bilder KI-generiert"
+  ],
+  "stars": [
+   "Bewertungen",
+   "28 Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen",
+   "Sterne",
+   "Bewertungen"
+  ],
+  "title": "Selin A. – Massage in Berlin · SOMA",
+  "h1": [
+   "Selin A."
+  ],
+  "docH": 4612,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "anmelden@1440": {
+  "oxblood": [
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Anmelden",
+    "top": 573,
+    "h": 52,
+    "w": 480
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Farrival-v2.jpg&w=384&q=75",
+    "w": 384,
+    "top": 194
+   }
+  ],
+  "aiLabels": [
+   "Bild KI-generiert"
+  ],
+  "stars": [],
+  "title": "Anmelden · SOMA",
+  "h1": [
+   "Willkommen zurück."
+  ],
+  "docH": 933,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "fuer-profis@1440": {
+  "oxblood": [
+   {
+    "tag": "A",
+    "hits": "bg",
+    "text": "Profi werden",
+    "top": 559,
+    "h": 52,
+    "w": 175
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5248,
+    "h": 4,
+    "w": 160
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5301,
+    "h": 4,
+    "w": 90
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5353,
+    "h": 4,
+    "w": 91
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5405,
+    "h": 4,
+    "w": 38
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5457,
+    "h": 4,
+    "w": 32
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 5509,
+    "h": 4,
+    "w": 26
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [
+   {
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fsetup-v2.jpg&w=640&q=75",
+    "w": 416,
+    "top": 182
+   },
+   {
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fprovider-cta-v2.jpg&w=828&q=75",
+    "w": 661,
+    "top": 4463
+   }
+  ],
+  "aiLabels": [
+   "Bild KI-generiert",
+   "Bild KI-generiert"
+  ],
+  "stars": [
+   "Beispielrechnung vor Steuern. Wie viele Termine du bekommst, hängt von Stadt, freien Zeiten und Bewertungen ab. Umsatzsteuer und Abgaben regelst du als selbstständiger Profi selbst – auch die Kleinunternehmerregelung ist möglich."
+  ],
+  "title": "Für Profis – Dein Können. Deine Preise. Deine Zeiten. · SOMA",
+  "h1": [
+   "Dein Können. Deine Preise. Deine Zeiten."
+  ],
+  "docH": 8047,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "hilfe@1440": {
+  "oxblood": [],
+  "fonts": [
+   "somaSans",
+   "somaDisplay",
+   "somaAccent"
+  ],
+  "imgs": [],
+  "aiLabels": [],
+  "stars": [],
+  "title": "Hilfe & häufige Fragen · SOMA",
+  "h1": [
+   "Antworten, bevor du fragst."
+  ],
+  "docH": 3879,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ },
+ "kit-marke@1440": {
+  "oxblood": [
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Gewählt",
+    "top": 1388,
+    "h": 24,
+    "w": 67
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "",
+    "top": 3031,
+    "h": 180,
+    "w": 411
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "",
+    "top": 3496,
+    "h": 240,
+    "w": 411
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "Oxblood\n#542C35\nSignatur",
+    "top": 5503,
+    "h": 160,
+    "w": 228
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "600 · Oxblood\n#542C35",
+    "top": 5865,
+    "h": 104,
+    "w": 128
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "700\n#45232B",
+    "top": 5865,
+    "h": 104,
+    "w": 128
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "800\n#361B21",
+    "top": 5865,
+    "h": 104,
+    "w": 128
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 6465,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 6665,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 6696,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 6727,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 6665,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 7165,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 7360,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 7556,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 7752,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 7830,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8534,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8613,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8730,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8808,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 8926,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 9004,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 9122,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 9200,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 9239,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 9317,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 10061,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 10100,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 10139,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 10178,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "",
+    "top": 10217,
+    "h": 14,
+    "w": 14
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 84 €",
+    "top": 16451,
+    "h": 52,
+    "w": 284
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 16523,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 16523,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 16523,
+    "h": 47,
+    "w": 95
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Buchen",
+    "top": 16523,
+    "h": 48,
+    "w": 97
+   },
+   {
+    "tag": "SPAN",
+    "hits": "bg",
+    "text": "Wird gebucht",
+    "top": 16523,
+    "h": 48,
+    "w": 164
+   },
+   {
+    "tag": "INPUT",
+    "hits": "border",
+    "text": "",
+    "top": 16872,
+    "h": 48,
+    "w": 580
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Suchen",
+    "top": 16744,
+    "h": 48,
+    "w": 125
+   },
+   {
+    "tag": "BUTTON",
+    "hits": "bg",
+    "text": "Zahlungspflichtig buchen · 84 €",
+    "top": 17429,
+    "h": 52,
+    "w": 371
+   },
+   {
+    "tag": "DIV",
+    "hits": "bg",
+    "text": "Du bleibst. Dein Profi kommt.\n\nDer eine Markenmoment: Oxbloo",
+    "top": 18789,
+    "h": 123,
+    "w": 1280
+   }
+  ],
+  "fonts": [
+   "somaSans",
+   "sans",
+   "display",
+   "italic",
+   "\"DM Mono\"",
+   "system-ui"
+  ],
+  "imgs": [
+   {
+    "src": "/images/editorial/arrival-v2.jpg",
+    "w": 512,
+    "top": 182
+   },
+   {
+    "src": "/images/editorial/setup-v2.jpg",
+    "w": 628,
+    "top": 4545
+   },
+   {
+    "src": "/images/hero/home-v2.jpg",
+    "w": 628,
+    "top": 4545
+   },
+   {
+    "src": "/images/editorial/after-v2.jpg",
+    "w": 306,
+    "top": 14254
+   },
+   {
+    "src": "/images/categories/manikuere-v2.jpg",
+    "w": 306,
+    "top": 14309
+   },
+   {
+    "src": "/images/pros/pro-02-v2.jpg",
+    "w": 120,
+    "top": 14947
+   },
+   {
+    "src": "/images/landing/experience-choice.jpg",
+    "w": 387,
+    "top": 17210
+   },
+   {
+    "src": "/images/pros/pro-01-v2.jpg",
+    "w": 96,
+    "top": 17220
+   }
+  ],
+  "aiLabels": [
+   "Entwicklungsbild, KI-generiert",
+   "Helles Bild: Espresso auf der ruhigsten Zone (Wand), Schutzraum frei. Entwicklungsbild, KI-generiert.",
+   "Unruhiges Bild: Scrim-Fläche (62 %, flach, kein Verlauf) unter Logo und Ortszeile. Entwicklungsbild, KI-generiert.",
+   "KI-generiert",
+   "KI-generiert",
+   "Avatare: Initialen in Newsreader auf Kategorie-Ton. Porträts im O-Oval. Foto KI-generiert.",
+   "Demo-Profil · Foto KI-generiert",
+   "Quellen: brand/assets/**, brand/DESIGN_TOKENS/**, brand/BRAND_GUIDELINES.md, brand/LOGO_USAGE.md. Alle Fotos sind Entwicklungsbilder (KI-generiert, Fotoset v2); Ersatzanforderungen in brand/photography/PHOTOGRAPHY.md. Fonts: Newsreader und Instrument Sans, SIL OFL 1.1. Icons: Lucide (ISC) und eigene SOMA-Icons."
+  ],
+  "stars": [],
+  "title": "Markenbuch · SOMA",
+  "h1": [],
+  "docH": 19210,
+  "hscroll": false,
+  "sie": [],
+  "excl": [],
+  "errors": []
+ }
+}

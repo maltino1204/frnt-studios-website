@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { buttonClasses } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/cn";
@@ -36,7 +36,7 @@ function CtaLink({ cta }: { cta: FootCta }) {
   const inner = (
     <>
       <span className={lpLinkText}>{cta.label}</span>
-      <Icon icon={internalHash ? ArrowDown : cta.href.startsWith("/") ? ArrowRight : ArrowUpRight} size={16} />
+      <Icon icon={cta.booking || !internalHash ? ArrowRight : ArrowDown} size={16} />
     </>
   );
   return internalHash ? (

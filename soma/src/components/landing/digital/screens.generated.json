@@ -1,1 +1,58 @@
-{}
+{
+  "suche": {
+    "id": "suche",
+    "src": "/images/landing/screens/suche.png",
+    "width": 390,
+    "height": 2400,
+    "regions": {
+      "endpreis": {
+        "y": 360,
+        "h": 59
+      }
+    }
+  },
+  "buchung": {
+    "id": "buchung",
+    "src": "/images/landing/screens/buchung.png",
+    "width": 390,
+    "height": 2400,
+    "regions": {
+      "stornofrist": {
+        "y": 1848,
+        "h": 54
+      },
+      "startcode": {
+        "y": 443,
+        "h": 234
+      },
+      "kalender": {
+        "y": 357,
+        "h": 60
+      }
+    }
+  },
+  "termine": {
+    "id": "termine",
+    "src": "/images/landing/screens/termine.png",
+    "width": 390,
+    "height": 2302,
+    "regions": {
+      "erneut": {
+        "y": 235,
+        "h": 166
+      }
+    }
+  },
+  "favoriten": {
+    "id": "favoriten",
+    "src": "/images/landing/screens/favoriten.png",
+    "width": 390,
+    "height": 1029,
+    "regions": {
+      "favoriten": {
+        "y": 166,
+        "h": 751
+      }
+    }
+  }
+}
