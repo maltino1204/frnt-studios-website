@@ -35,6 +35,13 @@ import type { ActionResult } from "./types";
  * every admin service re-verifies the role in the database and writes audit_log.
  */
 const revalidateAdmin = () => revalidatePath("/admin", "layout");
+/**
+ * Terms, commission and policies are rendered on public pages that are statically generated (ISR, 1 h): the landing
+ * (trust rows, FAQ, commission strip), /fuer-profis, /stornierung and /hilfe (docs/landing/INTEGRATION.md C8).
+ */
+const revalidatePublicTerms = () => {
+  for (const path of ["/", "/fuer-profis", "/stornierung", "/hilfe"]) revalidatePath(path);
+};
 
 const DecisionSchema = z.object({ providerId: zGuid, decision: z.enum(["approve", "reject", "start_review", "suspend", "reinstate"]), note: z.string().optional() });
 
@@ -152,6 +159,7 @@ export async function createCommissionRuleAction(raw: z.input<typeof RuleSchema>
   return withSession("admin", async (s) => {
     const r = await createCommissionRule(s, input(RuleSchema, raw));
     revalidateAdmin();
+    revalidatePublicTerms();
     return r;
   }, "Provisionsregel gespeichert. Bestehende Buchungen behalten ihren Satz.");
 }
@@ -160,6 +168,7 @@ export async function deactivateCommissionRuleAction(ruleId: string): Promise<Ac
   return withSession("admin", async (s) => {
     await deactivateCommissionRule(s, input(zGuid, ruleId));
     revalidateAdmin();
+    revalidatePublicTerms();
   });
 }
 
@@ -196,6 +205,7 @@ export async function updatePlatformSettingAction(raw: z.input<typeof SettingSch
     const v = input(SettingSchema, raw);
     await updatePlatformSetting(s, v.key, v.value);
     revalidateAdmin();
+    revalidatePublicTerms();
   }, "Einstellung gespeichert.");
 }
 
@@ -227,6 +237,7 @@ export async function moderateReviewAction(raw: z.input<typeof ModerateSchema>):
     await moderateReview(s, v.reviewId, v.isPublished, v.note);
     revalidateAdmin();
     revalidatePath("/profis", "layout");
+    revalidatePath("/"); // the landing's provider cards show ratings
   }, raw.isPublished ? "Bewertung wieder sichtbar." : "Bewertung ausgeblendet.");
 }
 

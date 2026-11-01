@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSession } from "@/server/auth/guards";
 import { isServiceError } from "@/server/errors";
-import { listCatalog } from "@/server/services/catalog";
+import { listCatalog, listCities } from "@/server/services/catalog";
 import { searchProviders } from "@/server/services/search";
 import { getPriceFloors } from "@/server/services/site-ext";
 import { listNearbyPostalCodes, type NearbyPostalCodeDTO } from "@/server/services/site-ext-2";
@@ -177,6 +177,8 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
   const filtersActive = state.sofort || state.bewertung || !!state.sprache || !!state.zeit || !!state.preis;
   const empty = result.results.length === 0;
   const notLaunched = empty && !result.location.isLaunchCity;
+  // Unserved PLZ: name the active launch cities from data (INTEGRATION.md C9), never a hard-coded list.
+  const launchCities = notLaunched ? await listCities().then((cs) => cs.map((c) => c.name)).catch(() => []) : [];
 
   // Empty in a launch city: does anyone in the city offer this at all (A4-6)? Coverage only, no slots.
   // No supply is a different message than "booked out", whatever the day or filters.
@@ -310,7 +312,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                 ) : notLaunched ? (
                   <EmptyCard seed={emptySeed} tone={category?.slug} title={`In ${plz} gibt es noch keine Profis auf ${BRAND_NAME}.`}>
                     <p className="type-body-s text-ink-muted">
-                      {`${BRAND_NAME} startet in Berlin, Hamburg, München, Köln, Frankfurt und Düsseldorf. Sollen wir dir Bescheid geben, sobald es in ${plz} losgeht?`}
+                      {`${launchCities.length ? `${BRAND_NAME} startet in ${joinCities(launchCities)}. ` : ""}Sollen wir dir Bescheid geben, sobald es in ${plz} losgeht?`}
                     </p>
                     <WaitlistForm postalCode={plz} categorySlug={category?.slug} />
                   </EmptyCard>
@@ -462,4 +464,9 @@ function PromptLayout({ overline, title, lead, children }: { overline: string; t
       </Container>
     </div>
   );
+}
+
+/** "A, B und C" */
+function joinCities(names: string[]): string {
+  return names.length <= 1 ? (names[0] ?? "") : `${names.slice(0, -1).join(", ")} und ${names[names.length - 1]}`;
 }

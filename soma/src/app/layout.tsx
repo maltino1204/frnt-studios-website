@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { BRAND_DESCRIPTOR, BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE, DEMO_MODE, SITE_URL } from "@/lib/brand";
+import { BRAND_DESCRIPTOR, BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE, DEMO_MODE, OG_IMAGE, SITE_URL } from "@/lib/brand";
 import { ToastProvider } from "@/components/ui/toast";
 import { DemoRibbon } from "@/components/ui/demo-ribbon";
 import { MotionRoot } from "@/components/ui/motion";
@@ -82,8 +82,24 @@ const mono = DM_Mono({
   variable: "--font-mono-src",
 });
 
-// Branded share image (Bone, the tagline lockup, one photograph in the arch), built from brand/assets with sharp.
-const ogImage = "/brand/og-default.jpg";
+/** iOS startup images per device (CSS px, pixel ratio), from brand/assets/splash/ios → public/splash. */
+const STARTUP_IMAGES = (
+  [
+    [750, 1334, 375, 667, 2],
+    [828, 1792, 414, 896, 2],
+    [1125, 2436, 375, 812, 3],
+    [1170, 2532, 390, 844, 3],
+    [1179, 2556, 393, 852, 3],
+    [1284, 2778, 428, 926, 3],
+    [1290, 2796, 430, 932, 3],
+    [1640, 2360, 820, 1180, 2],
+    [1668, 2388, 834, 1194, 2],
+    [2048, 2732, 1024, 1366, 2],
+  ] as const
+).map(([w, h, dw, dh, dpr]) => ({
+  url: `/splash/apple-splash-${w}x${h}.png`,
+  media: `(device-width: ${dw}px) and (device-height: ${dh}px) and (-webkit-device-pixel-ratio: ${dpr}) and (orientation: portrait)`,
+}));
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,7 +109,13 @@ export const metadata: Metadata = {
   },
   description: BRAND_PROMISE,
   applicationName: BRAND_NAME,
-  appleWebApp: { capable: true, title: BRAND_NAME, statusBarStyle: "default" },
+  appleWebApp: {
+    capable: true,
+    title: BRAND_NAME,
+    statusBarStyle: "default",
+    // iOS PWA launch screens (brand/assets/splash/SPLASH.md): Bone ground, the stacked mark in Oxblood. Portrait only.
+    startupImage: STARTUP_IMAGES,
+  },
   formatDetection: { telephone: false },
   openGraph: {
     type: "website",
@@ -101,7 +123,7 @@ export const metadata: Metadata = {
     siteName: BRAND_NAME,
     title: `${BRAND_NAME} – ${BRAND_TAGLINE}`,
     description: BRAND_PROMISE,
-    images: [{ url: ogImage, width: 1200, height: 630, alt: `${BRAND_NAME}-Logo mit „${BRAND_TAGLINE}“, daneben eine Massage in einem Altbauwohnzimmer` }],
+    images: [OG_IMAGE],
   },
   robots: DEMO_MODE ? { index: false, follow: false } : undefined,
 };

@@ -18,3 +18,15 @@ export const SITE_URL = process.env.APP_URL || process.env.NEXT_PUBLIC_SITE_URL 
 /** Support address shown in the footer and account texts; set NEXT_PUBLIC_SUPPORT_EMAIL (check:launch blocks the placeholder). */
 export const SUPPORT_EMAIL = process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "hallo@soma.example";
 export const DEMO_MODE = process.env.DEMO_MODE === "true" || process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+
+/**
+ * Default share image (1200 × 630, Bone, the tagline lockup, one photograph in the arch; built by
+ * scripts/brand/build-og.cjs). One descriptor for every route: Next merges `openGraph` shallowly, so a page that sets
+ * its own `openGraph` must pass this image again (docs/landing/INTEGRATION.md C7).
+ */
+export const OG_IMAGE = {
+  url: "/brand/og-default.jpg",
+  width: 1200,
+  height: 630,
+  alt: `${BRAND_NAME}-Logo mit „${BRAND_TAGLINE}“, daneben eine Massage in einem Altbauwohnzimmer`,
+} as const;

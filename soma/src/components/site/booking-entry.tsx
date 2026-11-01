@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronLeft, ChevronRight, CircleAlert, LocateFixed } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, CircleAlert, LocateFixed, X } from "lucide-react";
 import {
   useActionState,
   useCallback,
@@ -39,9 +39,11 @@ import { keepValuesOnSubmit } from "./keep-values";
 /* ------------------------------------------------------------------------ */
 /* Types & helpers                                                          */
 /* ------------------------------------------------------------------------ */
-type TimeWindow = NonNullable<SearchParams["zeit"]>;
-type WhenMode = "asap" | "today" | "tomorrow" | "date";
-type When = { mode: WhenMode; date: string | null; window: TimeWindow | null };
+export type TimeWindow = NonNullable<SearchParams["zeit"]>;
+export type WhenMode = "asap" | "today" | "tomorrow" | "date";
+export type When = { mode: WhenMode; date: string | null; window: TimeWindow | null };
+/** What the visitor has entered so far; shared between entries on one page (landing hero ↔ booking bar/sheet). */
+export type BookingDraft = { plz: string; categorySlug: string | null; serviceId: string | null; when: When };
 type Loc =
   | { status: "idle" }
   | { status: "checking" }
@@ -79,6 +81,18 @@ function whenDate(w: When): string | undefined {
   if (w.mode === "tomorrow") return addDays(today, 1);
   if (w.mode === "date") return w.date ?? undefined;
   return undefined;
+}
+
+const TIME_WINDOWS = new Set<string>(["morgens", "mittags", "abends"]);
+
+/** `?datum=` deep link → the Wann? mode ("Heute", "Morgen" or a date within the picker horizon); null if invalid. */
+function whenFromDate(date: string | null): Pick<When, "mode" | "date"> | null {
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  const today = berlinDateKey();
+  if (date < today || date > addDays(today, HORIZON_DAYS - 1)) return null;
+  if (date === today) return { mode: "today", date: null };
+  if (date === addDays(today, 1)) return { mode: "tomorrow", date: null };
+  return { mode: "date", date };
 }
 
 function readStoredPlz(): string | null {
@@ -125,6 +139,8 @@ function Popover({
   label,
   children,
   className,
+  placement = "below",
+  maxHeight,
 }: {
   open: boolean;
   onClose: () => void;
@@ -132,6 +148,10 @@ function Popover({
   label: string;
   children: ReactNode;
   className?: string;
+  /** "above" when the space under the anchor is too small (the landing sill sits low in the hero) */
+  placement?: "below" | "above";
+  /** px; caps the popover to the space available on its side */
+  maxHeight?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -171,8 +191,11 @@ function Popover({
       ref={ref}
       role="dialog"
       aria-label={label}
+      data-placement={placement}
+      style={maxHeight ? { maxHeight } : undefined}
       className={cn(
-        "absolute top-[calc(100%+0.75rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] origin-top-left flex-col overflow-hidden rounded-card bg-surface-raised text-ink shadow-overlay animate-dialog-in",
+        "absolute left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] flex-col overflow-hidden rounded-card bg-surface-raised text-ink shadow-overlay animate-dialog-in",
+        placement === "above" ? "bottom-[calc(100%+0.75rem)] origin-bottom-left" : "top-[calc(100%+0.75rem)] origin-top-left",
         className,
       )}
     >
@@ -197,10 +220,26 @@ function WasPicker({
 }) {
   const [view, setView] = useState<string | null>(categorySlug);
   const current = catalog.find((c) => c.slug === view) ?? null;
+  const rootRef = useRef<HTMLDivElement>(null);
+  const prevView = useRef(view);
+
+  // Drilling in or out unmounts the focused button: keep keyboard focus inside the picker (the selected or first
+  // option inside a category, the category you came from on the way back), or the popover would close on next Tab.
+  useEffect(() => {
+    const prev = prevView.current;
+    prevView.current = view;
+    if (prev === view) return;
+    const root = rootRef.current;
+    if (!root) return;
+    const target = view
+      ? (root.querySelector<HTMLElement>("li [aria-pressed='true']") ?? root.querySelector<HTMLElement>("li button"))
+      : root.querySelector<HTMLElement>(`[data-cat="${prev}"]`);
+    target?.focus({ preventScroll: true });
+  }, [view]);
 
   if (current) {
     return (
-      <div className="flex flex-col">
+      <div ref={rootRef} className="flex flex-col">
         <button
           type="button"
           onClick={() => setView(null)}
@@ -229,6 +268,7 @@ function WasPicker({
   }
 
   return (
+    <div ref={rootRef}>
     <ul className="flex flex-col">
       <li>
         <PickRow selected={!categorySlug} onClick={() => onPick(null, null)} title="Alle Behandlungen" meta="Alle verfügbaren Profis in deiner Nähe" />
@@ -237,6 +277,7 @@ function WasPicker({
         <li key={c.slug}>
           <button
             type="button"
+            data-cat={c.slug}
             onClick={() => setView(c.slug)}
             aria-pressed={categorySlug === c.slug}
             className="group -mx-2 flex w-[calc(100%+1rem)] items-center gap-4 rounded-control px-2 py-2.5 text-left pressable focus-ring hover:bg-surface-sunken/70"
@@ -257,6 +298,7 @@ function WasPicker({
         </li>
       ))}
     </ul>
+    </div>
   );
 }
 
@@ -400,15 +442,38 @@ export type BookingEntryProps = {
   defaultService?: string | null;
   /** example PLZ for the placeholder, e.g. the city's first PLZ on SEO pages */
   postalExample?: string;
-  /** "hero": single 72px bar from lg; "compact": stacked rows at every width (side columns) */
-  variant?: "hero" | "compact";
+  /**
+   * "hero": single 72px bar from lg; "compact": stacked rows at every width (side columns, booking sheet);
+   * "sill": the landing hero bar (docs/landing/LANDING_DESIGN_SPEC.md § 4.1.6): width from `--lp-sill-w`, tighter
+   * segments at 1024–1279, popovers flip upward, anchored status panel.
+   */
+  variant?: "hero" | "compact" | "sill";
   id?: string;
   className?: string;
+  /** Hero place switch (landing § 4.1.5): placeholder and screen-reader suffix of Wo?. Applied only while the field is empty. */
+  placeHint?: { placeholder?: string; srLabel?: string } | null;
+  /** "auto" opens a desktop popover upward when the space below it is too small. Default: "auto" for sill, else "below". */
+  popoverPlacement?: "below" | "auto";
+  /** "anchored": the unserved-PLZ panel overlays the page from lg instead of pushing it down. Default: "anchored" for sill. */
+  statusLayout?: "flow" | "anchored";
+  /** "inline": Was?/Wann? expand inside the form (disclosure) instead of a popover or a second sheet (landing booking sheet). */
+  pickerLayout?: "auto" | "inline";
+  /** Seed values (another entry's draft). When given, it replaces the ?plz=/?leistung=… deep links of the URL. */
+  initialDraft?: Partial<BookingDraft> | null;
+  /** Called with every change of PLZ, service or time. */
+  onDraftChange?: (draft: BookingDraft) => void;
+  /** Values written by another entry; applied whenever `version` changes, unless focus is inside this entry. */
+  syncDraft?: { draft: Partial<BookingDraft>; version: number } | null;
+  /** `data-cta` on the submit button (analytics hook, docs/landing/INTEGRATION.md § 7) */
+  ctaId?: string;
 };
+
+const POPOVER_MAX_PX = 544; // 34rem, the popovers' max-height
 
 /**
  * Hero booking entry (product-spec J1 Screen 1, design-guideline §8 "Search bar").
  * Wo? (PLZ) · Was? (category → service) · Wann? (day + window) → /suche.
+ * Without JavaScript the form is a plain GET to /suche (docs/landing/INTEGRATION.md C1).
  */
 export function BookingEntry({
   catalog,
@@ -418,26 +483,44 @@ export function BookingEntry({
   variant = "hero",
   id = "termin",
   className,
+  placeHint = null,
+  popoverPlacement,
+  statusLayout,
+  pickerLayout = "auto",
+  initialDraft = null,
+  onDraftChange,
+  syncDraft = null,
+  ctaId,
 }: BookingEntryProps) {
   const router = useRouter();
   const uid = useId();
   const desktop = useIsDesktop();
-  const bar = variant === "hero";
+  const sill = variant === "sill";
+  const bar = variant === "hero" || sill;
+  const inline = pickerLayout === "inline";
+  const flip = (popoverPlacement ?? (sill ? "auto" : "below")) === "auto";
+  const anchored = (statusLayout ?? (sill ? "anchored" : "flow")) === "anchored";
 
   const [plz, setPlz] = useState("");
   const [loc, setLoc] = useState<Loc>({ status: "idle" });
   const [plzError, setPlzError] = useState<string | null>(null);
   const [locating, setLocating] = useState(false);
-  const [categorySlug, setCategorySlug] = useState<string | null>(defaultCategory);
-  const [serviceId, setServiceId] = useState<string | null>(defaultService);
-  const [when, setWhen] = useState<When>({ mode: "asap", date: null, window: null });
+  const [categorySlug, setCategorySlug] = useState<string | null>(initialDraft?.categorySlug ?? defaultCategory);
+  const [serviceId, setServiceId] = useState<string | null>(initialDraft?.serviceId ?? defaultService);
+  const [when, setWhen] = useState<When>(initialDraft?.when ?? { mode: "asap", date: null, window: null });
   const [open, setOpen] = useState<null | "was" | "wann">(null);
+  const [popPlace, setPopPlace] = useState<{ placement: "below" | "above"; maxHeight?: number }>({ placement: "below" });
+  const [hint, setHint] = useState(placeHint);
+  const [dismissedPanel, setDismissedPanel] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
+  const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const wasRef = useRef<HTMLButtonElement>(null);
   const wannRef = useRef<HTMLButtonElement>(null);
   const reqRef = useRef(0);
+  const draftCb = useRef(onDraftChange);
+  draftCb.current = onDraftChange;
 
   const category = catalog.find((c) => c.slug === categorySlug) ?? null;
   const service = category?.services.find((s) => s.id === serviceId) ?? null;
@@ -449,27 +532,76 @@ export function BookingEntry({
     if (req !== reqRef.current) return;
     if (!res.ok) return setLoc({ status: "error", message: res.error });
     if (!res.data) return setLoc({ status: "unknown" });
+    // A known PLZ is "the last PLZ used" (privacy policy § Cookies und Speicher): remember it for the next entry.
+    storePlz(value);
     setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
   }, []);
 
-  // Remember the last PLZ (convenience only), and honour ?plz= / ?leistung= deep links on static pages.
+  // Seed: another entry's draft, else the deep links (?plz= ?kategorie= ?leistung= ?datum= ?zeit=) on static pages, else
+  // the remembered PLZ (convenience only).
   useEffect(() => {
+    const valid = (v: string | null | undefined): v is string => !!v && /^\d{5}$/.test(v);
+    if (initialDraft) {
+      const p = valid(initialDraft.plz) ? initialDraft.plz : readStoredPlz();
+      if (p) {
+        setPlz(p);
+        void resolve(p);
+      }
+      return;
+    }
     const q = new URLSearchParams(window.location.search);
     const fromUrl = q.get("plz");
-    const initial = fromUrl && /^\d{5}$/.test(fromUrl) ? fromUrl : readStoredPlz();
+    const initial = valid(fromUrl) ? fromUrl : readStoredPlz();
     if (initial) {
       setPlz(initial);
       void resolve(initial);
     }
     const svc = q.get("leistung");
-    // `leistung` may be a service slug (shareable URLs) or an id.
+    // `leistung` may be a service slug (shareable URLs), an id, or a category slug ("all services", as on /suche).
     const match = svc ? catalog.flatMap((c) => c.services.map((x) => ({ c, x }))).find(({ x }) => x.slug === svc || x.id === svc) : null;
+    const cat = catalog.find((c) => c.slug === (match ? null : svc)) ?? catalog.find((c) => c.slug === q.get("kategorie"));
     if (match) {
       setCategorySlug(match.c.slug);
       setServiceId(match.x.id);
+    } else if (cat) {
+      setCategorySlug(cat.slug);
+      setServiceId(null);
     }
+    const day = whenFromDate(q.get("datum"));
+    const zeit = q.get("zeit");
+    const windowParam = zeit && TIME_WINDOWS.has(zeit) ? (zeit as TimeWindow) : null;
+    if (day || windowParam) setWhen({ mode: day?.mode ?? "asap", date: day?.date ?? null, window: windowParam });
     // Mount only: later prop changes must not overwrite the visitor's choices.
   }, []);
+
+  // Report every change (the landing shares one draft between the hero entry and the booking bar/sheet).
+  useEffect(() => {
+    draftCb.current?.({ plz, categorySlug, serviceId, when });
+  }, [plz, categorySlug, serviceId, when]);
+
+  // Values from another entry on the page (never while the visitor is typing in this one).
+  useEffect(() => {
+    if (!syncDraft) return;
+    if (formRef.current?.contains(document.activeElement)) return;
+    const d = syncDraft.draft;
+    if (d.plz !== undefined && d.plz !== plz) {
+      reqRef.current++;
+      setPlz(d.plz);
+      setPlzError(null);
+      if (/^\d{5}$/.test(d.plz)) void resolve(d.plz);
+      else setLoc({ status: "idle" });
+    }
+    if (d.categorySlug !== undefined) setCategorySlug(d.categorySlug);
+    if (d.serviceId !== undefined) setServiceId(d.serviceId);
+    if (d.when !== undefined) setWhen(d.when);
+    // Only a new version counts; the current values are read, not watched.
+  }, [syncDraft?.version]);
+
+  // The place hint changes the placeholder and the label only while the field is empty (landing § 4.1.5).
+  const empty = plz === "";
+  useEffect(() => {
+    if (empty) setHint(placeHint);
+  }, [placeHint?.placeholder, placeHint?.srLabel, empty]);
 
   // Preselection from service lists on the same page.
   useEffect(() => {
@@ -512,12 +644,20 @@ export function BookingEntry({
         if (!res.ok) return setLoc({ status: "error", message: res.error });
         if (!res.data) return setLoc({ status: "error", message: "Zu deinem Standort kennen wir keine Postleitzahl. Bitte gib sie ein." });
         reqRef.current++;
+        storePlz(res.data.postalCode);
         setPlz(res.data.postalCode);
         setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
       },
-      () => {
+      (err) => {
         setLocating(false);
-        setLoc({ status: "error", message: "Dein Standort ist gerade nicht verfügbar. Bitte gib deine Postleitzahl ein." });
+        // Copy deck § 01: a refusal is named as such; timeouts and missing fixes get the neutral line.
+        setLoc({
+          status: "error",
+          message:
+            err?.code === 1
+              ? "Dein Gerät gibt keinen Standort frei. Bitte gib deine Postleitzahl ein."
+              : "Dein Standort ist gerade nicht verfügbar. Bitte gib deine Postleitzahl ein.",
+        });
       },
       { timeout: 10_000, maximumAge: 600_000 },
     );
@@ -553,6 +693,23 @@ export function BookingEntry({
     setOpen(null);
   };
 
+  /** Desktop popovers: open upward when the space below the anchor is smaller than the popover (+ 24 px). */
+  const placePopover = (anchor: HTMLElement | null) => {
+    if (!flip || !anchor) return setPopPlace({ placement: "below" });
+    const r = anchor.getBoundingClientRect();
+    const headerBottom = Math.max(0, document.querySelector("header")?.getBoundingClientRect().bottom ?? 0);
+    const need = Math.min(POPOVER_MAX_PX, window.innerHeight * 0.7);
+    const below = window.innerHeight - r.bottom - 36;
+    const above = r.top - headerBottom - 36;
+    if (below >= need || below >= above) setPopPlace({ placement: "below", maxHeight: below < need ? Math.max(240, below) : undefined });
+    else setPopPlace({ placement: "above", maxHeight: above < need ? Math.max(240, above) : undefined });
+  };
+  const toggle = (which: "was" | "wann") => {
+    if (open === which) return setOpen(null);
+    if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
+    setOpen(which);
+  };
+
   // Return focus to the trigger when a picker closes.
   const lastOpen = useRef<typeof open>(null);
   useEffect(() => {
@@ -565,27 +722,57 @@ export function BookingEntry({
   const errorId = `${uid}-plz-error`;
   const statusId = `${uid}-status`;
   const hintId = `${uid}-plz-hint`;
+  const wasPanelId = `${uid}-was`;
+  const wannPanelId = `${uid}-wann`;
   const invalid = Boolean(plzError) || loc.status === "unknown";
   // Reference the one message node that applies (the live region around it is not referenced, so it is read once).
   const describedBy = invalid ? errorId : loc.status === "error" ? hintId : undefined;
+  const datum = whenDate(when);
+  const showPanel = loc.status === "outside" && dismissedPanel !== loc.data.postalCode;
 
-  /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero). */
+  /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero, sill). */
   const segment = cn(
     "relative flex min-w-0 flex-col justify-center px-5 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-line after:content-['']",
     bar ? "h-16 lg:h-full lg:px-6 lg:after:hidden" : "h-16",
+    sill && "lg:px-4 xl:px-6",
   );
   const divider = bar ? "lg:before:absolute lg:before:inset-y-5 lg:before:left-0 lg:before:w-px lg:before:bg-line lg:before:content-['']" : "";
   const caption = "type-caption text-ink-muted";
-  const value = "block truncate text-body leading-snug text-ink";
+  const value = cn("block truncate text-body leading-snug text-ink", sill && "lg:condensed xl:[font-stretch:100%]");
+  const trigger = (which: "was" | "wann") =>
+    cn(
+      "-mx-5 flex h-full items-center justify-between gap-3 px-5 text-left transition-colors duration-fast focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus",
+      bar && "lg:-mx-6 lg:rounded-full lg:px-6 lg:hover:bg-surface-sunken/70",
+      sill && "lg:-mx-4 lg:px-4 xl:-mx-6 xl:px-6",
+      bar && open === which && "lg:bg-surface-sunken/70",
+    );
+  const triggerA11y = (which: "was" | "wann") =>
+    inline
+      ? { "aria-expanded": open === which, "aria-controls": which === "was" ? wasPanelId : wannPanelId }
+      : { "aria-haspopup": "dialog" as const, "aria-expanded": open === which };
 
   const wasPicker = <WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />;
   const wannPicker = <WannPicker when={when} onChange={setWhen} />;
+  const placeholder = hint?.placeholder ?? `PLZ, z. B. ${postalExample}`;
+  const srLabel = hint?.srLabel ?? "Postleitzahl";
 
   return (
-    <div id={id} className={cn("relative w-full scroll-mt-28", bar && "lg:w-[min(55rem,calc(100vw-2*var(--space-gutter)))]", className)}>
+    <div
+      id={id}
+      data-booking-entry={variant}
+      className={cn(
+        "relative w-full scroll-mt-28",
+        variant === "hero" && "lg:w-[min(55rem,calc(100vw-2*var(--space-gutter)))]",
+        sill && "lg:w-[var(--lp-sill-w,min(55rem,100%))]",
+        className,
+      )}
+    >
       <form
+        ref={formRef}
         role="search"
         aria-label="Termin finden"
+        action="/suche"
+        method="get"
         noValidate
         onSubmit={submit}
         className={cn(
@@ -597,7 +784,7 @@ export function BookingEntry({
         {/* Wo? */}
         <div className={cn(segment, "rounded-t-card pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:rounded-full lg:pr-2")}>
           <label htmlFor={`${uid}-plz`} className={caption}>
-            Wo?<span className="sr-only"> Postleitzahl</span>
+            Wo?<span className="sr-only"> {srLabel}</span>
           </label>
           <div className="flex items-center gap-1">
             <input
@@ -610,7 +797,7 @@ export function BookingEntry({
               autoComplete="postal-code"
               enterKeyHint="search"
               maxLength={5}
-              placeholder={`PLZ, z.\u00a0B. ${postalExample}`}
+              placeholder={placeholder}
               aria-invalid={invalid || undefined}
               aria-describedby={describedBy}
               className={cn(
@@ -634,6 +821,7 @@ export function BookingEntry({
               onClick={locate}
               aria-label="Standort verwenden"
               title="Standort verwenden"
+              data-cta={ctaId ? `${ctaId}-locate` : undefined}
               className="-my-2 inline-flex size-touch shrink-0 items-center justify-center rounded-full text-ink-muted pressable focus-ring hover:bg-surface-sunken hover:text-ink"
             >
               {locating ? <Spinner size={20} /> : <Icon icon={LocateFixed} />}
@@ -643,46 +831,53 @@ export function BookingEntry({
 
         {/* Was? */}
         <div className={cn(segment, divider)}>
-          <button
-            ref={wasRef}
-            type="button"
-            onClick={() => setOpen(open === "was" ? null : "was")}
-            aria-haspopup="dialog"
-            aria-expanded={open === "was"}
-            className={cn("-mx-5 flex h-full items-center justify-between gap-3 px-5 text-left transition-colors duration-fast focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus", bar && "lg:-mx-6 lg:rounded-full lg:px-6 lg:hover:bg-surface-sunken/70", bar && open === "was" && "lg:bg-surface-sunken/70")}
-          >
+          <button ref={wasRef} type="button" onClick={() => toggle("was")} {...triggerA11y("was")} className={trigger("was")}>
             <span className="flex min-w-0 flex-col">
               <span className={caption}>Was?</span>
               <span className={cn(value, !wasValue && "text-ink-muted")}>{wasValue ?? "Alle Behandlungen"}</span>
             </span>
             <Icon icon={ChevronDown} className={cn("shrink-0 text-ink-muted transition-transform duration-base", open === "was" && "rotate-180", bar && "lg:hidden")} />
           </button>
-          {desktop ? (
-            <Popover open={open === "was"} onClose={closePicker} anchorRef={wasRef} label="Behandlung wählen" className="w-[25rem]">
-              <div className="overflow-y-auto overscroll-contain px-5 py-3">{wasPicker}</div>
+          {desktop && !inline ? (
+            <Popover
+              open={open === "was"}
+              onClose={closePicker}
+              anchorRef={wasRef}
+              label="Behandlung wählen"
+              className="w-[25rem]"
+              placement={popPlace.placement}
+              maxHeight={popPlace.maxHeight}
+            >
+              <div className="min-h-0 overflow-y-auto overscroll-contain px-5 py-3">{wasPicker}</div>
             </Popover>
           ) : null}
         </div>
+        {inline && open === "was" ? (
+          <div id={wasPanelId} role="group" aria-label="Behandlung wählen" className="border-b border-line px-5 py-3">
+            {wasPicker}
+          </div>
+        ) : null}
 
         {/* Wann? */}
-        <div className={cn(segment, divider, "after:hidden")}>
-          <button
-            ref={wannRef}
-            type="button"
-            onClick={() => setOpen(open === "wann" ? null : "wann")}
-            aria-haspopup="dialog"
-            aria-expanded={open === "wann"}
-            className={cn("-mx-5 flex h-full items-center justify-between gap-3 px-5 text-left transition-colors duration-fast focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus", bar && "lg:-mx-6 lg:rounded-full lg:px-6 lg:hover:bg-surface-sunken/70", bar && open === "wann" && "lg:bg-surface-sunken/70")}
-          >
+        <div className={cn(segment, divider, "after:hidden", inline && open === "wann" && "after:block")}>
+          <button ref={wannRef} type="button" onClick={() => toggle("wann")} {...triggerA11y("wann")} className={trigger("wann")}>
             <span className="flex min-w-0 flex-col">
               <span className={caption}>Wann?</span>
               <span className={value}>{whenLabel(when)}</span>
             </span>
             <Icon icon={ChevronDown} className={cn("shrink-0 text-ink-muted transition-transform duration-base", open === "wann" && "rotate-180", bar && "lg:hidden")} />
           </button>
-          {desktop ? (
-            <Popover open={open === "wann"} onClose={closePicker} anchorRef={wannRef} label="Zeitpunkt wählen" className="w-[29rem]">
-              <div className="overflow-y-auto overscroll-contain p-5">{wannPicker}</div>
+          {desktop && !inline ? (
+            <Popover
+              open={open === "wann"}
+              onClose={closePicker}
+              anchorRef={wannRef}
+              label="Zeitpunkt wählen"
+              className="w-[29rem]"
+              placement={popPlace.placement}
+              maxHeight={popPlace.maxHeight}
+            >
+              <div className="min-h-0 overflow-y-auto overscroll-contain p-5">{wannPicker}</div>
               <div className="flex justify-end border-t border-line px-5 py-3">
                 <Button
                   size="s"
@@ -697,13 +892,32 @@ export function BookingEntry({
             </Popover>
           ) : null}
         </div>
+        {inline && open === "wann" ? (
+          <div id={wannPanelId} role="group" aria-label="Zeitpunkt wählen" className="flex flex-col gap-4 px-5 py-4">
+            {wannPicker}
+            <Button size="m" variant="secondary" className="self-start" onClick={closePicker}>
+              Fertig
+            </Button>
+          </div>
+        ) : null}
 
         <div className={cn("p-2 pt-1", bar && "lg:p-0 lg:pr-2.5")}>
-          <Button type="submit" variant="accent" size="l" block loading={pending}>
+          <Button type="submit" variant="accent" size="l" block loading={pending} data-cta={ctaId}>
             Freie Termine finden
           </Button>
         </div>
+
+        {/* No-JS fallback (C1): the picker choices travel as plain GET fields; with JS, `submit` pushes the same URL. */}
+        {categorySlug ? <input type="hidden" name="kategorie" value={categorySlug} /> : null}
+        {service ? <input type="hidden" name="leistung" value={service.slug} /> : null}
+        {datum ? <input type="hidden" name="datum" value={datum} /> : null}
+        {when.window ? <input type="hidden" name="zeit" value={when.window} /> : null}
       </form>
+
+      {/* Loading, for screen readers (the button shows a spinner and aria-busy). */}
+      <span role="status" className="sr-only">
+        {pending ? "Termine werden gesucht …" : ""}
+      </span>
 
       {/* Status & messages */}
       <div id={statusId} aria-live="polite" className="empty:hidden">
@@ -719,23 +933,43 @@ export function BookingEntry({
           </p>
         ) : loc.status === "error" ? (
           <p id={hintId} className="mt-3 type-caption text-ink-muted">{loc.message}</p>
-        ) : loc.status === "outside" ? (
-          <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised animate-rise sm:p-5">
+        ) : loc.status === "outside" && showPanel ? (
+          <div
+            data-booking-panel="waitlist"
+            className={cn(
+              "relative mt-4 flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised animate-rise sm:p-5",
+              anchored && "lg:absolute lg:top-[calc(100%+0.75rem)] lg:left-0 lg:z-(--z-overlay) lg:mt-0 lg:w-[26.25rem] lg:pr-12 lg:shadow-overlay",
+            )}
+          >
             <p className="type-body-s text-ink">
               In {loc.data.postalCode} gibt es noch keine Profis auf {BRAND_NAME}. Sollen wir dir Bescheid geben, sobald es losgeht?
             </p>
             <Waitlist postalCode={loc.data.postalCode} categorySlug={categorySlug} />
+            {anchored ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setDismissedPanel(loc.data.postalCode);
+                  inputRef.current?.focus({ preventScroll: true });
+                }}
+                aria-label="Schließen"
+                title="Schließen"
+                className="absolute top-2 right-2 hidden size-touch items-center justify-center rounded-full text-ink-muted pressable focus-ring hover:bg-surface-sunken hover:text-ink lg:inline-flex"
+              >
+                <Icon icon={X} size={18} />
+              </button>
+            ) : null}
           </div>
         ) : null}
       </div>
 
       {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). */}
-      {!desktop && open === "was" ? (
+      {!desktop && !inline && open === "was" ? (
         <Sheet open onClose={closePicker} title="Behandlung wählen">
           {wasPicker}
         </Sheet>
       ) : null}
-      {!desktop && open === "wann" ? (
+      {!desktop && !inline && open === "wann" ? (
         <Sheet
           open
           onClose={closePicker}

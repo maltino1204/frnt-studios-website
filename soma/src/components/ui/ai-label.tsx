@@ -25,5 +25,16 @@ export function AiLabel({
   const ai = srcs ? srcs.some((s) => isAiImage(s)) : isAiImage(src);
   if (!ai) return null;
   const text = kind === "portrait" ? AI_PORTRAIT_LABEL : kind === "images" ? AI_IMAGES_LABEL : AI_IMAGE_LABEL;
-  return <span className={cn("block type-caption text-ink-muted", className)}>{text}</span>;
+  // Each segment stays on one line ("Foto KI-generiert" never breaks at its hyphen).
+  const parts = text.split(" · ");
+  return (
+    <span className={cn("block type-caption text-ink-muted", className)}>
+      {parts.map((part, i) => (
+        <span key={part} className="whitespace-nowrap">
+          {part}
+          {i < parts.length - 1 ? " · " : ""}
+        </span>
+      ))}
+    </span>
+  );
 }
