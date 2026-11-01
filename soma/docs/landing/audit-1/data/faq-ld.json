@@ -1,0 +1,74 @@
+[
+ {
+  "@type": "Question",
+  "name": "Wie funktioniert SOMA?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Du gibst deine Postleitzahl ein und wählst eine Behandlung und einen Zeitraum. Du siehst geprüfte Profis mit echten freien Terminen und dem Endpreis inklusive Anfahrt. Du buchst – und dein Profi kommt zu dir nach Hause, ins Hotel oder ins Büro."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Wo gibt es SOMA?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Aktuell in Berlin, Hamburg, München, Köln, Frankfurt am Main und Düsseldorf. Profis legen ihr Einsatzgebiet selbst fest. Ob es bei dir freie Termine gibt, siehst du, sobald du deine Postleitzahl eingibst. Noch niemand in deiner Gegend? Trag dich ein – wir sagen dir Bescheid, sobald Profis bei dir buchbar sind."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Wie prüft SOMA die Profis?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Auf SOMA arbeiten selbstständige Profis mit Gewerbeanmeldung. Bevor jemand buchbar ist, prüfen wir Ausweis, Gewerbeanmeldung und Berufshaftpflicht – und je nach Kategorie einen Qualifikationsnachweis, etwa eine Massageausbildung oder für Haare & Styling den Meisterbrief bzw. die Eintragung in die Handwerksrolle. Läuft ein Pflichtnachweis ab, pausieren wir das Profil. Bewerten kann nur, wer wirklich gebucht hat."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Wie läuft die Buchung ab?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Tipp auf eine freie Uhrzeit, gib an, wo der Termin stattfindet – Zuhause, Hotel oder Büro –, und bezahl online. Ein Konto legst du dabei nebenbei an, ohne Passwort. Bei „Sofort bestätigt“ steht dein Termin sofort. Bei „Auf Anfrage“ sagt dein Profi innerhalb einer Frist zu, die du vor dem Absenden siehst. Am Termin nennst du deinem Profi deinen vierstelligen Start-Code – damit beginnt der Termin."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Was passiert, wenn ein Termin abgesagt wird?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Bis 24 Stunden vor dem Termin stornierst du kostenlos, in den ersten 15 Minuten nach der Buchung sogar immer. Danach fallen 50 % des Behandlungspreises an; die Anfahrt wird nicht berechnet. Weniger als 2 Stunden vorher oder wenn du nicht da bist, werden Behandlung und Anfahrt voll berechnet. Offene Anfragen kannst du jederzeit kostenlos zurückziehen. Sagt dein Profi ab, entstehen dir keine Kosten. Die genaue Frist siehst du vor dem Bezahlen – mit Datum und Uhrzeit."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Wie bezahle ich?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Online bei der Buchung, über unseren Zahlungsdienstleister Stripe. Welche Zahlarten verfügbar sind, siehst du im Bezahlschritt. Der Betrag wird zunächst nur reserviert und erst nach dem Termin belastet. Eine Servicegebühr berechnet SOMA nicht. Bargeld gibt es nicht – so ist jeder Termin für beide Seiten abgesichert."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Ist eine Massage auf SOMA eine medizinische Behandlung?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Nein. Alle Angebote auf SOMA sind Beauty- und Wellnessanwendungen und ersetzen keine ärztliche, physiotherapeutische oder podologische Behandlung."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Wer sieht meine Adresse?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Nur dein gebuchter Profi, und erst, wenn der Termin bestätigt ist. Nach dem Termin wird sie wieder ausgeblendet."
+  }
+ },
+ {
+  "@type": "Question",
+  "name": "Was ist die SOMA-Garantie?",
+  "acceptedAnswer": {
+   "@type": "Answer",
+   "text": "Stimmt etwas nicht, meldest du es bis 48 Stunden nach dem Termin über deine Buchung. Bis zur Klärung halten wir die Auszahlung an den Profi zurück und finden mit dir eine Lösung: Nachbesserung, Gutschrift oder Erstattung."
+  }
+ }
+]
