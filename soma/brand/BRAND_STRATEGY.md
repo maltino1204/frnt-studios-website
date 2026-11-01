@@ -3,9 +3,9 @@
 *Brand Strategist · phase B1 · 1 Nov 2026 · v1.0*
 *Binding inputs: `brand/BRIEF.md`, `brand/PLAN.md`. Companions: `brand/BRAND_VOICE.md` (voice, samples), `brand/COPY_DECK_LANDING.md` (landing copy).*
 
-The document is in English for the team; every customer- or provider-facing line is German unless it is a deliberate English brand line. German samples contain real non-breaking spaces (U+00A0) where `BRAND_VOICE.md` §4 requires them.
+The document is in English for the team; every customer- or provider-facing line is German unless it is a deliberate English brand line. German samples contain real non-breaking spaces (U+00A0) where `BRAND_VOICE.md` § 4 requires them.
 
-**Truth rule.** Every claim below was checked against the product as built (`src/server/domain/*`, `scripts/db/lib/base-seed-data.ts`, `docs/STATUS.md`). Where the product spec describes something that is not built, this document says so. §7.3 lists the claims we must not make yet.
+**Truth rule.** Every claim below was checked against the product as built (`src/server/domain/*`, `scripts/db/lib/base-seed-data.ts`, `docs/STATUS.md`). Where the product spec describes something that is not built, this document says so. § 7.3 lists the claims we must not make yet.
 
 ---
 
@@ -13,7 +13,7 @@ The document is in English for the team; every customer- or provider-facing line
 
 | Topic | Decision | Rationale (short) |
 |---|---|---|
-| Customer address | ***du***, lowercase, everywhere in product and marketing (exceptions in `BRAND_VOICE.md` §1) | The client writes *du*. *du* matches the intimacy of "Your body. Your place." and the 25–55 urban core. Respect comes from the tone, not the pronoun |
+| Customer address | ***du***, lowercase, everywhere in product and marketing (exceptions in `BRAND_VOICE.md` § 1) | The client writes *du*. *du* matches the intimacy of "Your body. Your place." and the 25–55 urban core. Respect comes from the tone, not the pronoun |
 | Provider address | ***du*** (unchanged) | A peer tool; the beauty trade talks in *du* |
 | Word for providers | **Profi** (DE), *professional* (EN only) | It is already used in the product, the routes (`/profis`, `/fuer-profis`) and the E2E suite. It is short and works for every gender. In German, "Professionals" also means office workers, who are one of our *customer* segments |
 | Provider product | **SOMA Pro** (the tool at `/pro`). The acquisition page is **SOMA für Profis** (`/fuer-profis`) | The route, the existing "Pro" marker and the word *Profi* all point to it. It is short and works in English |
@@ -23,7 +23,7 @@ The document is in English for the team; every customer- or provider-facing line
 | Descriptor | EN **Beauty & Wellness, wherever you are.** in brand lockups. DE **Beauty & Wellness. Bei dir.** in product, SEO and app contexts | German is the product language; the descriptor must explain at a glance |
 | German signature line | **Du bleibst. Dein Profi kommt.** | Explains the model in five words, is true to the agency model (the Profi comes, not SOMA), and is ownable |
 | Retired | "Your wellness. Your place." · "Schon da." · "Wellness, die zu Ihnen kommt." · "Wo dürfen wir Sie verwöhnen?" | Replaced by the new tagline system. "Schon da." implies an availability we cannot guarantee. "verwöhnen" is a spa cliché |
-| Kept from Design v2 | The **Ortszeile** (place line): *Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10* | It is verbal, not visual. It *is* "Your place" in one line, and it is already ours |
+| Kept from Design v2 | The **Ortszeile** (place line): *Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10* | It is verbal, not visual. It *is* "Your place" in one line, and it is already ours |
 
 ---
 
@@ -82,7 +82,7 @@ Every part of the promise is built today:
 | Segment | Who | What they book | Brand job | Truth flags |
 |---|---|---|---|---|
 | **Primary: urban core** | Design-conscious adults, about 25–55, in the 6 launch cities | Routine (nails, lashes, massage) and occasion (make-up, hair) | Make the routine effortless and the stranger at the door trustworthy | — |
-| **Secondary: busy professionals** | Long days, booked calendars | Evening massage, nails before a trip, *Rücken- & Nackenmassage* at the office | Give back time; make the office booking feel discreet | No company invoices or corporate accounts yet (`STATUS.md` §6) |
+| **Secondary: busy professionals** | Long days, booked calendars | Evening massage, nails before a trip, *Rücken- & Nackenmassage* at the office | Give back time; make the office booking feel discreet | No company invoices or corporate accounts yet (`STATUS.md` § 6) |
 | **Secondary: travellers and hotel guests** | Business travel, mainly Frankfurt, Munich and Hamburg | Massage in the room, styling before an event | The hotel room becomes "your place" | The UI is German only (English is v1.1). Late slots depend on each Profi's hours |
 | **Secondary: recurring customers** | Lena-type routine | Same Profi, same address, every few weeks | *Erneut buchen*, favourites, "Ihre Profis" | Cadence reminders are spec only, not built |
 | **Secondary: couples** | Partners booking together | Parallel massages | — | **Not supported.** Multi-Profi bookings are a v1 non-goal. Do not market couples' massage |
@@ -103,7 +103,7 @@ Every part of the promise is built today:
 - **Barriers:** discretion; will they find my room; late hours; German-only UI.
 - **Triggers:** checking in in the evening; the second night of a trip.
 - **SOMA's true answer:** the Hotel location type with hotel name, room number and name at reception; the address goes only to the booked Profi, after confirmation; the Start-Code makes sure the right person is at the door.
-- **Line that lands:** *Zimmer 614, 21:10 Uhr.*
+- **Line that lands:** *Zimmer 614, 21:10 Uhr.*
 
 **Aylin, 28 · bride-to-be · Köln** (occasion)
 - **Job:** "On my wedding morning, I want the artist I did my trial with to arrive at the hotel on time."
@@ -118,8 +118,8 @@ Every part of the promise is built today:
 - **Triggers:** a no-show; an empty Tuesday; DMs piling up.
 - **SOMA's true answer:**
   - she sets her own prices, radius, hours and buffer, and can decline requests;
-  - payment runs through SOMA, never cash; cancellation fees of 50 % and 100 % apply;
-  - her own clients pay 5 % commission via her invite link;
+  - payment runs through SOMA, never cash; cancellation fees of 50 % and 100 % apply;
+  - her own clients pay 5 % commission via her invite link;
   - the Start-Code proves she was there;
   - she sees how many SOMA appointments a customer has completed.
 - **Line that lands:** *Dein Können. Deine Preise. Deine Zeiten.*
@@ -129,17 +129,17 @@ Every part of the promise is built today:
 - **Barriers:** unpaid travel; waiting for money; inappropriate requests.
 - **Triggers:** reduced spa hours; quiet weekdays.
 - **SOMA's true answer:**
-  - the travel fee goes 100 % to the Profi, with 0 % commission on it;
+  - the travel fee goes 100 % to the Profi, with 0 % commission on it;
   - buffers between bookings;
-  - his share is available 48 h after the appointment;
+  - his share is available 48 h after the appointment;
   - the customer's address is visible only after confirmation.
-- **Gap to close:** a written zero-tolerance rule for sexualised requests is in the spec (§11) but not yet in the UI or terms. Recommended copy is in `BRAND_VOICE.md` §7.9.
+- **Gap to close:** a written zero-tolerance rule for sexualised requests is in the spec (§ 11) but not yet in the UI or terms. Recommended copy is in `BRAND_VOICE.md` § 7.9.
 
 ---
 
 ## 3. Competitive differentiation
 
-The sources are `docs/research/competitive-analysis.md` (snippet-based, as stated there). We do not name competitors in marketing (§6 UWG comparative advertising) and never disparage them.
+The sources are `docs/research/competitive-analysis.md` (snippet-based, as stated there). We do not name competitors in marketing (§ 6 UWG comparative advertising) and never disparage them.
 
 ### 3.1 Map A: facts (price model × who chooses the professional)
 
@@ -149,11 +149,11 @@ The sources are `docs/research/competitive-analysis.md` (snippet-based, as state
               jeff ●                      │                      ◆ SOMA
    (staff model, all-in incl. travel,     │      (independent Profis, 7 categories,
     foot care + mani/pedi, NRW)           │       total incl. travel, no service fee,
-                                          │       free cancellation ≥ 24 h included)
+                                          │       free cancellation ≥ 24 h included)
   Assigned / staffed ◄────────────────────┼────────────────────► You choose an independent pro
                                           │
                Blys ●                     │                      ● Selfkea
-   (matching or choice, 10 % platform     │      (request-only, optional "Flex" ~4 %
+   (matching or choice, 10 % platform     │      (request-only, optional "Flex" ~4 %
     fee, peak and hotel surcharges)       │       for free cancellation, payment-method fee)
                                           ▼
                               Fees and add-ons on top
@@ -182,19 +182,19 @@ Welladom (a salon directory; fees not verified) and EveryWayz (not verified) are
 2. **Clarity before booking.**
    - The total price including travel in search.
    - No service fee.
-   - Free cancellation until 24 h before, included rather than sold as an add-on.
+   - Free cancellation until 24 h before, included rather than sold as an add-on.
    - A dated deadline.
    - A 15-min Bedenkzeit.
    - The card is reserved at booking and charged after the appointment.
 3. **Verification you can name.** ID, Gewerbe, Berufshaftpflicht, a category qualification, and for Haare & Styling a Meisterbrief or Handwerksrolle entry. Profiles pause automatically when a document expires.
 4. **The premium lifestyle territory** in German at-home beauty and wellness. By their own positioning lines, no German competitor occupies it (inferred).
-5. **Fairness to independents.** The Profi sets prices, hours and radius; there is no base fee; commission is tiered at 20 / 12 / 5 % with 0 % on travel; the own-client link costs 5 %.
+5. **Fairness to independents.** The Profi sets prices, hours and radius; there is no base fee; commission is tiered at 20 / 12 / 5 % with 0 % on travel; the own-client link costs 5 %.
 
 ### 3.4 What SOMA avoids
 
 | Avoid | Why |
 |---|---|
-| Speed as the hero ("in 60 Minuten bei dir", "sofort verfügbar") | Availability depends on independent Profis (lead time defaults to 3 h). Blys already owns "fastest" |
+| Speed as the hero ("in 60 Minuten bei dir", "sofort verfügbar") | Availability depends on independent Profis (lead time defaults to 3 h). Blys already owns "fastest" |
 | Medical and care territory ("Hausbesuch", "Pflege zu Hause", "medizinische Fußpflege", therapy) | HWG; protected titles; "häusliche Pflege" means nursing care in German |
 | Discount and deal positioning ("günstig", codes as a headline) | Undermines premium; Glow2Go grew on marketing spend, not on loyalty |
 | Gig-economy language ("on demand", "Fahrer", "Auftrag", "Job") | It demeans the Profi and suggests dispatch |
@@ -211,7 +211,7 @@ Welladom (a salon directory; fees not verified) and EveryWayz (not verified) are
 | Trait | In copy: do | In copy: don't | In design: do | In design: don't |
 |---|---|---|---|---|
 | **Sophisticated, never distant** | Precise words, short sentences, *du* | Insider jargon, Latinisms, "exquisit" | Editorial grid, generous space | Tiny grey type, unreadable contrast |
-| **Confident, never arrogant** | State facts plainly: "Endpreis inkl. Anfahrt." | Superlatives: "die Besten", "Nr. 1" | One strong image, one message | Shouting type, badges everywhere |
+| **Confident, never arrogant** | State facts plainly: "Endpreis inkl. Anfahrt." | Superlatives: "die Besten", "Nr. 1" | One strong image, one message | Shouting type, badges everywhere |
 | **Sensual, never provocative** | Name texture, warmth and light: "warmes Öl", "ruhige Griffe" | "sinnlich", "intim", innuendo, body-shaming or body ideals | Light, skin texture, hands, fabric | Exposed bodies, gaze into the camera, boudoir light |
 | **Premium, never pretentious** | Let the details speak (concrete deadline, room number) | "Luxus", "exklusiv", "Premium", "Erlebnis" | Restraint, crafted typography, one accent | Gold, marble, scripts, faux-French |
 | **Modern, never trend-dependent** | Plain contemporary German | Slang, memes, "Self-Care-Sunday" | Timeless type, product-true UI | Trend gradients, 3D blobs, glassmorphism as identity |
@@ -223,8 +223,8 @@ Welladom (a salon directory; fees not verified) and EveryWayz (not verified) are
 |---|---|
 | **Quality** | Category qualification checks; reviews only after completed appointments; ranking by quality and reliability, not paid placement (`/ranking`) |
 | **Convenience** | Three screens from search to booking; guest checkout without a password; saved addresses; one-tap *Erneut buchen*; .ics export |
-| **Trust** | Verification gate; Start-Code; address visible only after confirmation; SOMA-Garantie (report within 48 h → redo, credit or refund); payout held until then |
-| **Independence** | Profis set prices, hours, radius and mode; they can decline; own-client link at 5 %; no exclusivity |
+| **Trust** | Verification gate; Start-Code; address visible only after confirmation; SOMA-Garantie (report within 48 h → redo, credit or refund); payout held until then |
+| **Independence** | Profis set prices, hours, radius and mode; they can decline; own-client link at 5 %; no exclusivity |
 | **Personal wellbeing** | Wellness wording only; intake questions where relevant (massage, patch test for lashes and brows); no body ideals in copy |
 | **Considered simplicity** | One cancellation policy for all; a total price instead of "ab" in search; status always as a word, never as colour alone |
 
@@ -249,7 +249,7 @@ Rules:
   - "SOMA Studio" suggests a physical studio, while our pitch to Profis is independence without one.
   - "SOMA Partner" implies partnership or employment (agency-model risk).
   - "SOMA Business" is better kept for a future corporate customer offer.
-- Audience pages follow **"SOMA für …"** (für Profis, later für Unternehmen). Features use plain German names, never "SOMA + invented word" (§6.4).
+- Audience pages follow **"SOMA für …"** (für Profis, later für Unternehmen). Features use plain German names, never "SOMA + invented word" (§ 6.4).
 - **Admin** may use the wordmark and tokens, but no taglines, no oxblood brand moments and no editorial imagery.
 
 ---
@@ -295,7 +295,7 @@ Rules:
 4. *Profi* is 5 characters and fits buttons and chips; "Professional" is 12.
 
 Usage:
-- **Prefer the name.** Once a booking exists, write "Anna kommt um 19:30 Uhr", not "Ihr Profi".
+- **Prefer the name.** Once a booking exists, write "Anna kommt um 19:30 Uhr", not "Ihr Profi".
 - **Otherwise:** "dein Profi" (customer), "Profis auf SOMA" (public).
 - **Never:** "unsere Profis", "unser Team", "Mitarbeiter", "Partner" (agency model). Also never "Experte", which overclaims, and "Masseur", "Therapeut" or "Physiotherapeut", which are protected or risky titles.
 - **"Fachkraft"** is acceptable only in legal texts. In the UI, replace the current "die Fachkraft" in checkout with the Profi's name or "dein Profi".
@@ -309,13 +309,13 @@ Usage:
 | **Endpreis inkl. Anfahrt** | Total price including the travel fee | Search, profile, checkout |
 | **Bedenkzeit** | Free cancellation within 15 min of booking (never past the start) | Checkout, booking |
 | **Start-Code** | 4-digit code the customer gives the Profi on arrival; it starts the appointment (from 30 min before) | Booking, SOMA Pro |
-| **SOMA-Garantie** | Report a problem within 48 h → redo, credit or refund; the payout is held meanwhile | Booking, `/hilfe` |
+| **SOMA-Garantie** | Report a problem within 48 h → redo, credit or refund; the payout is held meanwhile | Booking, `/hilfe` |
 | **SOMA-Guthaben** | Credit from referrals and goodwill, applied at checkout | `/konto/guthaben` |
-| **Empfehlen** | Referral: 15 € for the referrer, 15 € for the invitee (current settings) | `/konto/guthaben` |
-| **Einladungslink** | The Profi's personal link; own clients book at 5 % commission | SOMA Pro |
+| **Empfehlen** | Referral: 15 € for the referrer, 15 € for the invitee (current settings) | `/konto/guthaben` |
+| **Einladungslink** | The Profi's personal link; own clients book at 5 % commission | SOMA Pro |
 | **Erneut buchen** · **Favoriten** · **Ihre Profis → Deine Profis** | Rebooking and saved Profis | Account, home |
 | **Verifiziert** | Badge backed by approved documents | Profiles |
-| **Problem melden** | Opens a dispute within 48 h | Booking |
+| **Problem melden** | Opens a dispute within 48 h | Booking |
 | **Ortszeile** (internal term) | Place line: *Ort · Stadtteil · Uhrzeit* | Brand assets, editorial |
 
 Principles: features are named for what they do, in German, with at most two words. Only **SOMA-Garantie**, **SOMA-Guthaben** and later **SOMA-Gutschein** carry the brand name (hyphenated per Duden). No invented branded features ("SOMA Moments", "SOMA Flow").
@@ -330,11 +330,11 @@ Principles: features are named for what they do, in German, with at most two wor
 
 | Pillar | Message (DE) | Proof points that are true today | Source |
 |---|---|---|---|
-| **1 · Dein Ort** | *Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.* | Three location types with specific fields (Etage, Klingelname; Hotelname, Zimmernr., Name an der Rezeption; Firma, Empfang) · per-category preparation notes (e.g. 2 × 3 m for the massage table) · the address is visible to the Profi only after confirmation and hidden again after the appointment | `checkout-form.tsx`, `discovery-copy.ts` (PREP), spec §11 |
+| **1 · Dein Ort** | *Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.* | Three location types with specific fields (Etage, Klingelname; Hotelname, Zimmernr., Name an der Rezeption; Firma, Empfang) · per-category preparation notes (e.g. 2 × 3 m for the massage table) · the address is visible to the Profi only after confirmation and hidden again after the appointment | `checkout-form.tsx`, `discovery-copy.ts` (PREP), spec § 11 |
 | **2 · Geprüfte Profis** | *Wer zu dir kommt, ist geprüft – und von Menschen bewertet, die wirklich gebucht haben.* | Approval is blocked until ID, Gewerbeanmeldung and Berufshaftpflicht are approved, plus a qualification for every category except Make-up (Haare: Meisterbrief or Handwerksrolle) · auto-pause on an expired document · reviews only after a completed booking (14-day window) · Start-Code at the door | `base-seed-data.ts`, `services/verification.ts`, `STATUS.md` |
-| **3 · Vorher klar** | *Du siehst den Endpreis, bevor du buchst, und weißt, bis wann du kostenlos absagen kannst.* | Total incl. travel in search · no service fee (setting = 0) · free cancellation ≥ 24 h before · 15-min Bedenkzeit · 50 % of the service price at 24–2 h (travel refunded), 100 % + travel under 2 h or no-show · requests free until accepted · full refund if the Profi cancels · card reserved at booking, charged after the appointment · slot held for 10 min while paying | `cancellation.ts`, `pricing.ts`, `payments/stripe.ts` (manual capture), `booking-engine.ts` |
+| **3 · Vorher klar** | *Du siehst den Endpreis, bevor du buchst, und weißt, bis wann du kostenlos absagen kannst.* | Total incl. travel in search · no service fee (setting = 0) · free cancellation ≥ 24 h before · 15-min Bedenkzeit · 50 % of the service price at 24–2 h (travel refunded), 100 % + travel under 2 h or no-show · requests free until accepted · full refund if the Profi cancels · card reserved at booking, charged after the appointment · slot held for 10 min while paying | `cancellation.ts`, `pricing.ts`, `payments/stripe.ts` (manual capture), `booking-engine.ts` |
 
-**Foundation:** SOMA-Garantie (48 h), payment only through SOMA (no cash), ranking without paid placement.
+**Foundation:** SOMA-Garantie (48 h), payment only through SOMA (no cash), ranking without paid placement.
 
 ### 7.2 Provider house (SOMA Pro)
 
@@ -344,8 +344,8 @@ Principles: features are named for what they do, in German, with at most two wor
 |---|---|
 | **Gefunden werden** | Visible in searches within your radius, with the total price; profile with portfolio and verified reviews; ranking by quality and reliability, no paid placement |
 | **Selbst bestimmen** | Prices, radius, travel fee, weekly hours, buffer and lead time; request mode with accept/decline; instant mode after 3 completed appointments |
-| **Sicher bezahlt** | Payment through SOMA, never cash; cancellation and no-show fees (50 % / 100 % + travel); your share is available 48 h after the appointment; travel fee 100 % yours |
-| **Fair berechnet** | No base fee; commission 20 % (new via SOMA), 12 % (repeat), 5 % (own client via invite link), 0 % on travel; commission applies only to service revenue earned through SOMA |
+| **Sicher bezahlt** | Payment through SOMA, never cash; cancellation and no-show fees (50 % / 100 % + travel); your share is available 48 h after the appointment; travel fee 100 % yours |
+| **Fair berechnet** | No base fee; commission 20 % (new via SOMA), 12 % (repeat), 5 % (own client via invite link), 0 % on travel; commission applies only to service revenue earned through SOMA |
 
 ### 7.3 Claims we must not make (yet)
 
@@ -355,12 +355,12 @@ Principles: features are named for what they do, in German, with at most two wor
 | Native iOS/Android apps | "Läuft im Browser deines Smartphones – ohne Download." (PWA, manifest present) |
 | English UI | v1.1 |
 | SMS, push, "unterwegs" ETA, 2-h reminder | Today: in-app inbox and e-mail; a 24-h reminder exists |
-| Führungszeugnis, Stripe Identity, "zertifiziert", "versichert über SOMA" | Name the actual checks (§7.1 pillar 2) |
+| Führungszeugnis, Stripe Identity, "zertifiziert", "versichert über SOMA" | Name the actual checks (§ 7.1 pillar 2) |
 | "handverlesen", "kuratiert", "die besten Profis" | "geprüft" |
-| "in 60 Minuten", "rund um die Uhr", "überall", "deutschlandweit" | "in {Städte}"; "freie Termine morgens, nachmittags und abends", where they exist |
+| "in 60 Minuten", "rund um die Uhr", "überall", "deutschlandweit" | "in {Städte}"; "freie Termine morgens, nachmittags und abends", where they exist |
 | Income figures ("verdiene bis zu …") | Show the commission table; let the earnings calculator do the maths |
-| "Automatische Rechnungen" for Profis | Not built; verify before claiming (the current `/fuer-profis` FAQ hints at it, see `BRAND_VOICE.md` §9) |
-| Review timing promises ("Prüfung in 48 h", "Antwort in 72 h") | These are ops targets; use them only once ops confirms (current copy flagged in `BRAND_VOICE.md` §9) |
+| "Automatische Rechnungen" for Profis | Not built; verify before claiming (the current `/fuer-profis` FAQ hints at it, see `BRAND_VOICE.md` § 9) |
+| Review timing promises ("Prüfung in 48 h", "Antwort in 72 h") | These are ops targets; use them only once ops confirms (current copy flagged in `BRAND_VOICE.md` § 9) |
 
 **City-gating rule (lesson from Glow2Go):** advertise a city × category only where the product's coverage gate shows live supply. Brand awareness never runs ahead of liquidity.
 
@@ -393,7 +393,7 @@ Principles: features are named for what they do, in German, with at most two wor
 | *Zeit für dich. Wo du willst.* | **Retire** | "Zeit für dich" is one of the most worn self-care phrases in German wellness; "Wo du willst" promises any location, but supply is limited to 6 cities and each Profi's radius | — |
 | *Beauty & Wellness. Bei dir.* | **Adopt** | Clear, true and short; it is the natural German partner of the English descriptor | **German product descriptor** |
 | *Dein Moment. Dein Ort.* | **Retire** | It copies the tagline's structure and competes with it; "Moment" is generic; "dein Ort" reads as "your town" | — |
-| *Professionelle Treatments. Ganz entspannt bei dir.* | **Rewrite** | Denglisch; "professionelle" is a weak adjective; "ganz entspannt" promises a feeling | → supporting line (§8.1) |
+| *Professionelle Treatments. Ganz entspannt bei dir.* | **Rewrite** | Denglisch; "professionelle" is a weak adjective; "ganz entspannt" promises a feeling | → supporting line (§ 8.1) |
 | (new) *Du bleibst. Dein Profi kommt.* | **Adopt** | The whole model in five words; true to the agency model; *du*; ownable | **German signature line** |
 
 ---
@@ -404,7 +404,7 @@ Principles: features are named for what they do, in German, with at most two wor
 
 **How to use it:**
 - **As a quiet origin story, one sentence, in "about", press and the brand book:** *„Soma ist das altgriechische Wort für Körper.“* Never as a hero line, never explained in the UI.
-- **As a design principle, not a picture:** proportion, curvature, weight and warmth in letterforms, crops and motion (§10). The tagline says "body"; the identity *feels* it.
+- **As a design principle, not a picture:** proportion, curvature, weight and warmth in letterforms, crops and motion (§ 10). The tagline says "body"; the identity *feels* it.
 - **In copy:** concrete, bodily, sensory words (Hände, Haut, Wärme, Ruhe, Körpergefühl) instead of abstract wellbeing talk.
 
 **Keep away from:**
@@ -450,19 +450,19 @@ Principles: features are named for what they do, in German, with at most two wor
 9. **Motion means arrival.** Elements settle into place and stop: ease-out, no bounce, no loops. The motif's metaphor is "coming to rest", not "flowing energy".
 10. **Built for German.**
     - Layouts must hold long compounds (*Wimpernverlängerung*, *Gesichtsbehandlung*) at display sizes, with soft hyphens.
-    - Buttons must fit *Zahlungspflichtig buchen · 84 €*.
+    - Buttons must fit *Zahlungspflichtig buchen · 84 €*.
     - Every status is a word plus a colour.
 
 ---
 
 ## 11. Open items for the Lead
 
-1. **Trademark clearance** for "SOMA" (§9).
-2. **Legal (lawyer):** confirm the *du* exceptions (statutory Widerrufsbelehrung and model form stay verbatim in *Sie*; see `BRAND_VOICE.md` §1.3). Add the zero-tolerance rule for sexualised requests to the terms and the massage checkout.
+1. **Trademark clearance** for "SOMA" (§ 9).
+2. **Legal (lawyer):** confirm the *du* exceptions (statutory Widerrufsbelehrung and model form stay verbatim in *Sie*; see `BRAND_VOICE.md` § 1.3). Add the zero-tolerance rule for sexualised requests to the terms and the massage checkout.
 3. **Phase B2 migration:**
    - customer copy from *Sie* to *du* (about 435 lines in 82 source files, plus 9 E2E specs);
    - seeded content blocks and category taglines in `scripts/db/lib/base-seed-data.ts`, and the live `content_blocks` rows;
    - `BRAND_TAGLINE` and `BRAND_PROMISE` in `src/lib/brand.ts`, and the manifest description;
    - remove `"health"` from the manifest categories (medical association).
-4. **Copy corrections found in this review** (truth, not taste): see `BRAND_VOICE.md` §9.
-5. **Payments:** if the SetupIntent flow for bookings more than 6 days ahead ships, "reserviert" in the payment copy becomes "hinterlegt" (`BRAND_VOICE.md` §7.11).
+4. **Copy corrections found in this review** (truth, not taste): see `BRAND_VOICE.md` § 9.
+5. **Payments:** if the SetupIntent flow for bookings more than 6 days ahead ships, "reserviert" in the payment copy becomes "hinterlegt" (`BRAND_VOICE.md` § 7.11).
