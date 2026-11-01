@@ -58,7 +58,7 @@ docs/landing/
 | **B2** | Digital Art Director | `brand/photography/**`, `brand/applications/**`, guideline sections on photography, motion and applications | B1 |
 | **B2** | App Brand Migration (Frontend) | app tokens (`src/styles/tokens.css`), fonts (`src/app/layout.tsx`), logo components, favicons/manifest/OG, motif in the UI kit, tagline, customer copy migration (if *du*), E2E text updates | B1 |
 | **B3** | Independent Brand Auditor | `brand/audit/**` | B2 |
-| **L1** | Reference Researcher | `docs/landing/REFERENCE_ANALYSIS.md` | **blocked**: theoneagency.de not reachable |
+| **L1** | Reference Researcher | `docs/landing/REFERENCE_ANALYSIS.md` | client-approved captures in `research/reference/theoneagency/` |
 | **L1** | Landing Art Director | `docs/landing/LANDING_DESIGN_SPEC.md` | B3 (+ L1 research) |
 | **L2** | Frontend Engineer | `src/app/(site)/page.tsx`, `src/components/landing/**` (sections, static and responsive) | spec |
 | **L2** | Conversion & Integration | booking entry, routing and params, SEO metadata, JSON-LD, OG (`src/components/landing/booking/**`, metadata) | spec |
@@ -83,4 +83,10 @@ Phases with dependencies run in sequence; agents within a phase have disjoint fi
   Kill processes by PID only, never with `pkill -f`.
 - **Playwright:** `require('@playwright/test')` from inside `soma/`, `chromium.launch({ executablePath: '/opt/pw-browsers/chromium' })`.
 - **Demo logins** (password `soma-demo-2026`): `testkunde@soma.test`, `testkunde-b2b@soma.test`, `testadmin@soma.test`.
-- **Blocked hosts:** `theoneagency.de` and the photo CDN `d8j0ntlcm91z4.cloudfront.net`. The client has been asked to allow both.
+- **Blocked hosts:** `theoneagency.de` and the photo CDN are still blocked in this sandbox. The client-approved GitHub
+  workflow `soma-capture` fetched both:
+  - all 131 photos are now local in `public/images/**`;
+  - the reference captures are in `research/reference/`.
+
+  To fetch newly generated images, add them to `scripts/images/sources.json`; the Lead re-runs the workflow by changing
+  `.github/capture-request`.

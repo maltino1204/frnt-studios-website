@@ -1,9 +1,9 @@
 # SOMA — Premium Interactive Landing Page (client brief, verbatim)
 
 > Saved by the Lead on 2026-11-01. The binding source for the landing workstream. Do not edit; add decisions to `docs/landing/*` instead.
-> **Status note (Lead):** the reference website theoneagency.de is blocked by this environment's network policy
-> (HTTP 403 on CONNECT, DNS ENOTFOUND for the fetch tool). The client has been asked to allow it. Do not describe the
-> reference from memory or invent its features.
+> **Status note (Lead):** theoneagency.de is blocked from this sandbox. With the client's approval it was captured by
+> the GitHub workflow `.github/workflows/soma-capture.yml` into `research/reference/theoneagency/`, which holds screenshots,
+> the DOM, videos and stack clues. Those captures are internal research, kept outside `soma/` and never shipped.
 
 THE MISSION
 
