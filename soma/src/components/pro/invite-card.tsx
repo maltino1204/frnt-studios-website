@@ -53,7 +53,7 @@ export function InviteCard({
     >
       {compact ? <AuraBackground variant="section" placement="full" fade="none" animate={false} /> : <AuraBackground variant="section" placement="full" fade="none" />}
       <div className="flex flex-col gap-3">
-        <span className="inline-flex h-7 w-fit items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink shadow-raised num">
+        <span className="inline-flex h-7 w-fit items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">
           Eigene Kundschaft · {ownClientRateLabel}
         </span>
         <h2 id="invite-title" className={cn("type-heading-m", !compact && "lg:type-heading-l")}>
@@ -69,7 +69,7 @@ export function InviteCard({
         <label className="sr-only" htmlFor="invite-url">
           Dein Einladungslink
         </label>
-        <div className="flex h-12 items-center gap-2 rounded-control glass-strong glass-edge px-3.5 shadow-raised transition-shadow duration-fast focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus">
+        <div className="flex h-12 items-center gap-2 rounded-control bg-surface-raised px-3.5 shadow-raised transition-shadow duration-fast focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus">
           <Icon icon={Link2} size={16} className="shrink-0 text-ink-muted" />
           <input
             id="invite-url"

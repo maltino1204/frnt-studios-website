@@ -5,12 +5,12 @@ import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
 /**
- * Form fields (design-guideline v2 §8 "Inputs"). 48px tall (36px dense), white,
- * 1px line-strong border (3:1), 10px radius, soft inner shadow, 16px text.
- * Focus: accent border plus a 4px focus glow.
+ * Form fields (brand/BRAND_GUIDELINES.md § 9.3). 48 px tall (36 px dense), Paper fill, 1 px control border
+ * (taupe-deep, 3.7:1), radius 8, a soft inset, 16 px text. The placeholder is umber (5.1:1), never the only label.
+ * Focus: the border turns to the focus colour plus a 3 px focus glow. Error: vermilion border + icon + text.
  */
 const control =
-  "w-full rounded-control border border-line-strong bg-surface-raised px-3.5 text-ink inset-shadow-field placeholder:text-ink-muted transition-[border-color,box-shadow,background-color] duration-fast ease-standard hover:border-ink-muted focus:border-accent focus:outline-none focus:ring-4 focus:ring-focus-glow disabled:border-line disabled:bg-surface-sunken disabled:text-ink-disabled disabled:shadow-none aria-invalid:border-danger aria-invalid:focus:ring-danger/15";
+  "w-full rounded-control border border-line-control bg-surface-raised px-3.5 type-control text-ink inset-shadow-field placeholder:text-ink-subtle transition-[border-color,box-shadow,background-color] duration-fast ease-standard hover:border-line-emphasis focus:border-focus focus:outline-none focus:ring-[3px] focus:ring-focus-glow disabled:border-line disabled:bg-surface-sunken disabled:text-ink-disabled disabled:shadow-none aria-invalid:border-danger aria-invalid:focus:ring-danger/15";
 
 export type FieldProps = {
   label: ReactNode;
@@ -189,8 +189,8 @@ export function Select({
 }
 
 /**
- * 20px checkbox, 6px radius, ink fill when checked. The tick draws itself in
- * (stroke-dashoffset) and the box settles on a spring.
+ * 20 px checkbox, 6 px radius, Espresso fill when checked. The tick draws itself in (stroke-dashoffset) and the
+ * box settles (no overshoot).
  */
 export function Checkbox({
   label,
@@ -209,7 +209,7 @@ export function Checkbox({
           <input
             id={id}
             type="checkbox"
-            className="peer size-5 appearance-none rounded-[6px] border border-line-strong bg-surface-raised inset-shadow-field transition-[background-color,border-color,box-shadow,scale] duration-fast ease-standard group-hover:border-ink-muted checked:border-ink checked:bg-ink checked:shadow-ink checked:animate-settle focus-ring aria-invalid:border-danger active:scale-90"
+            className="peer size-5 appearance-none rounded-[6px] border border-line-strong bg-surface-raised inset-shadow-field transition-[background-color,border-color,box-shadow,scale] duration-fast ease-standard group-hover:border-line-emphasis checked:border-selected checked:bg-selected checked:animate-settle focus-ring aria-invalid:border-danger active:scale-90"
             aria-invalid={error ? true : undefined}
             {...props}
           />
@@ -233,7 +233,7 @@ export function Checkbox({
   );
 }
 
-/** 42×24 switch; ink when on. The knob springs across and stretches while pressed. Native checkbox for forms and a11y. */
+/** 42×24 switch; Espresso when on. The knob settles across and stretches while pressed. Native checkbox for forms and a11y. */
 export function Switch({
   label,
   description,
@@ -252,13 +252,13 @@ export function Switch({
       <span className="relative inline-flex shrink-0">
         <input id={id} type="checkbox" role="switch" className="peer sr-only" {...props} />
         <span className="h-6 w-[42px] rounded-full bg-surface-pressed ring-1 ring-line-strong ring-inset transition-[background-color,box-shadow] duration-base ease-standard peer-checked:bg-ink peer-checked:ring-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-focus-visible:shadow-[0_0_0_6px_var(--color-focus-glow)] peer-disabled:opacity-50" />
-        <span className="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-surface-raised shadow-[0_1px_2px_rgb(23_22_31/0.2),0_2px_6px_-1px_rgb(23_22_31/0.18)] transition-[translate,width] duration-spring ease-spring group-active:w-6 peer-checked:translate-x-[18px] peer-checked:group-active:translate-x-[14px]" />
+        <span className="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-surface-raised shadow-[0_1px_2px_rgb(37_33_31/0.2),0_2px_6px_-1px_rgb(37_33_31/0.14)] transition-[translate,width] duration-spring ease-spring group-active:w-6 peer-checked:translate-x-[18px] peer-checked:group-active:translate-x-[14px]" />
       </span>
     </label>
   );
 }
 
-/** Radio card list, e.g. choose a saved address. The dot springs in. */
+/** Radio card list, e.g. choose a saved address. The dot settles in. */
 export function RadioRow({
   label,
   description,

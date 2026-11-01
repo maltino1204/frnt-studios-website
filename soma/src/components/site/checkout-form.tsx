@@ -377,7 +377,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
           Bitte prüfen Sie die markierten Angaben.
         </p>
       ) : null}
-      <Button size="l" block onClick={submit} loading={submitting} disabled={!quote.withinServiceArea || !!taken} className="num">
+      <Button variant="accent" size="l" block onClick={submit} loading={submitting} disabled={!quote.withinServiceArea || !!taken} className="num">
         {ctaLabel}
       </Button>
       <p className="text-center type-caption text-ink-muted">
@@ -413,7 +413,6 @@ export function CheckoutForm(props: CheckoutFormProps) {
 
         {taken ? (
           <section aria-live="assertive" className="relative isolate flex flex-col gap-4 overflow-clip rounded-card bg-surface-raised p-5 shadow-float ring-1 ring-warning/20 ring-inset md:p-7">
-            <span aria-hidden className="block h-0.5 w-6 rounded-full bg-aura" />
             <h2 className="type-display-s">Dieser Termin wurde gerade vergeben.</h2>
             <p className="type-body-s text-ink-muted">
               {taken.length
@@ -431,7 +430,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 ))}
               </ul>
             ) : null}
-            <Link href={routes.search({ plz: postalCode, kategorie: props.categorySlug ?? undefined })} className="self-start rounded-control type-label-s text-accent underline underline-offset-[0.2em] focus-ring hover:text-accent-hover">
+            <Link href={routes.search({ plz: postalCode, kategorie: props.categorySlug ?? undefined })} className="self-start rounded-control type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring">
               Andere Profis in Ihrer Nähe
             </Link>
           </section>
@@ -563,7 +562,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                 <Input label="Nr." autoComplete="address-line2" value={addr.houseNumber} onChange={(e) => set("houseNumber", e.target.value)} error={err("houseNumber")} maxLength={12} />
               </div>
               <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3">
-                <Input label="PLZ" value={postalCode} readOnly aria-readonly className="[&_input]:bg-surface-sunken" hint={<Link href={props.changePlzHref} className="-my-1 inline-block py-1 text-accent underline underline-offset-[0.2em]">Ändern</Link>} />
+                <Input label="PLZ" value={postalCode} readOnly aria-readonly className="[&_input]:bg-surface-sunken" hint={<Link href={props.changePlzHref} className="-my-1 inline-block py-1 text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">Ändern</Link>} />
                 <Input label="Ort" autoComplete="address-level2" value={addr.city} onChange={(e) => set("city", e.target.value)} error={err("city")} maxLength={80} />
               </div>
               {kind === "home" ? (
@@ -706,11 +705,11 @@ export function CheckoutForm(props: CheckoutFormProps) {
                     <Icon icon={UserRound} size={18} className="mt-px shrink-0 text-ink-muted" />
                     <p className="type-caption text-ink-muted">
                       Mit der Buchung legen wir ein Kundenkonto für Sie an. Es gelten die{" "}
-                      <Link href={routes.terms()} className="text-accent underline underline-offset-[0.2em]" target="_blank">
+                      <Link href={routes.terms()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current" target="_blank">
                         AGB
                       </Link>
                       ; wie wir Ihre Daten verarbeiten, steht in der{" "}
-                      <Link href={routes.privacy()} className="text-accent underline underline-offset-[0.2em] hyphens-none" target="_blank">
+                      <Link href={routes.privacy()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current hyphens-none" target="_blank">
                         Datenschutzerklärung
                       </Link>
                       .
@@ -731,7 +730,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
                     <Button variant="secondary" onClick={doLogin} loading={loggingIn} icon={<Icon icon={KeyRound} />}>
                       Anmelden und fortfahren
                     </Button>
-                    <Link href="/passwort-vergessen" className="rounded-control type-label-s text-accent underline underline-offset-[0.2em] focus-ring" target="_blank">
+                    <Link href="/passwort-vergessen" className="rounded-control type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring" target="_blank">
                       Passwort vergessen?
                     </Link>
                   </div>
@@ -790,7 +789,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
               description={
                 <>
                   Pflichtangabe nach §{NBSP}356 Abs.{NBSP}4 BGB.{" "}
-                  <Link href="/widerruf" target="_blank" className="text-accent underline underline-offset-[0.2em]">
+                  <Link href="/widerruf" target="_blank" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                     Widerrufsbelehrung
                   </Link>
                 </>
@@ -798,7 +797,7 @@ export function CheckoutForm(props: CheckoutFormProps) {
             />
             <p className="type-caption text-ink-muted">
               Mit Klick auf „{isRequest ? "Zahlungspflichtig anfragen" : "Zahlungspflichtig buchen"}“ schließen Sie einen kostenpflichtigen Vertrag mit {provider.name} ab; es gelten die{" "}
-              <Link href={routes.terms()} target="_blank" className="text-accent underline underline-offset-[0.2em]">
+              <Link href={routes.terms()} target="_blank" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                 AGB
               </Link>
               .
@@ -812,7 +811,6 @@ export function CheckoutForm(props: CheckoutFormProps) {
       <aside aria-label="Zusammenfassung" className="mt-4 min-w-0 md:mt-5 lg:col-span-5 lg:mt-0">
         <div className="lg:sticky lg:top-[calc(var(--header-height)+0.75rem)]">
           <section id="preis" aria-labelledby="preis-titel" className="relative isolate flex scroll-mt-24 flex-col gap-5 overflow-clip rounded-card bg-surface-raised p-5 shadow-float md:p-7">
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-52 bg-aura-soft [mask-image:linear-gradient(to_bottom,#000_35%,transparent)]" />
             <div className="flex items-center gap-3.5">
               <Avatar src={provider.avatarUrl} name={provider.name} size={48} />
               <div className="min-w-0">
@@ -867,8 +865,8 @@ export function CheckoutForm(props: CheckoutFormProps) {
         </div>
       </aside>
 
-      {/* Mobile sticky CTA: glass bar above the safe area. */}
-      <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong glass-edge px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
+      {/* Mobile sticky CTA: glass Paper bar above the safe area (one of the two CTA copies is ever visible). */}
+      <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar lg:hidden">
         {cta}
       </div>
 

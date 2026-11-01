@@ -171,7 +171,7 @@ function Popover({
       role="dialog"
       aria-label={label}
       className={cn(
-        "absolute top-[calc(100%+0.75rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] origin-top-left flex-col overflow-hidden rounded-card glass-strong glass-edge text-ink shadow-overlay animate-dialog-in",
+        "absolute top-[calc(100%+0.75rem)] left-0 z-(--z-overlay) flex max-h-[min(34rem,70dvh)] origin-top-left flex-col overflow-hidden rounded-card bg-surface-raised text-ink shadow-overlay animate-dialog-in",
         className,
       )}
     >
@@ -698,7 +698,7 @@ export function BookingEntry({
         </div>
 
         <div className={cn("p-2 pt-1", bar && "lg:p-0 lg:pr-2.5")}>
-          <Button type="submit" size="l" block loading={pending}>
+          <Button type="submit" variant="accent" size="l" block loading={pending}>
             Verfügbare Profis anzeigen
           </Button>
         </div>

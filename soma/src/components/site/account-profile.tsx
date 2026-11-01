@@ -166,7 +166,7 @@ export function DeleteAccount({ email }: { email: string }) {
           {state && !state.ok && !fe?.password ? <Notice kind="danger">{state.error}</Notice> : null}
           <p className="type-caption text-ink-muted">
             Noch kein Passwort festgelegt?{" "}
-            <Link href="/passwort-vergessen" className="text-accent underline underline-offset-[0.2em]">
+            <Link href="/passwort-vergessen" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
               Passwort festlegen
             </Link>
           </p>

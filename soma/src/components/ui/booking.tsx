@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, type KeyboardEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { dateParts, formatTime, berlinDateKey } from "@/lib/format";
@@ -9,9 +9,9 @@ import { Icon } from "./icon";
 export type DateCell = { key: string; date: string | Date; available: boolean };
 
 /**
- * Date strip: horizontal snap scroll of day cells (56×72, 14px radius), radiogroup
- * semantics with arrow keys. Today reads "Heute" with an aura line; the selected
- * day settles into an ink fill on a spring; booked-out days are disabled.
+ * Date strip (brand § 9.3): horizontal snap scroll of day tiles (56×72, radius 12), radiogroup semantics with
+ * arrow keys. Today reads "Heute" and carries a small arch mark under the number; the selected day is an Espresso
+ * fill; booked-out days are struck through and disabled ("ausgebucht").
  */
 export function DateStrip({
   days,
@@ -73,10 +73,10 @@ export function DateStrip({
               className={cn(
                 "relative flex h-[72px] w-14 shrink-0 snap-start flex-col items-center justify-center gap-1 rounded-tile pressable focus-ring",
                 isSel
-                  ? "animate-settle bg-ink text-ink-inverse shadow-ink"
+                  ? "bg-selected text-ink-inverse"
                   : d.available
-                    ? "bg-surface-raised text-ink shadow-[0_0_0_1px_var(--color-line)] hover:shadow-[0_0_0_1px_var(--color-line-strong)]"
-                    : "text-ink-disabled",
+                    ? "bg-surface-raised text-ink shadow-[0_0_0_1px_var(--color-line-mid)] hover:shadow-[0_0_0_1px_var(--color-line-strong)]"
+                    : "bg-surface-sunken text-ink-disabled",
               )}
             >
               {showMonth ? (
@@ -84,7 +84,12 @@ export function DateStrip({
                   {p.month}
                 </span>
               ) : null}
-              {isToday ? <span aria-hidden className={cn("absolute top-2 h-0.5 w-3 rounded-full", isSel ? "bg-ink-inverse" : "bg-aura")} /> : null}
+              {isToday ? (
+                <span
+                  aria-hidden
+                  className={cn("absolute bottom-2 h-[7px] w-3.5 border-[1.5px] border-b-0 border-current [border-radius:50%_50%_0_0/100%_100%_0_0]", isSel ? "text-ink-inverse" : "text-ink")}
+                />
+              ) : null}
               <span className={cn("type-caption", isSel ? "text-ink-inverse" : d.available ? "text-ink-muted" : "")}>
                 {isToday ? "Heute" : p.weekday}
               </span>
@@ -107,7 +112,7 @@ function bucket(iso: string): "Morgens" | "Nachmittags" | "Abends" {
   return h < 12 ? "Morgens" : h < 17 ? "Nachmittags" : "Abends";
 }
 
-/** Time slots grouped under Morgens / Nachmittags / Abends; the chosen slot settles into ink. Unavailable times are never rendered. */
+/** Time slots grouped under Morgens / Nachmittags / Abends (radius 12, tabular); the chosen slot is Espresso with a check. Unavailable times are never rendered. */
 export function TimeSlots({
   slots,
   selected,
@@ -143,12 +148,11 @@ export function TimeSlots({
                   aria-checked={isSel}
                   onClick={() => onSelect(s.start)}
                   className={cn(
-                    "h-touch rounded-tile border type-label num pressable focus-ring",
-                    isSel
-                      ? "animate-settle border-ink bg-ink text-ink-inverse shadow-ink"
-                      : "border-line-mid bg-surface-raised text-ink shadow-[0_1px_2px_rgb(23_22_31/0.04)] hover:border-ink",
+                    "inline-flex h-touch items-center justify-center gap-1.5 rounded-tile border type-label num pressable focus-ring",
+                    isSel ? "border-selected bg-selected text-ink-inverse" : "border-line-mid bg-surface-raised text-ink hover:border-line-strong",
                   )}
                 >
+                  {isSel ? <Icon icon={Check} size={16} className="-ml-1 animate-pop" /> : null}
                   {formatTime(s.start)}
                 </button>
               );

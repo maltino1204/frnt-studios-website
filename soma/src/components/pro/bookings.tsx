@@ -55,7 +55,7 @@ export function AgendaTimeline({ bookings, now = Date.now(), showDate = false, l
         const last = i === bookings.length - 1;
         return (
           <li key={b.id} className={cn("grid gap-x-2 sm:gap-x-3", showDate ? "grid-cols-[3.75rem_1.25rem_minmax(0,1fr)] sm:grid-cols-[4.5rem_1.5rem_minmax(0,1fr)]" : "grid-cols-[3rem_1.25rem_minmax(0,1fr)] sm:grid-cols-[3.75rem_1.5rem_minmax(0,1fr)]")}>
-            <div className={cn("flex flex-col items-end pt-4 text-right num", live ? "text-accent" : ended ? "text-ink-muted" : "text-ink")}>
+            <div className={cn("flex flex-col items-end pt-4 text-right num", live ? "text-info" : ended ? "text-ink-muted" : "text-ink")}>
               {showDate ? <span className="type-caption whitespace-nowrap text-ink-muted">{formatDayShort(b.startsAt).replace(/,.*/, "")}</span> : null}
               <span className="type-label">{formatTime(b.startsAt)}</span>
               <span className="type-caption text-ink-muted">{formatTime(b.endsAt)}</span>
@@ -66,9 +66,7 @@ export function AgendaTimeline({ bookings, now = Date.now(), showDate = false, l
               ) : null}
               <span className="absolute top-[1.5rem] left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
                 {live ? (
-                  <span className="relative size-3 rounded-full bg-accent shadow-[0_0_0_4px_rgb(61_79_240/0.14)]">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-50 [animation-duration:2.4s]" />
-                  </span>
+                  <span className="relative size-3 rounded-full bg-info shadow-[0_0_0_3px_var(--color-surface)]" />
                 ) : ended ? (
                   <span className="size-2 rounded-full bg-ink-disabled shadow-[0_0_0_3px_var(--color-surface)]" />
                 ) : (
@@ -81,10 +79,10 @@ export function AgendaTimeline({ bookings, now = Date.now(), showDate = false, l
                 href={routes.pro.booking(b.id)}
                 className={cn(
                   "group relative flex min-h-16 items-center gap-3 overflow-hidden rounded-card bg-surface-raised py-3 pr-3 pl-4 shadow-raised lift focus-ring",
-                  live && "ring-1 ring-accent/25",
+                  live && "ring-1 ring-info-line",
                 )}
               >
-                {live ? <span aria-hidden className="absolute inset-y-3 left-0 w-0.5 rounded-full bg-accent" /> : null}
+                {live ? <span aria-hidden className="absolute inset-y-3 left-0 w-0.5 rounded-full bg-info" /> : null}
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className={cn("line-clamp-2 type-body-s font-[560] hyphens-none", ended && !live ? "text-ink-muted" : "text-ink")}>
                     {customerLabel(b.customer)} <span className="font-normal text-ink-muted">·</span> {b.serviceName}
@@ -128,7 +126,7 @@ export function BookingListRow({ booking: b, now = Date.now() }: { booking: Prov
         href={routes.pro.booking(b.id)}
         className="group relative flex items-start gap-4 px-4 py-3.5 transition-colors duration-fast focus-ring hover:bg-surface-tint sm:px-5 md:items-center"
       >
-        {live ? <span aria-hidden className="absolute inset-y-3 left-0 w-0.5 rounded-full bg-accent" /> : null}
+        {live ? <span aria-hidden className="absolute inset-y-3 left-0 w-0.5 rounded-full bg-info" /> : null}
         <DateTile date={b.startsAt} today={today} />
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="flex items-baseline justify-between gap-3 md:justify-start">
@@ -162,7 +160,7 @@ function clientBadge(b: ProviderBookingDTO) {
   if (b.isRepeatClient) return <Badge tone="success" size="s" dot>Stammkundschaft</Badge>;
   if (b.customer.completedBookings > 0) return <Badge size="s">{`${b.customer.completedBookings} ${b.customer.completedBookings === 1 ? "Termin" : "Termine"} auf SOMA`}</Badge>;
   return (
-    <Badge size="s" icon={<span aria-hidden className="size-1.5 shrink-0 rounded-full bg-aura" />}>
+    <Badge size="s" icon={<span aria-hidden className="size-1.5 shrink-0 rounded-full bg-line-strong" />}>
       Neu auf SOMA
     </Badge>
   );

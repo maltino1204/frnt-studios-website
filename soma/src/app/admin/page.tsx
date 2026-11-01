@@ -363,7 +363,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
             <p className="pt-1 pb-3">
               <Link
                 href={routes.admin.regions()}
-                className="group/gap -ml-2 inline-flex h-7 items-center gap-1 rounded-full px-2 type-label-s text-accent transition-colors duration-fast pressable hover:bg-accent-soft hover:text-accent-hover focus-ring"
+                className="group/gap -ml-2 inline-flex h-7 items-center gap-1 rounded-full px-2 type-label-s text-ink underline decoration-line-strong underline-offset-4 transition-colors duration-fast pressable hover:bg-surface-sunken hover:decoration-current focus-ring"
               >
                 Angebotslücken nach Region <Icon icon={ArrowRight} size={14} className="transition-transform duration-fast group-hover/gap:translate-x-0.5" />
               </Link>
@@ -428,7 +428,7 @@ function QueueRow({ href, title, meta, aside, lead }: { href: string; title: Rea
     <li>
       <Link
         href={href}
-        className="group/q relative grid min-h-14 items-center gap-x-4 gap-y-2 rounded-tile px-2.5 py-2.5 transition-[background-color] duration-fast hover:bg-accent-tint focus-ring sm:grid-cols-[minmax(0,1fr)_auto_auto]"
+        className="group/q relative grid min-h-14 items-center gap-x-4 gap-y-2 rounded-tile px-2.5 py-2.5 transition-[background-color] duration-fast hover:bg-surface-tint focus-ring sm:grid-cols-[minmax(0,1fr)_auto_auto]"
       >
         <span className="flex min-w-0 items-center gap-3">
           {lead ? <span className="shrink-0">{lead}</span> : null}

@@ -90,7 +90,7 @@ export default async function GuthabenPage() {
                       {e.bookingId ? (
                         <>
                           {" · "}
-                          <Link href={routes.booking(e.bookingId)} className="text-accent underline underline-offset-[0.2em]">
+                          <Link href={routes.booking(e.bookingId)} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                             Buchung
                           </Link>
                         </>

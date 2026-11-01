@@ -7,7 +7,7 @@ import { Wordmark } from "@/components/brand/logo";
 import { Icon } from "@/components/ui/icon";
 import { routes } from "@/lib/routes";
 
-/** Minimal checkout chrome (glass, sticky): "Zurück", wordmark and the secure-booking note. */
+/** Minimal checkout chrome (glass Paper, sticky, hairline): "Zurück", wordmark and the secure-booking note. */
 export function CheckoutHeader({ signedIn }: { signedIn: boolean }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -17,11 +17,11 @@ export function CheckoutHeader({ signedIn }: { signedIn: boolean }) {
     else router.push(routes.search());
   };
   return (
-    <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--glass-hairline)]">
+    <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--color-line)]">
       <div className="mx-auto grid h-(--header-height) w-full max-w-content grid-cols-[1fr_auto_1fr] items-center gap-2 px-(--space-gutter) min-[360px]:gap-4">
         <div className="-ml-3 justify-self-start">
           {onDetail ? (
-            <Link href={signedIn ? routes.account.bookings() : routes.home()} className="inline-flex h-touch items-center gap-1 rounded-full pr-3 pl-2.5 type-label text-ink pressable focus-ring hover:bg-ink/5 min-[360px]:pr-4">
+            <Link href={signedIn ? routes.account.bookings() : routes.home()} className="inline-flex h-touch items-center gap-1 rounded-full pr-3 pl-2.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken min-[360px]:pr-4">
               <Icon icon={ChevronLeft} />
               {signedIn ? "Termine" : "Startseite"}
             </Link>

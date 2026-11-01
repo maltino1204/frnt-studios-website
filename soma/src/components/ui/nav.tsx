@@ -28,16 +28,16 @@ export function LinkPending({ className }: { className?: string }) {
 export type BottomNavItem = { href: string; label: string; icon: LucideIcon; active?: boolean; count?: number };
 
 /**
- * Mobile bottom navigation (design-guideline v2 §8 "Navigation"): glass bar
- * with safe-area padding; the active item sits in a soft pill that glides to
- * the next item on navigation (shared view transition). Hidden from lg.
+ * Mobile bottom navigation (brand § 9.3 "Navigation"): a Paper glass bar with a hairline and safe-area padding;
+ * 4 items, 22 px icons, 11 px labels. Active: Espresso, stroke 1.9, a Linen pill behind that glides to the next
+ * item on navigation (shared view transition). Inactive: umber-deep. Hidden from lg.
  */
 export function BottomNav({ items, label = "Hauptnavigation", className }: { items: BottomNavItem[]; label?: string; className?: string }) {
   return (
     <nav
       aria-label={label}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-(--z-bottom-nav) glass-strong shadow-[0_-1px_0_var(--glass-hairline),0_-12px_32px_-18px_rgb(23_22_31/0.22)] pb-[env(safe-area-inset-bottom)] lg:hidden",
+        "fixed inset-x-0 bottom-0 z-(--z-bottom-nav) glass-strong shadow-bar pb-[env(safe-area-inset-bottom)] lg:hidden",
         className,
       )}
     >
@@ -57,19 +57,19 @@ export function BottomNav({ items, label = "Hauptnavigation", className }: { ite
                 <span className="relative flex h-8 w-14 items-center justify-center">
                   {it.active ? (
                     <ViewTransition name={`${label.replace(/[^a-zA-Z]/g, "")}-pill`} share="soma-morph" default="none">
-                      <span aria-hidden className="absolute inset-0 animate-settle rounded-full bg-ink/[0.07]" />
+                      <span aria-hidden className="absolute inset-0 animate-settle rounded-full bg-surface-sunken" />
                     </ViewTransition>
                   ) : (
                     <LinkPending className="rounded-full" />
                   )}
-                  <I size={22} strokeWidth={it.active ? 2 : 1.5} absoluteStrokeWidth aria-hidden className="relative" />
+                  <I size={22} strokeWidth={it.active ? 1.9 : 1.5} absoluteStrokeWidth aria-hidden className="relative" />
                   {it.count ? (
                     <CountPill accent className="absolute -top-0.5 right-1.5">
                       {it.count}
                     </CountPill>
                   ) : null}
                 </span>
-                <span className={cn("type-caption", it.active && "font-[620]")}>{it.label}</span>
+                <span className={cn("text-[11px] leading-[1.2] font-[540]", it.active && "font-semibold")}>{it.label}</span>
                 {it.count ? <span className="sr-only">, {it.count} offen</span> : null}
               </Link>
             </li>

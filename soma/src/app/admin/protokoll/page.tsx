@@ -175,7 +175,7 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
                       <td>
                         {e.entityId ? (
                           href ? (
-                            <Link href={href} className="inline-block rounded-[6px] py-1 code-ref text-accent underline-offset-4 hover:underline focus-ring" title={e.entityId}>
+                            <Link href={href} className="inline-block rounded-[6px] py-1 code-ref text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current hover:text-link-hover focus-ring" title={e.entityId}>
                               {e.entityId.length > 20 ? `${e.entityId.slice(0, 8)}…` : e.entityId}
                             </Link>
                           ) : (

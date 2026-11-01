@@ -16,7 +16,7 @@ export default async function PasswortPage({ searchParams }: { searchParams: Pro
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         <Overline>Passwort</Overline>
-        <h1 className="type-display-m">{token ? "Passwort festlegen." : "Passwort vergessen."}</h1>
+        <h1 className="type-h1">{token ? "Passwort festlegen." : "Passwort vergessen."}</h1>
         <p className="type-body text-ink-muted">
           {token
             ? "Wählen Sie ein Passwort mit mindestens 10 Zeichen. Damit melden Sie sich künftig an."
@@ -25,7 +25,7 @@ export default async function PasswortPage({ searchParams }: { searchParams: Pro
       </div>
       {token ? <ResetPasswordForm token={token} /> : <ResetRequestForm />}
       <p className="type-body-s text-ink-muted">
-        <Link href={routes.login()} className="text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+        <Link href={routes.login()} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
           Zurück zur Anmeldung
         </Link>
       </p>

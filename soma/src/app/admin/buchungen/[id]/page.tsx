@@ -142,7 +142,7 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
           {b.disputes.length ? (
             <PanelCard title="Streitfälle" bodyClassName="flex flex-col p-1.5">
               {b.disputes.map((d) => (
-                <Link key={d.id} href={`${routes.admin.disputes()}?fall=${d.id}`} className="flex items-center justify-between gap-4 rounded-tile px-3 py-3 transition-colors duration-fast hover:bg-accent-tint focus-ring">
+                <Link key={d.id} href={`${routes.admin.disputes()}?fall=${d.id}`} className="flex items-center justify-between gap-4 rounded-tile px-3 py-3 transition-colors duration-fast hover:bg-surface-tint focus-ring">
                   <span className="flex flex-col gap-0.5">
                     <span className="type-body-s font-[520]">{DISPUTE_REASON[d.reason]}</span>
                     <span className="type-caption text-ink-muted num">eröffnet {formatDateTime(d.createdAt)}</span>
@@ -161,12 +161,12 @@ export default async function BookingDetailPage({ params }: { params: Promise<{ 
               <span className="flex min-w-0 flex-col">
                 <span className="type-caption text-ink-muted">Kundschaft</span>
                 <span className="truncate type-body-s font-[520]">{b.customerName}</span>
-                <a className="w-fit max-w-full truncate rounded-[6px] type-caption text-accent underline-offset-4 hover:underline focus-ring" href={`mailto:${b.customerEmail}`}>
+                <a className="w-fit max-w-full truncate rounded-[6px] type-caption text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current hover:text-link-hover focus-ring" href={`mailto:${b.customerEmail}`}>
                   {b.customerEmail}
                 </a>
               </span>
             </div>
-            <Link href={routes.admin.provider(b.providerId)} className="group/p flex items-center gap-3 rounded-tile px-3 py-2.5 transition-colors duration-fast hover:bg-accent-tint focus-ring">
+            <Link href={routes.admin.provider(b.providerId)} className="group/p flex items-center gap-3 rounded-tile px-3 py-2.5 transition-colors duration-fast hover:bg-surface-tint focus-ring">
               <Avatar name={b.providerName} size={32} />
               <span className="flex min-w-0 flex-col">
                 <span className="type-caption text-ink-muted">Profi</span>

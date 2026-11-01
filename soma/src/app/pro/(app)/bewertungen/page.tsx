@@ -83,7 +83,7 @@ export default async function ProReviewsPage({ searchParams }: PageProps<"/pro/b
                 </ul>
               ) : null}
               {r.providerReply ? (
-                <div className="relative flex flex-col gap-1 rounded-tile bg-surface-tint px-4 py-3 ring-1 ring-accent/10 ring-inset">
+                <div className="relative flex flex-col gap-1 rounded-tile bg-surface-tint px-4 py-3 ring-1 ring-line-mid ring-inset">
                   <p className="type-label-s text-ink">
                     Deine Antwort {r.providerRepliedAt ? <span className="font-normal text-ink-muted num">· {formatDate(r.providerRepliedAt)}</span> : null}
                   </p>

@@ -12,8 +12,8 @@ import { accountLink, focusBookingEntry, useSiteSession } from "./discovery-sess
 import { MobileMenu, type NavLink } from "./mobile-menu";
 
 /**
- * Marketing header (design-guideline v2 §8 "Navigation"): sticky and
- * transparent at the top, glass with a hairline once the page scrolls.
+ * Marketing header (brand § 9.3 "Navigation"): 60 / 68 px, the micro wordmark left, actions right. Sticky and
+ * transparent at the top; glass Paper with a hairline once the page scrolls (no shadow, no glow).
  * Account state is fetched after hydration so pages stay static.
  */
 export function SiteHeader() {
@@ -41,7 +41,7 @@ export function SiteHeader() {
       data-scrolled={scrolled ? "" : undefined}
       className={cn(
         "sticky top-0 z-(--z-header) h-(--header-height) transition-[background-color,box-shadow,backdrop-filter] duration-base ease-standard",
-        scrolled ? "glass-strong shadow-[0_1px_0_var(--glass-hairline),0_8px_24px_-16px_rgb(23_22_31/0.18)]" : "bg-transparent",
+        scrolled ? "glass-strong shadow-[0_1px_0_var(--color-line)]" : "bg-transparent",
       )}
     >
       <Container className="flex h-full items-center justify-between gap-6">
@@ -59,7 +59,7 @@ export function SiteHeader() {
                     aria-current={l.active ? "page" : undefined}
                     className={cn(
                       "relative inline-flex h-10 items-center rounded-full px-4 type-label transition-colors duration-fast pressable focus-ring",
-                      l.active ? "bg-ink/[0.06] text-ink" : "text-ink hover:bg-ink/[0.04]",
+                      l.active ? "bg-surface-sunken text-ink" : "text-ink hover:bg-surface-sunken",
                     )}
                   >
                     {l.label}

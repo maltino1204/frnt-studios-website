@@ -36,7 +36,7 @@ export function NotFoundContent() {
         {/* An empty doorstep: the aura with a glass card that names the missing page. Decorative. */}
         <div aria-hidden className="relative isolate flex h-56 items-center justify-center overflow-hidden rounded-panel shadow-float md:h-64">
           <AuraArt seed="404" tone="brows-lashes" />
-          <span className="relative z-[3] flex -rotate-2 flex-col items-center gap-1 rounded-card glass-strong glass-edge px-8 py-5 shadow-float">
+          <span className="relative z-[3] flex flex-col items-center gap-1 rounded-card bg-surface-raised px-8 py-5 shadow-float">
             <span className="type-display-m num">404</span>
             <span className="type-caption text-ink">Seite nicht gefunden</span>
           </span>

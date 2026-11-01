@@ -62,20 +62,20 @@ export function AccountStep() {
           error={err("acceptTerms")}
           label={
             <>
-              Ich akzeptiere die <Link href="/agb-profis" className="text-accent underline">AGB für Profis</Link> und habe die{" "}
-              <Link href={routes.privacy()} className="text-accent underline">Datenschutzerklärung</Link> gelesen.
+              Ich akzeptiere die <Link href="/agb-profis" className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">AGB für Profis</Link> und habe die{" "}
+              <Link href={routes.privacy()} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">Datenschutzerklärung</Link> gelesen.
             </>
           }
         />
         <Checkbox name="marketingOptIn" label="Schick mir Tipps und Neuigkeiten für Profis." description="Höchstens zweimal im Monat, jederzeit abbestellbar." />
       </div>
       <div aria-live="polite">{general ? <Notice kind="danger">{general}</Notice> : null}</div>
-      <SubmitButton size="l" className="self-start" loading={pending}>
+      <SubmitButton variant="accent" size="l" className="self-start" loading={pending}>
         Konto erstellen
       </SubmitButton>
       <p className="type-body-s text-ink-muted">
         Schon registriert?{" "}
-        <Link href={routes.login("/pro/registrieren")} className="text-accent underline decoration-1 underline-offset-[0.2em]">
+        <Link href={routes.login("/pro/registrieren")} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
           Anmelden
         </Link>
       </p>

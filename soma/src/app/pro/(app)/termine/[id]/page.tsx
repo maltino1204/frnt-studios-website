@@ -76,7 +76,7 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
       <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
         <aside className="order-1 flex min-w-0 flex-col gap-6 lg:order-2 lg:col-span-5" aria-label="Aktionen">
           <div className="relative flex flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised lg:sticky lg:top-6">
-            {live ? <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-aura" /> : null}
+            {live ? <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-info" /> : null}
             <div className="relative flex flex-col gap-5 p-5 lg:p-6">
               <ActionArea booking={b} live={live} settled={settled} now={now} windowHours={terms.requestResponseHours} />
             </div>
@@ -135,12 +135,12 @@ export default async function ProBookingDetailPage({ params }: PageProps<"/pro/t
           <section aria-labelledby="ort-title" className="flex flex-col overflow-hidden rounded-card bg-surface-raised shadow-raised">
             <div aria-hidden className="relative h-28 overflow-hidden">
               <AuraArt seed={`ort-${b.location.postalCode}`} tone="brows-lashes" />
-              <span className="absolute top-1/2 left-1/2 size-40 -translate-1/2 rounded-full border border-white/50" />
-              <span className="absolute top-1/2 left-1/2 size-24 -translate-1/2 rounded-full border border-white/60" />
-              <span className="absolute top-1/2 left-1/2 flex size-10 -translate-1/2 items-center justify-center rounded-full glass-strong glass-edge text-accent shadow-float">
+              <span className="absolute top-1/2 left-1/2 size-40 -translate-1/2 rounded-full border border-ink/20" />
+              <span className="absolute top-1/2 left-1/2 size-24 -translate-1/2 rounded-full border border-ink/30" />
+              <span className="absolute top-1/2 left-1/2 flex size-10 -translate-1/2 items-center justify-center rounded-full bg-surface-raised text-ink shadow-float">
                 <Icon icon={MapPin} size={18} strokeWidth={1.8} />
               </span>
-              <span className="absolute right-3 bottom-3 inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink num">
+              <span className="absolute right-3 bottom-3 inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-label-s text-ink num">
                 {formatDistance(b.location.distanceKm)}
               </span>
             </div>
@@ -207,9 +207,7 @@ function ActionHeading({ title, children, tone }: { title: string; children?: Re
     <div className="flex items-start gap-3">
       {tone === "done" ? <SuccessCheck size={40} glow={false} /> : null}
       {tone === "live" ? (
-        <span aria-hidden className="relative mt-2 size-2.5 shrink-0 rounded-full bg-accent">
-          <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-50 [animation-duration:2.4s]" />
-        </span>
+        <span aria-hidden className="relative mt-2 size-2.5 shrink-0 rounded-full bg-info" />
       ) : null}
       <div className="flex flex-col gap-1">
         <h2 className="type-heading-l">{title}</h2>

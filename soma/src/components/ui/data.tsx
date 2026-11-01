@@ -1,5 +1,5 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import { useId, type ComponentProps, type ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { smoothPath } from "./chart";
 import { Icon } from "./icon";
@@ -40,7 +40,7 @@ export function StatTile({
   className?: string;
 }) {
   const up = (delta ?? 0) >= 0;
-  const line = sparkline ?? (spark && spark.length > 1 ? <Sparkline values={spark} className={up ? "text-accent" : "text-ink-muted"} /> : null);
+  const line = sparkline ?? (spark && spark.length > 1 ? <Sparkline values={spark} className={up ? "text-ink" : "text-ink-muted"} /> : null);
   return (
     <div className={cn("relative flex min-w-0 flex-col gap-2 overflow-hidden rounded-card bg-surface-raised p-4 shadow-raised sm:p-5 lg:p-6", className)}>
       <p className="flex items-center gap-2 type-label-s text-ink-muted [&_svg]:size-4">
@@ -71,11 +71,10 @@ export function StatTile({
 }
 
 /**
- * Sparkline: smooth 1.75px line in currentColor with a gradient fill fading
- * to transparent, and a dot on the last value. Decorative; pair with a text value.
+ * Sparkline: smooth 1.75 px line in currentColor (Espresso by default) over a flat 6 % tint, and a dot on the last
+ * value. No gradients. Decorative; pair with a text value.
  */
 export function Sparkline({ values, className, fill = true }: { values: number[]; className?: string; fill?: boolean }) {
-  const id = useId().replace(/:/g, "");
   if (values.length < 2) return null;
   const w = 120,
     h = 40;
@@ -86,19 +85,9 @@ export function Sparkline({ values, className, fill = true }: { values: number[]
   const line = smoothPath(pts);
   const last = pts[pts.length - 1];
   return (
-    <span aria-hidden className={cn("relative block h-full w-full text-accent", className)}>
+    <span aria-hidden className={cn("relative block h-full w-full text-ink", className)}>
       <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className="absolute inset-0 size-full overflow-visible">
-        {fill ? (
-          <>
-            <defs>
-              <linearGradient id={`${id}-sp`} x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="currentColor" stopOpacity={0.22} />
-                <stop offset="100%" stopColor="currentColor" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <path d={`${line}L${w},${h}L0,${h}Z`} fill={`url(#${id}-sp)`} />
-          </>
-        ) : null}
+        {fill ? <path d={`${line}L${w},${h}L0,${h}Z`} fill="currentColor" fillOpacity={0.06} /> : null}
         <path d={line} fill="none" stroke="currentColor" strokeWidth={1.75} vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
       </svg>
       <span
@@ -110,8 +99,8 @@ export function Sparkline({ values, className, fill = true }: { values: number[]
 }
 
 /**
- * Dashboard table on a level-1 card. Header 40px (muted, sticky optional, glass),
- * rows 52px (dense 40px), hairline separators, tinted row hover.
+ * Dashboard table on a level-1 card. Header 40 px (label-s, umber-deep, sticky optional), rows 52 px (dense 40 px),
+ * Oat hairlines, Linen row hover.
  */
 export function Table({
   className,
@@ -126,7 +115,7 @@ export function Table({
         "overflow-x-auto rounded-card bg-surface-raised shadow-raised",
         // Sticky headers need the scroll container to own vertical scrolling too.
         stickyHeader &&
-          "max-h-[70dvh] overflow-y-auto [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-10 [&_thead_th]:bg-surface-raised/85 [&_thead_th]:backdrop-blur-md",
+          "max-h-[70dvh] overflow-y-auto [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-10 [&_thead_th]:bg-surface-raised",
         wrapperClassName,
       )}
     >
@@ -134,10 +123,10 @@ export function Table({
         data-dense={dense ? "" : undefined}
         className={cn(
           "w-full border-collapse text-left type-body-s",
-          "[&_th]:h-10 [&_th]:border-b [&_th]:border-line [&_th]:bg-surface/60 [&_th]:px-4 [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted",
+          "[&_th]:h-10 [&_th]:border-b [&_th]:border-line [&_th]:bg-surface/60 [&_th]:px-4 [&_th]:type-label-s [&_th]:whitespace-nowrap [&_th]:text-ink-muted",
           "[&_td]:border-b [&_td]:border-line [&_td]:px-4 [&_tr:last-child_td]:border-b-0",
           dense ? "[&_td]:h-10" : "[&_td]:h-[52px]",
-          "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-accent-tint",
+          "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-surface-tint",
           className,
         )}
         {...props}

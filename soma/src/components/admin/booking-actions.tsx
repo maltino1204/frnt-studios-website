@@ -92,7 +92,7 @@ export function AdminCancelButton({ ctx }: { ctx: BookingActionContext }) {
               <p>Für diesen Status gibt es keine Kundenstornierung; die Gebühr legt SOMA fest.</p>
             )}
             {ctx.customerCancelNow && ctx.customerCancelNow.feeCents > 0 ? (
-              <button type="button" className="w-fit rounded-full type-label-s text-accent underline underline-offset-[0.2em] hover:text-accent-hover focus-ring" onClick={() => setFee(centsToInput(ctx.customerCancelNow!.feeCents))}>
+              <button type="button" className="w-fit rounded-full type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring" onClick={() => setFee(centsToInput(ctx.customerCancelNow!.feeCents))}>
                 Gebühr laut Bedingungen übernehmen
               </button>
             ) : null}

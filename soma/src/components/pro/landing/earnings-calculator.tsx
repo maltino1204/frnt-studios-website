@@ -59,17 +59,17 @@ export function EarningsCalculator({ rates }: { rates: { rate: number; repeatCli
         <div aria-hidden className="mb-3 flex h-2.5 w-full gap-0.5 overflow-hidden rounded-full bg-surface-sunken">
           <span className="h-full rounded-l-full bg-ink transition-[width] duration-base ease-settle" style={{ width: `${((priceCents - commission) / (priceCents + travelCents)) * 100}%` }} />
           <span className="h-full bg-ink/45 transition-[width] duration-base ease-settle" style={{ width: `${(travelCents / (priceCents + travelCents)) * 100}%` }} />
-          <span className="h-full rounded-r-full bg-aura transition-[width] duration-base ease-settle" style={{ width: `${(commission / (priceCents + travelCents)) * 100}%` }} />
+          <span className="h-full rounded-r-full bg-chart-2 transition-[width] duration-base ease-settle" style={{ width: `${(commission / (priceCents + travelCents)) * 100}%` }} />
         </div>
         <div aria-hidden className="mb-3 flex flex-wrap gap-x-4 gap-y-1 type-caption text-ink-muted">
           <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-full bg-ink" />Dein Anteil</span>
           <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-full bg-ink/45" />Anfahrt</span>
-          <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-full bg-aura" />Provision</span>
+          <span className="inline-flex items-center gap-1.5"><span className="size-2 rounded-full bg-chart-2" />Provision</span>
         </div>
         <Row label="Kundschaft zahlt" value={formatPriceExact(priceCents + travelCents)} />
         <Row label={`Provision ${formatPercent(rate)} auf die Behandlung`} value={`−${formatPriceExact(commission)}`} />
         <Row label="Provision auf die Anfahrt" value={"0,00 €"} />
-        <div className="mt-2 flex items-baseline justify-between gap-4 rounded-tile bg-surface-tint px-4 py-3.5 shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)]">
+        <div className="mt-2 flex items-baseline justify-between gap-4 rounded-tile bg-surface-tint px-4 py-3.5 shadow-[inset_0_0_0_1px_var(--color-line-mid)]">
           <dt className="type-heading-m hyphens-none">Du erhältst pro Termin</dt>
           <dd className="type-stat">{formatPriceExact(payout)}</dd>
         </div>
@@ -150,10 +150,10 @@ function Slider({
         className={[
           "h-touch w-full cursor-pointer appearance-none bg-transparent focus-visible:outline-none",
           "[&::-webkit-slider-runnable-track]:h-1.5 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,var(--color-ink)_var(--p),var(--color-surface-pressed)_var(--p))]",
-          "[&::-webkit-slider-thumb]:-mt-[9px] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_rgb(23_22_31/0.12),0_2px_6px_rgb(23_22_31/0.18)] [&::-webkit-slider-thumb]:transition-[scale,box-shadow] [&::-webkit-slider-thumb]:duration-spring [&::-webkit-slider-thumb]:ease-spring active:[&::-webkit-slider-thumb]:scale-110",
+          "[&::-webkit-slider-thumb]:-mt-[9px] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-surface-raised [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_rgb(37_33_31/0.12),0_2px_6px_rgb(37_33_31/0.18)] [&::-webkit-slider-thumb]:transition-[scale,box-shadow] [&::-webkit-slider-thumb]:duration-spring [&::-webkit-slider-thumb]:ease-spring active:[&::-webkit-slider-thumb]:scale-110",
           "focus-visible:[&::-webkit-slider-thumb]:shadow-[0_0_0_2px_var(--color-focus),0_0_0_8px_var(--color-focus-glow)]",
           "[&::-moz-range-track]:h-1.5 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-surface-pressed [&::-moz-range-progress]:h-1.5 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-ink",
-          "[&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:shadow-[0_0_0_1px_rgb(23_22_31/0.12),0_2px_6px_rgb(23_22_31/0.18)]",
+          "[&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-surface-raised [&::-moz-range-thumb]:shadow-[0_0_0_1px_rgb(37_33_31/0.12),0_2px_6px_rgb(37_33_31/0.18)]",
         ].join(" ")}
       />
     </div>

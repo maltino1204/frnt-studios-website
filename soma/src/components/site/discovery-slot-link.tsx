@@ -34,7 +34,7 @@ export function SlotChipLink({ className, onClick, ...props }: ComponentProps<ty
         "before:absolute before:-inset-y-0.5 before:inset-x-0 before:content-['']",
         picked
           ? "animate-settle border-ink bg-ink text-ink-inverse shadow-ink"
-          : "border-line-mid bg-surface-raised text-ink shadow-[0_1px_2px_rgb(23_22_31/0.05)] hover:-translate-y-px hover:border-ink hover:shadow-[0_6px_14px_-8px_rgb(23_22_31/0.3)]",
+          : "border-line-mid bg-surface-raised text-ink shadow-[0_1px_2px_rgb(37_33_31/0.05)] hover:-translate-y-px hover:border-ink hover:shadow-[0_6px_14px_-8px_rgb(37_33_31/0.3)]",
         className,
       )}
     />

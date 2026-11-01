@@ -66,7 +66,7 @@ export default async function KontoPage() {
             Nächster Termin
           </h2>
           {upcoming.total > 1 ? (
-            <Link href={routes.account.bookings()} className="-my-3.5 inline-flex min-h-touch items-center rounded-control type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover">
+            <Link href={routes.account.bookings()} className="-my-3.5 inline-flex min-h-touch items-center rounded-control type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring">
               {`Alle ${upcoming.total} anstehenden Termine`}
             </Link>
           ) : null}
@@ -104,7 +104,7 @@ export default async function KontoPage() {
             </span>
             <span className="flex flex-col gap-4 md:items-end">
               {startCode ? (
-                <span className="flex flex-col gap-2.5 rounded-card glass-strong glass-edge p-4 shadow-float">
+                <span className="flex flex-col gap-2.5 rounded-card bg-surface-raised p-4 shadow-float">
                   <span className="type-overline text-ink-muted">Start-Code</span>
                   <span aria-hidden className="flex gap-1.5 stagger-rise">
                     {startCode.split("").map((d, i) => (

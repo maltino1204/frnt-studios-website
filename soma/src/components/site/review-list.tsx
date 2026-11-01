@@ -26,7 +26,7 @@ export function ReviewList({
         <EmptyArt seed={`bewertungen:${providerName}`} className="size-16" />
         <div className="flex flex-col gap-1.5">
           <p className="flex items-center gap-2 type-heading-m text-ink">
-            <span aria-hidden className="size-1.5 rounded-full bg-aura" />
+            <span aria-hidden className="size-1.5 rounded-full bg-line-strong" />
             {`${providerName} ist neu auf SOMA.`}
           </p>
           <p className="type-body-s text-ink-muted">Bewertungen erscheinen hier, sobald Kundinnen und Kunden ihren Termin abgeschlossen und bewertet haben.</p>

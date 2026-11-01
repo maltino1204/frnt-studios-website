@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Wordmark } from "@/components/brand/logo";
-import { AuraBackground } from "@/components/ui/aura";
 import { ButtonLink, IconButton } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { BRAND_TAGLINE } from "@/lib/brand";
@@ -73,7 +72,6 @@ export function MobileMenu({
         className="m-0 h-dvh max-h-none w-full max-w-none overflow-hidden bg-transparent p-0 text-ink backdrop:bg-transparent backdrop:backdrop-blur-none open:flex open:animate-fade-in open:flex-col"
       >
         <div aria-hidden className="absolute inset-0 -z-20 bg-surface" />
-        <AuraBackground variant="subtle" placement="bottom" fade="top" className="-z-10" />
         <div className="flex h-(--header-height) shrink-0 items-center justify-between px-(--space-gutter)">
           <Link href="/" onClick={close} aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-control px-2 focus-ring">
             <Wordmark />
@@ -93,10 +91,10 @@ export function MobileMenu({
                   className="group flex min-h-16 items-center justify-between gap-4 rounded-control py-2 type-display-s transition-colors duration-fast focus-ring"
                 >
                   <span className="flex items-center gap-3">
-                    {l.active ? <span aria-hidden className="h-0.5 w-5 shrink-0 rounded-full bg-aura" /> : null}
+                    {l.active ? <span aria-hidden className="h-[1.5px] w-5 shrink-0 bg-ink" /> : null}
                     {l.label}
                   </span>
-                  <Icon icon={ArrowUpRight} size={20} className="text-ink-muted transition-[translate,color] duration-base ease-spring group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink" />
+                  <Icon icon={ArrowUpRight} size={20} className="text-ink-muted transition-[translate,color] duration-base ease-arrive group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink" />
                 </Link>
               </li>
             ))}
@@ -124,7 +122,9 @@ export function MobileMenu({
           >
             {account?.label ?? "Anmelden"}
           </ButtonLink>
-          <p className="pt-3 text-center type-accent text-[1.25rem] leading-snug text-ink-muted">{BRAND_TAGLINE}</p>
+          <p lang="en" className="pt-3 text-center type-accent text-[1.25rem] leading-snug text-ink-muted">
+            {BRAND_TAGLINE}
+          </p>
         </div>
       </dialog>
     </div>

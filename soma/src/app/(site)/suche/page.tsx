@@ -240,12 +240,12 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
           <div className="lg:grid lg:grid-cols-12 lg:gap-6">
             <div className="flex min-w-0 flex-col lg:col-span-7 xl:col-span-8">
               <Overline>Verfügbare Profis</Overline>
-              <h1 className="mt-3 type-heading-l">
+              <h1 className="mt-3 type-h2">
                 {`${what}${dauer ? ` · ${formatDuration(dauer)}` : ""} in ${plz}${city ? ` ${city}` : ""}`}
               </h1>
 
               {/* Sticky glass filter bar: full-bleed on phones, a floating capsule from lg. */}
-              <div className="sticky top-(--header-height) z-20 -mx-(--space-gutter) mt-4 glass-strong px-(--space-gutter) py-2 shadow-[0_1px_0_var(--color-line)] lg:mx-0 lg:mt-5 lg:rounded-card lg:px-2 lg:py-1.5 lg:glass-edge lg:shadow-raised">
+              <div className="sticky top-(--header-height) z-20 -mx-(--space-gutter) mt-4 glass-strong px-(--space-gutter) py-2 shadow-[0_1px_0_var(--color-line)] lg:mx-0 lg:mt-5 lg:rounded-card lg:px-2 lg:py-1.5  lg:shadow-raised">
                 <SearchChips catalog={lite} />
               </div>
               {service ? (
@@ -267,7 +267,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       ))}
                     </div>
                     {thin && (moreDays.length || nearby.length || filtersActive) ? (
-                      <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-tint p-5 shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)]">
+                      <div className="mt-4 flex flex-col gap-3 rounded-card bg-surface-tint p-5 shadow-[inset_0_0_0_1px_var(--color-line-mid)]">
                         <p className="type-heading-s text-ink">So finden Sie mehr Auswahl:</p>
                         {moreDays.length ? (
                           <div className="flex flex-wrap items-center gap-2">
@@ -285,7 +285,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                             {nearby.map((n, i) => (
                               <span key={n.postalCode}>
                                 {i > 0 ? " · " : null}
-                                <Link href={searchHref({ ...state, plz: n.postalCode })} className="text-accent underline underline-offset-[0.2em] num hover:text-accent-hover">
+                                <Link href={searchHref({ ...state, plz: n.postalCode })} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current num">
                                   {n.postalCode}
                                 </Link>
                               </span>
@@ -293,7 +293,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                           </p>
                         ) : null}
                         {filtersActive ? (
-                          <Link href={resetFilters} className="inline-flex min-h-touch items-center self-start type-label-s text-accent underline underline-offset-[0.2em]">
+                          <Link href={resetFilters} className="inline-flex min-h-touch items-center self-start type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                             Ohne Filter suchen
                           </Link>
                         ) : null}
@@ -344,7 +344,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                       <p className="type-body-s text-ink-muted">Auch an den Folgetagen ist nichts frei. Lassen Sie sich benachrichtigen, sobald ein Termin frei wird.</p>
                     )}
                     {filtersActive ? (
-                      <Link href={resetFilters} className="type-label-s text-accent underline underline-offset-[0.2em]">
+                      <Link href={resetFilters} className="type-label-s text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                         Ohne Filter suchen
                       </Link>
                     ) : null}
@@ -396,7 +396,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
                 <InlineFilters />
                 <p className="border-t border-line pt-4 type-caption text-ink-muted">
                   Alle Preise sind Endpreise inklusive Anfahrt. Profis zahlen nicht für ihre Platzierung.{" "}
-                  <Link href="/ranking" className="text-accent underline underline-offset-[0.2em]">
+                  <Link href="/ranking" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                     So sortieren wir
                   </Link>
                 </p>
@@ -405,7 +405,7 @@ export default async function SuchePage({ searchParams }: { searchParams: Promis
           </div>
           <p className="mt-10 type-caption text-ink-muted lg:hidden">
             Alle Preise sind Endpreise inklusive Anfahrt. Profis zahlen nicht für ihre Platzierung.{" "}
-            <Link href="/ranking" className="text-accent underline underline-offset-[0.2em]">
+            <Link href="/ranking" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
               So sortieren wir
             </Link>
           </p>
@@ -438,7 +438,7 @@ function EmptyCard({ seed, tone, title, children }: { seed: string; tone?: strin
       <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
       <div className="flex max-w-reading flex-col items-start gap-4">
         <EmptyArt seed={seed} tone={tone ?? undefined} className="mb-2" />
-        <h2 id="leer-titel" className="type-display-s">
+        <h2 id="leer-titel" className="type-title-serif">
           {title}
         </h2>
         {children}

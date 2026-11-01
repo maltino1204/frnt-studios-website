@@ -79,7 +79,7 @@ export default async function ProfilPage() {
           <>
             Wir löschen Ihre persönlichen Angaben und Ihren Zugang. Offene Termine stornieren Sie bitte vorher; Rechnungsdaten bewahren wir ohne Ihre Kontaktdaten so lange auf,
             wie es das Gesetz verlangt. Fragen dazu beantworten wir unter{" "}
-            <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent underline underline-offset-[0.2em]">
+            <a href={`mailto:${SUPPORT_EMAIL}`} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
               {SUPPORT_EMAIL}
             </a>
             .

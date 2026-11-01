@@ -3,13 +3,14 @@
  * - Page navigations: always network; if offline, show the cached /offline page.
  * - Never caches HTML of authenticated pages, API responses or POST requests.
  */
-const VERSION = "soma-v1";
+// v2: brand identity 2026 (new /brand icons share the old file names, so the old static cache must go).
+const VERSION = "soma-v2";
 const STATIC_CACHE = `${VERSION}-static`;
 const OFFLINE_URL = "/offline";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => cache.addAll([OFFLINE_URL, "/brand/soma-mark.svg"])).then(() => self.skipWaiting()),
+    caches.open(STATIC_CACHE).then((cache) => cache.addAll([OFFLINE_URL, "/brand/soma-symbol.svg"])).then(() => self.skipWaiting()),
   );
 });
 

@@ -65,7 +65,7 @@ export default async function DisputesPage({ searchParams }: { searchParams: Pro
                           scroll={false}
                           className={cn(
                             "relative flex flex-col gap-1 rounded-tile px-3.5 py-3 transition-[background-color,box-shadow] duration-fast focus-ring",
-                            active ? "bg-accent-tint shadow-[inset_0_0_0_1px_rgb(61_79_240/0.16)]" : "hover:bg-surface-sunken/70",
+                            active ? "bg-surface-tint shadow-[inset_0_0_0_1px_var(--color-line-mid)]" : "hover:bg-surface-sunken/70",
                           )}
                         >
                           <span className="flex items-center justify-between gap-3">

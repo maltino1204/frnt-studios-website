@@ -299,8 +299,8 @@ function CodeInput({
           onPaste={(e) => onPaste(i, e)}
           className={cn(
             "h-16 w-14 rounded-tile border bg-surface-raised text-center text-[28px] leading-none font-[620] tracking-[-0.02em] text-ink num inset-shadow-field outline-none",
-            "transition-[border-color,background-color,box-shadow,color] duration-fast ease-standard caret-accent sm:h-[4.5rem] sm:w-16",
-            "focus:border-accent focus:shadow-[0_0_0_4px_var(--color-focus-glow)] disabled:opacity-60",
+            "transition-[border-color,background-color,box-shadow,color] duration-fast ease-standard caret-ink sm:h-[4.5rem] sm:w-16",
+            "focus:border-focus focus:shadow-[0_0_0_3px_var(--color-focus-glow)] disabled:opacity-60",
             state === "success"
               ? "border-success bg-success-soft text-success"
               : state === "error"

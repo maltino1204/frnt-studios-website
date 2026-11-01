@@ -36,11 +36,11 @@ export function Modal({
       ref={ref}
       aria-labelledby={titleId}
       className={cn(
-        "soma-modal m-auto w-[calc(100%-2.5rem)] max-w-form rounded-card glass-strong glass-edge p-6 text-ink shadow-overlay open:animate-dialog-in md:p-8",
+        "soma-modal m-auto w-[calc(100%-2.5rem)] max-w-form rounded-card bg-surface-raised p-6 text-ink shadow-overlay open:animate-dialog-in md:p-8",
         className,
       )}
     >
-      <h2 id={titleId} className="type-heading-l">
+      <h2 id={titleId} className="type-title-serif">
         {title}
       </h2>
       {children ? <div className="mt-3 type-body-s text-ink-muted">{children}</div> : null}

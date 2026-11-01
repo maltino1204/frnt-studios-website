@@ -259,4 +259,4 @@ export function initialsOf(name: string): string {
 
 /** Slot tile class (white tile, mid hairline, settles to ink on press) for "next free times" lists. */
 export const slotTileClasses =
-  "inline-flex h-11 items-center rounded-tile bg-surface-raised px-4 type-label num text-ink shadow-[0_1px_2px_rgb(23_22_31/0.05)] ring-1 ring-line-mid ring-inset pressable focus-ring hover:-translate-y-px hover:ring-line-strong hover:shadow-[0_6px_14px_-6px_rgb(23_22_31/0.18)]";
+  "inline-flex h-11 items-center rounded-tile bg-surface-raised px-4 type-label num text-ink shadow-[0_1px_2px_rgb(37_33_31/0.05)] ring-1 ring-line-mid ring-inset pressable focus-ring hover:-translate-y-px hover:ring-line-strong hover:shadow-[0_6px_14px_-6px_rgb(37_33_31/0.18)]";

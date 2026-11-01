@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
-/* App-level base rules that complement the design tokens (guideline v2 §12). */
+/* App-level base rules that complement the design tokens (brand/BRAND_GUIDELINES.md § 9). */
 @layer base {
   html {
     scroll-padding-top: calc(var(--header-height) + 1rem);
@@ -40,23 +40,6 @@
   video {
     -webkit-user-drag: none;
   }
-  /* The SOMA wordmark (components/brand/logo.tsx): its outlines as a mask over currentColor. */
-  .wordmark {
-    display: inline-block;
-    flex-shrink: 0;
-    aspect-ratio: 442.52 / 104;
-    background-color: currentColor;
-    -webkit-mask: var(--wordmark) center / contain no-repeat;
-    mask: var(--wordmark) center / contain no-repeat;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-  @media (forced-colors: active) {
-    .wordmark {
-      forced-color-adjust: none;
-      background-color: CanvasText;
-    }
-  }
   /* Shared paint for <Icon> (lucide geometry, drawn server-side). In the base layer, so fill-*, stroke-*
      and text-* utilities on an icon still win. */
   .ico {
@@ -69,9 +52,8 @@
     color: inherit;
   }
   dialog::backdrop {
+    /* Flat warm backdrop (brand § 9.3): no blur, no tint shift. */
     background: var(--color-backdrop);
-    -webkit-backdrop-filter: blur(6px) saturate(1.2);
-    backdrop-filter: blur(6px) saturate(1.2);
     animation: soma-fade-in var(--transition-duration-base) var(--ease-standard) both;
   }
   :where(h1, h2, h3, h4) {
@@ -103,6 +85,31 @@
       outline-offset: 2px;
     }
   }
+}
+
+/* Night scope: the generated tokens switch the status inks to their light night versions; the soft backgrounds and
+   lines follow here as quiet tints of those inks on Espresso, so notices, pills and toasts stay legible (>= 4.5:1)
+   inside a dark band (brand § 3.7). */
+[data-theme="night"] {
+  --color-success-soft: rgb(147 198 161 / 0.14);
+  --color-success-line: rgb(147 198 161 / 0.32);
+  --color-warning-soft: rgb(227 188 110 / 0.14);
+  --color-warning-line: rgb(227 188 110 / 0.32);
+  --color-danger-soft: rgb(243 154 141 / 0.14);
+  --color-danger-line: rgb(243 154 141 / 0.32);
+  --color-info-soft: rgb(163 193 218 / 0.14);
+  --color-info-line: rgb(163 193 218 / 0.32);
+}
+
+/* Card and dialog titles in Newsreader 26 (brand § 9.3: service and profile cards, empty states, modal titles). */
+@utility type-title-serif {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+  font-weight: 400;
+  font-synthesis: none;
+  text-wrap-style: balance;
 }
 
 @utility scrollbar-none {

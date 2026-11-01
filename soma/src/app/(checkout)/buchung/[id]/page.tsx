@@ -96,7 +96,7 @@ function StatusGlyph({ b }: { b: CustomerBookingDTO }) {
   const map: Partial<Record<CustomerBookingDTO["status"], { icon: LucideIcon; cls: string }>> = {
     requested: { icon: Hourglass, cls: "bg-warning-soft text-warning" },
     pending_payment: { icon: CreditCard, cls: "bg-warning-soft text-warning" },
-    in_progress: { icon: CirclePlay, cls: "bg-accent-soft text-accent" },
+    in_progress: { icon: CirclePlay, cls: "bg-surface-sunken text-ink" },
     completed: { icon: CircleCheck, cls: "bg-surface-raised text-ink" },
   };
   const m = map[b.status] ?? { icon: CalendarX2, cls: "bg-surface-raised text-ink-muted" };
@@ -433,7 +433,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                       <li key={`${e.createdAt}-${i}`} className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3.5 pb-5 last:pb-0">
                         <span aria-hidden className="relative flex justify-center">
                           {last && !upcoming ? (
-                            <span className="mt-1 size-3 rounded-full bg-aura shadow-[0_0_0_4px_rgb(84_102_255/0.12)]" />
+                            <span className="mt-1 size-3 rounded-full bg-surface-raised shadow-[inset_0_0_0_2px_var(--color-ink),0_0_0_3px_var(--color-surface-raised)]" />
                           ) : (
                             <span className="mt-1 size-3 rounded-full bg-ink shadow-[0_0_0_3px_var(--color-surface-raised)]" />
                           )}
@@ -505,7 +505,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
                   <ol className="flex flex-col gap-2.5 rounded-tile bg-surface-sunken p-3.5">
                     {schedule.map((l, i) => (
                       <li key={l} className="flex items-start gap-2.5 type-caption text-ink-muted num">
-                        <span aria-hidden className={cn("mt-1 size-2 shrink-0 rounded-full", tierTone(i), i === 0 && "shadow-[0_0_0_3px_rgb(23_22_31/0.08)]")} />
+                        <span aria-hidden className={cn("mt-1 size-2 shrink-0 rounded-full", tierTone(i), i === 0 && "shadow-[0_0_0_3px_rgb(37_33_31/0.08)]")} />
                         <span className={cn(i === 0 && "text-ink")}>
                           {l}
                           {i === 0 ? <span className="ml-1.5 inline-flex h-[18px] items-center rounded-full bg-surface-raised px-1.5 text-[11px] font-[560] text-ink shadow-raised">jetzt</span> : null}
@@ -540,7 +540,7 @@ export default async function BuchungPage({ params, searchParams }: PageProps<"/
               {b.canDispute ? <ReportProblem bookingId={b.id} /> : null}
               <p className="type-caption text-ink-muted">
                 Fragen zur Buchung?{" "}
-                <Link href={routes.help()} className="text-accent underline underline-offset-[0.2em]">
+                <Link href={routes.help()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                   Hilfe & Kontakt
                 </Link>
               </p>

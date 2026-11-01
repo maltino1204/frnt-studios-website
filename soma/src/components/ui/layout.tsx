@@ -17,7 +17,7 @@ export function Container({
   return <div className={cn("mx-auto w-full px-(--space-gutter)", max, className)} {...props} />;
 }
 
-/** Vertical rhythm for marketing sections (64/96/128px responsive). */
+/** Vertical rhythm for marketing sections (72 / 96 / 128 px responsive). */
 export function Section({ className, night, ...props }: ComponentProps<"section"> & { night?: boolean }) {
   return (
     <section
@@ -28,14 +28,9 @@ export function Section({ className, night, ...props }: ComponentProps<"section"
   );
 }
 
-/** Overline led by the aura line (the v2 roof line): the "where you are" marker for section labels. */
+/** Eyebrow (brand § 4.3): 12 px caps, +0.12em, umber-deep, at most three words. It stands alone (no rule). */
 export function Overline({ children, className, as: As = "p" }: { children: ReactNode; className?: string; as?: "p" | "span" | "h2" | "h3" }) {
-  return (
-    <As className={cn("flex items-center gap-2.5 type-overline text-ink-muted", className)}>
-      <span aria-hidden className="block h-0.5 w-5 shrink-0 rounded-full bg-aura" />
-      {children}
-    </As>
-  );
+  return <As className={cn("flex items-center gap-2.5 type-eyebrow text-ink-muted", className)}>{children}</As>;
 }
 
 /** Section heading block: overline + display headline + optional lead + action. */
@@ -58,15 +53,15 @@ export function SectionHeader({
     <div className={cn("flex flex-col gap-6 md:flex-row md:items-end md:justify-between", className)}>
       <div className="flex max-w-reading flex-col gap-4">
         {overline ? <Overline className="mb-1">{overline}</Overline> : null}
-        <h2 className={size === "l" ? "type-display-l" : "type-display-m"}>{title}</h2>
-        {lead ? <p className="type-body-l text-ink-muted">{lead}</p> : null}
+        <h2 className={size === "l" ? "type-display-l" : "type-h1"}>{title}</h2>
+        {lead ? <p className="type-lead text-ink-muted">{lead}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>
   );
 }
 
-/** App-area page header (account, pro, admin). */
+/** App-area page header (account, pro): the title is the view's one serif statement (Newsreader h2, 26 → 38). */
 export function PageHeader({
   title,
   description,
@@ -84,7 +79,7 @@ export function PageHeader({
     <header className={cn("flex flex-col gap-4 pb-6 md:flex-row md:items-end md:justify-between", className)}>
       <div className="flex flex-col gap-2">
         {back}
-        <h1 className="type-display-s">{title}</h1>
+        <h1 className="type-h2">{title}</h1>
         {description ? <p className="type-body-s text-ink-muted">{description}</p> : null}
       </div>
       {actions ? <div className="flex shrink-0 flex-wrap gap-2">{actions}</div> : null}
@@ -92,7 +87,7 @@ export function PageHeader({
   );
 }
 
-/** Level-1 card: white, 20px radius, layered soft shadow with its own hairline (dashboards, account). */
+/** Level-1 card: Paper, radius 16, the warm hairline shadow (`raised`), no border (dashboards, account). */
 export function Panel({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("bg-surface-raised shadow-raised", !className?.includes("rounded") && "rounded-card", className)} {...props} />;
 }

@@ -93,10 +93,9 @@ export function ContentSection({ id, title, children }: { id: string; title: str
   return (
     <section id={id} aria-labelledby={`${id}-titel`} className="scroll-mt-24 border-t border-line pt-8 first:border-t-0 first:pt-0">
       <h2 id={`${id}-titel`} className="flex items-center gap-3 type-heading-l text-ink">
-        <span aria-hidden className="block h-0.5 w-5 shrink-0 rounded-full bg-aura" />
         {title}
       </h2>
-      <div className="mt-5 flex max-w-reading flex-col gap-4 type-body text-ink-muted [&_a]:text-accent [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[0.2em] [&_a:hover]:text-accent-hover [&_h3]:pt-2 [&_h3]:type-heading-m [&_h3]:text-ink [&_li]:pl-1 [&_strong]:font-semibold [&_strong]:text-ink [&_ul]:flex [&_ul]:list-disc [&_ul]:flex-col [&_ul]:gap-2 [&_ul]:pl-5">
+      <div className="mt-5 flex max-w-reading flex-col gap-4 type-body text-ink-muted [&_a]:text-ink [&_a]:underline [&_a]:decoration-line-strong [&_a]:decoration-1 [&_a]:underline-offset-[0.2em] [&_a:hover]:text-link-hover [&_a:hover]:decoration-current [&_h3]:pt-2 [&_h3]:type-heading-m [&_h3]:text-ink [&_li]:pl-1 [&_strong]:font-semibold [&_strong]:text-ink [&_ul]:flex [&_ul]:list-disc [&_ul]:flex-col [&_ul]:gap-2 [&_ul]:pl-5">
         {children}
       </div>
     </section>

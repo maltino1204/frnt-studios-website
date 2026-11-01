@@ -258,7 +258,7 @@ export default async function ProRegisterPage({ searchParams }: PageProps<"/pro/
                     {s.done ? "Erledigt" : s.key === "payout" ? "Optional – kann später folgen" : "Offen"}
                   </Status>
                 </span>
-                <span className="type-label-s text-accent group-hover:text-accent-hover">{s.done ? "Ändern" : "Erledigen"}</span>
+                <span className="type-label-s text-ink underline decoration-line-strong underline-offset-4 group-hover:decoration-current">{s.done ? "Ändern" : "Erledigen"}</span>
               </Link>
             </li>
           ))}
@@ -350,7 +350,7 @@ async function AccountAside() {
         ))}
       </dl>
       <p className="type-caption text-ink-muted">Auszahlung {terms.payoutHoldHours} Stunden nach dem Termin. Keine Fixkosten, keine Mindestlaufzeit.</p>
-      <Link href={routes.forPros()} className="inline-flex h-touch items-center gap-1.5 self-start type-label-s text-accent underline decoration-1 underline-offset-[0.2em]">
+      <Link href={routes.forPros()} className="inline-flex h-touch items-center gap-1.5 self-start type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
         Mehr über SOMA für Profis
       </Link>
     </div>
@@ -404,7 +404,7 @@ function SubmittedView({ name, onboarding, payoutsEnabled, ownClientRate }: { na
                       aria-hidden
                       className={
                         i === 0
-                          ? "relative mt-0.5 flex size-8 items-center justify-center rounded-full bg-aura p-[2px]"
+                          ? "relative mt-0.5 flex size-8 items-center justify-center rounded-full bg-ink p-[1.5px]"
                           : "relative mt-0.5 flex size-8 items-center justify-center rounded-full bg-surface-sunken type-label-s text-ink-muted shadow-[inset_0_0_0_1px_var(--color-line-mid)] num"
                       }
                     >

@@ -148,7 +148,7 @@ export function DocumentsManager({ requirements, documents }: { requirements: Re
                     aria-hidden
                     className={cn(
                       "mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full",
-                      status.tone === "success" && "bg-success text-white shadow-[0_2px_6px_-2px_rgb(21_115_71/0.6)]",
+                      status.tone === "success" && "bg-success text-white",
                       status.tone === "warning" && "bg-warning-soft text-warning",
                       status.tone === "danger" && "bg-danger-soft text-danger",
                       status.tone === "neutral" && "bg-surface-sunken text-ink-muted shadow-[inset_0_0_0_1px_var(--color-line-mid)]",

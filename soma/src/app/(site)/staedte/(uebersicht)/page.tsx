@@ -62,7 +62,7 @@ export default async function StaedtePage() {
                   >
                     <AuraArt seed={`stadt:${c.slug}`} tone="brows-lashes" />
                     <h2 className="relative z-[2] type-display-m text-ink">{c.name}</h2>
-                    <span className="relative z-[2] inline-flex size-10 shrink-0 items-center justify-center rounded-full glass-strong glass-edge text-ink shadow-raised transition-transform duration-base ease-settle group-hover:translate-x-0.5">
+                    <span className="relative z-[2] inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised transition-transform duration-base ease-settle group-hover:translate-x-0.5">
                       <Icon icon={ArrowRight} size={18} />
                     </span>
                   </Link>

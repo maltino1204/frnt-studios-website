@@ -6,7 +6,7 @@ import { Icon } from "./icon";
 
 export type PriceLine = { label: ReactNode; detail?: ReactNode; cents: number; kind?: "credit" };
 
-/** Price breakdown: 36px rows, muted labels, right-aligned tabular amounts, hairline, total. No box. */
+/** Price breakdown (brand § 9.3): body-s rows, umber-deep labels, right-aligned tabular amounts, a dashed stone-deep rule, the total. No box. */
 export function PriceBreakdown({
   lines,
   totalCents,
@@ -35,9 +35,9 @@ export function PriceBreakdown({
             </dd>
           </div>
         ))}
-        <div className="mt-2 flex items-baseline justify-between gap-4 border-t border-dashed border-line-mid pt-3.5">
-          <dt className="type-heading-m">{totalLabel}</dt>
-          <dd className="type-heading-l num tracking-[-0.025em]">{formatPriceExact(totalCents)}</dd>
+        <div className="mt-2 flex items-baseline justify-between gap-4 border-t border-dashed border-(--soma-stone-deep) pt-3.5">
+          <dt className="type-heading-s">{totalLabel}</dt>
+          <dd className="type-stat">{formatPriceExact(totalCents)}</dd>
         </div>
       </dl>
       {notes?.length ? (
@@ -65,7 +65,7 @@ export function CheckLine({ children, className }: { children: ReactNode; classN
   );
 }
 
-/** Step indicator: 4px pill segments; done ink, current fills with the aura. Labels under segments on desktop. */
+/** Step indicator: 4 px pill segments; done and current fill with Espresso, upcoming stay Oat. Labels under segments on desktop. */
 export function StepIndicator({
   steps,
   current,
@@ -92,7 +92,7 @@ export function StepIndicator({
               <span
                 className={cn(
                   "absolute inset-0 origin-left rounded-full transition-[scale] duration-calm ease-enter",
-                  i < current ? "scale-x-100 bg-ink" : i === current ? "scale-x-100 bg-aura" : "scale-x-0 bg-ink",
+                  i <= current ? "scale-x-100 bg-ink" : "scale-x-0 bg-ink",
                 )}
               />
             </span>

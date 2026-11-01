@@ -22,7 +22,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { Mark } from "@/components/brand/logo";
+import { AdminMark } from "@/components/brand/logo";
 import { Icon } from "@/components/ui/icon";
 import { CountPill } from "@/components/ui/feedback";
 import { Kbd } from "@/components/ui/badge";
@@ -220,7 +220,7 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
       </aside>
 
       {/* Mobile / tablet top bar */}
-      <header className="sticky top-0 z-(--z-header) flex h-14 shrink-0 items-center justify-between gap-3 glass-strong pr-1 pl-4 shadow-[0_1px_0_var(--glass-hairline)] lg:hidden">
+      <header className="sticky top-0 z-(--z-header) flex h-14 shrink-0 items-center justify-between gap-3 glass-strong pr-1 pl-4 shadow-[0_1px_0_var(--color-line)] lg:hidden">
         <Link href={routes.admin.root()} className="flex min-w-0 items-center gap-2.5 rounded-control focus-ring">
           <MarkTile />
           <span className="type-heading-s">Admin</span>
@@ -241,7 +241,7 @@ export function AdminShell({ user, demo, counts, initialCollapsed, children }: S
           >
             <Icon icon={Menu} />
             {counts.verification + counts.disputes > 0 ? (
-              <span aria-hidden className="absolute top-2.5 right-2.5 size-2 rounded-full bg-accent" />
+              <span aria-hidden className="absolute top-2.5 right-2.5 size-2 rounded-full bg-ink" />
             ) : null}
           </button>
         </div>
@@ -267,7 +267,7 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
     <>
       {ADMIN_NAV.map((g, gi) => (
         <div key={g.label} className={cn(gi > 0 && (collapsed ? "mt-2 border-t border-line pt-2" : "mt-5"))}>
-          {collapsed ? null : <p className="px-5 pt-1 pb-1.5 text-[11px] leading-none font-[600] tracking-[0.06em] text-ink-muted uppercase">{g.label}</p>}
+          {collapsed ? null : <p className="px-5 pt-1 pb-1.5 type-eyebrow text-ink-muted">{g.label}</p>}
           <ul className={cn("flex flex-col gap-px", collapsed ? "px-2" : "px-2")}>
             {g.items.map((item) => {
               const active = isActive(pathname, item.href);
@@ -283,13 +283,13 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
                       "relative flex items-center gap-2.5 rounded-control type-body-s transition-[background-color,color,box-shadow] duration-fast pressable focus-ring",
                       touch ? "h-touch px-3" : "h-9",
                       collapsed ? "justify-center px-0" : "px-3",
-                      active ? "bg-surface-raised font-[520] text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
+                      active ? "bg-surface-sunken font-semibold text-ink" : "text-ink-muted hover:bg-surface-sunken hover:text-ink",
                     )}
                   >
                     {active ? null : <LinkPending />}
-                    <Icon icon={item.icon} size={18} className={cn("shrink-0", active && "text-accent")} strokeWidth={active ? 1.9 : 1.5} />
+                    <Icon icon={item.icon} size={18} className="shrink-0" strokeWidth={active ? 1.9 : 1.5} />
                     {collapsed ? (
-                      count ? <span aria-hidden className="absolute top-1.5 right-2 size-1.5 rounded-full bg-accent" /> : null
+                      count ? <span aria-hidden className="absolute top-1.5 right-2 size-1.5 rounded-full bg-ink" /> : null
                     ) : (
                       <>
                         <span className={cn("min-w-0 flex-1 truncate", item.label.length > 20 && "condensed")}>{item.label}</span>
@@ -307,13 +307,9 @@ function NavGroups({ pathname, counts, collapsed, touch }: { pathname: string; c
   );
 }
 
+/** The admin mark: the S in an Espresso tile (no Oxblood brand moment in the console). */
 function MarkTile() {
-  return (
-    <span aria-hidden className="relative inline-flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-[9px] bg-ink text-ink-inverse shadow-ink">
-      <span className="absolute inset-0 bg-aura opacity-30 mix-blend-screen" />
-      <Mark className="relative h-3.5" />
-    </span>
-  );
+  return <AdminMark />;
 }
 
 function EnvBadge({ compact }: { compact?: boolean }) {

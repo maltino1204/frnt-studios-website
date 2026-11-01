@@ -50,7 +50,7 @@ export function ReferralShare({ code, url, text }: { code: string; url: string; 
       <div
         className={cn(
           "flex min-w-0 items-center gap-2 rounded-full bg-surface-raised py-1.5 pr-1.5 pl-4 shadow-raised ring-1 ring-inset transition-[box-shadow] duration-base",
-          copied ? "ring-success/40 shadow-[0_0_0_4px_rgb(21_115_71/0.1)]" : "ring-line-mid",
+          copied ? "ring-success-line" : "ring-line-mid",
         )}
       >
         <p className="min-w-0 flex-1 truncate type-body-s text-ink-muted" title={url}>

@@ -73,7 +73,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams: 
                 <tr key={r.id} className={r.isActive ? undefined : "text-ink-muted"}>
                   <td className="font-[520]">
                     <span className="flex items-center gap-2">
-                      <span className={`inline-flex h-5 items-center rounded-full px-2 type-caption font-[560] ${r.scope === "global" ? "bg-accent-soft text-accent" : "bg-surface-sunken text-ink-muted"}`}>
+                      <span className={`inline-flex h-5 items-center rounded-full px-2 type-caption font-[560] ${r.scope === "global" ? "bg-surface-sunken text-ink" : "bg-surface-sunken text-ink-muted"}`}>
                         {r.scope === "global" ? "Global" : r.scope === "category" ? "Kategorie" : "Profi"}
                       </span>
                       {r.scope === "global" ? "Alle Buchungen" : r.scope === "category" ? r.categoryName ?? "—" : r.providerName ?? "—"}

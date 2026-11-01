@@ -479,7 +479,7 @@ export function SearchDateStrip() {
     <div className="flex flex-col gap-1 [&_[role=radiogroup]]:scroll-px-(--space-gutter) lg:[&_[role=radiogroup]]:scroll-px-0">
       <DateStrip days={days} selected={state.datum} onSelect={(d) => go({ datum: d })} label="Tag wählen" />
       {state.datum ? (
-        <button type="button" onClick={() => go({ datum: null })} className="inline-flex h-touch items-center self-start type-label-s text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+        <button type="button" onClick={() => go({ datum: null })} className="inline-flex h-touch items-center self-start type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
           Alle Tage anzeigen
         </button>
       ) : null}

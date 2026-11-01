@@ -30,7 +30,7 @@ const ITEMS: NavItem[] = [
 export function AccountHeader({ unread }: { unread: number }) {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--glass-hairline)]">
+    <header className="sticky top-0 z-(--z-header) glass-strong shadow-[0_1px_0_var(--color-line)]">
       <div className="mx-auto flex h-(--header-height) w-full max-w-content items-center justify-between gap-6 px-(--space-gutter)">
         <Link href={routes.home()} aria-label="SOMA – zur Startseite" className="-mx-2 inline-flex min-h-touch items-center rounded-control px-2 text-ink focus-ring">
           <Wordmark />
@@ -45,7 +45,7 @@ export function AccountHeader({ unread }: { unread: number }) {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative inline-flex h-10 items-center rounded-full px-4 type-label transition-colors duration-fast pressable focus-ring",
-                  active ? "bg-ink/[0.06] text-ink" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
+                  active ? "bg-surface-sunken text-ink" : "text-ink-muted hover:bg-surface-sunken hover:text-ink",
                 )}
               >
                 {it.label}
@@ -70,7 +70,7 @@ export function AccountHeader({ unread }: { unread: number }) {
   );
 }
 
-/** Mobile bottom navigation: Entdecken · Termine · Favoriten · Konto (glass, design-guideline v2 §8). */
+/** Mobile bottom navigation: Entdecken · Termine · Favoriten · Konto (glass Paper bar, brand § 9.3). */
 export function AccountBottomNav() {
   const pathname = usePathname();
   return <BottomNav items={ITEMS.map((it) => ({ href: it.href, label: it.label, icon: it.icon, active: it.match(pathname) }))} />;
@@ -91,7 +91,7 @@ export function AccountRail() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "relative flex min-h-10 items-center rounded-control px-3 py-2 type-body-s transition-[background-color,color,box-shadow] duration-fast focus-ring",
-                  active ? "bg-surface-raised font-semibold text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
+                  active ? "bg-surface-sunken font-semibold text-ink" : "text-ink-muted hover:bg-surface-sunken hover:text-ink",
                 )}
               >
                 {s.label}

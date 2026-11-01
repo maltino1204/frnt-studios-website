@@ -56,7 +56,7 @@ export function SearchPrompt({
         <option value={today}>Heute</option>
         <option value={tomorrow}>Morgen</option>
       </Select>
-      <Button type="submit" size="l" block iconRight={<Icon icon={ArrowRight} />}>
+      <Button type="submit" variant="accent" size="l" block iconRight={<Icon icon={ArrowRight} />}>
         Verfügbare Profis anzeigen
       </Button>
     </form>

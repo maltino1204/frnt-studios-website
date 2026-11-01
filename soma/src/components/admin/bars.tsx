@@ -3,19 +3,22 @@ import { cn } from "@/lib/cn";
 
 export type BarTone = "accent" | "violet" | "success" | "warning" | "danger" | "muted" | "ink";
 
-/** Accent-tinted fills (design-guideline v2 §4.4: chart-1 → chart-2; status series use semantic colours). */
+/**
+ * Flat fills (brand § 3.7 charts; no gradients). The console has no Oxblood moment, so the primary series is
+ * Espresso; status series use the functional colours, always next to a printed value.
+ */
 const FILL: Record<BarTone, string> = {
-  accent: "bg-linear-to-r from-[color-mix(in_srgb,var(--color-chart-1)_72%,white)] to-chart-1",
-  violet: "bg-linear-to-r from-[color-mix(in_srgb,var(--color-chart-2)_65%,white)] to-chart-2",
-  success: "bg-linear-to-r from-[color-mix(in_srgb,var(--color-success)_60%,white)] to-success",
-  warning: "bg-linear-to-r from-[color-mix(in_srgb,var(--color-warning)_55%,white)] to-warning",
-  danger: "bg-linear-to-r from-[color-mix(in_srgb,var(--color-danger)_60%,white)] to-danger",
+  accent: "bg-ink",
+  violet: "bg-chart-2",
+  success: "bg-success",
+  warning: "bg-warning",
+  danger: "bg-danger",
   muted: "bg-line-strong",
   ink: "bg-ink",
 };
 
 /**
- * Horizontal bar list: label, tabular value, a rounded accent-tinted bar on a
+ * Horizontal bar list: label, tabular value, a rounded flat bar on a
  * sunken track. Values are always printed, so the bar never carries meaning alone.
  * Bars grow in once from the left (transform only, off with reduced motion).
  */

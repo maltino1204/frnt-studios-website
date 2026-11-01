@@ -5,7 +5,7 @@ export type SegmentOption = { value: string; label: ReactNode };
 
 /**
  * Segmented control built on native radios, so it works inside <form> without JS.
- * Pill track (sunken), an ink thumb that slides on a spring to the checked
+ * Pill track (Linen), an Espresso thumb that settles on the checked
  * option (CSS :has(), up to 6 options), 44px (36 dense).
  */
 export function SegmentedControl({
@@ -38,7 +38,7 @@ export function SegmentedControl({
       )}
       style={{ "--n": options.length } as CSSProperties}
     >
-      <span aria-hidden className="segmented-thumb absolute inset-y-[3px] left-[3px] -z-10 rounded-full bg-ink shadow-ink" />
+      <span aria-hidden className="segmented-thumb absolute inset-y-[3px] left-[3px] -z-10 rounded-full bg-selected" />
       {options.map((o) => (
         <label key={o.value} className="relative flex min-w-0 flex-1">
           <input

@@ -21,7 +21,7 @@ export default function SiteError({ error, retry }: { error: unknown; retry: () 
         </h1>
         <p className="type-body-l text-ink-muted">
           Beim Laden dieser Seite ist ein Fehler aufgetreten. Versuchen Sie es bitte noch einmal. Bleibt der Fehler, schreiben Sie uns an{" "}
-          <a href={`mailto:${SUPPORT_EMAIL}`} className="text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+          <a href={`mailto:${SUPPORT_EMAIL}`} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             {SUPPORT_EMAIL}
           </a>
           .

@@ -178,7 +178,7 @@ export default async function ProTodayPage() {
               title={
                 <span className="flex items-center gap-2">
                   Offene Anfragen
-                  <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-accent px-2 type-label-s text-on-accent shadow-accent num">{dash.openRequests.length}</span>
+                  <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink px-2 type-label-s text-ink-inverse num">{dash.openRequests.length}</span>
                 </span>
               }
               aside={dash.openRequests.length > 2 ? <AsideLink href={`${routes.pro.bookings()}?tab=anfragen`}>Alle ansehen</AsideLink> : null}
@@ -264,7 +264,7 @@ export default async function ProTodayPage() {
                 </ul>
                 <p className="type-caption text-ink-muted">
                   Ein aktuelles Portfolio hilft bei der Buchung.{" "}
-                  <Link href={`${routes.pro.profile()}#portfolio`} className={cn("font-[520] text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover")}>
+                  <Link href={`${routes.pro.profile()}#portfolio`} className={cn("font-[520] text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current")}>
                     Portfolio pflegen
                   </Link>
                 </p>

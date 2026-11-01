@@ -18,7 +18,7 @@ import {
   Wallet,
   type LucideIcon,
 } from "lucide-react";
-import { Wordmark } from "@/components/brand/logo";
+import { ProLockup } from "@/components/brand/logo";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill, Status } from "@/components/ui/feedback";
 import { RouteTransition } from "@/components/ui/motion";
@@ -84,8 +84,7 @@ export function ProShell({
       <aside className="sticky top-0 flex h-dvh flex-col" aria-label="Profi-Navigation">
         <div className="flex h-18 items-center gap-3 px-6">
           <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-2.5 rounded-control text-ink focus-ring">
-            <Wordmark className="h-5! w-auto" />
-            <ProBadge />
+            <ProLockup title={null} />
           </Link>
         </div>
         <nav className="flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-3 pt-3 pb-6">
@@ -131,11 +130,10 @@ export function ProShell({
       </aside>
       </div>
 
-      {/* Mobile top bar (glass) */}
-      <header className="sticky top-0 z-(--z-header) flex h-14 items-center justify-between glass-strong px-(--space-gutter) shadow-[0_1px_0_var(--glass-hairline)] lg:hidden">
+      {/* Mobile top bar (glass Paper, hairline) */}
+      <header className="sticky top-0 z-(--z-header) flex h-14 items-center justify-between glass-strong px-(--space-gutter) shadow-[0_1px_0_var(--color-line)] lg:hidden">
         <Link href={routes.pro.root()} aria-label="SOMA Pro – Heute" className="inline-flex min-h-touch items-center gap-2.5 rounded-control text-ink focus-ring">
-          <Wordmark className="h-[18px]! w-auto" />
-          <ProBadge />
+          <ProLockup title={null} />
         </Link>
         {status !== "approved" ? (
           <Status tone={PROVIDER_STATUS_TONE[status]} className="type-caption!">
@@ -159,15 +157,7 @@ export function ProShell({
   );
 }
 
-/** "Pro" marker next to the wordmark: a small ink pill with an aura dot. */
-function ProBadge() {
-  return (
-    <span className="inline-flex h-5 items-center gap-1 rounded-full bg-ink px-2 text-[11px] leading-none font-[620] tracking-[0.02em] text-ink-inverse">
-      <span aria-hidden className="size-1.5 rounded-full bg-aura" />
-      Pro
-    </span>
-  );
-}
+
 
 function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
   return (
@@ -177,11 +167,11 @@ function SidebarLink({ item, active }: { item: NavItem; active: boolean }) {
         aria-current={active ? "page" : undefined}
         className={cn(
           "group relative flex h-10 items-center gap-3 rounded-control px-3 type-body-s font-[520] transition-[background-color,color,box-shadow] duration-fast pressable focus-ring",
-          active ? "bg-surface-raised text-ink shadow-raised" : "text-ink-muted hover:bg-ink/[0.04] hover:text-ink",
+          active ? "bg-surface-sunken font-semibold text-ink" : "text-ink-muted hover:bg-surface-sunken hover:text-ink",
         )}
       >
         {active ? null : <LinkPending />}
-        <item.icon size={18} strokeWidth={active ? 1.9 : 1.5} absoluteStrokeWidth aria-hidden className={cn("shrink-0", active && "text-accent")} />
+        <item.icon size={18} strokeWidth={active ? 1.9 : 1.5} absoluteStrokeWidth aria-hidden className="shrink-0" />
         <span className="flex-1">{item.label}</span>
         {item.count ? <CountPill accent>{item.count}</CountPill> : null}
       </Link>

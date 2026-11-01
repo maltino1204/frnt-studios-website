@@ -105,7 +105,7 @@ export function AsideLink({ href, children }: { href: string; children: ReactNod
   return (
     <Link
       href={href}
-      className="group relative -mr-2 inline-flex h-9 items-center gap-1 rounded-full px-2.5 type-label-s text-accent transition-colors duration-fast pressable focus-ring hover:bg-accent-tint hover:text-accent-hover before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']"
+      className="group relative -mr-2 inline-flex h-9 items-center gap-1 rounded-full px-2.5 type-label-s text-ink underline decoration-line-strong underline-offset-4 transition-colors duration-fast pressable focus-ring hover:bg-surface-sunken hover:decoration-current before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']"
     >
       {children}
       <Icon icon={ArrowRight} size={14} strokeWidth={1.8} className="transition-transform duration-fast group-hover:translate-x-0.5" />

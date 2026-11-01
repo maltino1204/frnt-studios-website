@@ -240,7 +240,7 @@ export function SlotPicker({
       </div>
 
       {slot && end ? (
-        <div key={slot} className="flex flex-col gap-1.5 rounded-tile bg-surface-tint px-4 py-3 shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)] animate-rise">
+        <div key={slot} className="flex flex-col gap-1.5 rounded-tile bg-surface-tint px-4 py-3 shadow-[inset_0_0_0_1px_var(--color-line-mid)] animate-rise">
           <p className="type-label num">
             {`${dayLabel(slot, now)} · ${formatTime(slot)}–${formatTime(end)} · ${formatDuration(offering.durationMinutes)} · ${locationPhrase}`}
           </p>

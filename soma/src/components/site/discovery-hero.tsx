@@ -1,18 +1,15 @@
 import type { ReactNode } from "react";
-import { AuraBackground } from "@/components/ui/aura";
 import { Container, Overline } from "@/components/ui/layout";
-import { Parallax } from "@/components/ui/floating";
 import { Photo } from "@/components/ui/photo";
 import { cn } from "@/lib/cn";
 
 /**
- * v2 hero (design-guideline v2 §9.3, §15 "Hero recipe"): text and the booking
- * entry on the left, a product-led visual on the right, on a slowly breathing
- * aura. The headline is the LCP element: it is plain text, never hidden.
+ * Hero (brand/BRAND_GUIDELINES.md § 5): text and the booking entry on the left, editorial photography in the SOMA
+ * arch on the right, on the Bone page (no aura, no gradient). The headline is the LCP element: plain text, never
+ * hidden; its <em> clause switches to Newsreader Italic.
  *
- * - `visual`: a ready composition (the home page's FloatingStage).
- * - `photo`: SEO pages get a framed media panel (photo over the category's
- *   generative art) with optional floating `badges` layered over its edge.
+ * - `visual`: a ready composition (the home page's ArchPair).
+ * - `photo`: SEO pages get one arch photograph with the Ortszeile under it; `badges` (real facts) sit beside it.
  */
 export function DiscoveryHero({
   overline,
@@ -24,7 +21,6 @@ export function DiscoveryHero({
   photo,
   badges,
   size = "xl",
-  ambient = true,
   breadcrumbs,
 }: {
   overline?: ReactNode;
@@ -40,7 +36,7 @@ export function DiscoveryHero({
   badges?: ReactNode;
   /** "xl" = home (type-display-xl, one per site), "m" = category and SEO pages */
   size?: "xl" | "m";
-  /** slow aura drift; off for heroes that stream in behind a Suspense boundary */
+  /** @deprecated ignored: the brand has no ambient motion */
   ambient?: boolean;
   /** SEO pages: the trail sits inside the hero, on the aura */
   breadcrumbs?: ReactNode;
@@ -49,7 +45,6 @@ export function DiscoveryHero({
   const ownRow = size === "m" && !!photo && !visual;
   return (
     <section className="relative isolate overflow-clip">
-      <AuraBackground placement="right" animate={ambient} fade="both" className={size === "m" ? "opacity-80" : undefined} />
       {breadcrumbs ? <Container className="pt-5 md:pt-7">{breadcrumbs}</Container> : null}
       <Container
         className={cn(
@@ -71,7 +66,7 @@ export function DiscoveryHero({
                 </>
               ) : null}
             </h1>
-            {lead ? <p className="max-w-[34rem] type-body-l text-ink-muted">{lead}</p> : null}
+            {lead ? <p className="max-w-[34rem] type-lead text-ink-muted">{lead}</p> : null}
           </div>
           {ownRow ? null : children}
         </div>
@@ -86,40 +81,55 @@ export function DiscoveryHero({
   );
 }
 
-/** Framed media panel: the photo fades in over its seeded aura artwork; badges float over the lower edge. */
+/** One arch photograph (4:5) with the Ortszeile under it; badges (real facts) stack beside it. */
 function HeroMedia({ photo, badges }: { photo: NonNullable<Parameters<typeof DiscoveryHero>[0]["photo"]>; badges?: ReactNode }) {
   return (
     <figure className="relative min-w-0 lg:order-2 lg:col-span-5 lg:col-start-8">
-      <Parallax depth={8}>
-        <div className="overflow-hidden rounded-panel shadow-float">
-          <Photo
-            src={photo.src}
-            alt={photo.alt}
-            tone={photo.tone ?? "massage"}
-            word={photo.word}
-            wordSize="m"
-            focal={photo.focal}
-            seed={photo.seed}
-            priority
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            className="aspect-[16/10] w-full sm:aspect-[2/1] lg:aspect-[5/4]"
-          />
-        </div>
-      </Parallax>
-      {photo.placeLine ? <figcaption className="mt-3 type-caption text-ink-muted">{photo.placeLine}</figcaption> : null}
+      <Photo
+        src={photo.src}
+        alt={photo.alt}
+        tone={photo.tone ?? "massage"}
+        word={photo.word}
+        wordSize="m"
+        focal={photo.focal}
+        seed={photo.seed}
+        priority
+        shape="arch"
+        ratio="4/5"
+        sizes="(min-width: 1024px) 36vw, (min-width: 640px) 60vw, 88vw"
+        className="mx-auto w-full max-w-[24rem] lg:max-w-[26rem]"
+      />
+      {photo.placeLine ? <figcaption className="mx-auto mt-3 max-w-[24rem] type-place text-ink-muted lg:max-w-[26rem]">{photo.placeLine}</figcaption> : null}
       {badges ? <div className="pointer-events-none absolute inset-0">{badges}</div> : null}
     </figure>
   );
 }
 
+/**
+ * The contrapposto pair (brand § 5.1): two arch photographs side by side, the right one lower by 18 % of its width,
+ * each with its Ortszeile. One pair per view. Decorative imagery is described by its alt text.
+ */
+export function ArchPair({ items, className }: { items: [ArchPairItem, ArchPairItem]; className?: string }) {
+  return (
+    <div className={cn("grid grid-cols-2 items-start gap-3 sm:gap-5 lg:gap-6", className)}>
+      {items.map((it, i) => (
+        <figure key={it.src} className={cn("min-w-0", i === 1 && "mt-[18%]")}>
+          <Photo src={it.src} alt={it.alt} tone={it.tone} focal={it.focal} priority={i === 0} shape="arch" ratio="4/5" sizes="(min-width: 1024px) 22vw, 45vw" className="w-full" />
+          <figcaption className="mt-3 type-place text-ink-muted">{it.place}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+export type ArchPairItem = { src: string; alt: string; tone: string; place: string; focal?: string };
+
 /** A small floating fact over the hero media (real numbers only). Position it with absolute offsets. */
-export function HeroBadge({ className, glass, children }: { className?: string; glass?: boolean; children: ReactNode }) {
+export function HeroBadge({ className, children }: { className?: string; /** @deprecated ignored */ glass?: boolean; children: ReactNode }) {
   return (
     <div
       aria-hidden
       className={cn(
-        "absolute flex items-center gap-3 rounded-card px-4 py-3 shadow-float animate-float-in",
-        glass ? "glass-strong glass-edge" : "bg-surface-raised",
+        "absolute flex items-center gap-3 rounded-card bg-surface-raised px-4 py-3 shadow-float animate-float-in",
         className,
       )}
     >

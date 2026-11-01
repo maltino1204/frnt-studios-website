@@ -5,16 +5,17 @@ import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
 /**
- * Filter chips: 36px visual / 44px hit area, pill (design-guideline v2 §8).
- * Rest: white with a mid hairline. Selected: ink fill that settles on a spring.
+ * Filter chips (brand § 9.3): 36 px visual / 44 px hit area, pill, `label` 540; long words switch to the condensed
+ * width. Rest: transparent with a Stone hairline, Linen on hover. Selected: Espresso fill and Bone label (with a
+ * check where the API shows one), never Oxblood.
  */
 export function chipClasses(selected?: boolean, className?: string) {
   return cn(
-    "relative inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-[14px] font-[520] leading-none tracking-[-0.006em] whitespace-nowrap pressable focus-ring",
+    "relative inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 type-label leading-none whitespace-nowrap pressable focus-ring",
     "before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
     selected
-      ? "animate-settle border-ink bg-ink text-ink-inverse shadow-ink"
-      : "border-line-mid bg-surface-raised text-ink shadow-[0_1px_2px_rgb(23_22_31/0.04)] hover:border-line-strong hover:bg-surface-raised",
+      ? "border-selected bg-selected text-ink-inverse"
+      : "border-line-mid bg-transparent text-ink hover:border-line-strong hover:bg-surface-sunken",
     className,
   );
 }

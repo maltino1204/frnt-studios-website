@@ -23,7 +23,7 @@ export default async function AnmeldenPage({ searchParams }: { searchParams: Pro
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         <Overline>Ihr Konto</Overline>
-        <h1 className="type-display-m">Willkommen zurück.</h1>
+        <h1 className="type-h1">Willkommen zurück.</h1>
         <p className="type-body text-ink-muted">Melden Sie sich an, um Termine zu buchen und zu verwalten.</p>
       </div>
       {one(sp.passwort) === "neu" ? <Notice kind="success">Ihr Passwort wurde geändert. Bitte melden Sie sich mit dem neuen Passwort an.</Notice> : null}

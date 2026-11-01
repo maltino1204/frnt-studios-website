@@ -8,8 +8,9 @@ import { formatPrice, LOCALE, TIME_ZONE } from "@/lib/format";
 export type TrendTone = "accent" | "violet" | "compare";
 export type TrendSeries = { key: string; label: string; tone: TrendTone; values: number[] };
 
+/* No Oxblood in the console (BRAND_STRATEGY § 5): the primary series is Espresso. */
 const STROKE: Record<TrendTone, string> = {
-  accent: "var(--color-chart-1)",
+  accent: "var(--color-ink)",
   violet: "var(--color-chart-2)",
   compare: "var(--color-chart-5)",
 };
@@ -33,13 +34,12 @@ function niceStep(v: number, ticks: number): number {
 }
 
 /**
- * Admin trend chart in the kit AreaChart language (design-guideline v2 §4.4): series 1 as a
- * 2px monotone line over an ultramarine → violet → transparent gradient fill, series 2
- * (violet) as a line with a faint fill, dashed `chart-grid` gridlines, tabular ticks in a
- * right gutter and a marked last point (white dot, 2px ring, 6px halo).
+ * Admin trend chart in the kit AreaChart language (brand § 3.7): series 1 as a 2 px monotone Espresso line over
+ * a flat 7 % tint (no gradient), series 2 (taupe-deep) with a fainter tint, dashed `chart-grid` gridlines,
+ * tabular ticks in a right gutter and a marked last point (Paper dot, 2 px ring).
  *
  * Pointer and keyboard: hovering (or focusing and using ← → Home End) shows a crosshair and
- * one glass tooltip listing every series; a polite live region announces the day for
+ * one Paper tooltip listing every series; a polite live region announces the day for
  * screen readers. The values are also available as a table below the chart.
  */
 export function TrendChart({
@@ -163,15 +163,6 @@ export function TrendChart({
           style={{ height: H }}
         >
           <svg aria-hidden viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 size-full overflow-visible">
-            <defs>
-              {series.map((s, si) => (
-                <linearGradient key={s.key} id={`${uid}-f${si}`} x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor={STROKE[s.tone]} stopOpacity={si === 0 ? 0.22 : 0.1} />
-                  <stop offset="62%" stopColor="#9f8bff" stopOpacity={si === 0 ? 0.07 : 0.03} />
-                  <stop offset="100%" stopColor="#ffa894" stopOpacity={0} />
-                </linearGradient>
-              ))}
-            </defs>
             {grid.map((g) => (
               <line key={g} x1={0} x2={W} y1={y(g)} y2={y(g)} stroke="var(--color-chart-grid)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" />
             ))}
@@ -181,7 +172,7 @@ export function TrendChart({
               const s = series[si];
               return (
                 <g key={p.key}>
-                  {p.area && s.tone !== "compare" ? <path d={p.area} fill={`url(#${uid}-f${si})`} /> : null}
+                  {p.area && s.tone !== "compare" ? <path d={p.area} fill={STROKE[s.tone]} fillOpacity={si === 0 ? 0.07 : 0.04} /> : null}
                   <path
                     d={p.line}
                     fill="none"
@@ -205,14 +196,14 @@ export function TrendChart({
               style={{
                 left: `${xPct(n - 1)}%`,
                 top: y(lead.values[n - 1] ?? 0),
-                boxShadow: `0 0 0 2px ${STROKE[lead.tone]}, 0 0 0 6px color-mix(in srgb, ${STROKE[lead.tone]} 18%, transparent)`,
+                boxShadow: `0 0 0 2px ${STROKE[lead.tone]}`,
               }}
             />
           ) : null}
 
           {index !== null && n > 0 ? (
             <>
-              <span aria-hidden className="pointer-events-none absolute inset-y-0 w-px bg-linear-to-b from-transparent via-line-strong/70 to-line-strong/30" style={{ left: `${xPct(index)}%` }} />
+              <span aria-hidden className="pointer-events-none absolute inset-y-0 w-px bg-line-strong/60" style={{ left: `${xPct(index)}%` }} />
               {series.map((s) => (
                 <span
                   key={s.key}
@@ -224,7 +215,7 @@ export function TrendChart({
               <div
                 aria-hidden
                 className={cn(
-                  "pointer-events-none absolute top-0 z-10 flex min-w-40 animate-fade-in flex-col gap-1.5 rounded-tile glass-strong glass-edge px-3 py-2.5 shadow-float",
+                  "pointer-events-none absolute top-0 z-10 flex min-w-40 animate-fade-in flex-col gap-1.5 rounded-tile bg-surface-raised px-3 py-2.5 shadow-float",
                   xPct(index) > 55 ? "-translate-x-[calc(100%+12px)]" : "translate-x-3",
                 )}
                 style={{ left: `${xPct(index)}%` }}

@@ -75,16 +75,18 @@ const animations = (page: Page) =>
     })),
   ) as Promise<AnimInfo[]>;
 
-test("the hero aura drifts while visible and pauses offscreen", async ({ page }) => {
+// Brand identity 2026 (brand/BRAND_GUIDELINES.md § 8): motion means arrival. Elements settle and stop; the v2 aura
+// drift is retired, so no ambient loop may run on a page at rest, at the top or after scrolling.
+test("the home page arrives and rests: no ambient loop runs, at the top or offscreen", async ({ page }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");
-  await page.waitForTimeout(500);
-  const top = await animations(page);
-  expect(top.some((a) => a.name.startsWith("soma-aura") && a.state === "running"), "hero aura runs").toBe(true);
+  await page.waitForTimeout(1500);
+  const loops = (list: AnimInfo[]) => list.filter((a) => a.state === "running" && a.infinite);
+  expect(loops(await animations(page)), "no looping animation at the top").toEqual([]);
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await page.waitForTimeout(800);
-  const bottom = await animations(page);
-  expect(bottom.filter((a) => a.name.startsWith("soma-aura") && a.state === "running"), "no aura runs offscreen").toEqual([]);
+  await page.waitForTimeout(1500);
+  expect(loops(await animations(page)), "no looping animation after scrolling").toEqual([]);
+  expect((await animations(page)).filter((a) => a.name.startsWith("soma-aura")), "no aura animation exists").toEqual([]);
 });
 
 test("reduced motion: no looping animation, no parallax, no scroll reveal", async ({ page }) => {

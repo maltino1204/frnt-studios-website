@@ -30,7 +30,7 @@ export function WizardSteps({ current, done: doneSlugs = [] }: { current: number
   const isDone = (i: number) => i === 0 ? current > 0 : doneSlugs.includes(WIZARD_STEPS[i].slug);
   const next = WIZARD_STEPS[current + 1]?.label;
   return (
-    <nav aria-label="Fortschritt" className="rounded-card glass-strong glass-edge px-4 py-4 shadow-raised sm:px-5 md:px-6 md:py-5">
+    <nav aria-label="Fortschritt" className="rounded-card bg-surface-raised px-4 py-4 shadow-raised sm:px-5 md:px-6 md:py-5">
       {/* phone */}
       <div className="flex items-center gap-4 md:hidden">
         <ProgressRing value={(current + 1) / total} size={52} stroke={4.5}>
@@ -51,7 +51,7 @@ export function WizardSteps({ current, done: doneSlugs = [] }: { current: number
       <div aria-hidden className="mt-4 flex gap-1 md:hidden">
         {WIZARD_STEPS.map((s, i) => (
           <span key={s.slug} className="relative h-1 flex-1 overflow-hidden rounded-full bg-line">
-            <span className={cn("absolute inset-0 origin-left rounded-full transition-[scale] duration-calm ease-enter", i === current ? "scale-x-100 bg-aura" : isDone(i) ? "scale-x-100 bg-ink" : i < current ? "scale-x-100 bg-warning/60" : "scale-x-0")} />
+            <span className={cn("absolute inset-0 origin-left rounded-full transition-[scale] duration-calm ease-enter", i === current ? "scale-x-100 bg-ink" : isDone(i) ? "scale-x-100 bg-ink/45" : i < current ? "scale-x-100 bg-warning/60" : "scale-x-0")} />
           </span>
         ))}
       </div>
@@ -67,8 +67,8 @@ export function WizardSteps({ current, done: doneSlugs = [] }: { current: number
             <span
               className={cn(
                 "relative flex size-8 items-center justify-center rounded-full type-label-s num transition-[background-color,box-shadow,color] duration-base",
-                done && "bg-ink text-ink-inverse shadow-ink",
-                active && "bg-aura text-ink shadow-[0_0_0_4px_rgb(84_102_255/0.12),0_4px_12px_-4px_rgb(84_102_255/0.45)]",
+                done && "bg-ink text-ink-inverse",
+                active && "bg-surface-raised text-ink shadow-[inset_0_0_0_1.5px_var(--color-ink),0_0_0_4px_var(--color-surface-sunken)]",
                 open && "bg-surface-raised text-ink shadow-[inset_0_0_0_1.5px_var(--color-warning)]",
                 !done && !active && !open && "bg-surface-sunken text-ink-muted shadow-[inset_0_0_0_1px_var(--color-line-mid)]",
               )}
@@ -121,7 +121,7 @@ export function WizardSteps({ current, done: doneSlugs = [] }: { current: number
 /** Zurück / Weiter row for steps whose content saves itself (services, documents, payout). */
 export function StepNav({ back, next, nextLabel = "Weiter", canContinue = true, hint }: { back?: WizardSlug; next: WizardSlug; nextLabel?: string; canContinue?: boolean; hint?: string }) {
   return (
-    <div className="flex flex-col gap-3 rounded-card glass-strong glass-edge p-4 shadow-raised sm:p-5">
+    <div className="flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-raised sm:p-5">
       {!canContinue && hint ? <p className="type-body-s text-ink-muted">{hint}</p> : null}
       <div className="flex flex-wrap items-center justify-between gap-3">
         {back ? (
@@ -213,7 +213,7 @@ export function SubmitForReview({ canSubmit, openSteps, vatMode: initialVatMode 
         label="Ich bestätige, dass meine Angaben stimmen und ich die Behandlungen selbstständig mit eigenem Gewerbe anbiete."
         description={
           <>
-            Es gelten die <Link href="/agb-profis" className="text-accent underline">AGB für Profis</Link> und der SOMA-Verhaltenskodex.
+            Es gelten die <Link href="/agb-profis" className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">AGB für Profis</Link> und der SOMA-Verhaltenskodex.
           </>
         }
       />

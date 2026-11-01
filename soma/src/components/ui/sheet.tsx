@@ -92,8 +92,8 @@ export function useDialogMotion(open: boolean, onClose: () => void, initialFocus
 }
 
 /**
- * Bottom sheet on mobile (glass, spring entry, drag down to dismiss with a
- * rubber-band feel), centred dialog from md (design-guideline v2 §8).
+ * Bottom sheet on mobile (Paper, radius 24 at the top, arrives in 480 ms without overshoot, drag down to dismiss
+ * with a rubber-band feel), centred dialog from md (brand § 9.3).
  * Built on <dialog>: focus trap, Esc to close and focus restore come from the platform.
  */
 export function Sheet({
@@ -160,7 +160,7 @@ export function Sheet({
       }}
       className={cn(
         "soma-sheet m-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-hidden p-0 text-ink open:flex open:flex-col",
-        "rounded-t-sheet glass-strong glass-edge shadow-sheet open:animate-sheet-in",
+        "rounded-t-sheet bg-surface-raised shadow-sheet open:animate-sheet-in",
         variant === "sheet" && "md:m-auto md:max-w-sheet md:rounded-card md:bg-surface-raised md:shadow-overlay md:open:animate-dialog-in",
         variant === "drawer" && "soma-drawer md:mt-0 md:mr-0 md:ml-auto md:h-dvh md:max-h-dvh md:w-[400px] md:rounded-tr-none md:rounded-l-card md:bg-surface-raised md:shadow-overlay",
         className,

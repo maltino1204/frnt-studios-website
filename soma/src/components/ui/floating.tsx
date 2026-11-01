@@ -1,42 +1,37 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { AuraBackground } from "./aura";
-import { Ambient } from "./motion";
 import { surfaceClasses } from "./surface";
 
 /*
- * Product-led hero visuals (design-guideline v2 §9 "Product-led visuals"):
- * real SOMA components as floating, layered cards on an aura. Server
- * components; motion is CSS (scroll-linked parallax, optional slow float).
+ * Product-led compositions: real SOMA components as layered Paper cards. In the brand nothing is tilted, nothing
+ * floats in a loop and nothing sits on an aura (BRAND_GUIDELINES § 5.2, § 8): `tilt`, `float` and the stage's
+ * `aura` are kept for API compatibility and ignored. Cards arrive once (rise, 640 ms) and rest.
  */
 
 /**
- * Scroll-linked parallax depth, CSS only (animation-timeline: view()).
- * Positive depth moves against the scroll (feels closer). Off with reduced
- * motion and where unsupported. Keep it small: 8–24 px.
+ * Formerly scroll-linked parallax. The brand's motion is arrival, then rest ("no loop and no parallax",
+ * BRAND_GUIDELINES § 5.1), so this is a plain wrapper; `depth` is kept for API compatibility.
  */
-export function Parallax({ depth = 16, className, style, children }: { depth?: number; className?: string; style?: CSSProperties; children: ReactNode }) {
+export function Parallax({ className, style, children }: { depth?: number; className?: string; style?: CSSProperties; children: ReactNode }) {
   return (
-    <div className={cn("parallax", className)} style={{ ...style, ["--depth" as string]: `${depth}px` }}>
+    <div className={className} style={style}>
       {children}
     </div>
   );
 }
 
 /**
- * The stage for a floating composition: a relative, isolated box with the
- * aura behind. Give it an explicit height (or aspect ratio) so nothing shifts.
+ * The stage for a product composition: a relative, isolated box (no aura). Give it an explicit height (or aspect
+ * ratio) so nothing shifts.
  * Decorative by default (aria-hidden + inert): it illustrates the product, the
  * real UI lives elsewhere on the page.
  *
  *   <FloatingStage className="h-[26rem] lg:h-[34rem]">
- *     <FloatingCard className="left-[4%] top-[8%] w-[17rem]" depth={10} tilt={-2}>…</FloatingCard>
- *     <FloatingCard className="right-[2%] top-[38%] w-60" depth={22} glass enter={1}>…</FloatingCard>
+ *     <FloatingCard className="left-[4%] top-[8%] w-[17rem]" enter={0}>…</FloatingCard>
+ *     <FloatingCard className="right-[2%] top-[38%] w-60" enter={1}>…</FloatingCard>
  *   </FloatingStage>
  */
 export function FloatingStage({
-  aura = true,
-  placement = "center",
   decorative = true,
   className,
   children,
@@ -49,23 +44,17 @@ export function FloatingStage({
 }) {
   return (
     <div aria-hidden={decorative || undefined} inert={decorative || undefined} className={cn("relative isolate", className)}>
-      {aura ? <AuraBackground variant="hero" placement={placement} fade="radial" className="inset-x-0 -inset-y-[10%]" /> : null}
       {children}
     </div>
   );
 }
 
 /**
- * One floating card. Position it with absolute offsets in `className`.
- * - depth: parallax in px (0 = none)
- * - tilt: resting rotation in degrees (±1–3)
- * - float: very slow 9 s drift (at most two cards per stage)
- * - enter: entrance order (0, 1, 2 …): a transform-only settle, never hides content
+ * One layered card. Position it with absolute offsets in `className`.
+ * - enter: entrance order (0, 1, 2 …): rises once and rests (120 ms stagger)
+ * - depth, tilt, float: ignored (no parallax, no rotation, no loops in the brand)
  */
 export function FloatingCard({
-  depth = 0,
-  tilt = 0,
-  float,
   enter,
   glass,
   elevation = 2,
@@ -90,23 +79,10 @@ export function FloatingCard({
   const card = (
     <div
       className={cn(surfaceClasses({ elevation, radius, glass }), "overflow-hidden", enter !== undefined && "animate-float-in", cardClassName)}
-      style={{ rotate: tilt ? `${tilt}deg` : undefined, animationDelay: enter ? `${enter * 120}ms` : undefined }}
+      style={{ animationDelay: enter ? `${enter * 120}ms` : undefined }}
     >
       {children}
     </div>
   );
-  const floated = float ? (
-    <Ambient className="ambient animate-float" style={{ animationDelay: `${-((depth * 37) % 9)}s` }}>
-      {card}
-    </Ambient>
-  ) : (
-    card
-  );
-  return depth ? (
-    <Parallax depth={depth} className={cn("absolute", className)}>
-      {floated}
-    </Parallax>
-  ) : (
-    <div className={cn("absolute", className)}>{floated}</div>
-  );
+  return <div className={cn("absolute", className)}>{card}</div>;
 }

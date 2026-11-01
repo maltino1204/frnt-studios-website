@@ -55,11 +55,11 @@ export function RegisterForm({ next, referralCode, inviteCode }: { next?: string
           label={
             <>
               Ich akzeptiere die{" "}
-              <Link href={routes.terms()} target="_blank" className="text-accent underline underline-offset-[0.2em]">
+              <Link href={routes.terms()} target="_blank" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                 AGB
               </Link>{" "}
               und habe die{" "}
-              <Link href={routes.privacy()} target="_blank" className="text-accent underline underline-offset-[0.2em] hyphens-none">
+              <Link href={routes.privacy()} target="_blank" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current hyphens-none">
                 Datenschutzerklärung
               </Link>{" "}
               gelesen.
@@ -75,12 +75,12 @@ export function RegisterForm({ next, referralCode, inviteCode }: { next?: string
         />
       </div>
       {state && !state.ok && !fe ? <Notice kind="danger">{state.error}</Notice> : null}
-      <SubmitButton size="l" block loading={pending}>
+      <SubmitButton variant="accent" size="l" block loading={pending}>
         Konto erstellen
       </SubmitButton>
       <p className="type-body-s text-ink-muted">
         Schon ein Konto?{" "}
-        <Link href={routes.login(next ?? undefined)} className="text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+        <Link href={routes.login(next ?? undefined)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
           Anmelden
         </Link>
       </p>

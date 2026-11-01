@@ -94,12 +94,12 @@ function hourRange(days: Day[]): [number, number] {
 
 type Tone = { block: string; bar: string; text: string };
 function toneOf(b: ProviderBookingDTO, now: number): Tone {
-  if (isLive(b, now)) return { block: "bg-accent-soft ring-1 ring-accent/40", bar: "bg-accent", text: "text-ink" };
+  if (isLive(b, now)) return { block: "bg-info-soft ring-1 ring-info-line", bar: "bg-info", text: "text-ink" };
   if (b.status === "requested") return { block: "bg-warning-soft ring-1 ring-warning/30", bar: "bg-warning", text: "text-ink" };
   const st = proStatus(b, now);
   if (st.tone === "warning") return { block: "bg-warning-soft ring-1 ring-warning/20", bar: "bg-warning", text: "text-ink" };
   if (b.status === "completed" || Date.parse(b.endsAt) <= now) return { block: "bg-surface-sunken ring-1 ring-line", bar: "bg-ink-disabled", text: "text-ink-muted" };
-  return { block: "bg-accent-soft ring-1 ring-accent/15", bar: "bg-accent", text: "text-ink" };
+  return { block: "bg-surface-stone ring-1 ring-line-emphasis/40", bar: "bg-ink", text: "text-ink" };
 }
 
 const statusWord = (b: ProviderBookingDTO, now: number) => (isLive(b, now) ? "Läuft jetzt" : proStatus(b, now).label);
@@ -123,8 +123,8 @@ export function WeekGrid({ data }: { data: WeekData }) {
         {days.map((d) => {
           const p = dateParts(berlinToIso(d.key, "12:00"));
           return (
-            <div key={d.key} className={cn("flex flex-col items-center gap-1 border-l border-line py-3", d.today && "bg-accent-tint")}>
-              <span className={cn("type-caption", d.today ? "font-[560] text-accent" : "text-ink-muted")}>{d.today ? "Heute" : WEEKDAYS[d.weekday - 1].short}</span>
+            <div key={d.key} className={cn("flex flex-col items-center gap-1 border-l border-line py-3", d.today && "bg-surface-tint")}>
+              <span className={cn("type-caption", d.today ? "font-semibold text-ink" : "text-ink-muted")}>{d.today ? "Heute" : WEEKDAYS[d.weekday - 1].short}</span>
               <span
                 className={cn(
                   "inline-flex size-8 items-center justify-center rounded-full type-label num",
@@ -149,7 +149,7 @@ export function WeekGrid({ data }: { data: WeekData }) {
           ))}
         </div>
         {days.map((d) => (
-          <div key={d.key} className={cn("relative border-l border-line", d.today ? "bg-accent-tint/60" : "bg-surface-sunken/70")}>
+          <div key={d.key} className={cn("relative border-l border-line", d.today ? "bg-surface-tint" : "bg-surface-sunken/70")}>
             <div className="absolute inset-x-0 top-2" style={{ height }}>
               {/* bookable windows */}
               {d.windows.map((w, i) => (
@@ -197,7 +197,7 @@ export function WeekGrid({ data }: { data: WeekData }) {
                     key={b.id}
                     href={routes.pro.booking(b.id)}
                     className={cn(
-                      "group absolute z-[2] flex overflow-hidden rounded-[10px] shadow-[0_1px_2px_rgb(23_22_31/0.06)] ring-inset transition-[box-shadow,translate] duration-fast focus-ring hover:-translate-y-px hover:shadow-float",
+                      "group absolute z-[2] flex overflow-hidden rounded-[10px] shadow-[0_1px_2px_rgb(37_33_31/0.06)] ring-inset transition-[box-shadow,translate] duration-fast focus-ring hover:-translate-y-px hover:shadow-float",
                       tone.block,
                     )}
                     style={{ top: top + 1, height: h, left: `calc(${lane * width}% + 4px)`, width: `calc(${width}% - 8px)` }}
@@ -207,8 +207,7 @@ export function WeekGrid({ data }: { data: WeekData }) {
                     <span className={cn("flex min-w-0 flex-col px-2 py-1", tone.text)}>
                       <span className="flex items-center gap-1 text-[11.5px] leading-tight font-[600] num">
                         {live ? (
-                          <span aria-hidden className="relative size-1.5 rounded-full bg-accent">
-                            <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60 [animation-duration:2.4s]" />
+                          <span aria-hidden className="relative size-1.5 rounded-full bg-info">
                           </span>
                         ) : null}
                         {formatTime(b.startsAt)}
@@ -230,8 +229,8 @@ export function WeekGrid({ data }: { data: WeekData }) {
               })}
               {/* now line */}
               {d.today && nowMin >= h0 * 60 && nowMin <= h1 * 60 ? (
-                <span aria-hidden className="pointer-events-none absolute inset-x-0 z-[3] h-0.5 -translate-y-1/2 bg-accent" style={{ top: y(nowMin) }}>
-                  <span className="absolute top-1/2 -left-1 size-2.5 -translate-y-1/2 rounded-full bg-accent shadow-[0_0_0_3px_var(--color-surface-raised)]" />
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 z-[3] h-0.5 -translate-y-1/2 bg-ink" style={{ top: y(nowMin) }}>
+                  <span className="absolute top-1/2 -left-1 size-2.5 -translate-y-1/2 rounded-full bg-ink shadow-[0_0_0_3px_var(--color-surface-raised)]" />
                 </span>
               ) : null}
             </div>
@@ -246,7 +245,7 @@ export function WeekGrid({ data }: { data: WeekData }) {
 function Legend() {
   const items = [
     { label: "Buchbar", swatch: "bg-surface-raised ring-1 ring-line-mid" },
-    { label: "Bestätigt", swatch: "bg-accent-soft ring-1 ring-accent/30" },
+    { label: "Bestätigt", swatch: "bg-surface-stone ring-1 ring-line-emphasis/40" },
     { label: "Anfrage", swatch: "bg-warning-soft ring-1 ring-warning/30" },
     { label: "Vorbei", swatch: "bg-surface-sunken ring-1 ring-line-mid" },
     { label: "Abwesend", swatch: "bg-warning-soft ring-1 ring-warning/20" },
@@ -280,13 +279,13 @@ export function WeekList({ data }: { data: WeekData }) {
             key={d.key}
             className={cn(
               "flex gap-3 rounded-card p-3 transition-colors",
-              d.today ? "bg-surface-raised shadow-raised ring-1 ring-accent/20" : d.bookings.length ? "bg-surface-raised shadow-raised" : "bg-surface-sunken/70",
+              d.today ? "bg-surface-raised shadow-raised ring-1 ring-ink" : d.bookings.length ? "bg-surface-raised shadow-raised" : "bg-surface-sunken/70",
             )}
           >
             <DateTile date={berlinToIso(d.key, "12:00")} today={d.today} size="s" />
             <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 py-0.5">
               <p className={cn("type-caption", d.off.length ? "font-[520] text-warning" : "text-ink-muted")}>
-                {d.today ? <span className="font-[560] text-accent">Heute · </span> : null}
+                {d.today ? <span className="font-semibold text-ink">Heute · </span> : null}
                 {line}
               </p>
               {d.bookings.length ? (
@@ -294,7 +293,7 @@ export function WeekList({ data }: { data: WeekData }) {
                   {d.bookings.map(({ b }) => {
                     const st = proStatus(b, data.now);
                     const live = isLive(b, data.now);
-                    const dot = live ? "bg-accent" : b.status === "requested" || st.tone === "warning" ? "bg-warning" : b.status === "completed" || Date.parse(b.endsAt) <= data.now ? "bg-ink-disabled" : "bg-success";
+                    const dot = live ? "bg-info" : b.status === "requested" || st.tone === "warning" ? "bg-warning" : b.status === "completed" || Date.parse(b.endsAt) <= data.now ? "bg-ink-disabled" : "bg-success";
                     return (
                       <li key={b.id}>
                         <Link href={routes.pro.booking(b.id)} className="flex min-h-touch items-center gap-2.5 rounded-control px-1.5 py-1 transition-colors duration-fast focus-ring hover:bg-surface-tint">

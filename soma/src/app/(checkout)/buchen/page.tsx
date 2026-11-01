@@ -158,7 +158,6 @@ export default async function BuchenPage({ searchParams }: { searchParams: Promi
       <Shell>
         <section className="relative isolate flex max-w-reading flex-col items-start gap-5 overflow-clip rounded-card bg-surface-raised p-6 shadow-float md:p-8">
           <AuraBackground variant="subtle" placement="right" fade="none" animate={false} />
-          <span aria-hidden className="block h-0.5 w-6 rounded-full bg-aura" />
           <h1 className="type-display-s">Dieser Termin ist nicht mehr frei.</h1>
           <p className="type-body-s text-ink-muted">
             {next.length

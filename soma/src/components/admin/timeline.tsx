@@ -21,7 +21,7 @@ export function Timeline({ items, current, className }: { items: TimelineItem[];
               <span
                 className={cn(
                   "relative mt-[0.3rem] size-2.5 rounded-full",
-                  isCurrent ? "bg-accent shadow-[0_0_0_3px_var(--color-surface-raised),0_0_0_6px_color-mix(in_srgb,var(--color-accent)_16%,transparent)]" : "bg-surface-raised shadow-[inset_0_0_0_2px_var(--color-line-strong)]",
+                  isCurrent ? "bg-ink shadow-[0_0_0_3px_var(--color-surface-raised),0_0_0_4px_var(--color-line-strong)]" : "bg-surface-raised shadow-[inset_0_0_0_2px_var(--color-line-strong)]",
                 )}
               />
             </span>

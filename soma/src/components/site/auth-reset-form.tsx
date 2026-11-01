@@ -26,7 +26,7 @@ export function ResetRequestForm() {
         required
       />
       {state && !state.ok && !state.fieldErrors ? <FormMessage state={state} /> : null}
-      <SubmitButton size="l" block loading={pending}>
+      <SubmitButton variant="accent" size="l" block loading={pending}>
         Link anfordern
       </SubmitButton>
     </form>
@@ -63,7 +63,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
         required
       />
       {state && !state.ok && !fe ? <FormMessage state={state} /> : state && !state.ok && fe?.token ? <FormMessage state={{ ok: false, error: fe.token }} /> : null}
-      <SubmitButton size="l" block loading={pending}>
+      <SubmitButton variant="accent" size="l" block loading={pending}>
         Passwort speichern
       </SubmitButton>
     </form>

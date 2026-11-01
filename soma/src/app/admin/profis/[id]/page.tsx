@@ -101,7 +101,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                   {p.documents.map((d) => (
                     <li key={d.id} className="flex flex-col gap-3 px-4 py-3.5">
                       <div className="flex items-start gap-3">
-                        <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-accent-tint text-accent shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)]">
+                        <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-surface-sunken text-ink shadow-[inset_0_0_0_1px_var(--color-line-mid)]">
                           <Icon icon={FileText} size={18} />
                         </span>
                         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -112,7 +112,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                           {d.kind === "qualification" ? (
                             <p className="type-caption text-ink-muted">{d.categoryName ? `für ${d.categoryName}` : "ohne Kategorie – zählt für keine Kategorie"}</p>
                           ) : null}
-                          <a href={d.url} target="_blank" rel="noopener" className="inline-flex max-w-full items-center gap-1 rounded-[6px] type-caption text-accent underline-offset-4 hover:underline focus-ring">
+                          <a href={d.url} target="_blank" rel="noopener" className="inline-flex max-w-full items-center gap-1 rounded-[6px] type-caption text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current hover:text-link-hover focus-ring">
                             <span className="truncate">{d.fileName}</span>
                             <Icon icon={ExternalLink} size={12} className="shrink-0" />
                             <span className="sr-only"> (öffnet in neuem Tab)</span>
@@ -151,7 +151,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                       <tr key={d.id}>
                         <td>
                           <span className="flex items-center gap-3 py-2">
-                            <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-accent-tint text-accent shadow-[inset_0_0_0_1px_rgb(61_79_240/0.12)]">
+                            <span aria-hidden className="inline-flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-surface-sunken text-ink shadow-[inset_0_0_0_1px_var(--color-line-mid)]">
                               <Icon icon={FileText} size={18} />
                             </span>
                             <span className="flex min-w-0 flex-col">
@@ -159,7 +159,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                               {d.kind === "qualification" ? (
                                 <span className="type-caption text-ink-muted">{d.categoryName ? `für ${d.categoryName}` : "ohne Kategorie – zählt für keine Kategorie"}</span>
                               ) : null}
-                              <a href={d.url} target="_blank" rel="noopener" className="inline-flex max-w-56 items-center gap-1 rounded-[6px] type-caption text-accent underline-offset-4 hover:underline focus-ring">
+                              <a href={d.url} target="_blank" rel="noopener" className="inline-flex max-w-56 items-center gap-1 rounded-[6px] type-caption text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current hover:text-link-hover focus-ring">
                                 <span className="truncate">{d.fileName}</span>
                                 <Icon icon={ExternalLink} size={12} className="shrink-0" />
                                 <span className="sr-only"> (öffnet in neuem Tab)</span>
@@ -253,7 +253,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
                 {[1, 2, 3, 4, 5, 6, 7].map((wd) => {
                   const w = p.weeklyHours.filter((h) => h.weekday === wd);
                   return (
-                    <div key={wd} className={`flex flex-col gap-1 rounded-tile px-3 py-2.5 ${w.length ? "bg-accent-tint shadow-[inset_0_0_0_1px_rgb(61_79_240/0.1)]" : "bg-surface-sunken/60"}`}>
+                    <div key={wd} className={`flex flex-col gap-1 rounded-tile px-3 py-2.5 ${w.length ? "bg-surface-tint shadow-[inset_0_0_0_1px_var(--color-line-mid)]" : "bg-surface-sunken/60"}`}>
                       <dt className="type-label-s text-ink-muted">{WEEKDAYS[wd]}</dt>
                       <dd className="type-body-s num">
                         {w.length ? (
@@ -278,7 +278,7 @@ export default async function ProviderDetailPage({ params }: { params: Promise<{
           <PanelCard title="Profil" bodyClassName="px-4 sm:px-5">
             <Facts
               items={[
-                { label: "E-Mail", value: <a className="break-all rounded-[6px] text-accent underline-offset-4 hover:underline focus-ring" href={`mailto:${p.email}`}>{p.email}</a> },
+                { label: "E-Mail", value: <a className="break-all rounded-[6px] text-ink underline decoration-line-strong underline-offset-4 hover:decoration-current hover:text-link-hover focus-ring" href={`mailto:${p.email}`}>{p.email}</a> },
                 { label: "Telefon", value: p.phone ?? EMPTY },
                 { label: "Basis-PLZ", value: p.profile.basePostalCode ? <span className="num">{p.profile.basePostalCode}{city ? ` · ${city}` : ""}</span> : EMPTY },
                 { label: "Radius", value: <span className="num">{p.profile.serviceRadiusKm} km</span> },

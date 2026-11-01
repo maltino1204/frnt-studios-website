@@ -137,7 +137,7 @@ export default async function ForProsPage() {
               {BRAND_NAME} vermittelt dir bezahlte Termine bei Kundschaft in deiner Nähe – zu Hause, im Hotel, im Büro. Du bestimmst Preise, Radius und Zeiten.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ButtonLink href={REGISTER} size="l" iconRight={<Icon icon={ArrowRight} />}>
+              <ButtonLink href={REGISTER} variant="accent" size="l" iconRight={<Icon icon={ArrowRight} />}>
                 Jetzt registrieren
               </ButtonLink>
               <ButtonLink href="#so-funktionierts" size="l" variant="ghost">
@@ -182,7 +182,7 @@ export default async function ForProsPage() {
             {benefits.map((b) => (
               <li key={b.title} className="min-w-0">
                 <Surface className="flex h-full flex-col gap-3 p-5 md:p-6">
-                  <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent">
+                  <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-surface-sunken text-ink">
                     <Icon icon={b.icon} size={20} />
                   </span>
                   <h3 className="type-heading-m">{b.title}</h3>
@@ -225,7 +225,6 @@ export default async function ForProsPage() {
           </Reveal>
           <Reveal className="flex flex-col gap-4 lg:col-span-6 lg:pl-6" delay={80}>
             <h3 className="flex items-center gap-2.5 type-heading-m">
-              <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
               Rechne nach
             </h3>
             <EarningsCalculator rates={c} />
@@ -244,7 +243,6 @@ export default async function ForProsPage() {
               <li key={s.n} className="min-w-0">
                 <Surface className="flex h-full flex-col gap-3 p-5 md:p-6">
                   <span className="flex items-center gap-2.5 type-overline text-ink-muted num">
-                    <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
                     {s.n}
                   </span>
                   <h3 className="type-heading-m">{s.title}</h3>
@@ -326,8 +324,8 @@ export default async function ForProsPage() {
                   ratio="16/10"
                   className="rounded-card"
                 />
-                <div aria-hidden className="absolute top-4 right-4 flex items-center gap-2.5 rounded-card glass glass-edge px-3.5 py-2.5 shadow-float">
-                  <Icon icon={Link2} size={16} className="text-accent" />
+                <div aria-hidden className="absolute top-4 right-4 flex items-center gap-2.5 rounded-card bg-surface-raised px-3.5 py-2.5 shadow-float">
+                  <Icon icon={Link2} size={16} className="text-ink" />
                   <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
                 </div>
                 <figcaption className="type-caption text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</figcaption>
@@ -376,7 +374,7 @@ export default async function ForProsPage() {
                           <span className="flex flex-col gap-1.5 py-2">
                             {r.cityName}
                             <span aria-hidden className="block h-1 w-full max-w-40 overflow-hidden rounded-full bg-surface-sunken">
-                              <span className="block h-full rounded-full bg-accent" style={{ width: `${Math.max(4, Math.round((r.searches / max) * 100))}%` }} />
+                              <span className="block h-full rounded-full bg-chart-1" style={{ width: `${Math.max(4, Math.round((r.searches / max) * 100))}%` }} />
                             </span>
                           </span>
                         </td>
@@ -405,7 +403,7 @@ export default async function ForProsPage() {
             <ul className="flex flex-wrap gap-2" aria-label="Startstädte">
               {activeCities.map((x) => (
                 <li key={x.slug} className="inline-flex h-9 items-center gap-2 rounded-full bg-surface-raised px-3.5 type-label-s text-ink shadow-raised">
-                  <Icon icon={MapPin} size={14} className="text-accent" />
+                  <Icon icon={MapPin} size={14} className="text-ink" />
                   {x.name}
                 </li>
               ))}
@@ -456,8 +454,8 @@ function ProShowcase({ hold, cities }: { hold: number; cities: number }) {
         <FloatingCard className="top-[4%] left-0 w-[min(19rem,84%)] sm:left-[4%]" depth={10} tilt={-1.5} enter={0} cardClassName="flex flex-col gap-3 p-4">
           <div className="flex items-center justify-between gap-3">
             <span className="type-overline text-ink-muted">Neue Anfrage</span>
-            <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-accent-soft px-2.5 type-label-s text-accent">
-              <span className="size-1.5 rounded-full bg-accent" />
+            <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-info-soft px-2.5 type-label-s text-info">
+              <span className="size-1.5 rounded-full bg-info" />
               Live
             </span>
           </div>

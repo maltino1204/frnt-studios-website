@@ -14,7 +14,7 @@ export const adminTable = cn(
   "max-lg:[&_td:first-child]:sticky max-lg:[&_td:first-child]:left-0 max-lg:[&_td:first-child]:z-[1] max-lg:[&_td:first-child]:bg-surface-raised",
   "max-lg:[&_th:first-child]:sticky max-lg:[&_th:first-child]:left-0 max-lg:[&_th:first-child]:z-[3]",
   "max-lg:[&_td:first-child]:shadow-[1px_0_0_var(--color-line)] max-lg:[&_th:first-child]:shadow-[1px_0_0_var(--color-line),inset_0_-1px_0_var(--color-line)]",
-  "max-lg:[&_tbody_tr:hover_td:first-child]:bg-accent-tint",
+  "max-lg:[&_tbody_tr:hover_td:first-child]:bg-surface-tint",
 );
 
 /**
@@ -71,10 +71,10 @@ export function AdminTable({
           compact ? "[&_td]:px-3 [&_th]:px-3" : "[&_td]:px-4 [&_th]:px-4",
           "[&_th]:h-10 [&_th]:bg-surface [&_th]:type-label-s [&_th]:font-[520] [&_th]:whitespace-nowrap [&_th]:text-ink-muted [&_th]:shadow-[inset_0_-1px_0_var(--color-line)]",
           "[&_th:first-child]:pl-5 [&_th:last-child]:pr-5 [&_td:first-child]:pl-5 [&_td:last-child]:pr-5",
-          stickyHeader && "lg:[&_thead_th]:sticky lg:[&_thead_th]:top-0 lg:[&_thead_th]:z-[2] lg:[&_thead_th]:bg-surface/85 lg:[&_thead_th]:backdrop-blur-md lg:[&_thead_th]:backdrop-saturate-150",
+          stickyHeader && "lg:[&_thead_th]:sticky lg:[&_thead_th]:top-0 lg:[&_thead_th]:z-[2] lg:[&_thead_th]:bg-surface",
           // rows
           "[&_td]:h-10 [&_td]:border-b [&_td]:border-line [&_tbody_tr:last-child_td]:border-b-0",
-          "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-accent-tint",
+          "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-fast [&_tbody_tr:hover]:bg-surface-tint",
           adminTable,
           className,
         )}

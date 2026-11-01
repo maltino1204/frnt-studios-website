@@ -17,22 +17,22 @@ const twMerge = extendTailwindMerge({
       spacing: ["touch", "control", "control-s", "control-l"],
       container: ["reading", "form", "sheet", "content", "page", "dashboard"],
       text: [
-        "display-xl", "display-l", "display-m", "display-s",
-        "heading-l", "heading-m", "heading-s",
-        "body-l", "body", "body-s", "label", "label-s", "caption", "overline", "stat",
+        "display-xl", "display-l", "display-m", "display-s", "h1", "h2", "h6",
+        "heading-l", "heading-m", "heading-s", "lead",
+        "body-l", "body", "body-s", "button", "label", "label-s", "control", "caption", "overline", "stat",
       ],
       font: ["sans", "display", "accent", "mono"],
-      "font-weight": ["regular", "label", "strong"],
+      "font-weight": ["regular", "label", "button", "strong"],
       blur: ["glass"],
-      ease: ["standard", "enter", "exit", "calm", "ambient", "spring", "settle"],
+      ease: ["standard", "enter", "arrive", "exit", "calm", "ambient", "spring", "settle"],
       animate: [
-        "skeleton", "spin", "fade-in", "sheet-in", "dialog-in", "toast-in", "pop", "settle", "rise", "draw",
+        "skeleton", "spin", "fade-in", "sheet-in", "dialog-in", "toast-in", "pop", "settle", "rise", "draw", "arch-in",
         "aura-drift", "aura-drift-2", "aura-breathe", "float", "float-in",
       ],
     },
     classGroups: {
-      duration: [{ duration: ["instant", "fast", "base", "slow", "spring", "calm"] }],
-      // bg-aura / bg-aura-soft are gradients (background-image), not colours.
+      duration: [{ duration: ["instant", "fast", "base", "slow", "spring", "arrive", "calm"] }],
+      // bg-aura / bg-aura-soft (retired, now flat) are background images, not colours.
       "bg-image": [{ bg: ["aura", "aura-soft"] }],
     },
   },

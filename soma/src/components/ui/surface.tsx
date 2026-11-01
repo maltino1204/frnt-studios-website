@@ -2,10 +2,10 @@ import type { ComponentProps, ElementType } from "react";
 import { cn } from "@/lib/cn";
 
 /*
- * Surfaces (design-guideline v2 §7 "Elevation" and "Glass").
- * Level 0 sits in the page (sunken), 1 rests (cards), 2 floats (hover,
- * popovers, hero cards), 3 overlays (dialogs). Each level carries its own
- * hairline, so surfaces never need a border.
+ * Surfaces (brand/BRAND_GUIDELINES.md § 9.2 "Elevation"). Level 0 sits in the page (Linen), 1 rests (Paper cards,
+ * `raised`), 2 floats (hover, popovers), 3 overlays (dialogs). Each level carries its own warm hairline, so surfaces
+ * never need a border, and no level glows. Glass is reserved for the sticky header, bottom bars and sheets: the
+ * `glass` option on a card now renders the same solid Paper surface.
  */
 
 export type Elevation = 0 | 1 | 2 | 3;
@@ -17,12 +17,7 @@ const ELEVATION: Record<Elevation, string> = {
   2: "bg-surface-raised shadow-float",
   3: "bg-surface-raised shadow-overlay",
 };
-const GLASS: Record<Elevation, string> = {
-  0: "glass glass-edge",
-  1: "glass glass-edge shadow-raised",
-  2: "glass-strong glass-edge shadow-float",
-  3: "glass-strong glass-edge shadow-overlay",
-};
+const GLASS: Record<Elevation, string> = ELEVATION;
 const RADIUS: Record<SurfaceRadius, string> = {
   tile: "rounded-tile",
   card: "rounded-card",
@@ -32,7 +27,7 @@ const RADIUS: Record<SurfaceRadius, string> = {
 export type SurfaceOptions = {
   elevation?: Elevation;
   radius?: SurfaceRadius;
-  /** translucent white + blur; for layers over content or aura */
+  /** @deprecated cards are solid Paper in the brand; kept for API compatibility */
   glass?: boolean;
   /** hover lift (level 1 → 2), press scale and focus glow; use on whole-card links */
   interactive?: boolean;
@@ -62,7 +57,7 @@ export function Surface<T extends ElementType = "div">({
   return <Tag className={surfaceClasses({ elevation, radius, glass, interactive, className })} {...props} />;
 }
 
-/** Glass panel: level 2 glass by default (sticky bars, floating hero cards, overlays on aura). */
+/** Formerly a glass panel; now a level-2 Paper surface (the brand keeps glass for the header and sheets only). */
 export function GlassPanel<T extends ElementType = "div">({
   elevation = 2,
   ...props

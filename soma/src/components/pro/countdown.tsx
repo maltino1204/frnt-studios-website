@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDayShort, formatTime } from "@/lib/format";
 import { formatRemaining } from "./labels";
@@ -62,20 +62,12 @@ export function ResponseCountdown({
 
 /** 40px ring: hairline track, arc in the aura (or danger) that empties as time runs out. */
 function CountdownRing({ fraction, tone }: { fraction: number; tone: "accent" | "danger" | "muted" }) {
-  const id = useId().replace(/:/g, "");
   const size = 40;
   const stroke = 3.5;
   const r = (size - stroke) / 2;
   return (
     <span aria-hidden className="relative inline-flex size-10 shrink-0 items-center justify-center">
       <svg viewBox={`0 0 ${size} ${size}`} className="absolute inset-0 size-full -rotate-90 overflow-visible">
-        <defs>
-          <linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#5466ff" />
-            <stop offset="55%" stopColor="#9f8bff" />
-            <stop offset="100%" stopColor="#ffa894" />
-          </linearGradient>
-        </defs>
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--color-line)" strokeWidth={stroke} />
         {fraction > 0 ? (
           <circle
@@ -83,7 +75,7 @@ function CountdownRing({ fraction, tone }: { fraction: number; tone: "accent" | 
             cy={size / 2}
             r={r}
             fill="none"
-            stroke={tone === "danger" ? "var(--color-danger)" : `url(#${id}-g)`}
+            stroke={tone === "danger" ? "var(--color-danger)" : "var(--color-ink)"}
             strokeWidth={stroke}
             strokeLinecap="round"
             pathLength={1}
@@ -92,8 +84,7 @@ function CountdownRing({ fraction, tone }: { fraction: number; tone: "accent" | 
           />
         ) : null}
       </svg>
-      <span className={cn("relative size-1.5 rounded-full", tone === "danger" ? "bg-danger" : tone === "muted" ? "bg-ink-disabled" : "bg-accent")}>
-        {tone !== "muted" ? <span className={cn("absolute inset-0 animate-ping rounded-full opacity-50 [animation-duration:2.4s]", tone === "danger" ? "bg-danger" : "bg-accent")} /> : null}
+      <span className={cn("relative size-1.5 rounded-full", tone === "danger" ? "bg-danger" : tone === "muted" ? "bg-ink-disabled" : "bg-info")}>
       </span>
     </span>
   );

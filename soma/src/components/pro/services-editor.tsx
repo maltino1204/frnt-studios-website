@@ -121,7 +121,7 @@ export function ServicesEditor({ services, catalog, rates }: { services: ProServ
             return (
             <section key={id} className="overflow-hidden rounded-card bg-surface-raised shadow-raised" aria-label={g.name}>
               <div className="flex items-center gap-3 border-b border-line px-4 py-3.5 sm:px-5">
-                <span aria-hidden className="relative size-9 shrink-0 overflow-hidden rounded-[11px] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.5)]">
+                <span aria-hidden className="relative size-9 shrink-0 overflow-hidden rounded-[11px] shadow-[inset_0_0_0_1px_rgb(37_33_31/0.08)]">
                   <AuraArt seed={`kat-${g.slug}`} tone={g.slug} grain={false} />
                 </span>
                 <h2 className="min-w-0 flex-1 type-heading-s">{g.name}</h2>

@@ -38,7 +38,7 @@ export function VerifiedSheetButton({
         type="button"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
-        className="inline-flex h-touch items-center rounded-full pressable focus-ring [&>span]:h-touch [&>span]:pr-4 [&>span]:pl-3 [&>span]:shadow-raised hover:[&>span]:shadow-float"
+        className="inline-flex h-touch items-center rounded-full pressable focus-ring [&>span]:h-touch [&>span]:pr-4 [&>span]:pl-3 hover:[&>span]:bg-surface-pressed"
       >
         <VerifiedBadge withLabel size={20} />
         <span className="sr-only">: Was wir geprüft haben</span>
@@ -88,7 +88,7 @@ export function Bio({ text }: { text: string }) {
           aria-expanded={open}
           aria-controls="bio"
           onClick={() => setOpen((o) => !o)}
-          className="inline-flex h-touch items-center rounded-full type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover"
+          className="inline-flex h-touch items-center rounded-full type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring"
         >
           {open ? "Weniger anzeigen" : "Mehr lesen"}
         </button>

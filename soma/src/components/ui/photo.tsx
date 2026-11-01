@@ -1,54 +1,48 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { cn } from "@/lib/cn";
-import { CATEGORY_AURA } from "@/lib/aura";
 import { imageFocal, resolveImage, toneFor } from "@/lib/images";
-import { AuraArt } from "./aura";
+import { ToneFill } from "./motif";
 
 /**
- * Generative fallback panel (design-guideline v2 §9): the category's aura
- * artwork, seeded, with the word set in the accent italic. Decorative: the
- * real label is always rendered as text elsewhere.
+ * Empty image slot (brand/BRAND_GUIDELINES.md § 5.4): the category wash, a 1.5 px arch outline and the category
+ * word in the serif italic, bottom left. Static. Decorative: the real label is always rendered as text elsewhere.
  */
 export function TonePanel({
   tone,
   word,
   size = "m",
   seed,
+  arch = true,
   className,
 }: {
   tone: string;
   word?: string;
   size?: "s" | "m" | "l";
-  /** seeds the artwork (slug, id); defaults to tone + word */
+  /** kept for API compatibility; the wash is the category's, not seeded */
   seed?: string;
+  /** the arch outline (off for small tiles) */
+  arch?: boolean;
   className?: string;
 }) {
   const key = tone === "nacht" ? "nacht" : toneFor(tone);
-  const dark = CATEGORY_AURA[key]?.dark;
-  return (
-    <div aria-hidden className={cn("absolute inset-0 overflow-hidden", className)}>
-      <AuraArt seed={seed ?? `${key}:${word ?? ""}`} tone={key} animate={size === "l"} />
-      {word ? (
-        <span
-          className={cn(
-            "absolute inset-x-5 bottom-4 z-[2] line-clamp-2 type-accent leading-[1.05] lg:inset-x-7 lg:bottom-6",
-            size === "l" ? "text-[clamp(2.25rem,1.5rem+3vw,4rem)]" : size === "s" ? "text-[clamp(1.5rem,1.3rem+0.8vw,2rem)]" : "text-[clamp(1.875rem,1.5rem+1.4vw,2.75rem)]",
-            dark ? "text-white/90" : "text-ink/85",
-          )}
-        >
-          {word}
-        </span>
-      ) : null}
-    </div>
-  );
+  return <ToneFill tone={key} seed={seed} word={word} wordSize={size} arch={arch} className={className} />;
+}
+
+/** "4/5" → 0.8 (width / height), for the arch radius. */
+function ratioValue(ratio: string | undefined): number | undefined {
+  if (!ratio) return undefined;
+  const [w, h] = ratio.split("/").map((n) => Number(n.trim()));
+  return w && h ? w / h : undefined;
 }
 
 /**
- * Art-directed photo with the designed fallback underneath. The photo fades in
- * over its aura panel (640ms ease-calm); if it cannot load, the panel remains.
+ * Art-directed photo with the designed fallback underneath. The photo fades in over its tone slot and settles from
+ * scale 1.04 to 1 (the brand's "arrival", 640 / 900 ms; reduced motion: it simply appears). If it cannot load,
+ * the slot remains. `shape="arch"` crops it to the SOMA arch (hero, editorial, category and card images);
+ * `shape="oval"` to the full O (portraits).
  */
 export function Photo({
   src,
@@ -63,6 +57,8 @@ export function Photo({
   wordSize,
   focal,
   seed,
+  shape = "rect",
+  archAspect,
 }: {
   src: string | null | undefined;
   alt: string;
@@ -76,14 +72,24 @@ export function Photo({
   ratio?: string;
   wordSize?: "s" | "m" | "l";
   focal?: string;
-  /** seeds the fallback artwork; defaults to tone + word */
+  /** seeds the fallback; defaults to tone + word */
   seed?: string;
+  /** crop: rect (radius from className), the SOMA arch, or the O-oval */
+  shape?: "rect" | "arch" | "oval";
+  /** width / height of the box for the arch curve when `ratio` is not given (default 0.8 = 4:5) */
+  archAspect?: number;
 }) {
   const url = resolveImage(src);
   const [state, setState] = useState<"loading" | "loaded" | "error">("loading");
+  const aspect = archAspect ?? ratioValue(ratio);
+  const style: CSSProperties = {
+    ...(ratio ? { aspectRatio: ratio } : null),
+    ...(shape === "arch" && aspect ? { ["--arch-aspect" as string]: aspect } : null),
+    ...(shape === "oval" ? { borderRadius: "50%" } : null),
+  };
   return (
-    <div className={cn("relative isolate overflow-hidden", className)} style={ratio ? { aspectRatio: ratio } : undefined}>
-      <TonePanel tone={tone} word={state === "loaded" ? undefined : word} size={state === "loaded" && wordSize === "l" ? "m" : wordSize} seed={seed} />
+    <div className={cn("relative isolate overflow-hidden", shape === "arch" && "arch", className)} style={style}>
+      <TonePanel tone={tone} word={state === "loaded" ? undefined : word} size={wordSize} seed={seed} arch={shape !== "oval"} />
       {url && state !== "error" ? (
         <Image
           src={url}
@@ -95,8 +101,8 @@ export function Photo({
           onError={() => setState("error")}
           style={{ objectPosition: focal ?? imageFocal(src) }}
           className={cn(
-            "z-[3] object-cover transition-opacity duration-calm ease-calm",
-            state === "loaded" ? "opacity-100" : "opacity-0",
+            "z-[3] object-cover transition-[opacity,scale] ease-arrive [transition-duration:var(--transition-duration-calm),900ms]",
+            state === "loaded" ? "scale-100 opacity-100" : "scale-[1.04] opacity-0",
             imgClassName,
           )}
         />

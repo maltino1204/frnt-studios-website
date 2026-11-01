@@ -20,10 +20,10 @@ const MAX_KM = 30;
 export const rangeClasses = cn(
   "h-touch w-full cursor-pointer appearance-none bg-transparent focus-visible:outline-none",
   "[&::-webkit-slider-runnable-track]:h-1.5 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,var(--color-ink)_var(--fill),var(--color-line-mid)_var(--fill))]",
-  "[&::-webkit-slider-thumb]:mt-[-9px] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-surface-raised [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_8px_rgb(23_22_31/0.18)] [&::-webkit-slider-thumb]:transition-[scale,box-shadow] [&::-webkit-slider-thumb]:duration-spring [&::-webkit-slider-thumb]:ease-spring active:[&::-webkit-slider-thumb]:scale-115",
+  "[&::-webkit-slider-thumb]:mt-[-9px] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-surface-raised [&::-webkit-slider-thumb]:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_8px_rgb(37_33_31/0.18)] [&::-webkit-slider-thumb]:transition-[scale,box-shadow] [&::-webkit-slider-thumb]:duration-spring [&::-webkit-slider-thumb]:ease-spring active:[&::-webkit-slider-thumb]:scale-115",
   "focus-visible:[&::-webkit-slider-thumb]:shadow-[0_0_0_2px_var(--color-focus),0_0_0_8px_var(--color-focus-glow)]",
   "[&::-moz-range-track]:h-1.5 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-line-mid [&::-moz-range-progress]:h-1.5 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-ink",
-  "[&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-surface-raised [&::-moz-range-thumb]:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_8px_rgb(23_22_31/0.18)] focus-visible:[&::-moz-range-thumb]:shadow-[0_0_0_2px_var(--color-focus),0_0_0_8px_var(--color-focus-glow)]",
+  "[&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-surface-raised [&::-moz-range-thumb]:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_8px_rgb(37_33_31/0.18)] focus-visible:[&::-moz-range-thumb]:shadow-[0_0_0_2px_var(--color-focus),0_0_0_8px_var(--color-focus-glow)]",
 );
 const fill = (v: number, min: number, max: number) => ({ "--fill": `${((v - min) / Math.max(1, max - min)) * 100}%` }) as CSSProperties;
 
@@ -151,7 +151,7 @@ export function AreaForm({
             </li>
             {radius > included ? (
               <li className="inline-flex items-center gap-1.5">
-                <span aria-hidden className="size-2.5 rounded-full bg-white shadow-[0_0_0_1.5px_var(--color-ink)]" /> Pauschale + Kilometerpreis
+                <span aria-hidden className="size-2.5 rounded-full bg-surface-raised shadow-[0_0_0_1.5px_var(--color-ink)]" /> Pauschale + Kilometerpreis
               </li>
             ) : null}
           </ul>
@@ -227,34 +227,34 @@ function RadiusVisual({ radius, included, plz, city }: { radius: number; include
   const inc = Math.min(included, radius);
   const pct = (km: number) => `${Math.max(8, (km / MAX_KM) * 92)}%`;
   return (
-    <div aria-hidden className="relative isolate mx-auto aspect-square w-full max-w-[17rem] overflow-hidden rounded-panel md:max-w-[22rem] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.5)]">
+    <div aria-hidden className="relative isolate mx-auto aspect-square w-full max-w-[17rem] overflow-hidden rounded-panel md:max-w-[22rem] shadow-[inset_0_0_0_1px_rgb(37_33_31/0.08)]">
       <AuraArt seed={`radius-${plz || "x"}`} tone="brows-lashes" />
       {/* scale rings: 10, 20, 30 km */}
       {[10, 20, 30].map((km) => (
-        <span key={km} className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full border border-dashed border-white/55" style={{ width: pct(km) }} />
+        <span key={km} className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full border border-dashed border-ink/25" style={{ width: pct(km) }} />
       ))}
       {/* service radius */}
       <span
-        className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full bg-white/30 shadow-[0_0_0_1.5px_var(--color-ink),0_20px_60px_-20px_rgb(23_22_31/0.35)] backdrop-blur-[2px] transition-[width] duration-spring ease-settle"
+        className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full bg-surface-raised/40 shadow-[0_0_0_1.5px_var(--color-ink)] transition-[width] duration-spring ease-settle"
         style={{ width: pct(radius) }}
       >
-        <span className="absolute -top-3 left-1/2 inline-flex h-6 -translate-x-1/2 items-center rounded-full bg-ink px-2.5 text-[12px] leading-none font-[600] whitespace-nowrap text-ink-inverse shadow-ink num">
+        <span className="absolute -top-3 left-1/2 inline-flex h-6 -translate-x-1/2 items-center rounded-full bg-ink px-2.5 text-[12px] leading-none font-[600] whitespace-nowrap text-ink-inverse num">
           {radius} km
         </span>
       </span>
       {/* included distance */}
       {inc > 0 ? (
-        <span className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full bg-ink/12 shadow-[inset_0_0_0_1px_rgb(28_27_25/0.25)] transition-[width] duration-spring ease-settle" style={{ width: pct(inc) }} />
+        <span className="absolute top-1/2 left-1/2 aspect-square -translate-1/2 rounded-full bg-ink/12 shadow-[inset_0_0_0_1px_rgb(37_33_31/0.25)] transition-[width] duration-spring ease-settle" style={{ width: pct(inc) }} />
       ) : null}
       {/* centre */}
       <span className="absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center gap-1.5">
-        <span className="flex size-9 items-center justify-center rounded-full glass-strong glass-edge text-accent shadow-float">
+        <span className="flex size-9 items-center justify-center rounded-full bg-surface-raised text-ink shadow-float">
           <MapPin size={18} strokeWidth={1.8} absoluteStrokeWidth />
         </span>
       </span>
       <span className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2">
-        <span className="inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink num">{plz || "PLZ"}{city ? ` · ${city}` : ""}</span>
-        <span className="inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-caption text-ink num">max. {MAX_KM} km</span>
+        <span className="inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">{plz || "PLZ"}{city ? ` · ${city}` : ""}</span>
+        <span className="inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-caption text-ink num">max. {MAX_KM} km</span>
       </span>
     </div>
   );

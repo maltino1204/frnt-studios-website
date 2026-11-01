@@ -232,7 +232,7 @@ export function WeeklyHoursEditor({
         className={cn(
           "flex items-center justify-between gap-4",
           stickySave &&
-            "sticky bottom-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom))] z-(--z-sticky-cta) -mx-(--space-gutter) glass-strong glass-edge px-(--space-gutter) py-3 shadow-bar lg:bottom-4 lg:mx-0 lg:rounded-card lg:px-5 lg:shadow-float",
+            "sticky bottom-[calc(var(--bottom-nav-height)+env(safe-area-inset-bottom))] z-(--z-sticky-cta) -mx-(--space-gutter) glass-strong px-(--space-gutter) py-3 shadow-bar lg:bottom-4 lg:mx-0 lg:rounded-card lg:px-5 lg:shadow-float",
         )}
       >
         <p className="flex items-center gap-2 type-caption text-ink-muted" aria-live="polite">

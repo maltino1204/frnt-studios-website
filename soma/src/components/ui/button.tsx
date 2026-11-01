@@ -7,30 +7,33 @@ export type ButtonVariant = "primary" | "secondary" | "ghost" | "link" | "destru
 export type ButtonSize = "s" | "m" | "l";
 
 /*
- * Buttons (design-guideline v2 §8): pill, spring press (scale 0.97), 1 px hover
- * lift on filled variants, focus glow, loading morphs label → spinner.
+ * Buttons (brand/BRAND_GUIDELINES.md § 9.3): pill; press scale 0.98 for 100 ms, no overshoot, no lift and no glow.
+ * - accent: Oxblood, the ONE primary action of a screen ("Zahlungspflichtig buchen", "Termin wählen").
+ * - primary: Espresso with a Bone label, every other strong action.
+ * - secondary: transparent with a 1 px control ring; ghost: text only; both fill Linen on hover.
+ * - link: Espresso, underlined in line-strong, Oxblood on hover. destructive: vermilion, never Oxblood.
+ * Disabled: Oat fill, Taupe label. Loading morphs the label into a spinner at the same width.
  */
 const base =
-  "relative isolate inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full pressable focus-ring disabled:pointer-events-none aria-busy:pointer-events-none";
+  "relative isolate inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full type-button pressable focus-ring disabled:pointer-events-none aria-busy:pointer-events-none";
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-ink text-ink-inverse shadow-ink hover:bg-ink-hover hover:-translate-y-px disabled:bg-surface-sunken disabled:text-ink-disabled disabled:shadow-none",
+    "bg-interactive text-ink-inverse hover:bg-interactive-hover active:bg-interactive-pressed disabled:bg-interactive-disabled disabled:text-ink-disabled",
   accent:
-    "bg-accent text-on-accent shadow-accent hover:bg-accent-hover hover:-translate-y-px disabled:bg-surface-sunken disabled:text-ink-disabled disabled:shadow-none",
+    "bg-accent text-on-accent shadow-accent hover:bg-accent-hover active:bg-accent-pressed disabled:bg-interactive-disabled disabled:text-ink-disabled disabled:shadow-none",
   secondary:
-    "bg-surface-raised text-ink shadow-[0_1px_2px_rgb(23_22_31/0.06)] ring-1 ring-line-mid ring-inset hover:-translate-y-px hover:ring-line-strong hover:shadow-[0_4px_12px_-4px_rgb(23_22_31/0.14)] disabled:text-ink-disabled disabled:ring-line",
+    "bg-transparent text-ink ring-1 ring-line-control ring-inset hover:bg-surface-sunken active:bg-surface-pressed disabled:text-ink-disabled disabled:ring-line",
   ghost: "text-ink hover:bg-surface-sunken active:bg-surface-pressed disabled:text-ink-disabled",
-  link: "h-auto! px-0! text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover",
-  destructive:
-    "bg-danger text-on-danger shadow-[inset_0_1px_0_rgb(255_255_255/0.16),0_1px_2px_rgb(190_49_39/0.3),0_6px_14px_-6px_rgb(190_49_39/0.5)] hover:brightness-95 hover:-translate-y-px disabled:opacity-50",
+  link: "h-auto! px-0! text-link underline decoration-line-strong decoration-1 underline-offset-4 hover:text-link-hover hover:decoration-current",
+  destructive: "bg-danger text-on-danger hover:bg-danger-hover disabled:opacity-50",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  // 36 px visual, 44 px hit area (A5-6, guideline §13): the pseudo-element extends the target vertically.
-  s: "h-control-s px-3.5 type-label-s [&_svg]:size-4 before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
-  m: "h-control px-5 type-label [&_svg]:size-[18px]",
-  l: "h-control-l px-7 type-label text-[1rem] [&_svg]:size-5",
+  // 36 px visual, 44 px hit area (A5-6): the pseudo-element extends the target vertically.
+  s: "h-control-s px-3.5 text-[0.875rem] [&_svg]:size-4 before:absolute before:-inset-y-1 before:inset-x-0 before:content-['']",
+  m: "h-12 px-[1.375rem] [&_svg]:size-5",
+  l: "h-control-l px-[1.625rem] text-[1rem] [&_svg]:size-5",
 };
 
 export function buttonClasses({

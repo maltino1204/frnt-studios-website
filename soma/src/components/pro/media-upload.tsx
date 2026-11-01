@@ -148,7 +148,7 @@ export function PortfolioManager({
                   label={`Bild${it.caption ? ` „${it.caption}“` : ""} entfernen`}
                   onClick={() => remove(it.id)}
                   disabled={deleting && deletingId === it.id}
-                  className="absolute top-2 right-2 z-[4] size-10! glass-strong glass-edge shadow-raised transition-opacity duration-fast hover:bg-white! hover:text-danger [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:focus-visible:opacity-100"
+                  className="absolute top-2 right-2 z-[4] size-10! bg-surface-raised shadow-raised transition-opacity duration-fast hover:bg-surface-raised! hover:text-danger [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:focus-visible:opacity-100"
                 >
                   <Icon icon={Trash} size={18} />
                 </IconButton>

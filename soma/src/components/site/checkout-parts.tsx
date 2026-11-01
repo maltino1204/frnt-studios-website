@@ -32,8 +32,8 @@ export function StepNode({ index, state, size = "m" }: { index: number; state: "
   }
   if (state === "current") {
     return (
-      <span aria-hidden className={cn("inline-flex shrink-0 rounded-full bg-aura p-[1.5px] shadow-[0_0_0_4px_rgb(84_102_255/0.1)]", box)}>
-        <span className="inline-flex size-full items-center justify-center rounded-full bg-surface-raised font-[600] text-ink num">{index + 1}</span>
+      <span aria-hidden className={cn("inline-flex shrink-0 items-center justify-center rounded-full bg-surface-raised font-[600] text-ink shadow-[inset_0_0_0_1.5px_var(--color-ink)] num", box)}>
+        {index + 1}
       </span>
     );
   }
@@ -61,7 +61,7 @@ export function CheckoutStepper({
   className?: string;
 }) {
   return (
-    <nav aria-label="Fortschritt" className={cn("rounded-full glass-strong glass-edge px-2 py-1.5 shadow-raised", className)}>
+    <nav aria-label="Fortschritt" className={cn("rounded-full bg-surface-raised px-2 py-1.5 shadow-raised", className)}>
       <ol className="flex items-center gap-1.5 sm:gap-2">
         {steps.map((s, i) => {
           const state = i < current ? "done" : i === current ? "current" : "upcoming";
@@ -203,13 +203,12 @@ export function OptionCard({
   );
 }
 
-/** A small card artwork (aura, chip lines) for the payment method. Decorative. */
+/** A small card artwork for the payment method: an Espresso card with a chip and a line. Decorative. */
 export function CardArt({ className }: { className?: string }) {
   return (
-    <span aria-hidden className={cn("relative inline-flex h-9 w-14 shrink-0 overflow-hidden rounded-[7px] bg-aura shadow-[0_1px_2px_rgb(23_22_31/0.12),0_4px_10px_-4px_rgb(61_79_240/0.45)]", className)}>
-      <span className="absolute inset-0 bg-linear-to-br from-white/25 to-transparent" />
-      <span className="absolute top-2 left-2 h-2 w-3 rounded-[2px] bg-white/70" />
-      <span className="absolute right-2 bottom-2 h-1 w-5 rounded-full bg-white/60" />
+    <span aria-hidden className={cn("relative inline-flex h-9 w-14 shrink-0 overflow-hidden rounded-[7px] bg-ink shadow-[0_1px_2px_rgb(37_33_31/0.18)]", className)}>
+      <span className="absolute top-2 left-2 h-2 w-3 rounded-[2px] bg-(--soma-stone-deep)" />
+      <span className="absolute right-2 bottom-2 h-1 w-5 rounded-full bg-ink-inverse/50" />
     </span>
   );
 }
@@ -254,7 +253,7 @@ export function PaymentTile({
         </span>
       </div>
       {notice ? (
-        <div className="flex gap-3 bg-warning-soft px-3.5 py-3 shadow-[inset_0_1px_0_rgb(135_88_0/0.12)]">
+        <div className="flex gap-3 bg-warning-soft px-3.5 py-3 shadow-[inset_0_1px_0_var(--color-warning-line)]">
           <Icon icon={TriangleAlert} size={18} className="mt-px shrink-0 text-warning" />
           <div className="flex min-w-0 flex-col gap-0.5 type-body-s">
             {noticeTitle ? <p className="font-semibold text-ink">{noticeTitle}</p> : null}

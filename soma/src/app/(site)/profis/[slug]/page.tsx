@@ -13,11 +13,11 @@ import { formatDateLong, formatDistance, formatPrice, formatPriceExact, plural }
 import { resolveImage } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { Check, CalendarCheck2, Clock3 } from "lucide-react";
-import { AuraArt } from "@/components/ui/aura";
 import { Portrait } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline } from "@/components/ui/layout";
+import { ToneFill } from "@/components/ui/motif";
 import { Photo } from "@/components/ui/photo";
 import { Rating } from "@/components/ui/trust";
 import { FavoriteButton } from "@/components/site/favorite-button";
@@ -157,57 +157,56 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
 
   const metaLine = `${cat?.name ?? "Beauty & Wellness"}${profile.cityName ? ` · ${profile.cityName}` : ""}`;
 
+  const pill = "inline-flex h-touch items-center gap-1.5 rounded-full px-3.5 type-label-s text-ink";
   const hero = (
-    <header className="flex flex-col">
-      {/* Cover: the person's seeded aura (the same palette as the monogram), drifting slowly. */}
-      <div className="relative isolate h-32 overflow-clip rounded-panel shadow-raised sm:h-44 lg:h-56">
-        <AuraArt seed={profile.displayName} animate />
-        <div className="absolute top-3 right-3 z-[3] lg:top-4 lg:right-4">
-          <FavoriteButton
-            providerId={profile.providerId}
-            providerName={profile.displayName}
-            initial={profile.isFavorite}
-            canToggle={isCustomer}
-            withLabel
-            className="glass-strong glass-edge shadow-raised hover:bg-white/90"
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-5 px-1 sm:flex-row sm:items-end sm:gap-7 sm:px-6 lg:px-8">
-        <Portrait
-          src={profile.avatarUrl}
-          name={profile.displayName}
-          ratio="1/1"
-          sizes="(min-width: 1024px) 176px, 128px"
-          priority
-          className="relative z-[2] -mt-14 w-28 shrink-0 rounded-card shadow-float ring-4 ring-surface sm:-mt-20 sm:w-36 lg:-mt-24 lg:w-44 lg:rounded-panel"
-        />
-        <div className="flex min-w-0 flex-col gap-3 sm:pt-5 sm:pb-1">
-          <Overline>{metaLine}</Overline>
+    <header className="grid gap-6 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:items-end sm:gap-8 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
+      {/* The portrait in the SOMA arch (brand § 5.3: 3:4 profile header); the person's wash while it loads. */}
+      <Portrait
+        src={profile.avatarUrl}
+        name={profile.displayName}
+        ratio="3/4"
+        shape="arch"
+        sizes="(min-width: 1024px) 240px, (min-width: 640px) 176px, 144px"
+        priority
+        className="w-36 shrink-0 sm:w-full"
+      />
+      <div className="flex min-w-0 flex-col gap-5 sm:pb-1">
+        <div className="flex min-w-0 flex-col gap-3">
+          <div className="flex items-start justify-between gap-4">
+            <Overline>{metaLine}</Overline>
+            <FavoriteButton
+              providerId={profile.providerId}
+              providerName={profile.displayName}
+              initial={profile.isFavorite}
+              canToggle={isCustomer}
+              withLabel
+              className="-mt-3 ring-1 ring-line-control ring-inset"
+            />
+          </div>
           <h1 className="type-display-m">{profile.displayName}</h1>
-          {profile.headline ? <p className="type-body-l text-ink-muted">{profile.headline}</p> : null}
+          {profile.headline ? <p className="type-lead text-ink-muted">{profile.headline}</p> : null}
         </div>
-      </div>
-      {/* Trust row */}
-      <ul className="mt-6 flex flex-wrap items-center gap-2 sm:px-6 lg:px-8" aria-label="Auf einen Blick">
-        <li>
-          <VerifiedSheetButton name={firstName} qualifications={profile.verifiedQualifications ?? []} />
-        </li>
-        <li>
-          <a href="#bewertungen" className="inline-flex h-touch items-center rounded-full bg-surface-raised px-3.5 shadow-raised pressable focus-ring hover:shadow-float">
-            <Rating avg={profile.ratingAvg} count={profile.ratingCount} size={16} />
-          </a>
-        </li>
-        <li className="inline-flex h-touch items-center rounded-full bg-surface-raised px-3.5 shadow-raised">
-          <ModeLabel mode={profile.bookingMode} className="type-label-s" />
-        </li>
-        {profile.completedCount > 0 ? (
-          <li className="inline-flex h-touch items-center gap-1.5 rounded-full bg-surface-raised px-3.5 type-label-s text-ink shadow-raised num">
-            <Icon icon={CalendarCheck2} size={14} />
-            {`${profile.completedCount.toLocaleString("de-DE")} Termine über ${BRAND_NAME}`}
+        {/* Trust row: facts as words with icons, never colour alone. */}
+        <ul className="flex flex-wrap items-center gap-2" aria-label="Auf einen Blick">
+          <li>
+            <VerifiedSheetButton name={firstName} qualifications={profile.verifiedQualifications ?? []} />
           </li>
-        ) : null}
-      </ul>
+          <li>
+            <a href="#bewertungen" className={`${pill} ring-1 ring-line-mid ring-inset pressable focus-ring hover:bg-surface-sunken`}>
+              <Rating avg={profile.ratingAvg} count={profile.ratingCount} size={16} />
+            </a>
+          </li>
+          <li className={`${pill} bg-surface-sunken`}>
+            <ModeLabel mode={profile.bookingMode} className="type-label-s" />
+          </li>
+          {profile.completedCount > 0 ? (
+            <li className={`${pill} bg-surface-sunken num`}>
+              <Icon icon={CalendarCheck2} size={14} />
+              {`${profile.completedCount.toLocaleString("de-DE")} Termine über ${BRAND_NAME}`}
+            </li>
+          ) : null}
+        </ul>
+      </div>
     </header>
   );
 
@@ -297,12 +296,12 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
             ) : null}
             <p className="type-caption text-ink-muted">Den genauen Standort von Profis zeigen wir aus Datenschutzgründen nicht an.</p>
           </div>
-          {/* Abstract radius: never a map, never a location. */}
+          {/* Abstract radius on the category wash: never a map, never a location. */}
           <div aria-hidden className="relative isolate hidden min-h-40 items-center justify-center overflow-hidden sm:flex">
-            <AuraArt seed={`${profile.slug}:gebiet`} tone={cat?.slug} />
-            <span className="absolute z-[2] size-36 rounded-full border border-white/70 bg-white/25" />
-            <span className="absolute z-[2] size-20 rounded-full border border-white/80 bg-white/30" />
-            <span className="relative z-[3] inline-flex h-7 items-center rounded-full glass-strong glass-edge px-3 type-label-s text-ink shadow-raised num">
+            <ToneFill tone={cat?.slug} seed={`${profile.slug}:gebiet`} arch={false} />
+            <span className="absolute size-36 rounded-full border border-ink/20" />
+            <span className="absolute size-20 rounded-full border border-ink/30" />
+            <span className="relative inline-flex h-7 items-center rounded-full bg-surface-raised px-3 type-label-s text-ink shadow-raised num">
               {`${profile.serviceRadiusKm.toLocaleString("de-DE")} km`}
             </span>
           </div>
@@ -328,7 +327,7 @@ export default async function ProfilPage({ params, searchParams }: { params: Pro
         </ul>
         <p className="type-caption text-ink-muted">
           Anfragen sind bis zur Zusage kostenlos stornierbar. Die genaue Frist sehen Sie vor der Buchung.{" "}
-          <Link href="/stornierung" className="text-accent underline underline-offset-[0.2em]">
+          <Link href="/stornierung" className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             Stornobedingungen
           </Link>
         </p>

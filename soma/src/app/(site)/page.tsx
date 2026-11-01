@@ -26,14 +26,13 @@ import {
   toEntryCatalog,
 } from "@/components/site/discovery-copy";
 import { FaqSection } from "@/components/site/discovery-faq";
-import { DiscoveryHero } from "@/components/site/discovery-hero";
+import { ArchPair, DiscoveryHero } from "@/components/site/discovery-hero";
 import { absoluteUrl, JsonLd } from "@/components/site/discovery-json-ld";
 import { LinkGrid } from "@/components/site/discovery-links";
 import { Rail } from "@/components/site/discovery-rail";
 import { AccountDeletedToast } from "@/components/site/account-deleted-toast";
 import { GuaranteePanel, ProofBand } from "@/components/site/discovery-proof";
 import { RebookRow } from "@/components/site/discovery-rebook";
-import { HeroShowcase, type ShowcaseData } from "@/components/site/discovery-showcase";
 import { CategoryTile, ProviderPortraitCard } from "@/components/site/discovery-tiles";
 import { BRAND_NAME, BRAND_PROMISE, BRAND_TAGLINE } from "@/lib/brand";
 import { cn } from "@/lib/cn";
@@ -89,10 +88,6 @@ export default async function HomePage() {
   const firstCity = cities[0];
   const examplePlz = (firstCity && examples[firstCity.slug]) || "10115";
   const result = await showcaseResult(examplePlz);
-  const showcase: ShowcaseData = {
-    result,
-    rating: proof && proof.reviewCount > 0 && proof.ratingAvg != null ? { avg: proof.ratingAvg, count: proof.reviewCount } : null,
-  };
 
   const [heroTitle, heroEmphasis] = splitHeadline(hero.title);
   // Editorial row: lead with established profiles (≥ 3 reviews), keep the backend's quality order otherwise.
@@ -114,7 +109,16 @@ export default async function HomePage() {
         }}
       />
 
-      <DiscoveryHero overline={hero.overline} title={heroTitle} emphasis={heroEmphasis ?? "Schon da."} lead={hero.lead} visual={<HeroShowcase data={showcase} />}>
+      <DiscoveryHero overline={hero.overline} title={heroTitle} emphasis={heroEmphasis ?? "Schon da."} lead={hero.lead} visual={
+          <ArchPair
+            className="mx-auto max-w-[36rem] lg:mr-0"
+            items={[
+              { src: images.hero, alt: "Eine Masseurin massiert am Abend den Rücken einer Kundin in einem Berliner Altbauwohnzimmer", tone: "massage", place: PLACE_LINES.home },
+              { src: images.editorial.after, alt: "Nach der Behandlung: Tee auf dem Sofa, der Profi packt zusammen", tone: "kosmetik", place: PLACE_LINES.after },
+            ]}
+          />
+        }
+      >
         <RebookRow />
         <BookingEntry catalog={entryCatalog} postalExample={examplePlz} />
         <ul className="-mt-2 flex flex-wrap gap-x-5 gap-y-2" aria-label="Darauf können Sie sich verlassen">
@@ -162,8 +166,8 @@ export default async function HomePage() {
                 <CategoryTile key={c.slug} category={c} />
               ))}
             </Rail>
-            <Link href={routes.categories()} className="group mt-4 inline-flex min-h-touch items-center gap-2 rounded-full type-label text-accent focus-ring hover:text-accent-hover">
-              <span className="underline decoration-1 underline-offset-[0.2em]">Alle Behandlungen und Leistungen</span>
+            <Link href={routes.categories()} className="group mt-4 inline-flex min-h-touch items-center gap-2 rounded-full type-label text-ink focus-ring hover:text-link-hover">
+              <span className="underline decoration-line-strong decoration-1 underline-offset-[0.2em] group-hover:decoration-current">Alle Behandlungen und Leistungen</span>
               <Icon icon={ArrowRight} size={16} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
             </Link>
           </Reveal>
@@ -197,7 +201,6 @@ export default async function HomePage() {
                   </div>
                   <div className="flex flex-col gap-2.5 px-4 md:px-5">
                     <p className="flex items-center gap-2.5 type-overline text-ink-muted num">
-                      <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
                       {`Schritt ${i + 1}`}
                     </p>
                     <h3 className="type-heading-l">{s.title}</h3>
@@ -239,16 +242,12 @@ export default async function HomePage() {
               ).map((row) => (
                 <li key={row.k} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
                   <Surface as="figure" className="flex h-full flex-col gap-4 p-1.5 pb-5">
-                    <div className="relative">
-                      <Photo src={row.src} alt={row.alt} tone={row.tone} sizes="(min-width: 768px) 30vw, 84vw" className="aspect-[3/2] w-full rounded-tile" />
-                      <span className="absolute bottom-3 left-3 z-[4] inline-flex max-w-[calc(100%-1.5rem)] items-center gap-1.5 truncate rounded-full glass-strong glass-edge px-3 py-1.5 type-caption text-ink shadow-raised">
-                        <Icon icon={MapPin} size={14} className="shrink-0" />
-                        <span className="truncate">{row.place}</span>
-                      </span>
-                    </div>
+                    <Photo src={row.src} alt={row.alt} tone={row.tone} sizes="(min-width: 768px) 30vw, 84vw" className="aspect-[4/3] w-full rounded-tile" />
                     <figcaption className="flex flex-col gap-2 px-3.5">
+                      {/* The Ortszeile (brand § 5.2): under the image, aligned to its edge, never on the photo. */}
+                      <span className="truncate type-place text-ink-muted">{row.place}</span>
                       <span className="flex items-center gap-2 type-heading-l text-ink">
-                        <Icon icon={row.icon} size={20} className="text-accent" />
+                        <Icon icon={row.icon} size={20} className="text-ink" />
                         {row.k}
                       </span>
                       <span className="type-body-s text-ink-muted">{row.v}</span>
@@ -288,7 +287,7 @@ export default async function HomePage() {
               </TrustItem>
               <TrustItem icon={CalendarX2} title="Kostenlos stornieren.">
                 {freeCancellationSentence(terms.cancellationPolicy)} Solange eine Anfrage noch nicht bestätigt ist, ist sie immer kostenlos.{" "}
-                <Link href="/stornierung" className="text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+                <Link href="/stornierung" className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                   Stornobedingungen
                 </Link>
               </TrustItem>
@@ -397,8 +396,8 @@ export default async function HomePage() {
                 items={faq}
                 mobileLimit={4}
                 aside={
-                  <Link href={routes.help()} className="group inline-flex min-h-touch items-center gap-2 rounded-full type-label text-accent focus-ring hover:text-accent-hover">
-                    <span className="underline decoration-1 underline-offset-[0.2em]">Alle Fragen und Antworten</span>
+                  <Link href={routes.help()} className="group inline-flex min-h-touch items-center gap-2 rounded-full type-label text-ink focus-ring hover:text-link-hover">
+                    <span className="underline decoration-line-strong decoration-1 underline-offset-[0.2em] group-hover:decoration-current">Alle Fragen und Antworten</span>
                     <Icon icon={ArrowRight} size={16} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
                   </Link>
                 }
@@ -415,7 +414,7 @@ function TrustItem({ icon, title, badge, children }: { icon: LucideIcon; title: 
   return (
     <li className="min-w-0">
       <Surface className="flex h-full flex-col gap-3 p-5 md:p-6">
-        <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-accent-soft text-accent">
+        <span aria-hidden className="inline-flex size-10 items-center justify-center rounded-full bg-surface-sunken text-ink">
           <Icon icon={icon} size={20} />
         </span>
         <h3 className="flex flex-wrap items-center gap-2 type-heading-m text-ink">
@@ -495,7 +494,7 @@ function StepBook({ result }: { result: ProviderSearchResult | null }) {
 function StepArrive() {
   return (
     <div aria-hidden className="flex flex-col gap-2.5">
-      <div className="flex items-center gap-3 rounded-card glass-strong glass-edge p-3 shadow-float">
+      <div className="flex items-center gap-3 rounded-card bg-surface-raised p-3 shadow-float">
         <SuccessCheck size={32} glow={false} />
         <div className="min-w-0">
           <p className="type-label-s">Ihr Profi ist da.</p>
@@ -519,11 +518,11 @@ function StepArrive() {
 function ProSnippet({ payoutHoldHours, result }: { payoutHoldHours: number; result: ProviderSearchResult | null }) {
   return (
     <div aria-hidden className="relative mx-auto flex w-full max-w-[24rem] flex-col gap-3 lg:col-span-5 lg:col-start-8">
-      <div className="flex flex-col gap-3 rounded-card glass glass-edge p-4 shadow-float">
+      <div className="flex flex-col gap-3 rounded-card bg-surface-raised p-4 shadow-float">
         <div className="flex items-center justify-between gap-3">
           <span className="type-overline text-ink-muted">Neue Anfrage</span>
-          <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-accent-soft px-2.5 type-label-s text-accent">
-            <span className="size-1.5 rounded-full bg-accent" />
+          <span className="inline-flex h-6 items-center gap-1.5 rounded-full bg-info-soft px-2.5 type-label-s text-info">
+            <span className="size-1.5 rounded-full bg-info" />
             Live
           </span>
         </div>
@@ -533,7 +532,7 @@ function ProSnippet({ payoutHoldHours, result }: { payoutHoldHours: number; resu
           <span className="inline-flex h-9 flex-1 items-center justify-center rounded-full ring-1 ring-line-mid type-label-s">Ablehnen</span>
         </div>
       </div>
-      <div className="ml-8 flex items-center gap-3 rounded-card glass glass-edge p-3.5 shadow-float">
+      <div className="ml-8 flex items-center gap-3 rounded-card bg-surface-raised p-3.5 shadow-float">
         <SuccessCheck size={32} glow={false} />
         <div>
           <p className="type-label-s">Auszahlung</p>

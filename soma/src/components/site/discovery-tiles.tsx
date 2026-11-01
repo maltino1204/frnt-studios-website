@@ -13,9 +13,9 @@ import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
 import { fromPrice } from "./discovery-copy";
 
 /**
- * Category card (v2): the photo sits over the category's generative aura art
- * (it stays when the photo cannot load), inset 6 px in a level-1 card that
- * lifts on hover and springs on press.
+ * Category card (brand § 9.3 service card): the photo in the SOMA arch, inset 12 px in a Paper card that lifts 2 px
+ * on hover; the category wash with the arch outline and the word stays when the photo cannot load. Title in
+ * Newsreader.
  */
 export function CategoryTile({
   category,
@@ -31,7 +31,7 @@ export function CategoryTile({
   priority?: boolean;
 }) {
   return (
-    <Link href={href ?? routes.category(category.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3 p-1.5 pb-4" })}>
+    <Link href={href ?? routes.category(category.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
       <Photo
         src={category.imagePath ?? images.category(category.slug)}
         alt=""
@@ -40,11 +40,13 @@ export function CategoryTile({
         wordSize="s"
         sizes={sizes}
         priority={priority}
-        className="aspect-[4/5] w-full rounded-tile"
+        shape="arch"
+        ratio="4/5"
+        className="w-full"
       />
-      <span className="flex flex-col gap-1 px-2.5">
+      <span className="flex flex-col gap-1.5 px-1">
         <span className="flex items-center justify-between gap-2">
-          <span className="type-heading-m text-ink">{category.name}</span>
+          <span className="type-title-serif text-ink">{category.name}</span>
           <Icon
             icon={ArrowUpRight}
             size={18}
@@ -57,7 +59,7 @@ export function CategoryTile({
   );
 }
 
-/** Provider card for rails: 4:5 portrait (photo or aura monogram) inset in a lifting card, name, category · city, rating. */
+/** Provider card for rails: the portrait in the SOMA arch (photo or Newsreader initials on the wash), name in Newsreader, category · city, rating. */
 export function ProviderPortraitCard({
   provider,
   categorySlug,
@@ -75,19 +77,17 @@ export function ProviderPortraitCard({
   const meta = [cat?.name, provider.cityName].filter(Boolean).join(" · ");
   const price = showFromPrice ? fromPrice(provider.fromPriceCents) : null;
   return (
-    <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3 p-1.5 pb-4" })}>
-      <span className="relative block">
-        <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" sizes={sizes} className="w-full rounded-tile" />
+    <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
+      <Portrait src={provider.avatarUrl} name={provider.displayName} ratio="4/5" shape="arch" sizes={sizes} className="w-full" />
+      <span className="flex flex-col gap-1.5 px-1">
         {provider.bookingMode === "instant" ? (
-          <span className="absolute top-2.5 left-2.5 z-[4] inline-flex h-6 items-center gap-1.5 rounded-full glass-strong glass-edge px-2.5 text-[11.5px] leading-none font-[560] text-ink shadow-raised">
+          <span className="inline-flex items-center gap-1.5 type-caption font-semibold text-success">
             <span aria-hidden className="size-1.5 rounded-full bg-success" />
             Sofort bestätigt
           </span>
         ) : null}
-      </span>
-      <span className="flex flex-col gap-1.5 px-2.5">
         <span className="flex items-center gap-1.5">
-          <span className="truncate type-heading-m text-ink">{provider.displayName}</span>
+          <span className="truncate type-title-serif text-ink">{provider.displayName}</span>
           <VerifiedBadge className="shrink-0" />
         </span>
         {meta ? <span className="truncate type-body-s text-ink-muted">{meta}</span> : null}
@@ -108,7 +108,7 @@ export function ProviderListRow({ provider, categorySlug, className }: { provide
   return (
     <li className={cn("min-w-0", className)}>
       <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex items-start gap-4 p-3 pr-4 md:gap-5" })}>
-        <Portrait src={provider.avatarUrl} name={provider.displayName} sizes="72px" className="w-[4.5rem] shrink-0" />
+        <Portrait src={provider.avatarUrl} name={provider.displayName} sizes="72px" shape="oval" className="w-[4.5rem] shrink-0" />
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="flex items-center gap-1.5">
             <span className="truncate type-heading-m text-ink">{provider.displayName}</span>

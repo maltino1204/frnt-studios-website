@@ -77,7 +77,7 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
           ) : (
             <EmptyState title="Keine stornierten Termine." seed="konto-storniert" className="py-8">
               Stornierte, abgelehnte und abgelaufene Buchungen sehen Sie hier.{" "}
-              <Link href={routes.account.bookings()} className="text-accent underline underline-offset-[0.2em]">
+              <Link href={routes.account.bookings()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                 Zu den anstehenden Terminen
               </Link>
             </EmptyState>

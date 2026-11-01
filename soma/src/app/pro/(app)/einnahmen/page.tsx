@@ -198,7 +198,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
             const s = tierStats(t);
             const best = t === "own_client";
             return (
-              <li key={t} className={cn("relative flex flex-col gap-4 overflow-hidden rounded-card p-5 lg:p-6", best ? "aura-border shadow-raised" : "bg-surface-raised shadow-raised")}>
+              <li key={t} className={cn("relative flex flex-col gap-4 overflow-hidden rounded-card p-5 lg:p-6", best ? "bg-surface-raised shadow-raised ring-1 ring-ink" : "bg-surface-raised shadow-raised")}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-col gap-0.5">
                     <p className="type-label text-ink hyphens-none">{TIER_LABEL[t]}</p>
@@ -214,7 +214,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
                   <div className="flex flex-col gap-2">
                     <div aria-hidden className="flex h-2 overflow-hidden rounded-full bg-surface-sunken">
                       <span className="h-full rounded-l-full bg-ink" style={{ width: `${keep * 100}%` }} />
-                      <span className="h-full bg-aura opacity-80" style={{ width: `${(1 - keep) * 100}%` }} />
+                      <span className="h-full bg-chart-2" style={{ width: `${(1 - keep) * 100}%` }} />
                     </div>
                     <p className="type-caption text-ink">
                       Von 100&nbsp;€ bleiben dir <span className="font-[600] num">{formatPrice(Math.round(keep * 10000))}</span>
@@ -230,7 +230,7 @@ export default async function ProEarningsPage({ searchParams }: PageProps<"/pro/
         </ul>
         <p className="type-caption text-ink-muted">
           Bring eigene Kundschaft über deinen{" "}
-          <Link href={routes.pro.settings()} className="text-accent underline underline-offset-[0.2em] hover:text-accent-hover">
+          <Link href={routes.pro.settings()} className="text-ink underline decoration-line-strong underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             Einladungslink
           </Link>{" "}
           mit.

@@ -199,6 +199,7 @@ function BookingCta({ block }: { block?: boolean }) {
   return (
     <ButtonLink
       href={checkoutHref(picker.offeringId, picker.slot, travel?.postalCode ?? null, inviteCode)}
+      variant="accent"
       size="l"
       block={block}
       iconRight={<Icon icon={ArrowRight} />}
@@ -214,13 +215,14 @@ function StickyBar() {
   const { picker, travel, openSheet } = useBooking();
   const o = picker.offering;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong glass-edge px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar animate-sheet-in lg:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-(--z-sticky-cta) glass-strong px-(--space-gutter) pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-bar animate-sheet-in lg:hidden">
       <div className="mx-auto flex max-w-content items-center justify-between gap-4">
         <p className="min-w-0">
           <span className="block type-label font-semibold num">{totalLabel(o, travel)}</span>
           <span className="block truncate type-caption text-ink-muted">{`${o.serviceName} · ${formatDuration(o.durationMinutes)}`}</span>
         </p>
         <Button
+          variant="accent"
           size="l"
           onClick={openSheet}
           className="shrink-0"
@@ -303,7 +305,7 @@ export function InlineBooking() {
       <PlzField idPrefix="inline" />
       <SlotPicker state={picker} travelFeeCents={travel?.within ? travel.feeCents : null} policy={policy} idPrefix="inline" />
       {/* Pinned to the bottom of the (scrollable) sticky card, so the next step is always in reach. */}
-      <div className="sticky bottom-0 z-[2] -mx-5 -mb-5 mt-auto rounded-b-card border-t border-line bg-surface-raised/92 px-5 pt-4 pb-5 backdrop-blur-md xl:-mx-6 xl:-mb-6 xl:px-6 xl:pb-6 [&_a]:w-full [&_button]:w-full">
+      <div className="sticky bottom-0 z-[2] -mx-5 -mb-5 mt-auto rounded-b-card border-t border-line bg-surface-raised px-5 pt-4 pb-5 xl:-mx-6 xl:-mb-6 xl:px-6 xl:pb-6 [&_a]:w-full [&_button]:w-full">
         <BookingCta />
       </div>
     </div>

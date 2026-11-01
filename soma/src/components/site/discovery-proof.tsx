@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, Quote, ShieldCheck, Star } from "lucide-react";
-import { AuraBackground } from "@/components/ui/aura";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@/components/ui/icon";
@@ -72,8 +71,8 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
                 <li key={q.id} className="w-[84cqw] shrink-0 snap-start md:w-auto md:min-w-0">
                   <figure className="flex h-full flex-col justify-between gap-6 rounded-card bg-surface-raised p-5 shadow-raised md:p-6">
                     <div className="flex flex-col gap-3">
-                      <Icon icon={Quote} size={20} className="text-accent" />
-                      <blockquote className="type-heading-l text-ink">
+                      <Icon icon={Quote} size={20} className="text-line-strong" />
+                      <blockquote className="type-title-serif text-ink">
                         <p>{`„${q.comment}“`}</p>
                       </blockquote>
                     </div>
@@ -82,7 +81,7 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
                       <span className="min-w-0 type-caption text-ink-muted">
                         <span className="block font-[560] text-ink">{q.authorName}</span>
                         {`${q.serviceName} bei `}
-                        <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-accent hover:decoration-accent">
+                        <Link href={routes.provider(q.providerSlug)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
                           {q.providerName}
                         </Link>
                         {q.cityName ? ` · ${q.cityName}` : null}
@@ -100,16 +99,15 @@ export function ProofBand({ proof }: { proof: SocialProofDTO | null }) {
 }
 
 /**
- * The named SOMA-Garantie: one aura panel (section intensity, AA for muted
- * text) with the real dispute window from the platform terms.
+ * The named SOMA-Garantie: one Stone panel (umber-deep secondary text, 4.7:1) with the real dispute window from the
+ * platform terms.
  */
 export function GuaranteePanel({ disputeWindowHours, className }: { disputeWindowHours: number; className?: string }) {
   const guarantee = `${BRAND_NAME}-Garantie`;
   return (
-    <div className={cn("relative isolate flex flex-col gap-5 overflow-clip rounded-panel p-6 md:p-10", className)}>
-      <AuraBackground variant="section" placement="full" fade="none" animate={false} />
+    <div className={cn("relative isolate flex flex-col gap-5 overflow-clip rounded-panel bg-surface-stone p-6 md:p-10", className)}>
       <div className="flex items-center gap-3">
-        <span className="inline-flex size-11 items-center justify-center rounded-full bg-surface-raised text-accent shadow-raised">
+        <span className="inline-flex size-11 items-center justify-center rounded-full bg-surface-raised text-ink shadow-raised">
           <Icon icon={ShieldCheck} size={22} />
         </span>
         <Badge tone="aura" dot>
@@ -121,7 +119,7 @@ export function GuaranteePanel({ disputeWindowHours, className }: { disputeWindo
       </h3>
       <ul className="flex flex-wrap gap-2" aria-label="Mögliche Lösungen">
         {["Nachbesserung", "Gutschrift", "Erstattung"].map((x) => (
-          <li key={x} className="inline-flex h-8 items-center rounded-full bg-surface-raised/80 px-3.5 type-label-s text-ink shadow-raised">
+          <li key={x} className="inline-flex h-8 items-center rounded-full bg-surface-raised px-3.5 type-label-s text-ink">
             {x}
           </li>
         ))}

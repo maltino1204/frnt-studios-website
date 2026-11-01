@@ -127,11 +127,11 @@ export function NotificationInbox({ items, renderedAt }: { items: NotificationDT
                 aria-hidden
                 className={cn(
                   "relative inline-flex size-9 shrink-0 items-center justify-center rounded-full transition-colors duration-base",
-                  isUnread ? "bg-accent-soft text-accent" : "bg-surface-sunken text-ink-muted",
+                  isUnread ? "bg-surface-sunken text-ink" : "bg-surface-sunken text-ink-muted",
                 )}
               >
                 <Icon icon={iconFor(n.type)} size={16} />
-                {isUnread ? <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-accent shadow-[0_0_0_2px_var(--color-surface-raised)]" /> : null}
+                {isUnread ? <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-ink shadow-[0_0_0_2px_var(--color-surface-raised)]" /> : null}
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="flex items-start justify-between gap-3">
@@ -148,7 +148,7 @@ export function NotificationInbox({ items, renderedAt }: { items: NotificationDT
           );
           const cls = cn(
             "group flex w-full items-start gap-3.5 px-4 py-3.5 text-left transition-colors duration-fast focus-ring md:px-5",
-            isUnread ? "bg-accent-tint hover:bg-accent-soft/70" : "hover:bg-surface-sunken",
+            isUnread ? "bg-surface-tint hover:bg-surface-pressed" : "hover:bg-surface-sunken",
           );
           return (
             <li key={n.id} className="border-b border-line last:border-b-0">

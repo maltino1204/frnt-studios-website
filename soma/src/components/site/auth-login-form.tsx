@@ -44,17 +44,17 @@ export function LoginForm({ next, demo, demoPassword }: { next?: string | null; 
             error={fe?.password}
             required
           />
-          <Link href="/passwort-vergessen" className="inline-flex h-touch items-center self-end rounded-full type-label-s text-accent underline decoration-1 underline-offset-[0.2em] focus-ring hover:text-accent-hover">
+          <Link href="/passwort-vergessen" className="inline-flex h-touch items-center self-end rounded-full type-label-s text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current focus-ring">
             Passwort vergessen?
           </Link>
         </div>
         {state && !state.ok && !fe ? <Notice kind="danger">{state.error}</Notice> : null}
-        <SubmitButton size="l" block loading={pending}>
+        <SubmitButton variant="accent" size="l" block loading={pending}>
           Anmelden
         </SubmitButton>
         <p className="type-body-s text-ink-muted">
           Noch kein Konto?{" "}
-          <Link href={routes.register(next ?? undefined)} className="text-accent underline decoration-1 underline-offset-[0.2em] hover:text-accent-hover">
+          <Link href={routes.register(next ?? undefined)} className="text-ink underline decoration-line-strong decoration-1 underline-offset-[0.2em] hover:text-link-hover hover:decoration-current">
             Jetzt registrieren
           </Link>
         </p>

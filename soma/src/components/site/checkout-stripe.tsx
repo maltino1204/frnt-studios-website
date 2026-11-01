@@ -54,7 +54,7 @@ function PaymentForm({ bookingUrl, ctaLabel }: { bookingUrl: string; ctaLabel: s
     <div className="flex flex-col gap-5">
       <PaymentElement options={{ layout: "tabs" }} />
       {error ? <Notice kind="danger">{error}</Notice> : null}
-      <Button size="l" block onClick={pay} loading={busy} disabled={!stripe || !elements} className="num">
+      <Button variant="accent" size="l" block onClick={pay} loading={busy} disabled={!stripe || !elements} className="num">
         {ctaLabel}
       </Button>
       <p className="type-caption text-ink-muted">

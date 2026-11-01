@@ -1,4 +1,3 @@
-import { useId } from "react";
 import { cn } from "@/lib/cn";
 
 /*
@@ -57,8 +56,8 @@ function niceStep(v: number, ticks: number): number {
 const de = (n: number) => n.toLocaleString("de-DE", { maximumFractionDigits: 1 });
 
 /**
- * Area chart with an aura-tinted gradient fill, a 2 px line and a marked last
- * point. Accessible as one image with a text summary (role="img"): always
+ * Area chart (brand § 3.7 charts): a 2 px line over a flat 8 % tint of the series colour (no gradient) and a
+ * marked last point. The primary series is chart-1 (Oxblood), comparisons chart-5 (slate), dashed. Accessible as one image with a text summary (role="img"): always
  * pass `summary`, e.g. "Umsatz der letzten 8 Wochen: von 3.120 € auf 4.820 €,
  * Höchstwert in KW 44." Pair it with the key figure as real text.
  */
@@ -86,7 +85,6 @@ export function AreaChart({
   showXLabels?: boolean;
   className?: string;
 }) {
-  const id = useId().replace(/:/g, "");
   const W = 600;
   const H = height;
   const pad = { t: 10, b: 6 };
@@ -116,18 +114,11 @@ export function AreaChart({
           ))}
         </div>
         <svg aria-hidden viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-y-0 left-0 h-full w-[calc(100%-3.5rem)] overflow-visible">
-          <defs>
-            <linearGradient id={`${id}-fill`} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor={stroke} stopOpacity={0.22} />
-              <stop offset="60%" stopColor="#9f8bff" stopOpacity={0.08} />
-              <stop offset="100%" stopColor="#ffa894" stopOpacity={0} />
-            </linearGradient>
-          </defs>
           {gridValues.map((g) => (
             <line key={g} x1={0} x2={W} y1={y(g)} y2={y(g)} stroke="var(--color-chart-grid)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" />
           ))}
           <line x1={0} x2={W} y1={H - 0.5} y2={H - 0.5} stroke="var(--color-line)" strokeWidth={1} vectorEffect="non-scaling-stroke" />
-          {area ? <path d={area} fill={`url(#${id}-fill)`} /> : null}
+          {area ? <path d={area} fill={stroke} fillOpacity={0.08} /> : null}
           {cmp ? <path d={cmp} fill="none" stroke="var(--color-chart-5)" strokeWidth={1.5} strokeDasharray="4 4" vectorEffect="non-scaling-stroke" /> : null}
           {line ? <path d={line} fill="none" stroke={stroke} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" /> : null}
         </svg>
@@ -135,7 +126,7 @@ export function AreaChart({
           <span
             aria-hidden
             className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-surface-raised"
-            style={{ left: `calc((100% - 3.5rem) * ${(last[0] / W).toFixed(4)})`, top: `${(last[1] / H) * 100}%`, boxShadow: `0 0 0 2px ${stroke}, 0 0 0 6px color-mix(in srgb, ${stroke} 18%, transparent)` }}
+            style={{ left: `calc((100% - 3.5rem) * ${(last[0] / W).toFixed(4)})`, top: `${(last[1] / H) * 100}%`, boxShadow: `0 0 0 2px ${stroke}` }}
           />
         ) : null}
       </div>

@@ -77,7 +77,7 @@ export function RatingBars({ distribution }: { distribution: Record<"1" | "2" | 
       {keys.map((k) => (
         <span key={k} className="flex h-full flex-1 items-end justify-center">
           <span
-            className={distribution[k] ? "block w-full max-w-5 rounded-t-[5px] rounded-b-[2px] bg-linear-to-t from-accent/70 to-accent" : "block h-0.5 w-full max-w-5 rounded-full bg-line-mid"}
+            className={distribution[k] ? "block w-full max-w-5 rounded-t-[5px] rounded-b-[2px] bg-chart-1" : "block h-0.5 w-full max-w-5 rounded-full bg-line-mid"}
             style={distribution[k] ? { height: `${Math.max(10, (distribution[k] / max) * 100)}%` } : undefined}
           />
         </span>

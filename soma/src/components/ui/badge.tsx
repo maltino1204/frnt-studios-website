@@ -5,25 +5,26 @@ export type BadgeTone = "neutral" | "accent" | "success" | "warning" | "danger" 
 
 const TONES: Record<BadgeTone, string> = {
   neutral: "bg-surface-sunken text-ink-muted",
-  accent: "bg-accent-soft text-accent",
+  accent: "bg-surface-sunken text-ink",
   success: "bg-success-soft text-success",
   warning: "bg-warning-soft text-warning",
   danger: "bg-danger-soft text-danger",
   ink: "bg-ink text-ink-inverse",
-  aura: "aura-border text-ink",
+  aura: "bg-surface-raised text-ink ring-1 ring-line-mid ring-inset",
 };
 const DOTS: Partial<Record<BadgeTone, string>> = {
   neutral: "bg-ink-muted",
-  accent: "bg-accent",
+  accent: "bg-ink",
   success: "bg-success",
   warning: "bg-warning",
   danger: "bg-danger",
-  aura: "bg-aura",
+  aura: "bg-ink",
 };
 
 /**
  * Small pill label: "Neu", "Sofort bestätigt", "Demo", "Top bewertet".
- * Colour always comes with a word. `aura` is for one key badge per view.
+ * Colour always comes with a word. Badges are never Oxblood (brand § 3.6): `accent` is a neutral Linen pill with
+ * Espresso text, `aura` (one key badge per view) a Paper pill with a hairline.
  */
 export function Badge({
   tone = "neutral",

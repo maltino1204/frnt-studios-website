@@ -3,18 +3,18 @@ import { formatRating } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { Icon } from "./icon";
 
-/** Verified marker: BadgeCheck in accent; with label it becomes a soft accent pill. No green ticks, seals or rosettes. */
+/** Verified marker: BadgeCheck in Espresso; with label it becomes a Linen pill (brand § 3.6: never Oxblood). No green ticks, seals or rosettes. */
 export function VerifiedBadge({ withLabel, size = 16, className }: { withLabel?: boolean; size?: 16 | 20; className?: string }) {
   if (withLabel) {
     return (
-      <span className={cn("inline-flex h-7 items-center gap-1.5 rounded-full bg-accent-soft pr-3 pl-2 text-accent", className)}>
+      <span className={cn("inline-flex h-7 items-center gap-1.5 rounded-full bg-surface-sunken pr-3 pl-2 text-ink", className)}>
         <Icon icon={BadgeCheck} size={size === 20 ? 18 : 16} strokeWidth={1.75} />
         <span className="type-label-s">Verifiziert</span>
       </span>
     );
   }
   return (
-    <span className={cn("inline-flex items-center gap-1.5 text-accent", className)}>
+    <span className={cn("inline-flex items-center gap-1.5 text-ink", className)}>
       <Icon icon={BadgeCheck} size={size} strokeWidth={1.75} aria-hidden={false} aria-label="Verifiziertes Profil" role="img" />
     </span>
   );
@@ -40,7 +40,7 @@ export function Rating({
   if (!avg || count < 3) {
     return (
       <span className={cn("inline-flex items-center gap-1.5 type-label-s text-ink-muted", className)}>
-        <span aria-hidden className="size-1.5 rounded-full bg-aura" />
+        <span aria-hidden className="size-1.5 rounded-full bg-line-strong" />
         Neu auf SOMA
       </span>
     );

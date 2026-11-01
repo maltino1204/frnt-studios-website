@@ -83,12 +83,12 @@ export function ProviderRow({
       aria-labelledby={`pr-${r.providerId}`}
     >
       <div className="grid grid-cols-[72px_minmax(0,1fr)] gap-x-4 md:grid-cols-[80px_minmax(0,1fr)]">
-        <Link href={profileHref} tabIndex={-1} aria-hidden className="block size-[72px] md:size-20">
-          <Portrait src={r.avatarUrl} name={r.displayName} sizes="80px" priority={priority} className="shadow-raised" />
+        <Link href={profileHref} tabIndex={-1} aria-hidden className="block w-[72px] md:w-20">
+          <Portrait src={r.avatarUrl} name={r.displayName} sizes="80px" priority={priority} shape="oval" className="w-full" />
         </Link>
         <div className="flex min-w-0 flex-col gap-1">
           <div className="-mt-2.5 -mr-2.5 flex items-start justify-between gap-2">
-            <H id={`pr-${r.providerId}`} className="flex min-w-0 items-center gap-1.5 pt-2.5 type-heading-m">
+            <H id={`pr-${r.providerId}`} className="flex min-w-0 items-center gap-1.5 pt-2 type-title-serif">
               <Link href={profileHref} className="-my-1 truncate rounded-control py-1 focus-ring hover:underline hover:decoration-1 hover:underline-offset-4">
                 {r.displayName}
               </Link>
@@ -142,9 +142,9 @@ export function ProviderRow({
           </ul>
           <Link
             href={profileHref}
-            className="group inline-flex h-touch shrink-0 items-center gap-1.5 self-start rounded-full type-label-s text-accent focus-ring hover:text-accent-hover sm:self-auto"
+            className="group inline-flex h-touch shrink-0 items-center gap-1.5 self-start rounded-full type-label-s text-ink focus-ring hover:text-link-hover sm:self-auto"
           >
-            <span className="underline decoration-1 underline-offset-[0.2em]">Weitere Zeiten</span>
+            <span className="underline decoration-line-strong decoration-1 underline-offset-[0.2em] group-hover:decoration-current">Weitere Zeiten</span>
             <Icon icon={ArrowRight} size={16} className="transition-transform duration-base ease-settle group-hover:translate-x-0.5" />
           </Link>
         </div>

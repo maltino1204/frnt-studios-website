@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/cn";
 
 /**
- * Admin page header: roof line + overline (where you are), title in
+ * Admin page header: eyebrow (where you are), title in
  * type-heading-l (no display type in /admin), muted description, actions right.
  */
 export function AdminPageHeader({
@@ -39,7 +39,6 @@ export function AdminPageHeader({
           </Link>
         ) : group ? (
           <p className="flex items-center gap-2.5 type-overline text-ink-muted">
-            <span aria-hidden className="block h-0.5 w-5 rounded-full bg-aura" />
             {group}
           </p>
         ) : null}
@@ -163,7 +162,7 @@ export function MutedLink({ href, children, className }: { href: string; childre
     <Link
       href={href}
       className={cn(
-        "group/ml -mr-2 inline-flex h-7 items-center gap-0.5 rounded-full pr-1.5 pl-2.5 type-label-s whitespace-nowrap text-accent transition-[background-color,color] duration-fast pressable hover:bg-accent-soft hover:text-accent-hover focus-ring",
+        "group/ml -mr-2 inline-flex h-7 items-center gap-0.5 rounded-full pr-1.5 pl-2.5 type-label-s whitespace-nowrap text-ink underline decoration-line-strong underline-offset-4 transition-[background-color,color] duration-fast pressable hover:bg-surface-sunken hover:decoration-current focus-ring",
         className,
       )}
     >
@@ -174,14 +173,14 @@ export function MutedLink({ href, children, className }: { href: string; childre
 }
 
 /**
- * Compact empty state inside a section (detail pages, secondary lists): a small seeded
- * aura tile, a heading-s line and an optional muted sentence, on a level-1 card.
+ * Compact empty state inside a section (detail pages, secondary lists): a small arch
+ * outline, a heading-s line and an optional muted sentence, on a level-1 card.
  * Full-page empties use the kit EmptyState.
  */
 export function SectionEmpty({ title, children, seed, action, className }: { title: ReactNode; children?: ReactNode; seed: string; action?: ReactNode; className?: string }) {
   return (
     <div className={cn("flex min-w-0 items-center gap-4 rounded-card bg-surface-raised px-4 py-4 shadow-raised sm:px-5", className)}>
-      <EmptyArt seed={seed} className="size-14 rounded-tile shadow-raised" />
+      <EmptyArt seed={seed} className="w-10" />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <p className="type-heading-s text-ink">{title}</p>
         {children ? <div className="type-body-s text-ink-muted">{children}</div> : null}

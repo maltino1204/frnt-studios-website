@@ -110,7 +110,7 @@ export default async function RankingPage() {
               <dd className="row-span-2 type-label font-semibold text-ink num">{pct(f.weight)}</dd>
               <dd className="col-start-1 type-body-s text-ink-muted">{f.body}</dd>
               <dd aria-hidden className="col-span-2 mt-1 h-1 overflow-hidden rounded-full bg-surface-sunken">
-                <span className="block h-full rounded-full bg-accent" style={{ width: `${Math.round(f.weight * 100)}%` }} />
+                <span className="block h-full rounded-full bg-chart-1" style={{ width: `${Math.round(f.weight * 100)}%` }} />
               </dd>
             </div>
           ))}

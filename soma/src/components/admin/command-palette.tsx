@@ -58,7 +58,7 @@ export function CommandPaletteTrigger({ variant = "field", className }: { varian
       aria-haspopup="dialog"
       aria-keyshortcuts="Meta+K Control+K"
       className={cn(
-        "group/cmd flex h-9 w-full items-center gap-2 rounded-control bg-surface-raised px-2.5 type-body-s text-ink-muted shadow-[0_0_0_1px_var(--color-line-mid),0_1px_2px_rgb(23_22_31/0.04)] transition-[box-shadow,color] duration-fast pressable focus-ring hover:text-ink hover:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_6px_-2px_rgb(23_22_31/0.12)]",
+        "group/cmd flex h-9 w-full items-center gap-2 rounded-control bg-surface-raised px-2.5 type-body-s text-ink-muted shadow-[0_0_0_1px_var(--color-line-mid),0_1px_2px_rgb(37_33_31/0.04)] transition-[box-shadow,color] duration-fast pressable focus-ring hover:text-ink hover:shadow-[0_0_0_1px_var(--color-line-strong),0_2px_6px_-2px_rgb(37_33_31/0.12)]",
         className,
       )}
     >
@@ -221,7 +221,7 @@ export function CommandPalette({ groups }: { groups: NavGroup[] }) {
     <dialog
       ref={ref}
       aria-label="Suchen und springen"
-      className="soma-modal mx-auto mt-[12vh] mb-auto w-[calc(100%-1.5rem)] max-w-xl overflow-hidden rounded-card glass-strong glass-edge p-0 text-ink shadow-overlay open:animate-dialog-in"
+      className="soma-modal mx-auto mt-[12vh] mb-auto w-[calc(100%-1.5rem)] max-w-xl overflow-hidden rounded-card bg-surface-raised p-0 text-ink shadow-overlay open:animate-dialog-in"
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
@@ -277,14 +277,14 @@ export function CommandPalette({ groups }: { groups: NavGroup[] }) {
                   onClick={() => go(o)}
                   className={cn(
                     "flex min-h-11 cursor-pointer items-center gap-3 rounded-tile px-2.5 py-2 transition-[background-color] duration-instant",
-                    isActive ? "bg-accent-tint shadow-[inset_0_0_0_1px_rgb(61_79_240/0.14)]" : "",
+                    isActive ? "bg-surface-tint shadow-[inset_0_0_0_1px_var(--color-line-mid)]" : "",
                   )}
                 >
                   <span
                     aria-hidden
                     className={cn(
                       "inline-flex size-8 shrink-0 items-center justify-center rounded-[10px] transition-colors duration-fast",
-                      isActive ? "bg-surface-raised text-accent shadow-raised" : "bg-surface-sunken text-ink-muted",
+                      isActive ? "bg-surface-raised text-ink shadow-raised" : "bg-surface-sunken text-ink-muted",
                     )}
                   >
                     <Icon icon={o.icon} size={16} />
