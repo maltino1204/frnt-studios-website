@@ -97,7 +97,7 @@ async function main() {
         kalender: ["Zum Kalender hinzufügen", "a", 6],
       },
     },
-    { id: "termine", url: `/konto/termine?ansicht=vergangen`, regions: { erneut: ["Erneut buchen", "li, article", 0] } },
+    { id: "termine", url: `/konto/termine?ansicht=vergangen`, regions: { erneut: ["Erneut buchen", "button, a", 6] } },
     { id: "favoriten", url: `/konto/favoriten`, regions: { favoriten: ["", "main ul, main ol", 0] } },
   ];
 
