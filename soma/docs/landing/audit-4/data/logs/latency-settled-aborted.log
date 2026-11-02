@@ -1,0 +1,9 @@
+run 1 settled: place switch Im Hotel: INP 136 / visible 184 | ERROR locator.tap: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for locator('.lp-dock a, .lp-dock button').filter({ hasText: 'Termin finden' }).first()[22m
+[2m    - locator resolved to <a href="#te
+run 2 settled: place switch Im Hotel: INP 120 / visible 192 | ERROR locator.tap: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /opt/pw-browsers/chromium --disable-field-trial-config --disable-background-networking --disable-background-time
+run 3 settled: ERROR page.waitForTimeout: Target page, context or browser has been closed

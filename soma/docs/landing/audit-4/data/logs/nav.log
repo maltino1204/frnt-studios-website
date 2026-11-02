@@ -1,0 +1,257 @@
+{
+ "header": {
+  "d1920": [
+   "SOMA, zur Startseite → / [44]",
+   "Kapitel01 Bei dir02 Behandlungen03 So funktioniert’s04 Profis05 Für Profis06 Fragen07 SOMA [44]",
+   "Entdecken → /entdecken [44]",
+   "Behandlungen → /behandlungen [44]",
+   "So funktioniert’s → #so-funktionierts [44]",
+   "Für Profis → /fuer-profis [44]",
+   "Hilfe → /hilfe [44]",
+   "Anmelden → /anmelden [48]",
+   "Termin finden → #termin [48]"
+  ],
+  "d1440": [
+   "SOMA, zur Startseite → / [44]",
+   "Kapitel01 Bei dir02 Behandlungen03 So funktioniert’s04 Profis05 Für Profis06 Fragen07 SOMA [44]",
+   "Entdecken → /entdecken [44]",
+   "Behandlungen → /behandlungen [44]",
+   "So funktioniert’s → #so-funktionierts [44]",
+   "Für Profis → /fuer-profis [44]",
+   "Hilfe → /hilfe [44]",
+   "Anmelden → /anmelden [48]",
+   "Termin finden → #termin [48]"
+  ],
+  "d1280": [
+   "SOMA, zur Startseite → / [44]",
+   "Kapitel01 Bei dir02 Behandlungen03 So funktioniert’s04 Profis05 Für Profis06 Fragen07 SOMA [44]",
+   "Entdecken → /entdecken [44]",
+   "Behandlungen → /behandlungen [44]",
+   "So funktioniert’s → #so-funktionierts [44]",
+   "Für Profis → /fuer-profis [44]",
+   "Hilfe → /hilfe [44]",
+   "Anmelden → /anmelden [48]",
+   "Termin finden → #termin [48]"
+  ],
+  "d1024": [
+   "SOMA, zur Startseite → / [44]",
+   "Kapitel01 Bei dir02 Behandlungen03 So funktioniert’s04 Profis05 Für Profis06 Fragen07 SOMA [44]",
+   "Menü [44]",
+   "Termin finden → #termin [48]"
+  ],
+  "t768": [
+   "SOMA, zur Startseite → / [44]",
+   "Menü [44]"
+  ],
+  "m390": [
+   "SOMA, zur Startseite → / [44]",
+   "Menü [44]"
+  ]
+ },
+ "overlay": {
+  "d1920": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  },
+  "d1440": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  },
+  "d1280": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  },
+  "d1024": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  },
+  "t768": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  },
+  "m390": {
+   "chapters": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma"
+   ],
+   "other": [
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Termin finden → #termin",
+    "Anmelden → /anmelden"
+   ]
+  }
+ },
+ "nojs": {
+  "d1440": {
+   "exists": true,
+   "links": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma",
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe"
+   ],
+   "headerLinks": [
+    " → /",
+    "Kapitel → #kapitel",
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "So funktioniert’s → #so-funktionierts",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe",
+    "Anmelden → /anmelden",
+    "Termin finden → #termin"
+   ],
+   "faqDetails": 5,
+   "allFragen": [
+    "Alle Fragen → /hilfe"
+   ]
+  },
+  "m390": {
+   "exists": true,
+   "links": [
+    "01Bei dir → #bei-dir",
+    "02Behandlungen → #behandlungen",
+    "03So funktioniert’s → #so-funktionierts",
+    "04Profis → #profis",
+    "05Für Profis → #fuer-profis",
+    "06Fragen → #fragen",
+    "07SOMA → #soma",
+    "Entdecken → /entdecken",
+    "Behandlungen → /behandlungen",
+    "Städte → /staedte",
+    "Für Profis → /fuer-profis",
+    "Hilfe → /hilfe"
+   ],
+   "headerLinks": [
+    " → /",
+    "Menü → #kapitel"
+   ],
+   "faqDetails": 5,
+   "allFragen": [
+    "Alle Fragen → /hilfe"
+   ]
+  }
+ },
+ "links": [
+  {
+   "text": "Themenwelten entdecken",
+   "href": "/entdecken",
+   "chapter": "behandlungen"
+  },
+  {
+   "text": "Alle Fragen",
+   "href": "/hilfe",
+   "chapter": "fragen"
+  },
+  {
+   "text": "Hilfe & häufige Fragen",
+   "href": "/hilfe",
+   "chapter": "footer"
+  }
+ ],
+ "status": {
+  "/entdecken": 200,
+  "/hilfe": 200,
+  "/behandlungen": 200,
+  "/staedte": 200,
+  "/fuer-profis": 200,
+  "/anmelden": 200
+ }
+}

@@ -1,0 +1,11 @@
+{"vp":"d1440","note":"default","atDCL":"full","tier":"full","ready":["walkthrough","seal"],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"d1024","note":"default","atDCL":"full","tier":"full","ready":["walkthrough","seal"],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"t1024","note":"default","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"t820","note":"default","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"t768","note":"default","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"m390","note":"default","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"d1440","note":"reduce","atDCL":"none","tier":"none","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"m390","note":"reduce","atDCL":"none","tier":"none","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"d1440","note":"saveData","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"d1440","note":"unmasked","atDCL":"none","tier":"none","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
+{"vp":"d1440","note":"?motion=lite","atDCL":"lite","tier":"lite","ready":[],"scenes":["hero-place","index-preview","walkthrough","band","seal"]}
