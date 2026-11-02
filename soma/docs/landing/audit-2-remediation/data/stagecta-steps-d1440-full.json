@@ -1,0 +1,56 @@
+[
+ {
+  "step": "1",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ },
+ {
+  "step": "2",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ },
+ {
+  "step": "3",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ },
+ {
+  "step": "4",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ },
+ {
+  "step": "5",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ },
+ {
+  "step": "6",
+  "ready": true,
+  "x": 182.546875,
+  "y": 810,
+  "hitIsCta": true,
+  "hit": "A.relative",
+  "after": "dialog open: Termin finden"
+ }
+]

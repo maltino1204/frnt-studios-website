@@ -1,0 +1,600 @@
+{
+ "seal": [
+  {
+   "share": 0.1,
+   "sealState": "idle",
+   "sceneReady": true,
+   "visibleShare": 0.1,
+   "bandShare": 0.1,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.2,
+   "sealState": "idle",
+   "sceneReady": true,
+   "visibleShare": 0.2,
+   "bandShare": 0.2,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.3,
+   "sealState": "idle",
+   "sceneReady": true,
+   "visibleShare": 0.3,
+   "bandShare": 0.3,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.4,
+   "sealState": "idle",
+   "sceneReady": true,
+   "visibleShare": 0.4,
+   "bandShare": 0.4,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.5,
+   "sealState": "active",
+   "sceneReady": true,
+   "visibleShare": 0.5,
+   "bandShare": 0.5,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.6,
+   "sealState": "active",
+   "sceneReady": true,
+   "visibleShare": 0.6,
+   "bandShare": 0.6,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.8,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.8,
+   "bandShare": 0.8,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  }
+ ],
+ "doorway": [
+  {
+   "f": 0.2,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 878
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1038
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1481
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1617
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1692
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1794
+    }
+   ]
+  },
+  {
+   "f": 0.3,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 788
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": false,
+     "top": 948
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1391
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1527
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1602
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1704
+    }
+   ]
+  },
+  {
+   "f": 0.4,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 698
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 858
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1301
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1437
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1512
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1614
+    }
+   ]
+  },
+  {
+   "f": 0.5,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 608
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 768
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1211
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1347
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1422
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1524
+    }
+   ]
+  },
+  {
+   "f": 0.6,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 518
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 678
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1121
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1257
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1332
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1434
+    }
+   ]
+  },
+  {
+   "f": 0.7,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 428
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 588
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1031
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1167
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1242
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1344
+    }
+   ]
+  },
+  {
+   "f": 0.8,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 338
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 498
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 941
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1077
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1152
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1254
+    }
+   ]
+  },
+  {
+   "f": 0.9,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 248
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 408
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 851
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 987
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1062
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1164
+    }
+   ]
+  },
+  {
+   "f": 1,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 158
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 318
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 761
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 897
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 972
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 1074
+    }
+   ]
+  },
+  {
+   "f": 1.1,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 68
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 228
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 671
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 807
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 882
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": false,
+     "top": 984
+    }
+   ]
+  },
+  {
+   "f": 1.2,
+   "lines": [
+    {
+     "t": "Dein Termin richtet si",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": -22
+    },
+    {
+     "t": "Nicht umgekehrt.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 138
+    },
+    {
+     "t": "Kein Weg durch die Sta",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 581
+    },
+    {
+     "t": "Kein Parkplatz.",
+     "op": 1,
+     "state": "in",
+     "inView": true,
+     "top": 717
+    },
+    {
+     "t": "Kein Wartebereich.",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 792
+    },
+    {
+     "t": "Du bleibst, wo du bist",
+     "op": 0,
+     "state": "pending",
+     "inView": true,
+     "top": 894
+    }
+   ]
+  }
+ ],
+ "somaGeom": {
+  "n": "10",
+  "id": "soma",
+  "top": 15757,
+  "h": 900
+ },
+ "finalState": "done"
+}

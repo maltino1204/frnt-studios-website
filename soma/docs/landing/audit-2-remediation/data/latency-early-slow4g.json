@@ -1,0 +1,53 @@
+[
+ {
+  "run": 1,
+  "scenario": "early",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "dock Termin finden (early, cold surfaces)",
+    "inp": 328,
+    "visible": 384
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 56,
+    "visible": 52
+   }
+  ]
+ },
+ {
+  "run": 2,
+  "scenario": "early",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "dock Termin finden (early, cold surfaces)",
+    "inp": 272,
+    "visible": 329
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 48,
+    "visible": 44
+   }
+  ]
+ },
+ {
+  "run": 3,
+  "scenario": "early",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "dock Termin finden (early, cold surfaces)",
+    "inp": 304,
+    "visible": 351
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 40,
+    "visible": 38
+   }
+  ]
+ }
+]

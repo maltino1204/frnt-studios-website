@@ -591,3 +591,115 @@ Unchanged from audit 1 and still correct:
 They are local fixes (RT-1…RT-4) with scripts in `audit-2/scripts/` to verify them.
 
 *Database: the landing E2E suites were run once on :3100, plus 11 repeats of one motion test. They create searches and waitlist entries, no bookings. I did not run `demo:refresh`. The production server on :3100 was left running and was not rebuilt.*
+
+---
+
+## 17. Remediation after audit 2 (engineer's measurements)
+
+*The remediation engineer's own claims, 2 Nov 2026. **This is not an audit score**: the dimensions stay as scored above until a re-audit. Nothing in §§ 1–16 was changed.*
+*Setup: production build on `:3100` (`npm run build` incl. `postbuild`, then `next start`), the machine idle during every latency run (no build or E2E in parallel), `DEMO_MODE=true`. "Before" is the auditor's data in `audit-2/data/` and, where marked, my own run of the same script on the unchanged code (`ef84ceb`) on this machine. Evidence: `docs/landing/audit-2-remediation/`: `scripts/` are copies of `audit-2/scripts/` with only `OUT`/`DATA` in `lib.js` pointed there (so the auditor's evidence stays untouched), plus a few marked variants; `data/` holds their output.*
+
+### 17.1 Commits
+
+| Commit | RT | Change |
+|---|---|---|
+| `1c763cb` | RT-1 | `lib/scroll-jump.ts`: the native smooth `scrollIntoView` is kept (spec § 7); at `scrollend` (fallback: a quiet period) the target is checked and corrected without smoothing until the layout holds (≤ 4×, 8 px). Chapter jumps (`nav/jump.ts`) and `MotionRoot`'s same-page anchors (`ui/motion.tsx`) use it. Visitor input cancels the correction. |
+| `151ea9f` | RT-1 | Measured `contain-intrinsic-size` estimates (phones, a new 768–1023 band, desktop), width-linear `calc()` where a chapter grows with the width, so the end correction stays small. |
+| `8ed9c40` | RT-2 | `.lp-stage-cta` `z-index: 2` in the pinned stage. |
+| `f2bf046` | RT-3 | `BookingEntry` adopts a non-empty DOM value on mount (layout effect) with the same lookup; it wins over `?plz=` and the remembered PLZ; caret kept. E2E T2a. |
+| `3762d8e` | RT-7 | Inline Was?/Wann?: panel, `aria-expanded` and a height-holding placeholder with the tap; only the list is deferred (`useDeferredValue`). |
+| `040fcd6` | RT-10 | ` · ` in the booking entry (caption, city and unserved hints, Wann? value, service meta). |
+| `4f52923` | RT-4 | Booking sheet: entry pre-rendered closed in idle (memoised, never writes the draft), page parts off screen `content-visibility: hidden` around `showModal()`, open in the request's task, no yield on a warm phone open; `nav/surfaces.ts` loads the modules first and mounts the dialogs in one synchronous render (no `React.lazy`/`Suspense`). |
+| `df466be` | RT-4 | A dialog chunk that fails to load resolves the mount promise, so a trigger reaches `openBooking()` and booking-access's fallback instead of doing nothing. |
+| `713e01e` | RT-11 | 02: the three lines and the statement are one clause group (`data-doorway-lines`, statement `data-reveal-order={3}`); the doorway triggers it with line 3. |
+| `f9bc3c9` | RT-12 | 44 px header links and index pill; `<noscript>` links „Kapitel“/„Menü“ to a static chapter list (`#kapitel`) above the footer; tone „nacht“ under the 05 photos. |
+| `5f489de` | RT-13 | Font comment in `(landing)/layout.tsx`. |
+| `4fba621` | tests | Motion E2E: the overlay jump asserts where it lands; a phone jump test; the 05 stage CTA click. |
+
+### 17.2 Before → after per task
+
+**RT-1 · Chapter jumps (N-1).**
+
+| Script | Before | After |
+|---|---|---|
+| `jump.js m390` (h2 top after 4 s · active) | 239 · 03 / **−784** · 05 / **−1,053** · 07 / **−1,483** · 08 / **−1,957** · 10 / **−1,129** · 10 (my run reproduced the audit to the px) | 239 · 03 / 239 · 05 / 239 · 06 / 238 · 07 / 238 · 09 / 268 · 10, all `inView: true` |
+| `jump.js m412` | — | 238 · 03 / 238 · 05 / 246 · 06 / 236 · 07 / 239 · 09 / 303 · 10 |
+| `jump.js d1440` | 310 / 599 / 310 / 136 / **−194 · 10** / **−403** | 310 · 03 / 599 · 05 / 310 · 06 / 311 · 07 / 311 · 09 / 313 · 10 |
+| `jump2.js` | hero „So funktioniert’s“ at 390: **−245** | 238 · 04; foot 02 239 · 03; header and hero links at 1440 310 · 04; reduced motion 238 (390) / 311 (1440) · 09 |
+| `jump-residual.js` (variant: dock or header by visibility, all targets; `jump.js` cannot run `t768`, it uses the header „Kapitel“ below 1024) | correction at the end, before the new estimates: phones up to **2,195 px**, 768 up to **814**, 1440 up to **712** | phones ≤ 43 px, 768 ≤ 9, 1024/1440 ≤ 84. At 768, 1024 (touch and fine pointer) every section lands at its scroll margin (147–153 px) with the target active |
+| `jump-nojs.js` (variant, JS off) | — | hero link and chapter foot: 238 (390), 278 (768), 310 (1440) |
+| E2E | overlay → Fragen flaked (10 instead of 09) | the test now asserts the landing (h2 0–320 px, 09 active, after the scroll settled): **10/10** alone; the new phone test (Profis, Fragen, hero link at 390 × 844): **10/10** |
+
+Upward jumps (`jump-up.js`, after an instant scroll to the end) missed before too (390: 04 at −245, 06 at −30). After: 03 239 / 04 238 / 06 238 at 390 and 310 / 310 / 310 at 1440, the target active each time.
+Three headings sit below 320 px **by layout** while their section lands exactly under the header: 05 at 1024/1440 in the full tier (556/599 px, under the dusk spacer; the audit already marked 599 ✓), 08 below 1024 (744 px at 390, 994 at 768: the band's arch comes first) and 10 at 768 (358 px). Landing on the heading instead of the section would skip those openings; I left it as a design question.
+
+**RT-2 · 05 stage CTA (N-2).**
+- `stagecta.js d1440 full`: before, the pinned rows 1–7 had `hitIsCta: false` (`LI.lp-essay-item`) and „no dialog“. After, rows 1–7 have `hitIsCta: true` and „dialog open: Termin finden“. Rows 0 and 8 are the probe's edges, with the same values as in the audit (the CTA centre below the fold at y 916, or under the header at y 16).
+- `stagecta-steps.js` (variant, steps 1–6 positioned as in the E2E): the hit target is the CTA and the bar opens at **6/6** steps at 1440 and at 1024 (fine pointer).
+- `hittest.js d1440 full` / `d1024 full`: covered 2 → **1**, the disabled rail arrow „Zurück“ that the audit also listed (`pointer-events: none` by design).
+
+**RT-3 · Early PLZ (N-3).** `early.js 3`: before, `after.value ""`, `hint null`, no navigation (3/3). After, `"10115"`, `"· Berlin"`, `/suche?plz=10115` (**3/3**; typed at 3.2–3.5 s).
+
+**RT-4 · Booking sheet (N-4).** `latency.js`, 412 × 823, 4× CPU, Slow 4G; „visible“ = event → first frame with the sheet.
+
+| Scenario | Before | After |
+|---|---|---|
+| settled, dock → sheet (visible) | audit 284 / 285 / 270; my run on `ef84ceb` 325 / 263 | 3 batches on this architecture: 138 / 197 / 170 · 244 / 136 / 257 (first batch after a build, load 1.7) · 166 / 177 / 211 → **median 177, 6 of 9 ≤ 200** |
+| early (1.5 s after load, cold surfaces) | audit 459 / 454 / 502; my run 536 / 518 / 466 | 431 / 387 / 379 · 384 / 329 / 351 → **median 381** |
+
+- **Where the time went** (`showModal()` patched with timestamps, same profile): the request reached `showModal()` 50–60 ms after the tap, and `showModal()` itself took **145–148 ms**: the inert restyle of 538 rendered elements, among them the off-screen hero, chapters near the viewport and the footer. Now the request reaches it 23–65 ms after the tap, and the call takes 41–86 ms (303 elements). In place, with the visible chapter, header, dock and dialog content also hidden, it would take 18–36 ms, so roughly 25 ms each is the visible chapter and the dialog's own first styles. That remainder is inherent to a modal over a visible page.
+- **Tried and not kept**, each measured in 10 runs: `flushSync` without the other steps (median 185 against 176); writing the page lock before the render (226: the root's `overflow` change made the browser render an extra frame before React's render). The CSS selector cost of a full restyle is 7 ms at 1× over 749 selectors, with no single hot selector.
+- **INP vs visible:** a warm phone open no longer yields a frame first, so Event Timing now equals the visible time (80–256 ms) instead of 80–112 ms for a press-state paint. The desktop bar and a cold mount without a presented frame still yield.
+- **Not met:** „≤ 200 ms in 3 of 3“ (settled) and „≤ 300 ms“ (early). On the cold path the dialogs' chunk is evaluated inside the tap (≈ 125 ms at 4×). That chunk (`booking-sheet`/`booking-bar`, 28.8 KB raw) also carries ≈ 20 KB of modules that are already in the first-load chunk with `BookingEntry` (the kit `Sheet`, `RebookRow`, `format`, the form field, booking-draft, icons). The dynamic imports live in the layout's chunk group, which cannot assume the page's modules. Moving the loader into the page's chunk group, or a smaller entry, is the remaining lever. It is JS weight, so I left it for RT-5. Loading the chunk before the first engagement would add ≈ 75 ms of TBT, which was audit-1's PT-1 trade-off.
+
+**RT-7 · Was? / Wann? (N-12).** `latency.js` Was? visible: before 209 / 276 / 156 (audit), 213 / 297 (my run). After: 68 / 73 / 114 · 75 / 89 / 99 · 135 / 122 / 82 → **median 89, 7 of 9 ≤ 120**. `aria-expanded` follows the tap.
+
+**Performance kept (`MASK=1 perf.js mobile slow4g 3`).** After: TBT 120 / 177 / 222 (the first runs after a server restart), then 115 / 121 / 155 → median 138 ms (audit: 124). Same machine, same hour, `ef84ceb` rebuilt: 120 / 175 / 88. Overlay open (4th interaction): after 152–232, `ef84ceb` 176–272. LCP 2.25–2.42 s, CLS 0. `content-visibility` and every `<Activity>` boundary are unchanged.
+
+**RT-10 · Middle dot (I-14).** `d1440-hero-filled.png`: „Wo? · Im Hotel“, „10115 · Berlin“ (one no-break space each side), „Morgen · Abends“.
+
+**RT-11 · 02 statement (I-12).** `seal.js d1440 full` (doorway part): at f = 1.2, before: statement opacity **1** while „Kein Wartebereich.“ was 0 (audit). After: statement 0 with line 3 at 0. Continuing the scroll, the statement rises right after line 3 (full tier) or with it (lite, 390).
+
+**RT-12** (`rt12.js`, variant).
+- **Header targets:** 1440 / 1280 / 1024: links and index pill **40 → 44 px**; „Termin finden“ and „Anmelden“ 48; „Menü“ and the wordmark 44.
+- **No-JS:** the dock (390) and header (1280, 1440) show „Kapitel“ as a link. It reaches `#kapitel` (list top 76 / 84 px), and a chapter link there jumps (Fragen `h2` at 238 / 310). No inert button is visible (`m390-nojs-kapitel.png`). With JS the links and the list are not in the DOM (T14 unchanged).
+- **Night band:** with images blocked at 768, all six 05 arches load on `rgb(37, 33, 31)`, the band's Espresso, instead of the light washes (`t768-05-wash-before-load.png`).
+- **Not done: the 768 hero (I-13).** Audit 1 offers two recompositions („figure beside the head“ or „booking card above the arch“) against the spec's validated stacked layout. That is a design decision.
+
+**RT-13.** The comment now says: 2 preloaded files (≈ 80 KB), and the roman is fetched once after `load` by the motion loader.
+
+**RT-8 · not done (design decision).** Geometry at load (DEMO build, `rt8-hero-*.png`):
+- **390 × 844:** Ortszeile 814–829 under the dock 776–832.
+- **412 × 915:** 844–860 under 847–903; the lead starts at 884, also under the dock.
+- **430 × 932:** 869–884 under 864–920; the lead starts at 908.
+- **Without the 47 px demo ribbon** (production): the Ortszeile clears the dock at 412 and 430 and is covered by 6 px at 390. The leads stay covered.
+- **The audit's second option** (dock hidden until the first scroll) would bring back the I-4 booking gap at load. The dock is the only booking control in view there, and E2E „a booking control is in view at every scroll position from load“ fails.
+- **The first option** (80 px under the figure) keeps the lead clear, but it leaves the Ortszeile covered in the audited demo build and adds 80 px for every visitor.
+- **What a real fix needs:** shortening the hero arch on tall phones (or moving the Ortszeile), which changes the spec's validated 390 composition (arch 4:5, full width).
+
+### 17.3 Tests
+
+- `tsc --noEmit` clean; `vitest run` **232/232**.
+- Landing E2E (`landing`, `landing-motion`, `landing-conversion`, both projects): **71 passed, 11 skipped, 0 failed** (82 tests, 6 new; the extra skips are the new viewport-gated tests).
+- Full suite (`E2E_PORT=3100 npx playwright test`), build before `df466be`: **194 passed, 2 failed, 12 skipped** (208, 12.2 min). Both failures are `audit5.spec.ts:24` A5-1 (mobile and desktop). The demo customer's first upcoming booking is today at 09:00 Berlin. The run was after 09:00, so the server reports `canCancel: false` and there is no „Termin stornieren“ button to focus. This depends on the clock and the demo data, not on this work: the booking page and `checkout-cancel.tsx` are untouched. I did not run `demo:refresh`.
+- Full suite on the final build: see 17.5.
+
+### 17.4 Open, and handed on
+
+- **RT-4 is not at its gate.** Settled: 6 of 9 runs ≤ 200 ms, not 3 of 3. Early: median 381 ms, not ≤ 300.
+  - The remaining lever is the dialogs' async chunk: 28.8 KB raw, about 20 KB of it duplicated from the first-load chunk, because the loader lives in the layout's chunk group.
+  - That is JS weight, so it goes with RT-5.
+- **RT-8 and the 768 hero (RT-12, I-13)** need a composition decision; the geometry is in § 17.2.
+- **Spec § 10.4** still lists the old 06–09 sizes (1000/1150/1600/1300 desktop, 1200/1500/2100/2200 mobile). The code now carries measured values; the spec owner should update the line.
+- **`audit-2/scripts/jump.js` cannot run `t768`**: below 1024 it still uses the header „Kapitel“. `jump-residual.js` covers 768 and 1024.
+- **Headings below 320 px by layout** (05 in the full tier, 08 below 1024, 10 at 768): whether a jump should land on the heading instead of the section is a design question.
+- **The `none` tier still scrolls smoothly on jumps** unless reduced motion is set. That was the case before; spec § 8.2's table says "off". Unchanged.
+
+### 17.5 Full E2E suite on the final build
+
+Final build (`df466be`, build `Xao0MaO2OX_wgYFaPfts2`, left running on `:3100`):
+- `E2E_PORT=3100 npx playwright test`: **194 passed, 2 failed, 12 skipped** (208 tests, 12.9 min).
+- The only failure is A5-1 in both projects, for the time-of-day reason above. Every landing test passes, including the 6 new ones.
+- `tsc --noEmit` clean; `vitest run` 232/232.
+
+*Database: two full E2E runs and the landing suites as listed. They create searches, waitlist entries and the bookings the booking specs make and cancel. `demo:refresh` was not run.*

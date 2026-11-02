@@ -1,0 +1,66 @@
+{
+ "targets d1440": [
+  "SOMA, zur Startseite 44",
+  "Kapitel01 Bei dir02 Id 44",
+  "Behandlungen 44",
+  "So funktioniert’s 44",
+  "Für Profis 44",
+  "Hilfe 44",
+  "Anmelden 48",
+  "Termin finden 48"
+ ],
+ "targets d1280": [
+  "SOMA, zur Startseite 44",
+  "Kapitel01 Bei dir02 Id 44",
+  "Behandlungen 44",
+  "So funktioniert’s 44",
+  "Für Profis 44",
+  "Hilfe 44",
+  "Anmelden 48",
+  "Termin finden 48"
+ ],
+ "targets d1024": [
+  "SOMA, zur Startseite 44",
+  "Kapitel01 Bei dir02 Id 44",
+  "Menü 44",
+  "Termin finden 48"
+ ],
+ "nojs m390": {
+  "label": "Kapitel",
+  "hash": "#kapitel",
+  "listTop": 76,
+  "buttons": 0,
+  "then": {
+   "hash": "#fragen",
+   "h2": 238
+  }
+ },
+ "nojs d1280": {
+  "label": "Kapitel",
+  "hash": "#kapitel",
+  "listTop": 84,
+  "buttons": 0,
+  "then": {
+   "hash": "#fragen",
+   "h2": 310
+  }
+ },
+ "nojs d1440": {
+  "label": "Kapitel",
+  "hash": "#kapitel",
+  "listTop": 84,
+  "buttons": 0,
+  "then": {
+   "hash": "#fragen",
+   "h2": 311
+  }
+ },
+ "wash": [
+  "rgb(37, 33, 31)",
+  "rgb(37, 33, 31)",
+  "rgb(37, 33, 31)",
+  "rgb(37, 33, 31)",
+  "rgb(37, 33, 31)",
+  "rgb(37, 33, 31)"
+ ]
+}

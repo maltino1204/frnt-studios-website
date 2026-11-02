@@ -1,0 +1,143 @@
+[
+ {
+  "run": 1,
+  "scenario": "settled",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "place switch Im Hotel",
+    "inp": 144,
+    "visible": 219
+   },
+   {
+    "label": "dock Termin finden → sheet",
+    "inp": 176,
+    "visible": 166
+   },
+   {
+    "label": "Was? (inline picker in sheet)",
+    "inp": 104,
+    "visible": 135
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 48,
+    "visible": 38
+   },
+   {
+    "label": "dock chapter button → overlay",
+    "inp": 184,
+    "visible": 179
+   },
+   {
+    "label": "Escape (close overlay)",
+    "inp": 16,
+    "visible": 202
+   },
+   {
+    "label": "FAQ summary",
+    "inp": 80,
+    "visible": 166
+   },
+   {
+    "label": "07 tab 3",
+    "inp": 112,
+    "visible": 111
+   }
+  ]
+ },
+ {
+  "run": 2,
+  "scenario": "settled",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "place switch Im Hotel",
+    "inp": 120,
+    "visible": 206
+   },
+   {
+    "label": "dock Termin finden → sheet",
+    "inp": 176,
+    "visible": 177
+   },
+   {
+    "label": "Was? (inline picker in sheet)",
+    "inp": 88,
+    "visible": 122
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 56,
+    "visible": 54
+   },
+   {
+    "label": "dock chapter button → overlay",
+    "inp": 256,
+    "visible": 246
+   },
+   {
+    "label": "Escape (close overlay)",
+    "inp": 16,
+    "visible": 190
+   },
+   {
+    "label": "FAQ summary",
+    "inp": 64,
+    "visible": 117
+   },
+   {
+    "label": "07 tab 3",
+    "inp": 104,
+    "visible": 100
+   }
+  ]
+ },
+ {
+  "run": 3,
+  "scenario": "settled",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "place switch Im Hotel",
+    "inp": 104,
+    "visible": 182
+   },
+   {
+    "label": "dock Termin finden → sheet",
+    "inp": 208,
+    "visible": 211
+   },
+   {
+    "label": "Was? (inline picker in sheet)",
+    "inp": 80,
+    "visible": 82
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 64,
+    "visible": 62
+   },
+   {
+    "label": "dock chapter button → overlay",
+    "inp": 200,
+    "visible": 177
+   },
+   {
+    "label": "Escape (close overlay)",
+    "inp": 16,
+    "visible": 251
+   },
+   {
+    "label": "FAQ summary",
+    "inp": 64,
+    "visible": 149
+   },
+   {
+    "label": "07 tab 3",
+    "inp": 128,
+    "visible": 102
+   }
+  ]
+ }
+]

@@ -1,0 +1,35 @@
+{
+ "m390 #bei-dir a[href=\"#so-funktionierts\"]": {
+  "h2": 238,
+  "sec": 136,
+  "hash": "#so-funktionierts"
+ },
+ "m390 #idee a[href=\"#behandlungen\"]": {
+  "h2": 239,
+  "sec": 136,
+  "hash": "#behandlungen"
+ },
+ "m390 soma": "no link",
+ "t768 #bei-dir a[href=\"#so-funktionierts\"]": {
+  "h2": 278,
+  "sec": 152,
+  "hash": "#so-funktionierts"
+ },
+ "t768 #idee a[href=\"#behandlungen\"]": {
+  "h2": 279,
+  "sec": 152,
+  "hash": "#behandlungen"
+ },
+ "t768 soma": "no link",
+ "d1440 #bei-dir a[href=\"#so-funktionierts\"]": {
+  "h2": 310,
+  "sec": 152,
+  "hash": "#so-funktionierts"
+ },
+ "d1440 #idee a[href=\"#behandlungen\"]": {
+  "h2": 310,
+  "sec": 152,
+  "hash": "#behandlungen"
+ },
+ "d1440 soma": "no link"
+}

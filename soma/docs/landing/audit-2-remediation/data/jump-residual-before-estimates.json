@@ -1,0 +1,477 @@
+{
+ "m390": [
+  {
+   "id": "behandlungen",
+   "y": 2518,
+   "ends": [
+    2518
+   ],
+   "h2": 239,
+   "sec": 136,
+   "active": "03",
+   "correction": 0
+  },
+  {
+   "id": "so-funktionierts",
+   "y": 3529,
+   "ends": [
+    4012,
+    3529
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "04",
+   "correction": -483
+  },
+  {
+   "id": "dein-ort",
+   "y": 4583,
+   "ends": [
+    5606,
+    4583
+   ],
+   "h2": 239,
+   "sec": 136,
+   "active": "05",
+   "correction": -1023
+  },
+  {
+   "id": "profis",
+   "y": 8514,
+   "ends": [
+    9806,
+    8514
+   ],
+   "h2": 239,
+   "sec": 136,
+   "active": "06",
+   "correction": -1292
+  },
+  {
+   "id": "deine-buchung",
+   "y": 9429,
+   "ends": [
+    11150,
+    9429
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "07",
+   "correction": -1721
+  },
+  {
+   "id": "fuer-profis",
+   "y": 10790,
+   "ends": [
+    12794,
+    10790
+   ],
+   "h2": 744,
+   "sec": 136,
+   "active": "08",
+   "correction": -2004
+  },
+  {
+   "id": "fragen",
+   "y": 12699,
+   "ends": [
+    14894,
+    12699
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "09",
+   "correction": -2195
+  },
+  {
+   "id": "soma",
+   "y": 13925,
+   "ends": [
+    13925
+   ],
+   "h2": 268,
+   "sec": 136,
+   "active": "10",
+   "correction": 0
+  }
+ ],
+ "m412": [
+  {
+   "id": "behandlungen",
+   "y": 2548,
+   "ends": [
+    2548
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "03",
+   "correction": 0
+  },
+  {
+   "id": "so-funktionierts",
+   "y": 3581,
+   "ends": [
+    4042,
+    3581
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "04",
+   "correction": -461
+  },
+  {
+   "id": "dein-ort",
+   "y": 4637,
+   "ends": [
+    5636,
+    4637
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "05",
+   "correction": -999
+  },
+  {
+   "id": "profis",
+   "y": 8718,
+   "ends": [
+    9836,
+    8718
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "06",
+   "correction": -1118
+  },
+  {
+   "id": "deine-buchung",
+   "y": 9622,
+   "ends": [
+    11180,
+    9622
+   ],
+   "h2": 238,
+   "sec": 136,
+   "active": "07",
+   "correction": -1558
+  },
+  {
+   "id": "fuer-profis",
+   "y": 10985,
+   "ends": [
+    12824,
+    10985
+   ],
+   "h2": 771,
+   "sec": 136,
+   "active": "08",
+   "correction": -1839
+  },
+  {
+   "id": "fragen",
+   "y": 12908,
+   "ends": [
+    14924,
+    12908
+   ],
+   "h2": 239,
+   "sec": 136,
+   "active": "09",
+   "correction": -2016
+  },
+  {
+   "id": "soma",
+   "y": 14136,
+   "ends": [
+    14136
+   ],
+   "h2": 299,
+   "sec": 136,
+   "active": "10",
+   "correction": 0
+  }
+ ],
+ "t768": [
+  {
+   "id": "behandlungen",
+   "y": 2996,
+   "ends": [
+    2996
+   ],
+   "h2": 279,
+   "sec": 152,
+   "active": "03",
+   "correction": 0
+  },
+  {
+   "id": "so-funktionierts",
+   "y": 4030,
+   "ends": [
+    4538,
+    4030
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "04",
+   "correction": -508
+  },
+  {
+   "id": "dein-ort",
+   "y": 5366,
+   "ends": [
+    6180,
+    5366
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "05",
+   "correction": -814
+  },
+  {
+   "id": "profis",
+   "y": 10899,
+   "ends": [
+    10380,
+    10899
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "06",
+   "correction": 519
+  },
+  {
+   "id": "deine-buchung",
+   "y": 11821,
+   "ends": [
+    11772,
+    11821
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "07",
+   "correction": 49
+  },
+  {
+   "id": "fuer-profis",
+   "y": 13132,
+   "ends": [
+    13464,
+    13132
+   ],
+   "h2": 999,
+   "sec": 152,
+   "active": "08",
+   "correction": -332
+  },
+  {
+   "id": "fragen",
+   "y": 14875,
+   "ends": [
+    15564,
+    14875
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "09",
+   "correction": -689
+  },
+  {
+   "id": "soma",
+   "y": 16148,
+   "ends": [
+    16148
+   ],
+   "h2": 358,
+   "sec": 152,
+   "active": "10",
+   "correction": 0
+  }
+ ],
+ "t1024": [
+  {
+   "id": "behandlungen",
+   "y": 1804,
+   "ends": [
+    1804
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "03",
+   "correction": 0
+  },
+  {
+   "id": "so-funktionierts",
+   "y": 2970,
+   "ends": [
+    2970
+   ],
+   "h2": 310,
+   "sec": 152,
+   "active": "04",
+   "correction": 0
+  },
+  {
+   "id": "dein-ort",
+   "y": 4231,
+   "ends": [
+    4231
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "05",
+   "correction": 0
+  },
+  {
+   "id": "profis",
+   "y": 8169,
+   "ends": [
+    8169
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "06",
+   "correction": 0
+  },
+  {
+   "id": "deine-buchung",
+   "y": 9142,
+   "ends": [
+    9425,
+    9142
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "07",
+   "correction": -283
+  },
+  {
+   "id": "fuer-profis",
+   "y": 10449,
+   "ends": [
+    10831,
+    10449
+   ],
+   "h2": 278,
+   "sec": 152,
+   "active": "08",
+   "correction": -382
+  },
+  {
+   "id": "fragen",
+   "y": 11752,
+   "ends": [
+    12431,
+    11752
+   ],
+   "h2": 310,
+   "sec": 152,
+   "active": "09",
+   "correction": -679
+  },
+  {
+   "id": "soma",
+   "y": 12673,
+   "ends": [
+    12673
+   ],
+   "h2": 264,
+   "sec": 152,
+   "active": "10",
+   "correction": 0
+  }
+ ],
+ "d1440": [
+  {
+   "id": "behandlungen",
+   "y": 2184,
+   "ends": [
+    2184
+   ],
+   "h2": 310,
+   "sec": 152,
+   "active": "03",
+   "correction": 0
+  },
+  {
+   "id": "so-funktionierts",
+   "y": 3597,
+   "ends": [
+    3576,
+    3597
+   ],
+   "h2": 310,
+   "sec": 152,
+   "active": "04",
+   "correction": 21
+  },
+  {
+   "id": "dein-ort",
+   "y": 6397,
+   "ends": [
+    6397
+   ],
+   "h2": 599,
+   "sec": 152,
+   "active": "05",
+   "correction": 0
+  },
+  {
+   "id": "profis",
+   "y": 11141,
+   "ends": [
+    11141
+   ],
+   "h2": 310,
+   "sec": 152,
+   "active": "06",
+   "correction": 0
+  },
+  {
+   "id": "deine-buchung",
+   "y": 12222,
+   "ends": [
+    12397,
+    12222
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "07",
+   "correction": -175
+  },
+  {
+   "id": "fuer-profis",
+   "y": 13440,
+   "ends": [
+    13803,
+    13440
+   ],
+   "h2": 343,
+   "sec": 152,
+   "active": "08",
+   "correction": -363
+  },
+  {
+   "id": "fragen",
+   "y": 14691,
+   "ends": [
+    15403,
+    14691
+   ],
+   "h2": 311,
+   "sec": 152,
+   "active": "09",
+   "correction": -712
+  },
+  {
+   "id": "soma",
+   "y": 15605,
+   "ends": [
+    15605
+   ],
+   "h2": 313,
+   "sec": 152,
+   "active": "10",
+   "correction": 0
+  }
+ ]
+}

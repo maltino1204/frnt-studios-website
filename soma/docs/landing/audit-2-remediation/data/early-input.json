@@ -1,0 +1,38 @@
+[
+ {
+  "run": 1,
+  "tVisible": 2388,
+  "tTyped": 3189,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "10115",
+   "hint": "· Berlin",
+   "focused": true
+  },
+  "submitted": "/suche?plz=10115"
+ },
+ {
+  "run": 2,
+  "tVisible": 2395,
+  "tTyped": 3304,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "10115",
+   "hint": "· Berlin",
+   "focused": true
+  },
+  "submitted": "/suche?plz=10115"
+ },
+ {
+  "run": 3,
+  "tVisible": 2353,
+  "tTyped": 3549,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "10115",
+   "hint": "· Berlin",
+   "focused": true
+  },
+  "submitted": "/suche?plz=10115"
+ }
+]
