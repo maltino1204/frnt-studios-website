@@ -1,0 +1,150 @@
+{
+ "390": {
+  "atLoad": 8360,
+  "full": 8333,
+  "sections": [
+   [
+    "bei-dir",
+    1156
+   ],
+   [
+    "behandlungen",
+    1059
+   ],
+   [
+    "so-funktionierts",
+    1309
+   ],
+   [
+    "profis",
+    828
+   ],
+   [
+    "fuer-profis",
+    1048
+   ],
+   [
+    "fragen",
+    721
+   ],
+   [
+    "soma",
+    743
+   ]
+  ],
+  "footer": 1363,
+  "dom": {
+   "all": 1173,
+   "main": 922,
+   "chapters": [
+    "01:bei-dir",
+    "02:behandlungen",
+    "03:so-funktionierts",
+    "04:profis",
+    "05:fuer-profis",
+    "06:fragen",
+    "07:soma"
+   ]
+  },
+  "errors": []
+ },
+ "768": {
+  "atLoad": 8737,
+  "full": 8730,
+  "sections": [
+   [
+    "bei-dir",
+    1120
+   ],
+   [
+    "behandlungen",
+    1033
+   ],
+   [
+    "so-funktionierts",
+    1501
+   ],
+   [
+    "profis",
+    895
+   ],
+   [
+    "fuer-profis",
+    1267
+   ],
+   [
+    "fragen",
+    785
+   ],
+   [
+    "soma",
+    901
+   ]
+  ],
+  "footer": 1127,
+  "dom": {
+   "all": 1173,
+   "main": 922,
+   "chapters": [
+    "01:bei-dir",
+    "02:behandlungen",
+    "03:so-funktionierts",
+    "04:profis",
+    "05:fuer-profis",
+    "06:fragen",
+    "07:soma"
+   ]
+  },
+  "errors": []
+ },
+ "1440": {
+  "atLoad": 7718,
+  "full": 7721,
+  "sections": [
+   [
+    "bei-dir",
+    832
+   ],
+   [
+    "behandlungen",
+    1392
+   ],
+   [
+    "so-funktionierts",
+    1506
+   ],
+   [
+    "profis",
+    1054
+   ],
+   [
+    "fuer-profis",
+    682
+   ],
+   [
+    "fragen",
+    690
+   ],
+   [
+    "soma",
+    900
+   ]
+  ],
+  "footer": 564,
+  "dom": {
+   "all": 1173,
+   "main": 922,
+   "chapters": [
+    "01:bei-dir",
+    "02:behandlungen",
+    "03:so-funktionierts",
+    "04:profis",
+    "05:fuer-profis",
+    "06:fragen",
+    "07:soma"
+   ]
+  },
+  "errors": [],
+  "fullTier": 9175
+ }
+}

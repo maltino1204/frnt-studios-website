@@ -1,0 +1,5 @@
+decl-before-1.json score 88 FCP 1.5 s LCP 3.8 s TBT 40 ms SI 1.5 s CLS 0 bench 1175.5 throttle simulate 4 
+decl-before-2.json score 85 FCP 1.5 s LCP 4.2 s TBT 30 ms SI 2.9 s CLS 0 bench 1502.5 throttle simulate 4 
+decl-before-3.json score 90 FCP 1.5 s LCP 3.5 s TBT 40 ms SI 1.5 s CLS 0 bench 1820.5 throttle simulate 4 
+decl-before-4.json score 90 FCP 1.5 s LCP 3.5 s TBT 40 ms SI 1.5 s CLS 0 bench 1878 throttle simulate 4 
+decl-before-5.json score 86 FCP 1.6 s LCP 4.1 s TBT 0 ms SI 2.8 s CLS 0 bench 1701.5 throttle simulate 4 

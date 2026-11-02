@@ -1,0 +1,195 @@
+{
+ "390": {
+  "atLoad": 16138,
+  "full": 16094,
+  "sections": [
+   [
+    "bei-dir",
+    1183
+   ],
+   [
+    "idee",
+    1293
+   ],
+   [
+    "behandlungen",
+    1011
+   ],
+   [
+    "so-funktionierts",
+    1054
+   ],
+   [
+    "dein-ort",
+    3931
+   ],
+   [
+    "profis",
+    914
+   ],
+   [
+    "deine-buchung",
+    1362
+   ],
+   [
+    "fuer-profis",
+    1908
+   ],
+   [
+    "fragen",
+    1226
+   ],
+   [
+    "soma",
+    743
+   ]
+  ],
+  "footer": 1363,
+  "dom": {
+   "all": 1436,
+   "main": 1173,
+   "chapters": [
+    "01:bei-dir",
+    "02:idee",
+    "03:behandlungen",
+    "04:so-funktionierts",
+    "05:dein-ort",
+    "06:profis",
+    "07:deine-buchung",
+    "08:fuer-profis",
+    "09:fragen",
+    "10:soma"
+   ]
+  },
+  "errors": []
+ },
+ "768": {
+  "atLoad": 17990,
+  "full": 17982,
+  "sections": [
+   [
+    "bei-dir",
+    1148
+   ],
+   [
+    "idee",
+    1553
+   ],
+   [
+    "behandlungen",
+    1033
+   ],
+   [
+    "so-funktionierts",
+    1336
+   ],
+   [
+    "dein-ort",
+    5533
+   ],
+   [
+    "profis",
+    922
+   ],
+   [
+    "deine-buchung",
+    1311
+   ],
+   [
+    "fuer-profis",
+    1743
+   ],
+   [
+    "fragen",
+    1273
+   ],
+   [
+    "soma",
+    901
+   ]
+  ],
+  "footer": 1127,
+  "dom": {
+   "all": 1436,
+   "main": 1173,
+   "chapters": [
+    "01:bei-dir",
+    "02:idee",
+    "03:behandlungen",
+    "04:so-funktionierts",
+    "05:dein-ort",
+    "06:profis",
+    "07:deine-buchung",
+    "08:fuer-profis",
+    "09:fragen",
+    "10:soma"
+   ]
+  },
+  "errors": []
+ },
+ "1440": {
+  "atLoad": 16108,
+  "full": 16094,
+  "sections": [
+   [
+    "bei-dir",
+    832
+   ],
+   [
+    "idee",
+    1403
+   ],
+   [
+    "behandlungen",
+    1392
+   ],
+   [
+    "so-funktionierts",
+    1368
+   ],
+   [
+    "dein-ort",
+    5070
+   ],
+   [
+    "profis",
+    1082
+   ],
+   [
+    "deine-buchung",
+    1196
+   ],
+   [
+    "fuer-profis",
+    1272
+   ],
+   [
+    "fragen",
+    914
+   ],
+   [
+    "soma",
+    900
+   ]
+  ],
+  "footer": 564,
+  "dom": {
+   "all": 1436,
+   "main": 1173,
+   "chapters": [
+    "01:bei-dir",
+    "02:idee",
+    "03:behandlungen",
+    "04:so-funktionierts",
+    "05:dein-ort",
+    "06:profis",
+    "07:deine-buchung",
+    "08:fuer-profis",
+    "09:fragen",
+    "10:soma"
+   ]
+  },
+  "errors": [],
+  "fullTier": 17221
+ }
+}

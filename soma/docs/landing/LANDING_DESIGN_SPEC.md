@@ -23,6 +23,18 @@
 - **v1 07 Deine Buchung** (the app-screen tabs), with the screen captures' data and capture script, and the tabs scene.
 - Their code: `chapters/02-idee.tsx`, `05-dein-ort.tsx`, `07-deine-buchung.tsx`, `dein-ort/`, `digital/`, `motion/scenes/{doorway,stage,tone,screens}.ts`, their CSS in `landing.css` and `landing-motion.css`, `scripts/landing/capture-screens.mjs`. The motion runtime upgrades two scenes now (`walkthrough`, `seal`). The image files stay in `public/images` (the Photo Art Director owns them); the landing no longer references `landing/philosophy.jpg`, `landing/experience-*.jpg` or `landing/screens/*`.
 
+**Measured (production build on :3100, before = the audit-3 final build; raw data and scripts in `docs/landing/declutter/`):**
+
+| | Before (v1, 10 chapters) | After (v2, 7 chapters) |
+|---|---|---|
+| Page height, every chapter rendered, 390 / 768 / 1440 | 16,094 / 17,982 / 16,094 px | 8,333 / 8,730 / 7,721 px |
+| Page height at 1440, full tier (pin engaged) | 17,221 px | 9,175 px |
+| DOM elements (document / main) | 1,436 / 1,173 | 1,173 / 922 |
+| First-load JS (gzip −9, 12 module scripts) · CSS · HTML gz | 179.0 KB · 37.5 KB · 65.6 KB | 178.4 KB · 35.8 KB · 54.3 KB |
+| `perf.js` mobile slow 4G (`MASK=1`, 3 runs): TBT · LCP | 133 / 113 / 136 ms · 2,352 / 2,232 / 2,268 ms | 99 / 183 / 75 and 53 / 71 / 165 ms · 2,364 / 2,376 / 2,444 and 2,464 / 2,328 / 2,388 ms (two batches; LCP is the v3 hero photo, gated by FCP) |
+| E2E, landing suites (both projects) · full suite | 71 passed, 11 skipped (audit-3 § 17.8) | 76 passed, 10 skipped, 0 failed · 211 passed, 11 skipped, 2 failed (both `entdecken.spec.ts:172`, Explore) |
+| Lighthouse mobile `/?motion=lite`, 5 runs | 88 / 85 / 90 / 90 / 86, median 88 | 91 / 94 / 92 / 92 / 92, median 92 |
+
 **Consequences for the v1 text below:**
 - D5: one pinned scene (03). D7: no night band; the Oxblood band (07) stays. D11: the signature pair is 03, step 3.
 - The night scope, Linen and the dusk/dawn tones are no longer used on the page. Dark header theme: the 05 band (≥ 1024) and 07.
