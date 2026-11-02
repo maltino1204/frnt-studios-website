@@ -23,6 +23,10 @@ function qs(params: Record<string, string | number | undefined | null>): string 
 
 export const routes = {
   home: () => "/",
+  explore: () => "/entdecken",
+  exploreCollection: (slug: string) => `/entdecken/${slug}`,
+  /** admin preview of any collection (also drafts); outside the static collection pages */
+  explorePreview: (id: string) => `/entdecken/vorschau/${id}`,
   categories: () => "/behandlungen",
   category: (slug: string) => `/behandlungen/${slug}`,
   categoryCity: (slug: string, city: string) => `/behandlungen/${slug}/${city}`,
@@ -76,6 +80,9 @@ export const routes = {
     commissions: () => "/admin/provisionen",
     regions: () => "/admin/regionen",
     content: () => "/admin/inhalte",
+    explore: () => "/admin/entdecken",
+    exploreNew: () => "/admin/entdecken/neu",
+    exploreCollection: (id: string) => `/admin/entdecken/${id}`,
     audit: () => "/admin/protokoll",
   },
 } as const;

@@ -1,0 +1,10 @@
+{
+  "note": "Every Higgsfield job of the v3 'Tageslicht' set (Photo Art Director, 2 Nov 2026). Start balance 1235.49 credits, budget 500.",
+  "startBalance": 1235.49,
+  "jobs": [
+    {"id": "78ea2f9a-2362-4b80-8125-4957f5ac770a", "group": "model-test", "target": "pros/pro-01 (Selin)", "model": "gpt_image_2_5 high 2k", "credits": 2.75, "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124551_78ea2f9a-2362-4b80-8125-4957f5ac770a.png"},
+    {"id": "5d7876b9-f71d-499d-b3bd-8bbdd4480f60", "group": "model-test", "target": "pros/pro-01 (Selin)", "model": "nano_banana_pro 2k", "credits": 2, "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124558_5d7876b9-f71d-499d-b3bd-8bbdd4480f60.png"},
+    {"id": "f5632742-da70-47b4-ac0b-66c9404a9e43", "group": "model-test", "target": "pros/pro-01 (Selin)", "model": "seedream_v5_pro 2k", "credits": 2.5, "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124551_f5632742-da70-47b4-ac0b-66c9404a9e43.png"},
+    {"id": "d9d6d071-2b3d-46bc-b20f-d1f87a55e57f", "group": "model-test", "target": "pros/pro-01 (Selin)", "model": "flux_3_image 2k", "credits": 3, "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124548_d9d6d071-2b3d-46bc-b20f-d1f87a55e57f.png"}
+  ]
+}

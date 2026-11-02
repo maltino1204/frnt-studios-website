@@ -1,36 +1,71 @@
 # SOMA: Photography direction
 
-*Digital Art Director · phase B2 · 1 Nov 2026 · v1.0*
-*Linked from `brand/BRAND_GUIDELINES.md` § 7. It replaces the photographic language of `docs/art-direction.md` (v2 era; its ultramarine accent object is retired). The motif and crop geometry are fixed in guidelines § 5.1 and § 5.3.*
+*Photo Art Director · v3.0 „Tageslicht“ · 2 Nov 2026*
+*Linked from `brand/BRAND_GUIDELINES.md` § 7. The motif and crop geometry stay as fixed in guidelines § 5.1 and § 5.3. v3 replaces the light, grade, wardrobe and portrait rules of v2 (1 Nov 2026); everything else from v2 that still applies is carried over below.*
+
+## Change log
+
+### v3.0 · 2 Nov 2026: „Tageslicht“ (client rejection of the v2 imagery)
+
+**Client feedback, 2026-11-02 (verbatim):**
+> „die fotos für die behandler und die behandlungen sehen echt deprimierend aus … ich verstehe, dass das nach privat und zu hause aussehen soll, aber das sieht alles sehr dunkel und unprofessionell aus. außerdem hat die behandlerin selin a. keine arme. gib dir da bitte richtig mühe.“
+
+*(The photos of the Profis and the treatments look depressing. I understand they should feel private and at home, but everything looks very dark and unprofessional. Also, the Profi Selin A. has no arms. Please really make an effort.)*
+
+**Diagnosis.** The feedback is right, and the cause is the v2 direction itself, not the model:
+- v2 prescribed blue hour and one lamp as the signature light, a −10 to −15 % desaturation, "never high-key" and black or charcoal work clothes. The measured result: the 143 images in use average a luma of **96.5 / 255 (L\* 40)**; the landing key visuals **77.5 (L\* 32)**, editorial **79.3**, categories **83.4**. On average **27 % of every frame is near-black** (luma < 20 %). On Bone/Stone UI this reads as dim, muddy and cheap.
+- Black T-shirts in front of grey walls make the portraits look like passport photos, not like professionals on a premium platform.
+- Some v1 files still carry film-strip borders (`AUDIT.md`, code F).
+- **Selin A.** (`pros/pro-01`, the B2B demo persona) is cropped at the shoulders: no arms and no hands are visible.
+
+**What changes in v3** (decided by the Lead):
+
+| | v2 (retired) | v3 „Tageslicht“ |
+|---|---|---|
+| Light | Blue hour + one warm lamp as the signature; "never high-key" | **Bright, luminous natural daylight**, sun-filled rooms, soft and flattering. Warm high-key is allowed. Blue hour and lamp-only scenes are no longer a default. |
+| Grade | −10 to −15 % saturation, Espresso shadows, fine grain allowed | **Clean, fresh, slightly lifted**, natural saturation, healthy glowing skin, warm whites. No grain, borders, vignettes or muddy shadows. A premium wellness and beauty campaign, not documentary. |
+| Profis' wardrobe | Plain black, charcoal or navy | **Crisp light uniforms**: ivory, sand or stone tunics, or tailored light linen. At most one subtle Oxblood detail. **Never black T-shirts.** |
+| Clients | Dark knitwear, linen | **Light robes or soft knitwear**, at ease; eyes closed in calm enjoyment, or a natural smile. Covered per the discretion rules. |
+| Places | Dim Altbau, dark oak, black kit | **Upscale bright apartments** (Altbau, white walls, light oak, linen, plants), premium hotel suites, bright modern offices. Fresh white linen, a neat manicure set-up, premium unbranded products. |
+| Portraits | Head to chest, dark tee, grey wall | **Editorial headshots in one consistent series**, head to waist, **both arms and hands visible and anatomically correct**, bright warm-neutral background, friendly direct gaze. |
+
+The whole set in use (143 images + 6 new covers for the customer page „Entdecken“) is regenerated to v3; the audit is in **`AUDIT-v3.md`**.
+
+### v2.0 · 1 Nov 2026 (retired in parts)
+Replaced the v1 development set (131 images, audit in `AUDIT.md`). Its rules on discretion, casting, places, the Ortszeile, AI labelling, rights and the launch shoot are carried over below; its light, grade and wardrobe rules are retired.
+
+---
 
 | File | Content |
 |---|---|
-| `PHOTOGRAPHY.md` | This direction: principles, light, grade, crops, skin, casting, places, the Ortszeile, do/don't, AI rules, the launch shoot |
-| `AUDIT.md` | The audit of all 131 v1 images: keep / recrop / replace, with findings per image |
-| `audit/sheets/*.jpg` | Contact sheets of the v1 set · `audit/recrops-*.jpg` recrop previews · `audit/recrops.json` crop boxes |
-| `generation/shotlist-v2.mjs` | The v2 shot list and prompt system (source) → `prompts-v2.json` · `jobs-v2.json` (every Higgsfield job, approved and rejected) · `fetch-list.txt` (new paths for the capture workflow) |
-| `v2-contact-sheet.jpg`, `v2-previews/` | The v2 key visuals as reviewed (web-size previews, not the masters) |
-| `tools/` | `contact-sheets.mjs`, `recrops.mjs`, `render-audit.mjs`, `add-sources.mjs` |
+| `PHOTOGRAPHY.md` | This direction |
+| `AUDIT-v3.md` | The v3 QA table: every image with pass/fail, reason, retries and the final file; luminance before/after per folder |
+| `v3/*.jpg` | Contact sheets, before (v2 in use) and after (v3), per group (≤ 300 KB each) |
+| `generation/shotlist-v3.mjs` | The v3 shot list and prompt system (source) → `generation/jobs-v3.json` (every Higgsfield job, approved and rejected) |
+| `AUDIT.md`, `audit/` | The v1 audit (historical) |
+| `generation/shotlist-v2.mjs`, `jobs-v2.json`, `v2-contact-sheet.jpg`, `v2-previews/` | The v2 record (historical; v2 is no longer the grade reference) |
+| `tools/` | `contact-sheets.mjs`, `recrops.mjs`, `render-audit.mjs`, `add-sources.mjs`; v3: `v3-sheets.mjs`, `v3-luminance.mjs` |
 
 ---
 
 ## 0. Status: every current image is a development asset
 
-- All 131 v1 images and all 109 v2 images are **AI-generated** (Higgsfield: `soul_2`, `gpt_image_2_5`). They are for design, prototypes and clearly labelled previews.
-- **Labelling.** In the product the demo label stays „Demo-Profil · Foto KI-generiert“. On social and in ads, use the platform's AI label (Meta "AI info", TikTok "AI-generated", LinkedIn C2PA) and the caption suffix „Bild KI-generiert.“ Files carry `ImageDescription: AI-generated development asset` (set by `scripts/images/fetch.mjs`).
-- **Never** present an AI face as a real Profi, customer or review. AI people never appear next to a name, a rating or the *Verifiziert* badge.
-- Before launch every key image is replaced by commissioned photography (§ 12). The AI set is the reference the photographer shoots against.
+- All images in `scripts/images/sources.json` (v1, v2 and v3) are **AI-generated** (Higgsfield). They are for design, prototypes and clearly labelled previews.
+- **Labelling stays, unchanged.** In the product every portrait carries „Demo-Profil · Foto KI-generiert“; other photos „Bild KI-generiert“ / „Bilder KI-generiert“ (`src/lib/images.ts`). On social and in ads, use the platform's AI label (Meta "AI info", TikTok "AI-generated", LinkedIn C2PA) and the caption suffix „Bild KI-generiert.“ Files carry an `ImageDescription` EXIF note (set by `scripts/images/fetch.mjs`).
+- **Never** present an AI face as a real Profi, customer or review. AI people never appear next to a real name, a real rating or the *Verifiziert* badge outside the labelled demo.
+- **No real people, brands or logos** in any prompt or frame.
+- Before launch every key image is replaced by commissioned photography (§ 13). The AI set is the reference the photographer shoots against.
 
 ---
 
 ## 1. Principles
 
-1. **The place is the hero.** Every frame answers *"Where are we?"* within a second: an Altbau window, a hotel skyline, a meeting room over the harbour. At least 30 % of the frame is room.
-2. **Care, not spa.** Show the work: hands, tools, a folded table, a towel on a knee. No props that exist only to say "wellness".
-3. **Discretion is the composition.** Faces turned away or eyes closed during treatments. Bodies are covered by linen to the shoulder blades or more. Sensuality comes from light and texture, never from skin.
-4. **Arrival and after.** The two moments only SOMA has: the Profi at the door, and the customer still on her own sofa afterwards. Prefer them to the treatment itself.
-5. **Real time of day.** Morning light in kitchens, overcast noon in offices, blue hour and lamp light in the evening. The time in the Ortszeile matches the light.
-6. **One image, one idea.** No collages, no split screens, no props competing with the gesture.
+1. **The place is the hero.** Every frame answers *"Where are we?"* within a second: a sunlit Altbau window, a hotel suite over the skyline, a bright office over the harbour. At least 30 % of the frame is room (portraits excepted).
+2. **Bright, private, professional.** Private does not mean dim. SOMA looks like the best morning in your own flat: daylight, fresh linen, a confident Profi who knows exactly what she is doing.
+3. **Care, not spa.** Show the work: hands, tools, the dressed table, a towel on a knee. No props that exist only to say "wellness".
+4. **Discretion is the composition.** During treatments faces are turned away or eyes are closed in calm enjoyment. Bodies are covered by linen to the shoulder blades or more. Sensuality never; warmth comes from light and texture, never from skin. Nothing may read as an erotic massage (zero-tolerance rule, `BRAND_VOICE.md` P5).
+5. **Arrival and after.** The two moments only SOMA has: the Profi at the door, and the customer still on her own sofa afterwards.
+6. **One image, one idea.** No collages, split screens or competing props.
 
 ---
 
@@ -38,148 +73,176 @@
 
 | | Rule |
 |---|---|
-| Key | Window daylight, soft and directional, from the side. Real shadows with soft edges. |
-| Evening | Blue hour outside, one warm practical lamp inside (≈ 2700 K). Warm and cool meet in the frame: this is SOMA's signature light. |
-| Offices | Overcast daylight. No downlights, no LED panels in frame. |
-| Never | Flash look, ring-light catchlights, high-key white, coloured gels, candlelight as the only source. |
+| **Key** | **Bright natural daylight** from large windows: sun-filled rooms, soft and flattering on skin. A soft sun patch on the floor or a wall is welcome; faces sit in open, even light, never in hard shadow. |
+| **High-key** | **Warm high-key is allowed** and is the default for portraits and treatments: warm white, never clinical or blue-white. |
+| **Fill** | Shadows are open and luminous (bounced daylight off white walls and linen). Nothing important sits in a dark area. |
+| **Time of day** | Morning to late afternoon by default. Scenes whose Ortszeile names an evening time (17:40–21:10, hard-coded in the landing) are read as **long German summer evenings**: bright, warm low sun streaming in, the room still fully lit. |
+| **Offices** | Bright daylight through floor-to-ceiling glass; no downlights or LED panels as the visible source. |
+| **Never as a default** | Blue hour, lamp-only rooms, night windows, candlelight, flash look, ring-light catchlights, coloured gels, cold blue-white "clinic" light. |
 
-## 3. Grade (Bone highlights, Espresso shadows)
+## 3. Grade
 
-The grade sits *inside* the palette, so photography and UI share one temperature.
+The grade sits *with* the palette, so photography and UI share one temperature on Bone and Stone.
 
 | Parameter | Target |
 |---|---|
-| Highlights | Roll off to **Bone `#F3EFE8`**, never to pure white. Brightest wall ≈ L 94. |
-| Shadows | Settle in **Espresso `#25211F`** (warm brown-black), lifted ≈ 6 %. Never crushed to `#000`, never blue. |
-| Mid-tones | Stone `#D8CFC3` / Taupe `#A69A8D` for linen and plaster; oak and walnut carry the warmth. |
-| White balance | 3800–4300 K. Skin stays neutral-warm; no orange, no magenta. |
-| Saturation | −10 to −15 %. The only cool colour is the dusk sky in a window. |
-| Contrast | Gentle S-curve; fine grain (ISO 400 look) is allowed, film borders are not. |
-| Accent | **No Oxblood on photographs** (guidelines § 3.6) and no staged accent object. The v2-era ultramarine vase is retired. |
-| Reference | `v2-contact-sheet.jpg`: L01, L03, E03, E04 are the grade masters. |
+| **Exposure** | Bright. A set average of **luma ≥ 150 / 255 (L\* ≥ 60)**; no image in the people groups below luma 130; less than 8 % of a frame near-black (luma < 20 %). |
+| **Highlights** | Clean warm white to **Bone `#F3EFE8`**; windows may bloom softly, skin never clips. |
+| **Shadows** | Slightly lifted, warm, transparent. Never muddy, never crushed, never blue. Espresso `#25211F` is a UI colour, not a shadow target any more. |
+| **Whites** | Warm white (linen, walls, tunics read ivory or Bone, never blue-white or grey). |
+| **White balance** | 5000–5600 K, warm-neutral. Skin healthy and natural, no orange, no magenta. |
+| **Saturation** | Natural (0 %). Greens of plants stay fresh but quiet; the palette of the set is warm neutrals. |
+| **Skin** | Healthy, glowing, hydrated, with real texture (§ 5). |
+| **Contrast** | Soft, clean, fresh. **No film grain, no borders or rebates, no vignettes, no haze filters, no "film look".** |
+| **Brand fit** | The set's dominant colours are the palette's warm neutrals (Bone, Stone, Taupe, light oak, linen). An image must sit calmly on a Bone page and on a Stone card. |
 
-**Checking consistency.** Put a new image next to L01 and L03 at thumbnail size: if it reads colder, greener or brighter, it is off. Five v1 portraits fail this test (green-grey walls, code G in `AUDIT.md`).
+**Consistency check.** Put a new image next to the v3 grade masters (listed in `AUDIT-v3.md` once approved) at thumbnail size on Bone: if it reads darker, colder, greyer or more saturated, it is off.
 
 ---
 
-## 4. Composition and crops (the arch)
+## 4. Composition and crops (the arch) — unchanged from v2
 
 | Format | Use | Rule |
 |---|---|---|
-| **Arch 4:5** (default) | Hero, category tiles, editorial, social | Heads and hands sit **below the springline** (the top ~20 % is curve). Keep 30 % room. |
+| **Arch 4:5** (default) | Hero, category tiles, editorial, social, „Entdecken“ covers | Heads and hands sit **below the springline** (the top ~20 % is curve). Keep 30 % room. |
 | Arch 3:4 | Profile header | Head at 35–40 % height. |
 | Tile 4:3, radius 12 | Lists, dense UI | No arch below 120 px width. |
 | O-oval 332 : 362 | Avatars, portraits | Eyes on the upper third, chin well inside. |
-| 16:9 / 3:2 full bleed | Bands, landing hero desktop | One calm half for type (left in L01, E07, L08, E04). |
-| 9:16 | Stories, mobile hero | Calm top third for the headline (L02). |
+| 16:9 / 3:2 full bleed | Bands, landing hero desktop | One calm half for type. |
+| 9:16 | Stories, mobile hero | Calm top third for the headline. |
+| 1:1 | Portfolio tiles | The work in the centre, readable at 160 px. |
 
-- **The contrapposto pair.** Two arches side by side, the right one dropped by 18 % of its width. Pair two places (L03 hallway + L08 hotel), before/after (E01 arrival + E03 after) or Profi and customer. Never pair two near-identical images.
-- **Calm zones.** Text sits on wall, sky, linen or shadow, or on a flat 62 % Espresso scrim. Never on a face, a hand or a gradient.
+- **The contrapposto pair.** Two arches side by side, the right one dropped by 18 % of its width. Pair two places, before/after or Profi and customer. Never two near-identical images.
+- **Calm zones.** Text sits on wall, sky, linen or a flat 62 % Espresso scrim. Never on a face, a hand or a gradient. Bright images need the scrim or a text position on Bone beside the image; never set Bone text straight onto a bright wall.
 - **Focal points** are stored per image in `scripts/images/sources.json` (`focal`, CSS `object-position`). Use them; do not centre-crop.
-- **Verticals straight**, eye or seated height. No Dutch angles, no top-down except the one still life (E06) and flat-lay surfaces for device mockups (L12).
+- **Verticals straight**, eye or seated height. No Dutch angles; top-down only for the tools still life and the device flat-lay surface.
 - **Discreet crops:** hands, shoulders, backs, turned-away or closed-eyed faces. Never crop to the buttocks, the chest or bare legs on a table.
 
 ## 5. Skin and retouching
 
-- Skin keeps pores, freckles, fine lines, scars, body hair and uneven tone. **Allowed:** removing temporary blemishes, stray hairs, lint, sensor dust. **Not allowed:** skin smoothing, frequency separation that removes texture, reshaping, slimming, eye whitening, teeth bleaching, changing skin tone.
-- Hands: five fingers, natural knuckles, real nails. Check every hand at 100 %.
+- Skin keeps pores, freckles, fine lines, scars and uneven tone; the glow comes from light and hydration, not from smoothing. **Allowed:** removing temporary blemishes, stray hairs, lint, sensor dust. **Not allowed:** plastic skin, frequency separation that removes texture, reshaping, slimming, eye whitening, teeth bleaching, changing skin tone.
+- **Hands:** five fingers, natural knuckles, real nails, correct joints. Every hand is checked at 100 % (§ 11).
 - Make-up and nail work is shown as done: no retouching of the treatment result (it would misrepresent the service).
 
-## 6. Casting and diversity
+## 6. Portraits (the Profi series, 30 images)
 
-- **Customers:** 25–70, every body type, origins that reflect German cities. They look like neighbours, not models.
-- **Profis:** 24–60, competent and relaxed, plain black, charcoal or navy work clothes, hair tied back, minimal jewellery, no logos.
-- **Gender:** men as customers *and* Profis in every category where it is plausible (v2: male Profi in massage, hotel; men as customers in hotel, office, haircut, grooming, make-up for a portrait).
-- **Coverage of the v2 set:** Black, South Asian, East Asian, Turkish-German, Brazilian-German, mixed heritage and white German people; ages from about 27 to 67; one non-binary Profi. The cast list is in `generation/shotlist-v2.mjs`.
-- **Known gap:** GPT Image tends to repeat one face type for anonymous "client" prompts (the Kosmetik portfolio has a recurring brunette). Name heritage, age and hair in every prompt; the real shoot casts at least 12 people (§ 12).
+The 30 Profi portraits are **one series**. They must read as trustworthy professionals on a premium platform, and side by side they must look like one shoot.
 
-## 7. Places
+| | Rule |
+|---|---|
+| **Framing** | Editorial headshot, **head to waist**, the person centred, a little headroom, 4:5. In the O-oval and the 3:4 header the face sits in the upper third. |
+| **Arms and hands** | **Both arms and both hands visible and anatomically correct**: arms relaxed and loosely folded, or hands lightly clasped at the waist. Five fingers each, no hands hidden behind the back, no cropped forearms. |
+| **Gaze** | Friendly, direct gaze into the lens; a natural closed- or open-mouth smile. Shoulders square or a slight three-quarter turn. |
+| **Wardrobe** | A crisp light work tunic (ivory, sand or stone) with a short stand collar or V-neck and short or three-quarter sleeves, or a tailored light linen shirt or jacket over an ivory tee. At most one subtle Oxblood detail (thin piping, a hair tie). Clean, pressed, unbranded, no name tags. |
+| **Grooming** | Well-groomed: hair neat (tied back for hands-on work), minimal natural make-up, minimal jewellery. |
+| **Background** | The same bright warm-neutral background for all 30: a softly blurred bright interior (white wall, light oak, window light), or a plain light wall. No props in focus. |
+| **Light** | The same soft window daylight from camera left with gentle fill; even, flattering, warm high-key. |
+| **Camera** | 85 mm look, eye level, shallow depth of field, sharp eyes. |
+| **Consistency** | One prompt template for all 30 (`generation/shotlist-v3.mjs`); only the person, their age and their tunic tone change. The series is checked as one contact sheet before any single portrait is approved. |
+| **Identity** | Each portrait matches its provider in `scripts/db/lib/demo-data.ts`: gender, approximate age (from the years of experience) and heritage from name and bio. |
+| **Selin A.** (`pros/pro-01`, massage, Berlin, the B2B demo persona) | **Must be flawless**: both arms and hands, correct anatomy, warm confident expression, ivory tunic. She is the first image QA'd at 100 % and the series reference. |
+
+## 7. Casting and diversity
+
+- **Customers:** 25–70, every body type, origins that reflect German cities. They look like well-kept neighbours, not models; relaxed, at ease, eyes closed in calm enjoyment or a natural smile.
+- **Profis:** 24–60, competent, confident and well-groomed (§ 6, § 8).
+- **Gender:** men as customers *and* Profis in every category where it is plausible.
+- **Coverage:** Black, South Asian, East Asian, Turkish-German, Arab-German, Brazilian-German, Southern and Eastern European, mixed heritage and white German people; ages from about 26 to 67; one non-binary Profi (Kiran D.). Name heritage, age and hair in every prompt: models repeat one face type for anonymous prompts otherwise.
+
+## 8. Wardrobe
+
+| Who | Yes | No |
+|---|---|---|
+| **Profis** | Crisp ivory, sand or stone tunics; tailored light linen shirts, trousers or jackets; light knit for hair and make-up Profis; clean light trainers or leather shoes. One subtle Oxblood detail at most. | **Black T-shirts**, black or charcoal workwear, scrubs, white medical coats, gloves, aprons with print, name tags, logos. |
+| **Clients** | Light unbranded robes (oat, ivory, sand, waffle or cotton), soft knitwear, light cotton shirts, linen trousers. | Logo robes, spa towel turbans, underwear, bra tops, bare torsos facing the camera, sportswear with logos. |
+| **Massage** | The client lies under fresh white or ivory linen drawn to the shoulder blades or higher; only the treated area (back, shoulders, forearm, foot) is visible. | Bare backs to the waist at hero scale, skin as a background texture, oil sheen as the subject. |
+
+**Oxblood on photographs.** Guidelines § 3.6 keep Oxblood type and large Oxblood areas off photographs. v3 allows one *small* Oxblood detail in wardrobe (piping, a hair tie, a thin belt) where it helps the set sit on SOMA's UI; never a staged accent object.
+
+## 9. Places
 
 | Place | Must show | Must not show |
 |---|---|---|
-| **Zuhause · Altbau** (Berlin, Hamburg, Köln, München) | Tall double casement windows with tilt-turn handles, ribbed radiators, herringbone parquet, lime-washed walls, stucco, an oak or walnut sideboard, one lamp | Salon chairs, bulb mirrors, wall-mounted treatment furniture |
-| **Hotel** (Frankfurt, München, Hamburg) | Floor-to-ceiling window with the real skyline, oak panelling, bouclé armchair, made bed in the back, the suit jacket over a chair | Hotel names, logos, room-number signs, minibar branding, robes with logos |
-| **Büro** (Hamburg-HafenCity, Frankfurt) | Concrete ceiling, oak table, glass partitions, a closed *unbranded* laptop, a glass of water, the portable massage chair | Branded laptops (retouch logos), colleagues looking on, screens with content |
-| **Threshold** (stairwell, door) | Turned banister, terrazzo or encaustic tiles, a heavy wooden door, the kit bag and the folded table | House numbers, name plates, intercom labels (fake text risk) |
+| **Zuhause · Altbau** (Berlin, Hamburg, Köln, München, Düsseldorf) | High ceilings, white walls, stucco, tall double casement windows full of daylight, light oak herringbone parquet, linen sofa and curtains, one or two green plants, tidy styled surfaces | Clutter, dark walls, salon chairs, bulb mirrors, wall-mounted treatment furniture |
+| **Hotel** (Frankfurt, München, Hamburg) | A premium bright suite: floor-to-ceiling window with the skyline in daylight, light oak, bouclé armchair, crisp white bed in the back, the suit jacket over a chair | Hotel names, logos, room numbers, branded robes or minibars |
+| **Büro** (Hamburg-HafenCity, Frankfurt) | A bright modern office: glass, light oak table, white walls, plants, a closed *unbranded* laptop, a glass of water, the portable massage chair | Branded laptops, screens with content, colleagues looking on |
+| **Threshold** (stairwell, door) | A bright Altbau stairwell: white walls, turned banister, terrazzo or encaustic tiles, a light wooden door, the Profi with a tidy bag | House numbers, name plates, intercom labels (fake text risk) |
 
-**Kit that is always right:** the folded portable table in a black case, a plain black kit bag, ecru/oatmeal/taupe linen, charcoal cotton towels, unlabelled amber glass, a plain black make-up case.
-**Never in frame:** candles, orchids or any staged flower, stones, bamboo, cucumber slices, rose petals, rolled spa towels, white spa robes, lotus, water drops, incense, salon furniture, rose-gold, glitter.
+**Kit that is always right:** fresh white and ivory linen; the portable massage table with a light wooden frame; a tidy sand, tan-leather or stone canvas kit bag; ivory and sand cotton towels; unlabelled glass and ceramic bottles; a neat manicure set-up on a folded ivory towel; clean steel tools; a light make-up case.
+**Never in frame:** candles, orchids or any staged flower, decorative stones, bamboo, cucumber slices, rose petals, rolled spa towels, lotus, water drops, incense, salon furniture, rose gold, glitter, pink nail-salon sets, clinic blue-white, gloves, fake text, logos or brands.
 
-## 8. The Ortszeile (*Ort · Stadtteil · Uhrzeit*)
+## 10. The Ortszeile (*Ort · Stadtteil · Uhrzeit*) — unchanged from v2
 
 - Format: `type-place` (Instrument Sans 600, caps, +0.12em, tabular figures), left-aligned to the image edge, under or inside the bottom-left of key images.
 - Examples: *Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30* · *Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10* · *Besprechungsraum · Hamburg-HafenCity · 13:00*.
-- The line must match the picture: the light (19:30 = blue hour), the city skyline and the room type. Each v2 entry in `sources.json` carries its `place`.
+- The line must match the picture: the light (§ 2: evening times are bright summer evenings in v3), the city skyline and the room type. Each key image in `sources.json` carries its `place`.
 - Ortszeilen are illustrative scenes, never bookings. No street names, house numbers or real hotel names.
-- On ads and social, the Ortszeile replaces a caption headline; in the product it appears only on editorial surfaces (home, landing, empty states), never on a real booking.
+- In the product the Ortszeile appears only on editorial surfaces (home, landing, empty states), never on a real booking.
+- *Recommendation for the landing owner:* the hard-coded lines in `src/components/site/discovery-copy.ts` and the landing chapters still name 17:40–21:10. They are consistent with v3 read as summer evenings; a later copy pass may move them to daytime (e.g. *· 10:30*).
 
-## 9. Do and don't (from our own set)
+## 11. Generating development assets (until the shoot)
 
-| Do (v2) | Don't (v1) | Why |
+- **Model.** The choice is made by a side-by-side test on Selin's portrait (`AUDIT-v3.md` § 1) and documented there with the scores. One model for the whole set, so skin, light and grade match.
+- **Prompt system** (`generation/shotlist-v3.mjs`): one scene sentence (who, where, what the hands do, the wardrobe, lens, where the calm zone is) + the shared v3 style block, verbatim. The portrait series has its own fixed template (§ 6). Positive wording first; exclusions only in one closing sentence.
+- **Moderation.** Bare backs, legs or feet on a massage table can trip the provider's safety filter; cover the client with linen to the shoulder blades or higher, or dress them. This is also the brand rule.
+- **QA before approval** (every image, contact sheet + 100 % view for every image with people). Reject on:
+  - anatomy: missing or extra arms, hands or fingers; fused fingers; wrong joints; broken faces or eyes; extra or merged people;
+  - warped objects or lines; gibberish text, logos or labels;
+  - dark or muddy exposure (§ 3 targets); film borders, grain, vignettes;
+  - sexualised framing or exposure;
+  - wardrobe or light inconsistent within the portrait series; black T-shirts on Profis;
+  - crops that do not work at the entry's ratio and focal point;
+  - identity mismatch with the seed (gender, age, heritage).
+  Every rejection is logged with its reason and retry count in `AUDIT-v3.md` and `generation/jobs-v3.json`.
+- **Registration.** Each v3 image is a new `-v3` entry in `scripts/images/sources.json` (`remote`, `ratio`, `width`, `height`, `focal`, `place`, `caption` for portfolio, `replaces`, `source`). The entry that was in use gets `replacedBy` → the v3 path; `src/lib/images.ts` follows the chain (v1 → v2 → v3 is two hops), so no code reference changes. The capture workflow (`.github/workflows/soma-capture.yml`) downloads and crops the files.
+
+## 12. The v3 set
+
+| Group | Paths (under `/images/`) | Replaces (in use) |
 |---|---|---|
-| `landing/hero-wide` (L01): blue-hour Altbau, the Profi's flat palms on linen, a calm left half | `hero/home`: flower in the client's hair, ring mirror, back bare to the waist | Place first, discretion, no salon prop |
-| `landing/philosophy` (L03): an arched doorway, the kit set down, nobody yet | `editorial/details` v1: orchids, candle, stones around the tools | Arrival tells the model; props say "spa" |
-| `editorial/hotel-v2` (E04): Frankfurt skyline and the Main, linen to the shoulder blades | `editorial/hotel`: fake signage „BAKANΤΙΘΑ“ across the window | Fake text destroys trust in one glance |
-| `landing/experience-privacy` (L06): the room seen through a half-open door | `portfolio/massage-14`, `make-up-5`, `haare-styling-5`: nudity | Zero tolerance is a visual rule too |
-| `categories/manikuere-v2` (C02): two pairs of hands, a towel, a glass of water | `portfolio/manikuere-3`: orchids, candle, fake word „mecile“ | Work, not decoration |
-| `editorial/office-v2` (E05): massage chair by the window, plain laptop | `editorial/office`: fake „nordic“ logo, rolled towels, petals on the table | The office must look like an office |
-| `landing/experience-flexible` (L09): the Elbphilharmonie through the window | `portfolio/massage-11`: couples' massage | Show only what SOMA offers |
+| Profi portraits (30) | `pros/pro-01-v3` … `pro-30-v3` | `pro-NN-v2`, `pro-12`, `pro-17`, `pro-28-v2` |
+| Landing key visuals (12) + hero home crop (1) | `landing/<name>-v3`, `landing/hero-home-4x5-v3` | `landing/<name>`, `landing/hero-home-4x5` |
+| Hero (1) | `hero/home-v3` | `hero/home-v2` |
+| Editorial (7) + OG (1) | `editorial/<name>-v3`, `og-default-v3` | `editorial/<name>-v2`, `og-default-v2` |
+| Categories (7) | `categories/<slug>-v3` | `categories/<slug>-v2` |
+| Portfolio (85) | `portfolio/<category>-<n>-v3`, same caption | `portfolio/<category>-<n>-v2` |
+| „Entdecken“ covers (6, new) | `explore/vor-dem-event`, `nach-dem-sport`, `im-hotel-ankommen`, `mittagspause`, `sonntag-fuer-dich`, `neu-auf-soma` (4:5, 1200 × 1500) | new |
 
-## 10. Generating development assets (until the shoot)
-
-- **Model choice.** `gpt_image_2_5` (quality *medium* for key visuals, *high* for heroes, *low* at 2k for 1:1 portfolio details, 0.5 credits) for anything with people, props, rooms or surfaces that can carry text. `soul_2` only for single portraits and textures, and **only with positive prompts** (it renders whatever a negative list names).
-- **Prompt system** (`generation/shotlist-v2.mjs`): one scene sentence (who, where, what the hands do, the time of day, lens and where the calm zone is) + the shared style block, verbatim. The style block names the palette (bone, stone, taupe, oak, espresso) and ends with the exclusions.
-- **Moderation.** Bare backs, legs or feet on a massage table trip the provider's safety filter (6 of 135 jobs). Cover the client with linen "up to the neck" or dress them; this is also the brand rule.
-- **QA before approval** (every image at 100 %): text, logos and UI chrome; film borders; hands and feet; exposure; spa props; grade against L01; the place matches the Ortszeile; no branded devices. Rejections are logged with the reason in `generation/jobs-v2.json` (19 rejected).
-- **Known retouch notes:** L08 the Profi is barefoot (retouch shoes in before paid use); L09 faint mark on the laptop lid; L05/L06/L11 are mood shots, not for UI compositing.
-
-## 11. The v2 set (109 images, AI development assets)
-
-| Group | Paths (all new, under `/images/`) | Replaces |
-|---|---|---|
-| Landing key visuals (12) | `landing/hero-wide`, `hero-mobile`, `philosophy`, `experience-time`, `-comfort`, `-privacy`, `-quality`, `-choice`, `-flexible`, `app-home`, `app-pro`, `app-table` | new |
-| Hero (1) | `hero/home-v2` (4:5 cut of `hero-mobile`) | `hero/home` |
-| Editorial (7) + OG (1) | `editorial/{arrival,setup,after,hotel,office,details,provider-cta}-v2`, `og-default-v2` | the v1 files of the same name |
-| Categories (7) | `categories/{massage,manikuere,pedikuere,kosmetik,haare-styling,brows-lashes,make-up}-v2` | v1 tiles |
-| Profi portrait (1) | `pros/pro-28-v2` | `pros/pro-28` |
-| Portfolio (80) | `portfolio/<category>-<n>-v2` with the v1 caption (corrected where the audit found a voice or truth issue) | v1 portfolio |
-
-- Every entry is in `scripts/images/sources.json` with `remote`, `ratio`, `width`, `height`, `focal`, `place` (key visuals), `caption` (portfolio), `replaces`, and `source`. The v1 entries are untouched except for an added `replacedBy`. The seed's portfolio pool ignores `-v2` paths, so nothing changes in the app until the migration switches paths.
-- **To fetch:** the 109 paths in `generation/fetch-list.txt` (the Lead re-runs `soma-capture` by changing `.github/capture-request`).
-- **Credits:** 76.9 of the 150 budget (balance 1312.39 → 1235.49), 135 jobs including calibration and retries.
+The final counts, the model, the credits and every job are in `AUDIT-v3.md` and `generation/jobs-v3.json`.
 
 ---
 
-## 12. Before launch: real photography
+## 13. Before launch: real photography
 
-### 12.1 Shoot plan
-Two shoot days per city block (Berlin day 1–2, Frankfurt hotel day 3, Hamburg office day 4), one photographer + assistant, a digital tech for on-set grading against the LUT built from L01/L03, a casting/production coordinator, a set stylist (props list § 7), a hair and make-up artist for continuity only (no beauty make-up on customers).
+### 13.1 Shoot plan
+Two shoot days per city block (Berlin day 1–2, Frankfurt hotel day 3, Hamburg office day 4), one photographer + assistant, a digital tech for on-set grading against the v3 LUT (bright, warm-neutral, lifted; built from the v3 grade masters), a casting/production coordinator, a set stylist (props and wardrobe lists § 8–9), a hair and make-up artist for grooming continuity (natural; no beauty make-up on customers). **Shoot in daylight** (09:00–17:00, with large bounce and diffusion; evening scenes in summer sun or with daylight-balanced soft light that reads as late sun). Wardrobe: ivory, sand and stone tunics in two cuts per size, ironed on set.
 
-### 12.2 Shot list (minimum 34 finals)
+### 13.2 Shot list (minimum 34 finals)
 | # | Shot | Format | Place | Ortszeile | Priority |
 |---|---|---|---|---|---|
-| 1–2 | Hero: Profi's palms on linen, blue hour, calm half | 16:9 + 9:16 (shoot both) | Altbau, Berlin | Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30 | P0 |
-| 3 | The arched doorway, kit set down | 4:5 | Altbau hallway | Flur · Berlin-Schöneberg · 18:40 | P0 |
+| 1–2 | Hero: the Profi's palms on fresh white linen, sun-filled Altbau, calm half | 16:9 + 9:16 (shoot both) | Altbau, Berlin | Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30 (summer evening) | P0 |
+| 3 | The arched doorway into a sunlit room, kit set down | 4:5 | Altbau hallway | Flur · Berlin-Schöneberg · 18:40 | P0 |
 | 4 | Arrival at the door (customer seen from behind) | 3:2 | Altbau | Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 19:25 | P0 |
 | 5 | Unfolding the table, hands only | 3:2 | Altbau | — | P1 |
 | 6 | After: on her own sofa, tea, Profi folding linen | 3:2 + 4:5 | Altbau | Sofa, danach · Berlin-Prenzlauer Berg · 20:10 | P0 |
-| 7 | Hotel massage, skyline, linen to the shoulder blades | 3:2 | Hotel, Frankfurt (location release) | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 | P0 |
+| 7 | Hotel massage, skyline in daylight, linen to the shoulder blades | 3:2 | Hotel, Frankfurt (location release) | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 | P0 |
 | 8 | Hotel set-up while the guest takes off her shoes | 3:2 | Hotel | same | P1 |
 | 9 | Office massage chair, harbour window | 3:2 | Office, HafenCity | Besprechungsraum · Hamburg-HafenCity · 13:00 | P0 |
 | 10 | Make-up Profi at the door, case in hand | 4:5 | Stairwell, Köln | Wohnungstür, 2. OG · Köln-Ehrenfeld · 18:55 | P0 |
 | 11 | Nails after work, shoes kicked off | 3:2 | Altbau, Hamburg | Wohnzimmer · Hamburg-Eimsbüttel · 19:05 | P0 |
-| 12 | Asleep under a throw after a massage | 4:5 | Flat, München | Sofa, danach · München-Schwabing · 20:20 | P1 |
+| 12 | Resting under a light throw after a massage | 4:5 | Flat, München | Sofa, danach · München-Schwabing · 20:20 | P1 |
 | 13 | Room through a half-open door (privacy) | 4:5 | Altbau bedroom | — | P1 |
-| 14–20 | Seven category tiles (as v2 C01–C07, real Profis with consent) | 4:5 | mixed | — | P0 |
-| 21 | Tools still life on linen (top-down, the only one) | 1:1 | Studio table | — | P1 |
+| 14–20 | Seven category tiles (as v3 C01–C07, real Profis with consent) | 4:5 | mixed | — | P0 |
+| 21 | Tools still life on ivory linen (top-down, the only one) | 1:1 | Studio table | — | P1 |
 | 22 | Profi on the stairs (SOMA Pro band) | 16:9 | Stairwell, Berlin | Treppenhaus, 2. OG · Berlin-Neukölln · 17:40 | P0 |
 | 23–24 | Phone in hand, customer and Profi (screens off, for comps) | 4:5 | Kitchen, stairwell | — | P1 |
-| 25 | Empty table on oak for device flat-lays | 3:2 | Studio | — | P2 |
-| 26–34 | Social set: 9 details (hands, towel on a knee, the Start-Code moment at the door, the folded table on a landing, a coat on a hook) | 4:5 | mixed | per post | P1 |
+| 25 | Empty light-oak table for device flat-lays | 3:2 | Studio | — | P2 |
+| 26–31 | The six „Entdecken“ covers (before the event, after the run, arriving at the hotel, lunch break, Sunday, new on SOMA) | 4:5 | mixed | — | P1 |
+| 32–34 | Social details (hands, a towel on a knee, the Start-Code moment at the door) | 4:5 | mixed | per post | P1 |
 
-Plus **provider portraits**: offered as a free session to the first verified Profis per city, shot to the portrait guide (`docs/art-direction.md` § 4.3): light wall, window light, 85 mm, head to chest. Their own photo, their own rights (§ 12.3).
+Plus **provider portraits**: offered as a free session to the first verified Profis per city, shot to the portrait guide in § 6 (bright warm-neutral background, window light, 85 mm, head to waist, both hands visible, light uniform). Their own photo, their own rights (§ 13.3).
 
-### 12.3 Rights and releases
+### 13.3 Rights and releases
 - **Buyout:** unlimited time, worldwide, all media including paid social, OOH, print and the app; the right to crop, grade and combine with type and UI; no exclusivity limits on SOMA's side. Photographer credit in the press kit only.
 - **Model releases** (written, per person, German and English): commercial use in advertising for a beauty and wellness marketplace, including treatment scenes; the right to show the person's face, hands and body as framed; withdrawal terms per GDPR Art. 7 and KUG § 22 explained; minors are never cast.
 - **Profis who appear:** a separate release that states the images are brand imagery, not their profile photo, unless they opt in to use them on their profile too.
