@@ -74,7 +74,8 @@ export function SiteHeader() {
             <ButtonLink
               href={account?.href ?? routes.login()}
               variant="ghost"
-              className={cn("transition-opacity duration-fast", account ? "opacity-100" : "pointer-events-none opacity-0")}
+              // min width of the longest label („Mein Konto“): the session arrives after hydration, and a label change must not move the header (CLS 0)
+              className={cn("min-w-[8.25rem] transition-opacity duration-fast", account ? "opacity-100" : "pointer-events-none opacity-0")}
               aria-hidden={account ? undefined : true}
               tabIndex={account ? undefined : -1}
             >
