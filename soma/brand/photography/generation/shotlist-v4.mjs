@@ -71,7 +71,7 @@ export const V4 = [
 ];
 
 // Attempt 2 for 08, 10, 18, 29: attempt 1 put dark trousers on them (the wardrobe rule: light uniform, no black).
-const LIGHT_TROUSERS = new Set(["08", "10", "18", "29"]);
+const LIGHT_TROUSERS = new Set(["08", "10", "18", "27", "29"]);
 export const ALL = V4.map(([n, set, pose, obj, dressing, frame]) => ({
   id: `R${n}`, n, setting: set, pose, path: `/images/pros/pro-${n}-v4.jpg`, replaces: `/images/pros/pro-${n}-v3.jpg`,
   medias: [{ role: "image_references", value: REF[n] }],

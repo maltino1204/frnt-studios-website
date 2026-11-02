@@ -2,7 +2,7 @@
  "note": "v4 Profi portraits with variety (Photo Art Director, 2 Nov 2026). Start balance 814.99 credits, budget 90.",
  "startBalance": 814.99,
  "budget": 90,
- "creditsLogged": 70,
+ "creditsLogged": 72,
  "jobs": [
   {
    "id": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
@@ -464,7 +464,21 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140547_0ca0d4d7-6e50-4737-b265-ca0d4ec031e2.png",
-   "note": "attempt 2, leaning on the couch"
+   "note": "attempt 2, leaning on the couch",
+   "status": "fail",
+   "reason": "attempt 2: hands correct, but dark trousers (light-uniform rule)"
+  },
+  {
+   "id": "258de46f-8d6e-4dc3-99d3-28824443fd7d",
+   "shot": "R27",
+   "path": "/images/pros/pro-27-v4.jpg",
+   "setting": "A",
+   "pose": "L",
+   "attempt": 3,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140859_258de46f-8d6e-4dc3-99d3-28824443fd7d.png",
+   "note": "attempt 3, light trousers"
   }
  ],
  "current": {
@@ -672,10 +686,10 @@
    "focal": "50% 10%"
   },
   "/images/pros/pro-27-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140547_0ca0d4d7-6e50-4737-b265-ca0d4ec031e2.png",
-   "job": "0ca0d4d7-6e50-4737-b265-ca0d4ec031e2",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140859_258de46f-8d6e-4dc3-99d3-28824443fd7d.png",
+   "job": "258de46f-8d6e-4dc3-99d3-28824443fd7d",
    "shot": "R27",
-   "attempt": 2,
+   "attempt": 3,
    "focal": "50% 15%"
   }
  }
