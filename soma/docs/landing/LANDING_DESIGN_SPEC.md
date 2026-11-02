@@ -28,6 +28,7 @@
 - The night scope, Linen and the dusk/dawn tones are no longer used on the page. Dark header theme: the 05 band (≥ 1024) and 07.
 - Navigation (§ 5): seven chapters; the header's links from 1280 px are Entdecken · Behandlungen · So funktioniert’s · Für Profis · Hilfe (Entdecken first, as in the site header); the overlay's „Seiten“ and the no-JS static list (`#kapitel`) list Entdecken · Behandlungen · Städte · Für Profis · Hilfe.
 - `content-visibility` estimates were re-measured for v2 (§ 10.4).
+- **Ortszeilen in daylight.** The photos are the v3 „Tageslicht“ set (`brand/photography/PHOTOGRAPHY.md` § 2), and the time must match the light (§ 10). The landing's times are daytime now: Zu Hause „Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30“, Im Hotel „Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30“, Im Büro „… · 13:00“ (unchanged); the 03 pair „Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 15:25“ / „Sofa, danach · Berlin-Prenzlauer Berg · 16:10“ (one afternoon in two moments); 05 „Treppenhaus, 2. OG · Berlin-Neukölln · 11:40“. The hero's and the band's alt texts name the time of day to match. The evening times in the v1 text below (19:30, 21:10, 19:25, 20:10, 17:40) and the blue-hour notes are superseded.
 - Copy: `brand/COPY_DECK_LANDING.md` („Kundenentscheidung 2026-11-02: Landing gestrafft“).
 - Booking sources and CTA ids follow the new numbers: `ch03`, `ch04` (Profis fallback), `pro-werden-05`, `pro-werden-07`, `final-search`.
 - § 1.2 and § 1.3 describe the v1 narrative and are kept as the design rationale; their 02, 05 and 07 rows no longer exist.
@@ -76,7 +77,7 @@
 | D8 | **The landing gets its own route group: `src/app/(landing)/`**, with its own layout: landing header, dock, `SiteFooter`. `src/app/(site)/page.tsx` moves there. ⚠ The Lead must approve the file move (Frontend owns it). | `SiteHeader` is shared by all site pages; the landing needs the chapter header without forking it. |
 | D9 | **Motion tiers `full` / `lite` / `none`.** Pinned layouts are applied only after the motion layer has upgraded sections that are still below the fold. | No layout shift, no broken pins when JS fails. § 8. |
 | D10 | **The page has no `<em>` accent clauses.** The tagline *Your body. Your place.* is its only italic: it opens the page (hero) and closes it (10). The copy deck's accent clauses stay as words and are set roman. | Guidelines v1.1 § 4.4: "When the tagline appears, it *is* the page's italic moment." ⚠ The tagline appears twice, as a bookend. That is the same moment repeated, with zero `<em>`; the auditor should confirm this reading. |
-| D11 | **The signature pair appears once:** 04, step 3 (arrival 19:25 → after 20:10, "one evening in two moments"); v2: 03, step 3. **The arch's last state is the O:** in 10 (v2: 07) the mark's O traces from the arch half, and the S settles inside. | Guidelines § 10.2; `MOTION.md` § 3.6.2 (v1.1). |
+| D11 | **The signature pair appears once:** 04, step 3 (arrival 19:25 → after 20:10, "one evening in two moments"); v2: 03, step 3, 15:25 → 16:10, one afternoon in two moments. **The arch's last state is the O:** in 10 (v2: 07) the mark's O traces from the arch half, and the S settles inside. | Guidelines § 10.2; `MOTION.md` § 3.6.2 (v1.1). |
 
 ---
 

@@ -16,6 +16,18 @@
 > | 06 | Fragen | 09 | Five questions (1, 2, 3, 5, 6), then **Alle Fragen** → `/hilfe`. No trust strip. |
 > | 07 | SOMA | 10 | Unchanged. |
 >
+> **Ortszeilen in daylight (same date).** The photos are now the v3 „Tageslicht“ set: bright daylight (`brand/photography/PHOTOGRAPHY.md` § 2), and the Ortszeile's time must match the light (§ 10). So the landing's evening times moved to daytime values that fit each picture:
+>
+> | Where | v1 | v2 |
+> |---|---|---|
+> | 01 Zu Hause | Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30 | … · 10:30 (morning sun, open window) |
+> | 01 Im Hotel | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 | … · 15:30 (the skyline in afternoon light) |
+> | 01 Im Büro | Besprechungsraum · Hamburg-HafenCity · 13:00 | unchanged (already daytime) |
+> | 03 the signature pair | Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 19:25 / Sofa, danach · Berlin-Prenzlauer Berg · 20:10 | … · 15:25 / … · 16:10 (one afternoon in two moments) |
+> | 05 Für Profis | Treppenhaus, 2. OG · Berlin-Neukölln · 17:40 | … · 11:40 (a bright stairwell) |
+>
+> The hero's image descriptions follow („am Vormittag“, „am Nachmittag“; no lit skyline), as does the 05 band photo's („am Vormittag“). The other evening words on the page are not about light and stay: „Abends 17–22“ is a search window, and „Für Büro, Abend und Hochzeit.“ names occasions.
+>
 > **Removed from the page:** 02 Idee, 05 Dein Ort, 07 Deine Buchung. Their copy below is marked „entfernt (v2)“; it is not retired and may be reused on other pages with the Strategist's sign-off.
 
 **How to read this deck.**
@@ -95,8 +107,8 @@ If the hero interaction switches between places, use these lines. They exist in 
 
 | Toggle | Ortszeile |
 |---|---|
-| Zu Hause | Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30 |
-| Im Hotel | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 |
+| Zu Hause | Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30 *(v1: 19:30)* |
+| Im Hotel | Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30 *(v1: 21:10)* |
 | Im Büro | Besprechungsraum · Hamburg-HafenCity · 13:00 |
 
 ### Hero headline alternatives
