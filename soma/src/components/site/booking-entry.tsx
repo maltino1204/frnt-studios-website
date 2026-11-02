@@ -653,13 +653,13 @@ export function BookingEntry({
       ? { "aria-expanded": open === which, "aria-controls": which === "was" ? wasPanelId : wannPanelId }
       : { "aria-haspopup": "dialog" as const, "aria-expanded": open === which };
 
-  // Until the pickers' chunk is there (an inline panel opened at once, or a failed load), a frame of the list's height.
-  const wasPicker = P ? (
-    <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />
-  ) : (
-    <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />
-  );
-  const wannPicker = P ? <P.WannPicker when={when} onChange={setWhen} /> : <div aria-hidden className="h-[13.5rem]" />;
+  // Until the pickers' chunk is there (a picker opened at once, or a failed load), a frame of the list's height. The
+  // mobile sheets show it for their first frame too and render the list right after (`listOpen`, deferred), so the
+  // tap paints the sheet without styling the whole list first.
+  const wasFrame = <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />;
+  const wannFrame = <div aria-hidden className="h-[13.5rem]" />;
+  const wasPicker = P ? <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} /> : wasFrame;
+  const wannPicker = P ? <P.WannPicker when={when} onChange={setWhen} /> : wannFrame;
   const placeholder = hint?.placeholder ?? `PLZ, z. B. ${postalExample}`;
   const srLabel = hint?.srLabel ?? "Postleitzahl";
 
@@ -781,7 +781,7 @@ export function BookingEntry({
             {P && (wasReady || listOpen === "was") ? (
               <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} active={open === "was"} />
             ) : (
-              <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />
+              wasFrame
             )}
           </div>
         ) : null}
@@ -823,7 +823,7 @@ export function BookingEntry({
         </div>
         {inline && open === "wann" ? (
           <div id={wannPanelId} role="group" aria-label="Zeitpunkt wählen" aria-busy={listOpen !== "wann" || undefined} className="flex flex-col gap-4 px-5 py-4">
-            {listOpen === "wann" && P ? wannPicker : <div aria-hidden className="h-[13.5rem]" />}
+            {listOpen === "wann" && P ? wannPicker : wannFrame}
             <Button size="m" variant="secondary" className="self-start" onClick={closePicker}>
               Fertig
             </Button>
@@ -898,7 +898,7 @@ export function BookingEntry({
           frame paints before the page turns inert (`paintFirst`). */}
       {!desktop && !inline && open === "was" ? (
         <Sheet open onClose={closePicker} title="Behandlung wählen" paintFirst>
-          <div aria-busy={!P || undefined}>{wasPicker}</div>
+          <div aria-busy={!(P && listOpen === "was") || undefined}>{listOpen === "was" ? wasPicker : wasFrame}</div>
         </Sheet>
       ) : null}
       {!desktop && !inline && open === "wann" ? (
@@ -913,7 +913,7 @@ export function BookingEntry({
             </Button>
           }
         >
-          <div aria-busy={!P || undefined}>{wannPicker}</div>
+          <div aria-busy={!(P && listOpen === "wann") || undefined}>{listOpen === "wann" ? wannPicker : wannFrame}</div>
         </Sheet>
       ) : null}
     </div>

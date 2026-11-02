@@ -18,9 +18,9 @@ const TRIGGER = '[aria-haspopup="dialog"], a[href="#termin"], [data-booking-open
 /**
  * Mounts the chapter overlay, the booking bar and the booking sheet off the critical path (PT-1): after the first
  * scroll or tap (or 10 s after load), in idle periods, or at once on intent on a trigger, whichever comes first. They
- * render once their modules have loaded (nav/surfaces.ts), never as a suspended lazy component. A first tap or key
- * anywhere fetches and evaluates their modules at once (audit-3 M-1: the next tap may be the dock's „Termin finden“);
- * the mount still waits for an idle period.
+ * render once their modules have loaded (nav/surfaces.ts), never as a suspended lazy component. After a first tap or
+ * key anywhere their modules load in the first idle period, at most 500 ms later, after the tap's own response (audit-3
+ * M-1: the next tap may be the dock's „Termin finden“); the mount waits for the idle period after that.
  */
 export function LazySurfaces() {
   const surfaces = useSurfaceModules();
@@ -39,15 +39,18 @@ export function LazySurfaces() {
       if (started) return;
       started = true;
       for (const t of START) window.removeEventListener(t, start, true);
-      if (e && e.type !== "scroll") void preloadSurfaces().catch(() => undefined);
-      const idle = (cb: () => void) => {
-        if (win.requestIdleCallback) handles.push(win.requestIdleCallback(cb, { timeout: 3000 }));
+      const idle = (cb: () => void, timeout = 3000) => {
+        if (win.requestIdleCallback) handles.push(win.requestIdleCallback(cb, { timeout }));
         else handles.push(window.setTimeout(cb, 300));
       };
-      idle(() => {
-        void preloadSurfaces().catch(() => undefined);
-        idle(() => void mountSurfaces());
-      });
+      idle(
+        () => {
+          void preloadSurfaces().catch(() => undefined);
+          idle(() => void mountSurfaces());
+        },
+        // A tap or key: as soon as the tap's own response is done (its next tap may be the dock's „Termin finden“).
+        e && e.type !== "scroll" ? 500 : 3000,
+      );
     };
     for (const t of START) window.addEventListener(t, start, { capture: true, passive: true, once: true });
     const latest = window.setTimeout(start, 10_000);

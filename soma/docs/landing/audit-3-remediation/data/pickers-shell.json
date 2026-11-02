@@ -3,50 +3,80 @@
   {
    "path": "/?motion=lite",
    "run": 1,
-   "hydratedAt": 4867,
-   "tapToShell": 807,
-   "tapToPicker": 882,
-   "pickerShown": true
+   "hydratedAt": 4812,
+   "tapToShell": 946,
+   "tapToPicker": 1045,
+   "pickerShown": false,
+   "inPage": {
+    "tapDispatch": 483,
+    "shell": 219,
+    "list": 791
+   }
   },
   {
    "path": "/?motion=lite",
    "run": 2,
-   "hydratedAt": 4694,
-   "tapToShell": 742,
-   "tapToPicker": 887,
-   "pickerShown": true
+   "hydratedAt": 4650,
+   "tapToShell": 838,
+   "tapToPicker": 909,
+   "pickerShown": false,
+   "inPage": {
+    "tapDispatch": 353,
+    "shell": 247,
+    "list": 695
+   }
   },
   {
    "path": "/behandlungen/massage",
    "run": 1,
-   "hydratedAt": 4562,
-   "tapToShell": 831,
-   "tapToPicker": 851,
-   "pickerShown": true
+   "hydratedAt": 4635,
+   "tapToShell": 888,
+   "tapToPicker": 1025,
+   "pickerShown": true,
+   "inPage": {
+    "tapDispatch": 145,
+    "shell": 225,
+    "list": 867
+   }
   },
   {
    "path": "/behandlungen/massage",
    "run": 2,
-   "hydratedAt": 4605,
-   "tapToShell": 629,
-   "tapToPicker": 677,
-   "pickerShown": true
+   "hydratedAt": 4592,
+   "tapToShell": 873,
+   "tapToPicker": 965,
+   "pickerShown": true,
+   "inPage": {
+    "tapDispatch": 306,
+    "shell": 360,
+    "list": 649
+   }
   },
   {
    "path": "/staedte/berlin",
    "run": 1,
-   "hydratedAt": 4596,
-   "tapToShell": 1039,
-   "tapToPicker": 1118,
-   "pickerShown": true
+   "hydratedAt": 4544,
+   "tapToShell": 955,
+   "tapToPicker": 1113,
+   "pickerShown": true,
+   "inPage": {
+    "tapDispatch": 455,
+    "shell": 152,
+    "list": 659
+   }
   },
   {
    "path": "/staedte/berlin",
    "run": 2,
-   "hydratedAt": 4677,
-   "tapToShell": 1106,
-   "tapToPicker": 1184,
-   "pickerShown": true
+   "hydratedAt": 4488,
+   "tapToShell": 726,
+   "tapToPicker": 954,
+   "pickerShown": false,
+   "inPage": {
+    "tapDispatch": 334,
+    "shell": 219,
+    "list": 884
+   }
   }
  ],
  "blocked": [
