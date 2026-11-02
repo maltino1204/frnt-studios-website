@@ -6,6 +6,7 @@ import { routes } from "@/lib/routes";
 import { titleId } from "../nav/chapters";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
@@ -20,7 +21,8 @@ const PLACE = "Treppenhaus, 2. OG · Berlin-Neukölln · 11:40";
  * ansehen“). ≥ 1024 the one full-bleed photo band (no arch: the Profi is on the way), the text in the night scope on
  * the image's calm left third (measured contrast), the band declaring `data-header-theme="dark"`; the band is sized by
  * its content over a floor, and the CTAs and the Ortszeile stay in the flow under the text (audit-1 I-2: nothing can
- * collide at 1024–1180). < 1024 the app-pro photo in an arch and the text on Bone. No income claims.
+ * collide at 1024–1180). < 1024 the text on Bone, then the app-pro photo in an arch with its Ortszeile (text first, so
+ * a jump to 05 lands on the heading, audit-4 N4-4). No income claims.
  */
 export function FuerProfisChapter() {
   return (
@@ -36,19 +38,6 @@ export function FuerProfisChapter() {
           />
         </div>
         <LpContainer className="lp-band-content">
-          <figure className="lp-band-arch">
-            <LandingArch tone="haare-styling" reveal="arch">
-              <LandingImage
-                src="/images/landing/app-pro.jpg"
-                alt="Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone."
-                sizes="(min-width: 768px) 70vw, calc(100vw - 40px)"
-                focal="50% 50%"
-              />
-            </LandingArch>
-            <figcaption className="mt-3">
-              <Ortszeile text={PLACE} />
-            </figcaption>
-          </figure>
           <div className="lp-band-text">
             <Eyebrow nn="05">SOMA für Profis</Eyebrow>
             <Clauses
@@ -63,14 +52,37 @@ export function FuerProfisChapter() {
             </p>
             <div className="lp-band-ctas mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {/* Prefetched on intent only: the onboarding route's prefetch preloads CSS `/` never uses (RT-9). */}
-              <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-05">
-                Profi werden
-              </IntentLink>
+              <IslandBoundary
+                name="05 Profi link"
+                fallback={
+                  <a href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-05">
+                    Profi werden
+                  </a>
+                }
+              >
+                <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-05">
+                  Profi werden
+                </IntentLink>
+              </IslandBoundary>
               <ButtonLink href={`${routes.forPros()}#provision`} prefetch={false} variant="secondary" size="l" className="max-sm:w-full" iconRight={<Icon icon={ArrowRight} size={18} />}>
                 Konditionen ansehen
               </ButtonLink>
             </div>
           </div>
+          {/* < 1024 the arch follows the text, so a jump to 05 shows its heading (audit-4 N4-4); ≥ 1024 it is hidden. */}
+          <figure className="lp-band-arch">
+            <LandingArch tone="haare-styling" reveal="arch">
+              <LandingImage
+                src="/images/landing/app-pro.jpg"
+                alt="Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone."
+                sizes="(min-width: 768px) 70vw, calc(100vw - 40px)"
+                focal="50% 50%"
+              />
+            </LandingArch>
+            <figcaption className="mt-3">
+              <Ortszeile text={PLACE} />
+            </figcaption>
+          </figure>
           <Ortszeile text={PLACE} className="lp-band-place" />
         </LpContainer>
       </div>

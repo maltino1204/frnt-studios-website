@@ -1,5 +1,8 @@
 import { PLACE_LINES } from "@/components/site/discovery-copy";
 
+/** The hero figure's id (the place switch's `aria-controls`); here, so the server fallback can use it too. */
+export const HERO_FIGURE_ID = "hero-ort";
+
 export type PlaceId = "zuhause" | "hotel" | "buero";
 
 export type Place = {
@@ -56,9 +59,12 @@ export const PLACES: readonly Place[] = [
  *
  * From 1024 the arch is a grid column. Below 1024 it is capped to the first view (landing.css, "The arch's first view
  * below 1024"; audit-2 RT-8 / RT-12), so its width depends on the viewport's height too: the entries below 1024 repeat
- * that cap, the same svh arithmetic with `clamp()` standing in for its `sign()`, and the LCP photo is fetched for the
- * width it is shown at (audit-3 M-5). Each such entry is followed by the uncapped width for the same range, which a
- * browser that cannot evaluate min() / clamp() / svh in `sizes` falls back to (then it fetches as before).
+ * that cap, the same arithmetic with `clamp()` standing in for its `sign()`, and the LCP photo is fetched for the
+ * width it is shown at (audit-3 M-5). The cap is written in `vh`, not the CSS's `svh`: Chromium does not evaluate
+ * `svh` in a preload link's `imagesizes` (it falls through to the uncapped entry), so the preload and the <img> picked
+ * different candidates and the photo loaded twice below 1024 (audit-4 N4-2). With `vh` (≥ svh, so never smaller than the arch shown) both pick the same one.
+ * Each capped entry is followed by the uncapped width for the same range, which a browser that cannot evaluate min()
+ * or clamp() in `sizes` falls back to (then it fetches as before).
  * `ribbon`: the demo ribbon above the header (DEMO_MODE, 47 px on phones, 33 px at 768–1023) moves the arch down.
  * Keep it in step with the cap in landing.css.
  */
@@ -68,16 +74,16 @@ export function heroSizes(ribbon: boolean): string {
   // width 0.8 × (100svh − top − under). While the natural Ortszeile lies below the fold (top + 1.25 × (100vw − 40px)
   // + 12px ≥ 100svh) the arch keeps its natural width: the clamp() term is then large and min() picks the column.
   const top = 322 + (ribbon ? 47 : 0);
-  const natural = `clamp(0px, (125vw + ${top + 12 - 50}px - 100svh) * 1000, 99999px)`;
-  const phone = (under: number) => `min(100vw - 40px, 80svh - ${r1(0.8 * (top + under))}px + ${natural})`;
+  const natural = `clamp(0px, (125vw + ${top + 12 - 50}px - 100vh) * 1000, 99999px)`;
+  const phone = (under: number) => `min(100vw - 40px, 80vh - ${r1(0.8 * (top + under))}px + ${natural})`;
   // 768–1023: one centred column (max 36rem); the arch starts at 292px + 10.9vw (+ ribbon), and the Ortszeile, the
   // entry up to its CTA and 12 px of air take 311 px under it: capped width 0.8 × (rest − 311px), rest = 100svh − start.
   // Where less than 300 px of arch would remain (rest ≤ 611px), the arch takes the rest of the first view, at least
   // 300 px (0.8 × max(300px, rest)); the clamp() term switches between the two.
   const start = 292 + (ribbon ? 33 : 0);
   const tablet =
-    `min(100vw - 64px, 576px, max(80svh - 8.72vw - ${r1(0.8 * (start + 311))}px, ` +
-    `max(240px, 80svh - 8.72vw - ${r1(0.8 * start)}px) - clamp(0px, (100svh - 10.9vw - ${start + 611}px) * 1000, 99999px)))`;
+    `min(100vw - 64px, 576px, max(80vh - 8.72vw - ${r1(0.8 * (start + 311))}px, ` +
+    `max(240px, 80vh - 8.72vw - ${r1(0.8 * start)}px) - clamp(0px, (100vh - 10.9vw - ${start + 611}px) * 1000, 99999px)))`;
   return [
     "(min-width: 1440px) 628px",
     "(min-width: 1280px) 45vw",

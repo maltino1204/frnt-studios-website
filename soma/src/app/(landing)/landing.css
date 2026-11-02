@@ -368,6 +368,11 @@ html[data-booking-open] .lp-dock {
     --lp-arch-d: calc(100svh - var(--lp-hero-arch-top) - var(--lp-arch-n) - 12px);
     --lp-arch-h: calc(var(--lp-arch-n) - max(0, sign(var(--lp-arch-d))) * max(0px, var(--lp-arch-n) - var(--lp-arch-cap)));
   }
+  /* Room under the figure for the dock (audit-3 M-7): when the arch is capped, the Ortszeile ends 12 px above the dock,
+     and the lead starts below the fold instead of under the dock's glass (12 + 56 + 12 px, plus the safe area). */
+  .lp-hero-rest {
+    margin-top: calc(80px + max(0px, env(safe-area-inset-bottom) - 12px));
+  }
 }
 /* Below 400 px the capped arch is narrower than the Ortszeile, which then wraps after a „ · “: room for two lines. */
 @media (max-width: 399px) {
@@ -828,8 +833,9 @@ html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] .lp-walk-stag
 .lp-band-content {
   padding-block: var(--space-section);
 }
+/* < 1024 the arch follows the text (audit-4 N4-4: a jump to 05 shows its heading). */
 .lp-band-arch {
-  margin: 0 0 40px;
+  margin: 48px 0 0;
 }
 @media (min-width: 768px) {
   .lp-band-arch {

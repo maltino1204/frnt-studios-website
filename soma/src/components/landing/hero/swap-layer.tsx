@@ -1,13 +1,14 @@
 "use client";
 
-import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import type { LayerState } from "./use-layer-swap";
 
 /**
  * One image layer of a swap (`[data-<attr>][data-state]`). Frontend sets the state; the motion layer's CSS animates
- * `entering`. Settles on its own `animationend`, at once when no animation is running (tier none, reduced motion),
- * or after the 1 s fallback.
+ * `entering`. Settles on its own `animationend`, in the next frame when no animation is running after all, or after
+ * the 1 s fallback. Never synchronously from an effect (audit-4 N4-1); without a swap animation `useLayerSwap` does
+ * not enter at all.
  */
 export function SwapLayer({
   attr,
@@ -25,14 +26,14 @@ export function SwapLayer({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state !== "entering") return;
     const el = ref.current;
     if (!el) return;
     const names = getComputedStyle(el).animationName;
     if (!names || names.split(",").every((x) => x.trim() === "none")) {
-      onSettle(n);
-      return;
+      const f = requestAnimationFrame(() => onSettle(n));
+      return () => cancelAnimationFrame(f);
     }
     const t = window.setTimeout(() => onSettle(n), 1000);
     return () => window.clearTimeout(t);

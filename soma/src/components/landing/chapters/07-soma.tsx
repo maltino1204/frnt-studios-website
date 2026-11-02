@@ -5,6 +5,7 @@ import { routes } from "@/lib/routes";
 import { SearchLink } from "../booking/booking-link";
 import { titleId } from "../nav/chapters";
 import { TaglineLines } from "../primitives/tagline";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { ClosingLockup } from "../seal/closing-lockup";
 import { Chapter } from "./chapter";
 
@@ -31,13 +32,32 @@ export function SomaChapter() {
             {BRAND_SIGNATURE}
           </p>
           <div data-dock-hide="0.3" className="mt-10 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center">
-            <SearchLink className={buttonClasses({ variant: "accent", size: "l", className: "max-sm:w-full" })} data-cta="final-search">
-              Freie Termine finden
-            </SearchLink>
+            {/* Each client link has a plain-anchor stand-in (audit-4 R4-1). */}
+            <IslandBoundary
+              name="07 search link"
+              fallback={
+                <a href={routes.search()} className={buttonClasses({ variant: "accent", size: "l", className: "max-sm:w-full" })} data-cta="final-search">
+                  Freie Termine finden
+                </a>
+              }
+            >
+              <SearchLink className={buttonClasses({ variant: "accent", size: "l", className: "max-sm:w-full" })} data-cta="final-search">
+                Freie Termine finden
+              </SearchLink>
+            </IslandBoundary>
             {/* Prefetched on intent only (RT-9), like the search link. */}
-            <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-07">
-              Profi werden
-            </IntentLink>
+            <IslandBoundary
+              name="07 Profi link"
+              fallback={
+                <a href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-07">
+                  Profi werden
+                </a>
+              }
+            >
+              <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-07">
+                Profi werden
+              </IntentLink>
+            </IslandBoundary>
           </div>
         </div>
       </div>

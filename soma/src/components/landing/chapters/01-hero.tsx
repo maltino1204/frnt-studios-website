@@ -3,6 +3,10 @@ import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroArch } from "../hero/hero-arch";
 import { HeroBookingSlot } from "../hero/hero-booking-slot";
 import { PlaceSwitch } from "../hero/place-switch";
+import { StaticHeroFigure } from "../hero/static-hero-figure";
+import { buttonClasses } from "@/components/ui/button";
+import { routes } from "@/lib/routes";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { DEMO_MODE } from "@/lib/brand";
 import { heroSizes, PLACES, type PlaceId } from "../hero/places";
 import { titleId } from "../nav/chapters";
@@ -19,6 +23,19 @@ import { Chapter, LpContainer } from "./chapter";
  * load: the text, the entry and the trust row paint final from the first frame. The place photos' attributes are built
  * here, on the server (`getImageProps()`; Zu Hause is the preloaded LCP image), and handed to the arch island.
  */
+/** The booking entry's stand-in if its island fails: the search, one tap away (audit-4 R4-1). */
+function BookingFallback() {
+  return (
+    <div className="lp-sill">
+      <div className="lp-sill-box">
+        <a id="termin" href={routes.search()} className={buttonClasses({ variant: "accent", size: "l" })}>
+          Freie Termine finden
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export function HeroChapter({
   catalog,
   postalExample,
@@ -41,7 +58,9 @@ export function HeroChapter({
       <LpContainer>
         <div data-scene="hero-place" className="lp-hero-grid">
           <div className="lp-hero-head">
-            <PlaceSwitch />
+            <IslandBoundary name="place switch">
+              <PlaceSwitch />
+            </IslandBoundary>
             <h1 id={titleId("bei-dir")} tabIndex={-1} className="outline-none">
               <span className="lp-hero-tagline block type-display-xl type-accent text-ink">
                 <TaglineLines />
@@ -49,7 +68,9 @@ export function HeroChapter({
               <span className="mt-5 block max-w-[30ch] type-heading-l text-ink lg:mt-7">Beauty &amp; Wellness bei dir zu Hause, im Hotel oder im Büro.</span>
             </h1>
           </div>
-          <HeroArch images={images} className="lp-hero-figure" />
+          <IslandBoundary name="hero arch" fallback={<StaticHeroFigure image={images.zuhause} className="lp-hero-figure" />}>
+            <HeroArch images={images} className="lp-hero-figure" />
+          </IslandBoundary>
           <div className="lp-hero-rest">
             <p className="lp-hero-lead max-w-[40ch] type-lead text-ink-muted">{lead}</p>
             <a href="#so-funktionierts" className={`lp-hero-how ${lpLinkClass} -my-1 self-start`}>
@@ -58,7 +79,9 @@ export function HeroChapter({
             {/* Hydrates right after the shell, in its own time-sliced pass (like chapters 02–07); a tap on it before
                 then hydrates it first and replays the event. */}
             <Activity mode="visible">
-              <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
+              <IslandBoundary name="hero booking entry" fallback={<BookingFallback />}>
+                <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
+              </IslandBoundary>
             </Activity>
             {/* 768–1023 shows the entry before the lead (landing.css § 5), so the link is rendered a second time after
                 the entry for that range only; `display: none` keeps exactly one in the focus order and the a11y tree,

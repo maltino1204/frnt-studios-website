@@ -4,12 +4,10 @@ import { useRef, type PointerEvent } from "react";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
 import { Ortszeile } from "../primitives/ortszeile";
-import { PLACES, type PlaceId } from "./places";
+import { HERO_FIGURE_ID, PLACES, type PlaceId } from "./places";
 import { prefetchPlaces, registerPlaceImages, setPlace, usePlace } from "./place-store";
 import { SwapLayer } from "./swap-layer";
-import { useLayerSwap } from "./use-layer-swap";
-
-export const HERO_FIGURE_ID = "hero-ort";
+import { placeLayerAnimates, useLayerSwap } from "./use-layer-swap";
 
 /**
  * The hero arch, „Fenster“ (spec § 4.1.2, § 4.1.5): stacked place layers `[data-place-layer][data-state]` inside one
@@ -23,7 +21,7 @@ export function HeroArch({ images, className }: { images: Record<PlaceId, Landin
   const place = usePlace();
   const places = PLACES;
   const prefetch = prefetchPlaces;
-  const { layers, settle, swapped } = useLayerSwap(place.id);
+  const { layers, settle, swapped } = useLayerSwap(place.id, placeLayerAnimates);
   const start = useRef<{ x: number; y: number; id: number } | null>(null);
 
   const onDown = (e: PointerEvent) => {

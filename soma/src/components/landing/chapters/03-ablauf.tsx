@@ -8,6 +8,7 @@ import { ArchOutline } from "../primitives/arch-outline";
 import { ChapterFoot } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { Chapter, LpContainer } from "./chapter";
 
 const STEPS = [
@@ -88,7 +89,10 @@ export function AblaufChapter({ data }: { data: WalkthroughData }) {
 
         <div data-scene="walkthrough" className="lp-walk mt-10 md:mt-12 lg:mt-16">
           <div className="lp-walk-controls mb-6 md:mb-8">
-            <StepButtons rowId="ablauf-schritte" steps={STEPS.map((s) => ({ id: s.id, label: s.title }))} />
+            {/* Without the buttons the snap row still scrolls natively. */}
+            <IslandBoundary name="03 step buttons">
+              <StepButtons rowId="ablauf-schritte" steps={STEPS.map((s) => ({ id: s.id, label: s.title }))} />
+            </IslandBoundary>
           </div>
 
           <div className="lp-walk-body">

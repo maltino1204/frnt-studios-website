@@ -256,6 +256,7 @@ test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier
   // a fresh page per jump: every chapter on the way is still laid out at its estimated height (audit 2, N-1)
   for (const [id, nn] of [
     ["profis", "04"],
+    ["fuer-profis", "05"],
     ["fragen", "06"],
     ["soma", "07"],
   ] as const) {
@@ -322,4 +323,143 @@ test("full tier: the pin upgrades only below the fold, steps follow the scroll, 
   await expect(page.locator('[data-scene="seal"]')).toHaveAttribute("data-scene-state", "done", { timeout: 5000 });
   expect(await opacity(page, '[data-seal-part="wordmark"]')).toEqual([1]);
   expect(await page.evaluate(() => (window as unknown as { __cls: number }).__cls)).toBeLessThanOrEqual(0.05);
+});
+
+/** Console errors and page errors of a page, island boundaries' fallbacks included („[landing] … failed“). */
+function watchErrors(page: Page) {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(`pageerror ${e.message.slice(0, 160)}`));
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text().split("\n")[0].slice(0, 160));
+  });
+  return errors;
+}
+
+/** The page is whole: seven chapters, no root error page, every hydrated island in place. */
+async function expectWhole(page: Page, errors: string[]) {
+  await expect(page.locator("main section[data-chapter]")).toHaveCount(7);
+  await expect(page.getByText("Das hat nicht geklappt.")).toHaveCount(0);
+  expect(errors, "no page or console errors").toEqual([]);
+}
+
+for (const variant of [
+  { name: "lite and reduced motion", query: "?motion=lite", reduce: true },
+  { name: "none (reduced motion)", query: "", reduce: true },
+  { name: "full", query: "?motion=full", reduce: false },
+] as const) {
+  test(`02 index, ${variant.name}: hover, Tab and wheel never crash the page (audit-4 N4-1)`, async ({ page }, ti) => {
+    test.skip(ti.project.name !== "desktop", "the index with its preview exists with a fine pointer from 1024 px");
+    test.setTimeout(120_000);
+    if (variant.reduce) await page.emulateMedia({ reducedMotion: "reduce" });
+    const errors = watchErrors(page);
+    await open(page, variant.query);
+    if (variant.query) await runtime(page);
+    const index = page.locator('#behandlungen [data-scene="index-preview"]');
+    await expect(index).toBeVisible();
+
+    // hover every row (the preview follows), then back up
+    await scrollToId(page, "behandlungen");
+    const rows = index.locator("ol a");
+    const n = await rows.count();
+    expect(n).toBeGreaterThan(1);
+    for (let i = 0; i < n; i++) {
+      await rows.nth(i).hover();
+      await page.waitForTimeout(160);
+    }
+    await expect(index).toHaveAttribute("data-active", (await rows.nth(n - 1).getAttribute("href"))!.split("/").pop()!);
+    for (let i = n - 1; i >= 0; i -= 2) {
+      await rows.nth(i).hover();
+      await page.waitForTimeout(40);
+    }
+    // Tab through 02 (keyboard parity: focus moves the preview too)
+    await page.mouse.move(1300, 10);
+    await rows.first().focus();
+    for (let i = 0; i < n + 3; i++) {
+      await page.keyboard.press("Tab");
+      await page.waitForTimeout(110);
+    }
+    // wheel-scroll through 02 with the pointer over the rows (x = 300), down and back up
+    await scrollToId(page, "bei-dir");
+    await page.mouse.move(300, 450);
+    for (let i = 0; i < 24; i++) {
+      await page.mouse.wheel(0, 180);
+      await page.waitForTimeout(60);
+    }
+    for (let i = 0; i < 24; i++) {
+      await page.mouse.wheel(0, -180);
+      await page.waitForTimeout(60);
+    }
+    await page.waitForTimeout(600);
+    await expect(index).toBeVisible(); // the island itself, not its static fallback
+    await expect(index.locator("[data-preview-layer]")).not.toHaveCount(0);
+    await expectWhole(page, errors);
+  });
+
+  test(`other islands, ${variant.name}: place switch, rail arrows, FAQ and overlay never crash the page`, async ({ page }, ti) => {
+    test.skip(ti.project.name !== "desktop", "the rail arrows and the header index exist from 1024 px");
+    test.setTimeout(120_000);
+    if (variant.reduce) await page.emulateMedia({ reducedMotion: "reduce" });
+    const errors = watchErrors(page);
+    await open(page, variant.query);
+    if (variant.query) await runtime(page);
+
+    // hero place switch: every place by click, then by keyboard (selection follows focus), rapid and repeated
+    const places = page.getByRole("radiogroup", { name: "Ort" }).getByRole("radio");
+    for (const i of [1, 2, 0, 2, 1, 0]) {
+      await places.nth(i).click();
+      await page.waitForTimeout(90);
+    }
+    await places.nth(0).focus();
+    for (const key of ["ArrowRight", "ArrowRight", "ArrowRight", "ArrowLeft", "End", "Home"]) {
+      await page.keyboard.press(key);
+      await page.waitForTimeout(60);
+    }
+    await expect(places.nth(0)).toHaveAttribute("aria-checked", "true");
+    await expect(page.locator("#hero-ort [data-place-layer]").first()).toBeAttached();
+
+    // rail arrows (04 Profis, and 02's rail where it shows)
+    for (const label of ["Weiter", "Weiter", "Zurück"]) {
+      const arrow = page.locator("#profis").getByRole("button", { name: label });
+      if (!(await arrow.count())) break;
+      await arrow.scrollIntoViewIfNeeded();
+      if (await arrow.isEnabled()) await arrow.click();
+      await page.waitForTimeout(250);
+    }
+    // FAQ open and close; chapter overlay open and close
+    const summary = page.locator("#fragen summary").first();
+    await summary.click();
+    await summary.click();
+    const trigger = page.locator("header").getByRole("button", { name: /^Kapitel/ });
+    await trigger.click();
+    const overlay = page.getByRole("dialog", { name: "Kapitel und Seiten" });
+    await expect(overlay).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(overlay).toBeHidden();
+    await expectWhole(page, errors);
+  });
+}
+
+test("phones and tablets: a jump to 05 shows its heading above the dock (audit-4 N4-4)", async ({ browser }, ti) => {
+  test.skip(ti.project.name !== "mobile", "the viewports are set here; once is enough");
+  for (const vp of [
+    { width: 390, height: 844 },
+    { width: 768, height: 1024 },
+    { width: 820, height: 1180 },
+  ]) {
+    const context = await browser.newContext({ viewport: vp, isMobile: true, hasTouch: true, locale: "de-DE" });
+    const page = await context.newPage();
+    await open(page, "?motion=lite");
+    await page.evaluate(() => (document.querySelector('a[href="#fuer-profis"]') as HTMLAnchorElement | null)?.click());
+    await expect(page.locator("#fuer-profis-titel")).toBeFocused();
+    await scrollSettled(page);
+    const r = await page.evaluate(() => {
+      const h = document.getElementById("fuer-profis-titel")!.getBoundingClientRect();
+      const dock = document.querySelector(".lp-dock")!.getBoundingClientRect();
+      return { top: h.top, bottom: h.bottom, vh: innerHeight, dockTop: dock.top, dock: document.documentElement.dataset.dock };
+    });
+    expect(r.top, `${vp.width}: the h2 in the upper part of the view`).toBeLessThanOrEqual(r.vh * 0.45);
+    expect(r.top).toBeGreaterThanOrEqual(0);
+    if (r.dock === "shown") expect(r.bottom, `${vp.width}: the h2 clear of the dock`).toBeLessThanOrEqual(r.dockTop);
+    await context.close();
+  }
 });

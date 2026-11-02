@@ -154,3 +154,36 @@ test.describe("without JavaScript", () => {
     expect(await menu.count()).toBeGreaterThan(0);
   });
 });
+
+test("the hero photo is fetched once per viewport: the preload and the <img> pick the same width (audit-4 N4-2)", async ({ browser }, ti) => {
+  test.skip(ti.project.name !== "mobile", "the viewports are set here; once is enough");
+  test.setTimeout(120_000);
+  for (const vp of [
+    { width: 360, height: 740, dpr: 3 },
+    { width: 390, height: 844, dpr: 2 },
+    { width: 412, height: 915, dpr: 2.625 },
+    { width: 768, height: 1024, dpr: 2 },
+    { width: 820, height: 1180, dpr: 2 },
+    { width: 1023, height: 768, dpr: 1 },
+    { width: 1440, height: 900, dpr: 1 },
+  ]) {
+    const mobile = vp.width < 1024;
+    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: vp.dpr, isMobile: mobile, hasTouch: mobile, locale: "de-DE" });
+    const page = await context.newPage();
+    const hero: string[] = [];
+    const warnings: string[] = [];
+    page.on("request", (r) => {
+      if (r.url().includes("hero-home-4x5")) hero.push(new URL(r.url()).searchParams.get("w") ?? r.url());
+    });
+    page.on("console", (m) => {
+      if (m.type() === "warning" || m.type() === "error") warnings.push(m.text().slice(0, 160));
+    });
+    await page.goto("/", { waitUntil: "load" });
+    await page.waitForTimeout(3500); // Chromium warns about an unused preload a few seconds after load
+    expect(hero, `${vp.width}×${vp.height}: one hero request`).toHaveLength(1);
+    const current = await page.locator("#hero-ort img[data-lcp]").evaluate((img: HTMLImageElement) => new URL(img.currentSrc).searchParams.get("w"));
+    expect(current, `${vp.width}×${vp.height}: the <img> shows the preloaded file`).toBe(hero[0]);
+    expect(warnings, `${vp.width}×${vp.height}: no console warnings`).toEqual([]);
+    await context.close();
+  }
+});

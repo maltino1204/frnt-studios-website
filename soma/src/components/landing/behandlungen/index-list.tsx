@@ -1,27 +1,25 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Icon } from "@/components/ui/icon";
 import { SwapLayer } from "../hero/swap-layer";
-import { useLayerSwap } from "../hero/use-layer-swap";
+import { previewLayerAnimates, useLayerSwap } from "../hero/use-layer-swap";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
+import { IndexRow } from "./index-row";
 import type { CategoryItem } from "./types";
 /** Intent delay, so rows crossed by the pointer do not flicker (spec § 4.3). */
 const INTENT_MS = 80;
 
 /**
- * 03 on desktop with a fine pointer (spec § 4.3): the editorial index (one link per row, sans list titles) and a
+ * 02 on desktop with a fine pointer (spec § 4.3): the editorial index (one link per row, sans list titles) and a
  * sticky preview arch that mirrors the row under the pointer or focus (keyboard parity). The preview is
  * `aria-hidden`; its image layers swap like the hero (`[data-preview-layer][data-state]`), the caption is keyed
  * (`data-preview-caption`, `data-state="entering"` after a swap). The preview photos' attributes come from the server
- * (`previews`, `getImageProps()` in chapters/03-behandlungen.tsx), so this island loads no `next/image`.
+ * (`previews`, `getImageProps()` in chapters/02-behandlungen.tsx), so this island loads no `next/image`.
  */
 export function IndexList({ items, previews }: { items: CategoryItem[]; previews: Record<string, LandingImgAttrs> }) {
   const [active, setActive] = useState(items[0]?.slug ?? "");
-  const { layers, settle, swapped } = useLayerSwap(active);
+  const { layers, settle, swapped } = useLayerSwap(active, previewLayerAnimates);
   const timer = useRef(0);
   const fetched = useRef(false);
 
@@ -51,34 +49,7 @@ export function IndexList({ items, previews }: { items: CategoryItem[]; previews
     <div data-scene="index-preview" data-active={active} className="lp-cat-index">
       <ol className="lp-cat-list border-t border-line" onPointerEnter={prefetch} onFocus={prefetch}>
         {items.map((it, i) => (
-          <li key={it.slug}>
-            <Link
-              href={it.href}
-              prefetch={false}
-              onPointerEnter={() => intend(it.slug)}
-              onFocus={() => intend(it.slug)}
-              className="group grid min-h-[104px] grid-cols-[2.5rem_minmax(0,1fr)_auto_1.25rem] items-center gap-x-5 border-b border-line px-3 text-ink transition-[background-color,scale] duration-fast ease-standard hover:bg-surface-sunken focus-visible:bg-surface-sunken focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus active:scale-[0.99]"
-            >
-              <span className="type-label text-ink-muted num">{String(i + 1).padStart(2, "0")}</span>
-              <span className="flex min-w-0 flex-col gap-1">
-                <span className="type-heading-l">{it.name}</span>
-                {it.tagline ? <span className="truncate type-body-s text-ink-muted">{it.tagline}</span> : null}
-              </span>
-              <span className="flex flex-col items-end gap-0.5 text-right">
-                {it.price ? (
-                  <>
-                    <span className="type-label-s text-ink num">{it.price}</span>
-                    <span className="type-caption text-ink-muted">zzgl. Anfahrt</span>
-                  </>
-                ) : null}
-              </span>
-              <Icon
-                icon={ArrowUpRight}
-                size={20}
-                className="text-ink-muted transition-[translate,color] duration-base ease-settle group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
-              />
-            </Link>
-          </li>
+          <IndexRow key={it.slug} item={it} i={i} onIntent={intend} />
         ))}
       </ol>
 

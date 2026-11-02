@@ -3,9 +3,8 @@
 import { Fragment, useEffect, useRef, type KeyboardEvent } from "react";
 import { cn } from "@/lib/cn";
 import { ArchMark } from "../primitives/arch-mark";
-import { PLACES } from "./places";
+import { HERO_FIGURE_ID, PLACES } from "./places";
 import { prefetchPlaces, setPlace, usePlace } from "./place-store";
-import { HERO_FIGURE_ID } from "./hero-arch";
 
 /**
  * The place switch (spec § 4.1.5): a radiogroup „Ort“ of three text radios in the eyebrow style, ≥ 44 px tall,

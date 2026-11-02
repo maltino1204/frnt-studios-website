@@ -1,5 +1,6 @@
 import { Children, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { IslandBoundary } from "./island-boundary";
 import { RailArrows } from "./rail-arrows";
 
 /**
@@ -31,7 +32,11 @@ export function SnapRail({
       {header || arrows ? (
         <div className="mb-8 flex items-end justify-between gap-6 lg:mb-10">
           <div className="min-w-0 flex-1">{header}</div>
-          {arrows ? <RailArrows target={id} step={Math.max(1, perView - 1)} /> : null}
+          {arrows ? (
+            <IslandBoundary name={`${label} arrows`}>
+              <RailArrows target={id} step={Math.max(1, perView - 1)} />
+            </IslandBoundary>
+          ) : null}
         </div>
       ) : null}
       <ul
