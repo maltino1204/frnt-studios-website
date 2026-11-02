@@ -73,6 +73,23 @@ export function MotionLoader() {
       else timer = window.setTimeout(requestRuntime, 1200);
     }
 
+    // The display roman is not preloaded on `/` (spec § 10.5: it is not above the fold). Fetch it once the page has
+    // loaded and the main thread is idle, so the serif headlines below the hero do not swap in under the reader (or
+    // inside a tap) later. The family comes from the root's `--font-display-src`; no URL is needed.
+    let fontIdle = 0;
+    const warmDisplayFont = () => {
+      fontIdle = 0;
+      const family = getComputedStyle(root).getPropertyValue("--font-display-src").trim();
+      if (family && document.fonts?.load) document.fonts.load(`400 1em ${family}`).catch(() => {});
+    };
+    const onLoad = () => {
+      if (!alive) return;
+      if (win.requestIdleCallback) fontIdle = win.requestIdleCallback(warmDisplayFont, { timeout: 3000 });
+      else fontIdle = window.setTimeout(warmDisplayFont, 500);
+    };
+    if (document.readyState === "complete") onLoad();
+    else window.addEventListener("load", onLoad, { once: true });
+
     // Tier changes during the page view only ever downgrade (a pinned scene never appears under the reader).
     const narrow = matchMedia(NARROW_QUERY);
     const reduce = matchMedia(REDUCED_QUERY);
@@ -92,6 +109,11 @@ export function MotionLoader() {
 
     return () => {
       alive = false;
+      window.removeEventListener("load", onLoad);
+      if (fontIdle) {
+        if (win.cancelIdleCallback) win.cancelIdleCallback(fontIdle);
+        else window.clearTimeout(fontIdle);
+      }
       window.removeEventListener("scroll", requestRuntime);
       if (idle) win.cancelIdleCallback?.(idle);
       window.clearTimeout(timer);
