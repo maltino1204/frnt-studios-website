@@ -3757,7 +3757,8 @@
     "focal": "50% 50%",
     "caption": "Micro-French auf kurzen Nägeln",
     "replaces": "/images/portfolio/manikuere-3-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-3"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-3",
+    "replacedBy": "/images/portfolio/manikuere-3-v5.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-4-v3.jpg",
@@ -5381,5 +5382,16 @@
       "h": 0.2747
     },
     "source": "Square head-and-shoulders avatar crop of pro-30-v5.jpg (brand/photography/tools/avatars.mjs, review R7)"
+  },
+  {
+    "path": "/images/portfolio/manikuere-3-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_161232_cd42b0ef-2bab-45c9-a5c5-7f24f8910b54.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Micro-French auf kurzen Nägeln",
+    "replaces": "/images/portfolio/manikuere-3-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, new frame, text only, v3 style block), SOMA photography v5 post-review fix F12 (Explore)"
   }
 ]

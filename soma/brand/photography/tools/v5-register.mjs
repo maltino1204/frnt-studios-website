@@ -24,7 +24,7 @@ for (const s of V5) {
   const old = byPath.get(s.replaces);
   upsert(s.path, { remote: c.url, ratio: old.ratio, width: old.width, height: old.height, focal: old.focal,
     ...(old.place ? { place: old.place } : {}), ...(old.caption ? { caption: old.caption } : {}), replaces: s.replaces,
-    source: `AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of ${s.replaces.split("/").pop()}), SOMA photography v5 post-review fix ${s.id} (${s.review})` }, s.replaces);
+    source: `AI-generated development asset (Higgsfield nano_banana_pro 2k, ${s.how ?? "edit of " + s.replaces.split("/").pop()}), SOMA photography v5 post-review fix ${s.id} (${s.review})` }, s.replaces);
 }
 const arr = L.current["/images/editorial/arrival-v5.jpg"];
 if (arr) upsert("/images/editorial/arrival-4x5-v5.jpg", { remote: arr.url, ratio: "4:5", width: 1200, height: 1500, focal: L.arrival4x5Focal ?? "55% 50%",

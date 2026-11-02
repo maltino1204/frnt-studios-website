@@ -2,7 +2,15 @@
  "note": "v5 post-review fixes (Photo Art Director, 2 Nov 2026; docs/qa/review-entdecken-photos.md R8, R10, R11). Start balance 742.99, budget 35.",
  "startBalance": 742.99,
  "budget": 35,
- "creditsLogged": 24,
+ "creditsLogged": 28,
+ "held": [
+  {
+   "shot": "F12",
+   "job": "3309807e-e5a4-4587-9e97-d65e12268d6f",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_161233_3309807e-e5a4-4587-9e97-d65e12268d6f.png",
+   "note": "second variant of the same F12 request (count 2), held in reserve; 2 credits"
+  }
+ ],
  "jobs": [
   {
    "id": "afaf1d48-1524-4263-ba5f-dafc3992e657",
@@ -173,6 +181,18 @@
    "note": "retry: remove the transom ghost",
    "status": "pass",
    "reason": "transom ghost gone, clear glass between the two white mullions; Munich view (red roofs, green-domed towers, trees) and Theresa unchanged"
+  },
+  {
+   "id": "cd42b0ef-2bab-45c9-a5c5-7f24f8910b54",
+   "shot": "F12",
+   "review": "Explore",
+   "path": "/images/portfolio/manikuere-3-v5.jpg",
+   "replaces": "/images/portfolio/manikuere-3-v3.jpg",
+   "issue": "caption „Micro-French auf kurzen Nägeln“, but at card size the picture reads as two hands holding a cup",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, new frame, text only, v3 style block",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_161232_cd42b0ef-2bab-45c9-a5c5-7f24f8910b54.png"
   }
  ],
  "current": {
@@ -241,6 +261,12 @@
    "job": "b0bd4f98-8375-4e37-9c4a-4f4dde5cba60",
    "shot": "F06",
    "attempt": 2
+  },
+  "/images/portfolio/manikuere-3-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_161232_cd42b0ef-2bab-45c9-a5c5-7f24f8910b54.png",
+   "job": "cd42b0ef-2bab-45c9-a5c5-7f24f8910b54",
+   "shot": "F12",
+   "attempt": 1
   }
  }
 }
