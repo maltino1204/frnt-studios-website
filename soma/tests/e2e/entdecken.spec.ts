@@ -69,7 +69,7 @@ test.describe("public /entdecken", () => {
     // „Neu auf SOMA“: every card carries the chip and the real date
     const fresh = page.getByRole("list", { name: "Neu auf SOMA" });
     expect(await fresh.getByRole("listitem").count()).toBeGreaterThan(0);
-    for (const card of await fresh.getByRole("link").all()) await expect(card).toContainText(/Neu.*Auf SOMA seit/s);
+    for (const card of await fresh.getByRole("link").all()) await expect(card).toContainText(/Neu[\s\S]*Auf SOMA seit/);
     await expect(fresh.getByText("Demo-Profil · Foto KI-generiert").first()).toBeVisible();
     expect(errors).toEqual([]);
   });
