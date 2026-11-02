@@ -1,0 +1,74 @@
+[
+ {
+  "setting": "full",
+  "afterHover": {
+   "tier": "full",
+   "island": true,
+   "active": "pedikuere",
+   "caption": "Pediküre",
+   "layers": [
+    "current"
+   ],
+   "topImg": "pedikuere-v6.jpg"
+  },
+  "afterFocus": {
+   "tier": "full",
+   "island": true,
+   "active": "make-up",
+   "caption": "Make-up",
+   "layers": [
+    "current"
+   ],
+   "topImg": "make-up-v3.jpg"
+  },
+  "errors": []
+ },
+ {
+  "setting": "lite (Save-Data)",
+  "afterHover": {
+   "tier": "lite",
+   "island": true,
+   "active": "pedikuere",
+   "caption": "Pediküre",
+   "layers": [
+    "current"
+   ],
+   "topImg": "pedikuere-v6.jpg"
+  },
+  "afterFocus": {
+   "tier": "lite",
+   "island": true,
+   "active": "make-up",
+   "caption": "Make-up",
+   "layers": [
+    "current"
+   ],
+   "topImg": "make-up-v3.jpg"
+  },
+  "errors": []
+ },
+ {
+  "setting": "none (reduced motion)",
+  "afterHover": {
+   "tier": "none",
+   "island": true,
+   "active": "pedikuere",
+   "caption": "Pediküre",
+   "layers": [
+    "current"
+   ],
+   "topImg": "pedikuere-v6.jpg"
+  },
+  "afterFocus": {
+   "tier": "none",
+   "island": true,
+   "active": "make-up",
+   "caption": "Make-up",
+   "layers": [
+    "current"
+   ],
+   "topImg": "make-up-v3.jpg"
+  },
+  "errors": []
+ }
+]

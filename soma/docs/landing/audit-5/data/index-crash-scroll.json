@@ -1,0 +1,18 @@
+[
+ {
+  "pointer": "left third (x 300)",
+  "tier": "none",
+  "chapters": 7,
+  "errorPage": false,
+  "y": 3600,
+  "errors": []
+ },
+ {
+  "pointer": "right third (x 1100)",
+  "tier": "none",
+  "chapters": 7,
+  "errorPage": false,
+  "y": 3600,
+  "errors": []
+ }
+]
