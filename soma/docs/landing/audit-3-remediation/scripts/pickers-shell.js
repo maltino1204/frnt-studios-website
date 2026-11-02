@@ -1,6 +1,8 @@
 // (Remediation copy of audit-3/scripts/pickers.js, as audit-3 § 15 PR-3 asks: "add a shell condition". Everything else is
 // unchanged: `tapToShell` is the first frame with the picker's sheet or popover on screen (labelled „Behandlung wählen“,
-// > 40 px tall), `tapToPicker` the auditor's condition (the list itself). Output: data/pickers-shell.json.)
+// > 40 px tall), `tapToPicker` the auditor's condition (the list itself), both wall clock from before Playwright's
+// tap() as in the original. `inPage`: the same two conditions timed in the page from the tap's pointerdown (latency.js
+// method), and `tapDispatch`, the time from t0 until Playwright dispatched the tap. Output: data/pickers-shell.json.)
 // Round-3 regression check: BookingEntry's Was?/Wann? now load as their own chunk (booking-entry-pickers.tsx), in the
 // first idle period after the entry mounts or on intent. (1) A visitor who taps Was? as soon as the form hydrates on a
 // throttled phone (412 × 823, 4× CPU, Slow 4G, cold): time from the tap to the picker on screen, on the landing hero
@@ -22,6 +24,16 @@ async function ctxFor(b, phone) {
       const c = await ctxFor(b, true);
       const p = await c.newPage();
       await p.addInitScript(() => Object.defineProperty(Navigator.prototype, 'webdriver', { get: () => false }));
+      // (remediation) in-page timing as in latency.js: the tap's pointerdown → the first frame with the shell / the list
+      await p.addInitScript(([shell, list]) => {
+        const ok = (src) => new Function('return (' + src + ')');
+        const s = ok(shell), l = ok(list);
+        addEventListener('pointerdown', (e) => {
+          window.__pd = e.timeStamp;
+          const poll = (cond, key) => { const loop = () => { if (cond()) setTimeout(() => { window[key] = Math.round(performance.now() - e.timeStamp); }, 0); else if (performance.now() - e.timeStamp < 20000) requestAnimationFrame(loop); }; requestAnimationFrame(loop); };
+          poll(s, '__shellVis'); poll(l, '__listVis');
+        }, { capture: true, once: true });
+      }, [SHELL_VISIBLE, PICKER_VISIBLE]);
       const cdp = await c.newCDPSession(p);
       await cdp.send('Network.enable');
       await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
@@ -41,7 +53,9 @@ async function ctxFor(b, phone) {
       await p.waitForFunction(PICKER_VISIBLE, null, { timeout: 30000, polling: 'raf' }).catch(() => {});
       const t1 = await p.evaluate(() => performance.now());
       const ok = await p.evaluate(PICKER_VISIBLE);
-      const r = { path, run, hydratedAt: tHyd, tapToShell: Math.round(ts - t0), tapToPicker: Math.round(t1 - t0), pickerShown: ok };
+      await p.waitForFunction(() => window.__listVis != null, null, { timeout: 20000 }).catch(() => {});
+      const inPage = await p.evaluate((t0) => ({ tapDispatch: Math.round(window.__pd - t0), shell: window.__shellVis, list: window.__listVis }), t0);
+      const r = { path, run, hydratedAt: tHyd, tapToShell: Math.round(ts - t0), tapToPicker: Math.round(t1 - t0), pickerShown: ok, inPage };
       console.log('early', JSON.stringify(r));
       out.early.push(r);
       await c.close();

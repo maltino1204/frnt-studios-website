@@ -894,9 +894,10 @@ export function BookingEntry({
       </div>
 
       {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). Before the pickers' chunk
-          is there, the sheet opens with a frame of the list's height and fills when it arrives (audit-3 M-3). */}
+          is there, the sheet opens with a frame of the list's height and fills when it arrives (audit-3 M-3); its first
+          frame paints before the page turns inert (`paintFirst`). */}
       {!desktop && !inline && open === "was" ? (
-        <Sheet open onClose={closePicker} title="Behandlung wählen">
+        <Sheet open onClose={closePicker} title="Behandlung wählen" paintFirst>
           <div aria-busy={!P || undefined}>{wasPicker}</div>
         </Sheet>
       ) : null}
@@ -905,6 +906,7 @@ export function BookingEntry({
           open
           onClose={closePicker}
           title="Zeitpunkt wählen"
+          paintFirst
           footer={
             <Button size="l" block onClick={closePicker}>
               Fertig
