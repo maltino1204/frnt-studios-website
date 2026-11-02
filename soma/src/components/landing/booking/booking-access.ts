@@ -76,14 +76,19 @@ export function isDesktop(): boolean {
   return typeof window !== "undefined" && window.matchMedia(DESKTOP_QUERY).matches;
 }
 
-/** Visible fraction (0–1) of the hero booking entry; 0 when it is not on the page. */
+/**
+ * Visible fraction (0–1) of the hero booking entry; 0 when it is not on the page. The part under the landing's sticky
+ * header is not visible (since v2 the hero sits right above 02, so its entry's foot can lie under the header after a
+ * jump to 02); a header that has slid away (< 1024, scroll-down) has moved its box out of the viewport.
+ */
 export function heroEntryRatio(): number {
   if (typeof document === "undefined") return 0;
   const el = document.getElementById(HERO_ENTRY_ID);
   if (!el) return 0;
   const r = el.getBoundingClientRect();
   if (r.height <= 0) return 0;
-  const top = Math.max(r.top, 0);
+  const header = document.querySelector<HTMLElement>(".lp-header")?.getBoundingClientRect().bottom ?? 0;
+  const top = Math.max(r.top, header, 0);
   const bottom = Math.min(r.bottom, window.innerHeight);
   return Math.max(0, bottom - top) / r.height;
 }
