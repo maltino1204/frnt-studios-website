@@ -4,7 +4,7 @@ import { LandingArch } from "../primitives/landing-arch";
 import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
 
-type Item = { line: string; note?: string; place: string; src: string; focal: string; alt: string; tone: string };
+type Item = { line: string; note?: string; place: string; src: string; focal: string; alt: string };
 
 /** Deck § 05 (lines and Ortszeilen verbatim), crops from spec § 4.5 (verified in spec-assets/crops-experience.jpg). */
 export const EXPERIENCE: readonly Item[] = [
@@ -14,7 +14,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-time.jpg",
     focal: "78% 50%",
     alt: "Am Abend im eigenen Wohnzimmer: Eine Frau sitzt barfuß im Sessel, ein Profi arbeitet an einem kleinen Holztisch an ihren Händen.",
-    tone: "manikuere",
   },
   {
     line: "Dein Sofa. Deine Decke. Dein Licht.",
@@ -22,7 +21,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-comfort.jpg",
     focal: "45% 55%",
     alt: "Ein Mann ist nach der Behandlung unter einer Decke auf seinem Sofa eingeschlafen; im Hintergrund packt der Profi die Liege zusammen.",
-    tone: "massage",
   },
   {
     line: "Deine Adresse sieht nur dein Profi – und erst nach der Bestätigung.",
@@ -30,7 +28,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-privacy.jpg",
     focal: "50% 50%",
     alt: "Blick durch eine halb geöffnete Tür in ein ruhiges Zimmer, in dem ein Profi eine Massageliege vorbereitet.",
-    tone: "kosmetik",
   },
   {
     line: "Geprüft, bevor es klingelt.",
@@ -39,7 +36,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-quality.jpg",
     focal: "50% 50%",
     alt: "Ein Profi mit Koffer klingelt im Treppenhaus eines Altbaus an einer hohen Wohnungstür.",
-    tone: "haare-styling",
   },
   {
     line: "Du wählst die Person, nicht nur die Uhrzeit.",
@@ -47,7 +43,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-choice.jpg",
     focal: "88% 50%",
     alt: "Ein Gast streift im Sessel die Schuhe ab, während der Profi dahinter die Massageliege aufbaut.",
-    tone: "brows-lashes",
   },
   {
     line: "Morgens, nachmittags oder abends – du suchst nach deiner Zeit.",
@@ -55,7 +50,6 @@ export const EXPERIENCE: readonly Item[] = [
     src: "/images/landing/experience-flexible.jpg",
     focal: "62% 50%",
     alt: "Ein Profi massiert in einem Besprechungsraum den Nacken eines Mannes auf einem Massagestuhl; draußen liegt der Hafen.",
-    tone: "pedikuere",
   },
 ];
 
@@ -71,7 +65,8 @@ export function ExperienceSequence({ className }: { className?: string }) {
       {EXPERIENCE.map((it, i) => (
         <li key={it.src} data-step-item={i + 1} className="lp-essay-item">
           <figure className="lp-essay-fig">
-            <LandingArch tone={it.tone} reveal="arch" className="lp-essay-arch">
+            {/* The night band's own wash under the photos while they load, never a light category wash (audit I-11). */}
+            <LandingArch tone="nacht" reveal="arch" className="lp-essay-arch">
               <LandingImage src={it.src} alt={it.alt} sizes="(min-width: 1440px) 519px, (min-width: 1024px) 36vw, 86vw" focal={it.focal} />
             </LandingArch>
             <figcaption className="lp-essay-cap">

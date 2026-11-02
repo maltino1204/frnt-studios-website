@@ -9,6 +9,7 @@ import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { requestBooking } from "./surfaces";
 import { ChapterIndex } from "./chapter-index";
+import { NoScriptChapterLink } from "./static-chapter-list";
 import { openChapterOverlay } from "./overlay-events";
 
 export const HEADER_LINKS = [
@@ -60,11 +61,11 @@ export function LandingHeader() {
             {HEADER_LINKS.map((l) => (
               <li key={l.href}>
                 {l.href.startsWith("#") ? (
-                  <a href={l.href} className="inline-flex h-10 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
+                  <a href={l.href} className="inline-flex h-11 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
                     {l.label}
                   </a>
                 ) : (
-                  <Link href={l.href} prefetch={false} className="inline-flex h-10 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
+                  <Link href={l.href} prefetch={false} className="inline-flex h-11 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
                     {l.label}
                   </Link>
                 )}
@@ -75,10 +76,13 @@ export function LandingHeader() {
             type="button"
             aria-haspopup="dialog"
             onClick={openChapterOverlay}
-            className="ml-auto inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken xl:hidden"
+            className="lp-js ml-auto inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken xl:hidden"
           >
             Menü
           </button>
+          <NoScriptChapterLink className="ml-auto inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink focus-ring hover:bg-surface-sunken xl:hidden">
+            Menü
+          </NoScriptChapterLink>
         </nav>
 
         <span aria-hidden className="mx-2 hidden h-5 w-px bg-line-mid xl:block" />

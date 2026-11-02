@@ -7,6 +7,7 @@ import { LazySurfaces } from "@/components/landing/nav/lazy-surfaces";
 import { MotionLoader } from "@/components/landing/motion/loader";
 import { TIER_BOOT_SCRIPT } from "@/components/landing/motion/tier";
 import { SkipLinks } from "@/components/landing/nav/skip-links";
+import { StaticChapterList } from "@/components/landing/nav/static-chapter-list";
 import localFont from "next/font/local";
 import { Activity, type CSSProperties } from "react";
 import "./landing.css";
@@ -49,6 +50,8 @@ export default function LandingLayout({ children }: LayoutProps<"/">) {
       {/* Hydrates after the page's shell, like chapters 02–10 (page.tsx `Later`). */}
       <Activity mode="visible">
         <div data-dock-hide="0" className="lp-footer-wrap">
+          {/* Without JS, „Kapitel“ and „Menü“ link here (the overlay never mounts). */}
+          <StaticChapterList />
           <SiteFooter tagline={false} note="Bilder: KI-generierte Entwicklungsassets" />
         </div>
       </Activity>
