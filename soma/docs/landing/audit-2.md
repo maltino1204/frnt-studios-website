@@ -703,3 +703,186 @@ Final build (`df466be`, build `Xao0MaO2OX_wgYFaPfts2`, left running on `:3100`):
 - `tsc --noEmit` clean; `vitest run` 232/232.
 
 *Database: two full E2E runs and the landing suites as listed. They create searches, waitlist entries and the bookings the booking specs make and cancel. `demo:refresh` was not run.*
+
+---
+
+## 18. Remediation round 3 (engineer's measurements)
+
+*The round-3 performance engineer's own claims, 2 Nov 2026. **This is not an audit score**; the dimensions stay as scored above until a re-audit. §§ 1–17 are unchanged.*
+
+*Setup: production build on `:3100` (`npm run build` incl. `postbuild`, then `next start`), `DEMO_MODE=true`. No build, E2E run or other measurement ran in parallel with a measurement (the `next dev` server on `:3000` was idle). Lighthouse 12.8.2 from `/tmp/lh` (Chrome 153 headless, mobile, default simulated throttling). "Before" is my own run of the same script on the unchanged code (`4efc009`, build `Xao0MaO2OX…`) on this machine today, unless it is marked as § 17's or the auditor's. Final build: `1NNAjbrwzqoXKUo0jg2wz` (`62db5da`), left running on `:3100`.*
+
+*Evidence: `docs/landing/audit-2-remediation-3/`. `scripts/` holds copies of `audit-2/scripts/` with only the output paths changed (the auditor's `audit-2/data/` stays untouched), plus new ones: `hero-geom.js` (hero geometry and first-view screenshots), `ab-proxy.js` + `lh-n.sh` + `lh-blocked.sh` (the Lighthouse A/B harness of § 18.4), `lantern.mjs` (re-runs Lantern on a saved trace and lists its graph), `chunk-modules.js` (modules of a Turbopack chunk), `fonts-probe.js`. `data/` holds their output; `before-hero-*.jpg` and `after-hero-*.jpg` are the first views.*
+
+### 18.1 Commits
+
+| Commit | Lever | Change |
+|---|---|---|
+| `500601b` | 5 (RT-6) | Spec § 8.1 and § 10.1, and the `tier.ts` comment: headless Lighthouse and PSI set `navigator.webdriver`, so they score `/` in the `none` tier; visitor numbers come from `?motion=lite` / `full`. No bypass. |
+| `c5bd1b7` | 1 | `LandingImage` is a server component (`server-only`): `getImageProps()` builds the same optimiser URLs, `srcSet`, `sizes`, `loading` and fill style; the hero photo keeps `fetchPriority="high"` and its preload (React `preload()` with the same `imageSrcSet`/`imageSizes`). The hero arch, the 03 preview and the 07 screens get these attributes from the server as data and render a plain `<img>`. The 04/06 portraits are a server `LandingPortrait` with a small client `FadeImage` for the 640 ms fade-in; without JS the photo shows at once. |
+| `8743b47` | 1, 3 | `RebookRow` fetches the suggestion as before; the row itself (Avatar with `next/image`, AiLabel, the image registry) is a separate chunk, loaded only when there is a suggestion. |
+| `962038c` | 2 | The dialogs' `import()`s move from `nav/surfaces.ts` (layout chunk group) to `nav/surface-loader.ts`, imported by the hero's booking slot (page chunk group). |
+| `56ad2f8` | 3 | `BookingEntry` split: Was?, Wann?, the waitlist form and the kit sheet of the mobile pickers are their own chunk (`booking-entry-pickers.tsx`), loaded in the first idle period after the entry mounts and at once on intent inside the form. Same on `/suche` and the discovery pages. |
+| `20a72af` | 6 (RT-9) | `IntentLink`: the 10 search link and the 08/10 „Profi werden“ CTAs prefetch on intent only. |
+| `62db5da` | 8, 9 | The hero's first view below 1024 (§ 18.6). |
+
+**Not done, with the reason:**
+- **tailwind-merge (lever 4):** every kit component in the shell takes a caller `className` (`Icon`, `Button`, `IconButton`, the sheet), and the root's toast and `MotionRoot` use `cn` too, so the 9.0 KB chunk stays in every route's first load (audit-1 § 17.6 #4 reached the same result).
+- **A compact image registry (lever 3):** after the commits above no client module of `/`'s first load imports `@/lib/images`, so a smaller registry JSON would no longer change `/`'s gates. Not done.
+- **The duplicate italic declaration (lever 6, second half):** see § 18.7.
+
+### 18.2 Weight (`weight.js`, gzip -9)
+
+| | Before | After |
+|---|---|---|
+| **First-load module scripts** | 13 files, 725 KB raw, **208.0 KB gz** | 12 files, 573 KB raw, **177.2 KB gz** (−30.8) |
+| of which framework + root (react-dom 70.1, Next 44.0 + 8.5 + 2.0, Turbopack 4.3, root layout 8.0, tailwind-merge 9.0, loader manifests) | 146.2 | 146.4 |
+| of which the landing | 61.9 (incl. `next/image` + registry 21.1) | 30.8 |
+| CSS | 37.1 KB gz, 3 files | 37.4 KB gz (the hero rules of § 18.6) |
+| HTML | 435 KB raw, 59.7 KB gz | 495 KB raw, **64.9 KB gz** (+5.2: the `srcSet` strings are now in the RSC payload too, 499 optimiser URLs) |
+
+What left the first load (module analysis with `chunk-modules.js`):
+- `next/image` (≈ 7 KB gz) and the image registry (`sources.json` 13.4 + `images.local.json` 0.9 KB gz): lever 1, the RebookRow row and the picker split. They now load only with the pickers (idle, after hydration) or a rebook suggestion.
+- `BookingEntry` 7.9 → 6.5 KB gz, plus the date strip, chips, the waitlist form, the success check and the kit sheet.
+
+Async chunks (raw): booking bar **25.3 → 6.3 KB**, booking sheet **28.8 → 9.9 KB**, chapter overlay 5.5 → 5.2 KB (lever 2). The pickers chunk is 28.9 KB raw (9.0 gz) plus the image chunk (21.2 gz).
+
+**First-load JS ≤ 160 KB gz is not reachable without removing visitor function.** The framework and the root layout alone are 146.4 KB gz. That leaves 13.6 KB for the landing, whose header, dock and chapter navigation alone are 14.2 KB gz.
+
+### 18.3 RT-5: Lighthouse 12 mobile, simulated, `/?motion=lite`
+
+Score · LCP s · TBT ms. FCP 1.51–1.54 s and CLS 0 in every run; the motion runtime loaded in every run (the visitor tier). The first run after each server start is discarded and listed.
+
+| Set | Runs | Median | Lowest |
+|---|---|---|---|
+| **Before** (`4efc009`; discarded: 84 · 4.40) | 89 · 3.70 · 29 / 91 · 3.41 · 46 / 87 · 4.00 · 10 / 84 · 4.35 · 48 ᶜ / 84 · 4.33 · 28 ᶜ / 84 · 4.41 · 83 ᶜ / 89 · 3.71 · 34 | **87** · LCP 4.00 | 84 |
+| After levers 1–3, 6 (build `PcUpi…`; discarded: 92 · 3.26) | 89 · 3.71 · 21 / 89 · 3.71 · 5 / 92 · 3.25 · 48 ¹ / 92 · 3.25 · 54 / 92 · 3.26 · 33 / 84 · 4.27 · 81 ᶜ / 91 · 3.48 · 52 | 91 · LCP 3.48 | 84 |
+| **Final** (`62db5da`, build `1NNAj…`; discarded: 90 · 3.49) | 89 · 3.77 · 27 / 91 · 3.26 · 134 / 92 · 3.24 · 23 / 91 · 3.47 · 42 / 92 · 3.26 · 12 / 92 · 3.26 · 64 / 86 · 4.12 · 5 ᶜ | **91** · LCP 3.26 · TBT 27 | **86** |
+
+ᶜ the first-paint stall of § 18.4 (Speed Index 2.4–3.0 s instead of 1.5 s). ¹ a 10 s geometry probe of mine overlapped this run by mistake; it is kept and does not change the median.
+
+Interleaved comparison of builds (same machine, same hour, `lh-n.sh`, 6 runs each): the audited `513f417` gave 84 ᶜ / 91 / 91 / 91 / 91 / 91 (median 91); `4efc009` (§ 17's final code, before this round) gave 91 / 76 ᶜ / 84 ᶜ / 94 / 87 / 82 ᶜ (median 85.5).
+
+**Against the gate:**
+- median ≥ 91: **met** (91; it was 87);
+- no run below 89: **not met** (one stalled run at 86; § 18.4);
+- first-load JS ≤ 160 KB gz: **not met** (177.2; § 18.2).
+
+
+### 18.4 Why RT-5's "no run below 89" is not reachable here (measured constraint)
+
+Lantern's LCP on this page is the transfer of everything that finished loading before the **observed** first paint, minus the scripts whose evaluation started after it (`lantern.mjs` re-runs Lantern on saved traces and reproduces Lighthouse's LCP to the millisecond). On localhost that paint happens at 0.2–0.3 s, in a race with the scripts' evaluation. Three outcomes show up in every set:
+
+| Mode | Observed FCP | What Lantern counts | Simulated LCP · score, before → after |
+|---|---|---|---|
+| A | 0.25–0.30 s, before react-dom evaluates | HTML, CSS, fonts, the hero image, all scripts but react-dom (a saved baseline run: 21 requests, 387 KB) | 3.40 s · 91 → **3.24–3.26 s · 91–92** |
+| B | the boot starts before the paint | the same plus react-dom (71 KB) and part of the boot (audit-1 § 17.4) | 3.70–4.00 s · 87–89 → **3.47–3.77 s · 89–91** |
+| C | **1.2–1.3 s** (frame lost, see below) | everything loaded in the first 1.2 s, incl. the motion loader | 4.33–4.50 s · 76–84 → **4.12–4.27 s · 84–86** |
+
+The weight work moved every mode down by 0.15–0.25 s. Mode C stays below 89 because it counts ≈ 480 KB, all of the first load.
+
+**Mode C is a headless-Chromium presentation stall, not page work.** In the traces the first contentful frame is committed and activated at ≈ 0.28 s, then dropped (`PipelineReporter` `STATE_DROPPED`, `BACKFILL`). For ≈ 850 ms no main frame is requested while every thread is idle. FCP is recorded with the next presented frame. The A/B harness (`ab-proxy.js` injects CSS or rewrites the HTML on its way from `:3100`; `lh-blocked.sh` blocks URLs) gives these counts, 6 runs each unless noted (`data/stall-ab.json`):
+
+| Variant | Stalled runs |
+|---|---|
+| control (same build through the proxy) | 4/6, later 0/2 |
+| hero photo settle off / progress-arch animation off / both / every animation and transition off | 2/6 · 3/6 · 3/3 · 2/3 |
+| tier `none` (`/`) · `@view-transition` off · `startViewTransition` removed · service worker 404 | 2/2 · 3/5 · 1/1 · 5/5 |
+| JS blocked · fonts blocked · images hidden · LCP image `decoding=sync` | 1/5 · 2/5 · 2/2 · 2/2 |
+| no `backdrop-filter` · audit-2's `contain-intrinsic-size` values · header and dock hidden | 1/2 · 2/3 · 1/6 |
+| **only the hero rendered** (chapters 02–10 and the footer `display: none`) | **0/6** |
+| a static one-paragraph page | 0/5 |
+| the audited build (`513f417`, rebuilt in a worktree on `:3200`), interleaved with `4efc009` | 1/6 against 3/6 |
+
+So the stall does not come with one feature. It goes away only when the first frame holds the hero alone, it also hits the audited build, and its rate varies with the machine's state: the auditor saw 1 in 12 runs, I saw 0 to 5 in 6. I found no change that avoids it without taking content out of the first frame. It is a lab artefact of headless Chromium on this machine: `perf.js` (CDP throttling, no screenshot tracing) gives FCP 2.14–2.26 s in every run (§ 18.8).
+
+What would make the gate deterministic is a measurement off localhost (a deployed preview, where mode A/B is decided by real network order) or field data (CrUX/RUM).
+
+### 18.5 RT-4: the booking sheet (`latency.js`, 412 × 823, 4× CPU, Slow 4G, cold; visible = event → first frame with the sheet)
+
+| Scenario | Before (§ 17's final code, its runs) | After (final build) | Gate |
+|---|---|---|---|
+| settled, dock → sheet | 138 / 197 / 170 · 244 / 136 / 257 · 166 / 177 / 211 (median 177, 6 of 9 ≤ 200) | **209 / 196 / 190** (INP 216 / 200 / 192) | ≤ 200 in 3 of 3: **not met** (2 of 3) |
+| early (1.5 s after load, dialogs cold) | 431 / 387 / 379 · 384 / 329 / 351 (median 381) | **386 / 283 / 303** (INP 344 / 272 / 264), median 303 | ≤ 300: **not met** (1 of 3) |
+
+The other interactions of the settled run (visible, ms):
+- Was? in the sheet: 108 / 128 / 86 (§ 17: median 89);
+- overlay open: 144 / 215 / 188;
+- place switch: 234 / 192 / 153;
+- FAQ: 156 / 93 / 162;
+- 07 tab: 125 / 102 / 140;
+- Esc in the sheet: 67 / 51 / 42;
+- Esc in the overlay: 199 / 179 / 335.
+
+What changed for the sheet:
+- **The early tap** got about 50–80 ms faster. The dialogs' chunks no longer repeat 38 KB raw of the page's modules (§ 18.2), so the evaluation inside the cold tap is shorter. The cold open still loads and mounts the dialogs and renders the sheet's entry inside the tap.
+- **The settled open** is unchanged within the noise: 190–209 ms, against 136–257 ms in § 17. It is the modal's inert restyle of what is in view plus the sheet's first styles, which § 17.2 measured as inherent to a modal over a visible page.
+- **Remaining levers:** a chunk preload before the first engagement would add TBT (audit-1 PT-1's trade-off). Pre-rendering the dialogs at idle without the visitor engaging is the same trade.
+
+### 18.6 Layout items 8 and 9 (`hero-geom.js`, at load, visitor tier, demo build with its ribbon)
+
+**How it works (`landing.css` § 5, `62db5da`).** Below 1024 the hero figure's width is `min(100%, 0.8 × --lp-arch-h)`, centred, so the arch keeps 4:5. The height cap is `100svh` minus where the arch starts at load (header, the hero's head, the 28 px figure margin, plus the demo ribbon when `[data-demo-ribbon]` is on the page) minus what must fit under it.
+- **Phones:** the Ortszeile (one line, two below 400 px, where the narrower arch makes it wrap after a „ · “), 12 px of air and the dock with its inset. The cap only applies when the natural Ortszeile would start above the fold (a `sign()` term). When it lies below the fold anyway (390 × 664, 360 × 740), nothing changes. The Ortszeile stays aligned to the arch's left edge and may run on to the column edge.
+- **768–1023:** one centred 36rem column, ordered text → arch → booking entry → lead → „So funktioniert’s“ (CSS `order`; the DOM and reading order are unchanged: head, figure, lead, link, entry). The cap is sized so that the stacked entry fits. If that would leave less than 300 px of arch (1023 × 768), the arch is instead tall enough that the Ortszeile starts below the fold, never under the dock.
+- **Fallback:** without `sign()` support the declaration is dropped and the arch keeps its natural size.
+- **Unchanged:** the dock (visible at load, the I-4 rule and its E2E), DOM order, ≥ 1024.
+
+| Viewport | Arch before → after (px) | Ortszeile vs dock top, before → after | PLZ top / CTA bottom, before → after |
+|---|---|---|---|
+| 390 × 844 | 350 × 438 → **280 × 350** | 814–829 under 776 (−53) → 726–758, **18 px clear** | 1068 / 1290 → 996 / 1218 |
+| 412 × 915 | 372 × 465 → **350 × 438** | 844–860 under 847 (−13) → 817–833, **14 px clear** | — |
+| 430 × 932 | 390 × 488 → **364 × 455** | 869–884 under 864 (−20) → 836–852, **12 px clear** | — |
+| 390 × 664 | 350 × 438, unchanged | 814 > fold 664 (not visible), unchanged | — |
+| 360 × 740 | 320 × 400, unchanged | 773 > fold 740 (not visible), unchanged | — |
+| **768 × 1024** | 523 × 654 (8-col grid, right part empty) → **243 × 304**, centred column | dock hidden (entry in view) | 1301 / 1523 → **786 / 1007: both in the first view** |
+| 820 × 1180 | 562 × 703 → **364 × 455** | dock hidden | 1357 / 1578 → **942 / 1164: in view** |
+| 1023 × 768 | 714 × 893 → **265 × 331** | Ortszeile 777–793, below the fold (dock 700–756) | 1574 / 1795 → 843 / 1065 (one scroll) |
+| 1024 × 768 · 1440 × 900 | 373 × 645 · 628 × 756, **identical** | — | 664 / 696 · 775 / 807, identical |
+
+Screenshots: `before-hero-{m390,m412,m430,m390s,m360,t768,t820,l1023,d1024,d1440}.jpg` and `after-hero-*.jpg`.
+- **Brand checks:** the arch geometry is the kit's O-curve at 4:5; one italic (the tagline); Oxblood once per view (the hero CTA at 768/820; none in the phone first view, where the dock CTA is Espresso).
+- **Production:** without the ribbon every number above moves up by 47 px (phones) / 33 px (768–1023), the cap adapts, and the clearances stay the same.
+
+The 768–1023 visual order puts the entry before the lead and „So funktioniert’s“, while the DOM keeps them before it. Keyboard focus therefore reaches „So funktioniert’s“ before the PLZ field there. That follows the Lead's order (text, arch, entry); an auditor may want to weigh it under 2.4.3.
+
+### 18.7 RT-9 and RT-6
+
+- **N-6 (unused CSS preload):** `IntentLink` (`20a72af`). `tech.js` (visitor tier, webdriver masked, a full scroll at 1440, 1280, 1024, 768, 430, 412, 390, 320): **0 console warnings or errors at every width** (the audit had the `11sda7nbphjp0.css … preloaded but not used` warning on every visit at ≤ 768 and on desktop walks).
+- **N-9 (the italic declared twice):** not done; this is a measured constraint of `next/font`.
+  - The file name encodes the preload flag: `newsreader_display_italic-s.<hash>.woff2` for the root's non-preloaded declaration, `-s.p.<hash>.woff2` for the landing's preloaded one.
+  - The preload list is per route entry (`next-font-manifest.json`), taken from the declarations its module graph imports.
+  - So **one** declaration is either preloaded on every route that imports it (the root: all routes, which A5-9 rejected) or on none. If it is on none, `/` loses the tagline font's preload (spec § 10.5), and on a slow network the tagline renders in the Times fallback first and then swaps.
+  - Keeping `/`'s preload with a single declaration would need the hashed URL in a manual preload, which `next/font` does not expose. The workarounds are a hand-written `@font-face` with copied fallback metrics, or reading build manifests at runtime. Both are more fragile than the duplicate.
+  - What N-9 actually costs: routes that prefetch `/` (the logo link, on viewport) fetch the landing's `.p.` copy next to their own. `routes.js`: `/` fetches each font file once (Instrument Sans `.p.`, italic `.p.`, roman `-s.` after `load`); `/suche`, `/behandlungen`, `/staedte`, `/fuer-profis`, `/hilfe` and `/impressum` still fetch both italic URLs, and the 404 both roman and both italic URLs, unchanged from the audit's `routes.json`.
+  - Lead decision needed: italic preloaded everywhere, nowhere, or the duplicate kept.
+- **RT-6:** `500601b` (spec § 8.1 and § 10.1, `tier.ts`). The tier gate numbers above are all `/?motion=lite`.
+
+### 18.8 No regressions
+
+| Check | Before | After |
+|---|---|---|
+| TBT, `MASK=1 perf.js mobile slow4g 3` | § 17: 115 / 121 / 155 (median 121) | **89 / 84 / 128 (median 89)**: ≤ 200 met |
+| LCP / FCP, same runs | 2.25–2.42 s | LCP 2,288 / 2,260 / 2,320 ms, FCP 2,144 / 2,260 / 2,172 (LCP element the hero `<img>` every time): ≤ 2.5 s met |
+| CLS, same runs; Lighthouse | 0 | **0** in all 3 and in all Lighthouse runs: ≤ 0.05 met |
+| Overlay open (perf.js 4th interaction) | 152–232 ms | 208 / 168 / 184 ms |
+| No JS (`tech.js`, 1440 and 390) | 10 chapters, GET form | **10 chapters in order, form `action="/suche"`, portraits at opacity 1**, 11 Activity markers, 0 outlined segments, 0 Suspense fallbacks |
+| Motion tiers, reduced motion | — | landing E2E: tiers (`none` under automation, `?motion=` overrides), reduced-motion final states, pins below the fold, reveals: pass |
+| Desktop hero (1024 × 768, 1440 × 900) | — | identical geometry (§ 18.6) |
+| Console | 1 warning per visit (N-6) | 0 at 8 widths |
+
+### 18.9 Tests
+
+- `npx tsc --noEmit`: clean. `npx vitest run`: **232/232** (27 files).
+- Landing E2E (`landing`, `landing-motion`, `landing-conversion`, both projects) on the final build: **71 passed, 11 skipped, 0 failed** (82).
+- Full suite on the final build (`E2E_PORT=3100 npx playwright test`): **196 passed, 12 skipped, 0 failed** (208 tests, 10.1 min).
+
+*Database: the E2E runs create searches, waitlist entries and bookings as before; `demo:refresh` was not run.*
+
+### 18.10 Open, and handed on
+
+- **RT-5, "no run below 89":** a headless-Chromium first-frame stall on this machine (§ 18.4); the median gate is met. A deployed preview or field data would settle it.
+- **First-load JS ≤ 160 KB:** framework + root are 146.4 KB gz (§ 18.2). Further cuts would have to come from the root (tailwind-merge needs the "keep `cn`" rule relaxed) or from the landing shell (header, dock, navigation: 14.2 KB).
+- **RT-4:** settled 2 of 3 ≤ 200 ms, early median 303 ms (§ 18.5).
+- **N-9:** needs a Lead decision on the italic preload (§ 18.7).
+- **768–1023:** focus order differs from visual order between the lead link and the entry (§ 18.6).
+- **The 404** still fetches both roman and both italic URLs (outside the landing).

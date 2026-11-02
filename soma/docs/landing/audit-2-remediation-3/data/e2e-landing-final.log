@@ -1,0 +1,88 @@
+
+Running 82 tests using 1 worker
+
+[1/82] [mobile] › tests/e2e/landing-conversion.spec.ts:83:5 › T1 the hero search carries PLZ, service, day and time window to /suche
+[2/82] [mobile] › tests/e2e/landing-conversion.spec.ts:107:5 › T2 a PLZ alone searches without empty parameters
+[3/82] [mobile] › tests/e2e/landing-conversion.spec.ts:115:5 › T2a a PLZ in the field before the entry hydrates is kept, looked up and submitted (audit 2, N-3)
+[4/82] [mobile] › tests/e2e/landing-conversion.spec.ts:139:5 › T3 validation: empty, short and unknown PLZ
+[5/82] [mobile] › tests/e2e/landing-conversion.spec.ts:158:5 › T4 an unserved PLZ offers the waitlist and still reaches /suche
+[6/82] [mobile] › tests/e2e/landing-conversion.spec.ts:173:7 › without JavaScript › T5 the entry is a plain GET form and every booking link is a real anchor
+[7/82] [mobile] › tests/e2e/landing-conversion.spec.ts:189:5 › T6 keyboard only: PLZ, Was?, Wann? and submit (desktop)
+[8/82] [mobile] › tests/e2e/landing-conversion.spec.ts:240:5 › T7 screen-reader semantics of the entry
+[9/82] [mobile] › tests/e2e/landing-conversion.spec.ts:262:5 › T8 every category tile links to a live category route
+[10/82] [mobile] › tests/e2e/landing-conversion.spec.ts:275:5 › T9 city and provider links resolve; ratings only from three reviews; demo labels
+[11/82] [mobile] › tests/e2e/landing-conversion.spec.ts:295:5 › T10 „Profi werden“ reaches onboarding; „Konditionen ansehen“ reaches the commission section
+[12/82] [mobile] › tests/e2e/landing-conversion.spec.ts:307:5 › T11 login and legal links resolve
+[13/82] [mobile] › tests/e2e/landing-conversion.spec.ts:322:5 › T12 mobile dock opens the booking sheet: shared PLZ, inline pickers, focus return, submit
+[14/82] [mobile] › tests/e2e/landing-conversion.spec.ts:364:5 › T12a dock visibility: hidden for the hero entry and a focused field, shown elsewhere
+[15/82] [mobile] › tests/e2e/landing-conversion.spec.ts:382:5 › T12b the mobile dock never covers the footer's legal links
+[16/82] [mobile] › tests/e2e/landing-conversion.spec.ts:395:5 › T13 desktop header „Termin finden“: hero in view → focus; scrolled → booking bar
+[17/82] [mobile] › tests/e2e/landing-conversion.spec.ts:413:5 › T14 every in-page anchor resolves to exactly one target
+[18/82] [mobile] › tests/e2e/landing-conversion.spec.ts:429:5 › T15 the FAQPage JSON-LD equals the visible FAQ
+[19/82] [mobile] › tests/e2e/landing-conversion.spec.ts:451:5 › T16 metadata: title, one h1, canonical, Open Graph, Twitter, bound description
+[20/82] [mobile] › tests/e2e/landing-conversion.spec.ts:474:5 › T17 indexability follows DEMO_MODE
+[21/82] [mobile] › tests/e2e/landing-conversion.spec.ts:488:5 › T18 structured data hygiene
+[22/82] [mobile] › tests/e2e/landing-conversion.spec.ts:501:5 › T19 tile prices equal the real floors on /behandlungen
+[23/82] [mobile] › tests/e2e/landing-conversion.spec.ts:519:5 › T20 privacy: same-origin requests only; no storage beyond the remembered PLZ
+[24/82] [mobile] › tests/e2e/landing-conversion.spec.ts:538:5 › T21 deep links prefill the hero entry
+[25/82] [mobile] › tests/e2e/landing-conversion.spec.ts:549:5 › T22 reduced motion: booking works and nothing loops
+[26/82] [mobile] › tests/e2e/landing-motion.spec.ts:66:5 › tiers: automation is none, ?motion= overrides it
+[27/82] [mobile] › tests/e2e/landing-motion.spec.ts:77:5 › reduced motion shows the final states: nothing hidden, nothing pinned, the seal complete
+[28/82] [mobile] › tests/e2e/landing-motion.spec.ts:95:5 › reveals never hide what is already in view, and arrive once below
+[29/82] [mobile] › tests/e2e/landing-motion.spec.ts:111:5 › active chapter, header theme and the soma:chapter event follow the reader
+[30/82] [mobile] › tests/e2e/landing-motion.spec.ts:134:5 › dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet
+[31/82] [mobile] › tests/e2e/landing-motion.spec.ts:186:5 › phones: a booking control is in view at every scroll position from load (390 × 844)
+[32/82] [mobile] › tests/e2e/landing-motion.spec.ts:212:5 › chapter overlay: focus moves in, the current chapter is marked, a jump focuses the heading
+[33/82] [mobile] › tests/e2e/landing-motion.spec.ts:239:5 › phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)
+[34/82] [mobile] › tests/e2e/landing-motion.spec.ts:262:5 › full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)
+[35/82] [mobile] › tests/e2e/landing-motion.spec.ts:283:5 › full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift
+[36/82] [mobile] › tests/e2e/landing.spec.ts:26:5 › ten chapters render in order, each labelled by its heading
+[37/82] [mobile] › tests/e2e/landing.spec.ts:42:5 › one h1 with the tagline and the German line; no <em> in h1/h2; the tagline is English
+[38/82] [mobile] › tests/e2e/landing.spec.ts:58:5 › category links resolve to live category pages
+[39/82] [mobile] › tests/e2e/landing.spec.ts:70:5 › „Profi werden“ leads to the provider onboarding
+[40/82] [mobile] › tests/e2e/landing.spec.ts:79:5 › every in-page anchor resolves to exactly one id
+[41/82] [mobile] › tests/e2e/landing.spec.ts:85:5 › no horizontal overflow at 390 px
+[42/82] [desktop] › tests/e2e/landing-conversion.spec.ts:83:5 › T1 the hero search carries PLZ, service, day and time window to /suche
+[43/82] [desktop] › tests/e2e/landing-conversion.spec.ts:107:5 › T2 a PLZ alone searches without empty parameters
+[44/82] [desktop] › tests/e2e/landing-conversion.spec.ts:115:5 › T2a a PLZ in the field before the entry hydrates is kept, looked up and submitted (audit 2, N-3)
+[45/82] [desktop] › tests/e2e/landing-conversion.spec.ts:139:5 › T3 validation: empty, short and unknown PLZ
+[46/82] [desktop] › tests/e2e/landing-conversion.spec.ts:158:5 › T4 an unserved PLZ offers the waitlist and still reaches /suche
+[47/82] [desktop] › tests/e2e/landing-conversion.spec.ts:173:7 › without JavaScript › T5 the entry is a plain GET form and every booking link is a real anchor
+[48/82] [desktop] › tests/e2e/landing-conversion.spec.ts:189:5 › T6 keyboard only: PLZ, Was?, Wann? and submit (desktop)
+[49/82] [desktop] › tests/e2e/landing-conversion.spec.ts:240:5 › T7 screen-reader semantics of the entry
+[50/82] [desktop] › tests/e2e/landing-conversion.spec.ts:262:5 › T8 every category tile links to a live category route
+[51/82] [desktop] › tests/e2e/landing-conversion.spec.ts:275:5 › T9 city and provider links resolve; ratings only from three reviews; demo labels
+[52/82] [desktop] › tests/e2e/landing-conversion.spec.ts:295:5 › T10 „Profi werden“ reaches onboarding; „Konditionen ansehen“ reaches the commission section
+[53/82] [desktop] › tests/e2e/landing-conversion.spec.ts:307:5 › T11 login and legal links resolve
+[54/82] [desktop] › tests/e2e/landing-conversion.spec.ts:322:5 › T12 mobile dock opens the booking sheet: shared PLZ, inline pickers, focus return, submit
+[55/82] [desktop] › tests/e2e/landing-conversion.spec.ts:364:5 › T12a dock visibility: hidden for the hero entry and a focused field, shown elsewhere
+[56/82] [desktop] › tests/e2e/landing-conversion.spec.ts:382:5 › T12b the mobile dock never covers the footer's legal links
+[57/82] [desktop] › tests/e2e/landing-conversion.spec.ts:395:5 › T13 desktop header „Termin finden“: hero in view → focus; scrolled → booking bar
+[58/82] [desktop] › tests/e2e/landing-conversion.spec.ts:413:5 › T14 every in-page anchor resolves to exactly one target
+[59/82] [desktop] › tests/e2e/landing-conversion.spec.ts:429:5 › T15 the FAQPage JSON-LD equals the visible FAQ
+[60/82] [desktop] › tests/e2e/landing-conversion.spec.ts:451:5 › T16 metadata: title, one h1, canonical, Open Graph, Twitter, bound description
+[61/82] [desktop] › tests/e2e/landing-conversion.spec.ts:474:5 › T17 indexability follows DEMO_MODE
+[62/82] [desktop] › tests/e2e/landing-conversion.spec.ts:488:5 › T18 structured data hygiene
+[63/82] [desktop] › tests/e2e/landing-conversion.spec.ts:501:5 › T19 tile prices equal the real floors on /behandlungen
+[64/82] [desktop] › tests/e2e/landing-conversion.spec.ts:519:5 › T20 privacy: same-origin requests only; no storage beyond the remembered PLZ
+[65/82] [desktop] › tests/e2e/landing-conversion.spec.ts:538:5 › T21 deep links prefill the hero entry
+[66/82] [desktop] › tests/e2e/landing-conversion.spec.ts:549:5 › T22 reduced motion: booking works and nothing loops
+[67/82] [desktop] › tests/e2e/landing-motion.spec.ts:66:5 › tiers: automation is none, ?motion= overrides it
+[68/82] [desktop] › tests/e2e/landing-motion.spec.ts:77:5 › reduced motion shows the final states: nothing hidden, nothing pinned, the seal complete
+[69/82] [desktop] › tests/e2e/landing-motion.spec.ts:95:5 › reveals never hide what is already in view, and arrive once below
+[70/82] [desktop] › tests/e2e/landing-motion.spec.ts:111:5 › active chapter, header theme and the soma:chapter event follow the reader
+[71/82] [desktop] › tests/e2e/landing-motion.spec.ts:134:5 › dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet
+[72/82] [desktop] › tests/e2e/landing-motion.spec.ts:186:5 › phones: a booking control is in view at every scroll position from load (390 × 844)
+[73/82] [desktop] › tests/e2e/landing-motion.spec.ts:212:5 › chapter overlay: focus moves in, the current chapter is marked, a jump focuses the heading
+[74/82] [desktop] › tests/e2e/landing-motion.spec.ts:239:5 › phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)
+[75/82] [desktop] › tests/e2e/landing-motion.spec.ts:262:5 › full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)
+[76/82] [desktop] › tests/e2e/landing-motion.spec.ts:283:5 › full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift
+[77/82] [desktop] › tests/e2e/landing.spec.ts:26:5 › ten chapters render in order, each labelled by its heading
+[78/82] [desktop] › tests/e2e/landing.spec.ts:42:5 › one h1 with the tagline and the German line; no <em> in h1/h2; the tagline is English
+[79/82] [desktop] › tests/e2e/landing.spec.ts:58:5 › category links resolve to live category pages
+[80/82] [desktop] › tests/e2e/landing.spec.ts:70:5 › „Profi werden“ leads to the provider onboarding
+[81/82] [desktop] › tests/e2e/landing.spec.ts:79:5 › every in-page anchor resolves to exactly one id
+[82/82] [desktop] › tests/e2e/landing.spec.ts:85:5 › no horizontal overflow at 390 px
+  11 skipped
+  71 passed (3.6m)
+exit 0

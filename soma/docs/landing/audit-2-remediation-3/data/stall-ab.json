@@ -1,0 +1,858 @@
+{
+ "a2build": [
+  {
+   "score": 84,
+   "observedFcp": 1254,
+   "observedLoad": 313,
+   "lcp": 4339,
+   "si": 2828,
+   "fetchTime": "2026-11-02T09:26:25.288Z",
+   "url": "http://localhost:3200/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 265,
+   "observedLoad": 334,
+   "lcp": 3418,
+   "si": 1537,
+   "fetchTime": "2026-11-02T09:27:06.158Z",
+   "url": "http://localhost:3200/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 255,
+   "observedLoad": 321,
+   "lcp": 3413,
+   "si": 1533,
+   "fetchTime": "2026-11-02T09:27:47.461Z",
+   "url": "http://localhost:3200/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 254,
+   "observedLoad": 306,
+   "lcp": 3411,
+   "si": 1531,
+   "fetchTime": "2026-11-02T09:28:29.037Z",
+   "url": "http://localhost:3200/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 262,
+   "observedLoad": 332,
+   "lcp": 3414,
+   "si": 1533,
+   "fetchTime": "2026-11-02T09:29:09.753Z",
+   "url": "http://localhost:3200/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 294,
+   "observedLoad": 338,
+   "lcp": 3409,
+   "si": 1529,
+   "fetchTime": "2026-11-02T09:29:50.425Z",
+   "url": "http://localhost:3200/?motion=lite"
+  }
+ ],
+ "a2warm": [
+  {
+   "score": 80,
+   "observedFcp": 2201,
+   "observedLoad": 855,
+   "lcp": 4324,
+   "si": 4421,
+   "fetchTime": "2026-11-02T09:26:01.418Z",
+   "url": "http://localhost:3200/?motion=lite"
+  }
+ ],
+ "allnone": [
+  {
+   "score": 84,
+   "observedFcp": 1271,
+   "observedLoad": 398,
+   "lcp": 4357,
+   "si": 2723,
+   "fetchTime": "2026-11-02T09:07:53.231Z",
+   "url": "http://localhost:3105/?motion=lite"
+  },
+  {
+   "score": 82,
+   "observedFcp": 1271,
+   "observedLoad": 429,
+   "lcp": 4522,
+   "si": 3054,
+   "fetchTime": "2026-11-02T09:08:56.611Z",
+   "url": "http://localhost:3105/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 237,
+   "observedLoad": 333,
+   "lcp": 3408,
+   "si": 1528,
+   "fetchTime": "2026-11-02T09:10:01.543Z",
+   "url": "http://localhost:3105/?motion=lite"
+  }
+ ],
+ "bothoff": [
+  {
+   "score": 84,
+   "observedFcp": 1243,
+   "observedLoad": 394,
+   "lcp": 4403,
+   "si": 2690,
+   "fetchTime": "2026-11-02T09:08:14.359Z",
+   "url": "http://localhost:3104/?motion=lite"
+  },
+  {
+   "score": 83,
+   "observedFcp": 1217,
+   "observedLoad": 416,
+   "lcp": 4458,
+   "si": 3000,
+   "fetchTime": "2026-11-02T09:09:18.239Z",
+   "url": "http://localhost:3104/?motion=lite"
+  },
+  {
+   "score": 82,
+   "observedFcp": 1286,
+   "observedLoad": 452,
+   "lcp": 4452,
+   "si": 2851,
+   "fetchTime": "2026-11-02T09:10:21.842Z",
+   "url": "http://localhost:3104/?motion=lite"
+  }
+ ],
+ "ctl": [
+  {
+   "score": 84,
+   "observedFcp": 1305,
+   "observedLoad": 396,
+   "lcp": 4365,
+   "si": 2886,
+   "fetchTime": "2026-11-02T09:01:20.027Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1287,
+   "observedLoad": 347,
+   "lcp": 4380,
+   "si": 2888,
+   "fetchTime": "2026-11-02T09:02:19.332Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 255,
+   "observedLoad": 321,
+   "lcp": 3419,
+   "si": 1538,
+   "fetchTime": "2026-11-02T09:03:21.010Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1233,
+   "observedLoad": 326,
+   "lcp": 4368,
+   "si": 2711,
+   "fetchTime": "2026-11-02T09:04:21.638Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 250,
+   "observedLoad": 328,
+   "lcp": 3413,
+   "si": 1532,
+   "fetchTime": "2026-11-02T09:05:22.966Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1270,
+   "observedLoad": 375,
+   "lcp": 4380,
+   "si": 2443,
+   "fetchTime": "2026-11-02T09:06:22.999Z",
+   "url": "http://localhost:3103/?motion=lite"
+  }
+ ],
+ "ctlb": [
+  {
+   "score": 91,
+   "observedFcp": 272,
+   "observedLoad": 333,
+   "lcp": 3414,
+   "si": 1534,
+   "fetchTime": "2026-11-02T09:31:48.156Z",
+   "url": "http://localhost:3103/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 259,
+   "observedLoad": 359,
+   "lcp": 3409,
+   "si": 1529,
+   "fetchTime": "2026-11-02T09:32:28.503Z",
+   "url": "http://localhost:3103/?motion=lite"
+  }
+ ],
+ "headbuild": [
+  {
+   "score": 91,
+   "observedFcp": 245,
+   "observedLoad": 305,
+   "lcp": 3415,
+   "si": 1534,
+   "fetchTime": "2026-11-02T09:26:45.796Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 76,
+   "observedFcp": 1241,
+   "observedLoad": 512,
+   "lcp": 4501,
+   "si": 2724,
+   "fetchTime": "2026-11-02T09:27:26.510Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1262,
+   "observedLoad": 334,
+   "lcp": 4326,
+   "si": 2834,
+   "fetchTime": "2026-11-02T09:28:07.777Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 94,
+   "observedFcp": 246,
+   "observedLoad": 332,
+   "lcp": 3061,
+   "si": 1526,
+   "fetchTime": "2026-11-02T09:28:49.730Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 87,
+   "observedFcp": 252,
+   "observedLoad": 346,
+   "lcp": 3999,
+   "si": 1524,
+   "fetchTime": "2026-11-02T09:29:29.936Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 82,
+   "observedFcp": 1255,
+   "observedLoad": 451,
+   "lcp": 4424,
+   "si": 2896,
+   "fetchTime": "2026-11-02T09:30:10.882Z",
+   "url": "http://localhost:3100/?motion=lite"
+  }
+ ],
+ "heroonly": [
+  {
+   "score": 91,
+   "observedFcp": 230,
+   "observedLoad": 348,
+   "lcp": 3499,
+   "si": 1533,
+   "fetchTime": "2026-11-02T09:38:18.189Z",
+   "url": "http://localhost:3115/?motion=lite"
+  },
+  {
+   "score": 93,
+   "observedFcp": 195,
+   "observedLoad": 264,
+   "lcp": 3216,
+   "si": 1527,
+   "fetchTime": "2026-11-02T09:38:56.321Z",
+   "url": "http://localhost:3115/?motion=lite"
+  },
+  {
+   "score": 94,
+   "observedFcp": 208,
+   "observedLoad": 275,
+   "lcp": 3053,
+   "si": 1521,
+   "fetchTime": "2026-11-02T09:39:34.571Z",
+   "url": "http://localhost:3115/?motion=lite"
+  },
+  {
+   "score": 93,
+   "observedFcp": 184,
+   "observedLoad": 274,
+   "lcp": 3211,
+   "si": 1525,
+   "fetchTime": "2026-11-02T09:40:13.080Z",
+   "url": "http://localhost:3115/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 224,
+   "observedLoad": 298,
+   "lcp": 3501,
+   "si": 1534,
+   "fetchTime": "2026-11-02T09:40:51.752Z",
+   "url": "http://localhost:3115/?motion=lite"
+  },
+  {
+   "score": 94,
+   "observedFcp": 208,
+   "observedLoad": 307,
+   "lcp": 2881,
+   "si": 1531,
+   "fetchTime": "2026-11-02T09:41:31.317Z",
+   "url": "http://localhost:3115/?motion=lite"
+  }
+ ],
+ "nobackdrop": [
+  {
+   "score": 85,
+   "observedFcp": 1239,
+   "observedLoad": 351,
+   "lcp": 4297,
+   "si": 2795,
+   "fetchTime": "2026-11-02T09:22:18.959Z",
+   "url": "http://localhost:3112/?motion=lite"
+  },
+  {
+   "score": 92,
+   "observedFcp": 266,
+   "observedLoad": 352,
+   "lcp": 3325,
+   "si": 1525,
+   "fetchTime": "2026-11-02T09:23:22.357Z",
+   "url": "http://localhost:3112/?motion=lite"
+  }
+ ],
+ "nochrome": [
+  {
+   "score": 89,
+   "observedFcp": 263,
+   "observedLoad": 338,
+   "lcp": 3710,
+   "si": 1535,
+   "fetchTime": "2026-11-02T09:38:36.872Z",
+   "url": "http://localhost:3116/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 226,
+   "observedLoad": 285,
+   "lcp": 3476,
+   "si": 1526,
+   "fetchTime": "2026-11-02T09:39:15.198Z",
+   "url": "http://localhost:3116/?motion=lite"
+  },
+  {
+   "score": 92,
+   "observedFcp": 203,
+   "observedLoad": 257,
+   "lcp": 3257,
+   "si": 1532,
+   "fetchTime": "2026-11-02T09:39:53.330Z",
+   "url": "http://localhost:3116/?motion=lite"
+  },
+  {
+   "score": 89,
+   "observedFcp": 230,
+   "observedLoad": 318,
+   "lcp": 3715,
+   "si": 1540,
+   "fetchTime": "2026-11-02T09:40:32.016Z",
+   "url": "http://localhost:3116/?motion=lite"
+  },
+  {
+   "score": 85,
+   "observedFcp": 1259,
+   "observedLoad": 355,
+   "lcp": 4211,
+   "si": 2857,
+   "fetchTime": "2026-11-02T09:41:10.771Z",
+   "url": "http://localhost:3116/?motion=lite"
+  },
+  {
+   "score": 92,
+   "observedFcp": 270,
+   "observedLoad": 301,
+   "lcp": 3274,
+   "si": 1549,
+   "fetchTime": "2026-11-02T09:41:50.810Z",
+   "url": "http://localhost:3116/?motion=lite"
+  }
+ ],
+ "nocv": [
+  {
+   "score": 82,
+   "observedFcp": 1279,
+   "observedLoad": 514,
+   "lcp": 4665,
+   "si": 2987,
+   "fetchTime": "2026-11-02T09:22:39.528Z",
+   "url": "http://localhost:3113/?motion=lite"
+  },
+  {
+   "score": 81,
+   "observedFcp": 1265,
+   "observedLoad": 471,
+   "lcp": 4674,
+   "si": 3184,
+   "fetchTime": "2026-11-02T09:23:42.353Z",
+   "url": "http://localhost:3113/?motion=lite"
+  }
+ ],
+ "nofont": [
+  {
+   "score": 86,
+   "observedFcp": 1260,
+   "observedLoad": 365,
+   "lcp": 4010,
+   "si": 2854,
+   "fetchTime": "2026-11-02T09:17:22.686Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 89,
+   "observedFcp": 299,
+   "observedLoad": 371,
+   "lcp": 3582,
+   "si": 1819,
+   "fetchTime": "2026-11-02T09:18:04.915Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 89,
+   "observedFcp": 260,
+   "observedLoad": 326,
+   "lcp": 3563,
+   "si": 1813,
+   "fetchTime": "2026-11-02T09:18:44.088Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 89,
+   "observedFcp": 301,
+   "observedLoad": 378,
+   "lcp": 3583,
+   "si": 1819,
+   "fetchTime": "2026-11-02T09:19:24.058Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 85,
+   "observedFcp": 1243,
+   "observedLoad": 405,
+   "lcp": 4081,
+   "si": 2820,
+   "fetchTime": "2026-11-02T09:20:02.878Z",
+   "url": "http://localhost:3100/?motion=lite"
+  }
+ ],
+ "noimg": [
+  {
+   "score": 84,
+   "observedFcp": 1258,
+   "observedLoad": 383,
+   "lcp": 4337,
+   "si": 2843,
+   "fetchTime": "2026-11-02T09:16:01.622Z",
+   "url": "http://localhost:3110/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1287,
+   "observedLoad": 403,
+   "lcp": 4366,
+   "si": 3016,
+   "fetchTime": "2026-11-02T09:16:42.971Z",
+   "url": "http://localhost:3110/?motion=lite"
+  }
+ ],
+ "nojs": [
+  {
+   "score": 95,
+   "observedFcp": 225,
+   "observedLoad": 212,
+   "lcp": 2874,
+   "si": 1536,
+   "fetchTime": "2026-11-02T09:17:03.707Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 2381,
+   "observedLoad": 474,
+   "lcp": 3014,
+   "si": 4187,
+   "fetchTime": "2026-11-02T09:17:43.439Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 95,
+   "observedFcp": 215,
+   "observedLoad": 213,
+   "lcp": 2867,
+   "si": 1525,
+   "fetchTime": "2026-11-02T09:18:25.048Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 95,
+   "observedFcp": 243,
+   "observedLoad": 254,
+   "lcp": 2861,
+   "si": 1517,
+   "fetchTime": "2026-11-02T09:19:04.430Z",
+   "url": "http://localhost:3100/?motion=lite"
+  },
+  {
+   "score": 95,
+   "observedFcp": 274,
+   "observedLoad": 259,
+   "lcp": 2861,
+   "si": 1517,
+   "fetchTime": "2026-11-02T09:19:44.010Z",
+   "url": "http://localhost:3100/?motion=lite"
+  }
+ ],
+ "noprog": [
+  {
+   "score": 91,
+   "observedFcp": 299,
+   "observedLoad": 366,
+   "lcp": 3418,
+   "si": 1537,
+   "fetchTime": "2026-11-02T09:01:59.704Z",
+   "url": "http://localhost:3102/?motion=lite"
+  },
+  {
+   "score": 83,
+   "observedFcp": 1289,
+   "observedLoad": 425,
+   "lcp": 4471,
+   "si": 2470,
+   "fetchTime": "2026-11-02T09:03:00.654Z",
+   "url": "http://localhost:3102/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 276,
+   "observedLoad": 344,
+   "lcp": 3421,
+   "si": 1539,
+   "fetchTime": "2026-11-02T09:04:01.712Z",
+   "url": "http://localhost:3102/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1249,
+   "observedLoad": 347,
+   "lcp": 4396,
+   "si": 2419,
+   "fetchTime": "2026-11-02T09:05:01.693Z",
+   "url": "http://localhost:3102/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 260,
+   "observedLoad": 321,
+   "lcp": 3411,
+   "si": 1531,
+   "fetchTime": "2026-11-02T09:06:03.013Z",
+   "url": "http://localhost:3102/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1270,
+   "observedLoad": 353,
+   "lcp": 4389,
+   "si": 2439,
+   "fetchTime": "2026-11-02T09:07:04.131Z",
+   "url": "http://localhost:3102/?motion=lite"
+  }
+ ],
+ "nosettle": [
+  {
+   "score": 91,
+   "observedFcp": 267,
+   "observedLoad": 363,
+   "lcp": 3407,
+   "si": 1527,
+   "fetchTime": "2026-11-02T09:01:40.379Z",
+   "url": "http://localhost:3101/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1265,
+   "observedLoad": 380,
+   "lcp": 4395,
+   "si": 2837,
+   "fetchTime": "2026-11-02T09:02:40.286Z",
+   "url": "http://localhost:3101/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1262,
+   "observedLoad": 406,
+   "lcp": 4418,
+   "si": 2723,
+   "fetchTime": "2026-11-02T09:03:40.707Z",
+   "url": "http://localhost:3101/?motion=lite"
+  },
+  {
+   "score": 87,
+   "observedFcp": 256,
+   "observedLoad": 338,
+   "lcp": 4010,
+   "si": 1535,
+   "fetchTime": "2026-11-02T09:04:42.155Z",
+   "url": "http://localhost:3101/?motion=lite"
+  },
+  {
+   "score": 90,
+   "observedFcp": 249,
+   "observedLoad": 341,
+   "lcp": 3554,
+   "si": 1529,
+   "fetchTime": "2026-11-02T09:05:42.939Z",
+   "url": "http://localhost:3101/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 276,
+   "observedLoad": 350,
+   "lcp": 3418,
+   "si": 1537,
+   "fetchTime": "2026-11-02T09:06:44.338Z",
+   "url": "http://localhost:3101/?motion=lite"
+  }
+ ],
+ "nosw": [
+  {
+   "score": 83,
+   "observedFcp": 1319,
+   "observedLoad": 419,
+   "lcp": 4409,
+   "si": 2827,
+   "fetchTime": "2026-11-02T09:11:05.549Z",
+   "url": "http://localhost:3107/?motion=lite"
+  },
+  {
+   "score": 85,
+   "observedFcp": 1249,
+   "observedLoad": 379,
+   "lcp": 4307,
+   "si": 2413,
+   "fetchTime": "2026-11-02T09:11:47.465Z",
+   "url": "http://localhost:3107/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1254,
+   "observedLoad": 397,
+   "lcp": 4414,
+   "si": 2851,
+   "fetchTime": "2026-11-02T09:12:30.441Z",
+   "url": "http://localhost:3107/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1265,
+   "observedLoad": 472,
+   "lcp": 4394,
+   "si": 2755,
+   "fetchTime": "2026-11-02T09:13:12.481Z",
+   "url": "http://localhost:3107/?motion=lite"
+  },
+  {
+   "score": 81,
+   "observedFcp": 1256,
+   "observedLoad": 484,
+   "lcp": 4421,
+   "si": 2489,
+   "fetchTime": "2026-11-02T09:13:54.738Z",
+   "url": "http://localhost:3107/?motion=lite"
+  }
+ ],
+ "novtjs": [
+  {
+   "score": 84,
+   "observedFcp": 1295,
+   "observedLoad": 383,
+   "lcp": 4361,
+   "si": 3095,
+   "fetchTime": "2026-11-02T09:23:01.526Z",
+   "url": "http://localhost:3111/?motion=lite"
+  }
+ ],
+ "oldcis": [
+  {
+   "score": 87,
+   "observedFcp": 301,
+   "observedLoad": 386,
+   "lcp": 4011,
+   "si": 1536,
+   "fetchTime": "2026-11-02T09:31:28.483Z",
+   "url": "http://localhost:3114/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1226,
+   "observedLoad": 360,
+   "lcp": 4356,
+   "si": 2383,
+   "fetchTime": "2026-11-02T09:32:07.897Z",
+   "url": "http://localhost:3114/?motion=lite"
+  },
+  {
+   "score": 84,
+   "observedFcp": 1262,
+   "observedLoad": 386,
+   "lcp": 4358,
+   "si": 2877,
+   "fetchTime": "2026-11-02T09:32:48.296Z",
+   "url": "http://localhost:3114/?motion=lite"
+  }
+ ],
+ "static": [
+  {
+   "score": 100,
+   "observedFcp": 73,
+   "observedLoad": 32,
+   "lcp": 753,
+   "si": 648,
+   "fetchTime": "2026-11-02T09:14:23.517Z",
+   "url": "http://localhost:3108/"
+  },
+  {
+   "score": 100,
+   "observedFcp": 50,
+   "observedLoad": 39,
+   "lcp": 621,
+   "si": 621,
+   "fetchTime": "2026-11-02T09:14:35.905Z",
+   "url": "http://localhost:3108/"
+  },
+  {
+   "score": 100,
+   "observedFcp": 72,
+   "observedLoad": 45,
+   "lcp": 752,
+   "si": 625,
+   "fetchTime": "2026-11-02T09:14:48.175Z",
+   "url": "http://localhost:3108/"
+  },
+  {
+   "score": 100,
+   "observedFcp": 51,
+   "observedLoad": 42,
+   "lcp": 624,
+   "si": 624,
+   "fetchTime": "2026-11-02T09:15:00.417Z",
+   "url": "http://localhost:3108/"
+  },
+  {
+   "score": 100,
+   "observedFcp": 68,
+   "observedLoad": 40,
+   "lcp": 752,
+   "si": 624,
+   "fetchTime": "2026-11-02T09:15:12.428Z",
+   "url": "http://localhost:3108/"
+  }
+ ],
+ "syncdec": [
+  {
+   "score": 84,
+   "observedFcp": 1273,
+   "observedLoad": 389,
+   "lcp": 4372,
+   "si": 2840,
+   "fetchTime": "2026-11-02T09:15:40.650Z",
+   "url": "http://localhost:3109/?motion=lite"
+  },
+  {
+   "score": 83,
+   "observedFcp": 1281,
+   "observedLoad": 381,
+   "lcp": 4396,
+   "si": 3061,
+   "fetchTime": "2026-11-02T09:16:22.093Z",
+   "url": "http://localhost:3109/?motion=lite"
+  }
+ ],
+ "tiernone": [
+  {
+   "score": 83,
+   "observedFcp": 1249,
+   "observedLoad": 365,
+   "lcp": 4432,
+   "si": 2988,
+   "fetchTime": "2026-11-02T09:08:35.601Z",
+   "url": "http://localhost:3103/"
+  },
+  {
+   "score": 82,
+   "observedFcp": 1278,
+   "observedLoad": 406,
+   "lcp": 4476,
+   "si": 2764,
+   "fetchTime": "2026-11-02T09:09:39.767Z",
+   "url": "http://localhost:3103/"
+  }
+ ],
+ "vtoff": [
+  {
+   "score": 83,
+   "observedFcp": 1290,
+   "observedLoad": 357,
+   "lcp": 4440,
+   "si": 2913,
+   "fetchTime": "2026-11-02T09:10:44.035Z",
+   "url": "http://localhost:3106/?motion=lite"
+  },
+  {
+   "score": 91,
+   "observedFcp": 280,
+   "observedLoad": 331,
+   "lcp": 3419,
+   "si": 1538,
+   "fetchTime": "2026-11-02T09:11:26.673Z",
+   "url": "http://localhost:3106/?motion=lite"
+  },
+  {
+   "score": 83,
+   "observedFcp": 1255,
+   "observedLoad": 382,
+   "lcp": 4446,
+   "si": 2837,
+   "fetchTime": "2026-11-02T09:12:08.869Z",
+   "url": "http://localhost:3106/?motion=lite"
+  },
+  {
+   "score": 90,
+   "observedFcp": 287,
+   "observedLoad": 376,
+   "lcp": 3416,
+   "si": 1535,
+   "fetchTime": "2026-11-02T09:12:51.921Z",
+   "url": "http://localhost:3106/?motion=lite"
+  },
+  {
+   "score": 83,
+   "observedFcp": 1254,
+   "observedLoad": 419,
+   "lcp": 4453,
+   "si": 2879,
+   "fetchTime": "2026-11-02T09:13:34.019Z",
+   "url": "http://localhost:3106/?motion=lite"
+  }
+ ]
+}

@@ -1,0 +1,214 @@
+
+Running 208 tests using 1 worker
+
+[1/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto redirects to /anmelden with next
+[2/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto/termine redirects to /anmelden with next
+[3/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto/adressen redirects to /anmelden with next
+[4/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro redirects to /anmelden with next
+[5/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro/termine redirects to /anmelden with next
+[6/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro/einnahmen redirects to /anmelden with next
+[7/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin redirects to /anmelden with next
+[8/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin/buchungen redirects to /anmelden with next
+[9/208] [mobile] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin/zahlungen redirects to /anmelden with next
+[10/208] [mobile] › tests/e2e/access.spec.ts:34:7 › signed-out visitors › a booking link redirects to login
+[11/208] [mobile] › tests/e2e/access.spec.ts:39:7 › signed-out visitors › provider sign-up stays public
+[12/208] [mobile] › tests/e2e/access.spec.ts:45:7 › signed-out visitors › login honours a safe next= target
+[13/208] [mobile] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=//evil.example/x stays on the SOMA origin
+[14/208] [mobile] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=https://evil.example/ stays on the SOMA origin
+[15/208] [mobile] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=/\evil.example stays on the SOMA origin
+[16/208] [mobile] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=javascript:alert(1) stays on the SOMA origin
+[17/208] [mobile] › tests/e2e/access.spec.ts:69:7 › open redirect protection on /anmelden?next= › next=/%09/evil.example (control character) stays on the SOMA origin
+[18/208] [mobile] › tests/e2e/access.spec.ts:84:7 › role isolation › customer cannot open admin or provider areas
+[19/208] [mobile] › tests/e2e/access.spec.ts:93:7 › role isolation › provider cannot open admin or customer areas
+[20/208] [mobile] › tests/e2e/access.spec.ts:104:7 › role isolation › admin lands in /admin
+[21/208] [mobile] › tests/e2e/access.spec.ts:114:7 › IDOR on booking pages › customer B cannot see customer A's booking
+[22/208] [mobile] › tests/e2e/access.spec.ts:137:7 › IDOR on booking pages › provider cannot open another provider's appointment
+[23/208] [mobile] › tests/e2e/access.spec.ts:152:7 › IDOR on booking pages › private verification documents are not public
+[24/208] [mobile] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /anmelden?next=/.//evil.example/phish stays on the SOMA origin when already signed in
+[25/208] [mobile] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /anmelden?next=/a/..//evil.example/phish stays on the SOMA origin when already signed in
+[26/208] [mobile] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /registrieren?next=/.//evil.example/phish stays on the SOMA origin when already signed in
+[27/208] [mobile] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /registrieren?next=/a/..//evil.example/phish stays on the SOMA origin when already signed in
+[28/208] [mobile] › tests/e2e/audit3.spec.ts:64:5 › a decline note with a phone number is refused; a clean reason declines (N3)
+[29/208] [mobile] › tests/e2e/audit3.spec.ts:100:5 › a refused review keeps stars and text (N5)
+[30/208] [mobile] › tests/e2e/audit3.spec.ts:118:5 › the address form keeps its values and names an unknown PLZ (N5)
+[31/208] [mobile] › tests/e2e/audit3.spec.ts:136:5 › request checkout states the concrete answer deadline (N6)
+[32/208] [mobile] › tests/e2e/audit3.spec.ts:148:5 › cancel dialog for a booking days ahead says it is free now (N10)
+[33/208] [mobile] › tests/e2e/audit3.spec.ts:171:5 › an auto-paused provider is not public and shows up in the admin queue (N4)
+[34/208] [mobile] › tests/e2e/audit3.spec.ts:184:5 › admin tables do not overflow the page (N7)
+[35/208] [mobile] › tests/e2e/audit3.spec.ts:203:5 › notification inbox reloads without hydration errors (N11)
+[36/208] [mobile] › tests/e2e/audit4.spec.ts:17:7 › open-redirect variants for signed-in visitors (audit-4 F1 re-probe) › none of the variants navigates away from SOMA
+[37/208] [mobile] › tests/e2e/audit4.spec.ts:37:5 › demo customer sees the demo notice instead of password change and deletion (F7)
+[38/208] [mobile] › tests/e2e/audit4.spec.ts:44:5 › demo provider sees the demo notice instead of password change (F7)
+[39/208] [mobile] › tests/e2e/audit4.spec.ts:53:5 › the account home still offers one-tap rebooking (F11)
+[40/208] [mobile] › tests/e2e/audit4.spec.ts:86:5 › a service in an unverified category waits for the document and is not bookable (F2)
+[41/208] [mobile] › tests/e2e/audit4.spec.ts:110:5 › adding a service never overwrites the price of an existing offering (A4-2)
+[42/208] [mobile] › tests/e2e/audit5.spec.ts:41:5 › the cancel dialog opens on the safe action and returns focus to its trigger (A5-1)
+[43/208] [mobile] › tests/e2e/audit5.spec.ts:66:5 › saved addresses fit a 320 px screen (A5-2)
+[44/208] [mobile] › tests/e2e/audit5.spec.ts:71:5 › the booking detail header fits a 320 px screen (A5-2)
+[45/208] [mobile] › tests/e2e/audit5.spec.ts:77:5 › the provider document list fits a 320 px screen (A5-2)
+[46/208] [mobile] › tests/e2e/audit5.spec.ts:97:5 › the home page arrives and rests: no ambient loop runs, at the top or offscreen
+[47/208] [mobile] › tests/e2e/audit5.spec.ts:109:5 › reduced motion: no looping animation, no parallax, no scroll reveal
+[48/208] [mobile] › tests/e2e/audit5.spec.ts:122:5 › an instant booking vibrates once on confirmation and once on cancellation
+[49/208] [mobile] › tests/e2e/audit5.spec.ts:169:5 › the admin palette finds a booking by reference and gives focus back
+[50/208] [mobile] › tests/e2e/audit5.spec.ts:192:5 › booking facts are a valid description list (A5-3)
+[51/208] [mobile] › tests/e2e/booking.spec.ts:35:5 › instant booking: search → checkout → confirmation → free cancellation, price consistent
+[52/208] [mobile] › tests/e2e/booking.spec.ts:95:5 › approval mode: request is labelled 'anfragen', shows deadline, and can be withdrawn for free
+[53/208] [mobile] › tests/e2e/booking.spec.ts:121:5 › a slot that is already held cannot be booked twice (two customers)
+[54/208] [mobile] › tests/e2e/landing-conversion.spec.ts:83:5 › T1 the hero search carries PLZ, service, day and time window to /suche
+[55/208] [mobile] › tests/e2e/landing-conversion.spec.ts:107:5 › T2 a PLZ alone searches without empty parameters
+[56/208] [mobile] › tests/e2e/landing-conversion.spec.ts:115:5 › T2a a PLZ in the field before the entry hydrates is kept, looked up and submitted (audit 2, N-3)
+[57/208] [mobile] › tests/e2e/landing-conversion.spec.ts:139:5 › T3 validation: empty, short and unknown PLZ
+[58/208] [mobile] › tests/e2e/landing-conversion.spec.ts:158:5 › T4 an unserved PLZ offers the waitlist and still reaches /suche
+[59/208] [mobile] › tests/e2e/landing-conversion.spec.ts:173:7 › without JavaScript › T5 the entry is a plain GET form and every booking link is a real anchor
+[60/208] [mobile] › tests/e2e/landing-conversion.spec.ts:189:5 › T6 keyboard only: PLZ, Was?, Wann? and submit (desktop)
+[61/208] [mobile] › tests/e2e/landing-conversion.spec.ts:240:5 › T7 screen-reader semantics of the entry
+[62/208] [mobile] › tests/e2e/landing-conversion.spec.ts:262:5 › T8 every category tile links to a live category route
+[63/208] [mobile] › tests/e2e/landing-conversion.spec.ts:275:5 › T9 city and provider links resolve; ratings only from three reviews; demo labels
+[64/208] [mobile] › tests/e2e/landing-conversion.spec.ts:295:5 › T10 „Profi werden“ reaches onboarding; „Konditionen ansehen“ reaches the commission section
+[65/208] [mobile] › tests/e2e/landing-conversion.spec.ts:307:5 › T11 login and legal links resolve
+[66/208] [mobile] › tests/e2e/landing-conversion.spec.ts:322:5 › T12 mobile dock opens the booking sheet: shared PLZ, inline pickers, focus return, submit
+[67/208] [mobile] › tests/e2e/landing-conversion.spec.ts:364:5 › T12a dock visibility: hidden for the hero entry and a focused field, shown elsewhere
+[68/208] [mobile] › tests/e2e/landing-conversion.spec.ts:382:5 › T12b the mobile dock never covers the footer's legal links
+[69/208] [mobile] › tests/e2e/landing-conversion.spec.ts:395:5 › T13 desktop header „Termin finden“: hero in view → focus; scrolled → booking bar
+[70/208] [mobile] › tests/e2e/landing-conversion.spec.ts:413:5 › T14 every in-page anchor resolves to exactly one target
+[71/208] [mobile] › tests/e2e/landing-conversion.spec.ts:429:5 › T15 the FAQPage JSON-LD equals the visible FAQ
+[72/208] [mobile] › tests/e2e/landing-conversion.spec.ts:451:5 › T16 metadata: title, one h1, canonical, Open Graph, Twitter, bound description
+[73/208] [mobile] › tests/e2e/landing-conversion.spec.ts:474:5 › T17 indexability follows DEMO_MODE
+[74/208] [mobile] › tests/e2e/landing-conversion.spec.ts:488:5 › T18 structured data hygiene
+[75/208] [mobile] › tests/e2e/landing-conversion.spec.ts:501:5 › T19 tile prices equal the real floors on /behandlungen
+[76/208] [mobile] › tests/e2e/landing-conversion.spec.ts:519:5 › T20 privacy: same-origin requests only; no storage beyond the remembered PLZ
+[77/208] [mobile] › tests/e2e/landing-conversion.spec.ts:538:5 › T21 deep links prefill the hero entry
+[78/208] [mobile] › tests/e2e/landing-conversion.spec.ts:549:5 › T22 reduced motion: booking works and nothing loops
+[79/208] [mobile] › tests/e2e/landing-motion.spec.ts:66:5 › tiers: automation is none, ?motion= overrides it
+[80/208] [mobile] › tests/e2e/landing-motion.spec.ts:77:5 › reduced motion shows the final states: nothing hidden, nothing pinned, the seal complete
+[81/208] [mobile] › tests/e2e/landing-motion.spec.ts:95:5 › reveals never hide what is already in view, and arrive once below
+[82/208] [mobile] › tests/e2e/landing-motion.spec.ts:111:5 › active chapter, header theme and the soma:chapter event follow the reader
+[83/208] [mobile] › tests/e2e/landing-motion.spec.ts:134:5 › dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet
+[84/208] [mobile] › tests/e2e/landing-motion.spec.ts:186:5 › phones: a booking control is in view at every scroll position from load (390 × 844)
+[85/208] [mobile] › tests/e2e/landing-motion.spec.ts:212:5 › chapter overlay: focus moves in, the current chapter is marked, a jump focuses the heading
+[86/208] [mobile] › tests/e2e/landing-motion.spec.ts:239:5 › phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)
+[87/208] [mobile] › tests/e2e/landing-motion.spec.ts:262:5 › full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)
+[88/208] [mobile] › tests/e2e/landing-motion.spec.ts:283:5 › full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift
+[89/208] [mobile] › tests/e2e/landing.spec.ts:26:5 › ten chapters render in order, each labelled by its heading
+[90/208] [mobile] › tests/e2e/landing.spec.ts:42:5 › one h1 with the tagline and the German line; no <em> in h1/h2; the tagline is English
+[91/208] [mobile] › tests/e2e/landing.spec.ts:58:5 › category links resolve to live category pages
+[92/208] [mobile] › tests/e2e/landing.spec.ts:70:5 › „Profi werden“ leads to the provider onboarding
+[93/208] [mobile] › tests/e2e/landing.spec.ts:79:5 › every in-page anchor resolves to exactly one id
+[94/208] [mobile] › tests/e2e/landing.spec.ts:85:5 › no horizontal overflow at 390 px
+[95/208] [mobile] › tests/e2e/remediation.spec.ts:33:9 › open redirect for signed-in visitors (audit-2 N1) › /anmelden?next=/%09/evil.example stays on the SOMA origin when already signed in
+[96/208] [mobile] › tests/e2e/remediation.spec.ts:33:9 › open redirect for signed-in visitors (audit-2 N1) › /registrieren?next=/%09/evil.example stays on the SOMA origin when already signed in
+[97/208] [mobile] › tests/e2e/remediation.spec.ts:49:5 › Widerrufsbelehrung and ranking explanation resolve (R3)
+[98/208] [mobile] › tests/e2e/remediation.spec.ts:63:5 › admin cannot approve a provider with unreviewed documents (R1)
+[99/208] [mobile] › tests/e2e/remediation.spec.ts:76:5 › guest checkout asks for name, e-mail and mobile only — no password (R16)
+[100/208] [mobile] › tests/e2e/remediation.spec.ts:93:5 › short-notice booking is free to cancel within the 15-minute Bedenkzeit (R10)
+[101/208] [mobile] › tests/e2e/remediation.spec.ts:134:5 › a declined request shows alternatives and a way onward (R8)
+[102/208] [mobile] › tests/e2e/remediation.spec.ts:174:5 › provider bio with a phone number is refused (R7)
+[103/208] [mobile] › tests/e2e/remediation.spec.ts:205:5 › provider sees when the start becomes possible instead of an early start button (R18)
+[104/208] [mobile] › tests/e2e/remediation.spec.ts:229:5 › admin regions page has no page-level horizontal overflow (R11)
+[105/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto redirects to /anmelden with next
+[106/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto/termine redirects to /anmelden with next
+[107/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /konto/adressen redirects to /anmelden with next
+[108/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro redirects to /anmelden with next
+[109/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro/termine redirects to /anmelden with next
+[110/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /pro/einnahmen redirects to /anmelden with next
+[111/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin redirects to /anmelden with next
+[112/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin/buchungen redirects to /anmelden with next
+[113/208] [desktop] › tests/e2e/access.spec.ts:27:9 › signed-out visitors › /admin/zahlungen redirects to /anmelden with next
+[114/208] [desktop] › tests/e2e/access.spec.ts:34:7 › signed-out visitors › a booking link redirects to login
+[115/208] [desktop] › tests/e2e/access.spec.ts:39:7 › signed-out visitors › provider sign-up stays public
+[116/208] [desktop] › tests/e2e/access.spec.ts:45:7 › signed-out visitors › login honours a safe next= target
+[117/208] [desktop] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=//evil.example/x stays on the SOMA origin
+[118/208] [desktop] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=https://evil.example/ stays on the SOMA origin
+[119/208] [desktop] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=/\evil.example stays on the SOMA origin
+[120/208] [desktop] › tests/e2e/access.spec.ts:57:9 › open redirect protection on /anmelden?next= › next=javascript:alert(1) stays on the SOMA origin
+[121/208] [desktop] › tests/e2e/access.spec.ts:69:7 › open redirect protection on /anmelden?next= › next=/%09/evil.example (control character) stays on the SOMA origin
+[122/208] [desktop] › tests/e2e/access.spec.ts:84:7 › role isolation › customer cannot open admin or provider areas
+[123/208] [desktop] › tests/e2e/access.spec.ts:93:7 › role isolation › provider cannot open admin or customer areas
+[124/208] [desktop] › tests/e2e/access.spec.ts:104:7 › role isolation › admin lands in /admin
+[125/208] [desktop] › tests/e2e/access.spec.ts:114:7 › IDOR on booking pages › customer B cannot see customer A's booking
+[126/208] [desktop] › tests/e2e/access.spec.ts:137:7 › IDOR on booking pages › provider cannot open another provider's appointment
+[127/208] [desktop] › tests/e2e/access.spec.ts:152:7 › IDOR on booking pages › private verification documents are not public
+[128/208] [desktop] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /anmelden?next=/.//evil.example/phish stays on the SOMA origin when already signed in
+[129/208] [desktop] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /anmelden?next=/a/..//evil.example/phish stays on the SOMA origin when already signed in
+[130/208] [desktop] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /registrieren?next=/.//evil.example/phish stays on the SOMA origin when already signed in
+[131/208] [desktop] › tests/e2e/audit3.spec.ts:48:11 › dot-segment open redirect for signed-in visitors (audit-3 F1) › /registrieren?next=/a/..//evil.example/phish stays on the SOMA origin when already signed in
+[132/208] [desktop] › tests/e2e/audit3.spec.ts:64:5 › a decline note with a phone number is refused; a clean reason declines (N3)
+[133/208] [desktop] › tests/e2e/audit3.spec.ts:100:5 › a refused review keeps stars and text (N5)
+[134/208] [desktop] › tests/e2e/audit3.spec.ts:118:5 › the address form keeps its values and names an unknown PLZ (N5)
+[135/208] [desktop] › tests/e2e/audit3.spec.ts:136:5 › request checkout states the concrete answer deadline (N6)
+[136/208] [desktop] › tests/e2e/audit3.spec.ts:148:5 › cancel dialog for a booking days ahead says it is free now (N10)
+[137/208] [desktop] › tests/e2e/audit3.spec.ts:171:5 › an auto-paused provider is not public and shows up in the admin queue (N4)
+[138/208] [desktop] › tests/e2e/audit3.spec.ts:184:5 › admin tables do not overflow the page (N7)
+[139/208] [desktop] › tests/e2e/audit3.spec.ts:203:5 › notification inbox reloads without hydration errors (N11)
+[140/208] [desktop] › tests/e2e/audit4.spec.ts:17:7 › open-redirect variants for signed-in visitors (audit-4 F1 re-probe) › none of the variants navigates away from SOMA
+[141/208] [desktop] › tests/e2e/audit4.spec.ts:37:5 › demo customer sees the demo notice instead of password change and deletion (F7)
+[142/208] [desktop] › tests/e2e/audit4.spec.ts:44:5 › demo provider sees the demo notice instead of password change (F7)
+[143/208] [desktop] › tests/e2e/audit4.spec.ts:53:5 › the account home still offers one-tap rebooking (F11)
+[144/208] [desktop] › tests/e2e/audit4.spec.ts:86:5 › a service in an unverified category waits for the document and is not bookable (F2)
+[145/208] [desktop] › tests/e2e/audit4.spec.ts:110:5 › adding a service never overwrites the price of an existing offering (A4-2)
+[146/208] [desktop] › tests/e2e/audit5.spec.ts:41:5 › the cancel dialog opens on the safe action and returns focus to its trigger (A5-1)
+[147/208] [desktop] › tests/e2e/audit5.spec.ts:66:5 › saved addresses fit a 320 px screen (A5-2)
+[148/208] [desktop] › tests/e2e/audit5.spec.ts:71:5 › the booking detail header fits a 320 px screen (A5-2)
+[149/208] [desktop] › tests/e2e/audit5.spec.ts:77:5 › the provider document list fits a 320 px screen (A5-2)
+[150/208] [desktop] › tests/e2e/audit5.spec.ts:97:5 › the home page arrives and rests: no ambient loop runs, at the top or offscreen
+[151/208] [desktop] › tests/e2e/audit5.spec.ts:109:5 › reduced motion: no looping animation, no parallax, no scroll reveal
+[152/208] [desktop] › tests/e2e/audit5.spec.ts:122:5 › an instant booking vibrates once on confirmation and once on cancellation
+[153/208] [desktop] › tests/e2e/audit5.spec.ts:169:5 › the admin palette finds a booking by reference and gives focus back
+[154/208] [desktop] › tests/e2e/audit5.spec.ts:192:5 › booking facts are a valid description list (A5-3)
+[155/208] [desktop] › tests/e2e/booking.spec.ts:35:5 › instant booking: search → checkout → confirmation → free cancellation, price consistent
+[156/208] [desktop] › tests/e2e/booking.spec.ts:95:5 › approval mode: request is labelled 'anfragen', shows deadline, and can be withdrawn for free
+[157/208] [desktop] › tests/e2e/booking.spec.ts:121:5 › a slot that is already held cannot be booked twice (two customers)
+[158/208] [desktop] › tests/e2e/landing-conversion.spec.ts:83:5 › T1 the hero search carries PLZ, service, day and time window to /suche
+[159/208] [desktop] › tests/e2e/landing-conversion.spec.ts:107:5 › T2 a PLZ alone searches without empty parameters
+[160/208] [desktop] › tests/e2e/landing-conversion.spec.ts:115:5 › T2a a PLZ in the field before the entry hydrates is kept, looked up and submitted (audit 2, N-3)
+[161/208] [desktop] › tests/e2e/landing-conversion.spec.ts:139:5 › T3 validation: empty, short and unknown PLZ
+[162/208] [desktop] › tests/e2e/landing-conversion.spec.ts:158:5 › T4 an unserved PLZ offers the waitlist and still reaches /suche
+[163/208] [desktop] › tests/e2e/landing-conversion.spec.ts:173:7 › without JavaScript › T5 the entry is a plain GET form and every booking link is a real anchor
+[164/208] [desktop] › tests/e2e/landing-conversion.spec.ts:189:5 › T6 keyboard only: PLZ, Was?, Wann? and submit (desktop)
+[165/208] [desktop] › tests/e2e/landing-conversion.spec.ts:240:5 › T7 screen-reader semantics of the entry
+[166/208] [desktop] › tests/e2e/landing-conversion.spec.ts:262:5 › T8 every category tile links to a live category route
+[167/208] [desktop] › tests/e2e/landing-conversion.spec.ts:275:5 › T9 city and provider links resolve; ratings only from three reviews; demo labels
+[168/208] [desktop] › tests/e2e/landing-conversion.spec.ts:295:5 › T10 „Profi werden“ reaches onboarding; „Konditionen ansehen“ reaches the commission section
+[169/208] [desktop] › tests/e2e/landing-conversion.spec.ts:307:5 › T11 login and legal links resolve
+[170/208] [desktop] › tests/e2e/landing-conversion.spec.ts:322:5 › T12 mobile dock opens the booking sheet: shared PLZ, inline pickers, focus return, submit
+[171/208] [desktop] › tests/e2e/landing-conversion.spec.ts:364:5 › T12a dock visibility: hidden for the hero entry and a focused field, shown elsewhere
+[172/208] [desktop] › tests/e2e/landing-conversion.spec.ts:382:5 › T12b the mobile dock never covers the footer's legal links
+[173/208] [desktop] › tests/e2e/landing-conversion.spec.ts:395:5 › T13 desktop header „Termin finden“: hero in view → focus; scrolled → booking bar
+[174/208] [desktop] › tests/e2e/landing-conversion.spec.ts:413:5 › T14 every in-page anchor resolves to exactly one target
+[175/208] [desktop] › tests/e2e/landing-conversion.spec.ts:429:5 › T15 the FAQPage JSON-LD equals the visible FAQ
+[176/208] [desktop] › tests/e2e/landing-conversion.spec.ts:451:5 › T16 metadata: title, one h1, canonical, Open Graph, Twitter, bound description
+[177/208] [desktop] › tests/e2e/landing-conversion.spec.ts:474:5 › T17 indexability follows DEMO_MODE
+[178/208] [desktop] › tests/e2e/landing-conversion.spec.ts:488:5 › T18 structured data hygiene
+[179/208] [desktop] › tests/e2e/landing-conversion.spec.ts:501:5 › T19 tile prices equal the real floors on /behandlungen
+[180/208] [desktop] › tests/e2e/landing-conversion.spec.ts:519:5 › T20 privacy: same-origin requests only; no storage beyond the remembered PLZ
+[181/208] [desktop] › tests/e2e/landing-conversion.spec.ts:538:5 › T21 deep links prefill the hero entry
+[182/208] [desktop] › tests/e2e/landing-conversion.spec.ts:549:5 › T22 reduced motion: booking works and nothing loops
+[183/208] [desktop] › tests/e2e/landing-motion.spec.ts:66:5 › tiers: automation is none, ?motion= overrides it
+[184/208] [desktop] › tests/e2e/landing-motion.spec.ts:77:5 › reduced motion shows the final states: nothing hidden, nothing pinned, the seal complete
+[185/208] [desktop] › tests/e2e/landing-motion.spec.ts:95:5 › reveals never hide what is already in view, and arrive once below
+[186/208] [desktop] › tests/e2e/landing-motion.spec.ts:111:5 › active chapter, header theme and the soma:chapter event follow the reader
+[187/208] [desktop] › tests/e2e/landing-motion.spec.ts:134:5 › dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet
+[188/208] [desktop] › tests/e2e/landing-motion.spec.ts:186:5 › phones: a booking control is in view at every scroll position from load (390 × 844)
+[189/208] [desktop] › tests/e2e/landing-motion.spec.ts:212:5 › chapter overlay: focus moves in, the current chapter is marked, a jump focuses the heading
+[190/208] [desktop] › tests/e2e/landing-motion.spec.ts:239:5 › phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)
+[191/208] [desktop] › tests/e2e/landing-motion.spec.ts:262:5 › full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)
+[192/208] [desktop] › tests/e2e/landing-motion.spec.ts:283:5 › full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift
+[193/208] [desktop] › tests/e2e/landing.spec.ts:26:5 › ten chapters render in order, each labelled by its heading
+[194/208] [desktop] › tests/e2e/landing.spec.ts:42:5 › one h1 with the tagline and the German line; no <em> in h1/h2; the tagline is English
+[195/208] [desktop] › tests/e2e/landing.spec.ts:58:5 › category links resolve to live category pages
+[196/208] [desktop] › tests/e2e/landing.spec.ts:70:5 › „Profi werden“ leads to the provider onboarding
+[197/208] [desktop] › tests/e2e/landing.spec.ts:79:5 › every in-page anchor resolves to exactly one id
+[198/208] [desktop] › tests/e2e/landing.spec.ts:85:5 › no horizontal overflow at 390 px
+[199/208] [desktop] › tests/e2e/remediation.spec.ts:33:9 › open redirect for signed-in visitors (audit-2 N1) › /anmelden?next=/%09/evil.example stays on the SOMA origin when already signed in
+[200/208] [desktop] › tests/e2e/remediation.spec.ts:33:9 › open redirect for signed-in visitors (audit-2 N1) › /registrieren?next=/%09/evil.example stays on the SOMA origin when already signed in
+[201/208] [desktop] › tests/e2e/remediation.spec.ts:49:5 › Widerrufsbelehrung and ranking explanation resolve (R3)
+[202/208] [desktop] › tests/e2e/remediation.spec.ts:63:5 › admin cannot approve a provider with unreviewed documents (R1)
+[203/208] [desktop] › tests/e2e/remediation.spec.ts:76:5 › guest checkout asks for name, e-mail and mobile only — no password (R16)
+[204/208] [desktop] › tests/e2e/remediation.spec.ts:93:5 › short-notice booking is free to cancel within the 15-minute Bedenkzeit (R10)
+[205/208] [desktop] › tests/e2e/remediation.spec.ts:134:5 › a declined request shows alternatives and a way onward (R8)
+[206/208] [desktop] › tests/e2e/remediation.spec.ts:174:5 › provider bio with a phone number is refused (R7)
+[207/208] [desktop] › tests/e2e/remediation.spec.ts:205:5 › provider sees when the start becomes possible instead of an early start button (R18)
+[208/208] [desktop] › tests/e2e/remediation.spec.ts:229:5 › admin regions page has no page-level horizontal overflow (R11)
+  12 skipped
+  196 passed (10.1m)
+exit 0

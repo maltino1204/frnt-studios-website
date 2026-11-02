@@ -1,0 +1,262 @@
+{
+ "consoleByVp": {
+  "d1440": {
+   "motion": "full",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "d1280": {
+   "motion": "full",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "t1024": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "t768": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m430": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m412": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m390": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m320": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  }
+ },
+ "htmlBytes": 507077,
+ "activityMarkers": 11,
+ "outlinedSegments": 0,
+ "suspenseFallbackMarkers": 0,
+ "tierScriptInHtml": true,
+ "struct": {
+  "ldTypes": [
+   "Organization",
+   "WebSite",
+   "WebPage",
+   "FAQPage"
+  ],
+  "faqLdCount": 9,
+  "faqVisibleCount": 9,
+  "faqMatch": true,
+  "orgHasAggregateRating": false,
+  "websiteHasSearchAction": false,
+  "domNodes": 1434,
+  "h1": 1,
+  "h2": [
+   "Dein Termin richtet sich nach deinem Leben. Nicht ",
+   "Sieben Behandlungen. Ein Ort: deiner.",
+   "Drei Schritte. Kein Weg.",
+   "Nach der Massage: schon zu Hause.",
+   "Wer bei dir klingelt.",
+   "Wer kommt. Wann. Was es kostet. Alles an einem Ort",
+   "Dein Können. Deine Preise. Deine Zeiten.",
+   "Antworten, bevor du fragst.",
+   "Your body. Your place.",
+   "Behandlungen",
+   "Städte",
+   "Für Profis",
+   "Hilfe",
+   "Rechtliches"
+  ],
+  "anchors": 11,
+  "badAnchors": [],
+  "internal": [
+   "/",
+   "/behandlungen",
+   "/fuer-profis",
+   "/hilfe",
+   "/anmelden",
+   "/behandlungen/massage",
+   "/behandlungen/manikuere",
+   "/behandlungen/pedikuere",
+   "/behandlungen/kosmetik",
+   "/behandlungen/make-up",
+   "/behandlungen/haare-styling",
+   "/behandlungen/brows-lashes",
+   "/profis/selin-a-berlin",
+   "/profis/yasmin-k-frankfurt",
+   "/profis/elena-r-muenchen",
+   "/profis/emre-y-koeln",
+   "/profis/natalja-w-duesseldorf",
+   "/profis/chidi-o-duesseldorf",
+   "/profis/hanna-b-berlin",
+   "/profis/charlotte-j-hamburg",
+   "/pro/registrieren",
+   "/fuer-profis#provision",
+   "/stornierung",
+   "/suche",
+   "/staedte/berlin",
+   "/staedte/hamburg",
+   "/staedte/muenchen",
+   "/staedte/koeln",
+   "/staedte/frankfurt",
+   "/staedte/duesseldorf",
+   "/staedte",
+   "/anmelden?next=%2Fpro",
+   "/ranking",
+   "/impressum",
+   "/datenschutz",
+   "/agb",
+   "/agb-profis",
+   "/widerruf",
+   "/datenschutz#cookies"
+  ],
+  "title": "SOMA – Beauty & Wellness bei dir zu Hause, im Hotel und im Büro",
+  "description": "Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir. Endpreis inkl. Anfahrt, kostenlos stornierbar bis 24 Std. vorher.",
+  "robots": "noindex, nofollow",
+  "canonical": "http://localhost:3000/",
+  "og": {
+   "og:title": "SOMA · Your body. Your place.",
+   "og:description": "Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir. Endpreis inkl. Anfahrt, kostenlos stornierbar bis 24 Std. vorher.",
+   "og:url": "http://localhost:3000",
+   "og:site_name": "SOMA",
+   "og:locale": "de_DE",
+   "og:image": "http://localhost:3000/brand/og-default.jpg",
+   "og:image:width": "1200",
+   "og:image:height": "630",
+   "og:image:alt": "SOMA-Logo mit „Your body. Your place.“, daneben eine Massage in einem Altbauwohnzimmer",
+   "og:type": "website"
+  },
+  "lang": "de",
+  "preloads": [
+   "font instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2 ",
+   "font newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2 ",
+   "image image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=7 high",
+   "script 1ckvzn7sfprko.js low"
+  ]
+ },
+ "linkStatus": {
+  "/": 200,
+  "/behandlungen": 200,
+  "/fuer-profis": 200,
+  "/hilfe": 200,
+  "/anmelden": 200,
+  "/behandlungen/massage": 200,
+  "/behandlungen/manikuere": 200,
+  "/behandlungen/pedikuere": 200,
+  "/behandlungen/kosmetik": 200,
+  "/behandlungen/make-up": 200,
+  "/behandlungen/haare-styling": 200,
+  "/behandlungen/brows-lashes": 200,
+  "/profis/selin-a-berlin": 200,
+  "/profis/yasmin-k-frankfurt": 200,
+  "/profis/elena-r-muenchen": 200,
+  "/profis/emre-y-koeln": 200,
+  "/profis/natalja-w-duesseldorf": 200,
+  "/profis/chidi-o-duesseldorf": 200,
+  "/profis/hanna-b-berlin": 200,
+  "/profis/charlotte-j-hamburg": 200,
+  "/pro/registrieren": 200,
+  "/stornierung": 200,
+  "/suche": 200,
+  "/staedte/berlin": 200,
+  "/staedte/hamburg": 200,
+  "/staedte/muenchen": 200,
+  "/staedte/koeln": 200,
+  "/staedte/frankfurt": 200,
+  "/staedte/duesseldorf": 200,
+  "/staedte": 200,
+  "/anmelden?next=%2Fpro": 200,
+  "/ranking": 200,
+  "/impressum": 200,
+  "/datenschutz": 200,
+  "/agb": 200,
+  "/agb-profis": 200,
+  "/widerruf": 200
+ },
+ "linkFailures": [],
+ "nojs_d1440": {
+  "bg": "rgba(251, 249, 245, 0.92)",
+  "motionAttr": null,
+  "scriptingNone": true,
+  "headerBgOverNight": "rgba(251, 249, 245, 0.92)",
+  "headerBackdrop": "blur(22px) saturate(1.2)",
+  "portraits": [
+   "1",
+   "1",
+   "1",
+   "1"
+  ],
+  "dock": {
+   "display": "none",
+   "visibility": "visible",
+   "opacity": "1",
+   "links": [
+    "BUTTON:Kapitel01 Bei dir02 :",
+    "A:Kapitel:#kapitel",
+    "A:Termin finden:#termin"
+   ]
+  },
+  "headerControls": [
+   "a:SOMA, zur Startseite:/",
+   "button:Kapitel01 Bei dir02 :",
+   "a:Kapitel:#kapitel",
+   "a:Behandlungen:/behandlungen",
+   "a:So funktioniert’s:#so-funktionierts",
+   "a:Für Profis:/fuer-profis",
+   "a:Hilfe:/hilfe",
+   "button:Menü:",
+   "a:Menü:#kapitel",
+   "a:Anmelden:/anmelden",
+   "a:Termin finden:#termin"
+  ],
+  "chapters": 10,
+  "formAction": "/suche"
+ },
+ "nojs_m390": {
+  "bg": "rgba(251, 249, 245, 0.92)",
+  "motionAttr": null,
+  "scriptingNone": true,
+  "headerBgOverNight": "rgba(251, 249, 245, 0.92)",
+  "headerBackdrop": "blur(22px) saturate(1.2)",
+  "portraits": [
+   "1",
+   "1",
+   "1",
+   "1"
+  ],
+  "dock": {
+   "display": "flex",
+   "visibility": "visible",
+   "opacity": "1",
+   "links": [
+    "BUTTON:Kapitel01 Bei dir02 :",
+    "A:Kapitel:#kapitel",
+    "A:Termin finden:#termin"
+   ]
+  },
+  "headerControls": [
+   "a:SOMA, zur Startseite:/",
+   "button:Kapitel01 Bei dir02 :",
+   "a:Kapitel:#kapitel",
+   "a:Behandlungen:/behandlungen",
+   "a:So funktioniert’s:#so-funktionierts",
+   "a:Für Profis:/fuer-profis",
+   "a:Hilfe:/hilfe",
+   "button:Menü:",
+   "a:Menü:#kapitel",
+   "a:Anmelden:/anmelden",
+   "a:Termin finden:#termin"
+  ],
+  "chapters": 10,
+  "formAction": "/suche"
+ }
+}

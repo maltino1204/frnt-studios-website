@@ -1,0 +1,3 @@
+run 1 early: dock Termin finden (early, cold surfaces): INP 344 / visible 386 | Escape (close sheet): INP 48 / visible 42
+run 2 early: dock Termin finden (early, cold surfaces): INP 272 / visible 283 | Escape (close sheet): INP 40 / visible 37
+run 3 early: dock Termin finden (early, cold surfaces): INP 264 / visible 303 | Escape (close sheet): INP 64 / visible 56
