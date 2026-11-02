@@ -124,7 +124,12 @@ Datenbank. Die Demo-Logins laufen über SOMAs eigene Anmeldung, Supabase Auth wi
 2. Oben auf *Connect* klicken und unter *Connection String* den **Transaction pooler** wählen (Port `6543`).
    Die URL kopieren und `[YOUR-PASSWORD]` durch das Passwort ersetzen. Sie sieht so aus:
    `postgresql://postgres.abcdefgh:PASSWORT@aws-0-us-east-2.pooler.supabase.com:6543/postgres`.
-   Die *Direct connection* funktioniert auf Netlify nicht (nur IPv6). Enthält das Passwort Sonderzeichen wie `@ # / ? %`,
+   Wichtig ist der **Shared Pooler** (Benutzer `postgres.<projekt-id>`, Host `…pooler.supabase.com`). Bietet der Dialog
+   zusätzlich einen *Dedicated Pooler* an (Host `db.<projekt-id>.supabase.co:6543`), die Option *„Use IPv4 connection
+   (Shared Pooler)“* wählen. Die *Direct connection* und der Dedicated Pooler funktionieren auf Netlify nicht (nur IPv6,
+   Fehler `ENETUNREACH`). Notfalls die URL selbst bilden:
+   `postgresql://postgres.<projekt-id>:<passwort>@aws-0-<region>.pooler.supabase.com:6543/postgres` (bei „Tenant or user
+   not found“ `aws-1` statt `aws-0`). Enthält das Passwort Sonderzeichen wie `@ # / ? %`,
    vergeben Sie unter *Project Settings* → *Database* ein neues aus Buchstaben und Ziffern, sonst ist die URL ungültig.
 3. Hinweis: Kostenlose Supabase-Projekte pausieren nach einer Woche ohne Nutzung. Im Supabase-Dashboard lässt sich das Projekt
    mit einem Klick wieder starten.

@@ -40,9 +40,9 @@ if (["localhost", "127.0.0.1", "::1", "[::1]"].includes(host)) {
 // route, so it fails with ENETUNREACH. The pooler (…pooler.supabase.com) is reachable over IPv4.
 if (/^db\.[a-z0-9]+\.supabase\.co$/i.test(host)) {
   fail([
-    "DATABASE_URL ist Supabases „Direct connection“ (db.….supabase.co:5432). Sie ist nur über IPv6 erreichbar,",
+    "DATABASE_URL zeigt auf db.….supabase.co (Direct connection oder Dedicated Pooler). Das ist nur über IPv6 erreichbar,",
     "Netlify hat kein IPv6 (Fehler ENETUNREACH).",
-    "Supabase → Connect → Connection String → Method „Transaction pooler“ (Shared pooler, IPv4, Port 6543) wählen.",
+    "Supabase → Connect → Connection String → Method „Transaction pooler“ mit „Shared Pooler“ (IPv4, Port 6543) wählen.",
     "Die URL sieht so aus: postgresql://postgres.<projekt-ref>:<passwort>@aws-…pooler.supabase.com:6543/postgres",
     "Anleitung: DEMO.md → „Online-Demo auf Netlify“.",
   ]);
