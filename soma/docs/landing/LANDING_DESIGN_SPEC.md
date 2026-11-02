@@ -1070,6 +1070,10 @@ API (Conversion): `openBooking(detail?: { source: string; categorySlug?: string 
 
 - **Where the tier lives:** `html[data-motion]`, written by `motion/loader.tsx` after hydration.
 - **QA override:** `?motion=full|lite|none` (always honoured, also under webdriver, so the auditor can test each tier).
+- **Lab tools measure the `none` tier on `/` (audit-2 N-5 / RT-6):** headless Lighthouse and PageSpeed Insights drive the
+  browser through automation (`navigator.webdriver`), so a plain `/` gets `none`: no motion runtime, no motion CSS
+  states. The tier a visitor gets is measured on `/?motion=lite` (phones, tablets, touch) and `/?motion=full`
+  (desktop); quote those for visitor numbers. There is deliberately no measurement-only bypass of the webdriver rule.
 - **Upgrade rule:**
   - pinned layouts (04, 05) and the scroll-linked masks apply only under `html[data-motion="full"]`;
   - the loader marks each scene `data-scene-ready` only if the scene's top is **below the viewport** at upgrade time;
@@ -1172,6 +1176,9 @@ API (Conversion): `openBooking(detail?: { source: string; categorySlug?: string 
 | INP | ≤ 200 ms (aim 150 ms) | ≤ 100 ms |
 | TBT | ≤ 200 ms | ≤ 100 ms |
 | Lighthouse performance score | ≥ 90 | ≥ 95 |
+
+Lighthouse scores for these targets are taken on the visitor tier: `/?motion=lite` (mobile) and `/?motion=full`
+(desktop). A plain `/` under Lighthouse or PSI runs the `none` tier (§ 8.1).
 
 ### 10.2 LCP element per viewport
 

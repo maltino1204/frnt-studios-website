@@ -4,6 +4,11 @@
  * - `lite`: narrow (< 1024), coarse pointer, no hover, Save-Data or < 4 GB device memory;
  * - `full`: everything else.
  * `?motion=full|lite|none` always wins (also under webdriver), so QA and the auditor can check each tier.
+ *
+ * Lab measurement (audit-2 RT-6): headless Lighthouse and PageSpeed Insights set `navigator.webdriver`, so they score
+ * a plain `/` in the `none` tier (no motion runtime, no motion states). The visitor tiers are measured with
+ * `/?motion=lite` (phones, tablets) and `/?motion=full` (desktop); quote those for visitor numbers. There is no
+ * measurement-only bypass of the webdriver rule, on purpose.
  */
 export type MotionTier = "full" | "lite" | "none";
 
