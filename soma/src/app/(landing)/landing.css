@@ -338,17 +338,98 @@ html[data-booking-open] .lp-dock {
 .lp-sill {
   margin-top: 12px;
 }
-@media (min-width: 768px) {
-  .lp-hero-grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    column-gap: var(--gap);
+/*
+ * The arch's first view below 1024 (audit-2 RT-8 / N-7, RT-12 / I-13): on a viewport tall enough to show the
+ * Ortszeile, the arch is capped so that the Ortszeile ends 12 px above the dock (phones) or the booking entry fits
+ * (768–1023). The arch keeps 4:5 and gets narrower, centred; when the natural Ortszeile lies below the fold, nothing
+ * changes. `--lp-hero-arch-top` is where the arch starts at load (header, the hero's head, the 28 px figure margin,
+ * plus the demo ribbon when it is shown), `--lp-hero-under` what has to fit under it in the first view.
+ * Without sign() support (older browsers) the declaration is dropped and the arch keeps its natural size.
+ */
+html:has([data-demo-ribbon]) .lp-hero {
+  --lp-ribbon-h: 47px;
+}
+@media (max-width: 1023px) {
+  .lp-hero-figure {
+    --lp-col-w: calc(100vw - 2 * var(--space-gutter));
+    --lp-arch-cap: calc(100svh - var(--lp-hero-arch-top) - var(--lp-hero-under));
+    width: min(100%, calc(0.8 * var(--lp-arch-h)));
+    margin-inline: auto;
   }
-  .lp-hero-head,
-  .lp-hero-rest {
-    grid-column: 1 / span 6;
+  /* The Ortszeile stays aligned to the arch's left edge and may run on to the column's right edge, so a narrower arch
+     does not wrap it onto a second line. */
+  .lp-hero-figure > figcaption {
+    width: max-content;
+    max-width: calc((var(--lp-col-w) + min(var(--lp-col-w), 0.8 * var(--lp-arch-h))) / 2);
+  }
+}
+@media (max-width: 767px) {
+  .lp-hero {
+    /* header 60 + hero padding 12 + head ≤ 222 + figure margin 28 */
+    --lp-hero-arch-top: calc(var(--lp-ribbon-h, 0px) + 322px);
+    /* the Ortszeile (12 + 16), 12 px of air, the dock (56) and its bottom inset */
+    --lp-hero-under: calc(28px + 12px + 56px + max(12px, env(safe-area-inset-bottom)));
   }
   .lp-hero-figure {
-    grid-column: 2 / span 6;
+    --lp-arch-n: calc(1.25 * var(--lp-col-w));
+    /* > 0: the natural Ortszeile would start above the fold, under or next to the dock; ≤ 0: it is below the fold */
+    --lp-arch-d: calc(100svh - var(--lp-hero-arch-top) - var(--lp-arch-n) - 12px);
+    --lp-arch-h: calc(var(--lp-arch-n) - max(0, sign(var(--lp-arch-d))) * max(0px, var(--lp-arch-n) - var(--lp-arch-cap)));
+  }
+}
+/* Below 400 px the capped arch is narrower than the Ortszeile, which then wraps after a „ · “: room for two lines. */
+@media (max-width: 399px) {
+  .lp-hero {
+    --lp-hero-under: calc(45px + 12px + 56px + max(12px, env(safe-area-inset-bottom)));
+  }
+}
+/*
+ * 768–1023 (I-13): the phone's stacked single column, scaled up and centred: text, then the arch, then the booking
+ * entry (PLZ field and CTA in the first view at 768 × 1024), then the lead and „So funktioniert’s“. No second column.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  html:has([data-demo-ribbon]) .lp-hero {
+    --lp-ribbon-h: 33px;
+  }
+  .lp-hero {
+    /* header 68 + hero padding 12 + head (131 + the two tagline lines, 1.96 × display-xl) + figure margin 28, + 6 */
+    --lp-hero-arch-top: calc(var(--lp-ribbon-h, 0px) + 292px + 10.9vw);
+    /* the Ortszeile (27), the entry's 24 px margin and the stacked form up to its CTA (248), 12 px of air */
+    --lp-hero-under: calc(27px + 24px + 248px + 12px);
+  }
+  .lp-hero-grid {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+  /*
+   * Capped so the entry shows (768 × 1024: PLZ field and CTA in the first view). Where that would leave less than
+   * 300 px of arch (1023 × 768), the arch is instead tall enough that the Ortszeile starts below the fold, never
+   * under the dock; the entry is then one scroll away.
+   */
+  .lp-hero-figure {
+    --lp-col-w: min(100vw - 2 * var(--space-gutter), 36rem);
+    --lp-arch-n: calc(1.25 * var(--lp-col-w));
+    --lp-arch-fits: max(0, sign(var(--lp-arch-cap) - 300px));
+    --lp-arch-h: calc(
+      var(--lp-arch-fits) * min(var(--lp-arch-n), var(--lp-arch-cap)) +
+        (1 - var(--lp-arch-fits)) * min(var(--lp-arch-n), max(300px, 100svh - var(--lp-hero-arch-top)))
+    );
+  }
+  .lp-hero-rest {
+    display: contents;
+  }
+  .lp-hero-rest > .lp-sill {
+    order: 1;
+    margin-top: 24px;
+  }
+  .lp-hero-rest > .lp-hero-lead {
+    order: 2;
+    margin-top: 32px;
+  }
+  .lp-hero-rest > a {
+    order: 3;
+    justify-self: start;
+    margin-top: 12px;
   }
 }
 @media (min-width: 1024px) {
@@ -359,6 +440,7 @@ html[data-booking-open] .lp-dock {
   .lp-hero-grid {
     --lp-hero-arch-w: calc(5 * var(--lp-col) + 4 * var(--gap));
     grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
     grid-template-rows: auto 1fr;
     min-height: min(calc(100svh - var(--header-height) - 48px), calc(1.25 * var(--lp-hero-arch-w) + 32px));
   }
@@ -1079,6 +1161,7 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
   .lp-screens {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
     grid-template-rows: auto 1fr;
     column-gap: var(--gap);
   }

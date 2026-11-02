@@ -4,6 +4,7 @@ export function DemoRibbon() {
     <div
       role="region"
       aria-label="Hinweis zur Demo-Umgebung"
+      data-demo-ribbon=""
       className="relative flex items-center justify-center gap-2 border-b border-line bg-surface-raised/80 px-(--space-gutter) py-1.5 text-center type-caption text-ink-muted"
     >
       <span className="hidden h-5 shrink-0 items-center gap-1.5 rounded-full bg-warning-soft px-2 text-[12px] leading-none font-[600] text-warning sm:inline-flex" aria-hidden>
