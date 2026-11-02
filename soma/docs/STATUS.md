@@ -8,7 +8,8 @@
 ### Customer app (German, *du* since brand v1.2)
 | Area | Routes | Notes |
 |---|---|---|
-| Home | `/` | Landing page „Durch den Bogen“ (route group `(landing)`, 10 chapters): hero with place switch (Zuhause · Hotel · Büro) and the booking entry on the arch sill, Idee, Behandlungen (index ↔ preview), Ablauf, Dein Ort, Profis, Deine Buchung, Für Profis, Fragen (FAQPage JSON-LD), closing seal. Chapter overlay, mobile booking dock and sheet, motion tiers full/lite/none with `prefers-reduced-motion`, works without JS (GET form to `/suche`). Spec and audits: `docs/landing/` |
+| Home | `/` | Landing page „Durch den Bogen“ (route group `(landing)`, 7 chapters since the client's declutter of 2026-11-02): hero with place switch (Zuhause · Hotel · Büro) and the booking entry on the arch sill, Behandlungen (index ↔ preview, link to Entdecken), So funktioniert’s (with the three trust facts), Profis, Für Profis, Fragen (5 + link to /hilfe; FAQPage JSON-LD), closing seal. Chapter overlay, mobile booking dock and sheet, motion tiers full/lite/none with `prefers-reduced-motion`, works without JS (GET form to `/suche`). Spec and audits: `docs/landing/` |
+| Entdecken | `/entdecken`, `/entdecken/[slug]` | „Von SOMA ausgewählt“ (admin-curated collections, editorial; a sponsored collection would show „Anzeige“), „Für dich“ (only the customer's own bookings, favourites and default address; opt-out in `/konto/profil`), „Beliebt in <Stadt>“ (order only, floors ≥ 5/≥ 3 bookings, no counts), „Neu auf SOMA“. Free slots only where the availability engine computed them. Admin: `/admin/entdecken` (audited) |
 | Discovery | `/behandlungen`, `/behandlungen/[kategorie]`, `/staedte`, `/staedte/[stadt]`, `/behandlungen/[kategorie]/[stadt]` | Data-driven taxonomy (7 categories, 32 services); 42 statically generated SEO city pages with canonical URLs, BreadcrumbList/Service JSON-LD, `noindex` below the supply threshold |
 | Search & compare | `/suche` | PLZ → centroid → radius match; only providers with real slots; total price incl. travel; slot chips go straight to checkout; filters, sort, waitlist for unserved areas; demand logged without PII |
 | Profiles | `/profis/[slug]` | Verified badge (backed by approved documents), ratings with provider replies, services and prices, portfolio, service area, policy summary, slot picker; invite links (`?einladung=`) |
@@ -57,6 +58,14 @@ content blocks, audit log. Every page and action is admin-only and audited.
   reviews and notes, lower repeat commission, Start-Code proof of service, on-platform guarantee,
   favourites and one-tap rebooking, credits and referrals.
 - **Notifications:** in-app inbox plus an e-mail outbox for every booking event, respecting preferences.
+
+### Photography v3/v4 „Tageslicht“ (client feedback 2026-11-02)
+The client found the first image set dark and unprofessional (and one portrait without arms). All images in use were
+regenerated to a bright daylight direction (`brand/photography/PHOTOGRAPHY.md` v3.1): 143 images v3, the 30 portraits
+again as v4 with varied settings and poses, later fixes as v5/v6, every image checked at full size
+(`AUDIT-v3.md`, `AUDIT-v4.md`). Mean luminance 98 → 178, near-black pixels 26 % → 2.6 %. Head-and-shoulders crops for
+avatars ≤ 96 px. Every image is still an AI development asset and labelled in the product. Higgsfield credits used:
+≈ 530 in total.
 
 ### Brand identity v1.2 (`brand/`)
 Strategy and voice (*du* for everyone, „Profi“, „SOMA Pro“, signature line „Du bleibst. Dein Profi kommt.“, zero-tolerance
@@ -170,6 +179,23 @@ F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
   setup, a second deploy (idempotent), demo seed, production build and E2E 108/108. The Supabase-owned objects stayed untouched.
 - **Not verifiable here** (needs a Netlify account): the Netlify runtime itself, Netlify Blobs uploads, the scheduled function, a real Neon or Supabase pooler.
   Netlify accepts about 6 MB per request, so uploads above that fail there.
+
+### 4.3 Brand, landing page and Entdecken (independent audits)
+- **Brand identity** (`brand/audit/BRAND_AUDIT_1-3.md`, ten dimensions): average 7.6 → 8.1 → **8.2**; 9 of 10 ≥ 8. Originality stays
+  at **7** until the human logo tests (O1b, O4a/O4b, O7) are run with people outside the team (blocker 9).
+- **Landing page** (`docs/landing/audit-1…4.md`, eleven dimensions):
+
+  | Audit | ≥ 8 | Below 8 | Note |
+  |---|---|---|---|
+  | 1 | 10/11 | Performance 7 | TBT ≈ 486 ms |
+  | 2 | 6/11 | Interaction, Mobile, UX, Conversion, Performance 7 | chapter jumps, dead CTA, early PLZ, sheet latency |
+  | 3 | 10/11 | Performance 7 | sheet 197 ms, picker regression |
+  | 4 | 8/11 | Interaction 7, Technical 6, Accessibility 6 | after the 7-chapter declutter and the new photos: a crash of the 02 index in the lite/none tiers on desktop (fixed afterwards), stale optimiser images, double hero fetch. Performance 8 (sheet 134 ms, Lighthouse mobile median 91) |
+
+  The fixes after audit 4 are re-verified by the auditor after the deploy; see `docs/landing/audit-5.md` once it exists.
+- **Entdecken + photography in the product** (`docs/qa/review-entdecken-photos.md`, 14 dimensions): light and mood 9,
+  accessibility 9, security 8; the four required fixes (slot wording, AI labels, guest-only invite, no booking counts for
+  anon) and the image defects were fixed afterwards (not re-scored).
 
 ## 5. Production blockers
 
