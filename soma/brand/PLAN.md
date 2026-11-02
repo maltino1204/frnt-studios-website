@@ -39,6 +39,14 @@ This plan sets the single creative direction, the order of work, file ownership 
 - **2026-11-01** (Strategist, Lead-approved): customers are addressed with *du*; "Profi" stays; the provider product is
   "SOMA Pro"; German signature line „Du bleibst. Dein Profi kommt.“
 
+## Open items before launch (Lead; tracked here so they cannot get lost)
+| Item | Owner | Status | Reference |
+|---|---|---|---|
+| **L4 / O6** Trademark search for the word mark „SOMA“ and the figurative mark (S im O with the Versatz): DE + EU, Nice 35, 44, 9/42; Vienna 27.5, 26.1/26.3 | Client's lawyer | open, launch blocker; log the result here | `LOGO_USAGE.md` § 0, `BRAND_STRATEGY.md` |
+| **O1b, O4a/O4b, O7** Human logo tests with ≥ 8 people outside the team | Client | open; on failure switch to the 60-unit Versatz fallback | `LOGO_USAGE.md` § 2.1 |
+| Photography: replace AI development images with commissioned/licensed photos and providers' own portraits | Client + Art Director | open, launch blocker | `photography/PHOTOGRAPHY.md` |
+| **Yearly brand review** (first: 2027-11): voice, palette contrast, logo performance, imagery, competitor line-up re-run with `audit/scripts` | Brand owner | scheduled | `audit/` |
+
 ## File layout
 ```
 brand/

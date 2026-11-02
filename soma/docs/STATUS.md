@@ -5,10 +5,10 @@
 
 ## 1. What was implemented
 
-### Customer app (German, *Sie*)
+### Customer app (German, *du* since brand v1.2)
 | Area | Routes | Notes |
 |---|---|---|
-| Home | `/` | Editorial hero with the booking entry above the fold (PLZ · Behandlung · Wann), category rail, how-it-works, home/hotel/office band, trust and SOMA-Garantie, social proof from real reviews, featured professionals, cities, provider band, FAQ (FAQPage JSON-LD) |
+| Home | `/` | Landing page „Durch den Bogen“ (route group `(landing)`, 10 chapters): hero with place switch (Zuhause · Hotel · Büro) and the booking entry on the arch sill, Idee, Behandlungen (index ↔ preview), Ablauf, Dein Ort, Profis, Deine Buchung, Für Profis, Fragen (FAQPage JSON-LD), closing seal. Chapter overlay, mobile booking dock and sheet, motion tiers full/lite/none with `prefers-reduced-motion`, works without JS (GET form to `/suche`). Spec and audits: `docs/landing/` |
 | Discovery | `/behandlungen`, `/behandlungen/[kategorie]`, `/staedte`, `/staedte/[stadt]`, `/behandlungen/[kategorie]/[stadt]` | Data-driven taxonomy (7 categories, 32 services); 42 statically generated SEO city pages with canonical URLs, BreadcrumbList/Service JSON-LD, `noindex` below the supply threshold |
 | Search & compare | `/suche` | PLZ → centroid → radius match; only providers with real slots; total price incl. travel; slot chips go straight to checkout; filters, sort, waitlist for unserved areas; demand logged without PII |
 | Profiles | `/profis/[slug]` | Verified badge (backed by approved documents), ratings with provider replies, services and prices, portfolio, service area, policy summary, slot picker; invite links (`?einladung=`) |
@@ -57,6 +57,14 @@ content blocks, audit log. Every page and action is admin-only and audited.
   reviews and notes, lower repeat commission, Start-Code proof of service, on-platform guarantee,
   favourites and one-tap rebooking, credits and referrals.
 - **Notifications:** in-app inbox plus an e-mail outbox for every booking event, respecting preferences.
+
+### Brand identity v1.2 (`brand/`)
+Strategy and voice (*du* for everyone, „Profi“, „SOMA Pro“, signature line „Du bleibst. Dein Profi kommt.“, zero-tolerance
+rule for sexualised requests in the product), wordmark and symbol „S im O“ with the Versatz (hand-built SVG masters, seal
+below 32 px), Bone/Stone/Taupe/Oxblood/Espresso palette with a contrast table, Newsreader Display + Instrument Sans (OFL),
+arch motif and signature arch pair with Ortszeile, iconography, app icons and splash screens, photography direction (AI
+development images labelled as such), applications (social, ads, e-mail, gift-card concept, onboarding PDF, motion) and
+the rendered brand book at `/kit/marke`. The whole app was migrated to the brand (tokens, type, copy, E2E texts).
 
 ## 2. How to run
 
@@ -176,6 +184,9 @@ F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
 | 5 | **Data and imagery** | Never run the demo seed in production; replace AI-generated portraits (illustrative only) with providers' own photos and commission or license editorial photography; run `npm run images:fetch` or self-host the final set; replace the postal-code centroid dataset with a source licensed for redistribution (see `supabase/seed-data/README.md`) |
 | 6 | **Operations** | Scheduler for `/api/cron/booking-maintenance` (expiry, auto-complete, reminders); monitoring and error tracking; backups; secrets management; per-environment `APP_URL`; a real support address (`NEXT_PUBLIC_SUPPORT_EMAIL`); edge rate limiting and `TRUSTED_PROXY_HOPS` matching the hosting platform |
 | 7 | **Verification operations** | A real document review process and staff; optional KYC vendor; insurance checks |
+| 8 | **Trademark** | „SOMA“ is a working title (client decision 2026-11-01). Clear the word mark and the figurative mark („S im O“ with the Versatz) in DE and the EU (Nice classes 35, 44 and 9/42; Vienna 27.5, 26.1/26.3 for the figure) before launch (`brand/BRAND_STRATEGY.md`, `brand/LOGO_USAGE.md`) |
+| 9 | **Brand tests with people** | The logo's originality stays at 7/10 until the human tests O1b (5-second recall), O4a/O4b (genre line-up) and O7 run with ≥ 8 people outside the team (protocol and pass rules: `brand/LOGO_USAGE.md` § 2.1; fallback: 60-unit Versatz) |
+| 10 | **Photography rights** | Every photo and portrait is an AI-generated development image, labelled in the product. Replace with commissioned or licensed photography and providers' own portraits (`brand/photography/PHOTOGRAPHY.md`) |
 
 ## 6. Known limitations and next steps
 - Rescheduling (customers cancel and rebook today), in-app chat (masked relay), gift cards, corporate accounts.
@@ -188,4 +199,4 @@ F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
 ## 7. Assumptions
 Commission levels, cancellation tiers, travel-fee defaults, price ranges and launch cities are product
 assumptions from `docs/product-spec.md`. All of them are configurable in `/admin/provisionen` or as data. SOMA is a
-working title; renaming is isolated (see `docs/design-guideline.md` §2).
+working title (client decision 2026-11-01); renaming is isolated to `src/lib/brand.ts`, the logo masters and the manifest.
