@@ -278,7 +278,7 @@ export async function getExploreCollectionPreview(session: Session, id: string):
 // Writes (audited)
 // ---------------------------------------------------------------------------
 /** Creates or updates a collection and replaces its items in the given order. */
-export async function saveExploreCollection(session: Session, input: AdminExploreCollectionInput): Promise<{ id: string; slug: string }> {
+export async function saveExploreCollection(session: Session, input: AdminExploreCollectionInput): Promise<{ id: string; slug: string; previousSlug: string | null }> {
   const v = parse(CollectionSchema, input);
   return asAdmin(session, async (tx, admin) => {
     // References: active catalogue rows; a pinned Profi must be approved and offer the service.
@@ -321,6 +321,7 @@ export async function saveExploreCollection(session: Session, input: AdminExplor
     if (Object.keys(fieldErrors).length) throw new ServiceError("validation", "Bitte die markierten Angaben prüfen.", fieldErrors);
 
     let id = v.id ?? null;
+    const [prev] = id ? await tx<{ slug: string }[]>`select slug from public.explore_collections where id = ${id}` : [];
     const values = {
       slug: v.slug,
       title: v.title,
@@ -368,7 +369,7 @@ export async function saveExploreCollection(session: Session, input: AdminExplor
       sponsorName: values.sponsorName,
       items: v.items.length,
     });
-    return { id, slug: values.slug };
+    return { id, slug: values.slug, previousSlug: prev && prev.slug !== values.slug ? prev.slug : null };
   });
 }
 

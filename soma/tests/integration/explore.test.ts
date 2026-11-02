@@ -171,6 +171,9 @@ describe("explore collections: only admins write", () => {
     expect(live?.items[0]).toMatchObject({ title: "Sportmassage", price: { cents: 9100, from: false }, provider: { providerId: pro.providerId } });
     expect(live?.items[0].href).toMatch(/^\/profis\/[^?]+\?leistung=sportmassage$/);
 
+    expect(created.previousSlug).toBeNull();
+    const renamed = await saveExploreCollection(admin, { id: created.id, slug: `${slug}-2`, title: "Nach dem Training", isPublished: true, items: [{ kind: "service", serviceId: svc.id }] });
+    expect(renamed).toMatchObject({ slug: `${slug}-2`, previousSlug: slug }); // both paths are revalidated
     await saveExploreCollection(admin, {
       id: created.id, slug, title: "Nach dem Training", isPublished: true, isSponsored: true, sponsorName: "Beispiel AG",
       items: [{ kind: "category", categoryId: (await sql()<{ id: string }[]>`select id from public.categories where slug = 'massage'`)[0].id, filters: { zeit: "abends" } }],
@@ -182,7 +185,7 @@ describe("explore collections: only admins write", () => {
     await deleteExploreCollection(admin, created.id);
     expect(await getExploreCollection(slug)).toBeNull();
     const log = await sql()<{ action: string }[]>`select action from public.audit_log where entity = 'explore_collection' and entity_id = ${created.id} order by created_at`;
-    expect(log.map((l) => l.action)).toEqual(["explore.create", "explore.publish", "explore.update", "explore.delete"]);
+    expect(log.map((l) => l.action)).toEqual(["explore.create", "explore.publish", "explore.update", "explore.update", "explore.delete"]);
   });
 
   it("validates sponsor, reserved slugs, pinned Profis and duplicates", async () => {

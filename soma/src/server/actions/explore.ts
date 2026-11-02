@@ -36,19 +36,24 @@ export async function setPersonalizedSuggestionsAction(enabled: boolean): Promis
   );
 }
 
-/** Collection pages are ISR: every admin write refreshes /entdecken, the collection pages and the admin list. */
-function revalidateExplore(): void {
+/**
+ * Collection pages are ISR: every admin write refreshes /entdecken, the collection pages and the admin list.
+ * The concrete paths are revalidated too: a collection page requested while it was a draft is cached as a 404,
+ * and in the production build only the literal path clears that entry (the route pattern does not).
+ */
+function revalidateExplore(slugs: Array<string | null | undefined> = []): void {
   revalidatePath("/entdecken");
   revalidatePath("/entdecken/[slug]", "page");
+  for (const slug of new Set(slugs.filter((x): x is string => !!x))) revalidatePath(`/entdecken/${slug}`);
   revalidatePath("/admin/entdecken", "layout");
   revalidatePath("/ranking"); // names live sponsored placements
   revalidatePath("/sitemap.xml");
 }
 
-export async function saveExploreCollectionAction(raw: AdminExploreCollectionInput): Promise<ActionResult<{ id: string; slug: string }>> {
+export async function saveExploreCollectionAction(raw: AdminExploreCollectionInput): Promise<ActionResult<{ id: string; slug: string; previousSlug: string | null }>> {
   return withSession("admin", async (s) => {
     const r = await saveExploreCollection(s, raw);
-    revalidateExplore();
+    revalidateExplore([r.slug, r.previousSlug]);
     return r;
   }, "Sammlung gespeichert.");
 }
@@ -59,7 +64,7 @@ export async function setExploreCollectionPublishedAction(raw: z.input<typeof Pu
   return withSession("admin", async (s) => {
     const v = input(PublishSchema, raw);
     const r = await setExploreCollectionPublished(s, v.id, v.published);
-    revalidateExplore();
+    revalidateExplore([r.slug]);
     return r;
   });
 }
@@ -67,7 +72,7 @@ export async function setExploreCollectionPublishedAction(raw: z.input<typeof Pu
 export async function deleteExploreCollectionAction(id: string): Promise<ActionResult<{ slug: string }>> {
   return withSession("admin", async (s) => {
     const r = await deleteExploreCollection(s, input(zGuid, id));
-    revalidateExplore();
+    revalidateExplore([r.slug]);
     return r;
   }, "Sammlung gelöscht.");
 }
