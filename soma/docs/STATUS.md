@@ -93,13 +93,15 @@ appointment testkunde ↔ testkunde-b2b ≈ 35 min later, requests open ≥ 3 h,
 | Manual/agent journeys | every customer, provider and admin workflow listed in `docs/qa/audit-*.md` | see the audit reports |
 | Production build | `next build` (111 routes, 42 SEO pages prerendered) | passes |
 
-### 3.1 Latest numbers (final integration run)
+### 3.1 Latest numbers (final integration run, 2026-11-02, after landing audit 5)
 - `tsc --noEmit`: clean.
-- Vitest: **208/208** passing (unit + integration against Postgres; 24 files).
-- Playwright E2E against the production build: **125 passed, 1 skipped** (a desktop-only check), mobile + desktop, about 7 min. The suite
-  covers booking, approval mode, races, access control, open-redirect variants, remediation items R1–R23 / N1–N14 / F1–F11
-  and the audit-4/audit-5 regression tests (`tests/e2e/audit4.spec.ts`, `tests/e2e/audit5.spec.ts`).
-- `next build`: 113 routes generated, 42 SEO city pages prerendered.
+- Vitest: **266/266** passing (unit + integration against Postgres; 31 files), including Entdecken (RLS, opt-out,
+  popularity floors without counts, slot-promise guard) and the image replacement/avatar chain.
+- Playwright E2E against the production build: **227 passed, 21 skipped, 0 failed** (mobile + desktop, about 15 min). Skips
+  are viewport-specific checks that only run in one project.
+- `next build`: 124 static pages generated.
+- Upgrade path checked: from the state deployed before (migrations up to 0009 + demo data) to 0010–0012 + a fresh demo
+  refresh, on a database owner without superuser rights (like Supabase/Neon).
 
 **Not tested (no credentials or sandbox limits):** Stripe Connect (keys, webhook, Payment Element),
 Supabase Auth and Storage adapters, Resend e-mail delivery, SMS and web push, real photography (the image
