@@ -2,7 +2,7 @@
  "note": "v4 Profi portraits with variety (Photo Art Director, 2 Nov 2026). Start balance 814.99 credits, budget 90.",
  "startBalance": 814.99,
  "budget": 90,
- "creditsLogged": 68,
+ "creditsLogged": 70,
  "jobs": [
   {
    "id": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
@@ -390,11 +390,13 @@
    "shot": "R27",
    "path": "/images/pros/pro-27-v4.jpg",
    "setting": "A",
-   "pose": "Q",
+   "pose": "L",
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png",
+   "status": "fail",
+   "reason": "identity kept, but the towel over the forearm hides that hand (hidden-and-ambiguous limb)"
   },
   {
    "id": "e87ba940-86b0-4934-a5f9-1d9da55c9fbe",
@@ -406,7 +408,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_e87ba940-86b0-4934-a5f9-1d9da55c9fbe.png",
-   "note": "attempt 2, light trousers"
+   "note": "attempt 2, light trousers",
+   "status": "pass",
+   "reason": "attempt 2: light sand trousers; identity kept; both arms and hands complete"
   },
   {
    "id": "9c07c329-3e83-47e7-9e92-e419bc46de81",
@@ -418,7 +422,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_9c07c329-3e83-47e7-9e92-e419bc46de81.png",
-   "note": "attempt 2, light trousers"
+   "note": "attempt 2, light trousers",
+   "status": "pass",
+   "reason": "attempt 2: light sand trousers; identity kept; both arms and hands complete"
   },
   {
    "id": "6f052ea4-068e-4a1e-969a-dd72df9a5729",
@@ -430,7 +436,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140323_6f052ea4-068e-4a1e-969a-dd72df9a5729.png",
-   "note": "attempt 2, light trousers"
+   "note": "attempt 2, light trousers",
+   "status": "pass",
+   "reason": "attempt 2: light sand trousers; identity kept; both arms and hands complete"
   },
   {
    "id": "c98d2f74-1f01-4bcb-8aca-eff946dbd8cd",
@@ -442,7 +450,21 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_c98d2f74-1f01-4bcb-8aca-eff946dbd8cd.png",
-   "note": "attempt 2, light trousers"
+   "note": "attempt 2, light trousers",
+   "status": "pass",
+   "reason": "attempt 2: light sand trousers; identity kept; both arms and hands complete"
+  },
+  {
+   "id": "0ca0d4d7-6e50-4737-b265-ca0d4ec031e2",
+   "shot": "R27",
+   "path": "/images/pros/pro-27-v4.jpg",
+   "setting": "A",
+   "pose": "L",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140547_0ca0d4d7-6e50-4737-b265-ca0d4ec031e2.png",
+   "note": "attempt 2, leaning on the couch"
   }
  ],
  "current": {
@@ -621,13 +643,6 @@
    "attempt": 1,
    "focal": "50% 10%"
   },
-  "/images/pros/pro-27-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png",
-   "job": "b95b1d4e-8384-49c6-b3c3-a1e8fb87084d",
-   "shot": "R27",
-   "attempt": 1,
-   "focal": "50% 15%"
-  },
   "/images/pros/pro-08-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_e87ba940-86b0-4934-a5f9-1d9da55c9fbe.png",
    "job": "e87ba940-86b0-4934-a5f9-1d9da55c9fbe",
@@ -655,6 +670,13 @@
    "shot": "R29",
    "attempt": 2,
    "focal": "50% 10%"
+  },
+  "/images/pros/pro-27-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140547_0ca0d4d7-6e50-4737-b265-ca0d4ec031e2.png",
+   "job": "0ca0d4d7-6e50-4737-b265-ca0d4ec031e2",
+   "shot": "R27",
+   "attempt": 2,
+   "focal": "50% 15%"
   }
  }
 }

@@ -63,7 +63,8 @@ export const V4 = [
   ["24", "C", "G", "one hand on the strap of her bag at the shoulder, the other hand resting lightly at the waist", "a light wooden apartment door in a modern building corridor with white walls and a terrazzo floor, no plants", "head"],
   ["25", "A", "L", "a light terrazzo counter in her studio", "her own bright lash studio: lash tools in glass jars on the counter, a round wall light, a lash bed with ivory linen behind, a trailing string-of-pearls plant on a high shelf", "head"],
   ["26", "B", "Q", "holding a round brush loosely at waist height", "a client's bright bedroom with a light oak dresser, hair tools laid out neatly, a large window, a ficus tree", "head"],
-  ["27", "A", "Q", "a folded ivory towel over one forearm and the other hand holding its edge at waist height", "her own bright cosmetic studio: a cosmetic couch with white linen, sheer linen curtains, a tall snake plant in a white pot", "head"],
+  // 27 attempt 1 was Q with a towel over the forearm (the towel hid that hand): attempt 2 leans on the couch.
+  ["27", "A", "L", "the edge of her cosmetic couch", "her own bright cosmetic studio: a cosmetic couch with white linen, sheer linen curtains, a tall snake plant in a white pot", "head"],
   ["28", "C", "R", "", "a pale stone-coloured Altbau apartment door with a brass handle, a stairwell window with sun, her tidy sand canvas bag on her shoulder, no plants", "wide"],
   ["29", "C", "Q", "carrying a tan leather kit bag by its handle in one hand, the other hand resting lightly at the waist", "an Altbau entrance hall with warm beige floor tiles and a wooden staircase, sun through the front door glass, no plants", "wide"],
   ["30", "D", "S", "in a cream boucle armchair", "a bright hotel suite by a floor-to-ceiling window with the city, a side table with unlabelled oil bottles, the bed in white linen behind, no plants", "wide"],
