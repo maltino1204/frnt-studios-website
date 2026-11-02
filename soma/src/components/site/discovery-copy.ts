@@ -56,7 +56,8 @@ export type EntryThumb = {
   sizes?: string;
   loading?: "lazy" | "eager";
   decoding?: "async" | "auto" | "sync";
-  style: Record<string, string | number>;
+  /** object-position (the registry's focal point) */
+  position: string;
 };
 export type EntryCategory = {
   slug: string;

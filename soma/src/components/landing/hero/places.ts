@@ -63,17 +63,21 @@ export const PLACES: readonly Place[] = [
  * Keep it in step with the cap in landing.css.
  */
 export function heroSizes(ribbon: boolean): string {
-  // < 768: the arch starts at header 60 + hero padding 12 + head ≤ 222 + figure margin 28 (+ ribbon); under it the
-  // Ortszeile, 12 px of air and the dock (108 px; 125 px below 400 px, where the Ortszeile takes two lines). While the
-  // natural Ortszeile lies below the fold, the arch keeps its natural width: the clamp() term is then large.
+  // < 768: the arch starts at `top` = header 60 + hero padding 12 + head ≤ 222 + figure margin 28 (+ ribbon); under it
+  // the Ortszeile, 12 px of air and the dock (108 px; 125 px below 400 px, where the Ortszeile takes two lines). Capped
+  // width 0.8 × (100svh − top − under). While the natural Ortszeile lies below the fold (top + 1.25 × (100vw − 40px)
+  // + 12px ≥ 100svh) the arch keeps its natural width: the clamp() term is then large and min() picks the column.
   const top = 322 + (ribbon ? 47 : 0);
-  const phone = (under: number) =>
-    `min(100vw - 40px, 0.8 * (100svh - ${top + under}px) + clamp(0px, (${top + 12}px + 1.25 * (100vw - 40px) - 100svh) * 1000, 100000px))`;
-  // 768–1023: one centred column (max 36rem); the arch starts at 292 px + 10.9vw (+ ribbon); the Ortszeile, the entry up
-  // to its CTA and 12 px of air take 311 px under it. Where less than 300 px of arch would remain, the arch is instead
-  // as tall as the rest of the first view (at least 300 px).
-  const rest = `(100svh - ${292 + (ribbon ? 33 : 0)}px - 10.9vw)`;
-  const tablet = `min(100vw - 64px, 576px, max(0.8 * (${rest} - 311px), 0.8 * max(300px, ${rest}) - clamp(0px, (${rest} - 611px) * 1000, 100000px)))`;
+  const natural = `clamp(0px, (125vw + ${top + 12 - 50}px - 100svh) * 1000, 99999px)`;
+  const phone = (under: number) => `min(100vw - 40px, 80svh - ${r1(0.8 * (top + under))}px + ${natural})`;
+  // 768–1023: one centred column (max 36rem); the arch starts at 292px + 10.9vw (+ ribbon), and the Ortszeile, the
+  // entry up to its CTA and 12 px of air take 311 px under it: capped width 0.8 × (rest − 311px), rest = 100svh − start.
+  // Where less than 300 px of arch would remain (rest ≤ 611px), the arch takes the rest of the first view, at least
+  // 300 px (0.8 × max(300px, rest)); the clamp() term switches between the two.
+  const start = 292 + (ribbon ? 33 : 0);
+  const tablet =
+    `min(100vw - 64px, 576px, max(80svh - 8.72vw - ${r1(0.8 * (start + 311))}px, ` +
+    `max(240px, 80svh - 8.72vw - ${r1(0.8 * start)}px) - clamp(0px, (100svh - 10.9vw - ${start + 611}px) * 1000, 99999px)))`;
   return [
     "(min-width: 1440px) 628px",
     "(min-width: 1280px) 45vw",
@@ -86,3 +90,5 @@ export function heroSizes(ribbon: boolean): string {
     "calc(100vw - 40px)",
   ].join(", ");
 }
+/** One decimal, no trailing ".0". */
+const r1 = (n: number) => String(Math.round(n * 10) / 10);

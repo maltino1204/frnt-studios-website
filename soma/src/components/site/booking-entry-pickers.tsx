@@ -153,12 +153,12 @@ function CategoryThumb({ tone, thumb, className }: { tone?: string; thumb?: Entr
           loading={thumb.loading}
           decoding={thumb.decoding}
           alt=""
-          data-nimg="fill"
-          style={thumb.style}
+          style={{ objectPosition: thumb.position }}
           onLoad={() => setState("loaded")}
           onError={() => setState("error")}
           className={cn(
-            "z-[3] object-cover transition-[opacity,scale] ease-arrive [transition-duration:var(--transition-duration-calm),900ms]",
+            // `fill`, as next/image places it: over the whole slot, alt text invisible
+            "absolute inset-0 z-[3] size-full object-cover text-transparent transition-[opacity,scale] ease-arrive [transition-duration:var(--transition-duration-calm),900ms]",
             state === "loaded" ? "scale-100 opacity-100" : "scale-[1.04] opacity-0",
           )}
         />
