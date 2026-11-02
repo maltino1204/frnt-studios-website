@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronLeft, ChevronRight, CircleAlert, LocateFixed, X } from "lucide-react";
+import { ChevronDown, CircleAlert, LocateFixed, X } from "lucide-react";
 import {
-  useActionState,
   useCallback,
   useDeferredValue,
   useEffect,
@@ -11,41 +10,28 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   useTransition,
   type FormEvent,
   type ReactNode,
   type RefObject,
 } from "react";
-import { DateStrip, type DateCell } from "@/components/ui/booking";
 import { Button } from "@/components/ui/button";
-import { Chip } from "@/components/ui/chip";
-import { Input } from "@/components/ui/field";
-import { SubmitButton } from "@/components/ui/form";
 import { Icon } from "@/components/ui/icon";
-import { Photo } from "@/components/ui/photo";
-import { Sheet } from "@/components/ui/sheet";
 import { Spinner } from "@/components/ui/spinner";
-import { SuccessCheck } from "@/components/ui/success";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { berlinDateKey, formatDayShort } from "@/lib/format";
-import { images } from "@/lib/images";
-import { routes, type SearchParams } from "@/lib/routes";
-import { joinWaitlistAction } from "@/server/actions/booking";
+import { routes } from "@/lib/routes";
 import { lookupPostalCodeAction, nearestPostalCodeAction } from "@/server/actions/site-ext";
-import { initialActionState } from "@/server/actions/types";
 import type { PostalCodeDTO } from "@/server/dto";
-import { durationsLabel, fromPrice, type EntryCategory, type EntryService } from "./discovery-copy";
-import { keepValuesOnSubmit } from "./keep-values";
+import { addDays, DOT, HORIZON_DAYS, WINDOWS, type BookingDraft, type TimeWindow, type When, type WhenMode } from "./booking-entry-shared";
+import type { EntryCategory } from "./discovery-copy";
 
 /* ------------------------------------------------------------------------ */
 /* Types & helpers                                                          */
 /* ------------------------------------------------------------------------ */
-export type TimeWindow = NonNullable<SearchParams["zeit"]>;
-export type WhenMode = "asap" | "today" | "tomorrow" | "date";
-export type When = { mode: WhenMode; date: string | null; window: TimeWindow | null };
-/** What the visitor has entered so far; shared between entries on one page (landing hero ↔ booking bar/sheet). */
-export type BookingDraft = { plz: string; categorySlug: string | null; serviceId: string | null; when: When };
+export type { BookingDraft, TimeWindow, When, WhenMode } from "./booking-entry-shared";
 type Loc =
   | { status: "idle" }
   | { status: "checking" }
@@ -55,22 +41,7 @@ type Loc =
   | { status: "error"; message: string };
 
 const STORAGE_KEY = "soma:last-plz";
-/** The middle dot with a no-break space on both sides (brand § 4.4: Instrument Sans sets "·" tight). */
-const DOT = "\u00a0·\u00a0";
 const PICK_EVENT = "soma:booking-entry:set";
-const HORIZON_DAYS = 60;
-
-const WINDOWS: Array<{ value: TimeWindow; label: string; range: string }> = [
-  { value: "morgens", label: "Morgens", range: "7–12" },
-  { value: "mittags", label: "Nachmittags", range: "12–17" },
-  { value: "abends", label: "Abends", range: "17–22" },
-];
-
-function addDays(key: string, n: number): string {
-  const d = new Date(`${key}T12:00:00Z`);
-  d.setUTCDate(d.getUTCDate() + n);
-  return d.toISOString().slice(0, 10);
-}
 
 function whenLabel(w: When): string {
   const day =
@@ -132,6 +103,47 @@ function useIsDesktop(): boolean {
 export function pickInBookingEntry(detail: { categorySlug: string; serviceId?: string | null }) {
   window.dispatchEvent(new CustomEvent(PICK_EVENT, { detail }));
 }
+
+/* ------------------------------------------------------------------------ */
+/* The pickers' chunk (booking-entry-pickers.tsx)                           */
+/* ------------------------------------------------------------------------ */
+type Pickers = typeof import("./booking-entry-pickers");
+let pickersModule: Pickers | null = null;
+let pickersLoading: Promise<Pickers> | null = null;
+const pickerListeners = new Set<() => void>();
+
+/**
+ * Was?, Wann?, the waitlist and the mobile picker sheet load as their own chunk (audit-2 RT-5): in the first idle
+ * period after an entry mounts, and at once on intent (a pointer, focus or key inside the form). A picker opened
+ * before then opens as soon as the chunk is there; the inline pickers (landing sheet) show their frame at once.
+ */
+export function loadBookingPickers(): Promise<Pickers> {
+  pickersLoading ??= import("./booking-entry-pickers").then(
+    (m) => {
+      pickersModule = m;
+      for (const l of pickerListeners) l();
+      return m;
+    },
+    (e: unknown) => {
+      pickersLoading = null;
+      throw e;
+    },
+  );
+  return pickersLoading;
+}
+
+function usePickers(): Pickers | null {
+  return useSyncExternalStore(
+    (l) => {
+      pickerListeners.add(l);
+      return () => pickerListeners.delete(l);
+    },
+    () => pickersModule,
+    () => null,
+  );
+}
+
+type IdleWindow = Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (h: number) => void };
 
 /* ------------------------------------------------------------------------ */
 /* Popover (desktop pickers, anchored under their segment)                  */
@@ -209,235 +221,6 @@ function Popover({
 }
 
 /* ------------------------------------------------------------------------ */
-/* Was? picker: categories → services                                       */
-/* ------------------------------------------------------------------------ */
-function WasPicker({
-  catalog,
-  categorySlug,
-  serviceId,
-  onPick,
-}: {
-  catalog: EntryCategory[];
-  categorySlug: string | null;
-  serviceId: string | null;
-  onPick: (categorySlug: string | null, serviceId: string | null) => void;
-}) {
-  const [view, setView] = useState<string | null>(categorySlug);
-  const current = catalog.find((c) => c.slug === view) ?? null;
-  const rootRef = useRef<HTMLDivElement>(null);
-  const prevView = useRef(view);
-
-  // Drilling in or out unmounts the focused button: keep keyboard focus inside the picker (the selected or first
-  // option inside a category, the category you came from on the way back), or the popover would close on next Tab.
-  useEffect(() => {
-    const prev = prevView.current;
-    prevView.current = view;
-    if (prev === view) return;
-    const root = rootRef.current;
-    if (!root) return;
-    const target = view
-      ? (root.querySelector<HTMLElement>("li [aria-pressed='true']") ?? root.querySelector<HTMLElement>("li button"))
-      : root.querySelector<HTMLElement>(`[data-cat="${prev}"]`);
-    target?.focus({ preventScroll: true });
-  }, [view]);
-
-  if (current) {
-    return (
-      <div ref={rootRef} className="flex flex-col">
-        <button
-          type="button"
-          onClick={() => setView(null)}
-          className="-mx-2 mb-2 inline-flex min-h-touch items-center gap-1.5 self-start rounded-full px-3 type-label-s text-ink-muted pressable focus-ring hover:bg-surface-sunken hover:text-ink"
-        >
-          <Icon icon={ChevronLeft} size={16} />
-          Alle Behandlungen
-        </button>
-        <ul className="flex flex-col">
-          <li>
-            <PickRow
-              selected={categorySlug === current.slug && !serviceId}
-              onClick={() => onPick(current.slug, null)}
-              title={`${current.name}: alle Leistungen`}
-              meta={current.tagline ?? undefined}
-            />
-          </li>
-          {current.services.map((s) => (
-            <li key={s.id}>
-              <PickRow selected={serviceId === s.id} onClick={() => onPick(current.slug, s.id)} title={s.name} meta={serviceMeta(s)} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
-  return (
-    <div ref={rootRef}>
-    <ul className="flex flex-col">
-      <li>
-        <PickRow selected={!categorySlug} onClick={() => onPick(null, null)} title="Alle Behandlungen" meta="Alle verfügbaren Profis in deiner Nähe" />
-      </li>
-      {catalog.map((c) => (
-        <li key={c.slug}>
-          <button
-            type="button"
-            data-cat={c.slug}
-            onClick={() => setView(c.slug)}
-            aria-pressed={categorySlug === c.slug}
-            className="group -mx-2 flex w-[calc(100%+1rem)] items-center gap-4 rounded-control px-2 py-2.5 text-left pressable focus-ring hover:bg-surface-sunken/70"
-          >
-            <Photo
-              src={c.imagePath ?? images.category(c.slug)}
-              alt=""
-              tone={c.slug}
-              sizes="40px"
-              className="aspect-square w-11 shrink-0 rounded-[10px] shadow-raised"
-            />
-            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-              <span className={cn("type-heading-s", categorySlug === c.slug && "underline decoration-1 underline-offset-4")}>{c.name}</span>
-              {c.tagline ? <span className="type-caption text-ink-muted">{c.tagline}</span> : null}
-            </span>
-            <Icon icon={ChevronRight} className="shrink-0 text-ink-muted transition-transform duration-fast group-hover:translate-x-0.5" />
-          </button>
-        </li>
-      ))}
-    </ul>
-    </div>
-  );
-}
-
-function serviceMeta(s: EntryService): string {
-  const p = fromPrice(s.fromCents);
-  return [durationsLabel(s.durations), p].filter(Boolean).join(DOT);
-}
-
-function PickRow({ selected, onClick, title, meta }: { selected: boolean; onClick: () => void; title: string; meta?: string }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={selected}
-      className="-mx-2 flex min-h-14 w-[calc(100%+1rem)] items-center justify-between gap-4 rounded-control px-2 py-3 text-left pressable focus-ring hover:bg-surface-sunken/70"
-    >
-      <span className="flex min-w-0 flex-col gap-0.5">
-        <span className={cn("type-body text-ink", selected && "font-semibold")}>{title}</span>
-        {meta ? <span className="type-caption text-ink-muted num">{meta}</span> : null}
-      </span>
-      <span
-        aria-hidden
-        className={cn(
-          "size-5 shrink-0 rounded-full border bg-surface-raised transition-[border-width,border-color] duration-spring ease-spring",
-          selected ? "border-[6px] border-ink" : "border-line-strong",
-        )}
-      />
-    </button>
-  );
-}
-
-/* ------------------------------------------------------------------------ */
-/* Wann? picker: day chips, optional date strip, optional time window       */
-/* ------------------------------------------------------------------------ */
-function WannPicker({ when, onChange }: { when: When; onChange: (w: When) => void }) {
-  const today = berlinDateKey();
-  const days: DateCell[] = Array.from({ length: HORIZON_DAYS }, (_, i) => {
-    const key = addDays(today, i);
-    return { key, date: `${key}T12:00:00Z`, available: true };
-  });
-  const modes: Array<{ value: WhenMode; label: string }> = [
-    { value: "asap", label: "So bald wie möglich" },
-    { value: "today", label: "Heute" },
-    { value: "tomorrow", label: "Morgen" },
-    { value: "date", label: "Datum wählen" },
-  ];
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
-        <p className="type-label-s text-ink-muted" id="wann-tag">
-          Tag
-        </p>
-        <div role="group" aria-labelledby="wann-tag" className="flex flex-wrap gap-2">
-          {modes.map((m) => (
-            <Chip
-              key={m.value}
-              selected={when.mode === m.value}
-              showCheck
-              onClick={() => onChange({ ...when, mode: m.value, date: m.value === "date" ? (when.date ?? addDays(today, 2)) : null })}
-            >
-              {m.label}
-            </Chip>
-          ))}
-        </div>
-        {when.mode === "date" ? (
-          // The strip bleeds by --space-gutter; pin it to the sheet/popover padding (20px).
-          <div className="[--space-gutter:1.25rem]">
-            <DateStrip
-              className="mt-1"
-              days={days}
-              selected={when.date}
-              onSelect={(key) => onChange({ ...when, mode: "date", date: key })}
-              label="Datum wählen"
-            />
-          </div>
-        ) : null}
-      </div>
-      <div className="flex flex-col gap-3">
-        <p className="type-label-s text-ink-muted" id="wann-zeit">
-          Tageszeit <span className="font-normal">(optional)</span>
-        </p>
-        <div role="group" aria-labelledby="wann-zeit" className="flex flex-wrap gap-2">
-          {WINDOWS.map((w) => (
-            <Chip
-              key={w.value}
-              selected={when.window === w.value}
-              showCheck
-              onClick={() => onChange({ ...when, window: when.window === w.value ? null : w.value })}
-            >
-              {w.label}
-              <span className={cn("num", when.window === w.value ? "text-ink-inverse/70" : "text-ink-muted")}>{w.range}</span>
-            </Chip>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------------ */
-/* Waitlist (unserved PLZ)                                                  */
-/* ------------------------------------------------------------------------ */
-function Waitlist({ postalCode, categorySlug }: { postalCode: string; categorySlug: string | null }) {
-  const [state, action, pending] = useActionState(joinWaitlistAction, initialActionState);
-  if (state?.ok) {
-    return (
-      <p className="flex items-center gap-3 type-body-s text-ink">
-        <SuccessCheck size={32} glow={false} />
-        <span>Eingetragen. Wir melden uns, sobald Profis in {postalCode} buchbar sind.</span>
-      </p>
-    );
-  }
-  return (
-    <form action={action} onSubmit={keepValuesOnSubmit(action)} noValidate className="flex flex-col gap-3 sm:flex-row sm:items-end">
-      <input type="hidden" name="postalCode" value={postalCode} />
-      {categorySlug ? <input type="hidden" name="categorySlug" value={categorySlug} /> : null}
-      <Input
-        label="E-Mail für die Benachrichtigung"
-        name="email"
-        type="email"
-        autoComplete="email"
-        inputMode="email"
-        placeholder="name@beispiel.de"
-        required
-        className="flex-1"
-        error={state && !state.ok ? (state.fieldErrors?.email ?? state.error) : null}
-      />
-      <SubmitButton variant="secondary" className="h-12 sm:shrink-0" loading={pending}>
-        Benachrichtigen
-      </SubmitButton>
-    </form>
-  );
-}
-
-/* ------------------------------------------------------------------------ */
 /* Booking entry                                                            */
 /* ------------------------------------------------------------------------ */
 export type BookingEntryProps = {
@@ -502,6 +285,7 @@ export function BookingEntry({
   const router = useRouter();
   const uid = useId();
   const desktop = useIsDesktop();
+  const P = usePickers();
   const sill = variant === "sill";
   const bar = variant === "hero" || sill;
   const inline = pickerLayout === "inline";
@@ -612,6 +396,22 @@ export function BookingEntry({
     if (day || windowParam) setWhen({ mode: day?.mode ?? "asap", date: day?.date ?? null, window: windowParam });
     // Mount only: later prop changes must not overwrite the visitor's choices.
   }, []);
+
+  // The pickers' chunk: in the first idle period after mount (intent loads it at once, see the form's handlers).
+  useEffect(() => {
+    if (pickersModule) return;
+    const go = () => void loadBookingPickers().catch(() => undefined);
+    const win = window as IdleWindow;
+    if (win.requestIdleCallback) {
+      const h = win.requestIdleCallback(go, { timeout: 3000 });
+      return () => win.cancelIdleCallback?.(h);
+    }
+    const t = window.setTimeout(go, 300);
+    return () => window.clearTimeout(t);
+  }, []);
+  const preloadPickers = () => {
+    if (!pickersModule) void loadBookingPickers().catch(() => undefined);
+  };
 
   // Report every change (the landing shares one draft between the hero entry and the booking bar/sheet).
   useEffect(() => {
@@ -745,8 +545,13 @@ export function BookingEntry({
   };
   const toggle = (which: "was" | "wann") => {
     if (open === which) return setOpen(null);
-    if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
-    setOpen(which);
+    const show = () => {
+      if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
+      setOpen(which);
+    };
+    // A popover or sheet opens with its content (focus moves into it); the inline frame opens at once (RT-7).
+    if (pickersModule || inline) return show();
+    void loadBookingPickers().then(show, show);
   };
 
   // Return focus to the trigger when a picker closes.
@@ -779,6 +584,10 @@ export function BookingEntry({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
   }, [showPanel, anchored]);
+  // The waitlist form is in the pickers' chunk.
+  useEffect(() => {
+    if (showPanel) preloadPickers();
+  }, [showPanel]);
 
   /* Segment chrome: stacked 64px rows on mobile (and compact), one 72px bar from lg (hero, sill). */
   const segment = cn(
@@ -802,8 +611,13 @@ export function BookingEntry({
       ? { "aria-expanded": open === which, "aria-controls": which === "was" ? wasPanelId : wannPanelId }
       : { "aria-haspopup": "dialog" as const, "aria-expanded": open === which };
 
-  const wasPicker = <WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />;
-  const wannPicker = <WannPicker when={when} onChange={setWhen} />;
+  // Until the pickers' chunk is there (an inline panel opened at once, or a failed load), a frame of the list's height.
+  const wasPicker = P ? (
+    <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} />
+  ) : (
+    <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />
+  );
+  const wannPicker = P ? <P.WannPicker when={when} onChange={setWhen} /> : <div aria-hidden className="h-[13.5rem]" />;
   const placeholder = hint?.placeholder ?? `PLZ, z. B. ${postalExample}`;
   const srLabel = hint?.srLabel ?? "Postleitzahl";
 
@@ -826,6 +640,9 @@ export function BookingEntry({
         method="get"
         noValidate
         onSubmit={submit}
+        onPointerDownCapture={preloadPickers}
+        onFocusCapture={preloadPickers}
+        onKeyDownCapture={preloadPickers}
         className={cn(
           "flex flex-col rounded-card bg-surface-raised text-ink shadow-float ring-inset transition-shadow duration-base",
           invalid ? "ring-2 ring-danger" : "ring-1 ring-line-mid",
@@ -910,7 +727,7 @@ export function BookingEntry({
         </div>
         {inline && open === "was" ? (
           <div id={wasPanelId} role="group" aria-label="Behandlung wählen" aria-busy={listOpen !== "was" || undefined} className="border-b border-line px-5 py-3">
-            {listOpen === "was" ? wasPicker : <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />}
+            {listOpen === "was" && P ? wasPicker : <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />}
           </div>
         ) : null}
 
@@ -950,7 +767,7 @@ export function BookingEntry({
         </div>
         {inline && open === "wann" ? (
           <div id={wannPanelId} role="group" aria-label="Zeitpunkt wählen" aria-busy={listOpen !== "wann" || undefined} className="flex flex-col gap-4 px-5 py-4">
-            {listOpen === "wann" ? wannPicker : <div aria-hidden className="h-[13.5rem]" />}
+            {listOpen === "wann" && P ? wannPicker : <div aria-hidden className="h-[13.5rem]" />}
             <Button size="m" variant="secondary" className="self-start" onClick={closePicker}>
               Fertig
             </Button>
@@ -1001,7 +818,7 @@ export function BookingEntry({
             <p className="type-body-s text-ink">
               In {loc.data.postalCode} gibt es noch keine Profis auf {BRAND_NAME}. Sollen wir dir Bescheid geben, sobald es losgeht?
             </p>
-            <Waitlist postalCode={loc.data.postalCode} categorySlug={categorySlug} />
+            {P ? <P.Waitlist postalCode={loc.data.postalCode} categorySlug={categorySlug} /> : null}
             {anchored ? (
               <button
                 type="button"
@@ -1021,13 +838,13 @@ export function BookingEntry({
       </div>
 
       {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). */}
-      {!desktop && !inline && open === "was" ? (
-        <Sheet open onClose={closePicker} title="Behandlung wählen">
+      {P && !desktop && !inline && open === "was" ? (
+        <P.Sheet open onClose={closePicker} title="Behandlung wählen">
           {wasPicker}
-        </Sheet>
+        </P.Sheet>
       ) : null}
-      {!desktop && !inline && open === "wann" ? (
-        <Sheet
+      {P && !desktop && !inline && open === "wann" ? (
+        <P.Sheet
           open
           onClose={closePicker}
           title="Zeitpunkt wählen"
@@ -1038,7 +855,7 @@ export function BookingEntry({
           }
         >
           {wannPicker}
-        </Sheet>
+        </P.Sheet>
       ) : null}
     </div>
   );
