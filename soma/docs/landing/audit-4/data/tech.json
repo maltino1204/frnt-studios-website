@@ -1,0 +1,267 @@
+{
+ "consoleByVp": {
+  "d1440": {
+   "motion": "full",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "d1280": {
+   "motion": "full",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "t1024": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "t768": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": [
+    "t768 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=1080&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+   ]
+  },
+  "m430": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m412": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  },
+  "m390": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": [
+    "m390 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=828&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+   ]
+  },
+  "m320": {
+   "motion": "lite",
+   "overflowX": 0,
+   "msgs": []
+  }
+ },
+ "htmlBytes": 425511,
+ "activityMarkers": 8,
+ "outlinedSegments": 0,
+ "suspenseFallbackMarkers": 0,
+ "tierScriptInHtml": true,
+ "struct": {
+  "ldTypes": [
+   "Organization",
+   "WebSite",
+   "WebPage",
+   "FAQPage"
+  ],
+  "faqLdCount": 5,
+  "faqVisibleCount": 5,
+  "faqMatch": true,
+  "orgHasAggregateRating": false,
+  "websiteHasSearchAction": false,
+  "domNodes": 1173,
+  "h1": 1,
+  "h2": [
+   "Sieben Behandlungen. Ein Ort: deiner.",
+   "Drei Schritte. Kein Weg.",
+   "Wer bei dir klingelt.",
+   "Dein Können. Deine Preise. Deine Zeiten.",
+   "Antworten, bevor du fragst.",
+   "Your body. Your place.",
+   "Behandlungen",
+   "Städte",
+   "Für Profis",
+   "Hilfe",
+   "Rechtliches"
+  ],
+  "anchors": 8,
+  "badAnchors": [],
+  "internal": [
+   "/",
+   "/entdecken",
+   "/behandlungen",
+   "/fuer-profis",
+   "/hilfe",
+   "/anmelden",
+   "/behandlungen/massage",
+   "/behandlungen/manikuere",
+   "/behandlungen/pedikuere",
+   "/behandlungen/kosmetik",
+   "/behandlungen/make-up",
+   "/behandlungen/haare-styling",
+   "/behandlungen/brows-lashes",
+   "/profis/selin-a-berlin",
+   "/profis/gabriele-h-muenchen",
+   "/profis/yasmin-k-frankfurt",
+   "/profis/maximilian-f-muenchen",
+   "/profis/elena-r-muenchen",
+   "/profis/natalja-w-duesseldorf",
+   "/profis/luca-r-koeln",
+   "/profis/katrin-b-frankfurt",
+   "/pro/registrieren",
+   "/fuer-profis#provision",
+   "/suche",
+   "/staedte/berlin",
+   "/staedte/hamburg",
+   "/staedte/muenchen",
+   "/staedte/koeln",
+   "/staedte/frankfurt",
+   "/staedte/duesseldorf",
+   "/staedte",
+   "/anmelden?next=%2Fpro",
+   "/stornierung",
+   "/ranking",
+   "/impressum",
+   "/datenschutz",
+   "/agb",
+   "/agb-profis",
+   "/widerruf",
+   "/datenschutz#cookies"
+  ],
+  "title": "SOMA – Beauty & Wellness bei dir zu Hause, im Hotel und im Büro",
+  "description": "Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir. Endpreis inkl. Anfahrt, kostenlos stornierbar bis 24 Std. vorher.",
+  "robots": "noindex, nofollow",
+  "canonical": "http://localhost:3000/",
+  "og": {
+   "og:title": "SOMA · Your body. Your place.",
+   "og:description": "Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir. Endpreis inkl. Anfahrt, kostenlos stornierbar bis 24 Std. vorher.",
+   "og:url": "http://localhost:3000",
+   "og:site_name": "SOMA",
+   "og:locale": "de_DE",
+   "og:image": "http://localhost:3000/brand/og-default.jpg",
+   "og:image:width": "1200",
+   "og:image:height": "630",
+   "og:image:alt": "SOMA-Logo mit „Your body. Your place.“, daneben eine Massage in einem Altbauwohnzimmer",
+   "og:type": "website"
+  },
+  "lang": "de",
+  "preloads": [
+   "font instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2 ",
+   "font newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2 ",
+   "image image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048& high",
+   "script 1ckvzn7sfprko.js low"
+  ]
+ },
+ "linkStatus": {
+  "/": 200,
+  "/entdecken": 200,
+  "/behandlungen": 200,
+  "/fuer-profis": 200,
+  "/hilfe": 200,
+  "/anmelden": 200,
+  "/behandlungen/massage": 200,
+  "/behandlungen/manikuere": 200,
+  "/behandlungen/pedikuere": 200,
+  "/behandlungen/kosmetik": 200,
+  "/behandlungen/make-up": 200,
+  "/behandlungen/haare-styling": 200,
+  "/behandlungen/brows-lashes": 200,
+  "/profis/selin-a-berlin": 200,
+  "/profis/gabriele-h-muenchen": 200,
+  "/profis/yasmin-k-frankfurt": 200,
+  "/profis/maximilian-f-muenchen": 200,
+  "/profis/elena-r-muenchen": 200,
+  "/profis/natalja-w-duesseldorf": 200,
+  "/profis/luca-r-koeln": 200,
+  "/profis/katrin-b-frankfurt": 200,
+  "/pro/registrieren": 200,
+  "/suche": 200,
+  "/staedte/berlin": 200,
+  "/staedte/hamburg": 200,
+  "/staedte/muenchen": 200,
+  "/staedte/koeln": 200,
+  "/staedte/frankfurt": 200,
+  "/staedte/duesseldorf": 200,
+  "/staedte": 200,
+  "/anmelden?next=%2Fpro": 200,
+  "/stornierung": 200,
+  "/ranking": 200,
+  "/impressum": 200,
+  "/datenschutz": 200,
+  "/agb": 200,
+  "/agb-profis": 200,
+  "/widerruf": 200
+ },
+ "linkFailures": [],
+ "nojs_d1440": {
+  "bg": "rgba(251, 249, 245, 0.92)",
+  "motionAttr": null,
+  "scriptingNone": true,
+  "headerBgOverNight": "rgba(251, 249, 245, 0.92)",
+  "headerBackdrop": "blur(22px) saturate(1.2)",
+  "portraits": [
+   "1",
+   "1",
+   "1",
+   "1"
+  ],
+  "dock": {
+   "display": "none",
+   "visibility": "visible",
+   "opacity": "1",
+   "links": [
+    "BUTTON:Kapitel01 Bei dir02 :",
+    "A:Kapitel:#kapitel",
+    "A:Termin finden:#termin"
+   ]
+  },
+  "headerControls": [
+   "a:SOMA, zur Startseite:/",
+   "button:Kapitel01 Bei dir02 :",
+   "a:Kapitel:#kapitel",
+   "a:Entdecken:/entdecken",
+   "a:Behandlungen:/behandlungen",
+   "a:So funktioniert’s:#so-funktionierts",
+   "a:Für Profis:/fuer-profis",
+   "a:Hilfe:/hilfe",
+   "button:Menü:",
+   "a:Menü:#kapitel",
+   "a:Anmelden:/anmelden",
+   "a:Termin finden:#termin"
+  ],
+  "chapters": 7,
+  "formAction": "/suche"
+ },
+ "nojs_m390": {
+  "bg": "rgba(251, 249, 245, 0.92)",
+  "motionAttr": null,
+  "scriptingNone": true,
+  "headerBgOverNight": "rgba(251, 249, 245, 0.92)",
+  "headerBackdrop": "blur(22px) saturate(1.2)",
+  "portraits": [
+   "1",
+   "1",
+   "1",
+   "1"
+  ],
+  "dock": {
+   "display": "flex",
+   "visibility": "visible",
+   "opacity": "1",
+   "links": [
+    "BUTTON:Kapitel01 Bei dir02 :",
+    "A:Kapitel:#kapitel",
+    "A:Termin finden:#termin"
+   ]
+  },
+  "headerControls": [
+   "a:SOMA, zur Startseite:/",
+   "button:Kapitel01 Bei dir02 :",
+   "a:Kapitel:#kapitel",
+   "a:Entdecken:/entdecken",
+   "a:Behandlungen:/behandlungen",
+   "a:So funktioniert’s:#so-funktionierts",
+   "a:Für Profis:/fuer-profis",
+   "a:Hilfe:/hilfe",
+   "button:Menü:",
+   "a:Menü:#kapitel",
+   "a:Anmelden:/anmelden",
+   "a:Termin finden:#termin"
+  ],
+  "chapters": 7,
+  "formAction": "/suche"
+ }
+}

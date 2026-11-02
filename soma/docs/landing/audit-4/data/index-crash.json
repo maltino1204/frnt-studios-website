@@ -1,0 +1,94 @@
+[
+ {
+  "vp": "d1440",
+  "setting": "default",
+  "mode": "hover",
+  "tier": "full",
+  "chapters": 7,
+  "errorPage": false,
+  "height": 9325,
+  "errors": []
+ },
+ {
+  "vp": "d1440",
+  "setting": "default",
+  "mode": "tab",
+  "tier": "full",
+  "chapters": 7,
+  "errorPage": false,
+  "height": 9325,
+  "errors": []
+ },
+ {
+  "vp": "d1440",
+  "setting": "reduce",
+  "mode": "hover",
+  "tier": "none",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1359,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ },
+ {
+  "vp": "d1440",
+  "setting": "reduce",
+  "mode": "tab",
+  "tier": "none",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1359,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ },
+ {
+  "vp": "d1440",
+  "setting": "saveData",
+  "mode": "hover",
+  "tier": "lite",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1359,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ },
+ {
+  "vp": "d1280",
+  "setting": "reduce",
+  "mode": "hover",
+  "tier": "none",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1346,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ },
+ {
+  "vp": "d1024",
+  "setting": "reduce",
+  "mode": "hover",
+  "tier": "none",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1343,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ },
+ {
+  "vp": "d1920",
+  "setting": "reduce",
+  "mode": "tab",
+  "tier": "none",
+  "chapters": 0,
+  "errorPage": true,
+  "height": 1359,
+  "errors": [
+   "Error: Minified React error #185; visit https://react.dev/errors/185 for the full message or use the non-minified dev environment for full errors and additional"
+  ]
+ }
+]

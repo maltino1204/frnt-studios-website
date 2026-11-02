@@ -1,0 +1,73 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 8858,
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 844,
+   "H": 8853,
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 1688,
+   "H": 8853,
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 2532,
+   "H": 8834,
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 3376,
+   "H": 8834,
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 4220,
+   "H": 8831,
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 5064,
+   "H": 8831,
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 5908,
+   "H": 8950,
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 6752,
+   "H": 8950,
+   "overflowX": false
+  },
+  {
+   "i": 9,
+   "y": 7596,
+   "H": 8950,
+   "overflowX": false
+  },
+  {
+   "i": 10,
+   "y": 8106,
+   "H": 8950,
+   "overflowX": false
+  }
+ ],
+ "errors": [
+  "m390 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=828&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}

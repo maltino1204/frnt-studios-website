@@ -1,0 +1,117 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 8737,
+   "motion": "lite",
+   "ch": "01",
+   "dock": "hidden",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 922,
+   "H": 8737,
+   "motion": "lite",
+   "ch": "02",
+   "dock": "hidden",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 1844,
+   "H": 8737,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 2766,
+   "H": 8737,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 3688,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 4610,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 5532,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "06",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 6454,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "hidden",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 7376,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "dark",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 9,
+   "y": 7706,
+   "H": 8730,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  }
+ ],
+ "errors": [
+  "t768 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=1080&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+  "t768 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=1080&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}

@@ -1,0 +1,295 @@
+{
+ "res": {
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 12,
+    "nodes": [
+     {
+      "t": ".type-place[data-state=\"current\"][data-ortszeile=\"\"]",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .type-numeric",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .mt-3:nth-child(2)",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .mt-2.type-lead",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .max-w-\\[38ch\\].type-body.mt-3",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-3 > .lp-walk-text > .type-numeric",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     }
+    ]
+   }
+  ]
+ },
+ "sem": {
+  "hs": [
+   "H1 Your body. Your place. Beauty & Wellness bei dir zu Hause, im Hotel od",
+   "H2 Sieben Behandlungen. Ein Ort: deiner.",
+   "H2 Drei Schritte. Kein Weg.",
+   "H3 Entdecken",
+   "H3 Buchen",
+   "H3 Bleiben",
+   "H2 Wer bei dir klingelt.",
+   "H3 Selin A.",
+   "H3 Gabriele H.",
+   "H3 Yasmin K.",
+   "H3 Maximilian F.",
+   "H3 Elena R.",
+   "H3 Natalja W.",
+   "H3 Luca R.",
+   "H3 Katrin B.",
+   "H2 Dein Können. Deine Preise. Deine Zeiten.",
+   "H2 Antworten, bevor du fragst.",
+   "H3 Wie funktioniert SOMA?",
+   "H3 Wo gibt es SOMA?",
+   "H3 Wie prüft SOMA die Profis?",
+   "H3 Was passiert, wenn ein Termin abgesagt wird?",
+   "H3 Wie bezahle ich?",
+   "H2 Your body. Your place.",
+   "H2 Behandlungen",
+   "H2 Städte",
+   "H2 Für Profis",
+   "H2 Hilfe",
+   "H2 Rechtliches"
+  ],
+  "allHs": 31,
+  "lm": [
+   "div[region] \"Hinweis zur Demo-Umgebung\"",
+   "header \"\"",
+   "nav \"Hauptnavigation\"",
+   "nav \"Schnellzugriff\"",
+   "main \"\"",
+   "section \"Your body. Your place. Beauty & Wellness\"",
+   "section \"Sieben Behandlungen. Ein Ort: deiner.\"",
+   "section \"Drei Schritte. Kein Weg.\"",
+   "div[region] \"Drei Schritte\"",
+   "section \"Wer bei dir klingelt.\"",
+   "section \"Dein Können. Deine Preise. Deine Zeiten.\"",
+   "section \"Antworten, bevor du fragst.\"",
+   "section \"Your body. Your place.\"",
+   "footer \"\"",
+   "nav \"Fußzeile\"",
+   "nav \"Kapitel\"",
+   "header \"\""
+  ],
+  "ems": 0,
+  "italic": [
+   "Your body.",
+   "Your place."
+  ],
+  "imgCount": 25,
+  "noAlt": [],
+  "imgs": [
+   {
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=640&q=75",
+    "w": 243,
+    "rw": 243,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmassage-v3.jpg&w=640&q=75",
+    "w": 276,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmassage-v3.jpg&w=640&q=75",
+    "w": 307,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmanikuere-v3.jpg&w=640&q=75",
+    "w": 307,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fpedikuere-v3.jpg&w=640&q=75",
+    "w": 307,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fkosmetik-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmake-up-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fhaare-styling-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fbrows-lashes-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 253,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Mai T. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-25-v4.jpg&w=128&q=75",
+    "w": 55,
+    "rw": 56,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Farrival-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 327,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fafter-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 327,
+    "hid": true
+   },
+   {
+    "alt": "Porträt von Mai T. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-25-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Farrival-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fafter-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "Porträt von Selin A. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v4.jpg&w=1080&q=75",
+    "w": 491,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Gabriele H. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-04-v4.jpg&w=1080&q=75",
+    "w": 491,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Yasmin K. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-16-v4.jpg&w=1080&q=75",
+    "w": 491,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Maximilian F. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-26-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Elena R. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-20-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Natalja W. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-15-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Luca R. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-12-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Katrin B. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-11-v4.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 231,
+    "hid": false
+   },
+   {
+    "alt": "Ein Profi mit Tasche auf der Holztreppe eines hellen Berliner Altbaus, am Vormittag.",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fprovider-cta-v3.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": false
+   },
+   {
+    "alt": "Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fapp-pro-v3.jpg&w=1080&q=75",
+    "w": 537,
+    "rw": 523,
+    "hid": false
+   }
+  ],
+  "small": [
+   "a \"Zum Inhalt springen\" 1x1 ",
+   "a \"Zur Terminsuche springen\" 1x1 ",
+   "input \"\" 504x28 ",
+   "a \"Berlin\" 37x44 (footer)",
+   "a \"Köln\" 29x44 (footer)",
+   "a \"AGB\" 29x44 (footer)"
+  ],
+  "live": [
+   "span status live=null \"\"",
+   "div  live=polite \"\"",
+   "span status live=null \"\"",
+   "div  live=polite \"\""
+  ],
+  "skip": [
+   "Zum Inhalt springen -> #inhalt",
+   "Zur Terminsuche springen -> #termin",
+   " -> /"
+  ],
+  "lang": "de"
+ }
+}

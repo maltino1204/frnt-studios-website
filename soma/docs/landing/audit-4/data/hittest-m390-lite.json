@@ -1,0 +1,61 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "button \"Standort verwenden\" hero-search-submit-locate",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "a \"Weiter: So funktioniert’s\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "02",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wo gibt es SOMA?\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie bezahle ich?\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "06",
+   "n": 1
+  },
+  {
+   "label": "a \"SOMA für Profis\" ",
+   "hit": "span.num",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Stornierung\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Impressum\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Widerrufsbelehrung\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  }
+ ]
+}

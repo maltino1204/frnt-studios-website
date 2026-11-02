@@ -12,7 +12,7 @@ const { launch, ctx, BASE, DATA, OUT, settle } = require('./lib');
     await settle(p, 600);
     out.header[vp] = await p.evaluate(() => [...document.querySelectorAll('header a, header button')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).visibility !== 'hidden'; }).map((e) => `${(e.getAttribute('aria-label') || e.textContent).replace(/\s+/g, ' ').trim()}${e.getAttribute('href') ? ' → ' + e.getAttribute('href') : ''} [${Math.round(e.getBoundingClientRect().height)}]`));
     // open the chapter overlay (header „Kapitel“ / „Menü“, or the dock's chapter button on phones)
-    const trig = vp === 'm390' ? p.locator('header button', { hasText: /Menü|Kapitel/ }).first() : p.locator('header button', { hasText: /Kapitel|Menü/ }).first();
+    const trig = p.locator('header button:visible', { hasText: /Kapitel|Menü/ }).first();
     if (await trig.count()) {
       await trig.click();
       await p.waitForTimeout(900);

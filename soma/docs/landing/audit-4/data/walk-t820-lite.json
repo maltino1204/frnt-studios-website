@@ -1,0 +1,106 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 9127,
+   "motion": "lite",
+   "ch": "01",
+   "dock": "hidden",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 1062,
+   "H": 9127,
+   "motion": "lite",
+   "ch": "02",
+   "dock": "hidden",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 2124,
+   "H": 9127,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 3186,
+   "H": 9127,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 4248,
+   "H": 9123,
+   "motion": "lite",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 5310,
+   "H": 9123,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 6372,
+   "H": 9123,
+   "motion": "lite",
+   "ch": "06",
+   "dock": "shown",
+   "hdr": "light",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 7434,
+   "H": 9123,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "hidden",
+   "hdr": "dark",
+   "hid": "",
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 7943,
+   "H": 9123,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "dark",
+   "hid": "",
+   "overflowX": false
+  }
+ ],
+ "errors": [
+  "t820 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=1280&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+  "t820 warning: The resource http://localhost:3100/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=1280&q=75 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}
