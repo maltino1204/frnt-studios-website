@@ -592,3 +592,82 @@ The four P1 issues (I-1 to I-4) should be fixed and re-tested with the scripts i
 The I-1 work goes into a re-audit (audit 2); real Lighthouse or a real-device check is recommended if it can be arranged.
 
 *After the audit I restored the demo data with `cd soma && DEMO_MODE=true npm run demo:refresh` (1 Nov 2026, 23:00; „Demo data ready … Fertig in 4 s“; demo appointment on Mon 2 Nov, 09:00). It was needed because the E2E suites create searches, waitlist entries and bookings.*
+
+---
+
+## 17. Performance remediation 2 (Performance Engineer)
+
+*The engineer's own measurements, 2 Nov 2026. **This is not an audit score**; the dimension stays at 7 until a re-audit.*
+*Setup: production build on `:3100` (`next start`), Lighthouse 12.8.2 (Chromium 136, mobile preset; `benchmarkIndex` 1,500–2,000, so 4× is calibrated), the auditor's `perf.js` (`MASK=1 … mobile slow4g 3`) and `inp2.js`. Nothing else heavy ran during a measurement, but the `next dev` server on `:3000` kept using ≈ 40 % of one core. Before = commit `d010cb2`; after = `ee88cdb` built with `npm run build` (incl. the new `postbuild`), no source maps.*
+
+### 17.1 What changed
+
+| Commit | Change | Measured effect (4× CPU) |
+|---|---|---|
+| `ae26925` | Chapters 02–10, the footer and the hero booking entry sit in `<Activity mode="visible">`: Fizz renders them inline (`<!--&-->`, never outlined like a Suspense boundary, so the page stays complete without JS), React hydrates each after the shell in a low-priority, time-sliced pass; a tap on an unhydrated part hydrates it first. The bar and sheet subscribe to the hero's catalogue (`useEntryData`). `whenChaptersHydrated` removed. `html[data-motion]` is written by a tiny inline script at the end of the landing markup (same detection as `tier.ts`), so the first style pass already has the tier. | Shell hydration split; the post-hydration restyle (70–110 ms task) is gone. |
+| `d65f28b` | `fetchpriority="high"` on the hero LCP `<img>` and its preload. | LH insight passes; no measurable simulate change on its own. |
+| `a909cc9` | Under `navigator.webdriver` the landing no longer switches `content-visibility` off; a full-page capture asks for it with `html[data-capture="full"]` (`scripts/screenshot.mjs`, and the desktop full-tier E2E that jumps across 06–09 by script). | Removes an automation-only ≈ 450–590 ms layout task that Lighthouse (webdriver) paid and visitors never do. |
+| `7a945c0` | `scripts/landing/compile-hints.mjs` (npm `postbuild`) prepends `//# allFunctionsCalledOnLoad` to the 14 module scripts the prerendered `/` loads (V8 explicit compile hints, Chrome 136+; other engines ignore it). Same code and file names, source maps shifted, idempotent. | Main-thread lazy compile 950 → 56 ms (V8 trace, lite tier); boot task 360–580 → 125–230 ms. |
+| `ee88cdb` | No forced layouts in taps or at start-up: the nav observer measures nothing behind a modal dialog; reveals find rails by `data-rail` instead of `getComputedStyle` (forced the style and layout of two `content-visibility` chapters, ≈ 140 ms); easing tokens read once; the 07 line uses a media query, not `offsetParent`; `BookingEntry` inline pickers (landing sheet only) open as a transition. | Overlay open 184–256 → 176–192 ms; Was? in the sheet 128–216 → 40–48 ms; 07 tab 104–176 → 120–136 ms. |
+
+Tried and not kept: the tier script at the top of the landing markup (an inline script waits for the stylesheets and split the first render: partial first paint, then a 150–190 ms layout task inside the TBT window); the hero entry removed entirely, as an upper bound for a `BookingEntry` split (TBT −60–80 ms, simulate LCP only −0.05 s, so it was not pursued).
+
+### 17.2 Exit criterion (audit-1 § 15.1), before → after
+
+**Lighthouse, default simulated throttling** (score · LCP s · TBT ms; FCP 1.52 s, SI 1.52 s and CLS 0 in every run unless noted):
+
+| Set | Runs | Median |
+|---|---|---|
+| Before (5) | 84 · 4.12 · 152 / 82 · 3.71 · 306 / 90 · 3.39 · 138 / 88 · 3.33 · 214 / 86 · 3.63 · 202 | **86** · 3.63 · 202 |
+| After, set A (runs 2–6 after a restart; run 1 = 76) | 91 · 3.48 · 13 / 87 · 4.02 · 14 / 87 · 4.03 · 3 / 89 · 3.70 · 10 / 89 · 3.70 · 26 | **89** · 3.70 · 13 |
+| After, set B (next 5 runs, same server) | 91 · 3.48 · 15 / 91 · 3.48 · 31 / 91 · 3.49 · 18 / 91 · 3.50 · 40 / 91 · 3.48 · 24 | **91** · 3.48 · 24 |
+
+**Lighthouse, `--throttling-method=devtools`** (score · FCP · LCP · TBT · CLS):
+
+| | Runs | Median |
+|---|---|---|
+| Before | 70 · 2.23 · 2.62 · 1,292 · 0.001 / 73 · 2.28 · 2.61 · 929 · 0.001 / 73 · 2.35 · 2.63 · 928 · 0.001 | 73 · LCP 2.62 s · **TBT 929 ms** |
+| After (runs 2–4; run 1: 95 · TBT 60) | 95 · 2.40 · 2.40 · 55 · 0 / 94 · 2.42 · 2.42 · 84 · 0.001 / 92 · 2.46 · 2.46 · 179 · 0.001 | 94 · LCP 2.42 s · **TBT 84 ms** |
+
+**`MASK=1 perf.js mobile slow4g 3`** (FCP · LCP · TBT · CLS · interactions place / FAQ / third tap / overlay open / Esc, ms):
+
+| | Run 1 | Run 2 | Run 3 | Median |
+|---|---|---|---|---|
+| Before | 2,172 · 2,308 · 527¹ · 0 · 128/80/80/**256**/32 | 2,208 · 2,248 · 489 · 0 · 160/88/56/**208**/32 | 2,216 · 2,332 · 358 · 0 · 192/80/48/168/24 | LCP 2,308 · **TBT 489** · worst 256 |
+| After | 2,116 · 2,288 · 82 · 0 · 104/88/40/176/24 | 2,204 · 2,316 · 64 · 0 · 80/64/72/**192**/40 | 2,132 · 2,300 · 101 · 0 · 88/72/48/184/24 | LCP 2,300 · **TBT 82** · worst 192 |
+
+¹ overlapped by 20 s with one of my traces; kept, it does not change the median.
+
+**`inp2.js`** (Buchen / dock „Termin finden“ / Was? / Esc / 07 tab, ms): before 120/48/128/80/120 and 80/56/**216**/88/104; after 56/40/48/64/120 and 48/40/40/96/**136**.
+
+| Target | Before | After | |
+|---|---|---|---|
+| LH simulate median ≥ 90 | 86 | 89 (set A) / 91 (set B) | **borderline** (see 17.4) |
+| TBT ≤ 200 ms, LH devtools median of 3 | 929 | 84 | met |
+| TBT ≤ 200 ms, perf.js median of 3 | 489 | 82 | met |
+| LCP ≤ 2.5 s (perf.js / LH devtools) | 2.31 / 2.62 s | 2.30 / 2.42 s | met |
+| CLS ≤ 0.05 | 0–0.001 | 0–0.001 | met |
+| Worst interaction ≤ 200 ms (perf.js + inp2) | 256 | 192 | met |
+
+### 17.3 Weight and main thread
+
+- **First-load JS (module scripts in the HTML, gz):** 222.4 KB → 222.6 KB (same 14 files, + 29 B each for the hint). The spec's 90 KB route / 160 KB first-load budgets are still missed: the gains come from when and where the JS runs, not from its size. HTML 57 → 58 KB gz (Activity markers, tier script).
+- **Main thread, LH devtools (4×):** total 4.5–5.0 s → 2.5–2.9 s; Script Evaluation 1.73–2.11 → 0.99–1.17 s; Style & Layout 0.74–0.83 → 0.20–0.36 s; Other 1.38–1.50 → 0.83–0.95 s; bootup 1.77–2.15 → 1.01–1.17 s; long tasks ≥ 50 ms 8–11 → 3–5, the longest 432–598 → 200–307 ms.
+- **No JS:** all ten chapters, the footer and the GET form render in order at 390 and 1440 (no outlined segments, `<div hidden id="S:…">` count 0).
+- **Tests:** `tsc --noEmit` clean; `vitest run` 232/232; landing E2E on `:3100` 67 passed, 9 skipped (viewport-gated), 0 failed; `booking.spec.ts` + `audit3.spec.ts` 30/30 (they create bookings in the demo database).
+
+### 17.4 Why the simulate gate is at the edge (measured)
+
+Lantern's LCP graph keeps every script that finished downloading before the *observed* first paint; on localhost that is all 13 module scripts except the one whose evaluation starts the boot, and only when the boot starts after the paint. So the simulated LCP is the transfer of ≈ 400–475 KB on simulated Slow 4G: HTML 58, CSS 40, three preloaded fonts 103, the hero image 29, JS 150–222 KB. The 3.48 s runs exclude the React chunk (its boot started after the paint), the 3.70 / 4.02 s runs include more of it. About one run in six also hits a ≈ 1 s compositor stall in headless Chromium (frames dropped from 258 to 1,225 ms with every thread idle), which moves the observed paint and gives LCP 4.4 s; it shows in the baseline too (the Lead's runs 1–2, SI 3.0 s). TBT, the other lever, is now 0–40 ms simulated and cannot add more.
+
+The bytes that are left are mostly not the landing's own:
+
+| Lever | Saving (gz) | Owner |
+|---|---|---|
+| Do not preload Newsreader roman on `/` (spec § 10.5 "preferred") | 22 KB | root layout |
+| Root `not-found.tsx` renders the client `SiteHeader`: its chunk loads on every route | 11 KB | root |
+| Image registry (`scripts/images/sources.json`, 113 KB raw) reaches the client through `resolveImage`/`imageFocal` in shared UI (`Photo`, `Portrait`, `BookingEntry`) | 14 KB | shared |
+| `tailwind-merge`, imported by root client components (`toast`, `motion`) | 9 KB | root / shared |
+| `BookingEntry` split (light hero form, heavy entry on intent) | 11–25 KB | landing (risky: E2E T1–T22 contracts) |
+
+Together ≈ 60–70 KB, ≈ 0.3 s of simulated LCP, ≈ 2–3 score points: enough to make ≥ 90 robust. They need the Lead's approval (root layout, shared components).
