@@ -84,7 +84,12 @@ async function removeOffering(page: Page, serviceName: string, duration: string)
 // F2: an approved provider adds a service in a category whose qualification document is missing.
 // ---------------------------------------------------------------------------
 test("a service in an unverified category waits for the document and is not bookable (F2)", async ({ page }) => {
+  // Many steps (add, check, remove); under a full parallel run it can need more than the default 60 s.
+  test.slow();
   await login(page, USERS.provider);
+  // Start clean: an earlier run that timed out in its cleanup leaves the offering behind, and the add dialog
+  // would then (correctly) refuse it with „Schon in deinem Angebot“.
+  await removeOffering(page, "Herrenhaarschnitt", "30 Min.");
   try {
     await page.goto("/pro/leistungen");
     await page.getByRole("button", { name: /Leistung hinzufügen/ }).click();
