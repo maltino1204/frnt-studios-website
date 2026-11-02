@@ -1469,7 +1469,8 @@
     "focal": "68% 50%",
     "replaces": "/images/editorial/provider-cta.jpg",
     "place": "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E07"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E07",
+    "replacedBy": "/images/editorial/provider-cta-v3.jpg"
   },
   {
     "path": "/images/og-default-v2.jpg",
@@ -2036,7 +2037,8 @@
     "focal": "50% 50%",
     "caption": "Pflegeprodukte für die Behandlung im Hotel",
     "replaces": "/images/portfolio/kosmetik-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P39"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P39",
+    "replacedBy": "/images/portfolio/kosmetik-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-4-v2.jpg",
@@ -2047,7 +2049,8 @@
     "focal": "50% 50%",
     "caption": "Gesichtsmassage an den Schläfen",
     "replaces": "/images/portfolio/kosmetik-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P40"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P40",
+    "replacedBy": "/images/portfolio/kosmetik-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-5-v2.jpg",
@@ -2058,7 +2061,8 @@
     "focal": "50% 50%",
     "caption": "Kühlende Augenpads nach der Reinigung",
     "replaces": "/images/portfolio/kosmetik-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P41"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P41",
+    "replacedBy": "/images/portfolio/kosmetik-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-6-v2.jpg",
@@ -2069,7 +2073,8 @@
     "focal": "50% 50%",
     "caption": "Sanfte Reinigung mit warmen Pads",
     "replaces": "/images/portfolio/kosmetik-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P42"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P42",
+    "replacedBy": "/images/portfolio/kosmetik-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-7-v2.jpg",
@@ -2080,7 +2085,8 @@
     "focal": "50% 50%",
     "caption": "Enzympeeling für einen frischen Teint",
     "replaces": "/images/portfolio/kosmetik-7.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P43"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P43",
+    "replacedBy": "/images/portfolio/kosmetik-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-8-v2.jpg",
@@ -2091,7 +2097,8 @@
     "focal": "50% 50%",
     "caption": "Feuchtigkeitsmaske aus Gel",
     "replaces": "/images/portfolio/kosmetik-8.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P44"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P44",
+    "replacedBy": "/images/portfolio/kosmetik-8-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-9-v2.jpg",
@@ -2102,7 +2109,8 @@
     "focal": "50% 50%",
     "caption": "Gesichtsbehandlung für Männer",
     "replaces": "/images/portfolio/kosmetik-9.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P45"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P45",
+    "replacedBy": "/images/portfolio/kosmetik-9-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-10-v2.jpg",
@@ -2113,7 +2121,8 @@
     "focal": "50% 50%",
     "caption": "Hautanalyse vor der Behandlung",
     "replaces": "/images/portfolio/kosmetik-10.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P46"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P46",
+    "replacedBy": "/images/portfolio/kosmetik-10-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-11-v2.jpg",
@@ -2124,7 +2133,8 @@
     "focal": "50% 50%",
     "caption": "Massage von Hals und Dekolleté",
     "replaces": "/images/portfolio/kosmetik-11.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P47"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P47",
+    "replacedBy": "/images/portfolio/kosmetik-11-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-12-v2.jpg",
@@ -2135,7 +2145,8 @@
     "focal": "50% 50%",
     "caption": "Alles vorbereitet für das Facial",
     "replaces": "/images/portfolio/kosmetik-12.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P48"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P48",
+    "replacedBy": "/images/portfolio/kosmetik-12-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-13-v2.jpg",
@@ -2146,7 +2157,8 @@
     "focal": "50% 50%",
     "caption": "Augenbrauen gezupft und in Form gebracht",
     "replaces": "/images/portfolio/kosmetik-13.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P49"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P49",
+    "replacedBy": "/images/portfolio/kosmetik-13-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-14-v2.jpg",
@@ -2157,7 +2169,8 @@
     "focal": "50% 50%",
     "caption": "Frischer Teint nach dem Facial",
     "replaces": "/images/portfolio/kosmetik-14.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P50"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P50",
+    "replacedBy": "/images/portfolio/kosmetik-14-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-1-v2.jpg",
@@ -2168,7 +2181,8 @@
     "focal": "50% 50%",
     "caption": "Natürliches Braut-Make-up",
     "replaces": "/images/portfolio/make-up-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P51"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P51",
+    "replacedBy": "/images/portfolio/make-up-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-2-v2.jpg",
@@ -2179,7 +2193,8 @@
     "focal": "50% 50%",
     "caption": "Abend-Make-up mit Smokey Eyes in Braun",
     "replaces": "/images/portfolio/make-up-2.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P52"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P52",
+    "replacedBy": "/images/portfolio/make-up-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-3-v2.jpg",
@@ -2190,7 +2205,8 @@
     "focal": "50% 50%",
     "caption": "Lippen in Terrakotta, mit dem Pinsel aufgetragen",
     "replaces": "/images/portfolio/make-up-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P53"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P53",
+    "replacedBy": "/images/portfolio/make-up-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-4-v2.jpg",
@@ -2201,7 +2217,8 @@
     "focal": "50% 50%",
     "caption": "Das Make-up-Case, mitgebracht",
     "replaces": "/images/portfolio/make-up-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P54"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P54",
+    "replacedBy": "/images/portfolio/make-up-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-5-v2.jpg",
@@ -2212,7 +2229,8 @@
     "focal": "50% 50%",
     "caption": "Editorial-Look mit warmen Bronzetönen",
     "replaces": "/images/portfolio/make-up-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P55"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P55",
+    "replacedBy": "/images/portfolio/make-up-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-6-v2.jpg",
@@ -2223,7 +2241,8 @@
     "focal": "50% 50%",
     "caption": "Natürliches Tages-Make-up",
     "replaces": "/images/portfolio/make-up-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P56"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P56",
+    "replacedBy": "/images/portfolio/make-up-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-7-v2.jpg",
@@ -2234,7 +2253,8 @@
     "focal": "50% 50%",
     "caption": "Mascara, präzise aufgetragen",
     "replaces": "/images/portfolio/make-up-7.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P57"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P57",
+    "replacedBy": "/images/portfolio/make-up-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-9-v2.jpg",
@@ -2245,7 +2265,8 @@
     "focal": "50% 50%",
     "caption": "Make-up für das Business-Fotoshooting",
     "replaces": "/images/portfolio/make-up-9.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P58"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P58",
+    "replacedBy": "/images/portfolio/make-up-9-v3.jpg"
   },
   {
     "path": "/images/portfolio/make-up-10-v2.jpg",
@@ -2256,7 +2277,8 @@
     "focal": "50% 50%",
     "caption": "Klassischer Abendlook mit rotem Lippenstift",
     "replaces": "/images/portfolio/make-up-10.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P59"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P59",
+    "replacedBy": "/images/portfolio/make-up-10-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-1-v2.jpg",
@@ -2267,7 +2289,8 @@
     "focal": "50% 50%",
     "caption": "Weiche Wellen auf langem Haar",
     "replaces": "/images/portfolio/haare-styling-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P60"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P60",
+    "replacedBy": "/images/portfolio/haare-styling-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-3-v2.jpg",
@@ -2278,7 +2301,8 @@
     "focal": "50% 50%",
     "caption": "Tiefer Brautdutt, locker gesteckt",
     "replaces": "/images/portfolio/haare-styling-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P61"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P61",
+    "replacedBy": "/images/portfolio/haare-styling-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-4-v2.jpg",
@@ -2289,7 +2313,8 @@
     "focal": "50% 50%",
     "caption": "Föhnen mit Rundbürste in der Küche",
     "replaces": "/images/portfolio/haare-styling-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P62"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P62",
+    "replacedBy": "/images/portfolio/haare-styling-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-5-v2.jpg",
@@ -2300,7 +2325,8 @@
     "focal": "50% 50%",
     "caption": "Definierte Naturlocken",
     "replaces": "/images/portfolio/haare-styling-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P63"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P63",
+    "replacedBy": "/images/portfolio/haare-styling-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-6-v2.jpg",
@@ -2311,7 +2337,8 @@
     "focal": "50% 50%",
     "caption": "Sanfte Highlights, natürlich verblendet",
     "replaces": "/images/portfolio/haare-styling-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P64"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P64",
+    "replacedBy": "/images/portfolio/haare-styling-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-7-v2.jpg",
@@ -2322,7 +2349,8 @@
     "focal": "50% 50%",
     "caption": "Kurzer Pixie Cut mit Textur",
     "replaces": "/images/portfolio/haare-styling-7.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P65"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P65",
+    "replacedBy": "/images/portfolio/haare-styling-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-8-v2.jpg",
@@ -2333,7 +2361,8 @@
     "focal": "50% 50%",
     "caption": "Klassischer Seitenscheitel",
     "replaces": "/images/portfolio/haare-styling-8.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P66"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P66",
+    "replacedBy": "/images/portfolio/haare-styling-8-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-9-v2.jpg",
@@ -2344,7 +2373,8 @@
     "focal": "50% 50%",
     "caption": "Bart in Form gebracht",
     "replaces": "/images/portfolio/haare-styling-9.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P67"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P67",
+    "replacedBy": "/images/portfolio/haare-styling-9-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-10-v2.jpg",
@@ -2355,7 +2385,8 @@
     "focal": "50% 50%",
     "caption": "Glatter Bob auf Kinnlänge",
     "replaces": "/images/portfolio/haare-styling-10.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P68"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P68",
+    "replacedBy": "/images/portfolio/haare-styling-10-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-11-v2.jpg",
@@ -2366,7 +2397,8 @@
     "focal": "50% 50%",
     "caption": "Geflochtene Krone für die Hochzeit",
     "replaces": "/images/portfolio/haare-styling-11.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P69"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P69",
+    "replacedBy": "/images/portfolio/haare-styling-11-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-12-v2.jpg",
@@ -2377,7 +2409,8 @@
     "focal": "50% 50%",
     "caption": "Volumen-Föhnfrisur",
     "replaces": "/images/portfolio/haare-styling-12.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P70"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P70",
+    "replacedBy": "/images/portfolio/haare-styling-12-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-13-v2.jpg",
@@ -2388,7 +2421,8 @@
     "focal": "50% 50%",
     "caption": "Lockenschnitt mit kurzen Seiten",
     "replaces": "/images/portfolio/haare-styling-13.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P71"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P71",
+    "replacedBy": "/images/portfolio/haare-styling-13-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-14-v2.jpg",
@@ -2399,7 +2433,8 @@
     "focal": "50% 50%",
     "caption": "Spitzen schneiden, präzise",
     "replaces": "/images/portfolio/haare-styling-14.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P72"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P72",
+    "replacedBy": "/images/portfolio/haare-styling-14-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-15-v2.jpg",
@@ -2410,7 +2445,8 @@
     "focal": "50% 50%",
     "caption": "Hoher Pferdeschwanz für den Abend",
     "replaces": "/images/portfolio/haare-styling-15.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P73"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P73",
+    "replacedBy": "/images/portfolio/haare-styling-15-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-16-v2.jpg",
@@ -2421,7 +2457,8 @@
     "focal": "50% 50%",
     "caption": "Kurzhaarschnitt für silbernes Haar",
     "replaces": "/images/portfolio/haare-styling-16.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P74"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P74",
+    "replacedBy": "/images/portfolio/haare-styling-16-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-17-v2.jpg",
@@ -2432,7 +2469,8 @@
     "focal": "50% 50%",
     "caption": "Box Braids, im tiefen Dutt getragen",
     "replaces": "/images/portfolio/haare-styling-17.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P75"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P75",
+    "replacedBy": "/images/portfolio/haare-styling-17-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-1-v2.jpg",
@@ -2443,7 +2481,8 @@
     "focal": "50% 50%",
     "caption": "Lash Lift mit Färbung",
     "replaces": "/images/portfolio/brows-lashes-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P76"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P76",
+    "replacedBy": "/images/portfolio/brows-lashes-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-3-v2.jpg",
@@ -2454,7 +2493,8 @@
     "focal": "50% 50%",
     "caption": "Brauen färben in warmem Braun",
     "replaces": "/images/portfolio/brows-lashes-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P77"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P77",
+    "replacedBy": "/images/portfolio/brows-lashes-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-6-v2.jpg",
@@ -2465,7 +2505,8 @@
     "focal": "50% 50%",
     "caption": "Brauen mit dem Faden geformt",
     "replaces": "/images/portfolio/brows-lashes-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P78"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P78",
+    "replacedBy": "/images/portfolio/brows-lashes-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-7-v2.jpg",
@@ -2476,7 +2517,8 @@
     "focal": "50% 50%",
     "caption": "Wimpern färben",
     "replaces": "/images/portfolio/brows-lashes-7.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P79"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P79",
+    "replacedBy": "/images/portfolio/brows-lashes-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-8-v2.jpg",
@@ -2487,7 +2529,8 @@
     "focal": "50% 50%",
     "caption": "Fertig: Brauen und Wimpern natürlich betont",
     "replaces": "/images/portfolio/brows-lashes-8.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P80"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P80",
+    "replacedBy": "/images/portfolio/brows-lashes-8-v3.jpg"
   },
   {
     "path": "/images/hero/home-v2.jpg",
@@ -2779,7 +2822,8 @@
     "height": 1600,
     "focal": "50% 45%",
     "caption": "Rouge in warmem Terrakotta",
-    "recropOf": "/images/portfolio/make-up-8.jpg"
+    "recropOf": "/images/portfolio/make-up-8.jpg",
+    "replacedBy": "/images/portfolio/make-up-8-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-2-v2.jpg",
@@ -2789,7 +2833,8 @@
     "height": 1600,
     "focal": "50% 45%",
     "caption": "Brow Lamination, natürlich gebürstet",
-    "recropOf": "/images/portfolio/brows-lashes-2.jpg"
+    "recropOf": "/images/portfolio/brows-lashes-2.jpg",
+    "replacedBy": "/images/portfolio/brows-lashes-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-4-v2.jpg",
@@ -2799,7 +2844,8 @@
     "height": 1600,
     "focal": "50% 45%",
     "caption": "Natürliche Wimpernverlängerung, klassisch",
-    "recropOf": "/images/portfolio/brows-lashes-4.jpg"
+    "recropOf": "/images/portfolio/brows-lashes-4.jpg",
+    "replacedBy": "/images/portfolio/brows-lashes-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-5-v2.jpg",
@@ -2809,7 +2855,8 @@
     "height": 1600,
     "focal": "50% 45%",
     "caption": "Brow Mapping vor dem Formen",
-    "recropOf": "/images/portfolio/brows-lashes-5.jpg"
+    "recropOf": "/images/portfolio/brows-lashes-5.jpg",
+    "replacedBy": "/images/portfolio/brows-lashes-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/haare-styling-2-v2.jpg",
@@ -2819,7 +2866,8 @@
     "height": 1600,
     "focal": "50% 45%",
     "caption": "Skin Fade mit gepflegtem Bart",
-    "recropOf": "/images/portfolio/haare-styling-2.jpg"
+    "recropOf": "/images/portfolio/haare-styling-2.jpg",
+    "replacedBy": "/images/portfolio/haare-styling-2-v3.jpg"
   },
   {
     "path": "/images/landing/hero-home-4x5.jpg",
@@ -3828,5 +3876,569 @@
     "caption": "Ebenmäßige Haut direkt nach dem Facial",
     "replaces": "/images/portfolio/kosmetik-2-v2.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-2"
+  },
+  {
+    "path": "/images/_v3-test/r01-prompt.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_f0081e78-cd43-41e6-bb3d-52696c8df315.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 portrait pose test; removed after the decision"
+  },
+  {
+    "path": "/images/_v3-test/r01-ref.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_bc1c2887-358c-4c55-8953-9954c5b2b50f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 portrait pose test; removed after the decision"
+  },
+  {
+    "path": "/images/_v3-test/r02-prompt.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_f3a14d29-cd82-4b81-aec6-931486de9465.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 portrait pose test; removed after the decision"
+  },
+  {
+    "path": "/images/_v3-test/r02-ref.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_c9b3e098-6a66-4017-8fc9-dbb44767ca62.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 portrait pose test; removed after the decision"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131202_3afa0406-6cfa-4976-9cd8-69ad244ac659.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pflegeprodukte für die Behandlung im Hotel",
+    "replaces": "/images/portfolio/kosmetik-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-3"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_607eb130-2998-4926-9d0d-504ddbef9b20.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gesichtsmassage an den Schläfen",
+    "replaces": "/images/portfolio/kosmetik-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-4"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_5cecf050-fa55-4313-b795-c6a47caddf46.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kühlende Augenpads nach der Reinigung",
+    "replaces": "/images/portfolio/kosmetik-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-5"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8323fdf6-e81b-4109-b673-d49778320000.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Reinigung mit warmen Pads",
+    "replaces": "/images/portfolio/kosmetik-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-6"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131200_5c07e070-8740-4c81-8312-efe7d5d397dd.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Enzympeeling für einen frischen Teint",
+    "replaces": "/images/portfolio/kosmetik-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-7"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_57e0ebc9-58f4-45e7-b79c-3801eba45b12.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Feuchtigkeitsmaske aus Gel",
+    "replaces": "/images/portfolio/kosmetik-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-8"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-9-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_16e30408-8185-47fd-91d6-5603f49cdc7e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gesichtsbehandlung für Männer",
+    "replaces": "/images/portfolio/kosmetik-9-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-9"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-10-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_662d74d2-f76a-48b6-a2d4-9bc7fe6ce37b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hautanalyse vor der Behandlung",
+    "replaces": "/images/portfolio/kosmetik-10-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-10"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-11-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_907f372f-7f94-42eb-b400-6b1ec438aa82.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage von Hals und Dekolleté",
+    "replaces": "/images/portfolio/kosmetik-11-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-11"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-12-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8a4234d8-d820-4e6b-8182-e19f046eff45.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Alles vorbereitet für das Facial",
+    "replaces": "/images/portfolio/kosmetik-12-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-12"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-13-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_63c14cb8-8130-4d64-ab99-9c6474811772.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Augenbrauen gezupft und in Form gebracht",
+    "replaces": "/images/portfolio/kosmetik-13-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-13"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-14-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131405_1126a340-78e7-4292-b476-e27ed952c5b5.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Frischer Teint nach dem Facial",
+    "replaces": "/images/portfolio/kosmetik-14-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-14"
+  },
+  {
+    "path": "/images/portfolio/make-up-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_6feb2b2c-f279-439c-a2ee-4c3552b19125.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Natürliches Braut-Make-up",
+    "replaces": "/images/portfolio/make-up-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-1"
+  },
+  {
+    "path": "/images/portfolio/make-up-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_57463a3b-5b92-438f-afb7-7cd2968e5192.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Abend-Make-up mit Smokey Eyes in Braun",
+    "replaces": "/images/portfolio/make-up-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-2"
+  },
+  {
+    "path": "/images/portfolio/make-up-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_ce0a09be-f862-4d73-9e2c-21b1b027a8d0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lippen in Terrakotta, mit dem Pinsel aufgetragen",
+    "replaces": "/images/portfolio/make-up-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-3"
+  },
+  {
+    "path": "/images/portfolio/make-up-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_71a0c6ea-af22-4529-8a19-8796462aee76.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Das Make-up-Case, mitgebracht",
+    "replaces": "/images/portfolio/make-up-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-4"
+  },
+  {
+    "path": "/images/portfolio/make-up-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_df3cdfd1-133e-4db4-89a9-87ae8af7c940.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Editorial-Look mit warmen Bronzetönen",
+    "replaces": "/images/portfolio/make-up-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-5"
+  },
+  {
+    "path": "/images/portfolio/make-up-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_3afdae48-83c6-4c4c-a741-c0356da909d4.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Natürliches Tages-Make-up",
+    "replaces": "/images/portfolio/make-up-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-6"
+  },
+  {
+    "path": "/images/portfolio/make-up-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_5687c6f2-2ffc-4804-aa43-b44047da40ac.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Mascara, präzise aufgetragen",
+    "replaces": "/images/portfolio/make-up-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-7"
+  },
+  {
+    "path": "/images/portfolio/make-up-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_4e5541d4-920c-45e1-8713-455c9bc50f64.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Rouge in warmem Terrakotta",
+    "replaces": "/images/portfolio/make-up-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-8"
+  },
+  {
+    "path": "/images/portfolio/make-up-9-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_eea81831-04aa-4587-8fd4-df400e356c7f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Make-up für das Business-Fotoshooting",
+    "replaces": "/images/portfolio/make-up-9-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-9"
+  },
+  {
+    "path": "/images/portfolio/make-up-10-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_cdc2e140-60c2-4142-ae9a-2dcde66b1f66.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassischer Abendlook mit rotem Lippenstift",
+    "replaces": "/images/portfolio/make-up-10-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-10"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_368f0185-f7b7-4fcd-b247-690d967824e0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Weiche Wellen auf langem Haar",
+    "replaces": "/images/portfolio/haare-styling-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-1"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_93c34524-4324-4094-9c7d-4b5b2d31acd8.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Skin Fade mit gepflegtem Bart",
+    "replaces": "/images/portfolio/haare-styling-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-2"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131508_be958ec0-31ee-4d37-9f1c-da8b82714b30.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Tiefer Brautdutt, locker gesteckt",
+    "replaces": "/images/portfolio/haare-styling-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-3"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_13e09968-ffd2-43c0-ac22-046d765f811f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Föhnen mit Rundbürste in der Küche",
+    "replaces": "/images/portfolio/haare-styling-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-4"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_6c07f548-7c00-44ce-9513-dfd0963aa737.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Definierte Naturlocken",
+    "replaces": "/images/portfolio/haare-styling-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-5"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_3964ffa5-1cf2-427e-8fd1-5b200aa468a5.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Highlights, natürlich verblendet",
+    "replaces": "/images/portfolio/haare-styling-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-6"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_24db8a50-c860-4677-a0b7-4174e1f8c807.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurzer Pixie Cut mit Textur",
+    "replaces": "/images/portfolio/haare-styling-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-7"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_79fd0026-2901-462c-86f0-8345350b99aa.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassischer Seitenscheitel",
+    "replaces": "/images/portfolio/haare-styling-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-8"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-9-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131510_0433722b-7bb6-47c7-9256-7acd73f0fddf.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Bart in Form gebracht",
+    "replaces": "/images/portfolio/haare-styling-9-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-9"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-10-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_af54cbaf-ac70-45aa-b781-d5f4b8ad2aad.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Glatter Bob auf Kinnlänge",
+    "replaces": "/images/portfolio/haare-styling-10-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-10"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-11-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_5e0ce111-2688-46ba-addf-8e7d79e4a1dd.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Geflochtene Krone für die Hochzeit",
+    "replaces": "/images/portfolio/haare-styling-11-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-11"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-12-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_ab6c8cec-7191-445d-8a47-f147e9854a30.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Volumen-Föhnfrisur",
+    "replaces": "/images/portfolio/haare-styling-12-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-12"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-13-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_25348226-88ec-4423-9ff6-a37fe2bab9a6.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lockenschnitt mit kurzen Seiten",
+    "replaces": "/images/portfolio/haare-styling-13-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-13"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-14-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_964ae294-4d88-4ce2-923f-1b31c755e120.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Spitzen schneiden, präzise",
+    "replaces": "/images/portfolio/haare-styling-14-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-14"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-15-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_bd924680-cce3-4748-a3a6-dc36e17e818a.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hoher Pferdeschwanz für den Abend",
+    "replaces": "/images/portfolio/haare-styling-15-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-15"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-16-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_b02b78b6-5e10-4cef-bccb-0ab9171edda6.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurzhaarschnitt für silbernes Haar",
+    "replaces": "/images/portfolio/haare-styling-16-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-16"
+  },
+  {
+    "path": "/images/portfolio/haare-styling-17-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_869f5d6f-7306-4609-aa67-bf59d5766ffa.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Box Braids, im tiefen Dutt getragen",
+    "replaces": "/images/portfolio/haare-styling-17-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-haare-styling-17"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_9cb0ac31-454d-49ac-a377-a2fe7ce87afd.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Lash Lift mit Färbung",
+    "replaces": "/images/portfolio/brows-lashes-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-1"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_d3c109d9-4367-41b9-a275-0bc718380e03.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Brow Lamination, natürlich gebürstet",
+    "replaces": "/images/portfolio/brows-lashes-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-2"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_956ec2da-209a-445a-af52-37ad36ed4aa9.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Brauen färben in warmem Braun",
+    "replaces": "/images/portfolio/brows-lashes-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-3"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Natürliche Wimpernverlängerung, klassisch",
+    "replaces": "/images/portfolio/brows-lashes-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-4"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_8210790f-f16c-4ab0-b34a-d144133b22b4.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Brow Mapping vor dem Formen",
+    "replaces": "/images/portfolio/brows-lashes-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-5"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_814a715b-5a4c-493c-88c7-62468c27bade.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Brauen mit dem Faden geformt",
+    "replaces": "/images/portfolio/brows-lashes-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-6"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_6096ae0d-2693-4960-b3b3-09f1ecf13348.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Wimpern färben",
+    "replaces": "/images/portfolio/brows-lashes-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-7"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131905_ad3d56aa-8b89-45f1-a250-ba0dcd69320b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Fertig: Brauen und Wimpern natürlich betont",
+    "replaces": "/images/portfolio/brows-lashes-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-8"
+  },
+  {
+    "path": "/images/editorial/provider-cta-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_0880e35c-6e3c-4aac-9423-15e93e73b05d.png",
+    "ratio": "16:9",
+    "width": 2880,
+    "height": 1620,
+    "focal": "68% 50%",
+    "place": "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40",
+    "replaces": "/images/editorial/provider-cta-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E07"
   }
 ]
