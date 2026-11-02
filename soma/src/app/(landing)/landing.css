@@ -906,10 +906,13 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-counter {
   position: absolute;
   top: 120px;
 }
+/* Above the stage items: the active item covers the whole stage (inset 0, z-index 1 in landing-motion.css) and would
+   otherwise take the CTA's clicks (audit-2 N-2). */
 html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-cta {
   display: block;
   position: absolute;
   bottom: 64px;
+  z-index: 2;
 }
 .lp-stage-counter > span {
   display: none;
