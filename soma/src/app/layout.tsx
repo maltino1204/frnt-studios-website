@@ -14,7 +14,8 @@ import "./globals.css";
  * - Instrument Sans (variable: wdth 75–100, wght 400–700) works: UI, numbers, forms. Latin is preloaded (57 KB);
  *   latin-ext (19 KB) is a second face of the same family with its own unicode-range, so it downloads only when a
  *   glyph needs it (names like "Doğan").
- * - Newsreader Display roman (opsz 72, 400, 22 KB) speaks: display headlines, h1/h2. Preloaded.
+ * - Newsreader Display roman (opsz 72, 400, 22 KB) speaks: display headlines, h1/h2. Preloaded on every route but `/`
+ *   (DisplayFontScope in the other top-level layouts).
  * - Newsreader Display italic (same cut, 23 KB) is the accent: <em> in serif headlines, the tagline, quotes.
  *   Not preloaded (A5-9): most routes show no accent above the fold; the metric-matched Times fallback holds the
  *   space until it swaps in (no layout shift).
@@ -55,11 +56,14 @@ const somaSansExt = localFont({
   ],
 });
 
+// Not preloaded here: `/` does not need it above the fold (landing spec § 10.5). The other top-level layouts preload
+// it through <DisplayFontScope> (src/components/brand/display-font.tsx).
 const somaDisplay = localFont({
   src: "../styles/fonts/newsreader-display-roman-latin.woff2",
   weight: "400",
   style: "normal",
   display: "swap",
+  preload: false,
   variable: "--font-display-src",
   adjustFontFallback: "Times New Roman",
 });

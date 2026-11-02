@@ -5,6 +5,7 @@ import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import { getProProfile } from "@/server/services/pro";
 import { countProBookingTabs } from "@/server/services/pro-ext";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 export const metadata: Metadata = {
   title: { default: "Pro", template: "%s · SOMA Pro" },
@@ -18,14 +19,16 @@ export default async function ProAppLayout({ children }: LayoutProps<"/pro">) {
   if (profile.status === "draft" || profile.status === "rejected") redirect(routes.pro.onboarding());
   const counts = await countProBookingTabs(session);
   return (
-    <ProShell
-      displayName={profile.displayName}
-      avatarUrl={profile.avatarUrl}
-      status={profile.status}
-      publicHref={profile.status === "approved" ? routes.provider(profile.slug) : null}
-      openRequests={counts.requests}
-    >
-      {children}
-    </ProShell>
+    <DisplayFontScope>
+      <ProShell
+        displayName={profile.displayName}
+        avatarUrl={profile.avatarUrl}
+        status={profile.status}
+        publicHref={profile.status === "approved" ? routes.provider(profile.slug) : null}
+        openRequests={counts.requests}
+      >
+        {children}
+      </ProShell>
+    </DisplayFontScope>
   );
 }

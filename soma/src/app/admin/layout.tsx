@@ -7,6 +7,7 @@ import { routes } from "@/lib/routes";
 import { requireRole } from "@/server/auth/guards";
 import { listDisputes, listVerificationQueue } from "@/server/services/admin";
 import { getProfile } from "@/server/services/account";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 export const metadata: Metadata = {
   title: { default: "Admin", template: "%s · Admin" },
@@ -25,13 +26,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   ]);
   const name = profile ? fullName(profile.firstName, profile.lastName) : session.firstName ?? "Admin";
   return (
-    <AdminShell
-      user={{ name: name === "—" ? "Admin" : name, email: session.email }}
-      demo={DEMO_MODE}
-      counts={{ verification: queue.length, disputes: open.length + investigating.length }}
-      initialCollapsed={jar.get("soma_admin_rail")?.value === "1"}
-    >
-      {children}
-    </AdminShell>
+    <DisplayFontScope>
+      <AdminShell
+        user={{ name: name === "—" ? "Admin" : name, email: session.email }}
+        demo={DEMO_MODE}
+        counts={{ verification: queue.length, disputes: open.length + investigating.length }}
+        initialCollapsed={jar.get("soma_admin_rail")?.value === "1"}
+      >
+        {children}
+      </AdminShell>
+    </DisplayFontScope>
   );
 }

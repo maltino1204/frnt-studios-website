@@ -1,10 +1,11 @@
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 /** Same public chrome as the (site) group: marketing header and night footer. */
 export default function ForProsLayout({ children }: LayoutProps<"/fuer-profis">) {
   return (
-    <>
+    <DisplayFontScope>
       <a
         href="#inhalt"
         className="sr-only z-(--z-toast) rounded-xs bg-ink px-4 py-3 type-label text-ink-inverse focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
@@ -16,6 +17,6 @@ export default function ForProsLayout({ children }: LayoutProps<"/fuer-profis">)
         {children}
       </main>
       <SiteFooter />
-    </>
+    </DisplayFontScope>
   );
 }

@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { RouteTransition } from "@/components/ui/motion";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 /**
  * Public layout: marketing header, content, light footer.
@@ -9,7 +10,7 @@ import { RouteTransition } from "@/components/ui/motion";
  */
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <>
+    <DisplayFontScope>
       <a
         href="#inhalt"
         className="sr-only z-(--z-toast) rounded-full bg-ink px-4 py-3 type-label text-ink-inverse focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
@@ -21,6 +22,6 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         {children}
       </RouteTransition>
       <SiteFooter />
-    </>
+    </DisplayFontScope>
   );
 }

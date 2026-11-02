@@ -4,12 +4,13 @@ import { CheckoutHeader } from "@/components/site/checkout-header";
 import { RouteTransition } from "@/components/ui/motion";
 import { BRAND_NAME } from "@/lib/brand";
 import { routes } from "@/lib/routes";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 /** Checkout + booking detail: no marketing chrome, only what supports the decision. */
 export default async function CheckoutLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
   return (
-    <>
+    <DisplayFontScope>
       <a href="#inhalt" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--z-toast) focus:bg-surface-raised focus:px-4 focus:py-2 focus:type-label">
         Zum Inhalt springen
       </a>
@@ -27,6 +28,6 @@ export default async function CheckoutLayout({ children }: { children: React.Rea
           </nav>
         </div>
       </footer>
-    </>
+    </DisplayFontScope>
   );
 }

@@ -3,6 +3,7 @@ import { requireRole } from "@/server/auth/guards";
 import { countUnreadNotifications } from "@/server/services/notifications";
 import { AccountBottomNav, AccountHeader, AccountRail } from "@/components/site/account-nav";
 import { RouteTransition } from "@/components/ui/motion";
+import { DisplayFontScope } from "@/components/brand/display-font";
 
 export const metadata: Metadata = { title: { default: "Dein Konto", template: "%s · Konto · SOMA" }, robots: { index: false, follow: false } };
 
@@ -11,7 +12,7 @@ export default async function KontoLayout({ children }: { children: React.ReactN
   const session = await requireRole("customer", "/konto");
   const unread = await countUnreadNotifications(session).catch(() => 0);
   return (
-    <>
+    <DisplayFontScope>
       <a href="#inhalt" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-(--z-toast) focus:bg-surface-raised focus:px-4 focus:py-2 focus:type-label">
         Zum Inhalt springen
       </a>
@@ -25,6 +26,6 @@ export default async function KontoLayout({ children }: { children: React.ReactN
         </RouteTransition>
       </div>
       <AccountBottomNav />
-    </>
+    </DisplayFontScope>
   );
 }
