@@ -61,7 +61,8 @@ export function ChapterOverlay() {
   const ref = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
   const [current, setCurrent] = useState<string | null>(null);
-  // The content renders on the first open only (PT-1), so mounting the overlay costs an empty <dialog>.
+  // The content renders in an idle period after the mount (or on the first open, whichever comes first), so neither
+  // the mount nor the first open pays for it (PT-1).
   const [rendered, setRendered] = useState(false);
   const session = useSiteSession();
   const account = session === undefined ? null : accountLink(session);
@@ -77,6 +78,16 @@ export function ChapterOverlay() {
       showPage();
       requestAnimationFrame(() => ref.current?.close());
     }, 0);
+  }, []);
+
+  useEffect(() => {
+    const win = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (h: number) => void };
+    if (!win.requestIdleCallback) {
+      const t = window.setTimeout(() => setRendered(true), 500);
+      return () => window.clearTimeout(t);
+    }
+    const h = win.requestIdleCallback(() => setRendered(true), { timeout: 3000 });
+    return () => win.cancelIdleCallback?.(h);
   }, []);
 
   useEffect(() => {
