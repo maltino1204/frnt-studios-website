@@ -192,7 +192,10 @@ F15 rest (no exact-time filter), A4-12 "borderline texts to moderation".
   | 3 | 10/11 | Performance 7 | sheet 197 ms, picker regression |
   | 4 | 8/11 | Interaction 7, Technical 6, Accessibility 6 | after the 7-chapter declutter and the new photos: a crash of the 02 index in the lite/none tiers on desktop (fixed afterwards), stale optimiser images, double hero fetch. Performance 8 (sheet 134 ms, Lighthouse mobile median 91) |
 
-  The fixes after audit 4 are re-verified by the auditor after the deploy; see `docs/landing/audit-5.md` once it exists.
+  | 5 | **11/11** | – | **Gate met.** Crash fixed in every tier (8/8 probes), 0 of 368 optimiser responses stale, one hero request per viewport, Lighthouse mobile median 91 / desktop 99, TBT 95 ms, LCP 2.36 s, sheet open 127 ms at 4× CPU. Brand 9. Open P3s: hero bytes below 1024, overlay/place switch at the 200 ms line on a 4× phone, early sheet tap 313 ms, DevTools TBT 179 ms, full-tier scroll jank, AI interim imagery |
+
+  Audit 5 ran on the build before one later change (the login link in the mobile header, client feedback); that change
+  is covered by the final E2E run below.
 - **Entdecken + photography in the product** (`docs/qa/review-entdecken-photos.md`, 14 dimensions): light and mood 9,
   accessibility 9, security 8; the four required fixes (slot wording, AI labels, guest-only invite, no booking counts for
   anon) and the image defects were fixed afterwards (not re-scored).
