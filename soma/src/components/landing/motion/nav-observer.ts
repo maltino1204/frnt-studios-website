@@ -52,6 +52,9 @@ export function startNav(tier: MotionTier): () => void {
   };
   stops.push(() => cancelAnimationFrame(frame));
 
+  /** A modal dialog (the chapter overlay) covers the page and makes it inert: nothing here can change what is seen. */
+  let modalOpen = !!document.querySelector("dialog:modal");
+
   /* 1. Active chapter --------------------------------------------------------------------------------------------- */
   const chapters = Array.from(document.querySelectorAll<HTMLElement>("main section[data-chapter]"));
   const onLine = new Set<Element>();
@@ -75,7 +78,9 @@ export function startNav(tier: MotionTier): () => void {
         if (e.isIntersecting) onLine.add(e.target);
         else onLine.delete(e.target);
       }
-      activate();
+      // Behind a modal (the chapter overlay hides the page while it is open) the page does not move: skip the
+      // fallback's layout read, the observer reports again when the page shows.
+      if (!modalOpen) activate();
     },
     { rootMargin: "-40% 0px -59% 0px" },
     chapters,
@@ -197,6 +202,12 @@ export function startNav(tier: MotionTier): () => void {
   let dialogOpen = !!document.querySelector(OTHER_DIALOG);
   const dialogs = new MutationObserver(() => {
     dialogOpen = !!document.querySelector(OTHER_DIALOG);
+    const modal = !!document.querySelector("dialog:modal");
+    const opened = modal && !modalOpen;
+    modalOpen = modal;
+    // While a modal opens, measuring the page would force the style and layout of everything behind it inside the
+    // tap that opened it (≈ 70 ms at 4× CPU; audit-1 PT-1): the state is brought up to date when it closes.
+    if (opened) return;
     // At once, not on the next frame: when a dialog closes, focus goes back to its opener (often the dock's own
     // chapter button), which must be visible again by then.
     cancelAnimationFrame(frame);
@@ -255,6 +266,7 @@ export function startNav(tier: MotionTier): () => void {
   /* Writes, once per frame ----------------------------------------------------------------------------------------- */
   function apply() {
     frame = 0;
+    if (modalOpen) return; // behind a modal dialog (see `dialogs`); applied again when it closes
     if (nearSections.size) measureControls(); // reads first
     else controlInView = false;
     set("headerTheme", theme());

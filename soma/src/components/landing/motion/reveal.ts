@@ -30,7 +30,6 @@ export function startReveals(ctx: MotionContext): Stop {
   const targets = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_TARGETS)).filter((el) => !owned(el, ctx.ready) && ctx.below(el));
   const companions = new Map<Element, HTMLElement[]>();
   const groups = new Map<Element, HTMLElement[]>();
-  const railCache = new Map<Element, boolean>();
   const touched: HTMLElement[] = [];
 
   for (const el of targets) {
@@ -39,19 +38,13 @@ export function startReveals(ctx: MotionContext): Stop {
       const extra = figure ? Array.from(figure.querySelectorAll<HTMLElement>("[data-ortszeile], [data-start-code]")) : [];
       companions.set(el, extra);
     }
-    const list = el.closest("ul");
+    // Horizontal rails are marked in the markup (SnapRail `data-rail`): reading their computed overflow here forced
+    // the style and layout of the content-visibility chapters they sit in (two passes, ≈ 140 ms at 4× CPU).
+    const list = el.closest("ul[data-rail]");
     if (list) {
-      let rail = railCache.get(list);
-      if (rail === undefined) {
-        const ox = getComputedStyle(list).overflowX;
-        rail = ox === "auto" || ox === "scroll";
-        railCache.set(list, rail);
-      }
-      if (rail) {
-        const g = groups.get(list) ?? [];
-        g.push(el);
-        groups.set(list, g);
-      }
+      const g = groups.get(list) ?? [];
+      g.push(el);
+      groups.set(list, g);
     }
   }
 
@@ -80,7 +73,7 @@ export function startReveals(ctx: MotionContext): Stop {
         if (!e.isIntersecting) continue;
         io.unobserve(e.target);
         for (const t of watched.get(e.target) ?? []) {
-          const group = groups.get(t.closest("ul") as Element) ?? [t];
+          const group = groups.get(t.closest("ul[data-rail]") as Element) ?? [t];
           group.forEach((el, i) => {
             if (done.has(el)) return;
             done.add(el);
@@ -103,8 +96,18 @@ export function startReveals(ctx: MotionContext): Stop {
   };
 }
 
-/** The CSS easing tokens, read once (MOTION.md § 2), for the few Web Animations the scenes run. */
+const eases = new Map<string, string>();
+
+/**
+ * The CSS easing tokens (MOTION.md § 2), for the few Web Animations the scenes run. Read once each and kept: a read
+ * inside a tap (07 tabs) forced a style recalculation of the page (≈ 13 ms at 4× CPU). The runtime warms them up in
+ * its start-up read phase.
+ */
 export function ease(name: "standard" | "arrive" | "settle" | "exit"): string {
-  const v = getComputedStyle(document.documentElement).getPropertyValue(`--ease-${name}`).trim();
-  return v || "ease-out";
+  let v = eases.get(name);
+  if (v === undefined) {
+    v = getComputedStyle(document.documentElement).getPropertyValue(`--ease-${name}`).trim() || "ease-out";
+    eases.set(name, v);
+  }
+  return v;
 }

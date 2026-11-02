@@ -1,5 +1,5 @@
 import { createContext, isBelow, type Stop } from "./frame";
-import { REVEAL_TARGETS, startReveals } from "./reveal";
+import { ease, REVEAL_TARGETS, startReveals } from "./reveal";
 import { startDoorway } from "./scenes/doorway";
 import { startHero } from "./scenes/hero";
 import { startScreens } from "./scenes/screens";
@@ -27,6 +27,7 @@ export function startRuntime(tier: MotionTier): Stop {
   const vh = window.innerHeight;
   const below = new Map<Element, boolean>();
   for (const el of document.querySelectorAll(`${UPGRADABLE}, [data-scene="band"], ${REVEAL_TARGETS}`)) below.set(el, isBelow(el, vh));
+  for (const name of ["standard", "arrive", "settle", "exit"] as const) ease(name); // computed style, same snapshot
   const ready = new Set<Element>();
   if (tier === "full") for (const el of document.querySelectorAll(UPGRADABLE)) if (below.get(el)) ready.add(el);
 

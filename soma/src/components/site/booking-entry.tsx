@@ -517,6 +517,7 @@ export function BookingEntry({
   const [hint, setHint] = useState(placeHint);
   const [dismissedPanel, setDismissedPanel] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [, startPicker] = useTransition();
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -714,7 +715,10 @@ export function BookingEntry({
   const toggle = (which: "was" | "wann") => {
     if (open === which) return setOpen(null);
     if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
-    setOpen(which);
+    // Inline pickers (the landing's booking sheet) expand as a transition: the tap paints at once and the list (with
+    // its photos) renders in the next frames, not inside the tap (INP; performance remediation 2).
+    if (inline) startPicker(() => setOpen(which));
+    else setOpen(which);
   };
 
   // Return focus to the trigger when a picker closes.

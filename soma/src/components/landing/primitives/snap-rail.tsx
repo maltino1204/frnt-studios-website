@@ -37,6 +37,7 @@ export function SnapRail({
       <ul
         id={id}
         aria-label={label}
+        data-rail=""
         className={cn(
           "-mx-(--space-gutter) -my-4 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) pt-4 pb-10 scrollbar-none md:gap-5 lg:gap-6",
           "lg:mr-[calc((100vw-min(100vw,var(--container-page)))/-2-var(--space-gutter))] lg:pr-[calc((100vw-min(100vw,var(--container-page)))/2+var(--space-gutter))]",

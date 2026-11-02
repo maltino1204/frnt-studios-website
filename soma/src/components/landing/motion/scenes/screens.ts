@@ -1,5 +1,6 @@
 import { ease } from "../reveal";
 import type { MotionContext, Stop } from "../frame";
+import { NARROW_QUERY } from "../tier";
 
 /**
  * 07 · Deine Buchung (spec § 4.7). The screen's move to the callout's region (480 ms `ease-arrive`; lite 320 ms)
@@ -14,6 +15,9 @@ export function startScreens(ctx: MotionContext): Stop {
   const line = scene.querySelector<HTMLElement>(".lp-screens-active-line");
   const running: Animation[] = [];
   let last = scene.dataset.active;
+  // The active line shows below 1024 only (landing.css); a media query, not `offsetParent`, so a tab change never
+  // forces a layout inside the tap.
+  const narrow = matchMedia(NARROW_QUERY);
   const mo = new MutationObserver(() => {
     if (scene.dataset.active === last) return;
     last = scene.dataset.active;
@@ -23,7 +27,7 @@ export function startScreens(ctx: MotionContext): Stop {
         ring.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, delay: ctx.tier === "full" ? 320 : 160, easing: ease("standard"), fill: "backwards" }),
       );
     }
-    if (line?.offsetParent) running.push(line.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: ease("standard") }));
+    if (line && narrow.matches) running.push(line.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: ease("standard") }));
   });
   mo.observe(scene, { attributes: true, attributeFilter: ["data-active"] });
   return () => {
