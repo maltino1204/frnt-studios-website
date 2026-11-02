@@ -1,0 +1,806 @@
+{
+ "d1440": {
+  "places": [
+   {
+    "name": "Zu Hause",
+    "caption": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30",
+    "src": "/images/landing/hero-home-4x5-v3.jpg",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "objectPosition": "50% 50%",
+    "box": {
+     "w": 628,
+     "h": 756
+    },
+    "label": null
+   },
+   {
+    "name": "Im Hotel",
+    "caption": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
+    "src": "/images/editorial/hotel-v6b.jpg",
+    "alt": "Ein Profi massiert am Nachmittag einen Gast in einer Hotelsuite; hinter dem Fenster die Frankfurter Skyline.",
+    "objectPosition": "72% 50%",
+    "box": {
+     "w": 628,
+     "h": 756
+    },
+    "label": null
+   },
+   {
+    "name": "Im Büro",
+    "caption": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "src": "/images/editorial/office-v3.jpg",
+    "alt": "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum mit Glaswänden, dahinter der Hamburger Hafen.",
+    "objectPosition": "60% 45%",
+    "box": {
+     "w": 628,
+     "h": 756
+    },
+    "label": null
+   }
+  ],
+  "imgs": [
+   {
+    "chapter": "01 bei-dir",
+    "file": "/images/landing/hero-home-4x5-v3.jpg",
+    "natural": "628×785",
+    "rendered": "628×756",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/pedikuere-v6.jpg",
+    "natural": "519×648",
+    "rendered": "519×649",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/massage-v6.jpg",
+    "natural": "576×720",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/manikuere-v5.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/pedikuere-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/kosmetik-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/make-up-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/haare-styling-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/brows-lashes-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "55×69",
+    "rendered": "56×61",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "292×365",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "292×365",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-01-v4.jpg",
+    "natural": "316×396",
+    "rendered": "278×303",
+    "alt": "Porträt von Selin A. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Selin A.Massage · Berlin4,9(29)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-04-v4.jpg",
+    "natural": "316×396",
+    "rendered": "278×303",
+    "alt": "Porträt von Gabriele H. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Gabriele H.Kosmetik · München5,0(6)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-16-v5.jpg",
+    "natural": "316×396",
+    "rendered": "278×303",
+    "alt": "Porträt von Yasmin K. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Yasmin K.Make-up · Frankfurt am Main5,0(5)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-26-v4.jpg",
+    "natural": "316×396",
+    "rendered": "278×303",
+    "alt": "Porträt von Maximilian F. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Maximilian F.Haare & Styling · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-20-v4.jpg",
+    "natural": "316×396",
+    "rendered": "278×303",
+    "alt": "Porträt von Elena R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Elena R.Maniküre, Pediküre · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-15-v4.jpg",
+    "natural": "0×0",
+    "rendered": "278×303",
+    "alt": "Porträt von Natalja W. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Natalja W.Maniküre, Pediküre · Düsseldorf4,8(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-12-v4.jpg",
+    "natural": "0×0",
+    "rendered": "278×303",
+    "alt": "Porträt von Luca R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Luca R.Massage · Köln4,8(5)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-11-v4.jpg",
+    "natural": "0×0",
+    "rendered": "278×303",
+    "alt": "Porträt von Katrin B. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Katrin B.Kosmetik · Frankfurt am Main4,7(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/editorial/provider-cta-v3.jpg",
+    "natural": "1440×810",
+    "rendered": "1440×682",
+    "alt": "Ein Profi mit Tasche auf der Holztreppe eines hellen Berliner Altbaus, am Vormittag.",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/landing/app-pro-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone.",
+    "hidden": true,
+    "label": null
+   }
+  ],
+  "footerLabel": "Bilder: KI-generierte Entwicklungsassets"
+ },
+ "t768": {
+  "places": [
+   {
+    "name": "Zu Hause",
+    "caption": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30",
+    "src": "/images/landing/hero-home-4x5-v3.jpg",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "objectPosition": "50% 50%",
+    "box": {
+     "w": 243,
+     "h": 304
+    },
+    "label": null
+   },
+   {
+    "name": "Im Hotel",
+    "caption": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
+    "src": "/images/editorial/hotel-v6b.jpg",
+    "alt": "Ein Profi massiert am Nachmittag einen Gast in einer Hotelsuite; hinter dem Fenster die Frankfurter Skyline.",
+    "objectPosition": "72% 50%",
+    "box": {
+     "w": 243,
+     "h": 304
+    },
+    "label": null
+   },
+   {
+    "name": "Im Büro",
+    "caption": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "src": "/images/editorial/office-v3.jpg",
+    "alt": "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum mit Glaswänden, dahinter der Hamburger Hafen.",
+    "objectPosition": "60% 45%",
+    "box": {
+     "w": 243,
+     "h": 304
+    },
+    "label": null
+   }
+  ],
+  "imgs": [
+   {
+    "chapter": "01 bei-dir",
+    "file": "/images/landing/hero-home-4x5-v3.jpg",
+    "natural": "576×720",
+    "rendered": "243×304",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/massage-v6.jpg",
+    "natural": "276×345",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/massage-v6.jpg",
+    "natural": "307×384",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/manikuere-v5.jpg",
+    "natural": "307×384",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/pedikuere-v6.jpg",
+    "natural": "307×384",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/kosmetik-v3.jpg",
+    "natural": "0×0",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/make-up-v3.jpg",
+    "natural": "0×0",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/haare-styling-v3.jpg",
+    "natural": "0×0",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/brows-lashes-v3.jpg",
+    "natural": "0×0",
+    "rendered": "253×316",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "55×69",
+    "rendered": "56×61",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "327×409",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "327×409",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-01-v4.jpg",
+    "natural": "491×614",
+    "rendered": "231×252",
+    "alt": "Porträt von Selin A. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Selin A.Massage · Berlin4,9(29)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-04-v4.jpg",
+    "natural": "491×614",
+    "rendered": "231×252",
+    "alt": "Porträt von Gabriele H. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Gabriele H.Kosmetik · München5,0(6)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-16-v5.jpg",
+    "natural": "491×614",
+    "rendered": "231×252",
+    "alt": "Porträt von Yasmin K. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Yasmin K.Make-up · Frankfurt am Main5,0(5)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-26-v4.jpg",
+    "natural": "0×0",
+    "rendered": "231×252",
+    "alt": "Porträt von Maximilian F. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Maximilian F.Haare & Styling · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-20-v4.jpg",
+    "natural": "0×0",
+    "rendered": "231×252",
+    "alt": "Porträt von Elena R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Elena R.Maniküre, Pediküre · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-15-v4.jpg",
+    "natural": "0×0",
+    "rendered": "231×252",
+    "alt": "Porträt von Natalja W. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Natalja W.Maniküre, Pediküre · Düsseldorf4,8(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-12-v4.jpg",
+    "natural": "0×0",
+    "rendered": "231×252",
+    "alt": "Porträt von Luca R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Luca R.Massage · Köln4,8(5)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-11-v4.jpg",
+    "natural": "0×0",
+    "rendered": "231×252",
+    "alt": "Porträt von Katrin B. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Katrin B.Kosmetik · Frankfurt am Main4,7(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/editorial/provider-cta-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Ein Profi mit Tasche auf der Holztreppe eines hellen Berliner Altbaus, am Vormittag.",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/landing/app-pro-v6.jpg",
+    "natural": "537×671",
+    "rendered": "523×654",
+    "alt": "Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone.",
+    "hidden": false,
+    "label": null
+   }
+  ],
+  "footerLabel": "Bilder: KI-generierte Entwicklungsassets"
+ },
+ "m390": {
+  "places": [
+   {
+    "name": "Zu Hause",
+    "caption": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30",
+    "src": "/images/landing/hero-home-4x5-v3.jpg",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "objectPosition": "50% 50%",
+    "box": {
+     "w": 280,
+     "h": 350
+    },
+    "label": null
+   },
+   {
+    "name": "Im Hotel",
+    "caption": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
+    "src": "/images/editorial/hotel-v6b.jpg",
+    "alt": "Ein Profi massiert am Nachmittag einen Gast in einer Hotelsuite; hinter dem Fenster die Frankfurter Skyline.",
+    "objectPosition": "72% 50%",
+    "box": {
+     "w": 280,
+     "h": 350
+    },
+    "label": null
+   },
+   {
+    "name": "Im Büro",
+    "caption": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "src": "/images/editorial/office-v3.jpg",
+    "alt": "Nackenmassage auf einem Massagestuhl in einem Besprechungsraum mit Glaswänden, dahinter der Hamburger Hafen.",
+    "objectPosition": "60% 45%",
+    "box": {
+     "w": 280,
+     "h": 350
+    },
+    "label": null
+   }
+  ],
+  "imgs": [
+   {
+    "chapter": "01 bei-dir",
+    "file": "/images/landing/hero-home-4x5-v3.jpg",
+    "natural": "350×437",
+    "rendered": "280×350",
+    "alt": "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/massage-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/massage-v6.jpg",
+    "natural": "304×380",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/manikuere-v5.jpg",
+    "natural": "304×380",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/pedikuere-v6.jpg",
+    "natural": "0×0",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/kosmetik-v3.jpg",
+    "natural": "0×0",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/make-up-v3.jpg",
+    "natural": "0×0",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/haare-styling-v3.jpg",
+    "natural": "0×0",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "02 behandlungen",
+    "file": "/images/categories/brows-lashes-v3.jpg",
+    "natural": "0×0",
+    "rendered": "249×311",
+    "alt": "",
+    "hidden": false,
+    "label": null
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "55×69",
+    "rendered": "56×61",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "169×211",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "169×211",
+    "alt": "",
+    "hidden": false,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/pros/pro-03-v4.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Porträt von Linh N. (Demo-Profil · Foto KI-generiert)",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/arrival-v5.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "03 so-funktionierts",
+    "file": "/images/editorial/after-v6.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "",
+    "hidden": true,
+    "label": "Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-01-v4.jpg",
+    "natural": "249×312",
+    "rendered": "200×218",
+    "alt": "Porträt von Selin A. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Selin A.Massage · Berlin4,9(29)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-04-v4.jpg",
+    "natural": "249×312",
+    "rendered": "200×218",
+    "alt": "Porträt von Gabriele H. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Gabriele H.Kosmetik · München5,0(6)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-16-v5.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Yasmin K. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Yasmin K.Make-up · Frankfurt am Main5,0(5)Demo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-26-v4.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Maximilian F. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Maximilian F.Haare & Styling · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-20-v4.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Elena R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Elena R.Maniküre, Pediküre · München5,0(3)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-15-v4.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Natalja W. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Natalja W.Maniküre, Pediküre · Düsseldorf4,8(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-12-v4.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Luca R. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Luca R.Massage · Köln4,8(5)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "04 profis",
+    "file": "/images/pros/pro-11-v4.jpg",
+    "natural": "0×0",
+    "rendered": "200×218",
+    "alt": "Porträt von Katrin B. (Demo-Profil · Foto KI-generiert)",
+    "hidden": false,
+    "label": "Katrin B.Kosmetik · Frankfurt am Main4,7(6)Sofort bestätigtDemo-Profil · Foto KI-generiert"
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/editorial/provider-cta-v3.jpg",
+    "natural": "0×0",
+    "rendered": "0×0",
+    "alt": "Ein Profi mit Tasche auf der Holztreppe eines hellen Berliner Altbaus, am Vormittag.",
+    "hidden": true,
+    "label": null
+   },
+   {
+    "chapter": "05 fuer-profis",
+    "file": "/images/landing/app-pro-v6.jpg",
+    "natural": "350×437",
+    "rendered": "350×438",
+    "alt": "Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone.",
+    "hidden": false,
+    "label": null
+   }
+  ],
+  "footerLabel": "Bilder: KI-generierte Entwicklungsassets"
+ }
+}

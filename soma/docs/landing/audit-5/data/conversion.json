@@ -1,0 +1,40 @@
+{
+ "plzHint": "Wo? | Postleitzahl |  · Berlin | Was?",
+ "heroSearchUrl": "/suche?plz=10115&kategorie=massage&leistung=entspannungsmassage&datum=2026-11-03&zeit=abends",
+ "searchH1": "Entspannungsmassage (klassisch) in 10115 Berlin",
+ "noJsUrl": "/suche?plz=10115",
+ "noJsH1": "Beauty & Wellness in 10115 Berlin",
+ "noJsDockVisible": "flex/visible/1",
+ "noJsMenuTag": "BUTTON ",
+ "noJsPortraitOpacity": [
+  "1",
+  "1"
+ ],
+ "links": {
+  "internal": 40,
+  "anchors": 8,
+  "bad": [],
+  "missingAnchors": []
+ },
+ "ctaTargets": [
+  "Termin finden -> #termin",
+  "Termin finden -> #termin",
+  "Alle Behandlungen -> /behandlungen",
+  "Freie Termine finden -> #termin",
+  "Profi werden -> /pro/registrieren",
+  "Konditionen ansehen -> /fuer-profis#provision",
+  "Freie Termine finden -> /suche",
+  "Profi werden -> /pro/registrieren",
+  "Alle Behandlungen -> /behandlungen",
+  "Profi werden -> /pro/registrieren"
+ ],
+ "categoryLinks": [
+  "/behandlungen/massage",
+  "/behandlungen/manikuere",
+  "/behandlungen/pedikuere",
+  "/behandlungen/kosmetik",
+  "/behandlungen/make-up",
+  "/behandlungen/haare-styling",
+  "/behandlungen/brows-lashes"
+ ]
+}

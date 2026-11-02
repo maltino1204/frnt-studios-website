@@ -1,0 +1,134 @@
+{
+ "m390": {
+  "order": [
+   "Zu Hause@119",
+   "So funktioniert’s@931",
+   "PLZ, z. B. 10115@1025",
+   "Standort verwenden@1017",
+   "Was?Alle Behandlungen@1063",
+   "Wann?So bald wie mögli@1127",
+   "Freie Termine finden@1195"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "flex"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "none"
+   }
+  ],
+  "monotonicY": true
+ },
+ "t768": {
+  "order": [
+   "Zu Hause@113",
+   "PLZ, z. B. 10115@786",
+   "Standort verwenden@778",
+   "Was?Alle Behandlungen@823",
+   "Wann?So bald wie mögli@887",
+   "Freie Termine finden@955",
+   "So funktioniert’s@1173"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "none"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "flex"
+   }
+  ],
+  "monotonicY": true
+ },
+ "t820": {
+  "order": [
+   "Zu Hause@113",
+   "PLZ, z. B. 10115@942",
+   "Standort verwenden@934",
+   "Was?Alle Behandlungen@980",
+   "Wann?So bald wie mögli@1044",
+   "Freie Termine finden@1112",
+   "So funktioniert’s@1330"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "none"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "flex"
+   }
+  ],
+  "monotonicY": true
+ },
+ "t1023": {
+  "order": [
+   "Zu Hause@113",
+   "PLZ, z. B. 10115@843",
+   "Standort verwenden@835",
+   "Was?Alle Behandlungen@881",
+   "Wann?So bald wie mögli@945",
+   "Freie Termine finden@1013",
+   "So funktioniert’s@1232"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "none"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "flex"
+   }
+  ],
+  "monotonicY": true
+ },
+ "d1024": {
+  "order": [
+   "Zu Hause@133",
+   "So funktioniert’s@494",
+   "PLZ, z. B. 10115@605",
+   "Standort verwenden@597",
+   "Was?Alle Behandlungen@574",
+   "Wann?So bald wie mögli@574",
+   "Freie Termine finden@584"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "flex"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "none"
+   }
+  ],
+  "monotonicY": true
+ },
+ "d1440": {
+  "order": [
+   "Zu Hause@133",
+   "So funktioniert’s@578",
+   "PLZ, z. B. 10115@775",
+   "Standort verwenden@767",
+   "Was?Alle Behandlungen@745",
+   "Wann?So bald wie mögli@745",
+   "Freie Termine finden@755"
+  ],
+  "howLinks": [
+   {
+    "cls": "lp-hero-how",
+    "display": "flex"
+   },
+   {
+    "cls": "lp-hero-how-after",
+    "display": "none"
+   }
+  ],
+  "monotonicY": true
+ }
+}

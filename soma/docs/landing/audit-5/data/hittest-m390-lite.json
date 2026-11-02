@@ -1,0 +1,103 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "button \"Wann?So bald wie möglich\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "a \"Themenwelten entdecken\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "02",
+   "n": 1
+  },
+  {
+   "label": "a \"01Entdecken\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "02",
+   "n": 1
+  },
+  {
+   "label": "a \"02Buchen\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "02",
+   "n": 1
+  },
+  {
+   "label": "a \"03Bleiben\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "02",
+   "n": 1
+  },
+  {
+   "label": "a \"Freie Termine finden\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"Weiter: Für Profis\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "04",
+   "n": 1
+  },
+  {
+   "label": "a \"Konditionen ansehen\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "04",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie funktioniert SOMA?\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "summary \"Was passiert, wenn ein Termin ab\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "a \"Alle Fragen\" ",
+   "hit": "span.num",
+   "chrome": true,
+   "ch": "06",
+   "n": 1
+  },
+  {
+   "label": "a \"Profi werden\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Hilfe & häufige Fragen\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"AGB\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "covered": [
+  {
+   "label": "button \"Zurück\" ",
+   "hit": "div.hidden",
+   "chrome": false,
+   "ch": "03",
+   "n": 4
+  }
+ ],
+ "underChrome": []
+}

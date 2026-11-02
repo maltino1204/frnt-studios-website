@@ -1,0 +1,12 @@
+m390 {"run":1,"lcp":2452,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":793,"prio":"High","end":1963,"kb":25.7}]}
+m390 {"run":2,"lcp":2652,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":663,"prio":"High","end":1954,"kb":25.7}]}
+m390 {"run":3,"lcp":2488,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":679,"prio":"High","end":1847,"kb":25.7}]}
+m412 {"run":1,"lcp":2516,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":768,"prio":"High","end":1941,"kb":25.7}]}
+m412 {"run":2,"lcp":2480,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":703,"prio":"High","end":1869,"kb":25.7}]}
+m412 {"run":3,"lcp":2500,"lcpUrl":"w=828&q=75","hero":[{"w":"828","start":812,"prio":"High","end":1976,"kb":25.7}]}
+t768 {"run":1,"lcp":2352,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":619,"prio":"High","end":2191,"kb":44.7}]}
+t768 {"run":2,"lcp":2288,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":612,"prio":"High","end":2166,"kb":44.7}]}
+t768 {"run":3,"lcp":2240,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":592,"prio":"High","end":2016,"kb":44.7}]}
+t820 {"run":1,"lcp":2432,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":666,"prio":"High","end":2251,"kb":44.7}]}
+t820 {"run":2,"lcp":2396,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":684,"prio":"High","end":2249,"kb":44.7}]}
+t820 {"run":3,"lcp":2292,"lcpUrl":"w=1280&q=75","hero":[{"w":"1280","start":602,"prio":"High","end":2155,"kb":44.7}]}

@@ -1,0 +1,30 @@
+{"device":"phone 390, screen = viewport 390 × 844","variant":"A4 (svh, preload)","requested":[828,640],"imgUses":640,"fetches":2}
+{"device":"phone 390, screen = viewport 390 × 844","variant":"A4 (svh, no preload)","requested":[828,640],"imgUses":640,"fetches":2}
+{"device":"phone 390, screen = viewport 390 × 844","variant":"option 1 (height media, preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"phone 390, screen = viewport 390 × 844","variant":"option 2 (svh, preload only >= 1024)","requested":[828,640],"imgUses":640,"fetches":2}
+{"device":"phone 390, screen = viewport 390 × 844","variant":"A4 with vh instead of svh (preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"phone 390, screen = viewport 390 × 844","variant":"now (width-only, preload)","requested":[828],"imgUses":828,"fetches":1}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"A4 (svh, preload)","requested":[828],"imgUses":828,"fetches":1}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"A4 (svh, no preload)","requested":[828],"imgUses":828,"fetches":1}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"option 1 (height media, preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"option 2 (svh, preload only >= 1024)","requested":[828],"imgUses":828,"fetches":1}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"A4 with vh instead of svh (preload)","requested":[640,828],"imgUses":828,"fetches":2}
+{"device":"phone 390, viewport 390 × 664 in a 390 × 844 screen","variant":"now (width-only, preload)","requested":[828],"imgUses":828,"fetches":1}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"A4 (svh, preload)","requested":[1080],"imgUses":1080,"fetches":1}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"A4 (svh, no preload)","requested":[1080],"imgUses":1080,"fetches":1}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"option 1 (height media, preload)","requested":[1080,828],"imgUses":828,"fetches":2}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"option 2 (svh, preload only >= 1024)","requested":[1080],"imgUses":1080,"fetches":1}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"A4 with vh instead of svh (preload)","requested":[1080],"imgUses":1080,"fetches":1}
+{"device":"phone 390 DPR 3, viewport 390 × 664 in 390 × 844","variant":"now (width-only, preload)","requested":[1080],"imgUses":1080,"fetches":1}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"A4 (svh, preload)","requested":[1080,640],"imgUses":1080,"fetches":2}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"A4 (svh, no preload)","requested":[1080,640],"imgUses":640,"fetches":2}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"option 1 (height media, preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"option 2 (svh, preload only >= 1024)","requested":[1080,640],"imgUses":640,"fetches":2}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"A4 with vh instead of svh (preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"tablet 768, screen = viewport 768 × 1024","variant":"now (width-only, preload)","requested":[1280],"imgUses":1280,"fetches":1}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"A4 (svh, preload)","requested":[828,1080],"imgUses":1080,"fetches":2}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"A4 (svh, no preload)","requested":[828,1080],"imgUses":1080,"fetches":2}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"option 1 (height media, preload)","requested":[640],"imgUses":640,"fetches":1}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"option 2 (svh, preload only >= 1024)","requested":[828,1080],"imgUses":1080,"fetches":2}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"A4 with vh instead of svh (preload)","requested":[640,1080],"imgUses":1080,"fetches":2}
+{"device":"tablet 768, viewport 768 × 954 in a 768 × 1024 screen","variant":"now (width-only, preload)","requested":[1280],"imgUses":1280,"fetches":1}

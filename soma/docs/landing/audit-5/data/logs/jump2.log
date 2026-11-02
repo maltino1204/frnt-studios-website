@@ -1,0 +1,6 @@
+m390 hero „So funktioniert’s“ → final h2 top 239 active 03 focus so-funktionierts-titel
+m390 foot 02 „Weiter: So funktioniert’s“ → final h2 top 239 active 03 focus so-funktionierts-titel
+m390 overlay → Fragen (reduced motion) → final h2 top 239 active 06 focus fragen-titel
+d1440 header „So funktioniert’s“ → final h2 top 310 active 03 focus so-funktionierts-titel
+d1440 hero „So funktioniert’s“ → final h2 top 310 active 03 focus so-funktionierts-titel
+d1440 overlay → Fragen (reduced motion) → final h2 top 311 active 06 focus fragen-titel

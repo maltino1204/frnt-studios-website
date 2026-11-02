@@ -1,0 +1,54 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "a \"SASelin A.Massage · Berlin4,9(29\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"GHGabriele H.Kosmetik · München5\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"YKYasmin K.Make-up · Frankfurt a\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie funktioniert SOMA?\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie prüft SOMA die Profis?\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "a \"So sortieren wir\" ",
+   "hit": "span.lp-chapter-label",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"AGB\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  }
+ ]
+}

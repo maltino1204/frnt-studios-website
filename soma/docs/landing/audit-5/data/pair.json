@@ -1,0 +1,104 @@
+{
+ "d1440": [
+  {
+   "src": "/images/editorial/arrival-v5.jpg",
+   "box": [
+    292,
+    365
+   ],
+   "visible": true
+  },
+  {
+   "src": "/images/editorial/after-v6.jpg",
+   "box": [
+    292,
+    365
+   ],
+   "visible": true
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  }
+ ],
+ "m390": [
+  {
+   "src": "/images/editorial/arrival-v5.jpg",
+   "box": [
+    169,
+    211
+   ],
+   "visible": true
+  },
+  {
+   "src": "/images/editorial/after-v6.jpg",
+   "box": [
+    169,
+    211
+   ],
+   "visible": true
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  }
+ ],
+ "t768": [
+  {
+   "src": "/images/editorial/arrival-v5.jpg",
+   "box": [
+    327,
+    409
+   ],
+   "visible": true
+  },
+  {
+   "src": "/images/editorial/after-v6.jpg",
+   "box": [
+    327,
+    409
+   ],
+   "visible": true
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  },
+  {
+   "src": "",
+   "box": [
+    0,
+    0
+   ],
+   "visible": false
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+during: [ 'leaving', 'entering' ] 
+end: {
+ "layers": [
+  "current:s%2Feditorial%2Fhotel-v6b.jpg&w=204"
+ ],
+ "checked": "Im Hotel",
+ "cap": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
+ "ph": "PLZ, z. B. 60306"
+}
+preview after sweep: []

@@ -1,0 +1,66 @@
+TAB ORDER
+1. a "Zum Inhalt springen" outline 2px rgb(84, 44, 53) y=8
+2. a "Zur Terminsuche springen" outline 2px rgb(84, 44, 53) y=8
+3. a "SOMA, zur Startseite" outline 2px rgb(84, 44, 53) y=45
+4. button "Kapitel 01 Bei dir" outline 2px rgb(84, 44, 53) y=45
+5. a "Entdecken" outline 2px rgb(84, 44, 53) y=45
+6. a "Behandlungen" outline 2px rgb(84, 44, 53) y=45
+7. a "So funktioniert’s" outline 2px rgb(84, 44, 53) y=45
+8. a "Für Profis" outline 2px rgb(84, 44, 53) y=45
+9. a "Hilfe" outline 2px rgb(84, 44, 53) y=45
+10. a "Anmelden" outline 2px rgb(84, 44, 53) y=43
+11. a "Termin finden" outline 2px rgb(84, 44, 53) y=43
+12. button[radio] "ZU HAUSE" outline 2px rgb(70, 41, 47) y=133
+13. a "So funktioniert’s" outline 2px rgb(70, 41, 46) y=578
+14. input "PLZ, z. B. 10115" NO-RING y=775
+15. button "Standort verwenden" outline 2px rgb(84, 44, 53) y=767
+16. button "Was? Alle Behandlungen" outline 2px rgb(70, 41, 47) y=745
+17. button "Wann? So bald wie möglich" outline 2px rgb(70, 41, 47) y=745
+18. button "Freie Termine finden" outline 2px rgb(84, 44, 53) y=755
+19. a "01 Massage Klassisch, Aromaöl, Hot Stone. ab " outline 2px rgb(84, 44, 53) y=440
+20. a "02 Maniküre Von klassisch mit Lack bis Gel. a" outline 2px rgb(84, 44, 53) y=544
+21. a "03 Pediküre Kosmetische Fußpflege im eigenen " outline 2px rgb(84, 44, 53) y=648
+22. a "04 Kosmetik Gesichtsbehandlungen und Waxing. " outline 2px rgb(84, 44, 53) y=752
+23. a "05 Make-up Für Büro, Abend und Hochzeit. ab 6" outline 2px rgb(84, 44, 53) y=796
+24. a "06 Haare & Styling Föhnen, Schnitt, Hochsteck" outline 2px rgb(84, 44, 53) y=796
+25. a "07 Brows & Lashes Lifting, Lamination, Verlän" outline 2px rgb(84, 44, 53) y=796
+26. a "Alle Behandlungen" outline 2px rgb(61, 39, 42) y=491
+27. a "Themenwelten entdecken" outline 2px rgb(75, 42, 49) y=491
+28. a "Weiter: So funktioniert’s" outline 2px rgb(75, 42, 49) y=491
+29. div[region] "Drei Schritte" outline 2px rgb(84, 44, 53) y=-600
+30. a "Freie Termine finden" outline 2px rgb(84, 44, 53) y=466
+31. a "Weiter: Profis" outline 2px rgb(75, 42, 49) y=470
+32. button "Weiter" outline 2px rgb(84, 44, 53) y=470
+33. a "SA Selin A. Massage · Berlin 4,9 (29) Demo-Pr" outline 2px rgb(84, 44, 53) y=444
+34. a "GH Gabriele H. Kosmetik · München 5,0 (6) Dem" outline 2px rgb(84, 44, 53) y=444
+35. a "YK Yasmin K. Make-up · Frankfurt am Main 5,0 " outline 2px rgb(84, 44, 53) y=444
+36. a "MF Maximilian F. Haare & Styling · München 5," outline 2px rgb(84, 44, 53) y=444
+37. a "ER Elena R. Maniküre, Pediküre · München 5,0 " outline 2px rgb(84, 44, 53) y=444
+38. a "NW Natalja W. Maniküre, Pediküre · Düsseldorf" outline 2px rgb(84, 44, 53) y=444
+39. a "LR Luca R. Massage · Köln 4,8 (5) Sofort best" outline 2px rgb(84, 44, 53) y=444
+40. a "KB Katrin B. Kosmetik · Frankfurt am Main 4,7" outline 2px rgb(84, 44, 53) y=444
+41. a "Weiter: Für Profis" outline 2px rgb(70, 41, 47) y=470
+42. a "Profi werden" outline 2px rgb(243, 239, 232) y=466
+43. a "Konditionen ansehen" outline 2px rgb(243, 239, 232) y=466
+44. summary "Wie funktioniert SOMA?" outline 2px rgb(75, 42, 49) y=742
+45. summary "Wo gibt es SOMA?" outline 2px rgb(70, 41, 47) y=815
+{
+ "overlayOpen": true,
+ "focusInOverlay": "button \"Schließen\" outline 2px rgb(84, 44, 53) y=12",
+ "trapHolds": false,
+ "afterEsc": "button \"Kapitel 01 Bei dir\" outline 2px rgb(84, 44, 53) y=45",
+ "overlayLinkCount": 8,
+ "currentMarked": 1,
+ "afterJump": "h2 \"Wer bei dir klingelt.\" NO-RING y=310",
+ "hash": "#profis",
+ "chapterActive": "04",
+ "barOpen": true,
+ "focusAfterBar": "input \"PLZ, z. B. 10115\" NO-RING y=122",
+ "focusAfterBarEsc": "a \"Termin finden\" outline 2px rgb(84, 44, 53) y=10",
+ "placeAfterRight": "IM HOTEL",
+ "focusPlace": "button[radio] \"IM HOTEL\" outline 2px rgb(84, 44, 53) y=133",
+ "placeAfterEnd": "IM BÜRO",
+ "faqOpen": true,
+ "faqFocus": "summary \"Wie funktioniert SOMA?\" outline 2px rgb(84, 44, 53) y=456",
+ "tabs": "none on the page (v2)"
+}

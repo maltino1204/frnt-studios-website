@@ -1,0 +1,4423 @@
+{
+ "urls": 184,
+ "checked": 368,
+ "mismatches": [],
+ "rows": [
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.9
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.4
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.6
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.0
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.8
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.4
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 3.0
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.8
+  },
+  {
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.6
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.5
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 3.0
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.9
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.5
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.9
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.0
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/make-up-v3.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 4.1
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.4
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 3.0
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.9
+  },
+  {
+   "path": "/images/categories/manikuere-v5.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 4.4
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.5
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 3.1
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.0
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 2.0
+  },
+  {
+   "path": "/images/categories/massage-v6.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.8
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.4
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.7
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.0
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.8
+  },
+  {
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.8
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.7
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/after-v6.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.7
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/arrival-v5.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.9
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.7
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    720
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.9
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    171
+   ],
+   "diff": 0.7
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    256
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    260
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    427
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/office-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    552
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    607
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    607
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    220
+   ],
+   "diff": 0.8
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    220
+   ],
+   "diff": 0.9
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    640,
+    360
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    360
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    466
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    466
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    488
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    488
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/app-pro-v6.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    488
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    488
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/landing/hero-home-4x5-v3.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/pros/pro-01-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.2
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 32,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    32,
+    40
+   ],
+   "diff": 5.7
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 32,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    32,
+    40
+   ],
+   "diff": 3.9
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 48,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 3.8
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 48,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    48,
+    60
+   ],
+   "diff": 2.4
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 64,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 2.5
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 64,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    64,
+    80
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-03-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.1
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/pros/pro-04-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.8
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 2.3
+  },
+  {
+   "path": "/images/pros/pro-11-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.2
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-12-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 2.1
+  },
+  {
+   "path": "/images/pros/pro-15-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 2.1
+  },
+  {
+   "path": "/images/pros/pro-16-v5.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.5
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.7
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.6
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 2.2
+  },
+  {
+   "path": "/images/pros/pro-20-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 1080,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 1080,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    1080,
+    1350
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 128,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.4
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 128,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    128,
+    160
+   ],
+   "diff": 1.3
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 256,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 256,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    256,
+    320
+   ],
+   "diff": 0.5
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 384,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 384,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    384,
+    480
+   ],
+   "diff": 0.3
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 390,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 390,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    390,
+    487
+   ],
+   "diff": 0.4
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 640,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 640,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    640,
+    800
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 828,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "HIT",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.1
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 828,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    828,
+    1035
+   ],
+   "diff": 0.2
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 96,
+   "fmt": "avif",
+   "ctype": "image/avif",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.8
+  },
+  {
+   "path": "/images/pros/pro-26-v4.jpg",
+   "w": 96,
+   "fmt": "webp",
+   "ctype": "image/webp",
+   "cache": "MISS",
+   "size": [
+    96,
+    120
+   ],
+   "diff": 1.6
+  }
+ ]
+}

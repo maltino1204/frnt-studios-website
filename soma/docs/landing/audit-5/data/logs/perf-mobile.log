@@ -1,0 +1,5 @@
+run 1: TTFB 22 FCP 2276 LCP 2516 (IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.) CLS 0 TBT 197 longtasks 2 interactions ["click:152","click:80","click:88","click:184","keydown:144"]
+run 2: TTFB 17 FCP 2360 LCP 2360 (IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.) CLS 0 TBT 136 longtasks 1 interactions ["click:104","click:120","click:80","click:240","keydown:136"]
+run 3: TTFB 15 FCP 2312 LCP 2312 (IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.) CLS 0 TBT 87 longtasks 1 interactions ["click:144","click:104","click:72","click:256","keydown:200"]
+run 4: TTFB 15 FCP 2276 LCP 2276 (IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.) CLS 0 TBT 79 longtasks 1 interactions ["click:112","click:112","click:88","click:184","keydown:256"]
+run 5: TTFB 21 FCP 2312 LCP 2528 (IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.) CLS 0 TBT 95 longtasks 1 interactions ["click:120","click:120","click:88","click:480","keydown:128"]

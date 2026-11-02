@@ -15,7 +15,7 @@ const { launch, ctx, BASE, OUT, DATA, settle, fs } = require('./lib');
       // (audit 3) the h2 may sit below 320 px by layout (05 full tier, 08 < 1024, 10 at 768), so the section top is recorded too
       await settle(p, 1500);
       const mobile = vp.startsWith('m'); // phones: the dock's chapter button; 768: the header's „Menü“ (the dock hides while the hero entry is in view there)
-      const trig = mobile ? p.locator('.lp-dock button').first() : vp === 't768' ? p.locator('header button', { hasText: 'Menü' }).first() : p.locator('header button', { hasText: 'Kapitel' }).first();
+      const trig = mobile ? p.locator('.lp-dock button').first() : (vp === 't768' || vp === 't820') ? p.locator('header button', { hasText: 'Menü' }).first() : p.locator('header button', { hasText: 'Kapitel' }).first();
       if (mobile || vp.startsWith('t')) await trig.tap(); else await trig.click();
       await p.waitForTimeout(900);
       const link = p.locator(`dialog[open] a[href="#${id}"]`);

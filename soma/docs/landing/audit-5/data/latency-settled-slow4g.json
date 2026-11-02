@@ -6,39 +6,39 @@
   "res": [
    {
     "label": "place switch Im Hotel",
-    "inp": 104,
-    "visible": 138
+    "inp": 136,
+    "visible": 197
    },
    {
     "label": "dock Termin finden → sheet",
-    "inp": 120,
-    "visible": 116
+    "inp": 128,
+    "visible": 121
    },
    {
     "label": "Was? (inline picker in sheet)",
-    "inp": 136,
-    "visible": 233,
-    "visible2": 233
+    "inp": 120,
+    "visible": 113,
+    "visible2": 113
    },
    {
     "label": "Escape (close sheet)",
-    "inp": 72,
-    "visible": 61
+    "inp": 64,
+    "visible": 56
    },
    {
     "label": "dock chapter button → overlay",
-    "inp": 200,
-    "visible": 191
+    "inp": 256,
+    "visible": 242
    },
    {
     "label": "Escape (close overlay)",
-    "inp": 112,
-    "visible": 112
+    "inp": 88,
+    "visible": 88
    },
    {
     "label": "FAQ summary",
     "inp": 56,
-    "visible": 130
+    "visible": 161
    }
   ]
  },
@@ -49,39 +49,39 @@
   "res": [
    {
     "label": "place switch Im Hotel",
-    "inp": 136,
-    "visible": 204
+    "inp": 144,
+    "visible": 206
    },
    {
     "label": "dock Termin finden → sheet",
-    "inp": 136,
-    "visible": 137
+    "inp": 128,
+    "visible": 127
    },
    {
     "label": "Was? (inline picker in sheet)",
-    "inp": 184,
-    "visible": 193,
-    "visible2": 196
+    "inp": 160,
+    "visible": 174,
+    "visible2": 174
    },
    {
     "label": "Escape (close sheet)",
-    "inp": 112,
-    "visible": 103
+    "inp": 80,
+    "visible": 70
    },
    {
     "label": "dock chapter button → overlay",
-    "inp": 280,
-    "visible": 278
+    "inp": 232,
+    "visible": 227
    },
    {
     "label": "Escape (close overlay)",
-    "inp": 72,
-    "visible": 72
+    "inp": 88,
+    "visible": 89
    },
    {
     "label": "FAQ summary",
     "inp": 64,
-    "visible": 160
+    "visible": 168
    }
   ]
  },
@@ -92,39 +92,39 @@
   "res": [
    {
     "label": "place switch Im Hotel",
-    "inp": 152,
-    "visible": 207
+    "inp": 120,
+    "visible": 186
    },
    {
     "label": "dock Termin finden → sheet",
-    "inp": 168,
-    "visible": 169
+    "inp": 120,
+    "visible": 109
    },
    {
     "label": "Was? (inline picker in sheet)",
-    "inp": 136,
-    "visible": 260,
-    "visible2": 261
+    "inp": 120,
+    "visible": 116,
+    "visible2": 116
    },
    {
     "label": "Escape (close sheet)",
-    "inp": 80,
-    "visible": 73
+    "inp": 64,
+    "visible": 53
    },
    {
     "label": "dock chapter button → overlay",
-    "inp": 184,
-    "visible": 167
+    "inp": 168,
+    "visible": 160
    },
    {
     "label": "Escape (close overlay)",
-    "inp": 104,
-    "visible": 106
+    "inp": 128,
+    "visible": 138
    },
    {
     "label": "FAQ summary",
-    "inp": 80,
-    "visible": 176
+    "inp": 72,
+    "visible": 163
    }
   ]
  }
