@@ -162,7 +162,8 @@ export function ExploreProviderCard({ provider: p, postalCode, sizes = CARD_SIZE
           <VerifiedBadge className="shrink-0" />
         </span>
         {meta ? <span className="truncate type-body-s text-ink-muted">{meta}</span> : null}
-        <Rating avg={p.ratingAvg} count={p.ratingCount} />
+        {/* Fewer than 3 reviews would read „Neu auf SOMA“ again, next to the chip: then no rating line at all. */}
+        {p.ratingAvg && p.ratingCount >= 3 ? <Rating avg={p.ratingAvg} count={p.ratingCount} /> : null}
         {p.nextSlot ? <NextSlot iso={p.nextSlot} /> : null}
       </span>
       {p.endPriceCents != null ? (

@@ -66,7 +66,7 @@ export default async function FavoritenPage() {
         </ul>
       ) : (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
-          <EmptyState title="Noch keine Favoriten." seed="konto-favoriten" action={<ButtonLink href={routes.search()}>Profis entdecken</ButtonLink>} className="py-8">
+          <EmptyState title="Noch keine Favoriten." seed="konto-favoriten" action={<ButtonLink href={routes.explore()}>Profis entdecken</ButtonLink>} className="py-8">
             Tipp bei einem Profil auf das Herz – dann findest du es hier wieder.
           </EmptyState>
         </div>

@@ -30,6 +30,7 @@ export function SiteHeader() {
 
   const isIn = (prefix: string) => pathname === prefix || pathname.startsWith(`${prefix}/`);
   const links: NavLink[] = [
+    { href: routes.explore(), label: "Entdecken", active: isIn(routes.explore()) },
     { href: routes.categories(), label: "Behandlungen", active: isIn(routes.categories()) },
     { href: "/staedte", label: "Städte", active: isIn("/staedte") },
     { href: routes.forPros(), label: "Für Profis", active: isIn(routes.forPros()) },

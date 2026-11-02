@@ -8,6 +8,7 @@ import { BRAND_TAGLINE } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 
 const LINKS = [
+  { href: routes.explore(), label: "Entdecken" },
   { href: routes.categories(), label: "Behandlungen" },
   { href: "/staedte", label: "Städte" },
   { href: routes.forPros(), label: "Für Profis" },

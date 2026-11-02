@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/server/auth/guards";
 import { getProfile } from "@/server/services/account";
-import { Download, KeyRound, Trash2, UserRound, type LucideIcon } from "lucide-react";
+import { Compass, Download, KeyRound, Trash2, UserRound, type LucideIcon } from "lucide-react";
 import { AiLabel } from "@/components/ui/ai-label";
 import { Avatar } from "@/components/ui/avatar";
 import { Notice } from "@/components/ui/feedback";
@@ -9,6 +9,8 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/cn";
 import { PageHeader } from "@/components/ui/layout";
 import { DataExportButton, DeleteAccount, PasswordForm, ProfileForm } from "@/components/site/account-profile";
+import { PersonalizationSwitch } from "@/components/site/account-personalization";
+import { getPersonalizedSuggestions } from "@/server/services/explore";
 import { BRAND_NAME, SUPPORT_EMAIL } from "@/lib/brand";
 import { formatDateLong } from "@/lib/format";
 
@@ -45,7 +47,7 @@ function Card({ id, icon, title, lead, danger, children }: { id: string; icon: L
 
 export default async function ProfilPage() {
   const session = await requireRole("customer", "/konto/profil");
-  const profile = await getProfile(session);
+  const [profile, personalized] = await Promise.all([getProfile(session), getPersonalizedSuggestions(session)]);
   const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(" ") || profile.email;
   return (
     <div className="flex flex-col gap-5 md:gap-6">
@@ -63,6 +65,14 @@ export default async function ProfilPage() {
       </Card>
       <Card id="passwort" icon={KeyRound} title="Passwort">
         {session.isDemoAccount ? <DemoNotice /> : <PasswordForm />}
+      </Card>
+      <Card
+        id="vorschlaege"
+        icon={Compass}
+        title="Persönliche Vorschläge"
+        lead="Auf Entdecken zeigen wir dir unter „Für dich“ Vorschläge aus deinen eigenen Daten bei SOMA: deinen Buchungen, deinen Favoriten und der Postleitzahl deiner Standardadresse. Nichts davon geht an Dritte."
+      >
+        <PersonalizationSwitch initial={personalized} />
       </Card>
       <Card
         id="daten"

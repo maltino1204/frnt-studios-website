@@ -16,10 +16,12 @@ export function ExploreCityTabs({
   cities,
   defaultSlug,
   headingId,
+  lead,
 }: {
   cities: Array<{ slug: string; name: string; panel: ReactNode }>;
   defaultSlug: string;
   headingId: string;
+  lead: ReactNode;
 }) {
   const base = useId();
   const personal = usePersonalCity();
@@ -43,14 +45,14 @@ export function ExploreCityTabs({
 
   return (
     <div className="flex flex-col gap-6 md:gap-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+      <div className="flex flex-col gap-5">
         <div className="flex max-w-reading flex-col gap-2.5">
           <p className="type-eyebrow text-ink-muted">Beliebt</p>
           <h2 id={headingId} className="type-heading-l text-ink">{`Beliebt in ${active.name}`}</h2>
-          <p className="type-body-s text-pretty text-ink-muted">Am häufigsten gebucht in den letzten 90 Tagen. Freie Termine und den Endpreis zeigt dir die Suche.</p>
+          <p className="type-body-s text-pretty text-ink-muted">{lead}</p>
         </div>
         {cities.length > 1 ? (
-          <div role="tablist" aria-label="Stadt wählen" className="-mx-(--space-gutter) flex gap-2 overflow-x-auto px-(--space-gutter) py-1.5 scrollbar-none md:mx-0 md:flex-wrap md:justify-end md:px-0">
+          <div role="tablist" aria-label="Stadt wählen" className="-mx-(--space-gutter) flex gap-2 overflow-x-auto px-(--space-gutter) py-1.5 scrollbar-none md:mx-0 md:flex-wrap md:px-0">
             {cities.map((c, i) => {
               const selected = c.slug === active.slug;
               return (

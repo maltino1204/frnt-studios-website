@@ -14,7 +14,7 @@ import { ACCOUNT_SECTIONS } from "./account-sections";
 type NavItem = { href: string; label: string; icon: LucideIcon; match: (p: string) => boolean };
 
 const ITEMS: NavItem[] = [
-  { href: routes.home(), label: "Entdecken", icon: Compass, match: () => false },
+  { href: routes.explore(), label: "Entdecken", icon: Compass, match: (p) => p === "/entdecken" || p.startsWith("/entdecken/") },
   { href: routes.account.bookings(), label: "Termine", icon: CalendarDays, match: (p) => p.startsWith("/konto/termine") },
   { href: routes.account.favorites(), label: "Favoriten", icon: Heart, match: (p) => p.startsWith("/konto/favoriten") },
   {

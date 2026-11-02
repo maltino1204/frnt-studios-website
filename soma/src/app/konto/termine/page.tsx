@@ -67,7 +67,7 @@ export default async function TerminePage({ searchParams }: { searchParams: Prom
       ) : (
         <div className="rounded-card bg-surface-raised px-5 shadow-raised md:px-7">
           {tab === "bevorstehend" ? (
-            <EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href={routes.search()}>Behandlung finden</ButtonLink>} className="py-8">
+            <EmptyState title="Noch keine Termine." seed="konto-termine" action={<ButtonLink href={routes.explore()}>Behandlungen entdecken</ButtonLink>} className="py-8">
               Wenn du buchst, findest du hier Zeit, Ort, Start-Code und Stornofrist.
             </EmptyState>
           ) : tab === "vergangen" ? (

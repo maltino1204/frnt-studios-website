@@ -86,3 +86,13 @@ describe("copy and links", () => {
     expect(durationsText([])).toBe("");
   });
 });
+
+describe("slot wording", () => {
+  it("says heute and morgen where it helps", async () => {
+    const { slotText } = await import("@/components/site/explore-copy");
+    const now = new Date("2026-11-02T09:00:00Z");
+    expect(slotText("2026-11-02T16:30:00.000Z", now)).toBe("Heute, 17:30");
+    expect(slotText("2026-11-03T08:00:00.000Z", now)).toBe("Morgen, 09:00");
+    expect(slotText("2026-11-05T08:00:00.000Z", now).replace(/\u00a0/g, " ")).toBe("Do., 5. Nov., 09:00");
+  });
+});

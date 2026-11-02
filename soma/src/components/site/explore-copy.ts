@@ -2,10 +2,10 @@
  * „Entdecken“ copy and link helpers (isomorphic: server cards, the „Für dich“ client chunk and the admin editor).
  * German, du, calm (brand/BRAND_VOICE.md). Never "kuratiert" or "handverlesen" (§ 6.3).
  */
-import { formatDayShort, formatPrice, formatTime, NBSP } from "@/lib/format";
+import { formatPrice, formatTime, NBSP } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { BRAND_NAME } from "@/lib/brand";
-import { TIME_OF_DAY_LABEL, TIME_OF_DAY_RANGE } from "./checkout-format";
+import { dayLabel, TIME_OF_DAY_LABEL, TIME_OF_DAY_RANGE } from "./checkout-format";
 
 /** Search filters a category item may carry: exactly the existing /suche params. */
 export type ExploreFilters = { plz?: string; leistung?: string; datum?: string; zeit?: "morgens" | "mittags" | "abends" };
@@ -58,9 +58,9 @@ export function priceText(p: { cents: number; from: boolean }): string {
   return p.from ? `ab${NBSP}${formatPrice(p.cents)}` : formatPrice(p.cents);
 }
 
-/** "Do., 12. Nov., 18:30" (the slot from the availability engine; only ever shown in „Für dich“). */
-export function slotText(iso: string): string {
-  return `${formatDayShort(iso)}, ${formatTime(iso)}`;
+/** "Heute, 18:30" · "Morgen, 09:00" · "Do., 12. Nov., 18:30" (a slot from the availability engine; only in „Für dich“, client-rendered). */
+export function slotText(iso: string, now: Date = new Date()): string {
+  return `${dayLabel(iso, now)}, ${formatTime(iso)}`;
 }
 
 const sinceFmt = { v: null as Intl.DateTimeFormat | null };
