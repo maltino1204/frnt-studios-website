@@ -39,6 +39,7 @@ export function LandingImage({
       sizes={sizes}
       quality={quality}
       preload={lcp || undefined}
+      fetchPriority={lcp ? "high" : undefined}
       data-lcp={lcp ? "" : undefined}
       data-reveal={settle && !lcp ? "settle" : undefined}
       className={cn("object-cover", className)}
