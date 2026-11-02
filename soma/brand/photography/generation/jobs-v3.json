@@ -2,7 +2,7 @@
  "note": "Every Higgsfield job of the v3 'Tageslicht' set (Photo Art Director, 2 Nov 2026). Start balance 1235.49 credits, budget 500. `current` = the file registered per path.",
  "startBalance": 1235.49,
  "budget": 500,
- "creditsLogged": 94.5,
+ "creditsLogged": 214.5,
  "model": "nano_banana_pro 2k (2 credits per image)",
  "skippedByLead": [
   "L03",
@@ -112,7 +112,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_a08a60c6-7a95-42d8-a7c4-41c7b6b0a8ae.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_a08a60c6-7a95-42d8-a7c4-41c7b6b0a8ae.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "82492de2-c936-4447-bddd-b09577ba6213",
@@ -122,7 +124,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_82492de2-c936-4447-bddd-b09577ba6213.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_82492de2-c936-4447-bddd-b09577ba6213.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "292a18fe-fd04-4f16-a298-cb36a1530355",
@@ -132,7 +136,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_292a18fe-fd04-4f16-a298-cb36a1530355.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_292a18fe-fd04-4f16-a298-cb36a1530355.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "1d3c8562-e28d-4506-b63b-79e7ae703fe4",
@@ -142,7 +148,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1d3c8562-e28d-4506-b63b-79e7ae703fe4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1d3c8562-e28d-4506-b63b-79e7ae703fe4.png",
+   "status": "pass",
+   "reason": "both arms and hands visible, correct"
   },
   {
    "id": "5726a777-0ab9-4981-af7c-02a9923e2a6b",
@@ -152,7 +160,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125816_5726a777-0ab9-4981-af7c-02a9923e2a6b.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125816_5726a777-0ab9-4981-af7c-02a9923e2a6b.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "ddcfb109-2243-4ff1-9841-0b8ef6c45285",
@@ -162,7 +172,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_ddcfb109-2243-4ff1-9841-0b8ef6c45285.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_ddcfb109-2243-4ff1-9841-0b8ef6c45285.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "fedf4799-443b-4719-8696-418918dd494b",
@@ -172,7 +184,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_fedf4799-443b-4719-8696-418918dd494b.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_fedf4799-443b-4719-8696-418918dd494b.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "59cd910e-89cd-4798-ba53-ff3b073d66b1",
@@ -182,7 +196,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_59cd910e-89cd-4798-ba53-ff3b073d66b1.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_59cd910e-89cd-4798-ba53-ff3b073d66b1.png",
+   "status": "pass",
+   "reason": "frontal, both arms, hands correct"
   },
   {
    "id": "30654154-4dd6-4432-8f37-2d853799c905",
@@ -192,7 +208,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_30654154-4dd6-4432-8f37-2d853799c905.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_30654154-4dd6-4432-8f37-2d853799c905.png",
+   "status": "pass",
+   "reason": "androgynous, both arms visible, hands correct"
   },
   {
    "id": "1420a920-59af-4657-ab20-58ea0da16255",
@@ -202,7 +220,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1420a920-59af-4657-ab20-58ea0da16255.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1420a920-59af-4657-ab20-58ea0da16255.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "d78a81a4-30b9-463e-ad89-a69c5a5bb92a",
@@ -212,7 +232,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125812_d78a81a4-30b9-463e-ad89-a69c5a5bb92a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125812_d78a81a4-30b9-463e-ad89-a69c5a5bb92a.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "b431b8a9-19aa-42b0-bf5c-d7e1390ba333",
@@ -222,7 +244,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_b431b8a9-19aa-42b0-bf5c-d7e1390ba333.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_b431b8a9-19aa-42b0-bf5c-d7e1390ba333.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "e7c63fa3-34bc-41ec-84e5-2ce083b61639",
@@ -232,7 +256,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e7c63fa3-34bc-41ec-84e5-2ce083b61639.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e7c63fa3-34bc-41ec-84e5-2ce083b61639.png",
+   "status": "fail",
+   "reason": "anatomy fine, but reads Southeast Asian rather than Korean (Ji-woo P.)"
   },
   {
    "id": "04a38b48-25cf-4042-86ed-701a5df74ae7",
@@ -242,7 +268,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_04a38b48-25cf-4042-86ed-701a5df74ae7.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_04a38b48-25cf-4042-86ed-701a5df74ae7.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "c2e85e3c-f419-4532-9583-defc6529aa73",
@@ -252,7 +280,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_c2e85e3c-f419-4532-9583-defc6529aa73.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_c2e85e3c-f419-4532-9583-defc6529aa73.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "a5b371d9-885e-4cbf-a87c-df7100dbe69e",
@@ -262,7 +292,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_a5b371d9-885e-4cbf-a87c-df7100dbe69e.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_a5b371d9-885e-4cbf-a87c-df7100dbe69e.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "9d6ec465-d118-4027-8b3f-cb59f50f9f39",
@@ -272,7 +304,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9d6ec465-d118-4027-8b3f-cb59f50f9f39.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9d6ec465-d118-4027-8b3f-cb59f50f9f39.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "e5597028-5b42-4b3c-9202-7297cc56232c",
@@ -282,7 +316,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e5597028-5b42-4b3c-9202-7297cc56232c.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e5597028-5b42-4b3c-9202-7297cc56232c.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "e2aaac40-8b37-489f-af0b-81196ef35f64",
@@ -292,7 +328,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e2aaac40-8b37-489f-af0b-81196ef35f64.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e2aaac40-8b37-489f-af0b-81196ef35f64.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "a21b732a-0a44-4161-8a9d-10e46f9d1196",
@@ -302,7 +340,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_a21b732a-0a44-4161-8a9d-10e46f9d1196.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_a21b732a-0a44-4161-8a9d-10e46f9d1196.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "0766eb8e-f541-4b46-832c-7db728fb9717",
@@ -312,7 +352,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_0766eb8e-f541-4b46-832c-7db728fb9717.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_0766eb8e-f541-4b46-832c-7db728fb9717.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "9843e741-1456-439b-8010-64561db0c8eb",
@@ -322,7 +364,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9843e741-1456-439b-8010-64561db0c8eb.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9843e741-1456-439b-8010-64561db0c8eb.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "99ae5030-5d2b-4f96-a705-61253b314771",
@@ -332,7 +376,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_99ae5030-5d2b-4f96-a705-61253b314771.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_99ae5030-5d2b-4f96-a705-61253b314771.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "aa97f959-9f02-4178-8dfd-f91eacd3e84a",
@@ -342,7 +388,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125953_aa97f959-9f02-4178-8dfd-f91eacd3e84a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125953_aa97f959-9f02-4178-8dfd-f91eacd3e84a.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "c1ce009d-2ffe-4a53-a90c-13ff28014b5f",
@@ -352,7 +400,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_c1ce009d-2ffe-4a53-a90c-13ff28014b5f.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_c1ce009d-2ffe-4a53-a90c-13ff28014b5f.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "78b6881b-9d2a-4ae4-ad16-0eefa3f0a4b2",
@@ -362,7 +412,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_78b6881b-9d2a-4ae4-ad16-0eefa3f0a4b2.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_78b6881b-9d2a-4ae4-ad16-0eefa3f0a4b2.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "a2c350fa-288d-493c-8d2a-b2a290d5bba2",
@@ -372,7 +424,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_a2c350fa-288d-493c-8d2a-b2a290d5bba2.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_a2c350fa-288d-493c-8d2a-b2a290d5bba2.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm; also reads older than 33"
   },
   {
    "id": "2b7a62ad-2985-4b8b-9586-52e6672677a9",
@@ -382,7 +436,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_2b7a62ad-2985-4b8b-9586-52e6672677a9.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_2b7a62ad-2985-4b8b-9586-52e6672677a9.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "748e0a47-22b9-410a-8c9e-2b6be87ae525",
@@ -392,7 +448,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_748e0a47-22b9-410a-8c9e-2b6be87ae525.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_748e0a47-22b9-410a-8c9e-2b6be87ae525.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "905f0378-55c6-4a2e-b1c5-f1461edd9a0e",
@@ -402,7 +460,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130100_905f0378-55c6-4a2e-b1c5-f1461edd9a0e.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130100_905f0378-55c6-4a2e-b1c5-f1461edd9a0e.png",
+   "status": "fail",
+   "reason": "three-quarter turn hides the far arm behind the torso: both arms not visible"
   },
   {
    "id": "683f0d93-e658-4707-8ced-06d8bcd86882",
@@ -412,7 +472,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130100_683f0d93-e658-4707-8ced-06d8bcd86882.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130100_683f0d93-e658-4707-8ced-06d8bcd86882.png",
+   "status": "pass",
+   "reason": "bright, sheet just below the shoulder blades, hands correct; note: the trousers read oxblood (more than a detail)"
   },
   {
    "id": "b42bc848-3c37-42d8-b94a-927e7625142f",
@@ -422,7 +484,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130058_b42bc848-3c37-42d8-b94a-927e7625142f.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130058_b42bc848-3c37-42d8-b94a-927e7625142f.png",
+   "status": "pass",
+   "reason": "bright summer evening sun, sheet to the shoulder blades, hands correct, bottles unlabelled; also feeds hero/home-v3 and hero-home-4x5-v3"
   },
   {
    "id": "b84f0219-3db7-4a75-b5c3-14f05ec43ed1",
@@ -432,7 +496,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_b84f0219-3db7-4a75-b5c3-14f05ec43ed1.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_b84f0219-3db7-4a75-b5c3-14f05ec43ed1.png",
+   "status": "pass",
+   "reason": "phone screen black and sharp, hand correct"
   },
   {
    "id": "675f0c03-847e-4071-b7fa-f2fd2a8b9878",
@@ -442,7 +508,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_675f0c03-847e-4071-b7fa-f2fd2a8b9878.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_675f0c03-847e-4071-b7fa-f2fd2a8b9878.png",
+   "status": "fail",
+   "reason": "the Profi looks at the camera, not at the phone (the landing alt text says „schaut auf das Smartphone“)"
   },
   {
    "id": "aba3ee99-4ebc-457f-8847-06505e296324",
@@ -452,7 +520,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_aba3ee99-4ebc-457f-8847-06505e296324.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_aba3ee99-4ebc-457f-8847-06505e296324.png",
+   "status": "pass",
+   "reason": "calm empty oak, no text"
   },
   {
    "id": "20b2fd79-1bde-401c-a323-1fae686a8dc8",
@@ -462,50 +532,620 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_20b2fd79-1bde-401c-a323-1fae686a8dc8.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_20b2fd79-1bde-401c-a323-1fae686a8dc8.png",
+   "status": "pass",
+   "reason": "warm greeting at the door, hands and case correct"
+  },
+  {
+   "id": "1255ffbf-4785-48aa-a442-14043b7eeff6",
+   "group": "v3",
+   "shot": "E02",
+   "path": "/images/editorial/setup-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_1255ffbf-4785-48aa-a442-14043b7eeff6.png"
+  },
+  {
+   "id": "f491b396-2d60-4d36-a6e9-9e873d21e2aa",
+   "group": "v3",
+   "shot": "E03",
+   "path": "/images/editorial/after-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_f491b396-2d60-4d36-a6e9-9e873d21e2aa.png"
+  },
+  {
+   "id": "2c0b8473-c7a3-4ae8-b16f-eabba5f5ee1c",
+   "group": "v3",
+   "shot": "E04",
+   "path": "/images/editorial/hotel-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_2c0b8473-c7a3-4ae8-b16f-eabba5f5ee1c.png"
+  },
+  {
+   "id": "3c2f118e-9816-48f8-9dc2-657a0866bda7",
+   "group": "v3",
+   "shot": "E05",
+   "path": "/images/editorial/office-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_3c2f118e-9816-48f8-9dc2-657a0866bda7.png"
+  },
+  {
+   "id": "e71fc1ff-c919-4f3f-b08f-5063b0e07809",
+   "group": "v3",
+   "shot": "E06",
+   "path": "/images/editorial/details-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_e71fc1ff-c919-4f3f-b08f-5063b0e07809.png"
+  },
+  {
+   "id": "a794cee4-df05-4431-8877-5a8769980575",
+   "group": "v3",
+   "shot": "E07",
+   "path": "/images/editorial/provider-cta-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_a794cee4-df05-4431-8877-5a8769980575.png",
+   "status": "fail",
+   "reason": "bright left half: the landing band (chapter 05) sets Bone text on the left third (needs a deep calm zone)"
+  },
+  {
+   "id": "22c2c6c5-df18-49f2-8c4f-5daa8026aef3",
+   "group": "v3",
+   "shot": "E08",
+   "path": "/images/og-default-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_22c2c6c5-df18-49f2-8c4f-5daa8026aef3.png"
+  },
+  {
+   "id": "1b5c37b0-5fc8-40e0-9c7a-fd631413fdaa",
+   "group": "v3",
+   "shot": "C01",
+   "path": "/images/categories/massage-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130229_1b5c37b0-5fc8-40e0-9c7a-fd631413fdaa.png"
+  },
+  {
+   "id": "96754f7e-24ef-4f64-b562-ac1033929c8f",
+   "group": "v3",
+   "shot": "C02",
+   "path": "/images/categories/manikuere-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_96754f7e-24ef-4f64-b562-ac1033929c8f.png"
+  },
+  {
+   "id": "cc710e11-7d60-4d89-bd75-2d0d918fadc5",
+   "group": "v3",
+   "shot": "C03",
+   "path": "/images/categories/pedikuere-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_cc710e11-7d60-4d89-bd75-2d0d918fadc5.png"
+  },
+  {
+   "id": "a3b65de3-06a7-4499-8b6a-5986f6c96015",
+   "group": "v3",
+   "shot": "C04",
+   "path": "/images/categories/kosmetik-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_a3b65de3-06a7-4499-8b6a-5986f6c96015.png"
+  },
+  {
+   "id": "4a3d8e34-157e-4040-8fb6-870dd0c5149a",
+   "group": "v3",
+   "shot": "C05",
+   "path": "/images/categories/haare-styling-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_4a3d8e34-157e-4040-8fb6-870dd0c5149a.png"
+  },
+  {
+   "id": "3302936f-c25e-48d9-9de3-50c75ffe6aff",
+   "group": "v3",
+   "shot": "C06",
+   "path": "/images/categories/brows-lashes-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_3302936f-c25e-48d9-9de3-50c75ffe6aff.png"
+  },
+  {
+   "id": "b051aabe-9df4-4bb8-a83c-aeb062ec77e9",
+   "group": "v3",
+   "shot": "C07",
+   "path": "/images/categories/make-up-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_b051aabe-9df4-4bb8-a83c-aeb062ec77e9.png"
+  },
+  {
+   "id": "66257736-b696-4c24-96a6-72686b711732",
+   "group": "v3",
+   "shot": "X01",
+   "path": "/images/explore/vor-dem-event.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_66257736-b696-4c24-96a6-72686b711732.png"
+  },
+  {
+   "id": "6453fd27-f497-4f47-bf38-77e86fee2abc",
+   "group": "v3",
+   "shot": "X02",
+   "path": "/images/explore/nach-dem-sport.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130326_6453fd27-f497-4f47-bf38-77e86fee2abc.png"
+  },
+  {
+   "id": "2910d88d-30d8-4b3c-bbf1-94178f71ecf9",
+   "group": "v3",
+   "shot": "X03",
+   "path": "/images/explore/im-hotel-ankommen.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_2910d88d-30d8-4b3c-bbf1-94178f71ecf9.png"
+  },
+  {
+   "id": "a028753d-0946-4eba-b037-c7d920e2938e",
+   "group": "v3",
+   "shot": "X04",
+   "path": "/images/explore/mittagspause.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a028753d-0946-4eba-b037-c7d920e2938e.png"
+  },
+  {
+   "id": "edab5c1d-3e71-41e8-863d-b021d119bf93",
+   "group": "v3",
+   "shot": "X05",
+   "path": "/images/explore/sonntag-fuer-dich.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_edab5c1d-3e71-41e8-863d-b021d119bf93.png"
+  },
+  {
+   "id": "11c521c4-cc1b-4a2a-a90f-ec862d84f226",
+   "group": "v3",
+   "shot": "X06",
+   "path": "/images/explore/neu-auf-soma.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130329_11c521c4-cc1b-4a2a-a90f-ec862d84f226.png"
+  },
+  {
+   "id": "a3ecadbe-21cc-4105-89b0-1330dfbdaaed",
+   "group": "v3",
+   "shot": "P-massage-1",
+   "path": "/images/portfolio/massage-1-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a3ecadbe-21cc-4105-89b0-1330dfbdaaed.png"
+  },
+  {
+   "id": "016b6992-2f18-4547-bc99-7b059855547f",
+   "group": "v3",
+   "shot": "P-massage-2",
+   "path": "/images/portfolio/massage-2-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_016b6992-2f18-4547-bc99-7b059855547f.png"
+  },
+  {
+   "id": "abef47bf-9547-4952-a936-c14ffa1b4f64",
+   "group": "v3",
+   "shot": "P-massage-3",
+   "path": "/images/portfolio/massage-3-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_abef47bf-9547-4952-a936-c14ffa1b4f64.png"
+  },
+  {
+   "id": "bae8977e-6dc2-4177-affc-c55ded4563ce",
+   "group": "v3",
+   "shot": "P-massage-4",
+   "path": "/images/portfolio/massage-4-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_bae8977e-6dc2-4177-affc-c55ded4563ce.png"
+  },
+  {
+   "id": "fd46b44a-71aa-4884-8dd8-a5a6f887e05c",
+   "group": "v3",
+   "shot": "P-massage-5",
+   "path": "/images/portfolio/massage-5-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_fd46b44a-71aa-4884-8dd8-a5a6f887e05c.png"
+  },
+  {
+   "id": "5e9ddc42-8fda-4c46-a938-1b4596b673a8",
+   "group": "v3",
+   "shot": "P-massage-6",
+   "path": "/images/portfolio/massage-6-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_5e9ddc42-8fda-4c46-a938-1b4596b673a8.png"
+  },
+  {
+   "id": "cca6dd89-15b9-4629-a151-b6c0893e1c69",
+   "group": "v3",
+   "shot": "P-massage-7",
+   "path": "/images/portfolio/massage-7-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cca6dd89-15b9-4629-a151-b6c0893e1c69.png"
+  },
+  {
+   "id": "cb051850-9b04-4852-b3d3-70a7ba07f482",
+   "group": "v3",
+   "shot": "P-massage-8",
+   "path": "/images/portfolio/massage-8-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cb051850-9b04-4852-b3d3-70a7ba07f482.png"
+  },
+  {
+   "id": "fc889709-85c9-4f87-a883-aa4aec4e63cd",
+   "group": "v3",
+   "shot": "P-massage-9",
+   "path": "/images/portfolio/massage-9-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130650_fc889709-85c9-4f87-a883-aa4aec4e63cd.png"
+  },
+  {
+   "id": "9dae014f-ede0-44c7-8c6d-f28121d17424",
+   "group": "v3",
+   "shot": "P-massage-10",
+   "path": "/images/portfolio/massage-10-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_9dae014f-ede0-44c7-8c6d-f28121d17424.png"
+  },
+  {
+   "id": "e4f27e7b-6291-4f48-9757-66639f4b6f24",
+   "group": "v3",
+   "shot": "P-massage-11",
+   "path": "/images/portfolio/massage-11-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130651_e4f27e7b-6291-4f48-9757-66639f4b6f24.png"
+  },
+  {
+   "id": "513dbdd4-d7ab-4f50-9059-0c7af69e9569",
+   "group": "v3",
+   "shot": "P-massage-12",
+   "path": "/images/portfolio/massage-12-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_513dbdd4-d7ab-4f50-9059-0c7af69e9569.png"
+  },
+  {
+   "id": "90f4d4b6-cc49-427e-93fa-a4082cebc59a",
+   "group": "v3",
+   "shot": "P-massage-13",
+   "path": "/images/portfolio/massage-13-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_90f4d4b6-cc49-427e-93fa-a4082cebc59a.png"
+  },
+  {
+   "id": "79b4f821-9d69-4fa5-86b9-6ca4187ba8b8",
+   "group": "v3",
+   "shot": "P-massage-14",
+   "path": "/images/portfolio/massage-14-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_79b4f821-9d69-4fa5-86b9-6ca4187ba8b8.png"
+  },
+  {
+   "id": "dc5673fb-7763-482c-ad4e-28bf3b8fb85b",
+   "group": "v3",
+   "shot": "P-massage-15",
+   "path": "/images/portfolio/massage-15-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_dc5673fb-7763-482c-ad4e-28bf3b8fb85b.png"
+  },
+  {
+   "id": "c326bfef-8df7-4e08-94e4-47dc79e5f85b",
+   "group": "v3",
+   "shot": "P-massage-16",
+   "path": "/images/portfolio/massage-16-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_c326bfef-8df7-4e08-94e4-47dc79e5f85b.png"
+  },
+  {
+   "id": "125a019a-7ce9-4fc7-9120-2cce8d830c58",
+   "group": "v3",
+   "shot": "P-massage-17",
+   "path": "/images/portfolio/massage-17-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_125a019a-7ce9-4fc7-9120-2cce8d830c58.png"
+  },
+  {
+   "id": "fcad6777-dd4b-459c-96a2-d6a1e7a72378",
+   "group": "v3",
+   "shot": "P-massage-18",
+   "path": "/images/portfolio/massage-18-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_fcad6777-dd4b-459c-96a2-d6a1e7a72378.png"
+  },
+  {
+   "id": "369c9b03-8110-4f37-9a44-6624080cf729",
+   "group": "v3",
+   "shot": "P-massage-19",
+   "path": "/images/portfolio/massage-19-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_369c9b03-8110-4f37-9a44-6624080cf729.png"
+  },
+  {
+   "id": "7412a1b2-877c-4a9c-977c-d4625f70ff37",
+   "group": "v3",
+   "shot": "P-massage-20",
+   "path": "/images/portfolio/massage-20-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_7412a1b2-877c-4a9c-977c-d4625f70ff37.png"
+  },
+  {
+   "id": "8821f1d5-1588-419f-8401-78ac79cf0f48",
+   "group": "v3",
+   "shot": "P-massage-21",
+   "path": "/images/portfolio/massage-21-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_8821f1d5-1588-419f-8401-78ac79cf0f48.png"
+  },
+  {
+   "id": "e5c9aad6-e56a-4018-9479-fce1467b08a7",
+   "group": "v3",
+   "shot": "P-manikuere-1",
+   "path": "/images/portfolio/manikuere-1-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_e5c9aad6-e56a-4018-9479-fce1467b08a7.png"
+  },
+  {
+   "id": "efaa9618-6b49-4874-8f2c-e9c4e876d48a",
+   "group": "v3",
+   "shot": "P-manikuere-2",
+   "path": "/images/portfolio/manikuere-2-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_efaa9618-6b49-4874-8f2c-e9c4e876d48a.png"
+  },
+  {
+   "id": "507497a2-61f8-4f6e-9475-795d7cdad026",
+   "group": "v3",
+   "shot": "P-manikuere-3",
+   "path": "/images/portfolio/manikuere-3-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_507497a2-61f8-4f6e-9475-795d7cdad026.png"
+  },
+  {
+   "id": "9e781f59-6b3e-4d26-b0e6-108c2e7c809b",
+   "group": "v3",
+   "shot": "P-manikuere-4",
+   "path": "/images/portfolio/manikuere-4-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_9e781f59-6b3e-4d26-b0e6-108c2e7c809b.png"
+  },
+  {
+   "id": "f476e398-d94b-4d05-9d94-ac224e90eba4",
+   "group": "v3",
+   "shot": "P-manikuere-5",
+   "path": "/images/portfolio/manikuere-5-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_f476e398-d94b-4d05-9d94-ac224e90eba4.png"
+  },
+  {
+   "id": "b163f505-cb26-4f90-9fbf-7e0d7d134a89",
+   "group": "v3",
+   "shot": "P-manikuere-6",
+   "path": "/images/portfolio/manikuere-6-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_b163f505-cb26-4f90-9fbf-7e0d7d134a89.png"
+  },
+  {
+   "id": "4dbeb119-1dd3-4095-88b4-5505a156acff",
+   "group": "v3",
+   "shot": "P-manikuere-7",
+   "path": "/images/portfolio/manikuere-7-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_4dbeb119-1dd3-4095-88b4-5505a156acff.png"
+  },
+  {
+   "id": "59852e82-e08b-4ece-a8d6-562e37012126",
+   "group": "v3",
+   "shot": "P-manikuere-8",
+   "path": "/images/portfolio/manikuere-8-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_59852e82-e08b-4ece-a8d6-562e37012126.png"
+  },
+  {
+   "id": "bfefce32-39d4-4709-acca-f96710911ee0",
+   "group": "v3",
+   "shot": "P-manikuere-9",
+   "path": "/images/portfolio/manikuere-9-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_bfefce32-39d4-4709-acca-f96710911ee0.png"
+  },
+  {
+   "id": "796d23cd-1f7e-440e-a50d-4f2a0f58cc9c",
+   "group": "v3",
+   "shot": "P-manikuere-10",
+   "path": "/images/portfolio/manikuere-10-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_796d23cd-1f7e-440e-a50d-4f2a0f58cc9c.png"
+  },
+  {
+   "id": "ea800c6d-ee43-4f2e-bf45-9cc0d3d0eb03",
+   "group": "v3",
+   "shot": "P-pedikuere-1",
+   "path": "/images/portfolio/pedikuere-1-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_ea800c6d-ee43-4f2e-bf45-9cc0d3d0eb03.png"
+  },
+  {
+   "id": "e86df0d3-2c97-41a4-9401-ad8aa3a00609",
+   "group": "v3",
+   "shot": "P-pedikuere-2",
+   "path": "/images/portfolio/pedikuere-2-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_e86df0d3-2c97-41a4-9401-ad8aa3a00609.png"
+  },
+  {
+   "id": "5ebd5500-9db2-4871-ad4e-e13c2402cb03",
+   "group": "v3",
+   "shot": "P-pedikuere-3",
+   "path": "/images/portfolio/pedikuere-3-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_5ebd5500-9db2-4871-ad4e-e13c2402cb03.png"
+  },
+  {
+   "id": "71b910c7-99f0-43e5-b700-c69d679f09e7",
+   "group": "v3",
+   "shot": "P-pedikuere-4",
+   "path": "/images/portfolio/pedikuere-4-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_71b910c7-99f0-43e5-b700-c69d679f09e7.png"
+  },
+  {
+   "id": "b7898e69-8f33-4623-947f-3342c4908bbe",
+   "group": "v3",
+   "shot": "P-pedikuere-5",
+   "path": "/images/portfolio/pedikuere-5-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_b7898e69-8f33-4623-947f-3342c4908bbe.png"
+  },
+  {
+   "id": "a2b03328-6cb0-4da5-898b-32757839e69e",
+   "group": "v3",
+   "shot": "P-kosmetik-1",
+   "path": "/images/portfolio/kosmetik-1-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_a2b03328-6cb0-4da5-898b-32757839e69e.png"
+  },
+  {
+   "id": "ad258d00-68af-4b66-8b61-f66545f41f1e",
+   "group": "v3",
+   "shot": "P-kosmetik-2",
+   "path": "/images/portfolio/kosmetik-2-v3.jpg",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130954_ad258d00-68af-4b66-8b61-f66545f41f1e.png"
+  },
+  {
+   "id": "09593da6-cff6-4b12-8e47-3e40cb8cecb0",
+   "group": "v3-retry",
+   "shot": "R01",
+   "path": "/images/pros/pro-01-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_09593da6-cff6-4b12-8e47-3e40cb8cecb0.png",
+   "note": "frontal pose test"
+  },
+  {
+   "id": "eb34b5a0-8a9c-422f-b65c-5bac78963873",
+   "group": "v3-retry",
+   "shot": "R02",
+   "path": "/images/pros/pro-02-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_eb34b5a0-8a9c-422f-b65c-5bac78963873.png",
+   "note": "frontal pose test"
   }
  ],
  "current": {
-  "/images/pros/pro-01-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_a08a60c6-7a95-42d8-a7c4-41c7b6b0a8ae.png",
-   "job": "a08a60c6-7a95-42d8-a7c4-41c7b6b0a8ae",
-   "shot": "R01",
-   "attempt": 1
-  },
-  "/images/pros/pro-02-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_82492de2-c936-4447-bddd-b09577ba6213.png",
-   "job": "82492de2-c936-4447-bddd-b09577ba6213",
-   "shot": "R02",
-   "attempt": 1
-  },
-  "/images/pros/pro-03-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_292a18fe-fd04-4f16-a298-cb36a1530355.png",
-   "job": "292a18fe-fd04-4f16-a298-cb36a1530355",
-   "shot": "R03",
-   "attempt": 1
-  },
   "/images/pros/pro-04-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1d3c8562-e28d-4506-b63b-79e7ae703fe4.png",
    "job": "1d3c8562-e28d-4506-b63b-79e7ae703fe4",
    "shot": "R04",
-   "attempt": 1
-  },
-  "/images/pros/pro-05-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125816_5726a777-0ab9-4981-af7c-02a9923e2a6b.png",
-   "job": "5726a777-0ab9-4981-af7c-02a9923e2a6b",
-   "shot": "R05",
-   "attempt": 1
-  },
-  "/images/pros/pro-06-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_ddcfb109-2243-4ff1-9841-0b8ef6c45285.png",
-   "job": "ddcfb109-2243-4ff1-9841-0b8ef6c45285",
-   "shot": "R06",
-   "attempt": 1
-  },
-  "/images/pros/pro-07-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_fedf4799-443b-4719-8696-418918dd494b.png",
-   "job": "fedf4799-443b-4719-8696-418918dd494b",
-   "shot": "R07",
    "attempt": 1
   },
   "/images/pros/pro-08-v3.jpg": {
@@ -518,132 +1158,6 @@
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_30654154-4dd6-4432-8f37-2d853799c905.png",
    "job": "30654154-4dd6-4432-8f37-2d853799c905",
    "shot": "R09",
-   "attempt": 1
-  },
-  "/images/pros/pro-10-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_1420a920-59af-4657-ab20-58ea0da16255.png",
-   "job": "1420a920-59af-4657-ab20-58ea0da16255",
-   "shot": "R10",
-   "attempt": 1
-  },
-  "/images/pros/pro-11-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125812_d78a81a4-30b9-463e-ad89-a69c5a5bb92a.png",
-   "job": "d78a81a4-30b9-463e-ad89-a69c5a5bb92a",
-   "shot": "R11",
-   "attempt": 1
-  },
-  "/images/pros/pro-12-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_b431b8a9-19aa-42b0-bf5c-d7e1390ba333.png",
-   "job": "b431b8a9-19aa-42b0-bf5c-d7e1390ba333",
-   "shot": "R12",
-   "attempt": 1
-  },
-  "/images/pros/pro-13-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e7c63fa3-34bc-41ec-84e5-2ce083b61639.png",
-   "job": "e7c63fa3-34bc-41ec-84e5-2ce083b61639",
-   "shot": "R13",
-   "attempt": 1
-  },
-  "/images/pros/pro-14-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_04a38b48-25cf-4042-86ed-701a5df74ae7.png",
-   "job": "04a38b48-25cf-4042-86ed-701a5df74ae7",
-   "shot": "R14",
-   "attempt": 1
-  },
-  "/images/pros/pro-15-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_c2e85e3c-f419-4532-9583-defc6529aa73.png",
-   "job": "c2e85e3c-f419-4532-9583-defc6529aa73",
-   "shot": "R15",
-   "attempt": 1
-  },
-  "/images/pros/pro-16-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_a5b371d9-885e-4cbf-a87c-df7100dbe69e.png",
-   "job": "a5b371d9-885e-4cbf-a87c-df7100dbe69e",
-   "shot": "R16",
-   "attempt": 1
-  },
-  "/images/pros/pro-17-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9d6ec465-d118-4027-8b3f-cb59f50f9f39.png",
-   "job": "9d6ec465-d118-4027-8b3f-cb59f50f9f39",
-   "shot": "R17",
-   "attempt": 1
-  },
-  "/images/pros/pro-18-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e5597028-5b42-4b3c-9202-7297cc56232c.png",
-   "job": "e5597028-5b42-4b3c-9202-7297cc56232c",
-   "shot": "R18",
-   "attempt": 1
-  },
-  "/images/pros/pro-19-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_e2aaac40-8b37-489f-af0b-81196ef35f64.png",
-   "job": "e2aaac40-8b37-489f-af0b-81196ef35f64",
-   "shot": "R19",
-   "attempt": 1
-  },
-  "/images/pros/pro-20-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_a21b732a-0a44-4161-8a9d-10e46f9d1196.png",
-   "job": "a21b732a-0a44-4161-8a9d-10e46f9d1196",
-   "shot": "R20",
-   "attempt": 1
-  },
-  "/images/pros/pro-21-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_0766eb8e-f541-4b46-832c-7db728fb9717.png",
-   "job": "0766eb8e-f541-4b46-832c-7db728fb9717",
-   "shot": "R21",
-   "attempt": 1
-  },
-  "/images/pros/pro-22-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125951_9843e741-1456-439b-8010-64561db0c8eb.png",
-   "job": "9843e741-1456-439b-8010-64561db0c8eb",
-   "shot": "R22",
-   "attempt": 1
-  },
-  "/images/pros/pro-23-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125950_99ae5030-5d2b-4f96-a705-61253b314771.png",
-   "job": "99ae5030-5d2b-4f96-a705-61253b314771",
-   "shot": "R23",
-   "attempt": 1
-  },
-  "/images/pros/pro-24-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125953_aa97f959-9f02-4178-8dfd-f91eacd3e84a.png",
-   "job": "aa97f959-9f02-4178-8dfd-f91eacd3e84a",
-   "shot": "R24",
-   "attempt": 1
-  },
-  "/images/pros/pro-25-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_c1ce009d-2ffe-4a53-a90c-13ff28014b5f.png",
-   "job": "c1ce009d-2ffe-4a53-a90c-13ff28014b5f",
-   "shot": "R25",
-   "attempt": 1
-  },
-  "/images/pros/pro-26-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_78b6881b-9d2a-4ae4-ad16-0eefa3f0a4b2.png",
-   "job": "78b6881b-9d2a-4ae4-ad16-0eefa3f0a4b2",
-   "shot": "R26",
-   "attempt": 1
-  },
-  "/images/pros/pro-27-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_a2c350fa-288d-493c-8d2a-b2a290d5bba2.png",
-   "job": "a2c350fa-288d-493c-8d2a-b2a290d5bba2",
-   "shot": "R27",
-   "attempt": 1
-  },
-  "/images/pros/pro-28-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_2b7a62ad-2985-4b8b-9586-52e6672677a9.png",
-   "job": "2b7a62ad-2985-4b8b-9586-52e6672677a9",
-   "shot": "R28",
-   "attempt": 1
-  },
-  "/images/pros/pro-29-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_748e0a47-22b9-410a-8c9e-2b6be87ae525.png",
-   "job": "748e0a47-22b9-410a-8c9e-2b6be87ae525",
-   "shot": "R29",
-   "attempt": 1
-  },
-  "/images/pros/pro-30-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130100_905f0378-55c6-4a2e-b1c5-f1461edd9a0e.png",
-   "job": "905f0378-55c6-4a2e-b1c5-f1461edd9a0e",
-   "shot": "R30",
    "attempt": 1
   },
   "/images/landing/hero-wide-v3.jpg": {
@@ -664,12 +1178,6 @@
    "shot": "L10",
    "attempt": 1
   },
-  "/images/landing/app-pro-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_675f0c03-847e-4071-b7fa-f2fd2a8b9878.png",
-   "job": "675f0c03-847e-4071-b7fa-f2fd2a8b9878",
-   "shot": "L11",
-   "attempt": 1
-  },
   "/images/landing/app-table-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130059_aba3ee99-4ebc-457f-8847-06505e296324.png",
    "job": "aba3ee99-4ebc-457f-8847-06505e296324",
@@ -681,6 +1189,360 @@
    "job": "20b2fd79-1bde-401c-a323-1fae686a8dc8",
    "shot": "E01",
    "attempt": 1
+  },
+  "/images/editorial/setup-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_1255ffbf-4785-48aa-a442-14043b7eeff6.png",
+   "job": "1255ffbf-4785-48aa-a442-14043b7eeff6",
+   "shot": "E02",
+   "attempt": 1
+  },
+  "/images/editorial/after-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_f491b396-2d60-4d36-a6e9-9e873d21e2aa.png",
+   "job": "f491b396-2d60-4d36-a6e9-9e873d21e2aa",
+   "shot": "E03",
+   "attempt": 1
+  },
+  "/images/editorial/hotel-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_2c0b8473-c7a3-4ae8-b16f-eabba5f5ee1c.png",
+   "job": "2c0b8473-c7a3-4ae8-b16f-eabba5f5ee1c",
+   "shot": "E04",
+   "attempt": 1
+  },
+  "/images/editorial/office-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_3c2f118e-9816-48f8-9dc2-657a0866bda7.png",
+   "job": "3c2f118e-9816-48f8-9dc2-657a0866bda7",
+   "shot": "E05",
+   "attempt": 1
+  },
+  "/images/editorial/details-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_e71fc1ff-c919-4f3f-b08f-5063b0e07809.png",
+   "job": "e71fc1ff-c919-4f3f-b08f-5063b0e07809",
+   "shot": "E06",
+   "attempt": 1
+  },
+  "/images/og-default-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_22c2c6c5-df18-49f2-8c4f-5daa8026aef3.png",
+   "job": "22c2c6c5-df18-49f2-8c4f-5daa8026aef3",
+   "shot": "E08",
+   "attempt": 1
+  },
+  "/images/categories/massage-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130229_1b5c37b0-5fc8-40e0-9c7a-fd631413fdaa.png",
+   "job": "1b5c37b0-5fc8-40e0-9c7a-fd631413fdaa",
+   "shot": "C01",
+   "attempt": 1
+  },
+  "/images/categories/manikuere-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_96754f7e-24ef-4f64-b562-ac1033929c8f.png",
+   "job": "96754f7e-24ef-4f64-b562-ac1033929c8f",
+   "shot": "C02",
+   "attempt": 1
+  },
+  "/images/categories/pedikuere-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_cc710e11-7d60-4d89-bd75-2d0d918fadc5.png",
+   "job": "cc710e11-7d60-4d89-bd75-2d0d918fadc5",
+   "shot": "C03",
+   "attempt": 1
+  },
+  "/images/categories/kosmetik-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_a3b65de3-06a7-4499-8b6a-5986f6c96015.png",
+   "job": "a3b65de3-06a7-4499-8b6a-5986f6c96015",
+   "shot": "C04",
+   "attempt": 1
+  },
+  "/images/categories/haare-styling-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_4a3d8e34-157e-4040-8fb6-870dd0c5149a.png",
+   "job": "4a3d8e34-157e-4040-8fb6-870dd0c5149a",
+   "shot": "C05",
+   "attempt": 1
+  },
+  "/images/categories/brows-lashes-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_3302936f-c25e-48d9-9de3-50c75ffe6aff.png",
+   "job": "3302936f-c25e-48d9-9de3-50c75ffe6aff",
+   "shot": "C06",
+   "attempt": 1
+  },
+  "/images/categories/make-up-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_b051aabe-9df4-4bb8-a83c-aeb062ec77e9.png",
+   "job": "b051aabe-9df4-4bb8-a83c-aeb062ec77e9",
+   "shot": "C07",
+   "attempt": 1
+  },
+  "/images/explore/vor-dem-event.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_66257736-b696-4c24-96a6-72686b711732.png",
+   "job": "66257736-b696-4c24-96a6-72686b711732",
+   "shot": "X01",
+   "attempt": 1
+  },
+  "/images/explore/nach-dem-sport.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130326_6453fd27-f497-4f47-bf38-77e86fee2abc.png",
+   "job": "6453fd27-f497-4f47-bf38-77e86fee2abc",
+   "shot": "X02",
+   "attempt": 1
+  },
+  "/images/explore/im-hotel-ankommen.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_2910d88d-30d8-4b3c-bbf1-94178f71ecf9.png",
+   "job": "2910d88d-30d8-4b3c-bbf1-94178f71ecf9",
+   "shot": "X03",
+   "attempt": 1
+  },
+  "/images/explore/mittagspause.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a028753d-0946-4eba-b037-c7d920e2938e.png",
+   "job": "a028753d-0946-4eba-b037-c7d920e2938e",
+   "shot": "X04",
+   "attempt": 1
+  },
+  "/images/explore/sonntag-fuer-dich.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_edab5c1d-3e71-41e8-863d-b021d119bf93.png",
+   "job": "edab5c1d-3e71-41e8-863d-b021d119bf93",
+   "shot": "X05",
+   "attempt": 1
+  },
+  "/images/explore/neu-auf-soma.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130329_11c521c4-cc1b-4a2a-a90f-ec862d84f226.png",
+   "job": "11c521c4-cc1b-4a2a-a90f-ec862d84f226",
+   "shot": "X06",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-1-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a3ecadbe-21cc-4105-89b0-1330dfbdaaed.png",
+   "job": "a3ecadbe-21cc-4105-89b0-1330dfbdaaed",
+   "shot": "P-massage-1",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-2-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_016b6992-2f18-4547-bc99-7b059855547f.png",
+   "job": "016b6992-2f18-4547-bc99-7b059855547f",
+   "shot": "P-massage-2",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-3-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_abef47bf-9547-4952-a936-c14ffa1b4f64.png",
+   "job": "abef47bf-9547-4952-a936-c14ffa1b4f64",
+   "shot": "P-massage-3",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_bae8977e-6dc2-4177-affc-c55ded4563ce.png",
+   "job": "bae8977e-6dc2-4177-affc-c55ded4563ce",
+   "shot": "P-massage-4",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-5-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_fd46b44a-71aa-4884-8dd8-a5a6f887e05c.png",
+   "job": "fd46b44a-71aa-4884-8dd8-a5a6f887e05c",
+   "shot": "P-massage-5",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-6-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_5e9ddc42-8fda-4c46-a938-1b4596b673a8.png",
+   "job": "5e9ddc42-8fda-4c46-a938-1b4596b673a8",
+   "shot": "P-massage-6",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-7-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cca6dd89-15b9-4629-a151-b6c0893e1c69.png",
+   "job": "cca6dd89-15b9-4629-a151-b6c0893e1c69",
+   "shot": "P-massage-7",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-8-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cb051850-9b04-4852-b3d3-70a7ba07f482.png",
+   "job": "cb051850-9b04-4852-b3d3-70a7ba07f482",
+   "shot": "P-massage-8",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-9-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130650_fc889709-85c9-4f87-a883-aa4aec4e63cd.png",
+   "job": "fc889709-85c9-4f87-a883-aa4aec4e63cd",
+   "shot": "P-massage-9",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-10-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_9dae014f-ede0-44c7-8c6d-f28121d17424.png",
+   "job": "9dae014f-ede0-44c7-8c6d-f28121d17424",
+   "shot": "P-massage-10",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-11-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130651_e4f27e7b-6291-4f48-9757-66639f4b6f24.png",
+   "job": "e4f27e7b-6291-4f48-9757-66639f4b6f24",
+   "shot": "P-massage-11",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-12-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_513dbdd4-d7ab-4f50-9059-0c7af69e9569.png",
+   "job": "513dbdd4-d7ab-4f50-9059-0c7af69e9569",
+   "shot": "P-massage-12",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-13-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_90f4d4b6-cc49-427e-93fa-a4082cebc59a.png",
+   "job": "90f4d4b6-cc49-427e-93fa-a4082cebc59a",
+   "shot": "P-massage-13",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-14-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_79b4f821-9d69-4fa5-86b9-6ca4187ba8b8.png",
+   "job": "79b4f821-9d69-4fa5-86b9-6ca4187ba8b8",
+   "shot": "P-massage-14",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-15-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_dc5673fb-7763-482c-ad4e-28bf3b8fb85b.png",
+   "job": "dc5673fb-7763-482c-ad4e-28bf3b8fb85b",
+   "shot": "P-massage-15",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-16-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_c326bfef-8df7-4e08-94e4-47dc79e5f85b.png",
+   "job": "c326bfef-8df7-4e08-94e4-47dc79e5f85b",
+   "shot": "P-massage-16",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-17-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_125a019a-7ce9-4fc7-9120-2cce8d830c58.png",
+   "job": "125a019a-7ce9-4fc7-9120-2cce8d830c58",
+   "shot": "P-massage-17",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-18-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_fcad6777-dd4b-459c-96a2-d6a1e7a72378.png",
+   "job": "fcad6777-dd4b-459c-96a2-d6a1e7a72378",
+   "shot": "P-massage-18",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-19-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_369c9b03-8110-4f37-9a44-6624080cf729.png",
+   "job": "369c9b03-8110-4f37-9a44-6624080cf729",
+   "shot": "P-massage-19",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-20-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_7412a1b2-877c-4a9c-977c-d4625f70ff37.png",
+   "job": "7412a1b2-877c-4a9c-977c-d4625f70ff37",
+   "shot": "P-massage-20",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-21-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_8821f1d5-1588-419f-8401-78ac79cf0f48.png",
+   "job": "8821f1d5-1588-419f-8401-78ac79cf0f48",
+   "shot": "P-massage-21",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-1-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_e5c9aad6-e56a-4018-9479-fce1467b08a7.png",
+   "job": "e5c9aad6-e56a-4018-9479-fce1467b08a7",
+   "shot": "P-manikuere-1",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-2-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_efaa9618-6b49-4874-8f2c-e9c4e876d48a.png",
+   "job": "efaa9618-6b49-4874-8f2c-e9c4e876d48a",
+   "shot": "P-manikuere-2",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-3-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_507497a2-61f8-4f6e-9475-795d7cdad026.png",
+   "job": "507497a2-61f8-4f6e-9475-795d7cdad026",
+   "shot": "P-manikuere-3",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_9e781f59-6b3e-4d26-b0e6-108c2e7c809b.png",
+   "job": "9e781f59-6b3e-4d26-b0e6-108c2e7c809b",
+   "shot": "P-manikuere-4",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-5-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_f476e398-d94b-4d05-9d94-ac224e90eba4.png",
+   "job": "f476e398-d94b-4d05-9d94-ac224e90eba4",
+   "shot": "P-manikuere-5",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-6-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_b163f505-cb26-4f90-9fbf-7e0d7d134a89.png",
+   "job": "b163f505-cb26-4f90-9fbf-7e0d7d134a89",
+   "shot": "P-manikuere-6",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-7-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_4dbeb119-1dd3-4095-88b4-5505a156acff.png",
+   "job": "4dbeb119-1dd3-4095-88b4-5505a156acff",
+   "shot": "P-manikuere-7",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-8-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_59852e82-e08b-4ece-a8d6-562e37012126.png",
+   "job": "59852e82-e08b-4ece-a8d6-562e37012126",
+   "shot": "P-manikuere-8",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-9-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_bfefce32-39d4-4709-acca-f96710911ee0.png",
+   "job": "bfefce32-39d4-4709-acca-f96710911ee0",
+   "shot": "P-manikuere-9",
+   "attempt": 1
+  },
+  "/images/portfolio/manikuere-10-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_796d23cd-1f7e-440e-a50d-4f2a0f58cc9c.png",
+   "job": "796d23cd-1f7e-440e-a50d-4f2a0f58cc9c",
+   "shot": "P-manikuere-10",
+   "attempt": 1
+  },
+  "/images/portfolio/pedikuere-1-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_ea800c6d-ee43-4f2e-bf45-9cc0d3d0eb03.png",
+   "job": "ea800c6d-ee43-4f2e-bf45-9cc0d3d0eb03",
+   "shot": "P-pedikuere-1",
+   "attempt": 1
+  },
+  "/images/portfolio/pedikuere-2-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_e86df0d3-2c97-41a4-9401-ad8aa3a00609.png",
+   "job": "e86df0d3-2c97-41a4-9401-ad8aa3a00609",
+   "shot": "P-pedikuere-2",
+   "attempt": 1
+  },
+  "/images/portfolio/pedikuere-3-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_5ebd5500-9db2-4871-ad4e-e13c2402cb03.png",
+   "job": "5ebd5500-9db2-4871-ad4e-e13c2402cb03",
+   "shot": "P-pedikuere-3",
+   "attempt": 1
+  },
+  "/images/portfolio/pedikuere-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_71b910c7-99f0-43e5-b700-c69d679f09e7.png",
+   "job": "71b910c7-99f0-43e5-b700-c69d679f09e7",
+   "shot": "P-pedikuere-4",
+   "attempt": 1
+  },
+  "/images/portfolio/pedikuere-5-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_b7898e69-8f33-4623-947f-3342c4908bbe.png",
+   "job": "b7898e69-8f33-4623-947f-3342c4908bbe",
+   "shot": "P-pedikuere-5",
+   "attempt": 1
+  },
+  "/images/portfolio/kosmetik-1-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_a2b03328-6cb0-4da5-898b-32757839e69e.png",
+   "job": "a2b03328-6cb0-4da5-898b-32757839e69e",
+   "shot": "P-kosmetik-1",
+   "attempt": 1
+  },
+  "/images/portfolio/kosmetik-2-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130954_ad258d00-68af-4b66-8b61-f66545f41f1e.png",
+   "job": "ad258d00-68af-4b66-8b61-f66545f41f1e",
+   "shot": "P-kosmetik-2",
+   "attempt": 1
+  },
+  "/images/pros/pro-01-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_09593da6-cff6-4b12-8e47-3e40cb8cecb0.png",
+   "job": "09593da6-cff6-4b12-8e47-3e40cb8cecb0",
+   "shot": "R01",
+   "attempt": 2
+  },
+  "/images/pros/pro-02-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_eb34b5a0-8a9c-422f-b65c-5bac78963873.png",
+   "job": "eb34b5a0-8a9c-422f-b65c-5bac78963873",
+   "shot": "R02",
+   "attempt": 2
   }
  }
 }

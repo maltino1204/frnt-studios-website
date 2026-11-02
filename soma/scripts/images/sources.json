@@ -1409,7 +1409,8 @@
     "focal": "45% 60%",
     "replaces": "/images/editorial/setup.jpg",
     "place": "Wohnzimmer · Berlin-Prenzlauer Berg · 18:50",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E02"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E02",
+    "replacedBy": "/images/editorial/setup-v3.jpg"
   },
   {
     "path": "/images/editorial/after-v2.jpg",
@@ -1420,7 +1421,8 @@
     "focal": "35% 50%",
     "replaces": "/images/editorial/after.jpg",
     "place": "Sofa, danach · Berlin-Prenzlauer Berg · 20:10",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E03"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E03",
+    "replacedBy": "/images/editorial/after-v3.jpg"
   },
   {
     "path": "/images/editorial/hotel-v2.jpg",
@@ -1431,7 +1433,8 @@
     "focal": "62% 50%",
     "replaces": "/images/editorial/hotel.jpg",
     "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E04"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E04",
+    "replacedBy": "/images/editorial/hotel-v3.jpg"
   },
   {
     "path": "/images/editorial/office-v2.jpg",
@@ -1442,7 +1445,8 @@
     "focal": "55% 45%",
     "replaces": "/images/editorial/office.jpg",
     "place": "Besprechungsraum · Hamburg-HafenCity · 13:00",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E05"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E05",
+    "replacedBy": "/images/editorial/office-v3.jpg"
   },
   {
     "path": "/images/editorial/details-v2.jpg",
@@ -1453,7 +1457,8 @@
     "focal": "50% 50%",
     "replaces": "/images/editorial/details.jpg",
     "place": "Was mitkommt",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E06"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E06",
+    "replacedBy": "/images/editorial/details-v3.jpg"
   },
   {
     "path": "/images/editorial/provider-cta-v2.jpg",
@@ -1475,7 +1480,8 @@
     "focal": "60% 50%",
     "replaces": "/images/og-default.jpg",
     "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E08"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot E08",
+    "replacedBy": "/images/og-default-v3.jpg"
   },
   {
     "path": "/images/categories/massage-v2.jpg",
@@ -1485,7 +1491,8 @@
     "height": 1500,
     "focal": "50% 50%",
     "replaces": "/images/categories/massage.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C01"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C01",
+    "replacedBy": "/images/categories/massage-v3.jpg"
   },
   {
     "path": "/images/categories/manikuere-v2.jpg",
@@ -1495,7 +1502,8 @@
     "height": 1500,
     "focal": "50% 55%",
     "replaces": "/images/categories/manikuere.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C02"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C02",
+    "replacedBy": "/images/categories/manikuere-v3.jpg"
   },
   {
     "path": "/images/categories/pedikuere-v2.jpg",
@@ -1505,7 +1513,8 @@
     "height": 1500,
     "focal": "50% 60%",
     "replaces": "/images/categories/pedikuere.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C03"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C03",
+    "replacedBy": "/images/categories/pedikuere-v3.jpg"
   },
   {
     "path": "/images/categories/kosmetik-v2.jpg",
@@ -1515,7 +1524,8 @@
     "height": 1500,
     "focal": "48% 42%",
     "replaces": "/images/categories/kosmetik.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C04"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C04",
+    "replacedBy": "/images/categories/kosmetik-v3.jpg"
   },
   {
     "path": "/images/categories/haare-styling-v2.jpg",
@@ -1525,7 +1535,8 @@
     "height": 1500,
     "focal": "50% 42%",
     "replaces": "/images/categories/haare-styling.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C05"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C05",
+    "replacedBy": "/images/categories/haare-styling-v3.jpg"
   },
   {
     "path": "/images/categories/brows-lashes-v2.jpg",
@@ -1535,7 +1546,8 @@
     "height": 1500,
     "focal": "50% 45%",
     "replaces": "/images/categories/brows-lashes.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C06"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C06",
+    "replacedBy": "/images/categories/brows-lashes-v3.jpg"
   },
   {
     "path": "/images/categories/make-up-v2.jpg",
@@ -1545,7 +1557,8 @@
     "height": 1500,
     "focal": "55% 40%",
     "replaces": "/images/categories/make-up.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C07"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot C07",
+    "replacedBy": "/images/categories/make-up-v3.jpg"
   },
   {
     "path": "/images/pros/pro-28-v2.jpg",
@@ -1567,7 +1580,8 @@
     "focal": "50% 50%",
     "caption": "Schultern und Nacken – klassische Massage",
     "replaces": "/images/portfolio/massage-1.jpg",
-    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P01"
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P01",
+    "replacedBy": "/images/portfolio/massage-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-2-v2.jpg",
@@ -1578,7 +1592,8 @@
     "focal": "50% 50%",
     "caption": "Leinentücher und Massageöl, mitgebracht",
     "replaces": "/images/portfolio/massage-2.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P02"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P02",
+    "replacedBy": "/images/portfolio/massage-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-3-v2.jpg",
@@ -1589,7 +1604,8 @@
     "focal": "50% 50%",
     "caption": "Massageliege in der Hotelsuite, am Abend",
     "replaces": "/images/portfolio/massage-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P03"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P03",
+    "replacedBy": "/images/portfolio/massage-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-4-v2.jpg",
@@ -1600,7 +1616,8 @@
     "focal": "50% 50%",
     "caption": "Unterarmtechnik entlang des oberen Rückens",
     "replaces": "/images/portfolio/massage-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P04"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P04",
+    "replacedBy": "/images/portfolio/massage-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-5-v2.jpg",
@@ -1611,7 +1628,8 @@
     "focal": "50% 50%",
     "caption": "Nach der Behandlung: noch einen Moment liegen bleiben",
     "replaces": "/images/portfolio/massage-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P05"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P05",
+    "replacedBy": "/images/portfolio/massage-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-6-v2.jpg",
@@ -1622,7 +1640,8 @@
     "focal": "50% 50%",
     "caption": "Schulterdehnung, assistiert, in Rückenlage",
     "replaces": "/images/portfolio/massage-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P06"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P06",
+    "replacedBy": "/images/portfolio/massage-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-7-v2.jpg",
@@ -1633,7 +1652,8 @@
     "focal": "50% 50%",
     "caption": "Fußmassage zum Abschluss",
     "replaces": "/images/portfolio/massage-7.jpg",
-    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P07"
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P07",
+    "replacedBy": "/images/portfolio/massage-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-8-v2.jpg",
@@ -1644,7 +1664,8 @@
     "focal": "50% 50%",
     "caption": "Schultermassage im Büro, im Sitzen",
     "replaces": "/images/portfolio/massage-8.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P08"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P08",
+    "replacedBy": "/images/portfolio/massage-8-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-9-v2.jpg",
@@ -1655,7 +1676,8 @@
     "focal": "50% 50%",
     "caption": "Kopf- und Kopfhautmassage",
     "replaces": "/images/portfolio/massage-9.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P09"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P09",
+    "replacedBy": "/images/portfolio/massage-9-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-10-v2.jpg",
@@ -1666,7 +1688,8 @@
     "focal": "50% 50%",
     "caption": "Massage mit Lagerungskissen",
     "replaces": "/images/portfolio/massage-10.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P10"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P10",
+    "replacedBy": "/images/portfolio/massage-10-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-11-v2.jpg",
@@ -1677,7 +1700,8 @@
     "focal": "50% 50%",
     "caption": "Massage in der Hotelsuite, nach dem letzten Termin des Tages",
     "replaces": "/images/portfolio/massage-11.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P11"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P11",
+    "replacedBy": "/images/portfolio/massage-11-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-12-v2.jpg",
@@ -1688,7 +1712,8 @@
     "focal": "50% 50%",
     "caption": "Massageöl, in den Händen angewärmt",
     "replaces": "/images/portfolio/massage-12.jpg",
-    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P12"
+    "source": "AI-generated development asset (Higgsfield soul_2), SOMA photography v2, shot P12",
+    "replacedBy": "/images/portfolio/massage-12-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-13-v2.jpg",
@@ -1699,7 +1724,8 @@
     "focal": "50% 50%",
     "caption": "Rückenmassage mit flachen Händen",
     "replaces": "/images/portfolio/massage-13.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P13"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P13",
+    "replacedBy": "/images/portfolio/massage-13-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-14-v2.jpg",
@@ -1710,7 +1736,8 @@
     "focal": "50% 50%",
     "caption": "Waden, gründlich gelockert",
     "replaces": "/images/portfolio/massage-14.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P14"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P14",
+    "replacedBy": "/images/portfolio/massage-14-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-15-v2.jpg",
@@ -1721,7 +1748,8 @@
     "focal": "50% 50%",
     "caption": "Vorbereitet: Liege im Hotelzimmer am Morgen",
     "replaces": "/images/portfolio/massage-15.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P15"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P15",
+    "replacedBy": "/images/portfolio/massage-15-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-16-v2.jpg",
@@ -1732,7 +1760,8 @@
     "focal": "50% 50%",
     "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
     "replaces": "/images/portfolio/massage-16.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P16"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P16",
+    "replacedBy": "/images/portfolio/massage-16-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-17-v2.jpg",
@@ -1743,7 +1772,8 @@
     "focal": "50% 50%",
     "caption": "Hand- und Unterarmmassage",
     "replaces": "/images/portfolio/massage-17.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P17"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P17",
+    "replacedBy": "/images/portfolio/massage-17-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-18-v2.jpg",
@@ -1754,7 +1784,8 @@
     "focal": "50% 50%",
     "caption": "Sportmassage am Schulterblatt",
     "replaces": "/images/portfolio/massage-18.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P18"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P18",
+    "replacedBy": "/images/portfolio/massage-18-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-19-v2.jpg",
@@ -1765,7 +1796,8 @@
     "focal": "50% 50%",
     "caption": "Danach: ein Glas Wasser und Ruhe",
     "replaces": "/images/portfolio/massage-19.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P19"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P19",
+    "replacedBy": "/images/portfolio/massage-19-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-20-v2.jpg",
@@ -1776,7 +1808,8 @@
     "focal": "50% 50%",
     "caption": "Nach dem Termin – alles wieder eingepackt",
     "replaces": "/images/portfolio/massage-20.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P20"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P20",
+    "replacedBy": "/images/portfolio/massage-20-v3.jpg"
   },
   {
     "path": "/images/portfolio/massage-21-v2.jpg",
@@ -1787,7 +1820,8 @@
     "focal": "50% 50%",
     "caption": "Sanfte Nackenmassage in Rückenlage",
     "replaces": "/images/portfolio/massage-21.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P21"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P21",
+    "replacedBy": "/images/portfolio/massage-21-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-1-v2.jpg",
@@ -1798,7 +1832,8 @@
     "focal": "50% 50%",
     "caption": "Maniküre in Taupe, kurze runde Form",
     "replaces": "/images/portfolio/manikuere-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P22"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P22",
+    "replacedBy": "/images/portfolio/manikuere-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-2-v2.jpg",
@@ -1809,7 +1844,8 @@
     "focal": "50% 50%",
     "caption": "Nude-Gel, natürlich, Mandelform",
     "replaces": "/images/portfolio/manikuere-2.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P23"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P23",
+    "replacedBy": "/images/portfolio/manikuere-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-3-v2.jpg",
@@ -1820,7 +1856,8 @@
     "focal": "50% 50%",
     "caption": "Micro-French auf kurzen Nägeln",
     "replaces": "/images/portfolio/manikuere-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P24"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P24",
+    "replacedBy": "/images/portfolio/manikuere-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-4-v2.jpg",
@@ -1831,7 +1868,8 @@
     "focal": "50% 50%",
     "caption": "Minimalistisches Nail-Art: eine feine schwarze Linie",
     "replaces": "/images/portfolio/manikuere-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P25"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P25",
+    "replacedBy": "/images/portfolio/manikuere-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-5-v2.jpg",
@@ -1842,7 +1880,8 @@
     "focal": "50% 50%",
     "caption": "Nägel in Form feilen – am Esstisch zu Hause",
     "replaces": "/images/portfolio/manikuere-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P26"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P26",
+    "replacedBy": "/images/portfolio/manikuere-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-6-v2.jpg",
@@ -1853,7 +1892,8 @@
     "focal": "50% 50%",
     "caption": "Kurze Nägel in tiefem Bordeaux",
     "replaces": "/images/portfolio/manikuere-6.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P27"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P27",
+    "replacedBy": "/images/portfolio/manikuere-6-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-7-v2.jpg",
@@ -1864,7 +1904,8 @@
     "focal": "50% 50%",
     "caption": "Klassische Maniküre ohne Lack",
     "replaces": "/images/portfolio/manikuere-7.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P28"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P28",
+    "replacedBy": "/images/portfolio/manikuere-7-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-8-v2.jpg",
@@ -1875,7 +1916,8 @@
     "focal": "50% 50%",
     "caption": "Milchweißes Gel, Mandelform",
     "replaces": "/images/portfolio/manikuere-8.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P29"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P29",
+    "replacedBy": "/images/portfolio/manikuere-8-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-9-v2.jpg",
@@ -1886,7 +1928,8 @@
     "focal": "50% 50%",
     "caption": "Herrenmaniküre, gepflegt und poliert",
     "replaces": "/images/portfolio/manikuere-9.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P30"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P30",
+    "replacedBy": "/images/portfolio/manikuere-9-v3.jpg"
   },
   {
     "path": "/images/portfolio/manikuere-10-v2.jpg",
@@ -1897,7 +1940,8 @@
     "focal": "50% 50%",
     "caption": "Olivgrünes Gel, kurz und eckig",
     "replaces": "/images/portfolio/manikuere-10.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P31"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P31",
+    "replacedBy": "/images/portfolio/manikuere-10-v3.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-1-v2.jpg",
@@ -1908,7 +1952,8 @@
     "focal": "50% 50%",
     "caption": "Pediküre in gedecktem Ziegelrot",
     "replaces": "/images/portfolio/pedikuere-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P32"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P32",
+    "replacedBy": "/images/portfolio/pedikuere-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-2-v2.jpg",
@@ -1919,7 +1964,8 @@
     "focal": "50% 50%",
     "caption": "Werkzeug für die Pediküre, sauber vorbereitet",
     "replaces": "/images/portfolio/pedikuere-2.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P33"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P33",
+    "replacedBy": "/images/portfolio/pedikuere-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-3-v2.jpg",
@@ -1930,7 +1976,8 @@
     "focal": "50% 50%",
     "caption": "Nägel polieren zum Abschluss",
     "replaces": "/images/portfolio/pedikuere-3.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P34"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P34",
+    "replacedBy": "/images/portfolio/pedikuere-3-v3.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-4-v2.jpg",
@@ -1941,7 +1988,8 @@
     "focal": "50% 50%",
     "caption": "Pediküre in Nude, am Fenster",
     "replaces": "/images/portfolio/pedikuere-4.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P35"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P35",
+    "replacedBy": "/images/portfolio/pedikuere-4-v3.jpg"
   },
   {
     "path": "/images/portfolio/pedikuere-5-v2.jpg",
@@ -1952,7 +2000,8 @@
     "focal": "50% 50%",
     "caption": "Gepflegte Füße mit Klarlack",
     "replaces": "/images/portfolio/pedikuere-5.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P36"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P36",
+    "replacedBy": "/images/portfolio/pedikuere-5-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-1-v2.jpg",
@@ -1963,7 +2012,8 @@
     "focal": "50% 50%",
     "caption": "Tonerde-Maske, mit dem Pinsel aufgetragen",
     "replaces": "/images/portfolio/kosmetik-1.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P37"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P37",
+    "replacedBy": "/images/portfolio/kosmetik-1-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-2-v2.jpg",
@@ -1974,7 +2024,8 @@
     "focal": "50% 50%",
     "caption": "Ebenmäßige Haut direkt nach dem Facial",
     "replaces": "/images/portfolio/kosmetik-2.jpg",
-    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P38"
+    "source": "AI-generated development asset (Higgsfield gpt_image_2_5), SOMA photography v2, shot P38",
+    "replacedBy": "/images/portfolio/kosmetik-2-v3.jpg"
   },
   {
     "path": "/images/portfolio/kosmetik-3-v2.jpg",
@@ -2784,7 +2835,7 @@
   },
   {
     "path": "/images/pros/pro-01-v3.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_a08a60c6-7a95-42d8-a7c4-41c7b6b0a8ae.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_09593da6-cff6-4b12-8e47-3e40cb8cecb0.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
@@ -2794,7 +2845,7 @@
   },
   {
     "path": "/images/pros/pro-02-v3.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_125811_82492de2-c936-4447-bddd-b09577ba6213.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_eb34b5a0-8a9c-422f-b65c-5bac78963873.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
@@ -3169,5 +3220,613 @@
     "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
     "replaces": "/images/landing/hero-home-4x5.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot L02, 4:5 crop of landing/hero-mobile-v3"
+  },
+  {
+    "path": "/images/editorial/setup-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_1255ffbf-4785-48aa-a442-14043b7eeff6.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "45% 60%",
+    "place": "Wohnzimmer · Berlin-Prenzlauer Berg · 18:50",
+    "replaces": "/images/editorial/setup-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E02"
+  },
+  {
+    "path": "/images/editorial/after-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_f491b396-2d60-4d36-a6e9-9e873d21e2aa.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "35% 50%",
+    "place": "Sofa, danach · Berlin-Prenzlauer Berg · 20:10",
+    "replaces": "/images/editorial/after-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E03"
+  },
+  {
+    "path": "/images/editorial/hotel-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_2c0b8473-c7a3-4ae8-b16f-eabba5f5ee1c.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "62% 50%",
+    "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10",
+    "replaces": "/images/editorial/hotel-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E04"
+  },
+  {
+    "path": "/images/editorial/office-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_3c2f118e-9816-48f8-9dc2-657a0866bda7.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "55% 45%",
+    "place": "Besprechungsraum · Hamburg-HafenCity · 13:00",
+    "replaces": "/images/editorial/office-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E05"
+  },
+  {
+    "path": "/images/editorial/details-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_e71fc1ff-c919-4f3f-b08f-5063b0e07809.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "place": "Was mitkommt",
+    "replaces": "/images/editorial/details-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E06"
+  },
+  {
+    "path": "/images/og-default-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_22c2c6c5-df18-49f2-8c4f-5daa8026aef3.png",
+    "ratio": "1.91:1",
+    "width": 1200,
+    "height": 630,
+    "focal": "60% 50%",
+    "place": "Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30",
+    "replaces": "/images/og-default-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E08"
+  },
+  {
+    "path": "/images/categories/massage-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130229_1b5c37b0-5fc8-40e0-9c7a-fd631413fdaa.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "replaces": "/images/categories/massage-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C01"
+  },
+  {
+    "path": "/images/categories/manikuere-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130228_96754f7e-24ef-4f64-b562-ac1033929c8f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 55%",
+    "replaces": "/images/categories/manikuere-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C02"
+  },
+  {
+    "path": "/images/categories/pedikuere-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_cc710e11-7d60-4d89-bd75-2d0d918fadc5.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 60%",
+    "replaces": "/images/categories/pedikuere-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C03"
+  },
+  {
+    "path": "/images/categories/kosmetik-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_a3b65de3-06a7-4499-8b6a-5986f6c96015.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "48% 42%",
+    "replaces": "/images/categories/kosmetik-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C04"
+  },
+  {
+    "path": "/images/categories/haare-styling-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130227_4a3d8e34-157e-4040-8fb6-870dd0c5149a.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 42%",
+    "replaces": "/images/categories/haare-styling-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C05"
+  },
+  {
+    "path": "/images/categories/brows-lashes-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_3302936f-c25e-48d9-9de3-50c75ffe6aff.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 45%",
+    "replaces": "/images/categories/brows-lashes-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C06"
+  },
+  {
+    "path": "/images/categories/make-up-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_b051aabe-9df4-4bb8-a83c-aeb062ec77e9.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "55% 40%",
+    "replaces": "/images/categories/make-up-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C07"
+  },
+  {
+    "path": "/images/explore/vor-dem-event.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_66257736-b696-4c24-96a6-72686b711732.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X01"
+  },
+  {
+    "path": "/images/explore/nach-dem-sport.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130326_6453fd27-f497-4f47-bf38-77e86fee2abc.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X02"
+  },
+  {
+    "path": "/images/explore/im-hotel-ankommen.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_2910d88d-30d8-4b3c-bbf1-94178f71ecf9.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X03"
+  },
+  {
+    "path": "/images/explore/mittagspause.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a028753d-0946-4eba-b037-c7d920e2938e.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X04"
+  },
+  {
+    "path": "/images/explore/sonntag-fuer-dich.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_edab5c1d-3e71-41e8-863d-b021d119bf93.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X05"
+  },
+  {
+    "path": "/images/explore/neu-auf-soma.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130329_11c521c4-cc1b-4a2a-a90f-ec862d84f226.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X06"
+  },
+  {
+    "path": "/images/portfolio/massage-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_a3ecadbe-21cc-4105-89b0-1330dfbdaaed.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schultern und Nacken – klassische Massage",
+    "replaces": "/images/portfolio/massage-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-1"
+  },
+  {
+    "path": "/images/portfolio/massage-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_016b6992-2f18-4547-bc99-7b059855547f.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Leinentücher und Massageöl, mitgebracht",
+    "replaces": "/images/portfolio/massage-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-2"
+  },
+  {
+    "path": "/images/portfolio/massage-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_abef47bf-9547-4952-a936-c14ffa1b4f64.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massageliege in der Hotelsuite, am Abend",
+    "replaces": "/images/portfolio/massage-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-3"
+  },
+  {
+    "path": "/images/portfolio/massage-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130327_bae8977e-6dc2-4177-affc-c55ded4563ce.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Unterarmtechnik entlang des oberen Rückens",
+    "replaces": "/images/portfolio/massage-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-4"
+  },
+  {
+    "path": "/images/portfolio/massage-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_fd46b44a-71aa-4884-8dd8-a5a6f887e05c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nach der Behandlung: noch einen Moment liegen bleiben",
+    "replaces": "/images/portfolio/massage-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-5"
+  },
+  {
+    "path": "/images/portfolio/massage-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_5e9ddc42-8fda-4c46-a938-1b4596b673a8.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schulterdehnung, assistiert, in Rückenlage",
+    "replaces": "/images/portfolio/massage-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-6"
+  },
+  {
+    "path": "/images/portfolio/massage-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cca6dd89-15b9-4629-a151-b6c0893e1c69.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Fußmassage zum Abschluss",
+    "replaces": "/images/portfolio/massage-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-7"
+  },
+  {
+    "path": "/images/portfolio/massage-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_cb051850-9b04-4852-b3d3-70a7ba07f482.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Schultermassage im Büro, im Sitzen",
+    "replaces": "/images/portfolio/massage-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-8"
+  },
+  {
+    "path": "/images/portfolio/massage-9-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130650_fc889709-85c9-4f87-a883-aa4aec4e63cd.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kopf- und Kopfhautmassage",
+    "replaces": "/images/portfolio/massage-9-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-9"
+  },
+  {
+    "path": "/images/portfolio/massage-10-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_9dae014f-ede0-44c7-8c6d-f28121d17424.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage mit Lagerungskissen",
+    "replaces": "/images/portfolio/massage-10-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-10"
+  },
+  {
+    "path": "/images/portfolio/massage-11-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130651_e4f27e7b-6291-4f48-9757-66639f4b6f24.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massage in der Hotelsuite, nach dem letzten Termin des Tages",
+    "replaces": "/images/portfolio/massage-11-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-11"
+  },
+  {
+    "path": "/images/portfolio/massage-12-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_513dbdd4-d7ab-4f50-9059-0c7af69e9569.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massageöl, in den Händen angewärmt",
+    "replaces": "/images/portfolio/massage-12-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-12"
+  },
+  {
+    "path": "/images/portfolio/massage-13-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_90f4d4b6-cc49-427e-93fa-a4082cebc59a.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Rückenmassage mit flachen Händen",
+    "replaces": "/images/portfolio/massage-13-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-13"
+  },
+  {
+    "path": "/images/portfolio/massage-14-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_79b4f821-9d69-4fa5-86b9-6ca4187ba8b8.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Waden, gründlich gelockert",
+    "replaces": "/images/portfolio/massage-14-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-14"
+  },
+  {
+    "path": "/images/portfolio/massage-15-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_dc5673fb-7763-482c-ad4e-28bf3b8fb85b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Vorbereitet: Liege im Hotelzimmer am Morgen",
+    "replaces": "/images/portfolio/massage-15-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-15"
+  },
+  {
+    "path": "/images/portfolio/massage-16-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130649_c326bfef-8df7-4e08-94e4-47dc79e5f85b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
+    "replaces": "/images/portfolio/massage-16-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-16"
+  },
+  {
+    "path": "/images/portfolio/massage-17-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_125a019a-7ce9-4fc7-9120-2cce8d830c58.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Hand- und Unterarmmassage",
+    "replaces": "/images/portfolio/massage-17-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-17"
+  },
+  {
+    "path": "/images/portfolio/massage-18-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_fcad6777-dd4b-459c-96a2-d6a1e7a72378.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sportmassage am Schulterblatt",
+    "replaces": "/images/portfolio/massage-18-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-18"
+  },
+  {
+    "path": "/images/portfolio/massage-19-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_369c9b03-8110-4f37-9a44-6624080cf729.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Danach: ein Glas Wasser und Ruhe",
+    "replaces": "/images/portfolio/massage-19-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-19"
+  },
+  {
+    "path": "/images/portfolio/massage-20-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_7412a1b2-877c-4a9c-977c-d4625f70ff37.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nach dem Termin – alles wieder eingepackt",
+    "replaces": "/images/portfolio/massage-20-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-20"
+  },
+  {
+    "path": "/images/portfolio/massage-21-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_8821f1d5-1588-419f-8401-78ac79cf0f48.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Sanfte Nackenmassage in Rückenlage",
+    "replaces": "/images/portfolio/massage-21-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-21"
+  },
+  {
+    "path": "/images/portfolio/manikuere-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_e5c9aad6-e56a-4018-9479-fce1467b08a7.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Maniküre in Taupe, kurze runde Form",
+    "replaces": "/images/portfolio/manikuere-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-1"
+  },
+  {
+    "path": "/images/portfolio/manikuere-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_efaa9618-6b49-4874-8f2c-e9c4e876d48a.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nude-Gel, natürlich, Mandelform",
+    "replaces": "/images/portfolio/manikuere-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-2"
+  },
+  {
+    "path": "/images/portfolio/manikuere-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_507497a2-61f8-4f6e-9475-795d7cdad026.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Micro-French auf kurzen Nägeln",
+    "replaces": "/images/portfolio/manikuere-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-3"
+  },
+  {
+    "path": "/images/portfolio/manikuere-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_9e781f59-6b3e-4d26-b0e6-108c2e7c809b.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Minimalistisches Nail-Art: eine feine schwarze Linie",
+    "replaces": "/images/portfolio/manikuere-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-4"
+  },
+  {
+    "path": "/images/portfolio/manikuere-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_f476e398-d94b-4d05-9d94-ac224e90eba4.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nägel in Form feilen – am Esstisch zu Hause",
+    "replaces": "/images/portfolio/manikuere-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-5"
+  },
+  {
+    "path": "/images/portfolio/manikuere-6-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130746_b163f505-cb26-4f90-9fbf-7e0d7d134a89.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Kurze Nägel in tiefem Bordeaux",
+    "replaces": "/images/portfolio/manikuere-6-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-6"
+  },
+  {
+    "path": "/images/portfolio/manikuere-7-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130747_4dbeb119-1dd3-4095-88b4-5505a156acff.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Klassische Maniküre ohne Lack",
+    "replaces": "/images/portfolio/manikuere-7-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-7"
+  },
+  {
+    "path": "/images/portfolio/manikuere-8-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_59852e82-e08b-4ece-a8d6-562e37012126.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Milchweißes Gel, Mandelform",
+    "replaces": "/images/portfolio/manikuere-8-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-8"
+  },
+  {
+    "path": "/images/portfolio/manikuere-9-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_bfefce32-39d4-4709-acca-f96710911ee0.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Herrenmaniküre, gepflegt und poliert",
+    "replaces": "/images/portfolio/manikuere-9-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-9"
+  },
+  {
+    "path": "/images/portfolio/manikuere-10-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_796d23cd-1f7e-440e-a50d-4f2a0f58cc9c.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Olivgrünes Gel, kurz und eckig",
+    "replaces": "/images/portfolio/manikuere-10-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-manikuere-10"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_ea800c6d-ee43-4f2e-bf45-9cc0d3d0eb03.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pediküre in gedecktem Ziegelrot",
+    "replaces": "/images/portfolio/pedikuere-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-pedikuere-1"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_e86df0d3-2c97-41a4-9401-ad8aa3a00609.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Werkzeug für die Pediküre, sauber vorbereitet",
+    "replaces": "/images/portfolio/pedikuere-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-pedikuere-2"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-3-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_5ebd5500-9db2-4871-ad4e-e13c2402cb03.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Nägel polieren zum Abschluss",
+    "replaces": "/images/portfolio/pedikuere-3-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-pedikuere-3"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-4-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_71b910c7-99f0-43e5-b700-c69d679f09e7.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Pediküre in Nude, am Fenster",
+    "replaces": "/images/portfolio/pedikuere-4-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-pedikuere-4"
+  },
+  {
+    "path": "/images/portfolio/pedikuere-5-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_b7898e69-8f33-4623-947f-3342c4908bbe.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Gepflegte Füße mit Klarlack",
+    "replaces": "/images/portfolio/pedikuere-5-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-pedikuere-5"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-1-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130952_a2b03328-6cb0-4da5-898b-32757839e69e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Tonerde-Maske, mit dem Pinsel aufgetragen",
+    "replaces": "/images/portfolio/kosmetik-1-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-1"
+  },
+  {
+    "path": "/images/portfolio/kosmetik-2-v3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130954_ad258d00-68af-4b66-8b61-f66545f41f1e.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Ebenmäßige Haut direkt nach dem Facial",
+    "replaces": "/images/portfolio/kosmetik-2-v2.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-kosmetik-2"
   }
 ]
