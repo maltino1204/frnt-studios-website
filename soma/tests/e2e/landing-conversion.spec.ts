@@ -112,6 +112,30 @@ test("T2 a PLZ alone searches without empty parameters", async ({ page }) => {
   expect(params(page)).toEqual({ plz: "10115" });
 });
 
+test("T2a a PLZ in the field before the entry hydrates is kept, looked up and submitted (audit 2, N-3)", async ({ page }) => {
+  // The value lands while the HTML is still parsing, long before React hydrates the hero entry (as when a visitor on a
+  // slow phone types into the painted field, or the browser restores the form). No attributes are touched.
+  await page.addInitScript(() => {
+    let done = false;
+    const fill = () => {
+      const i = document.querySelector<HTMLInputElement>('#termin input[name="plz"]');
+      if (!i || done) return;
+      done = true;
+      i.value = "10115";
+    };
+    new MutationObserver((_, mo) => {
+      fill();
+      if (done) mo.disconnect();
+    }).observe(document, { childList: true, subtree: true });
+  });
+  await openLanding(page);
+  await expect(plzIn(hero(page))).toHaveValue("10115");
+  await expect(hero(page).getByText("Berlin").first()).toBeVisible({ timeout: 15_000 });
+  await submitIn(hero(page)).click();
+  await page.waitForURL(/\/suche\?/);
+  expect(params(page)).toEqual({ plz: "10115" });
+});
+
 test("T3 validation: empty, short and unknown PLZ", async ({ page }) => {
   await openLanding(page);
   const entry = hero(page);

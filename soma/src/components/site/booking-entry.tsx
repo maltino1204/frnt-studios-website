@@ -7,6 +7,7 @@ import {
   useCallback,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
   useTransition,
@@ -542,11 +543,36 @@ export function BookingEntry({
     setLoc(res.data.isLaunchCity ? { status: "ok", data: res.data } : { status: "outside", data: res.data });
   }, []);
 
+  // A PLZ typed (or restored by the browser) before this entry hydrated: React keeps the field's DOM value during
+  // hydration but would reset it to the state ("") on the next render (the landing hydrates its hero entry after the
+  // shell; audit 2, N-3). Adopt it with the same lookup as typing; it wins over the seed below. The caret stays put.
+  const typedEarly = useRef(false);
+  useLayoutEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    const raw = el.value;
+    const v = raw.replace(/\D/g, "").slice(0, 5);
+    if (!v || v === plz) return;
+    typedEarly.current = true;
+    setPlz(v);
+    setPlzError(null);
+    if (v.length === 5) void resolve(v);
+    if (document.activeElement === el && raw !== v) {
+      const at = Math.min(el.selectionStart ?? v.length, v.length);
+      // after React has written the cleaned value (the update from this layout effect commits synchronously)
+      queueMicrotask(() => {
+        if (document.activeElement === el) el.setSelectionRange(at, at);
+      });
+    }
+    // Mount only: the DOM value before the first commit is what counts.
+  }, []);
+
   // Seed: another entry's draft, else the deep links (?plz= ?kategorie= ?leistung= ?datum= ?zeit=) on static pages, else
-  // the remembered PLZ (convenience only).
+  // the remembered PLZ (convenience only). A PLZ the visitor typed before hydration is kept.
   useEffect(() => {
     const valid = (v: string | null | undefined): v is string => !!v && /^\d{5}$/.test(v);
     if (initialDraft) {
+      if (typedEarly.current) return;
       if (valid(initialDraft.plz)) void resolve(initialDraft.plz);
       else {
         const stored = readStoredPlz();
@@ -559,7 +585,7 @@ export function BookingEntry({
     }
     const q = new URLSearchParams(window.location.search);
     const fromUrl = q.get("plz");
-    const initial = valid(fromUrl) ? fromUrl : readStoredPlz();
+    const initial = typedEarly.current ? null : valid(fromUrl) ? fromUrl : readStoredPlz();
     if (initial) {
       setPlz(initial);
       void resolve(initial);
