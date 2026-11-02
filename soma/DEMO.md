@@ -75,7 +75,11 @@ deaktiviert. So kann niemand den gemeinsamen Testzugang versehentlich unbrauchba
 
 ## 3. Vorschlag für eine 20-Minuten-Demo
 
-1. **Startseite (2 Min.):** Das Versprechen „Wellness, die zu Ihnen kommt“, Kategorien, Echtheit (Bewertungen, SOMA-Garantie).
+1. **Startseite (2 Min.):** Die Landingpage „Durch den Bogen“ in 10 Kapiteln. Im Hero zwischen *Zuhause*, *Hotel* und
+   *Büro* wechseln (tippen oder wischen), die Buchungszeile unter dem Bogen zeigen, über *Kapitel* die Übersicht öffnen
+   und zu *Behandlungen*, *Ablauf* und *Fragen* springen. Auf dem Smartphone bleibt die Buchung unten immer erreichbar.
+   Am Ende schließt das Siegel mit „Your body. Your place.“ Die Porträts und Fotos sind KI-generierte Demo-Bilder und so
+   gekennzeichnet.
 2. **Buchen als Gast (5 Min.):** PLZ `10115` eingeben, *Massage* wählen, „Verfügbare Profis anzeigen“. Die Preise in der
    Liste sind Endpreise inklusive Anfahrt. Einen Termin bei einem Profi mit dem Hinweis **„Sofort bestätigt“** antippen,
    zum Beispiel Hanna B., und die Checkout-Seite durchgehen: Ort (Zuhause, Hotel oder Büro), Kontakt ohne Passwort,

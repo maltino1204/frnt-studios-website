@@ -1,4 +1,4 @@
-# SOMA — Your wellness. Your place.
+# SOMA — Your body. Your place.
 
 SOMA is a premium, mobile-first marketplace for Germany. Independent beauty and wellness
 professionals ("Profis") travel to their customers, at home, in a hotel or at the office.
@@ -10,14 +10,20 @@ One Next.js application serves three experiences:
 | Professional app (business tool) | `/pro` (acquisition page: `/fuer-profis`) | providers |
 | Admin platform | `/admin` | SOMA operations |
 
-The interface is entirely German. Customers are addressed with *Sie*, providers in `/pro` with *du*.
+The interface is entirely German and addresses everyone with *du* (brand decision, `brand/BRAND_VOICE.md`);
+the provider product is called **SOMA Pro**. German signature line: „Du bleibst. Dein Profi kommt.“
 
 > **Demo:** see **[DEMO.md](DEMO.md)** (German) — start in 5 minutes, three test logins, a 20-minute demo script,
 > and §5 for a hosted demo on **Netlify + Supabase or Neon** (`netlify.toml`, `npm run netlify:prepare`).
 
-> **Working title.** "SOMA" is a working name pending trademark clearance. Renaming touches
-> `src/lib/brand.ts`, the wordmark (`public/brand/*`, `src/components/brand/logo.tsx`) and the
-> manifest. See `docs/design-guideline.md` §2.
+> **Working title (client decision, 2026-11-01).** "SOMA" stays the working name until the word and figurative marks
+> are cleared (a launch blocker). Renaming touches `src/lib/brand.ts`, the logo masters (`brand/assets/logo/`,
+> `public/brand/*`, `src/components/brand/logo.tsx`) and the manifest.
+
+> **Brand identity v1.2** lives in [`brand/`](brand/): strategy, voice, guidelines, logo usage, design tokens, logo and
+> icon masters, photography direction and applications, plus the independent brand audits. The rendered brand book is
+> at `/kit/marke` (noindex). The landing page `/` ("Durch den Bogen", 10 chapters) is specified and audited in
+> [`docs/landing/`](docs/landing/).
 
 ---
 
@@ -105,8 +111,13 @@ development implementations and production implementations for Supabase, Stripe 
 | `docs/api.md` | service and Server Action reference (signatures, DTOs, roles) |
 | `docs/product-spec.md` | information architecture, journeys, taxonomy, policies, legal notes |
 | `docs/research/competitive-analysis.md` | Blys, Selfkea, jeff, EveryWayz, Welladom, Glow2Go |
-| `docs/design-guideline.md` | brand, colour, type, layout, components, motion, accessibility |
-| `docs/art-direction.md` | photographic language and shot list |
+| `brand/BRAND_GUIDELINES.md`, `brand/LOGO_USAGE.md` | brand identity v1.2: logo, symbol, colour, type, arch motif, imagery, motion, applications |
+| `brand/BRAND_STRATEGY.md`, `brand/BRAND_VOICE.md` | positioning, voice (*du*), copy rules, zero-tolerance rule |
+| `brand/DESIGN_TOKENS/` | tokens (`tokens.json` source, `tokens.css` = `src/styles/tokens.css`), contrast table |
+| `brand/audit/` | independent brand audits 1–3 |
+| `docs/landing/` | landing brief, reference analysis, design spec, integration plan, audits |
+| `docs/design-guideline.md` | product UI guideline (Design v2; colours and type superseded by brand v1.2) |
+| `docs/art-direction.md` | original photographic language (superseded by `brand/photography/`) |
 | `docs/qa/` | independent QA audit reports |
 | `.claude/agents/` | the six specialist agent definitions used to build SOMA |
 
@@ -114,7 +125,8 @@ development implementations and production implementations for Supabase, Stripe 
 
 ```
 soma/
-  docs/                 specs, guidelines, QA reports
+  brand/                brand identity v1.2 (docs, tokens, logo/icon masters, applications, audits)
+  docs/                 specs, guidelines, QA reports; docs/landing/ for the landing page
   supabase/
     local/              Supabase shim for plain Postgres (auth schema, roles) — local only
     migrations/         schema, booking engine, RLS (Supabase-compatible)
@@ -122,8 +134,8 @@ soma/
   scripts/db/           setup + seed
   scripts/images/       photo fetch pipeline
   src/
-    app/                routes: (site) (checkout) (auth) konto pro admin api
-    components/         ui (design system), brand, site, pro, admin
+    app/                routes: (landing) (site) (checkout) (auth) konto pro admin api kit
+    components/         ui (design system), brand, landing, site, pro, admin
     server/             db, auth, domain (pure logic), services, actions, payments, storage, email
     lib/                formatting (de-DE, Europe/Berlin), routes, images, brand
     styles/tokens.css   design tokens (Tailwind v4)
