@@ -8,7 +8,8 @@ import { ToneFill } from "@/components/ui/motif";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
-import { categoryFaq, floorsById, fromPrice, shy, toEntryCatalog } from "@/components/site/discovery-copy";
+import { categoryFaq, floorsById, fromPrice, shy } from "@/components/site/discovery-copy";
+import { entryCatalog } from "@/components/site/entry-catalog";
 import { FaqSection } from "@/components/site/discovery-faq";
 import { isSlug } from "@/components/site/discovery-slug";
 import { aggregateRating, breadcrumbLd, JsonLd, serviceLd } from "@/components/site/discovery-json-ld";
@@ -95,7 +96,7 @@ async function KategorieStadtContent({ category, city }: { category: CategoryDTO
     { name: category.name, path: routes.category(category.slug) },
     { name: city.name, path: routes.categoryCity(category.slug, city.slug) },
   ];
-  const fullCatalog = toEntryCatalog(catalog, floorsById(cityFloors));
+  const fullCatalog = entryCatalog(catalog, floorsById(cityFloors));
 
   return (
     <>

@@ -30,15 +30,42 @@ function focusInitial(d: HTMLDialogElement, initialFocus: InitialFocus) {
   target?.focus({ preventScroll: true });
 }
 
+/** The CSS animations running on a dialog and its subtree (its entry animation, the backdrop's fade). */
+function cssAnimations(d: HTMLDialogElement): CSSAnimation[] {
+  return d.getAnimations({ subtree: true }).filter((a): a is CSSAnimation => a instanceof CSSAnimation);
+}
+function sameAnimation(a: CSSAnimation, b: CSSAnimation): boolean {
+  const ea = a.effect as KeyframeEffect | null;
+  const eb = b.effect as KeyframeEffect | null;
+  return a.animationName === b.animationName && ea?.target === eb?.target && ea?.pseudoElement === eb?.pseudoElement;
+}
+
+export type DialogMotionOptions = {
+  /**
+   * Paint the dialog's first frame before it turns modal. showModal() makes the rest of the document inert, which
+   * restyles everything rendered in the same task: on a slow phone that delays the dialog's first frame by 100 ms
+   * and more. With `paintFirst` the open shows the dialog non-modally (`show()`, `data-opening`: fixed and above the
+   * page, globals.css) and makes it modal in the next task after that frame (close() + showModal(): page inert,
+   * focus moved in, Esc). Escape before then closes it too.
+   */
+  paintFirst?: boolean;
+  /** Runs right before showModal() (with `paintFirst`, in the task after the first frame). */
+  beforeModal?: () => void;
+};
+
 /**
  * Shared open/close choreography for <dialog>-based overlays: showModal on
  * open (then move focus per `initialFocus`); on close, play the exit
  * animation (data-closing) and only then close.
  */
-export function useDialogMotion(open: boolean, onClose: () => void, initialFocus: InitialFocus = "auto") {
+export function useDialogMotion(open: boolean, onClose: () => void, initialFocus: InitialFocus = "auto", options: DialogMotionOptions = {}) {
   const ref = useRef<HTMLDialogElement>(null);
   const focusRef = useRef(initialFocus);
   focusRef.current = initialFocus;
+  const optionsRef = useRef(options);
+  optionsRef.current = options;
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
   const returnRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const d = ref.current;
@@ -46,23 +73,73 @@ export function useDialogMotion(open: boolean, onClose: () => void, initialFocus
     if (open) {
       d.removeAttribute("data-closing");
       d.style.removeProperty("translate");
-      if (!d.open) {
-        returnRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      if (d.open) return;
+      returnRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      const modal = () => {
+        optionsRef.current.beforeModal?.();
         d.showModal();
         focusInitial(d, focusRef.current);
+      };
+      if (!optionsRef.current.paintFirst) {
+        modal();
+        return;
       }
-      return;
+      d.setAttribute("data-opening", "");
+      d.show();
+      focusInitial(d, focusRef.current);
+      let timer = 0;
+      const frame = requestAnimationFrame(() => {
+        timer = window.setTimeout(() => {
+          d.removeAttribute("data-opening");
+          if (!d.open || d.matches(":modal")) return;
+          // A non-modal dialog cannot turn modal: close() and showModal() in the same task, no frame in between. The
+          // focus inside stays where it is; the opener holds it for a moment so that showModal() records it as the
+          // element focus returns to on close. Entry animations a style update restarted while the dialog was
+          // closed are put back to their start time.
+          const focused = d.contains(document.activeElement) ? (document.activeElement as HTMLElement) : null;
+          const started = cssAnimations(d).map((a) => ({ a, startTime: a.startTime }));
+          returnRef.current?.focus({ preventScroll: true });
+          d.close();
+          optionsRef.current.beforeModal?.();
+          d.showModal();
+          if (focused) focused.focus({ preventScroll: true });
+          else focusInitial(d, focusRef.current);
+          for (const a of cssAnimations(d)) {
+            const was = started.find((x) => sameAnimation(x.a, a));
+            if (was && was.a !== a && was.startTime != null) a.startTime = was.startTime;
+          }
+        }, 0);
+      });
+      // No `cancel` event before it is modal: Escape closes it here.
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key !== "Escape" || !d.hasAttribute("data-opening")) return;
+        e.preventDefault();
+        closeRef.current();
+      };
+      document.addEventListener("keydown", onKey);
+      return () => {
+        cancelAnimationFrame(frame);
+        window.clearTimeout(timer);
+        document.removeEventListener("keydown", onKey);
+        d.removeAttribute("data-opening");
+      };
     }
     if (!d.open) return;
-    if (prefersReduced()) {
+    const closeNow = () => {
       d.close();
+      // The platform returns focus to the element showModal() recorded; if that could not take it, the opener does.
+      const back = returnRef.current;
+      if (optionsRef.current.paintFirst && document.activeElement === document.body && back?.isConnected) back.focus({ preventScroll: true });
+    };
+    if (prefersReduced()) {
+      closeNow();
       return;
     }
     d.setAttribute("data-closing", "");
     const t = window.setTimeout(() => {
       d.removeAttribute("data-closing");
       d.style.removeProperty("translate");
-      d.close();
+      closeNow();
     }, EXIT_MS);
     return () => window.clearTimeout(t);
   }, [open]);
@@ -105,6 +182,8 @@ export function Sheet({
   className,
   variant = "sheet",
   initialFocus = "auto",
+  paintFirst,
+  beforeModal,
 }: {
   open: boolean;
   onClose: () => void;
@@ -116,8 +195,8 @@ export function Sheet({
   variant?: "sheet" | "drawer";
   /** where focus lands on open (default: platform, i.e. the close button) */
   initialFocus?: InitialFocus;
-}) {
-  const ref = useDialogMotion(open, onClose, initialFocus);
+} & DialogMotionOptions) {
+  const ref = useDialogMotion(open, onClose, initialFocus, { paintFirst, beforeModal });
   const titleId = useId();
   const drag = useRef<{ y: number; t: number; dy: number } | null>(null);
 

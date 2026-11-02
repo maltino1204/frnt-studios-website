@@ -4,7 +4,7 @@
  * The hero booking entry, „Schwelle“ (LANDING_DESIGN_SPEC.md § 4.1.6). Owner: Conversion & Integration.
  *
  *   <HeroBookingEntry
- *     catalog={toEntryCatalog(catalog, floorsById(floors))}   // discovery-copy.ts
+ *     catalog={entryCatalog(catalog, floorsById(floors))}     // site/entry-catalog.ts (server)
  *     postalExample={examples.berlin ?? "10115"}
  *     postalExamples={examples}                               // listCityPostalExamples()
  *     place={place}                                           // "zuhause" | "hotel" | "buero", from the place switch

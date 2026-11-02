@@ -51,6 +51,14 @@
   dialog {
     color: inherit;
   }
+  /* The first frame of a dialog opened with useDialogMotion's `paintFirst` (components/ui/sheet.tsx): shown
+     non-modally, so not in the top layer yet. Placed as the UA places a modal dialog (fixed, over the page) until
+     showModal() follows in the next task. In the base layer, like the UA rule it stands in for. */
+  dialog[data-opening]:not(:modal) {
+    position: fixed;
+    inset-block: 0;
+    z-index: var(--z-sheet);
+  }
   dialog::backdrop {
     /* Flat warm backdrop (brand § 9.3): no blur, no tint shift. */
     background: var(--color-backdrop);

@@ -3,7 +3,8 @@ import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroArch } from "../hero/hero-arch";
 import { HeroBookingSlot } from "../hero/hero-booking-slot";
 import { PlaceSwitch } from "../hero/place-switch";
-import { HERO_SIZES, PLACES, type PlaceId } from "../hero/places";
+import { DEMO_MODE } from "@/lib/brand";
+import { heroSizes, PLACES, type PlaceId } from "../hero/places";
 import { titleId } from "../nav/chapters";
 import { lpLinkClass, lpLinkText } from "../primitives/chapter-foot";
 import { landingImgAttrs } from "../primitives/landing-image";
@@ -31,11 +32,12 @@ export function HeroChapter({
   lead: string;
   trustItems: string[];
 }) {
+  const sizes = heroSizes(DEMO_MODE);
   const images = Object.fromEntries(
-    PLACES.map((p) => [p.id, landingImgAttrs(p.src, { sizes: HERO_SIZES, focal: p.focal, lcp: p.id === "zuhause" })]),
+    PLACES.map((p) => [p.id, landingImgAttrs(p.src, { sizes, focal: p.focal, lcp: p.id === "zuhause" })]),
   ) as Record<PlaceId, LandingImgAttrs>;
   return (
-    <Chapter n={1} padded={false} className="lp-hero">
+    <Chapter n={1} padded={false} className={DEMO_MODE ? "lp-hero lp-hero-ribbon" : "lp-hero"}>
       <LpContainer>
         <div data-scene="hero-place" className="lp-hero-grid">
           <div className="lp-hero-head">

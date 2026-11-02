@@ -9,7 +9,9 @@
  * mount, and a request made before that is queued by `booking-access.ts` and opens it on registration; register the
  * loader with `setBookingSurfaceLoader(mountSurfaces)` so a bare `openBooking()` also triggers the mount. Below 1024 the
  * entry renders, closed, in an idle period after the mount (audit-2 N-4), so an open only seeds it through `syncDraft`
- * and calls showModal() (no render of the entry inside the tap).
+ * and shows the dialog (no render of the entry inside the tap). The sheet's first frame paints before the page turns
+ * inert: the kit's `paintFirst` shows it non-modally in the tap's task and calls showModal() in the task after that
+ * frame, where the off-screen page parts are skipped first (audit-3 M-1).
  *
  * The kit `Sheet` (bottom sheet, drag to dismiss; centred dialog from 768) holds the stacked entry (`id="termin-sheet"`).
  * Was? and Wann? expand inline (no second sheet). Focus: the PLZ when none is known, else the close button (no
@@ -53,8 +55,9 @@ type IdleWindow = Window & { requestIdleCallback?: (cb: () => void, o?: { timeou
  * While the sheet is open, the page parts that lie entirely outside the viewport are not rendered
  * (`content-visibility: hidden` at their current content size, so nothing moves). showModal() makes the rest of the
  * document inert, which restyles every rendered element synchronously inside the call: ≈ 145 ms of a 4× CPU phone for
- * the hero, the chapters near the viewport and the footer (audit-2 N-4). Hidden, only what is in view is restyled. The
- * chapter overlay does the same for the whole page (it is opaque); the sheet leaves the page above it in view.
+ * the hero, the chapters near the viewport and the footer (audit-2 N-4). Hidden, only what is in view is restyled; and
+ * that restyle runs in the task after the sheet's first frame (`paintFirst`, right before showModal()). The chapter
+ * overlay does the same for the whole page (it is opaque); the sheet leaves the page above it in view.
  * Restored when the dialog closes (after its exit animation).
  */
 const PAGE_PARTS = "#inhalt > section, .lp-footer-wrap";
@@ -108,7 +111,6 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
     // Render, commit and showModal() in the request's own task (as the chapter overlay does), not in a task React
     // schedules later, which can queue behind other work and a frame (audit-2 N-4).
     const openSheet = (detail: BookingOpenDetail) => {
-      hideOffscreenParts();
       opened.current = true;
       flushSync(() => {
         setSession((s) => {
@@ -147,11 +149,13 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
     return () => win.cancelIdleCallback?.(h);
   }, []);
 
-  // The page parts come back once the dialog has closed (the native `close` event, after the exit animation).
+  // The page parts come back once the dialog has closed (the native `close` event, after the exit animation). The
+  // close() that turns the first, non-modal frame into the modal dialog (`paintFirst`) fires one too: the dialog is
+  // open again by then.
   useEffect(() => {
     const onClose = (e: Event) => {
       const d = e.target as Element | null;
-      if (d instanceof HTMLDialogElement && surface.current && d.contains(surface.current)) showParts();
+      if (d instanceof HTMLDialogElement && !d.open && surface.current && d.contains(surface.current)) showParts();
     };
     document.addEventListener("close", onClose, true);
     return () => {
@@ -197,7 +201,14 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
   }, []);
 
   return (
-    <Sheet open={open} onClose={close} title="Termin finden" initialFocus={session?.focusPlz ? 'input[name="plz"]' : "auto"}>
+    <Sheet
+      open={open}
+      onClose={close}
+      title="Termin finden"
+      initialFocus={session?.focusPlz ? 'input[name="plz"]' : "auto"}
+      paintFirst
+      beforeModal={hideOffscreenParts}
+    >
       {session && data ? (
         <div ref={surface} data-booking-surface="sheet" className="flex flex-col gap-5 pb-safe">
           <SheetEntry

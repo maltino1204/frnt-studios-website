@@ -18,6 +18,7 @@ import {
 } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
+import { Sheet } from "@/components/ui/sheet";
 import { Spinner } from "@/components/ui/spinner";
 import { BRAND_NAME } from "@/lib/brand";
 import { cn } from "@/lib/cn";
@@ -113,9 +114,10 @@ let pickersLoading: Promise<Pickers> | null = null;
 const pickerListeners = new Set<() => void>();
 
 /**
- * Was?, Wann?, the waitlist and the mobile picker sheet load as their own chunk (audit-2 RT-5): in the first idle
- * period after an entry mounts, and at once on intent (a pointer, focus or key inside the form). A picker opened
- * before then opens as soon as the chunk is there; the inline pickers (landing sheet) show their frame at once.
+ * Was?, Wann? and the waitlist load as their own chunk (audit-2 RT-5): in the first idle period after an entry mounts,
+ * when the entry comes into view, and at once on intent (a pointer, focus or key inside the form). A picker opened
+ * before then opens at once anyway (audit-3 M-3): its popover, sheet or inline panel shows a frame of the list's
+ * height (`aria-busy`) and fills when the chunk is there.
  */
 export function loadBookingPickers(): Promise<Pickers> {
   pickersLoading ??= import("./booking-entry-pickers").then(
@@ -157,6 +159,7 @@ function Popover({
   className,
   placement = "below",
   maxHeight,
+  busy = false,
 }: {
   open: boolean;
   onClose: () => void;
@@ -164,6 +167,8 @@ function Popover({
   label: string;
   children: ReactNode;
   className?: string;
+  /** the content is still loading (the pickers' chunk): a frame now, focus moves in once it is there */
+  busy?: boolean;
   /** "above" when the space under the anchor is too small (the landing sill sits low in the hero) */
   placement?: "below" | "above";
   /** px; caps the popover to the space available on its side */
@@ -189,24 +194,30 @@ function Popover({
     document.addEventListener("pointerdown", onDown);
     document.addEventListener("keydown", onKey);
     document.addEventListener("focusin", onFocus);
-    const raf = requestAnimationFrame(() => {
-      ref.current
-        ?.querySelector<HTMLElement>("[aria-pressed='true'], [aria-checked='true'], button:not([disabled]), [href], input")
-        ?.focus({ preventScroll: true });
-    });
+    // Focus moves in with the content: on open, or when it arrives (still on the trigger; the visitor did not move on).
+    const raf = busy
+      ? 0
+      : requestAnimationFrame(() => {
+          const active = document.activeElement;
+          if (active && active !== document.body && !inside(active)) return;
+          ref.current
+            ?.querySelector<HTMLElement>("[aria-pressed='true'], [aria-checked='true'], button:not([disabled]), [href], input")
+            ?.focus({ preventScroll: true });
+        });
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener("pointerdown", onDown);
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("focusin", onFocus);
     };
-  }, [open, onClose, anchorRef]);
+  }, [open, onClose, anchorRef, busy]);
   if (!open) return null;
   return (
     <div
       ref={ref}
       role="dialog"
       aria-label={label}
+      aria-busy={busy || undefined}
       data-placement={placement}
       style={maxHeight ? { maxHeight } : undefined}
       className={cn(
@@ -397,17 +408,28 @@ export function BookingEntry({
     // Mount only: later prop changes must not overwrite the visitor's choices.
   }, []);
 
-  // The pickers' chunk: in the first idle period after mount (intent loads it at once, see the form's handlers).
+  // The pickers' chunk: in the first idle period after mount, or as soon as the entry is in view, whichever comes first
+  // (intent loads it at once, see the form's handlers).
   useEffect(() => {
     if (pickersModule) return;
     const go = () => void loadBookingPickers().catch(() => undefined);
     const win = window as IdleWindow;
-    if (win.requestIdleCallback) {
-      const h = win.requestIdleCallback(go, { timeout: 3000 });
-      return () => win.cancelIdleCallback?.(h);
-    }
-    const t = window.setTimeout(go, 300);
-    return () => window.clearTimeout(t);
+    const idle = win.requestIdleCallback ? win.requestIdleCallback(go, { timeout: 3000 }) : window.setTimeout(go, 300);
+    const form = formRef.current;
+    const io =
+      form && typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver((entries) => {
+            if (!entries.some((e) => e.isIntersecting)) return;
+            io?.disconnect();
+            go();
+          })
+        : null;
+    if (form) io?.observe(form);
+    return () => {
+      if (win.cancelIdleCallback) win.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+      io?.disconnect();
+    };
   }, []);
   const preloadPickers = () => {
     if (!pickersModule) void loadBookingPickers().catch(() => undefined);
@@ -545,13 +567,11 @@ export function BookingEntry({
   };
   const toggle = (which: "was" | "wann") => {
     if (open === which) return setOpen(null);
-    const show = () => {
-      if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
-      setOpen(which);
-    };
-    // A popover or sheet opens with its content (focus moves into it); the inline frame opens at once (RT-7).
-    if (pickersModule || inline) return show();
-    void loadBookingPickers().then(show, show);
+    if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
+    // The picker opens at once (popover, sheet or inline panel); before the pickers' chunk is there it holds a frame of
+    // the list's height and fills when the chunk arrives (audit-3 M-3).
+    setOpen(which);
+    preloadPickers();
   };
 
   // Return focus to the trigger when a picker closes.
@@ -720,6 +740,7 @@ export function BookingEntry({
               className="w-[25rem]"
               placement={popPlace.placement}
               maxHeight={popPlace.maxHeight}
+              busy={!P}
             >
               <div className="min-h-0 overflow-y-auto overscroll-contain px-5 py-3">{wasPicker}</div>
             </Popover>
@@ -749,6 +770,7 @@ export function BookingEntry({
               className="w-[29rem]"
               placement={popPlace.placement}
               maxHeight={popPlace.maxHeight}
+              busy={!P}
             >
               <div className="min-h-0 overflow-y-auto overscroll-contain p-5">{wannPicker}</div>
               <div className="flex justify-end border-t border-line px-5 py-3">
@@ -837,14 +859,15 @@ export function BookingEntry({
         ) : null}
       </div>
 
-      {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). */}
-      {P && !desktop && !inline && open === "was" ? (
-        <P.Sheet open onClose={closePicker} title="Behandlung wählen">
-          {wasPicker}
-        </P.Sheet>
+      {/* Mobile & tablet pickers: mounted only while open (the kit sheet uses a fixed title id). Before the pickers' chunk
+          is there, the sheet opens with a frame of the list's height and fills when it arrives (audit-3 M-3). */}
+      {!desktop && !inline && open === "was" ? (
+        <Sheet open onClose={closePicker} title="Behandlung wählen">
+          <div aria-busy={!P || undefined}>{wasPicker}</div>
+        </Sheet>
       ) : null}
-      {P && !desktop && !inline && open === "wann" ? (
-        <P.Sheet
+      {!desktop && !inline && open === "wann" ? (
+        <Sheet
           open
           onClose={closePicker}
           title="Zeitpunkt wählen"
@@ -854,8 +877,8 @@ export function BookingEntry({
             </Button>
           }
         >
-          {wannPicker}
-        </P.Sheet>
+          <div aria-busy={!P || undefined}>{wannPicker}</div>
+        </Sheet>
       ) : null}
     </div>
   );

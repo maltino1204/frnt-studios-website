@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Activity, Suspense, type ReactNode } from "react";
 import { AccountDeletedToast } from "@/components/site/account-deleted-toast";
-import { floorsById, freeCancellationHours, fromPrice, toEntryCatalog } from "@/components/site/discovery-copy";
+import { floorsById, freeCancellationHours, fromPrice } from "@/components/site/discovery-copy";
+import { entryCatalog } from "@/components/site/entry-catalog";
 import { LandingJsonLd } from "@/components/landing/booking/landing-json-ld";
 import {
   generateLandingMetadata,
@@ -114,7 +115,7 @@ export default async function LandingPage() {
       <LandingJsonLd description={conv.description} liveCities={conv.liveCities} faq={conv.faq} />
 
       <HeroChapter
-        catalog={toEntryCatalog(catalog, floorsById(floors))}
+        catalog={entryCatalog(catalog, floorsById(floors))}
         postalExample={examplePlz}
         postalExamples={examples}
         lead={conv.heroLead}

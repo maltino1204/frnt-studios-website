@@ -1,0 +1,98 @@
+[
+ {
+  "run": 1,
+  "scenario": "settled",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "place switch Im Hotel",
+    "inp": 144,
+    "visible": 221
+   },
+   {
+    "label": "dock Termin finden → sheet",
+    "inp": 152,
+    "visible": 144
+   },
+   {
+    "label": "Was? (inline picker in sheet)",
+    "inp": 88,
+    "visible": 98,
+    "visible2": 401
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 72,
+    "visible": 71
+   },
+   {
+    "label": "dock chapter button → overlay",
+    "inp": 136,
+    "visible": 110
+   },
+   {
+    "label": "Escape (close overlay)",
+    "inp": 64,
+    "visible": 70
+   },
+   {
+    "label": "FAQ summary",
+    "inp": 72,
+    "visible": 174
+   },
+   {
+    "label": "07 tab 3",
+    "inp": 112,
+    "visible": 102
+   }
+  ]
+ },
+ {
+  "run": 2,
+  "scenario": "settled",
+  "net": "slow4g",
+  "res": [
+   {
+    "label": "place switch Im Hotel",
+    "inp": 168,
+    "visible": 261
+   },
+   {
+    "label": "dock Termin finden → sheet",
+    "inp": 136,
+    "visible": 137
+   },
+   {
+    "label": "Was? (inline picker in sheet)",
+    "inp": 152,
+    "visible": 157,
+    "visible2": 346
+   },
+   {
+    "label": "Escape (close sheet)",
+    "inp": 64,
+    "visible": 53
+   },
+   {
+    "label": "dock chapter button → overlay",
+    "inp": 216,
+    "visible": 194
+   },
+   {
+    "label": "Escape (close overlay)",
+    "inp": 112,
+    "visible": 119
+   },
+   {
+    "label": "FAQ summary",
+    "inp": 56,
+    "visible": 126
+   },
+   {
+    "label": "07 tab 3",
+    "inp": 120,
+    "visible": 101
+   }
+  ]
+ }
+]

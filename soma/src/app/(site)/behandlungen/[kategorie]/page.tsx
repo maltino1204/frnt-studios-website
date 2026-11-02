@@ -6,7 +6,8 @@ import { CategoryPageSkeleton } from "@/components/site/discovery-skeletons";
 import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
-import { capitalize, categoryFaq, floorsById, fromPrice, numberWord, shy, toEntryCatalog } from "@/components/site/discovery-copy";
+import { capitalize, categoryFaq, floorsById, fromPrice, numberWord, shy } from "@/components/site/discovery-copy";
+import { entryCatalog } from "@/components/site/entry-catalog";
 import { FaqSection } from "@/components/site/discovery-faq";
 import { isSlug } from "@/components/site/discovery-slug";
 import { DiscoveryHero, HeroBadge } from "@/components/site/discovery-hero";
@@ -130,7 +131,7 @@ async function KategorieContent({ category }: { category: CategoryDTO }) {
         }
       >
         <BookingEntry
-          catalog={toEntryCatalog(catalog, fm)}
+          catalog={entryCatalog(catalog, fm)}
           defaultCategory={category.slug}
           postalExample={(firstCity && examples[firstCity]) || "10115"}
         />

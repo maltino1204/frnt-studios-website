@@ -36,8 +36,10 @@ const PAGES = [
  * page inert without restyling it, which cost 80+ ms per open on a throttled phone (audit-1 PT-1: dialog ≤ 200 ms).
  */
 const PAGE_PARTS = ["#inhalt", ".lp-header", ".lp-dock", ".lp-footer-wrap"];
-function pageParts(): HTMLElement[] {
-  return PAGE_PARTS.map((s) => document.querySelector<HTMLElement>(s)).filter((el): el is HTMLElement => el !== null);
+/** The page chrome that holds the overlay's triggers: a few dozen elements, rendered again before the dialog closes. */
+const CHROME_PARTS = [".lp-header", ".lp-dock"];
+function pageParts(selectors: readonly string[] = PAGE_PARTS): HTMLElement[] {
+  return selectors.map((s) => document.querySelector<HTMLElement>(s)).filter((el): el is HTMLElement => el !== null);
 }
 function hidePage() {
   const parts = pageParts();
@@ -49,8 +51,8 @@ function hidePage() {
   // Apply it now (the parts' own styles only), so showModal()'s inert recalc already skips their subtrees.
   void parts[0]?.offsetHeight;
 }
-function showPage() {
-  for (const el of pageParts()) {
+function showPage(selectors?: readonly string[]) {
+  for (const el of pageParts(selectors)) {
     if (!el.style.contentVisibility) continue;
     el.style.contentVisibility = "";
     el.style.containIntrinsicSize = "";
@@ -67,18 +69,39 @@ export function ChapterOverlay() {
   const session = useSiteSession();
   const account = session === undefined ? null : accountLink(session);
 
+  /** While true, the page behind the closed overlay is still to be rendered again (`dismiss`), not in `onClose`. */
+  const restoreLater = useRef(false);
+  /** The page renders again; focus goes back to the trigger if nothing holds it (the browser's restore is first). */
+  const restore = useCallback(() => {
+    showPage();
+    const t = trigger.current;
+    trigger.current = null;
+    if (t && document.activeElement === document.body) t.focus({ preventScroll: true });
+  }, []);
   /** Close now (the page renders again first): before a jump, a booking request or a navigation. */
   const close = useCallback(() => {
     showPage();
     ref.current?.close();
   }, []);
-  /** Close from Esc or „Schließen“: the page re-renders in its own task, then the dialog closes on the next frame. */
+  /**
+   * Close from Esc or „Schließen“ (audit-3 M-6): the dialog closes in this task, so its exit fade starts with the next
+   * frame. Only the header and the dock render again first (the trigger is there, and close() returns focus to it);
+   * main and the footer, the expensive part, render again in the task after that frame, under the fading overlay.
+   */
   const dismiss = useCallback(() => {
-    window.setTimeout(() => {
-      showPage();
-      requestAnimationFrame(() => ref.current?.close());
-    }, 0);
-  }, []);
+    const d = ref.current;
+    if (!d?.open) return;
+    showPage(CHROME_PARTS);
+    restoreLater.current = true;
+    d.close();
+    requestAnimationFrame(() =>
+      window.setTimeout(() => {
+        restoreLater.current = false;
+        // Opened again in the meantime: the page stays hidden behind it.
+        if (!ref.current?.open) restore();
+      }, 0),
+    );
+  }, [restore]);
 
   useEffect(() => {
     const win = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (h: number) => void };
@@ -107,12 +130,9 @@ export function ChapterOverlay() {
     return () => window.removeEventListener(CHAPTER_OVERLAY_EVENT, onOpen);
   }, []);
 
+  // Browsers restore focus to the opener; `restore` is the safety net (and keeps focus when a jump moved it already).
   const onClose = () => {
-    showPage();
-    const t = trigger.current;
-    trigger.current = null;
-    // Browsers restore focus to the opener; this is the safety net (and keeps focus when a jump moved it already).
-    if (t && document.activeElement === document.body) t.focus({ preventScroll: true });
+    if (!restoreLater.current) restore();
   };
 
   return (

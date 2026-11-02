@@ -5,9 +5,9 @@ import { isDesktop, openBooking, type BookingOpenDetail } from "../booking/booki
 
 /*
  * The landing's dialogs (chapter overlay, booking bar, booking sheet) load on demand (audit-1 PT-1): their code is
- * fetched when the browser is idle after the first engagement, they mount on idle or on the first intent (pointer,
- * touch or keyboard on a trigger), and they stay mounted once mounted, so a later open only calls showModal(). Every
- * trigger awaits `mountSurfaces()` before it opens a dialog, so a very early click still works.
+ * fetched at the first tap or key (or when the browser is idle after the first scroll), they mount on idle or on the
+ * first intent (pointer, touch or keyboard on a trigger), and they stay mounted once mounted, so a later open only
+ * shows the dialog. Every trigger awaits `mountSurfaces()` before it opens a dialog, so a very early click still works.
  *
  * The modules are loaded first and the dialogs mount only then, in one synchronous render (audit-2 N-4): a lazy
  * component that suspends would be retried at low priority, time-sliced between frames, which made an early tap wait

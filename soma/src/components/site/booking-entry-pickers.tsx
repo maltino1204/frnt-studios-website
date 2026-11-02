@@ -2,30 +2,29 @@
 
 /*
  * BookingEntry's pickers and its waitlist form (booking-entry.tsx): Was? (categories with their photos → services),
- * Wann? (day chips, the date strip, time windows), the unserved-PLZ waitlist and the kit sheet the mobile pickers
- * open in. Their own chunk: the entry loads it in the first idle period after it mounts, or at once on intent, so
- * the photos (`next/image`, the image registry), the date strip and the forms are not in a page's first load
- * (audit-2 RT-5; the landing hero renders the entry closed).
+ * Wann? (day chips, the date strip, time windows) and the unserved-PLZ waitlist. Their own chunk: the entry loads it in
+ * the first idle period after it mounts, when it comes into view, or at once on intent, so the date strip and the forms
+ * are not in a page's first load (audit-2 RT-5; the landing hero renders the entry closed). The category photos come
+ * from the server as plain `<img>` attributes (`EntryCategory.thumb`, entry-catalog.ts): this chunk loads neither
+ * `next/image` nor the image registry (audit-3 M-2 / M-4).
  */
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useCallback, useEffect, useRef, useState } from "react";
 import { DateStrip, type DateCell } from "@/components/ui/booking";
 import { Chip } from "@/components/ui/chip";
 import { Input } from "@/components/ui/field";
 import { SubmitButton } from "@/components/ui/form";
 import { Icon } from "@/components/ui/icon";
-import { Photo } from "@/components/ui/photo";
+import { ToneFill } from "@/components/ui/motif";
 import { SuccessCheck } from "@/components/ui/success";
 import { cn } from "@/lib/cn";
 import { berlinDateKey } from "@/lib/format";
-import { images } from "@/lib/images";
 import { joinWaitlistAction } from "@/server/actions/booking";
 import { initialActionState } from "@/server/actions/types";
 import { addDays, DOT, HORIZON_DAYS, WINDOWS, type When, type WhenMode } from "./booking-entry-shared";
-import { durationsLabel, fromPrice, type EntryCategory, type EntryService } from "./discovery-copy";
+import { durationsLabel, fromPrice, type EntryCategory, type EntryService, type EntryThumb } from "./discovery-copy";
 import { keepValuesOnSubmit } from "./keep-values";
 
-export { Sheet } from "@/components/ui/sheet";
 
 /* ------------------------------------------------------------------------ */
 /* Was? picker: categories → services                                       */
@@ -105,13 +104,7 @@ export function WasPicker({
             aria-pressed={categorySlug === c.slug}
             className="group -mx-2 flex w-[calc(100%+1rem)] items-center gap-4 rounded-control px-2 py-2.5 text-left pressable focus-ring hover:bg-surface-sunken/70"
           >
-            <Photo
-              src={c.imagePath ?? images.category(c.slug)}
-              alt=""
-              tone={c.slug}
-              sizes="40px"
-              className="aspect-square w-11 shrink-0 rounded-[10px] shadow-raised"
-            />
+            <CategoryThumb tone={c.tone} thumb={c.thumb} className="aspect-square w-11 shrink-0 rounded-[10px] shadow-raised" />
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className={cn("type-heading-s", categorySlug === c.slug && "underline decoration-1 underline-offset-4")}>{c.name}</span>
               {c.tagline ? <span className="type-caption text-ink-muted">{c.tagline}</span> : null}
@@ -121,6 +114,43 @@ export function WasPicker({
         </li>
       ))}
     </ul>
+    </div>
+  );
+}
+
+/**
+ * A category's 44 px photo over its tone wash: the kit `<Photo>`'s markup and arrival (fade from 0, settle from 1.04;
+ * the slot remains when it fails), from the server's attributes instead of `next/image` (see `EntryThumb`).
+ */
+function CategoryThumb({ tone, thumb, className }: { tone?: string; thumb?: EntryThumb | null; className: string }) {
+  const [state, setState] = useState<"loading" | "loaded" | "error">("loading");
+  // A photo that is already complete when it mounts (cached) fires no load event after hydration of the ref.
+  const ref = useCallback((el: HTMLImageElement | null) => {
+    if (el?.complete) setState(el.naturalWidth > 0 ? "loaded" : "error");
+  }, []);
+  return (
+    <div className={cn("relative isolate overflow-hidden", className)}>
+      <ToneFill tone={tone ?? "massage"} />
+      {thumb && state !== "error" ? (
+        // eslint-disable-next-line @next/next/no-img-element -- the optimiser attributes come from getImageProps() on the server
+        <img
+          ref={ref}
+          src={thumb.src}
+          srcSet={thumb.srcSet}
+          sizes={thumb.sizes}
+          loading={thumb.loading}
+          decoding={thumb.decoding}
+          alt=""
+          data-nimg="fill"
+          style={thumb.style}
+          onLoad={() => setState("loaded")}
+          onError={() => setState("error")}
+          className={cn(
+            "z-[3] object-cover transition-[opacity,scale] ease-arrive [transition-duration:var(--transition-duration-calm),900ms]",
+            state === "loaded" ? "scale-100 opacity-100" : "scale-[1.04] opacity-0",
+          )}
+        />
+      ) : null}
     </div>
   );
 }

@@ -45,7 +45,29 @@ export const PLACE_LINES = {
 /* Booking entry catalogue (slim client payload)                            */
 /* ------------------------------------------------------------------------ */
 export type EntryService = { id: string; slug: string; name: string; durations: number[]; fromCents: number | null };
-export type EntryCategory = { slug: string; name: string; tagline: string | null; imagePath: string | null; services: EntryService[] };
+/**
+ * A category's photo in the Was? picker (44 px) as plain `<img>` attributes, built on the server by `entryCatalog()`
+ * (entry-catalog.ts, `getImageProps()`), so the pickers' chunk loads neither `next/image` nor the image registry
+ * (audit-3 M-2 / M-4). `tone` is the wash under it (bg-tone-*).
+ */
+export type EntryThumb = {
+  src: string;
+  srcSet?: string;
+  sizes?: string;
+  loading?: "lazy" | "eager";
+  decoding?: "async" | "auto" | "sync";
+  style: Record<string, string | number>;
+};
+export type EntryCategory = {
+  slug: string;
+  name: string;
+  tagline: string | null;
+  imagePath: string | null;
+  services: EntryService[];
+  /** the picker's tone wash and photo (entry-catalog.ts); without them the picker shows the default wash only */
+  tone?: string;
+  thumb?: EntryThumb | null;
+};
 
 /** Strips the catalogue down to what the booking entry needs; prices are real floors (null = no offer yet). */
 export function toEntryCatalog(catalog: CategoryWithServicesDTO[], floors: Record<string, number> = {}): EntryCategory[] {

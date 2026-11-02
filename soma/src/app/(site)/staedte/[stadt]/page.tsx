@@ -7,7 +7,8 @@ import { Container, Overline, Section } from "@/components/ui/layout";
 import { BookingEntry } from "@/components/site/booking-entry";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
 import { getCityIntro } from "@/components/site/discovery-content";
-import { floorsById, fromPrice, splitHeadline, toEntryCatalog } from "@/components/site/discovery-copy";
+import { floorsById, fromPrice, splitHeadline } from "@/components/site/discovery-copy";
+import { entryCatalog } from "@/components/site/entry-catalog";
 import { DiscoveryHero, HeroBadge } from "@/components/site/discovery-hero";
 import { breadcrumbLd, JsonLd } from "@/components/site/discovery-json-ld";
 import { LinkGrid, providerCountLabel } from "@/components/site/discovery-links";
@@ -109,7 +110,7 @@ async function StadtContent({ city }: { city: CityDTO }) {
           </>
         }
       >
-        <BookingEntry catalog={toEntryCatalog(catalog, fm)} postalExample={examples[city.slug] ?? "10115"} />
+        <BookingEntry catalog={entryCatalog(catalog, fm)} postalExample={examples[city.slug] ?? "10115"} />
       </DiscoveryHero>
 
       <Section aria-labelledby="behandlungen-titel">
