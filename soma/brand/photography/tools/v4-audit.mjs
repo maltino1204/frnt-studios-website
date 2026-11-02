@@ -1,13 +1,16 @@
-// node brand/photography/tools/v4-audit.mjs → brand/photography/AUDIT-v4.md and v3/08-pros-v4.jpg, v3/09-pros-v3-vs-v4.jpg, v3/12-v5-fixes.jpg
+// node brand/photography/tools/v4-audit.mjs → brand/photography/AUDIT-v4.md and v3/08-pros-v4.jpg, v3/09-pros-v3-vs-v4.jpg, v3/12-v5-fixes.jpg, v3/13-v6-fixes.jpg
 // The v4 Profi portraits (variety round): every job with its verdict from generation/jobs-v4.json, the spread of settings
 // and poses from generation/shotlist-v4.mjs, and the contact sheets. Since the product review (2 Nov 2026) also the
-// post-review fixes: the v5 edits from generation/jobs-v5.json + shotlist-v5.mjs and the avatar crops from avatars.json.
+// post-review fixes: the v5 edits from generation/jobs-v5.json + shotlist-v5.mjs and the avatar crops from avatars.json;
+// and the post-audit-4 fixes (v6): generation/jobs-v6.json + shotlist-v6.mjs and the result of tools/fresh-check.mjs.
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { ALL } from "../generation/shotlist-v4.mjs";
 import { PORTRAITS } from "../generation/shotlist-v3.mjs";
 import { V5 } from "../generation/shotlist-v5.mjs";
+import { V6, RENAME, renamed } from "../generation/shotlist-v6.mjs";
+import { spawnSync } from "node:child_process";
 const ENTITY = Object.fromEntries(PORTRAITS.map((p) => [p.id, p.entity]));
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const L = JSON.parse(fs.readFileSync(path.join(root, "brand/photography/generation/jobs-v4.json"), "utf8"));
@@ -48,6 +51,27 @@ md += `**manikuere-3 (Lead, from the Explore engineer).** \`portfolio/manikuere-
 const items = Object.keys(A.items);
 md += `**R7, avatars.** ${items.length} square head-and-shoulders crops, one per current portrait, made locally with sharp by \`tools/avatars.mjs\` (same mechanism as \`tools/recrops.mjs\`: an entry with \`recropOf\` and \`box\`, the file committed, the capture workflow leaves it as it is). Face box per portrait from OpenCV Haar cascades (\`avatars.json\`); crop side = face width / ${A.fill}, so the face fills **${Math.round(A.fill * 100)} %** of the crop width (target 55–65 %), face centre at 50 % across and ${Math.round(A.yAt * 100)} % down, no crop had to be clamped at an image edge; output ${A.size} × ${A.size} at \`/images/pros/pro-NN-v4-face.jpg\` (\`-v5-face\` for 16, 18, 30). Each portrait's **current** registry entry carries \`"avatar": "<face path>"\`; the code lookup with fallback belongs to the Explore engineer. Checked on \`v3/11-avatars.jpg\` (each crop as a circle at 64 px and 160 px): every face centred and complete, chin to hair inside the circle.\n\n`;
 md += `**Sheets:** \`v3/11-avatars.jpg\` (the ${items.length} avatar crops at 64 and 160 px), \`v3/12-v5-fixes.jpg\` (each fix, before left, after right).\n`;
+// post-audit-4 fixes (v6)
+const L6 = JSON.parse(fs.readFileSync(path.join(root, "brand/photography/generation/jobs-v6.json"), "utf8"));
+const fc = spawnSync(process.execPath, [path.join(root, "brand/photography/tools/fresh-check.mjs")], { encoding: "utf8" });
+const rej6 = L6.jobs.filter((j) => j.status === "fail");
+md += `\n## Post-audit-4 fixes (v6)\n\n*Photo Art Director · 2 Nov 2026, after landing audit 4 (\`docs/landing/audit-4.md\` N4-3, N4-5, N4-6; remediation R4-2, R4-5 and the P3 notes in § 2). Generated from \`generation/jobs-v6.json\`, \`generation/shotlist-v6.mjs\` and \`tools/fresh-check.mjs\`.*\n\n`;
+md += `**R4-2 (N4-3): only approved photos, under names that never carried anything else.** The cause: retries were written over the same file name (\`git rm\` + re-fetch), and the optimiser caches each URL × width × format regardless of content, so \`.next/cache/images\` (which survives rebuilds) kept serving rejected attempts: the hotel attempt with the logo laptop, the app-pro attempt looking at the camera.\n\n`;
+md += `- **Check 1, the files on disk are the approved finals.** For every served path (a registry chain end), \`tools/fresh-check.mjs\` compares the remote that was registered when the capture commit last wrote the file with today's remote, and today's remote with the approved job in \`jobs-v3/v4/v5/v6.json\`. Before the fix: 181 served paths, 0 files from an older remote, 0 not the approved job — every file on disk was the approved final; 18 names had carried earlier attempts.\n`;
+md += `- **The fix.** Those ${RENAME.length + 1} names: ${RENAME.length} approved files re-registered under fresh, never-used \`-v6\` names with the same remote (the old name \`replacedBy\` → the new one; the \`avatar\` field moved with the 5 portraits), and \`editorial/hotel-v3\` replaced by the new frame of R4-5. No code reference changes (\`src/lib/images.ts\` follows the chain).\n`;
+md += `- **Rule from now on** (PHOTOGRAPHY.md § 11, "Fresh names"): every fetched attempt gets its own name (\`-v6\`, \`-v6b\` …), never \`git rm\` + re-fetch under the same name, and \`fresh-check.mjs\` is part of every sign-off.\n`;
+md += `- **Check 2, after the fix:** \`${(fc.stdout.split("\n")[0] || "").trim()}\` (exit ${fc.status}). On a host that already served old variants, its cache still holds them for the *old* URLs, which nothing requests any more; purging \`.next/cache/images\` is still advised (the landing engineer does that on :3100).\n\n`;
+md += `| Old name (carried earlier attempts) | Fresh name (same approved file) |\n|---|---|\n${RENAME.map((p) => `| \`${p.replace("/images/", "")}\` | \`${renamed(p).replace("/images/", "")}\` |`).join("\n")}\n| \`editorial/hotel-v3.jpg\` | \`${(Object.entries(L6.current).find(([, c]) => c.shot === "G01")?.[0] ?? "").replace("/images/", "")}\` (new frame, R4-5) |\n\n`;
+const c6 = L6.creditsLogged;
+md += `**R4-5 and the P3 notes: edits of the file in use** (its job as the reference, "change only this"), each under its own fresh name.\n\n| | |\n|---|---|\n| Credits | **${c6}** of ${L6.budget} (balance ${L6.startBalance} → ${(L6.startBalance - c6).toFixed(2)}) |\n| Generations | **${L6.jobs.length}** (${V6.length} fixes + ${L6.jobs.length - V6.length} ${L6.jobs.length - V6.length === 1 ? "retry" : "retries"}) |\n| Rejected in QA | **${rej6.length}** |\n\n`;
+md += `| Finding | Approved file | Replaces | Issue | Verdict | Reason (final) | Rejected attempts (own names) | Luma before → after | Job |\n|---|---|---|---|---|---|---|---|---|\n`;
+for (const s of V6) {
+  const js = L6.jobs.filter((j) => j.shot === s.id); const curP = Object.entries(L6.current).find(([, c]) => c.shot === s.id)?.[0]; const fin = js.find((j) => j.path === curP);
+  md += `| ${s.review} | \`${(curP ?? "").replace("/images/", "")}\` | \`${s.replaces.replace("/images/", "")}\` | ${esc(s.issue)} | **${fin?.status ?? "open"}** | ${esc(fin?.reason)} | ${esc(js.filter((j) => j.status === "fail").map((j) => `${j.attempt} (\`${j.path.split("/").pop()}\`): ${j.reason}`).join("; ")) || "–"} | ${curP && fs.existsSync(path.join(root, "public", curP)) ? `${await luma(s.replaces)} → ${await luma(curP)}` : "–"} | \`${(fin?.id ?? "").slice(0, 8)}\` |\n`;
+}
+md += `\n**AUDIT-v3 corrections.** \`editorial/hotel-v3\` (l. 137) said "sheet at the shoulder blades"; the file shows the sheet from mid-back. The note in \`jobs-v3.json\` now says so and points to the new frame; the same correction for \`categories/massage-v3\` and \`portfolio/massage-4-v3\` (review R8), and \`landing/hero-mobile-v3\` no longer calls its light "summer evening sun" under the 10:30 Ortszeile. PHOTOGRAPHY.md § 2, § 10 and § 13.2 now use the daytime Ortszeilen.\n\n`;
+md += `**Signature pair (03).** The landing spec captions it "one afternoon in two moments" (15:25 at the door, 16:10 on the sofa, \`LANDING_DESIGN_SPEC.md\` l. 43 and D11). The door showed a younger man, the sofa an older woman. \`editorial/after\` now shows the client from the door (\`arrival-v5\` as the second reference: short dark-brown hair, the cream waffle-knit jumper), in the same place on the sofa, so the right arch at \`focal="12% 50%"\` shows him; the red-haired Profi in the background was already the same person.\n\n`;
+md += `**Sheet:** \`v3/13-v6-fixes.jpg\` (each v6 edit, before left, after right).\n`;
 fs.writeFileSync(path.join(root, "brand/photography/AUDIT-v4.md"), md);
 // sheets
 async function sheet(file, items, cols, w, title) {
@@ -62,13 +86,14 @@ async function sheet(file, items, cols, w, title) {
 }
 await sheet("08-pros-v4.jpg", ALL.map((s) => [`${s.n} · ${SET[s.setting]} · ${POSE[s.pose]}`, s.path]), 6, 170, "Profi portraits v4 (variety) · 30");
 await sheet("09-pros-v3-vs-v4.jpg", ALL.flatMap((s) => [[`${s.n} v3`, s.replaces], [`${s.n} v4`, s.path]]), 10, 110, "Profi portraits · v3 (left) vs v4 (right), pairs");
-// before/after of the v5 fixes, each pair scaled to one height
-{ const h = 200, gap = 6, head = 28, lab = 16, pairs = [];
-  for (const s of V5) { const [a, b] = await Promise.all([s.replaces, s.path].map((p) => sharp(path.join(root, "public", p)).resize({ height: h }).toBuffer({ resolveWithObject: true }))); pairs.push({ s, a, b, w: a.info.width + b.info.width + 4 }); }
+// before/after sheets of the v5 and the v6 fixes, each pair scaled to one height
+const v6cur = (s) => Object.entries(L6.current).find(([, c]) => c.shot === s.id)?.[0];
+for (const [file, list, title] of [["12-v5-fixes.jpg", V5, "Post-review fixes v5"], ["13-v6-fixes.jpg", V6.map((s) => ({ ...s, path: v6cur(s) })).filter((s) => s.path && fs.existsSync(path.join(root, "public", s.path))), "Post-audit-4 fixes v6"]]) { if (!list.length) continue; const h = 200, gap = 6, head = 28, lab = 16, pairs = [];
+  for (const s of list) { const [a, b] = await Promise.all([s.replaces, s.path].map((p) => sharp(path.join(root, "public", p)).resize({ height: h }).toBuffer({ resolveWithObject: true }))); pairs.push({ s, a, b, w: a.info.width + b.info.width + 4 }); }
   const rows = []; let row = [], rw = gap; for (const p of pairs) { if (rw + p.w + gap > 1500 && row.length) { rows.push(row); row = []; rw = gap; } row.push(p); rw += p.w + gap * 3; } rows.push(row);
-  const W = 1500, H = head + rows.length * (h + lab + gap * 2), comps = [{ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${head}"><text x="${gap}" y="20" font-family="DejaVu Sans" font-size="15" font-weight="bold" fill="#25211F">Post-review fixes v5 · before (left) and after (right) · ${V5.length}</text></svg>`), left: 0, top: 0 }];
+  const W = 1500, H = head + rows.length * (h + lab + gap * 2), comps = [{ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${head}"><text x="${gap}" y="20" font-family="DejaVu Sans" font-size="15" font-weight="bold" fill="#25211F">${title} · before (left) and after (right) · ${list.length}</text></svg>`), left: 0, top: 0 }];
   rows.forEach((r, i) => { let x = gap; const y = head + i * (h + lab + gap * 2); for (const p of r) { comps.push({ input: p.a.data, left: x, top: y }, { input: p.b.data, left: x + p.a.info.width + 4, top: y });
     comps.push({ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${p.w}" height="${lab}"><text x="0" y="12" font-family="DejaVu Sans" font-size="10" fill="#25211F">${p.s.review} · ${p.s.path.split("/").pop()}</text></svg>`), left: x, top: y + h + 2 }); x += p.w + gap * 3; } });
   let q = 80, buf; do { buf = await sharp({ create: { width: W, height: H, channels: 3, background: "#F3EFE8" } }).composite(comps).jpeg({ quality: q, mozjpeg: true }).toBuffer(); q -= 6; } while (buf.length > 300 * 1024 && q > 30);
-  fs.writeFileSync(path.join(root, "brand/photography/v3/12-v5-fixes.jpg"), buf); console.log("12-v5-fixes.jpg", Math.round(buf.length / 1024) + " KB"); }
-console.log(`AUDIT-v4.md: ${ALL.length} rows, ${rej.length} rejected, ${credits} credits; v5 ${V5.length} fixes, ${rej5.length} rejected, ${c5} credits`);
+  fs.writeFileSync(path.join(root, "brand/photography/v3", file), buf); console.log(file, Math.round(buf.length / 1024) + " KB"); }
+console.log(`AUDIT-v4.md: ${ALL.length} rows, ${rej.length} rejected, ${credits} credits; v5 ${V5.length} fixes, ${rej5.length} rejected, ${c5} credits; v6 ${V6.length} fixes, ${rej6.length} rejected, ${L6.creditsLogged} credits`);

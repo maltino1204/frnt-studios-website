@@ -25,9 +25,10 @@ for (const [p, b] of Object.entries(cfg.items).sort()) {
   out.push({ p, face, buf, fill: (b.fw * m.width) / side, shift: { x: (b.cx * m.width - left) / side, y: (b.cy * m.height - top) / side } });
   if (apply) {
     fs.writeFileSync(path.join(root, "public", face), buf);
-    const portrait = byPath.get(p);
+    // the avatar belongs on the portrait's current entry (a portrait re-registered under a fresh name, v6, carries it there)
+    let portrait = byPath.get(p); for (let n = 0; portrait.replacedBy && n < 8; n++) portrait = byPath.get(portrait.replacedBy);
     const e = byPath.get(face) ?? { path: face };
-    Object.assign(e, { remote: portrait.remote, ratio: "1:1", width: cfg.size, height: cfg.size, focal: "50% 50%", recropOf: p,
+    Object.assign(e, { remote: byPath.get(p).remote, ratio: "1:1", width: cfg.size, height: cfg.size, focal: "50% 50%", recropOf: p,
       box: { x: +(left / m.width).toFixed(4), y: +(top / m.height).toFixed(4), w: +(side / m.width).toFixed(4), h: +(side / m.height).toFixed(4) },
       source: "Square head-and-shoulders avatar crop of " + p.split("/").pop() + " (brand/photography/tools/avatars.mjs, review R7)" });
     if (!byPath.has(face)) { S.push(e); byPath.set(face, e); }

@@ -90,3 +90,56 @@ QA: every file at full size; identity checked as v3/v4 face pairs; hands and lim
 **R7, avatars.** 30 square head-and-shoulders crops, one per current portrait, made locally with sharp by `tools/avatars.mjs` (same mechanism as `tools/recrops.mjs`: an entry with `recropOf` and `box`, the file committed, the capture workflow leaves it as it is). Face box per portrait from OpenCV Haar cascades (`avatars.json`); crop side = face width / 0.6, so the face fills **60 %** of the crop width (target 55–65 %), face centre at 50 % across and 50 % down, no crop had to be clamped at an image edge; output 512 × 512 at `/images/pros/pro-NN-v4-face.jpg` (`-v5-face` for 16, 18, 30). Each portrait's **current** registry entry carries `"avatar": "<face path>"`; the code lookup with fallback belongs to the Explore engineer. Checked on `v3/11-avatars.jpg` (each crop as a circle at 64 px and 160 px): every face centred and complete, chin to hair inside the circle.
 
 **Sheets:** `v3/11-avatars.jpg` (the 30 avatar crops at 64 and 160 px), `v3/12-v5-fixes.jpg` (each fix, before left, after right).
+
+## Post-audit-4 fixes (v6)
+
+*Photo Art Director · 2 Nov 2026, after landing audit 4 (`docs/landing/audit-4.md` N4-3, N4-5, N4-6; remediation R4-2, R4-5 and the P3 notes in § 2). Generated from `generation/jobs-v6.json`, `generation/shotlist-v6.mjs` and `tools/fresh-check.mjs`.*
+
+**R4-2 (N4-3): only approved photos, under names that never carried anything else.** The cause: retries were written over the same file name (`git rm` + re-fetch), and the optimiser caches each URL × width × format regardless of content, so `.next/cache/images` (which survives rebuilds) kept serving rejected attempts: the hotel attempt with the logo laptop, the app-pro attempt looking at the camera.
+
+- **Check 1, the files on disk are the approved finals.** For every served path (a registry chain end), `tools/fresh-check.mjs` compares the remote that was registered when the capture commit last wrote the file with today's remote, and today's remote with the approved job in `jobs-v3/v4/v5/v6.json`. Before the fix: 181 served paths, 0 files from an older remote, 0 not the approved job — every file on disk was the approved final; 18 names had carried earlier attempts.
+- **The fix.** Those 18 names: 17 approved files re-registered under fresh, never-used `-v6` names with the same remote (the old name `replacedBy` → the new one; the `avatar` field moved with the 5 portraits), and `editorial/hotel-v3` replaced by the new frame of R4-5. No code reference changes (`src/lib/images.ts` follows the chain).
+- **Rule from now on** (PHOTOGRAPHY.md § 11, "Fresh names"): every fetched attempt gets its own name (`-v6`, `-v6b` …), never `git rm` + re-fetch under the same name, and `fresh-check.mjs` is part of every sign-off.
+- **Check 2, after the fix:** `181 served paths checked: 0 reused names, 0 fetched from an older remote, 0 not the ledger's approved job` (exit 0). On a host that already served old variants, its cache still holds them for the *old* URLs, which nothing requests any more; purging `.next/cache/images` is still advised (the landing engineer does that on :3100).
+
+| Old name (carried earlier attempts) | Fresh name (same approved file) |
+|---|---|
+| `landing/app-pro-v3.jpg` | `landing/app-pro-v6.jpg` |
+| `explore/nach-dem-sport.jpg` | `explore/nach-dem-sport-v6.jpg` |
+| `portfolio/brows-lashes-4-v3.jpg` | `portfolio/brows-lashes-4-v6.jpg` |
+| `portfolio/haare-styling-17-v3.jpg` | `portfolio/haare-styling-17-v6.jpg` |
+| `portfolio/kosmetik-8-v3.jpg` | `portfolio/kosmetik-8-v6.jpg` |
+| `portfolio/kosmetik-13-v3.jpg` | `portfolio/kosmetik-13-v6.jpg` |
+| `portfolio/make-up-8-v3.jpg` | `portfolio/make-up-8-v6.jpg` |
+| `portfolio/manikuere-1-v3.jpg` | `portfolio/manikuere-1-v6.jpg` |
+| `portfolio/manikuere-4-v3.jpg` | `portfolio/manikuere-4-v6.jpg` |
+| `portfolio/manikuere-7-v3.jpg` | `portfolio/manikuere-7-v6.jpg` |
+| `portfolio/massage-6-v3.jpg` | `portfolio/massage-6-v6.jpg` |
+| `portfolio/massage-18-v3.jpg` | `portfolio/massage-18-v6.jpg` |
+| `pros/pro-08-v4.jpg` | `pros/pro-08-v6.jpg` |
+| `pros/pro-10-v4.jpg` | `pros/pro-10-v6.jpg` |
+| `pros/pro-27-v4.jpg` | `pros/pro-27-v6.jpg` |
+| `pros/pro-29-v4.jpg` | `pros/pro-29-v6.jpg` |
+| `pros/pro-30-v5.jpg` | `pros/pro-30-v6.jpg` |
+| `editorial/hotel-v3.jpg` | `editorial/hotel-v6b.jpg` (new frame, R4-5) |
+
+**R4-5 and the P3 notes: edits of the file in use** (its job as the reference, "change only this"), each under its own fresh name.
+
+| | |
+|---|---|
+| Credits | **10** of 20 (balance 714.99 → 704.99) |
+| Generations | **5** (4 fixes + 1 retry) |
+| Rejected in QA | **1** |
+
+| Finding | Approved file | Replaces | Issue | Verdict | Reason (final) | Rejected attempts (own names) | Luma before → after | Job |
+|---|---|---|---|---|---|---|---|---|
+| N4-5 | `editorial/hotel-v6b.jpg` | `editorial/hotel-v3.jpg` | landing hero „Im Hotel“: the guest's back is bare from the neck to mid-back (discretion rule: linen to the shoulder blades or higher); AUDIT-v3 said „sheet at the shoulder blades“ | **pass** | sheet drawn up over the back to the shoulder blades, only the shoulders, the top of the back and the neck bare; the Profi’s hands on the shoulders; skyline, room, desk (leather folder, no electronics) and light unchanged; people at about two thirds right for the 72 % arch focal | 1 (`hotel-v6.jpg`): the hands moved up to the shoulders, but the sheet still starts at mid-back: bare back at hero scale | 176 → 177 | `08f58c88` |
+| N4-5 | `categories/massage-v6.jpg` | `categories/massage-v3.jpg` | category tile Massage: the same bare back to mid-back, at tile scale (audit 4 § 8, Discretion) | **pass** | sheet drawn up to the shoulder blades, only shoulders and the top of the back bare; both hands on the shoulders above the edge; room, Profi and light unchanged | – | 187 → 187 | `7b29990f` |
+| N4-6 | `categories/pedikuere-v6.jpg` | `categories/pedikuere-v3.jpg` | category tile Pediküre: the pedicure Profi works barefoot (audit 4 P3, as audit 1 A6) | **pass** | the Profi wears plain light sand leather slip-ons, the client stays barefoot; hands, file, towel and room unchanged | – | 166 → 166 | `8632289e` |
+| N4-6 | `editorial/after-v6.jpg` | `editorial/after-v3.jpg` | the landing's signature pair (03, „one afternoon in two moments“): a younger man opens the door, an older woman sits on the sofa | **pass** | the client on the sofa is the man from the door: short dark-brown hair, light stubble, the cream waffle-knit jumper, sand trousers, grey socks; both hands round the cup, legs plausible; the red-haired Profi, room and light unchanged; he sits inside the right arch at focal 12 % | – | 172 → 174 | `18a27447` |
+
+**AUDIT-v3 corrections.** `editorial/hotel-v3` (l. 137) said "sheet at the shoulder blades"; the file shows the sheet from mid-back. The note in `jobs-v3.json` now says so and points to the new frame; the same correction for `categories/massage-v3` and `portfolio/massage-4-v3` (review R8), and `landing/hero-mobile-v3` no longer calls its light "summer evening sun" under the 10:30 Ortszeile. PHOTOGRAPHY.md § 2, § 10 and § 13.2 now use the daytime Ortszeilen.
+
+**Signature pair (03).** The landing spec captions it "one afternoon in two moments" (15:25 at the door, 16:10 on the sofa, `LANDING_DESIGN_SPEC.md` l. 43 and D11). The door showed a younger man, the sofa an older woman. `editorial/after` now shows the client from the door (`arrival-v5` as the second reference: short dark-brown hair, the cream waffle-knit jumper), in the same place on the sofa, so the right arch at `focal="12% 50%"` shows him; the red-haired Profi in the background was already the same person.
+
+**Sheet:** `v3/13-v6-fixes.jpg` (each v6 edit, before left, after right).
