@@ -10,6 +10,9 @@ import { berlinDate } from "./helpers";
 
 const TITLE = "SOMA – Beauty & Wellness bei dir zu Hause, im Hotel und im Büro";
 
+// The dev server (E2E_BASE_URL=http://localhost:3000) compiles on demand; give each test room beyond the 60 s default.
+test.describe.configure({ timeout: 180_000 });
+
 const hero = (page: Page) => page.locator("#termin");
 const plzIn = (scope: Locator) => scope.locator('input[name="plz"]');
 const submitIn = (scope: Locator) => scope.getByRole("button", { name: "Freie Termine finden" });
@@ -21,9 +24,22 @@ async function demoMode(request: APIRequestContext): Promise<boolean> {
   return res.ok() ? (await res.json()).demoMode === true : false;
 }
 
-async function openLanding(page: Page) {
-  await page.goto("/", { waitUntil: "networkidle" });
+/** Resolves once React has hydrated the hero entry (robust on a dev server whose HMR never lets the network idle). */
+async function hydrated(page: Page) {
+  await page.waitForFunction(
+    () => {
+      const f = document.querySelector("#termin form");
+      return !!f && Object.keys(f).some((k) => k.startsWith("__reactFiber") || k.startsWith("__reactProps"));
+    },
+    undefined,
+    { timeout: 90_000 },
+  );
+}
+
+async function openLanding(page: Page, path = "/") {
+  await page.goto(path, { waitUntil: "load", timeout: 120_000 });
   await expect(hero(page)).toBeAttached();
+  await hydrated(page);
 }
 
 /** Types a PLZ into an entry and waits for the city lookup (proves hydration). */
@@ -496,7 +512,7 @@ test("T20 privacy: same-origin requests only; no storage beyond the remembered P
 });
 
 test("T21 deep links prefill the hero entry", async ({ page }) => {
-  await page.goto(`/?plz=10115&leistung=entspannungsmassage&datum=${berlinDate(2)}&zeit=morgens`, { waitUntil: "networkidle" });
+  await openLanding(page, `/?plz=10115&leistung=entspannungsmassage&datum=${berlinDate(2)}&zeit=morgens`);
   const entry = hero(page);
   await expect(plzIn(entry)).toHaveValue("10115");
   await expect(entry.getByRole("button", { name: /^Was\?/ })).toContainText("Entspannungsmassage");

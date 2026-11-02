@@ -56,6 +56,7 @@ export function IndexList({ items }: { items: CategoryItem[] }) {
           <li key={it.slug}>
             <Link
               href={it.href}
+              prefetch={false}
               onPointerEnter={() => intend(it.slug)}
               onFocus={() => intend(it.slug)}
               className="group grid min-h-[104px] grid-cols-[2.5rem_minmax(0,1fr)_auto_1.25rem] items-center gap-x-5 border-b border-line px-3 text-ink transition-[background-color,scale] duration-fast ease-standard hover:bg-surface-sunken focus-visible:bg-surface-sunken focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus active:scale-[0.99]"

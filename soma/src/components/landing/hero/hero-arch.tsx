@@ -4,8 +4,8 @@ import { useRef, type PointerEvent } from "react";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
-import { usePlace } from "./hero-place-stage";
-import { HERO_SIZES } from "./places";
+import { HERO_SIZES, PLACES } from "./places";
+import { prefetchPlaces, setPlace, usePlace } from "./place-store";
 import { SwapLayer } from "./swap-layer";
 import { useLayerSwap } from "./use-layer-swap";
 
@@ -18,7 +18,9 @@ export const HERO_FIGURE_ID = "hero-ort";
  * pan-y`, so vertical scrolling is never captured.
  */
 export function HeroArch({ className }: { className?: string }) {
-  const { place, places, setPlace, prefetch } = usePlace();
+  const place = usePlace();
+  const places = PLACES;
+  const prefetch = prefetchPlaces;
   const { layers, settle, swapped } = useLayerSwap(place.id);
   const start = useRef<{ x: number; y: number; id: number } | null>(null);
 

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { ScrollRegion } from "@/components/ui/motion";
 import { DEMO_MODE } from "@/lib/brand";
 import { cn } from "@/lib/cn";
 import { StepButtons } from "../ablauf/step-buttons";
@@ -76,7 +75,8 @@ export function AblaufChapter({ data }: { data: WalkthroughData }) {
           </div>
 
           <div className="lp-walk-body">
-            <ScrollRegion label="Drei Schritte" className="lp-walk-scroller">
+            {/* A focusable, named region (keyboard scrolling, WCAG 2.1.1) without the kit ScrollRegion's mount-time layout read. */}
+            <div role="region" aria-label="Drei Schritte" tabIndex={0} className="lp-walk-scroller focus-ring">
               <ol id="ablauf-schritte" className="lp-walk-steps">
                 {STEPS.map((s, i) => {
                   const n = (i + 1) as 1 | 2 | 3;
@@ -95,7 +95,7 @@ export function AblaufChapter({ data }: { data: WalkthroughData }) {
                   );
                 })}
               </ol>
-            </ScrollRegion>
+            </div>
 
             <Decorative className="lp-walk-stage-col">
               <div data-stage="" className="lp-walk-stage">

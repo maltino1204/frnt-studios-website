@@ -85,7 +85,8 @@ export function ScreenTabs({ head, items, caption }: { head: ReactNode; items: I
         {cur.line}
       </p>
 
-      <figure role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${cur.id}`} className="lp-screens-panel">
+      <div role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${cur.id}`} className="lp-screens-panel">
+      <figure className="m-0">
         <div className="lp-screen" style={style}>
           <div className="lp-screen-track">
             {files.map((f) => {
@@ -110,6 +111,7 @@ export function ScreenTabs({ head, items, caption }: { head: ReactNode; items: I
         </div>
         <figcaption className="mt-4 text-center type-caption text-ink-muted">{caption}</figcaption>
       </figure>
+      </div>
     </div>
   );
 }

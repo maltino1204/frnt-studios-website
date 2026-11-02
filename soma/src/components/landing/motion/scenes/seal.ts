@@ -2,14 +2,16 @@ import { attr, clamp01, type MotionContext, type Stop } from "../frame";
 
 /** The brand sequence runs 0–1980 ms (spec § 4.10); `done` hands back to the static final frame after it. */
 const SEQUENCE_MS = 2300;
+/** The mask is square once this share of the band has entered (CSS `animation-range: entry 0% entry 40%`). */
+const MASK_RANGE = 0.4;
 
 /**
  * 10 · SOMA, „O-Schluss“ (spec § 4.10, Appendix A).
  * - Full tier, once ready: an Oxblood arch mask opens from the bottom centre (24cqw, crown at 40 %) to a square full
- *   bleed over `entry 0 % → entry 60 %`, on the CSS view timeline where it exists, otherwise from `--lp-scene`.
+ *   bleed over `entry 0 % → entry 40 %` (the spec's 60 % left the band empty too long, audit 1, I-9), on the CSS view timeline where it exists, otherwise from `--lp-scene`.
  *   Lite and none: the hard edge.
- * - Full and lite: the brand sequence plays once when the band is ≥ 40 % in view (full: ≥ 60 %, i.e. the mask is
- *   complete and no arch is visible), or as soon as the reader is past its top (End key, a fast fling): the mark
+ * - Full and lite: the brand sequence plays once when the band is ≥ 40 % in view (full: the mask is then complete and
+ *   no arch is visible; lite: as soon as the lockup is half in view), or once the reader is past its top: the mark
  *   draws on (the O traces from the left springline over the crown, the S follows, both fill), the wordmark settles,
  *   the rule grows, the tagline and the German line arrive. CSS keyed on
  *   `data-scene-state` (idle · active · done). Only a band the reader has not reached yet starts `idle`: a deep link
@@ -29,7 +31,7 @@ export function startSeal(ctx: MotionContext): Stop {
       ctx.whileNear(scene, {
         read() {
           const r = scene.getBoundingClientRect();
-          p = r.height ? clamp01((window.innerHeight - r.top) / (0.6 * r.height)) : 1;
+          p = r.height ? clamp01((window.innerHeight - r.top) / (MASK_RANGE * r.height)) : 1;
         },
         write() {
           if (Math.abs(p - written) < 0.0005) return;
@@ -43,20 +45,25 @@ export function startSeal(ctx: MotionContext): Stop {
 
   if (ctx.below(scene)) {
     attr(scene, "data-scene-state", "idle");
-    const need = ready ? 0.6 : 0.4;
+    // Plays once the mask is square (≥ 40 % of the band in view), or as soon as the reader is past the band's top
+    // (End key, a fast fling). Lite has no mask: it plays as soon as the lockup itself is half in view. Either way
+    // the band never sits empty in view for long (audit 1, I-9).
     let timer = 0;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const e = entries[entries.length - 1];
-        // enough of the band in view, or the reader is already past its top (End key, a fast fling)
-        if (e.intersectionRatio < need - 0.001 && !(e.isIntersecting && e.boundingClientRect.top <= 0)) return;
-        io.disconnect();
-        attr(scene, "data-scene-state", "active");
-        timer = window.setTimeout(() => attr(scene, "data-scene-state", "done"), SEQUENCE_MS);
-      },
-      { threshold: [0, 0.4, 0.6] },
-    );
+    const play = () => {
+      io.disconnect();
+      attr(scene, "data-scene-state", "active");
+      timer = window.setTimeout(() => attr(scene, "data-scene-state", "done"), SEQUENCE_MS);
+    };
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const band = e.target === scene;
+        if (band ? e.intersectionRatio >= MASK_RANGE - 0.001 || (e.isIntersecting && e.boundingClientRect.top <= 0) : !ready && e.intersectionRatio >= 0.5)
+          return play();
+      }
+    }, { threshold: [0, MASK_RANGE, 0.5] });
     io.observe(scene);
+    const lockup = scene.querySelector(".lp-lockup");
+    if (lockup) io.observe(lockup);
     stops.push(() => {
       io.disconnect();
       window.clearTimeout(timer);

@@ -13,8 +13,7 @@
 .lp,
 .lp-header,
 .lp-dock,
-.lp-overlay,
-.lp-footnote {
+.lp-overlay {
   --lp-n: 4;
   --gap: 12px;
   --lp-col: calc((min(100vw, 1376px) - 2 * var(--space-gutter) - (var(--lp-n) - 1) * var(--gap)) / var(--lp-n));
@@ -23,8 +22,7 @@
   .lp,
   .lp-header,
   .lp-dock,
-  .lp-overlay,
-  .lp-footnote {
+  .lp-overlay {
     --lp-n: 8;
     --gap: 20px;
   }
@@ -33,8 +31,7 @@
   .lp,
   .lp-header,
   .lp-dock,
-  .lp-overlay,
-  .lp-footnote {
+  .lp-overlay {
     --lp-n: 12;
     --gap: 24px;
   }
@@ -74,6 +71,26 @@
 }
 :root[data-automation] .lp-cv {
   content-visibility: visible;
+}
+/* Below 1024 px (no pins, no scroll timelines there) every chapter after the hero also renders only near the
+   viewport: style and layout of the long page are skipped at load and at the web-font swap (audit-1 PT-2). */
+@media (max-width: 1023px) {
+  .lp-chapter:is([data-chapter="02"], [data-chapter="03"], [data-chapter="04"], [data-chapter="05"], [data-chapter="10"]) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1450px;
+  }
+  .lp-chapter[data-chapter="03"] {
+    contain-intrinsic-size: auto 1350px;
+  }
+  .lp-chapter[data-chapter="05"] {
+    contain-intrinsic-size: auto 4200px;
+  }
+  .lp-chapter[data-chapter="10"] {
+    contain-intrinsic-size: auto 760px;
+  }
+  :root[data-automation] .lp-chapter {
+    content-visibility: visible;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -118,6 +135,22 @@
   -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
   backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
   box-shadow: 0 1px 0 var(--color-line);
+}
+/* Without JS nothing writes data-scrolled: the header is glass from the start, so it never sits transparent over
+   content (audit-1 T-4). */
+@media (scripting: none) {
+  .lp-header {
+    background-color: var(--glass-bg-strong);
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+    backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturate));
+    box-shadow: 0 1px 0 var(--color-line);
+  }
+}
+.lp-skip:focus {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 20px;
 }
 /* Over a section that declares data-header-theme="dark" (html attribute written by the motion layer). */
 html[data-header-theme="dark"] .lp-header,
@@ -178,6 +211,11 @@ html[data-chapter-active="10"] .lp-chapter-label[data-chapter-label="10"] {
   stroke-dashoffset: calc(1 - var(--lp-progress, 0));
 }
 
+/* The chapter overlay scrolls itself and never the page behind it (no scroll lock on html: that restyled the page). */
+.lp-overlay {
+  overscroll-behavior: contain;
+}
+
 /* Mobile dock (§ 5.6) */
 .lp-dock {
   position: fixed;
@@ -212,15 +250,10 @@ html[data-booking-open] .lp-dock {
   }
 }
 
-/* Footer addition: the AI line, and room for the dock under the legal row (§ 4.10 "Footer"). */
-.lp-footnote {
-  position: relative;
-  margin-top: -1rem;
-  padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom));
-}
-@media (min-width: 1024px) {
-  .lp-footnote {
-    padding-bottom: 2.5rem;
+/* Room under the shared footer's legal row for the mobile dock (§ 4.10 "Footer"). */
+@media (max-width: 1023px) {
+  .lp-footer-wrap > footer {
+    padding-bottom: calc(56px + 24px + env(safe-area-inset-bottom));
   }
 }
 
@@ -1087,10 +1120,13 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
   }
 }
 @media (min-width: 1024px) {
+  /* Content-sized with a 16:9 / viewport floor (audit-1 I-2): the band grows instead of letting the CTAs collide with
+     the Ortszeile on short or narrow desktops (1024 × 768, 1180 × 820, 1280 × 720). */
   .lp-band {
     position: relative;
-    height: min(100svh, 56.25vw);
-    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    min-height: max(600px, min(100svh, 56.25vw));
     overflow: hidden;
     background-color: var(--soma-espresso);
   }
@@ -1105,10 +1141,12 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
   .lp-band-content {
     position: relative;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    padding-block: 96px 72px;
+    padding-block: 96px 40px;
+  }
+  .lp-band-text {
+    margin-block: auto;
   }
   /* The night scope on the photo's calm left third (measured: ≥ 12:1 left of 31 %, ≥ 4.7:1 to 43 %). */
   .lp-band-text,
@@ -1130,17 +1168,19 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
   .lp-band-text {
     max-width: min(41vw, calc(5 * var(--lp-col) + 4 * var(--gap)));
   }
-  .lp-band-lead,
-  .lp-band-ctas {
-    max-width: min(35vw, calc(4 * var(--lp-col) + 3 * var(--gap)));
-  }
   .lp-band-lead {
     max-width: min(26ch, 35vw);
   }
+  /* One row from 1024: the two buttons may use the headline's 41 % (Bone fill and Bone ring, ≥ 4.7:1 there). */
+  .lp-band-ctas {
+    flex-wrap: nowrap;
+    width: max-content;
+    max-width: 41vw;
+  }
+  /* In the flow under the text (no absolute position, so nothing can overlap it), within the calm 35 %. */
   .lp-band-place {
     display: block;
-    position: absolute;
-    bottom: 40px;
+    margin-top: 40px;
     max-width: 35vw;
   }
 }

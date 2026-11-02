@@ -15,7 +15,7 @@ import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
 export function ProviderCard({ provider }: { provider: DiscoveryProviderDTO }) {
   const meta = [provider.categories.slice(0, 2).map((c) => c.name).join(", "), provider.cityName].filter(Boolean).join(" · ");
   return (
-    <Link href={routes.provider(provider.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-4 p-3 pb-5" })}>
+    <Link href={routes.provider(provider.slug)} prefetch={false} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-4 p-3 pb-5" })}>
       <span data-reveal="arch" className="block">
         <Portrait src={provider.avatarUrl} name={provider.displayName} shape="oval" sizes="(min-width: 1024px) 22vw, 64vw" className="w-full" />
       </span>

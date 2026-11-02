@@ -9,17 +9,19 @@
 export function startProgress(): () => void {
   const timeline = typeof CSS !== "undefined" && CSS.supports("animation-timeline: scroll()");
   if (timeline && !matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
-  const arches = Array.from(document.querySelectorAll<SVGSVGElement>(".lp-progress-arch"));
-  if (!arches.length) return () => {};
+  // live: an arch glyph that mounts later (a lazily loaded dock) is written too
+  const arches = document.getElementsByClassName("lp-progress-arch") as HTMLCollectionOf<SVGSVGElement>;
 
   let max = 1;
   let raf = 0;
   let last = "";
+  let count = 0;
   const write = () => {
     raf = 0;
     const p = Math.min(1, Math.max(0, window.scrollY / max)).toFixed(3);
-    if (p === last) return;
+    if (p === last && arches.length === count) return;
     last = p;
+    count = arches.length;
     for (const a of arches) a.style.setProperty("--lp-progress", p);
   };
   const kick = () => {

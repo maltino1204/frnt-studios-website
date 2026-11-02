@@ -32,6 +32,9 @@ document on routes and data**. The sections below were edited accordingly; this 
 | OG image | rebuild from `og-default-v2` | spec § 12.1: keep `/brand/og-default.jpg`; it is now the shared `OG_IMAGE` (C7) |
 | `SearchAction` | not added | the spec's file plan lists "WebSite + SearchAction (/suche?plz=)". **Kept out** (SEO is this document's remit): `/suche` has no free-text query, is noindex and robots-disallowed, and the sitelinks search box is retired (§ 6.2). Flagged to the Lead. |
 | Hero entry | `variant="hero"` | spec § 4.1.6: `variant="sill"` (width `--lp-sill-w`, popovers flip upward, anchored waitlist panel), `placeHint` from the place switch, `RebookRow` under the trust row from lg |
+| Place hint (audit-1 I-3) | „PLZ des Hotels, z. B. …“ as placeholder | the placeholder is always „PLZ, z. B. {PLZ of the place's city}“ (fits the sill's 115–122 px; condensed at 1024–1279); the place moves into the caption „Wo? · Im Hotel“ (aria-hidden) and the sr label „Postleitzahl des Hotels“ (✎) |
+| `h1` (audit-1 I-18) | tagline as `<p>` | spec D2: tagline + German line in one `<h1>` (§ 6.3) |
+| Lazy surfaces (audit-1 PT-1) | bar and sheet mounted at load | `openBooking()` queues a request until BookingBar / BookingSheet register (loader via `setBookingSurfaceLoader`, 5 s fallback to the hero); entries stay mounted after the first open |
 
 **Implemented (Agent 5):**
 
@@ -491,9 +494,9 @@ also carries the `FAQPage` node, so chapter 09 must **not** use `FaqSection`, wh
   canonical URL only, no prices), because prices on the landing are floors that change.
 
 ### 6.3 Headings, landmarks, semantics
-- Exactly **one `<h1>`**: the German line „Beauty & Wellness bei dir zu Hause, im Hotel oder im Büro.“ The display line
-  „Your body. Your place.“ is a `<p lang="en">` (copy deck § 01). The current H1 comes from a content block (`page.tsx:92, 112`);
-  the landing replaces it.
+- Exactly **one `<h1>`** (spec D2, § 4.1.3): the tagline „Your body. Your place.“ (two `lang="en"` spans) and the German line
+  „Beauty & Wellness bei dir zu Hause, im Hotel oder im Büro.“ form one heading, so the visual and semantic hierarchy agree and
+  the German line carries the search terms. (v1.0 proposed the tagline as a separate `<p>`; the spec decided otherwise.)
 - Each chapter is a `<section aria-labelledby>` with one `<h2>` (the visible chapter headline). Cards and steps use `<h3>`
   (category names, provider names, step titles). FAQ questions stay inside `<summary>`, without headings.
 - `<nav aria-label="Kapitel">` for the chapter index (anchor links, not buttons), `<nav aria-label="Schnellzugriff">` for the dock;

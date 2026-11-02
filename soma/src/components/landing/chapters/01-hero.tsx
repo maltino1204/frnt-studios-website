@@ -1,7 +1,6 @@
 import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroArch } from "../hero/hero-arch";
 import { HeroBookingSlot } from "../hero/hero-booking-slot";
-import { HeroPlaceStage } from "../hero/hero-place-stage";
 import { PlaceSwitch } from "../hero/place-switch";
 import { titleId } from "../nav/chapters";
 import { lpLinkClass, lpLinkText } from "../primitives/chapter-foot";
@@ -30,7 +29,7 @@ export function HeroChapter({
   return (
     <Chapter n={1} padded={false} className="lp-hero">
       <LpContainer>
-        <HeroPlaceStage className="lp-hero-grid">
+        <div data-scene="hero-place" className="lp-hero-grid">
           <div className="lp-hero-head">
             <PlaceSwitch />
             <h1 id={titleId("bei-dir")} tabIndex={-1} className="outline-none">
@@ -48,7 +47,7 @@ export function HeroChapter({
             </a>
             <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
           </div>
-        </HeroPlaceStage>
+        </div>
       </LpContainer>
     </Chapter>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { openBooking } from "../booking/booking-access";
+import { requestBooking } from "./surfaces";
 import { jumpToChapter } from "./jump";
 
 /**
@@ -19,7 +19,7 @@ export function ChapterLinks() {
       const source = a.getAttribute("data-booking-open");
       if (source) {
         e.preventDefault();
-        openBooking({ source, categorySlug: a.getAttribute("data-booking-category") ?? undefined });
+        void requestBooking({ source, categorySlug: a.getAttribute("data-booking-category") ?? undefined });
         return;
       }
       const id = decodeURIComponent(a.getAttribute("href")!.slice(1));

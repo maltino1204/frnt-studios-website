@@ -1,9 +1,10 @@
 "use client";
 
-import { Fragment, useRef, type KeyboardEvent } from "react";
+import { Fragment, useEffect, useRef, type KeyboardEvent } from "react";
 import { cn } from "@/lib/cn";
 import { ArchMark } from "../primitives/arch-mark";
-import { usePlace } from "./hero-place-stage";
+import { PLACES } from "./places";
+import { prefetchPlaces, setPlace, usePlace } from "./place-store";
 import { HERO_FIGURE_ID } from "./hero-arch";
 
 /**
@@ -12,8 +13,25 @@ import { HERO_FIGURE_ID } from "./hero-arch";
  * label (`data-place-mark`, one per radio; the motion layer may slide the visible one with a FLIP).
  */
 export function PlaceSwitch({ className }: { className?: string }) {
-  const { place, places, setPlace, prefetch } = usePlace();
+  const place = usePlace();
+  const places = PLACES;
+  const prefetch = prefetchPlaces;
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  // Idle prefetch of the other places, 2 s after load (spec § 4.1.5).
+  useEffect(() => {
+    type IdleWindow = Window & { requestIdleCallback?: (cb: () => void) => number; cancelIdleCallback?: (h: number) => void };
+    const win = window as IdleWindow;
+    let idle = 0;
+    const t = window.setTimeout(() => {
+      if (win.requestIdleCallback) idle = win.requestIdleCallback(prefetchPlaces);
+      else prefetchPlaces();
+    }, 2000);
+    return () => {
+      window.clearTimeout(t);
+      if (idle) win.cancelIdleCallback?.(idle);
+    };
+  }, []);
 
   const select = (i: number) => {
     const p = places[(i + places.length) % places.length];

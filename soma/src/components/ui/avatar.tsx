@@ -102,7 +102,8 @@ export function Portrait({
           priority={priority}
           onLoad={() => setState("loaded")}
           onError={() => setState("error")}
-          className={cn("z-[3] object-cover transition-opacity duration-calm ease-arrive", state === "loaded" ? "opacity-100" : "opacity-0")}
+          // noscript: without JS onLoad never fires, so the photo shows at once instead of staying at opacity 0.
+          className={cn("z-[3] object-cover transition-opacity duration-calm ease-arrive", state === "loaded" ? "opacity-100" : "opacity-0 noscript:opacity-100")}
           style={{ objectPosition: imageFocal(src, "50% 36%") }}
         />
       ) : null}

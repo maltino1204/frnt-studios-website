@@ -7,7 +7,7 @@ import { ButtonLink, buttonClasses } from "@/components/ui/button";
 import { accountLink, useSiteSession } from "@/components/site/discovery-session";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
-import { openBooking } from "../booking/booking-access";
+import { requestBooking } from "./surfaces";
 import { ChapterIndex } from "./chapter-index";
 import { openChapterOverlay } from "./overlay-events";
 
@@ -50,7 +50,7 @@ export function LandingHeader() {
   return (
     <header ref={ref} className="lp-header sticky top-0 z-(--z-header) text-ink">
       <div className="lp-container flex h-(--header-height) items-center gap-2">
-        <Link href="/" aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch shrink-0 items-center rounded-control px-2 focus-ring">
+        <Link href="/" prefetch={false} aria-label="SOMA, zur Startseite" className="-mx-2 inline-flex min-h-touch shrink-0 items-center rounded-control px-2 focus-ring">
           <Wordmark title={null} />
         </Link>
 
@@ -64,7 +64,7 @@ export function LandingHeader() {
                     {l.label}
                   </a>
                 ) : (
-                  <Link href={l.href} className="inline-flex h-10 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
+                  <Link href={l.href} prefetch={false} className="inline-flex h-10 items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken">
                     {l.label}
                   </Link>
                 )}
@@ -85,6 +85,7 @@ export function LandingHeader() {
         <div className="hidden items-center gap-2 lg:flex">
           <ButtonLink
             href={account?.href ?? routes.login()}
+            prefetch={false}
             variant="ghost"
             className={cn("hidden transition-opacity duration-fast xl:inline-flex", account ? "opacity-100" : "pointer-events-none opacity-0")}
             aria-hidden={account ? undefined : true}
@@ -97,7 +98,7 @@ export function LandingHeader() {
             className={buttonClasses({ variant: "primary" })}
             onClick={(e) => {
               e.preventDefault();
-              openBooking({ source: "header" });
+              void requestBooking({ source: "header" });
             }}
           >
             Termin finden

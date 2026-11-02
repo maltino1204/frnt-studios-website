@@ -6,9 +6,12 @@ import { NARROW_QUERY, REDUCED_QUERY, type MotionTier } from "./tier";
  * scroll except the mobile header's scrollY. It writes on <html>:
  * - `data-chapter-active` (01–10): the chapter under a line at 40 % of the viewport; dispatches `soma:chapter`;
  * - `data-header-theme` (light · dark): the innermost `[data-header-theme]` under the header's middle line;
- * - `data-dock` (shown · hidden): the dock rules of § 5.6, see `dockHidden()`;
+ * - `data-dock` (shown · hidden): on phones a booking control is always in view (audit 1, I-4): the dock shows
+ *   unless the hero entry's submit or chapter 10's search CTA is actually visible, a focused field is in view, or a
+ *   non-modal dialog is open (see `dockHidden()`);
  * - `data-header-hidden` (< 1024, lite tier): hide on scroll-down after 400 px, back on any 8 px scroll-up;
- * - `data-header-logo="hidden"`: one logo per view, while ≥ 30 % of chapter 10 (the lockup) is in view.
+ * - `data-header-logo="hidden"`: one logo per view, while the closing lockup is in view and showing.
+ * Elements other components may mount late (the dock, overlay and booking surfaces, PT-1) are looked up when used.
  * The index arch's progress fallback (progress.ts) starts here too.
  */
 
@@ -79,7 +82,7 @@ export function startNav(tier: MotionTier): () => void {
   );
 
   /* 2. Header theme ----------------------------------------------------------------------------------------------- */
-  const header = document.querySelector<HTMLElement>(".lp-header");
+  const header = () => document.querySelector<HTMLElement>(".lp-header");
   const themed = Array.from(document.querySelectorAll<HTMLElement>("[data-header-theme]")).filter((el) => el !== root);
   const depth = new Map<Element, number>();
   for (const el of themed) {
@@ -94,7 +97,7 @@ export function startNav(tier: MotionTier): () => void {
     themeIO?.disconnect();
     underHeader.clear();
     // A 1 px line through the middle of the header: the innermost themed element on it decides.
-    const mid = Math.round((header?.offsetHeight ?? 68) / 2);
+    const mid = Math.round((header()?.offsetHeight ?? 68) / 2);
     themeIO = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -123,42 +126,37 @@ export function startNav(tier: MotionTier): () => void {
   };
 
   /* 3. Dock rules (< 1024; harmless above, where the dock is display: none) ---------------------------------------- */
-  const dock = document.querySelector<HTMLElement>(".lp-dock");
-  const zones = Array.from(document.querySelectorAll<HTMLElement>("[data-dock-hide]"));
-  const zoneHides = new Map<Element, boolean>();
-  for (const t of new Set(zones.map((z) => Number(z.dataset.dockHide) || 0))) {
-    observe(
-      (entries) => {
-        for (const e of entries) zoneHides.set(e.target, e.isIntersecting && e.intersectionRatio >= t - 0.001);
-        later();
-      },
-      { threshold: t > 0 ? [0, t] : [0] },
-      zones.filter((z) => (Number(z.dataset.dockHide) || 0) === t),
-    );
-  }
-  // The hero: from the moment the arch's Ortszeile enters the viewport until the booking card has scrolled out
-  // (< 25 % left at the top), the dock stays down. It never covers the Ortszeile, and it does not pop up for the
-  // short stretch of lead text between the Ortszeile and the card (the card itself is the booking entry there).
-  const hero = document.getElementById("bei-dir");
-  const heroCaption = hero?.querySelector("figure figcaption");
-  const heroEntry = hero?.querySelector<HTMLElement>("[data-dock-hide]");
-  let heroHides = false;
-  if (hero && heroCaption && heroEntry) {
-    // Recomputed from fresh rects whenever any of the three crosses a threshold: a jump from the top straight to a
-    // far chapter crosses the hero's edge even when the entry itself goes from "not in view" to "not in view".
-    observe(
-      () => {
-        const vh = window.innerHeight;
-        const cap = heroCaption.getBoundingClientRect();
-        const r = heroEntry.getBoundingClientRect();
-        const visible = r.height ? (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height : 0;
-        heroHides = cap.top < vh && !(r.top < 0 && visible < 0.25);
-        later();
-      },
-      { threshold: [0, 0.25] },
-      [hero, heroCaption, heroEntry],
-    );
-  }
+  // The booking controls that stand in for the dock while they are actually visible (≥ 90 % of the control in the
+  // viewport): the hero entry's submit and chapter 10's search CTA, inside the `[data-dock-hide]` zones. Measured
+  // from fresh rects on each scroll frame, but only while their chapter is near the viewport, so a component that
+  // re-mounts (lazy booking UI) is always the one measured. The footer's zone is not a booking control: the dock
+  // stays over it, and the footer's bottom padding keeps the legal row clear of it (spec § 4.10).
+  const CONTROL = '[data-dock-hide] :is(button[type="submit"], a[href^="/suche"])';
+  const nearSections = new Set<Element>();
+  let controlInView = false;
+  observe(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) nearSections.add(e.target);
+        else nearSections.delete(e.target);
+      }
+      later();
+    },
+    { rootMargin: "50% 0px" },
+    [document.getElementById("bei-dir"), document.getElementById("soma")],
+  );
+  const measureControls = () => {
+    controlInView = false;
+    const vh = window.innerHeight;
+    for (const section of nearSections) {
+      for (const el of section.querySelectorAll(CONTROL)) {
+        const r = el.getBoundingClientRect();
+        if (r.height > 0 && (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height >= 0.9) controlInView = true;
+      }
+    }
+  };
+  listen(window, "scroll", () => nearSections.size && later(), { passive: true });
+  listen(window, "resize", later);
   // A focused text field hides the dock (the virtual keyboard) until the reader scrolls that field out of view:
   // Android keeps focus when the keyboard is dismissed with the back gesture, and the dock must come back then.
   let field: Element | null = null;
@@ -185,8 +183,8 @@ export function startNav(tier: MotionTier): () => void {
   const onFocus = (e: Event) => {
     const t = e.target as Element;
     watchField(t.matches?.(FIELD) && !t.closest("dialog") ? t : null);
-    focusInDock = !!dock?.contains(t);
-    focusInHeader = !!header?.contains(t);
+    focusInDock = !!document.querySelector(".lp-dock")?.contains(t);
+    focusInHeader = !!header()?.contains(t);
     later();
   };
   listen(document, "focusin", onFocus);
@@ -209,10 +207,7 @@ export function startNav(tier: MotionTier): () => void {
 
   const dockHidden = () => {
     if (focusInDock) return false; // never pull the dock away from under the keyboard user
-    if (dialogOpen || (field && !fieldLeft)) return true;
-    if (heroHides) return true;
-    for (const hide of zoneHides.values()) if (hide) return true;
-    return false;
+    return dialogOpen || (!!field && !fieldLeft) || controlInView;
   };
 
   /* 4. Mobile header: hide on scroll (lite tier, < 1024, never with reduced motion) ------------------------------- */
@@ -239,24 +234,33 @@ export function startNav(tier: MotionTier): () => void {
     listen(window, "scroll", onScroll, { passive: true });
   }
 
-  /* 5. One logo per view: the header's micro wordmark steps back while the closing lockup is in view -------------- */
-  let logoHidden = false;
+  /* 5. One logo per view: the header's micro wordmark steps back while the closing lockup is in view and showing --- */
+  // (not while the seal still waits to play: then the band shows no logo, and the header keeps its own)
+  const seal = document.querySelector<HTMLElement>('#soma [data-scene="seal"]');
+  let lockupInView = false;
   observe(
     (entries) => {
-      logoHidden = entries[entries.length - 1].intersectionRatio >= 0.3;
+      lockupInView = entries[entries.length - 1].intersectionRatio >= 0.3;
       later();
     },
     { threshold: [0, 0.3] },
-    [document.getElementById("soma")],
+    [seal?.querySelector(".lp-lockup") ?? null],
   );
+  if (seal) {
+    const states = new MutationObserver(later);
+    states.observe(seal, { attributes: true, attributeFilter: ["data-scene-state"] });
+    stops.push(() => states.disconnect());
+  }
 
   /* Writes, once per frame ----------------------------------------------------------------------------------------- */
   function apply() {
     frame = 0;
+    if (nearSections.size) measureControls(); // reads first
+    else controlInView = false;
     set("headerTheme", theme());
     set("dock", dockHidden() ? "hidden" : "shown");
     set("headerHidden", headerHidden && !focusInHeader && !dialogOpen ? "" : null);
-    set("headerLogo", logoHidden ? "hidden" : null);
+    set("headerLogo", lockupInView && seal?.dataset.sceneState !== "idle" ? "hidden" : null);
   }
 
   return () => {

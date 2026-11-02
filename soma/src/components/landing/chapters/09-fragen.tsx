@@ -35,11 +35,11 @@ export function FragenChapter({ items, trust }: { items: FaqItem[]; trust: strin
             </ul>
           ) : null}
           <div className="mt-6 flex flex-col items-start lg:mt-8">
-            <Link href={routes.help()} className={lpLinkClass}>
+            <Link href={routes.help()} prefetch={false} className={lpLinkClass}>
               <span className={lpLinkText}>Alle Fragen und Antworten</span>
               <Icon icon={ArrowRight} size={16} />
             </Link>
-            <Link href="/stornierung" className={lpLinkClass}>
+            <Link href="/stornierung" prefetch={false} className={lpLinkClass}>
               <span className={lpLinkText}>Stornobedingungen</span>
               <Icon icon={ArrowRight} size={16} />
             </Link>

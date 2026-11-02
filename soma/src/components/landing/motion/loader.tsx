@@ -10,6 +10,31 @@ type IdleWindow = Window & {
   cancelIdleCallback?: (h: number) => void;
 };
 
+/**
+ * The chapters hydrate as separate Suspense boundaries (audit-1 PT-2), possibly after this loader. The runtime writes
+ * attributes on chapter elements, so it waits until React has hydrated every chapter (a hydrated host node carries
+ * React's `__reactFiber$…` key; the last element of each chapter is checked, so a time-sliced hydration counts only
+ * once it reached the end). After 8 s it starts anyway.
+ */
+function whenChaptersHydrated(alive: () => boolean, timeout = 8000): Promise<void> {
+  const hydrated = (el: Element | null) => !el || Object.keys(el).some((k) => k.startsWith("__reactFiber$"));
+  const lastOf = (el: Element) => {
+    let n: Element = el;
+    while (n.lastElementChild) n = n.lastElementChild;
+    return n;
+  };
+  const t0 = performance.now();
+  return new Promise((resolve) => {
+    const check = () => {
+      if (!alive()) return;
+      const pending = Array.from(document.querySelectorAll("main [data-chapter]")).some((c) => !hydrated(c) || !hydrated(lastOf(c)));
+      if (!pending || performance.now() - t0 > timeout) resolve();
+      else window.setTimeout(check, 100);
+    };
+    check();
+  });
+}
+
 /** Runtime attributes the motion layer writes on <html> (spec § 11.3); removed when the landing unmounts. */
 const ROOT_ATTRS = ["motion", "chapterActive", "headerTheme", "headerHidden", "headerLogo", "dock"] as const;
 
@@ -18,7 +43,8 @@ const ROOT_ATTRS = ["motion", "chapterActive", "headerTheme", "headerHidden", "h
  * 1. detects the tier and writes `html[data-motion]` (full · lite · none);
  * 2. imports the nav observer (active chapter, header theme, dock rules, progress fallback) in every tier;
  * 3. imports the motion runtime (scenes, reveals, pins, tone fallbacks) in the full and lite tiers only, after
- *    `requestIdleCallback` (timeout 2 s) or the first scroll, whichever comes first.
+ *    `requestIdleCallback` (timeout 2 s) or the first scroll, whichever comes first, and once the chapters are
+ *    hydrated.
  * Everything is progressive: the server-rendered page is complete without it (the `none` tier is the static page),
  * and a failed import leaves the final states in place. Narrowing below 1024 px drops a full tier to lite (the pins
  * are desktop layouts); turning on reduced motion drops any tier to none. Tiers never upgrade during a page view.
@@ -40,20 +66,20 @@ export function MotionLoader() {
         (m) => {
           if (alive && g === gen) stops.push(m.startNav(tier));
         },
-        () => {
-          // The dock waits for the observer (no flash over the hero's first frame); without it, show it plainly.
-          if (alive) root.dataset.dock = "shown";
-        },
+        () => {}, // without the observer the dock simply stays visible (booking is always one tap away)
       );
       if (tier === "none" || !runtimeRequested) return;
-      import("./runtime").then(
-        (m) => {
+      startRuntime(g);
+    };
+
+    const startRuntime = (g: number) => {
+      Promise.all([import("./runtime"), whenChaptersHydrated(() => alive && g === gen)]).then(
+        ([m]) => {
           if (alive && g === gen) stops.push(m.startRuntime(tier));
         },
         () => {}, // the static final states remain
       );
     };
-
     const requestRuntime = () => {
       window.removeEventListener("scroll", requestRuntime);
       if (idle) win.cancelIdleCallback?.(idle);
@@ -61,13 +87,7 @@ export function MotionLoader() {
       if (runtimeRequested || !alive) return;
       runtimeRequested = true;
       if (tier === "none") return;
-      const g = gen;
-      import("./runtime").then(
-        (m) => {
-          if (alive && g === gen) stops.push(m.startRuntime(tier));
-        },
-        () => {},
-      );
+      startRuntime(gen);
     };
 
     root.dataset.motion = tier;

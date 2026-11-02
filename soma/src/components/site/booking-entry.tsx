@@ -450,8 +450,11 @@ export type BookingEntryProps = {
   variant?: "hero" | "compact" | "sill";
   id?: string;
   className?: string;
-  /** Hero place switch (landing § 4.1.5): placeholder and screen-reader suffix of Wo?. Applied only while the field is empty. */
-  placeHint?: { placeholder?: string; srLabel?: string } | null;
+  /**
+   * Hero place switch (landing § 4.1.5): placeholder, screen-reader suffix and a visible caption context of Wo?
+   * („Wo? · Im Hotel“; aria-hidden, the sr suffix carries it). Applied only while the field is empty.
+   */
+  placeHint?: { placeholder?: string; srLabel?: string; context?: string | null } | null;
   /** "auto" opens a desktop popover upward when the space below it is too small. Default: "auto" for sill, else "below". */
   popoverPlacement?: "below" | "auto";
   /** "anchored": the unserved-PLZ panel overlays the page from lg instead of pushing it down. Default: "anchored" for sill. */
@@ -605,7 +608,7 @@ export function BookingEntry({
   const empty = plz === "";
   useEffect(() => {
     if (empty) setHint(placeHint);
-  }, [placeHint?.placeholder, placeHint?.srLabel, empty]);
+  }, [placeHint?.placeholder, placeHint?.srLabel, placeHint?.context, empty]);
 
   // Preselection from service lists on the same page.
   useEffect(() => {
@@ -799,7 +802,9 @@ export function BookingEntry({
         {/* Wo? */}
         <div className={cn(segment, "rounded-t-card pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:rounded-full lg:pr-2")}>
           <label htmlFor={`${uid}-plz`} className={caption}>
-            Wo?<span className="sr-only"> {srLabel}</span>
+            Wo?
+            {hint?.context ? <span aria-hidden data-place-context="">{` · ${hint.context}`}</span> : null}
+            <span className="sr-only"> {srLabel}</span>
           </label>
           <div className="flex items-center gap-1">
             <input
@@ -818,6 +823,8 @@ export function BookingEntry({
               className={cn(
                 "h-7 min-w-0 bg-transparent p-0 type-body num text-ink placeholder:text-ink-muted focus:outline-none",
                 loc.status === "ok" || loc.status === "outside" ? "w-[5.6ch] shrink-0" : "flex-1",
+                // Sill at 1024–1279 (spec § 4.1.1 "condensed values"): the placeholder „PLZ, z. B. 60306“ needs 115.5 px of 115.
+                sill && "lg:condensed xl:[font-stretch:100%]",
               )}
             />
             {loc.status === "ok" ? (

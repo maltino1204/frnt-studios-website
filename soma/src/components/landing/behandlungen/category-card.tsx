@@ -13,7 +13,7 @@ import type { CategoryItem } from "./types";
  */
 export function CategoryCard({ item }: { item: CategoryItem }) {
   return (
-    <Link href={item.href} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
+    <Link href={item.href} prefetch={false} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
       <LandingArch tone={item.slug} reveal="arch">
         <LandingImage src={item.image} alt="" sizes="(min-width: 768px) 40vw, 78vw" focal={item.focal} />
       </LandingArch>

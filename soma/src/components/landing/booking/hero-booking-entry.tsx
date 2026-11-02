@@ -13,7 +13,7 @@
  *
  * - Renders the entry (`id="termin"`, the deck's persistent CTA target), the trust row and, from lg, `RebookRow`.
  * - Place: pass `place`, or dispatch `window` event `soma:hero-place` { place } from the place switch. The example PLZ
- *   follows the place's city; the placeholder and the screen-reader label change only while the field is empty.
+ *   follows the place's city; caption context, placeholder and screen-reader label change only while the field is empty.
  * - Width from lg: set `--lp-sill-w` on an ancestor (landing.css: ≥ 1280 `max(8 cols, 820px)`, 1024–1279 10 cols).
  * - The wrapper of the entry carries `data-dock-hide="0.25"` (the dock hides while ≥ 25 % of it is in view).
  * - Shares its draft with <BookingBar/> and <BookingSheet/> (booking-draft.ts).
@@ -35,20 +35,25 @@ export const HERO_PLACE_EVENT = "soma:hero-place";
 export const PLACE_CITY: Record<HeroPlace, string> = { zuhause: "berlin", hotel: "frankfurt", buero: "hamburg" };
 
 /**
- * ✎ (spec § 13) „PLZ des Hotels / des Büros“ need the Strategist's sign-off. Set to false to fall back to the spec's
+ * Place hint (spec § 4.1.5; audit-1 I-3). The placeholder is always „PLZ, z. B. {PLZ}“, so it fits the sill's Wo? field
+ * at every width (≈ 106 px of 115–122 px from 1024); the example PLZ follows the place's city, the visible payoff of the
+ * place switch. The place itself moves into the caption („Wo? · Im Hotel“, aria-hidden) and the screen-reader label
+ * („Postleitzahl des Hotels“).
+ *
+ * ✎ (spec § 13) the caption context and the sr labels need the Strategist's sign-off. Set to false for the spec's
  * fallback: only the example PLZ changes.
  */
 export const PLACE_HINT_COPY_APPROVED = true;
 
-const PLACE_COPY: Record<HeroPlace, { field: string; sr: string }> = {
-  zuhause: { field: "PLZ", sr: "Postleitzahl" },
-  hotel: { field: "PLZ des Hotels", sr: "Postleitzahl des Hotels" },
-  buero: { field: "PLZ des Büros", sr: "Postleitzahl des Büros" },
+const PLACE_COPY: Record<HeroPlace, { context: string | null; sr: string }> = {
+  zuhause: { context: null, sr: "Postleitzahl" },
+  hotel: { context: "Im Hotel", sr: "Postleitzahl des Hotels" },
+  buero: { context: "Im Büro", sr: "Postleitzahl des Büros" },
 };
 
-export function placeHintFor(place: HeroPlace, examplePlz: string): { placeholder: string; srLabel: string } {
+export function placeHintFor(place: HeroPlace, examplePlz: string): { placeholder: string; srLabel: string; context: string | null } {
   const copy = PLACE_HINT_COPY_APPROVED ? PLACE_COPY[place] : PLACE_COPY.zuhause;
-  return { placeholder: `${copy.field}, z. B. ${examplePlz}`, srLabel: copy.sr };
+  return { placeholder: `PLZ, z.\u00a0B. ${examplePlz}`, srLabel: copy.sr, context: copy.context };
 }
 
 export type HeroBookingEntryProps = {

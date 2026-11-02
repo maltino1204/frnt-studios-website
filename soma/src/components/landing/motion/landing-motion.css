@@ -192,12 +192,6 @@ html[data-motion="lite"] :is([data-reveal-order="3"], [data-reveal-order="4"], [
    1. Navigation (§ 5): progress arch, header, dock, overlay
    ========================================================================== */
 
-/* The dock waits for the nav observer's first decision (no flash over the hero's first frame, § 5.6). */
-html:not([data-dock]) .lp-dock {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
 /* The header's micro wordmark steps back while the closing lockup is in view (one logo per view, § 4.10). */
 html[data-header-logo="hidden"] .lp-header a[href="/"] {
   visibility: hidden;
@@ -246,9 +240,6 @@ html[data-header-logo="hidden"] .lp-header a[href="/"] {
   }
 
   /* Dock (§ 5.6): shows with a 24 px rise and a fade (320 ms arrive), hides in 220 ms (exit); none: opacity only. */
-  html:not([data-dock]) .lp-dock {
-    translate: 0 24px;
-  }
   html[data-motion] .lp-dock {
     transition:
       opacity var(--transition-duration-slow) var(--ease-arrive),
@@ -459,7 +450,7 @@ html[data-header-logo="hidden"] .lp-header a[href="/"] {
     html[data-motion="full"] [data-scene="seal"][data-scene-ready] [data-arch-mask="seal"] {
       animation: lp-seal linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 60%;
+      animation-range: entry 0% entry 40%;
     }
   }
 

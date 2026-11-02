@@ -2,7 +2,7 @@
 
 import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroBookingEntry } from "../booking/hero-booking-entry";
-import { usePlace } from "./hero-place-stage";
+import { usePlace } from "./place-store";
 
 /**
  * The hero's booking threshold („Schwelle“, spec § 4.1.6): Conversion's <HeroBookingEntry/> (entry `#termin`, trust
@@ -21,7 +21,7 @@ export function HeroBookingSlot({
   postalExamples: Record<string, string>;
   trustItems: string[];
 }) {
-  const { place } = usePlace();
+  const place = usePlace();
   return (
     <div className="lp-sill">
       <div className="lp-sill-box">

@@ -2,7 +2,7 @@
 
 import { buttonClasses } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
-import { openBooking } from "../booking/booking-access";
+import { requestBooking } from "./surfaces";
 import { ChapterLabels } from "./chapter-labels";
 import { openChapterOverlay } from "./overlay-events";
 import { ProgressArch } from "./progress-arch";
@@ -31,7 +31,7 @@ export function LandingDock() {
         className={cn(buttonClasses({ variant: "primary" }), "h-12 shrink-0 px-5")}
         onClick={(e) => {
           e.preventDefault();
-          openBooking({ source: "dock" });
+          void requestBooking({ source: "dock" });
         }}
       >
         Termin finden

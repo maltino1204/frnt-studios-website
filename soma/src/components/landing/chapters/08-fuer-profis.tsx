@@ -87,7 +87,7 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
               <ButtonLink href={routes.pro.onboarding()} size="l" className="max-sm:w-full" data-cta="pro-werden-08">
                 Profi werden
               </ButtonLink>
-              <ButtonLink href={`${routes.forPros()}#provision`} variant="secondary" size="l" className="max-sm:w-full" iconRight={<Icon icon={ArrowRight} size={18} />}>
+              <ButtonLink href={`${routes.forPros()}#provision`} prefetch={false} variant="secondary" size="l" className="max-sm:w-full" iconRight={<Icon icon={ArrowRight} size={18} />}>
                 Konditionen ansehen
               </ButtonLink>
             </div>

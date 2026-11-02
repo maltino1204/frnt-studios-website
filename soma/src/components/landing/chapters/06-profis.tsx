@@ -1,5 +1,4 @@
 import { ArrowDown } from "lucide-react";
-import { Rail } from "@/components/site/discovery-rail";
 import { Icon } from "@/components/ui/icon";
 import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
 import { nextChapter, titleId } from "../nav/chapters";
@@ -7,6 +6,7 @@ import { ProviderCard } from "../profis/provider-card";
 import { ChapterFoot, lpLinkClass, lpLinkText } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
+import { SnapRail } from "../primitives/snap-rail";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
@@ -39,16 +39,17 @@ export function ProfisChapter({ providers }: { providers: DiscoveryProviderDTO[]
     <Chapter n={6} cv={{ desktop: 1000, mobile: 1200 }}>
       <LpContainer>
         {enough ? (
-          <Rail
+          <SnapRail
+            id="profis-rail"
             label="Profis auf SOMA"
             perView={4}
             header={header}
-            className="[&>ul>li]:w-[64%] md:[&>ul>li]:w-[calc((100%-2*1.25rem)/2.6)] lg:[&>ul>li]:w-[calc((100%-3*1.5rem)/4)]"
+            itemClassName="w-[64%] md:w-[calc((100%-2*1.25rem)/2.6)] lg:w-[calc((100%-3*1.5rem)/4)]"
           >
             {providers.map((p) => (
               <ProviderCard key={p.providerId} provider={p} />
             ))}
-          </Rail>
+          </SnapRail>
         ) : (
           <div className="lp-profis-fallback">
             <div className="lp-profis-fallback-head">{header}</div>

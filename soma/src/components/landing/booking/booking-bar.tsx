@@ -5,6 +5,11 @@
  * Mount once on the landing (layout or page): `<BookingBar />`. It reads the catalogue registered by
  * <HeroBookingEntry/>; pass `catalog` / `postalExample` only if the page has no hero entry.
  *
+ * Lazy mounting is supported (audit-1 PT-1; Frontend `nav/lazy-surfaces.tsx`): mount it once, whenever. It registers on
+ * mount, and a request made before that is queued by `booking-access.ts` and opens it on registration; register the
+ * loader with `setBookingSurfaceLoader(mountSurfaces)` so a bare `openBooking()` also triggers the mount. After the first
+ * open the entry stays mounted; later opens seed it through `syncDraft` (no remount).
+ *
  * Opens on `openBooking()` / `soma:booking:open` when the hero entry is < 25 % in view: a modal dialog under the header
  * (full content width, Paper, `shadow-overlay`, radius 0 0 24 24, backdrop 48 %) holding the pill entry
  * (`id="termin-leiste"`), `RebookRow` and a close button. Focus goes to the PLZ; Esc or a backdrop click closes and
@@ -23,7 +28,11 @@ import { useDialogMotion } from "@/components/ui/sheet";
 import { BAR_ENTRY_ID, DESKTOP_QUERY, registerBookingSurface, setBookingOpenFlag, type BookingOpenDetail } from "./booking-access";
 import { getBookingDraft, getEntryData, setBookingDraft } from "./booking-draft";
 
-type Session = { n: number; seed: Partial<BookingDraft>; top: number };
+/**
+ * One open = one session. The entry stays mounted after the first open (audit-1 PT-1): a later open only seeds the
+ * draft through `syncDraft` and calls showModal(), no remount. `first` seeds the entry's initial state.
+ */
+type Session = { n: number; first: Partial<BookingDraft>; seed: Partial<BookingDraft>; top: number };
 
 /** The draft to seed a new bar or sheet with; a requested category replaces the service. */
 export function seedFor(detail: BookingOpenDetail): Partial<BookingDraft> {
@@ -44,7 +53,10 @@ export function BookingBar({ catalog, postalExample }: { catalog?: EntryCategory
       registerBookingSurface("bar", (detail) => {
         const header = document.querySelector("header");
         const top = Math.max(0, header?.getBoundingClientRect().bottom ?? 0);
-        setSession((s) => ({ n: (s?.n ?? 0) + 1, seed: seedFor(detail), top }));
+        setSession((s) => {
+          const seed = seedFor(detail);
+          return { n: (s?.n ?? 0) + 1, first: s?.first ?? seed, seed, top };
+        });
         setOpen(true);
       }),
     [],
@@ -83,13 +95,13 @@ export function BookingBar({ catalog, postalExample }: { catalog?: EntryCategory
         <Container className="flex flex-col gap-4 py-6">
           <div className="flex items-center gap-4">
             <BookingEntry
-              key={session.n}
               catalog={data.catalog}
               postalExample={data.postalExample}
               variant="hero"
               id={BAR_ENTRY_ID}
               popoverPlacement="below"
-              initialDraft={session.seed}
+              initialDraft={session.first}
+              syncDraft={session.n > 1 ? { draft: session.seed, version: session.n } : null}
               onDraftChange={(d) => setBookingDraft("bar", d)}
               ctaId="bar-search-submit"
               className="min-w-0 flex-1 lg:w-full"

@@ -21,8 +21,11 @@ async function loadFooterData(): Promise<{ categories: CategoryDTO[]; cities: Ci
 }
 
 /** Footer on Linen (brand § 9.3): the micro wordmark, the tagline in Newsreader Italic, quiet link columns. */
-/** `tagline={false}` where the page itself just closed on the tagline (the landing page's final band). */
-export async function SiteFooter({ tagline = true }: { tagline?: boolean } = {}) {
+/**
+ * `tagline={false}` where the page itself just closed on the tagline (the landing page's final band). `note` adds one
+ * line to the base row inside the footer landmark (the landing's „Bilder: KI-generierte Entwicklungsassets“).
+ */
+export async function SiteFooter({ tagline = true, note }: { tagline?: boolean; note?: string } = {}) {
   const { categories, cities } = await loadFooterData();
   const columns: Array<{ title: string; links: FooterLink[] }> = [
     {
@@ -71,7 +74,7 @@ export async function SiteFooter({ tagline = true }: { tagline?: boolean } = {})
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="flex flex-col gap-5 lg:col-span-4">
-            <Link href="/" aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start rounded-control px-2 focus-ring">
+            <Link href="/" prefetch={false} aria-label={`${BRAND_NAME}, zur Startseite`} className="-mx-2 inline-flex min-h-touch items-center self-start rounded-control px-2 focus-ring">
               <Wordmark title={null} className="h-[18px] lg:h-5" />
             </Link>
             {tagline ? (
@@ -94,7 +97,9 @@ export async function SiteFooter({ tagline = true }: { tagline?: boolean } = {})
                 <ul className="flex flex-col lg:gap-0.5">
                   {col.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href}>{l.label}</Link>
+                      <Link href={l.href} prefetch={false}>
+                        {l.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -110,6 +115,7 @@ export async function SiteFooter({ tagline = true }: { tagline?: boolean } = {})
             {BRAND_NAME} vermittelt Termine. Vertragspartner für die Behandlung ist der jeweilige Profi.
           </p>
         </div>
+        {note ? <p className="mt-2 type-caption text-ink-muted">{note}</p> : null}
       </Container>
     </footer>
   );

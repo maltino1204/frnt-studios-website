@@ -95,21 +95,21 @@ test("active chapter, header theme and the soma:chapter event follow the reader"
   await expect.poll(() => root(page, "headerTheme")).toBe("light");
 });
 
-test("dock rules (< 1024): Ortszeile, hero entry, fields, dialogs, chapter 10 and footer", async ({ page }, ti) => {
+test("dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet", async ({ page }, ti) => {
   test.skip(ti.project.name !== "mobile", "the dock exists below 1024 px only");
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page);
-  // first frame: the hero's arch and Ortszeile are in view, the dock waits (it never covers the Ortszeile)
-  await expect(page.locator("#bei-dir figcaption [data-ortszeile]")).toBeInViewport();
-  expect(await root(page, "dock")).toBe("hidden");
-  await expect(dock(page)).toBeHidden();
+  // at load the hero's booking card is still below the fold: the dock carries booking (audit 1, I-4)
+  expect(await root(page, "dock")).toBe("shown");
+  await expect(dock(page)).toBeVisible();
+  // the hero entry's submit in view stands in for the dock
   await scrollToId(page, "termin", "center");
   await expect.poll(() => root(page, "dock")).toBe("hidden");
-
   await scrollToId(page, "behandlungen");
   await expect.poll(() => root(page, "dock")).toBe("shown");
   await expect(dock(page)).toBeVisible();
-  // a text field takes the dock away (virtual keyboard); blurring brings it back
+
+  // a focused text field takes the dock away (virtual keyboard); blurring brings it back
   await page.evaluate(() => document.querySelector<HTMLInputElement>('#termin input[name="plz"]')?.focus({ preventScroll: true }));
   await expect.poll(() => root(page, "dock")).toBe("hidden");
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
@@ -126,7 +126,7 @@ test("dock rules (< 1024): Ortszeile, hero entry, fields, dialogs, chapter 10 an
   await expect(chapters).toBeFocused();
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
 
-  // the booking sheet hides the dock through Conversion's html[data-booking-open]
+  // the booking sheet replaces the dock through Conversion's html[data-booking-open]
   const book = dock(page).getByRole("link", { name: "Termin finden" });
   await book.click();
   const sheet = page.getByRole("dialog", { name: "Termin finden" });
@@ -137,15 +137,40 @@ test("dock rules (< 1024): Ortszeile, hero entry, fields, dialogs, chapter 10 an
   await expect(book).toBeFocused(); // the dock is visible again in time for the focus to come back
   await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
 
+  // chapter 10's search CTA in view stands in for the dock; past it (the footer), the dock is back
   await page.evaluate(() => document.querySelector("#soma [data-dock-hide]")?.scrollIntoView({ block: "center", behavior: "instant" }));
   await expect.poll(() => root(page, "dock")).toBe("hidden");
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await expect.poll(() => root(page, "dock")).toBe("hidden");
-  // a jump from the very top straight to a far chapter must not leave the hero rule behind
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await expect.poll(() => root(page, "dock")).toBe("hidden");
-  await scrollToId(page, "profis");
   await expect.poll(() => root(page, "dock")).toBe("shown");
+  // a jump from the very end straight to the top leaves nothing behind
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect.poll(() => root(page, "dock")).toBe("shown");
+});
+
+test("phones: a booking control is in view at every scroll position from load (390 × 844)", async ({ page }, ti) => {
+  test.skip(ti.project.name !== "mobile", "the dock exists below 1024 px only");
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, "?motion=lite");
+  const { vh, height } = await page.evaluate(() => ({ vh: innerHeight, height: document.documentElement.scrollHeight }));
+  const gaps: number[] = [];
+  for (let y = 0; y <= height - vh; y += 100) {
+    await page.evaluate((v) => window.scrollTo(0, v), y);
+    await page.waitForTimeout(120);
+    const covered = await page.evaluate(() => {
+      const visible = (el: Element | null) => {
+        if (!el) return false;
+        const r = el.getBoundingClientRect();
+        const cs = getComputedStyle(el);
+        return r.height > 0 && r.bottom > 0 && r.top < innerHeight && cs.visibility !== "hidden" && Number(cs.opacity) > 0.5;
+      };
+      if (document.documentElement.dataset.dock === "shown" && !document.documentElement.dataset.bookingOpen) return true;
+      if (visible(document.querySelector('#termin button[type="submit"]'))) return true;
+      return [...document.querySelectorAll("main a, main button")].some((a) => /Termine? finden/.test(a.textContent ?? "") && visible(a));
+    });
+    if (!covered) gaps.push(y);
+  }
+  expect(gaps, "scroll positions without any booking control in view").toEqual([]);
 });
 
 test("chapter overlay: focus moves in, the current chapter is marked, a jump focuses the heading", async ({ page }, ti) => {
@@ -215,7 +240,13 @@ test("full tier: pins upgrade only below the fold, steps follow the scroll, no l
     await expect(stage).toHaveAttribute("data-scene-state", "active");
   }
 
-  // the seal plays once and ends on the final frame
+  // the seal starts once the mask is square (40 % of the band in view): the band never sits empty (audit 1, I-9)
+  await page.evaluate(() => {
+    const band = document.getElementById("soma")!;
+    window.scrollTo(0, band.getBoundingClientRect().top + scrollY - innerHeight + band.offsetHeight * 0.45);
+  });
+  await expect(page.locator('[data-scene="seal"]')).not.toHaveAttribute("data-scene-state", "idle");
+  // it plays once and ends on the final frame
   await scrollToId(page, "soma");
   await expect(page.locator('[data-scene="seal"]')).toHaveAttribute("data-scene-state", "done", { timeout: 5000 });
   expect(await opacity(page, '[data-seal-part="wordmark"]')).toEqual([1]);

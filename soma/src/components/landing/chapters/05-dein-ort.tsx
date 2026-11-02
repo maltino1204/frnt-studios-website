@@ -1,5 +1,4 @@
 import { buttonClasses } from "@/components/ui/button";
-import { BookingLink } from "../booking/booking-link";
 import { ExperienceSequence, StageCounter } from "../dein-ort/sequence";
 import { nextChapter, titleId } from "../nav/chapters";
 import { ChapterFoot } from "../primitives/chapter-foot";
@@ -32,9 +31,10 @@ export function DeinOrtChapter() {
               <StageCounter />
               <ExperienceSequence />
               <div className="lp-stage-cta">
-                <BookingLink source="ch05-stage" className={buttonClasses({ variant: "primary", size: "l" })}>
+                {/* routed to openBooking() by ChapterLinks (mounts the booking surfaces first; a plain anchor without JS) */}
+                <a href="#termin" data-booking-open="ch05-stage" data-cta="ch05-stage-termin" className={buttonClasses({ variant: "primary", size: "l" })}>
                   Freie Termine finden
-                </BookingLink>
+                </a>
               </div>
             </LpContainer>
           </div>

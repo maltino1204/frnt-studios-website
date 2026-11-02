@@ -5,6 +5,11 @@
  * Mount once on the landing (layout or page): `<BookingSheet />`. The dock's „Termin finden“ calls
  * `openBooking({ source: "dock" })` (or renders `<BookingLink source="dock">`).
  *
+ * Lazy mounting is supported (audit-1 PT-1; Frontend `nav/lazy-surfaces.tsx`): mount it once, whenever. It registers on
+ * mount, and a request made before that is queued by `booking-access.ts` and opens it on registration; register the
+ * loader with `setBookingSurfaceLoader(mountSurfaces)` so a bare `openBooking()` also triggers the mount. After the first
+ * open the entry stays mounted; later opens seed it through `syncDraft` (no remount).
+ *
  * The kit `Sheet` (bottom sheet, drag to dismiss; centred dialog from 768) holds the stacked entry (`id="termin-sheet"`).
  * Was? and Wann? expand inline (no second sheet). Focus: the PLZ when none is known, else the close button (no
  * keyboard covering the sheet). The page does not scroll behind it. `html[data-booking-open="sheet"]` while open.
@@ -19,7 +24,11 @@ import { DESKTOP_QUERY, registerBookingSurface, setBookingOpenFlag, SHEET_ENTRY_
 import { seedFor } from "./booking-bar";
 import { getEntryData, knownPlz, setBookingDraft } from "./booking-draft";
 
-type Session = { n: number; seed: Partial<BookingDraft>; focusPlz: boolean };
+/**
+ * One open = one session. The entry stays mounted after the first open (audit-1 PT-1): a later open only seeds the
+ * draft through `syncDraft` and calls showModal(), no remount. `first` seeds the entry's initial state.
+ */
+type Session = { n: number; first: Partial<BookingDraft>; seed: Partial<BookingDraft>; focusPlz: boolean };
 
 export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCategory[]; postalExample?: string }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +39,10 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
   useEffect(
     () =>
       registerBookingSurface("sheet", (detail) => {
-        setSession((s) => ({ n: (s?.n ?? 0) + 1, seed: seedFor(detail), focusPlz: !knownPlz() }));
+        setSession((s) => {
+          const seed = seedFor(detail);
+          return { n: (s?.n ?? 0) + 1, first: s?.first ?? seed, seed, focusPlz: !knownPlz() };
+        });
         setOpen(true);
       }),
     [],
@@ -63,14 +75,14 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
       {session && data ? (
         <div data-booking-surface="sheet" className="flex flex-col gap-5 pb-safe">
           <BookingEntry
-            key={session.n}
             catalog={data.catalog}
             postalExample={data.postalExample}
             variant="compact"
             id={SHEET_ENTRY_ID}
             pickerLayout="inline"
             statusLayout="flow"
-            initialDraft={session.seed}
+            initialDraft={session.first}
+            syncDraft={session.n > 1 ? { draft: session.seed, version: session.n } : null}
             onDraftChange={(d) => setBookingDraft("sheet", d)}
             ctaId="sheet-search-submit"
             className="scroll-mt-0"

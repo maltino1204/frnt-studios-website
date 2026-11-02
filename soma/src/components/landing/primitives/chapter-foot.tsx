@@ -28,7 +28,7 @@ function CtaLink({ cta }: { cta: FootCta }) {
         {cta.label}
       </a>
     ) : (
-      <Link href={cta.href} className={cls} {...common}>
+      <Link href={cta.href} prefetch={false} className={cls} {...common}>
         {cta.label}
       </Link>
     );
@@ -44,7 +44,7 @@ function CtaLink({ cta }: { cta: FootCta }) {
       {inner}
     </a>
   ) : (
-    <Link href={cta.href} className={lpLinkClass} {...common}>
+    <Link href={cta.href} prefetch={false} className={lpLinkClass} {...common}>
       {inner}
     </Link>
   );
