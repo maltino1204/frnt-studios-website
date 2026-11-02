@@ -5,6 +5,15 @@ import { createBooking } from "@/server/services/bookings";
 import { ALL_DAY, createCustomer, createProvider, NEW_ADDRESS, slotAtLeast, sql } from "./support/fixtures";
 import { rawInsertBooking } from "./support/raw";
 
+/**
+ * A fixed Europe/Berlin wall time some days ahead. Every booking in this file starts at a fixed local time, so no test
+ * depends on the time of day it runs at (a "now + 48 h" start could cross local midnight at night and hit
+ * SOMA_OUTSIDE_HOURS instead of the guard under test).
+ */
+function localAt(daysAhead: number, hour: number, minute = 0): Date {
+  return wallTimeToInstant(addDays(localDateOf(new Date()), daysAhead), hour * 60 + minute).instant;
+}
+
 /** Next local date (>= 2 days ahead) with the given ISO weekday. */
 function nextWeekday(weekday: number): string {
   let d = addDays(localDateOf(new Date()), 2);
@@ -28,36 +37,32 @@ describe("database guards (triggers + exclusion constraint)", () => {
   it("rejects an insert during time off", async () => {
     const p = await createProvider();
     const c = await createCustomer();
-    const start = new Date(Date.now() + 48 * 3_600_000);
-    start.setUTCMinutes(0, 0, 0);
+    const start = localAt(2, 12); // time off 11:00–17:00 local
     await sql()`insert into public.provider_time_off (provider_id, period, reason)
                 values (${p.providerId}, tstzrange(${new Date(start.getTime() - 3_600_000)}, ${new Date(start.getTime() + 5 * 3_600_000)}), 'Urlaub')`;
     await expect(rawInsertBooking(p, c, start)).rejects.toThrow(/SOMA_TIME_OFF/);
     // the travel buffer also may not run into time off
-    const justBefore = new Date(start.getTime() - 3_600_000 - 75 * 60_000); // ends 15 min before time off, buffer 30
+    const justBefore = localAt(2, 9, 45); // ends 10:45, 15 min before the time off; the 30 min buffer runs into it
     await expect(rawInsertBooking(p, c, justBefore)).rejects.toThrow(/SOMA_TIME_OFF/);
   });
 
   it("rejects an insert within the lead time", async () => {
-    const p = await createProvider({ leadTimeMinutes: 180 });
+    // Lead time 48 h; tomorrow 10:00 local is always 10–34 h away, so it is inside the lead time at any time of day.
+    const p = await createProvider({ leadTimeMinutes: 48 * 60 });
     const c = await createCustomer();
-    const soon = new Date(Date.now() + 2 * 3_600_000);
-    soon.setUTCSeconds(0, 0);
-    await expect(rawInsertBooking(p, c, soon)).rejects.toThrow(/SOMA_LEAD_TIME/);
+    await expect(rawInsertBooking(p, c, localAt(1, 10))).rejects.toThrow(/SOMA_LEAD_TIME/);
   });
 
   it("rejects bookings of unapproved providers", async () => {
     const p = await createProvider({ status: "submitted" });
     const c = await createCustomer();
-    await expect(rawInsertBooking(p, c, new Date(Date.now() + 24 * 3_600_000))).rejects.toThrow(/SOMA_PROVIDER_NOT_BOOKABLE/);
+    await expect(rawInsertBooking(p, c, localAt(2, 10))).rejects.toThrow(/SOMA_PROVIDER_NOT_BOOKABLE/);
   });
 
   it("makes overlapping bookings impossible (exclusion constraint incl. travel buffer)", async () => {
     const p = await createProvider();
     const c = await createCustomer();
-    // 09:00 UTC (10/11 Berlin) two days ahead: both bookings stay inside one local day whatever the time of the run
-    const start = new Date(Date.now() + 48 * 3_600_000);
-    start.setUTCHours(9, 0, 0, 0);
+    const start = localAt(2, 10); // both bookings stay inside one local day whatever the time of the run
     await rawInsertBooking(p, c, start);
     // starts 15 min after the first ends → inside the 30 min travel buffer
     await expect(rawInsertBooking(p, c, new Date(start.getTime() + 75 * 60_000))).rejects.toMatchObject({ code: "23P01" });
@@ -68,8 +73,7 @@ describe("database guards (triggers + exclusion constraint)", () => {
   it("rejects invalid status transitions and snapshot changes", async () => {
     const p = await createProvider({ weeklyHours: ALL_DAY });
     const c = await createCustomer();
-    // A fixed 10:00 two days ahead (≥ 34 h away), so the insert never falls outside the working hours by time of day.
-    const start = wallTimeToInstant(addDays(localDateOf(new Date()), 2), 10 * 60).instant;
+    const start = localAt(2, 10);
     const id = await rawInsertBooking(p, c, start);
     await expect(sql()`update public.bookings set status = 'completed' where id = ${id}`).rejects.toThrow(/SOMA_INVALID_TRANSITION/);
     await expect(sql()`update public.bookings set status = 'in_progress' where id = ${id}`).rejects.toThrow(/SOMA_INVALID_TRANSITION/);
@@ -86,7 +90,7 @@ describe("database guards (triggers + exclusion constraint)", () => {
   it("new bookings must start in pending_payment", async () => {
     const p = await createProvider();
     const c = await createCustomer();
-    const id = await rawInsertBooking(p, c, new Date(Date.now() + 40 * 3_600_000));
+    const id = await rawInsertBooking(p, c, localAt(2, 14));
     const [b] = await sql()<{ status: string }[]>`select status from public.bookings where id = ${id}`;
     expect(b.status).toBe("pending_payment");
   });
@@ -112,8 +116,7 @@ describe("database guards (triggers + exclusion constraint)", () => {
   it("the losing insert gets the German slot-taken message", async () => {
     const p = await createProvider();
     const c = await createCustomer();
-    const start = new Date(Date.now() + 50 * 3_600_000);
-    start.setUTCMinutes(0, 0, 0);
+    const start = localAt(3, 15);
     const db = sql();
     // Hold a transaction open with the first insert, race a second one against it.
     let release: () => void = () => undefined;
