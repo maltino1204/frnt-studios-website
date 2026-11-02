@@ -42,18 +42,24 @@ export function IdeeChapter() {
             </figcaption>
           </figure>
           <div className="lp-idee-text">
-            <p data-reveal="clause" className="flex flex-col gap-6 type-display-m text-ink md:gap-3">
-              <span data-reveal-order={0} className="block">
-                Kein Weg durch die Stadt.
-              </span>{" "}
-              <span data-reveal-order={1} className="block">
-                Kein Parkplatz.
-              </span>{" "}
-              <span data-reveal-order={2} className="block">
-                Kein Wartebereich.
-              </span>
-            </p>
-            <p className="mt-10 max-w-[36ch] type-lead text-ink">Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.</p>
+            {/* One clause group: the statement arrives with the third line, never before it (audit I-12; the doorway
+                scene triggers these units at its progress marks in the full tier). */}
+            <div data-reveal="clause" data-doorway-lines="">
+              <p className="flex flex-col gap-6 type-display-m text-ink md:gap-3">
+                <span data-reveal-order={0} className="block">
+                  Kein Weg durch die Stadt.
+                </span>{" "}
+                <span data-reveal-order={1} className="block">
+                  Kein Parkplatz.
+                </span>{" "}
+                <span data-reveal-order={2} className="block">
+                  Kein Wartebereich.
+                </span>
+              </p>
+              <p data-reveal-order={3} className="mt-10 max-w-[36ch] type-lead text-ink">
+                Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.
+              </p>
+            </div>
             <p className="mt-4 type-small text-ink-muted">Soma ist das altgriechische Wort für Körper.</p>
             <ChapterFoot className="mt-10" next={{ id: next.id, name: next.name }} />
           </div>

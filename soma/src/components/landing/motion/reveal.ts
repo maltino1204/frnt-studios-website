@@ -12,7 +12,7 @@ function owned(el: Element, ready: Set<Element>): boolean {
   if (el.closest('[data-scene="seal"], #bei-dir')) return true;
   const scene = el.closest("[data-scene]");
   if (!scene || !ready.has(scene)) return false;
-  return scene.getAttribute("data-scene") === "doorway" ? el.matches('p, [data-arch="frame"]') : !!el.closest("[data-stage]");
+  return scene.getAttribute("data-scene") === "doorway" ? el.matches('[data-doorway-lines], [data-arch="frame"]') : !!el.closest("[data-stage]");
 }
 
 /**
