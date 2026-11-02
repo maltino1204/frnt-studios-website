@@ -201,6 +201,10 @@ test("chapter overlay: focus moves in, the current chapter is marked, a jump foc
 
 test("full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift", async ({ page }, ti) => {
   test.skip(ti.project.name !== "desktop", "pins are desktop layouts");
+  // The test jumps by script (no user input) across chapters 06–09, which skip their layout until they are near the
+  // viewport (content-visibility: auto, now also under automation): lay the whole page out, as automation always did
+  // here, so the check stays about the pins and the seal.
+  await page.addInitScript(() => document.addEventListener("DOMContentLoaded", () => document.documentElement.setAttribute("data-capture", "full")));
   await page.addInitScript(() => {
     (window as unknown as { __cls: number }).__cls = 0;
     new PerformanceObserver((l) => {

@@ -36,6 +36,12 @@ for (const kind of ["mobile", "desktop"]) {
     const p = t.split("@")[0];
     const res = await page.goto(`${baseUrl}${p}`, { waitUntil: "networkidle" });
     await page.waitForTimeout(400);
+    // The landing skips the layout of far-away chapters (content-visibility: auto) for automation too; a full-page
+    // capture does not scroll, so it asks for the whole page (src/app/(landing)/landing.css).
+    if (process.env.SHOT_FULL !== "0") {
+      await page.evaluate(() => document.documentElement.setAttribute("data-capture", "full"));
+      await page.waitForTimeout(200);
+    }
     const name = `${kind}-${p.replace(/[^a-z0-9]+/gi, "_").replace(/^_|_$/g, "") || "home"}.png`;
     await page.screenshot({ path: path.join(outDir, name), fullPage: process.env.SHOT_FULL !== "0" });
     console.log(`${res?.status()} ${kind} ${p} -> ${path.join(outDir, name)}`);

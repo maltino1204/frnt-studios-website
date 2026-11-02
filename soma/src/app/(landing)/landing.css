@@ -69,7 +69,9 @@
     contain-intrinsic-size: auto var(--cv-d, 1000px);
   }
 }
-:root[data-automation] .lp-cv {
+/* Automation (Lighthouse, E2E) gets the same skipped chapters as a visitor, so lab numbers stay honest. A full-page
+   capture, which does not scroll, asks for the whole page explicitly: `html[data-capture="full"]` (scripts/screenshot.mjs). */
+:root[data-capture="full"] .lp-cv {
   content-visibility: visible;
 }
 /* Below 1024 px (no pins, no scroll timelines there) every chapter after the hero also renders only near the
@@ -88,7 +90,7 @@
   .lp-chapter[data-chapter="10"] {
     contain-intrinsic-size: auto 760px;
   }
-  :root[data-automation] .lp-chapter {
+  :root[data-capture="full"] .lp-chapter {
     content-visibility: visible;
   }
 }
