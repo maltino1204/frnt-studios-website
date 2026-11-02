@@ -48,9 +48,11 @@ export function currentImagePath(path: string): string {
  */
 export function avatarPathIn(registry: ReadonlyMap<string, Pick<ImageSource, "replacedBy" | "avatar">>, path: string): string {
   let p = path;
-  for (let i = 0; i < 3; i++) {
+  const seen = new Set([p]);
+  for (let i = 0; i < MAX_REPLACEMENT_HOPS; i++) {
     const next = registry.get(p)?.replacedBy;
-    if (!next || !registry.has(next)) break;
+    if (!next || !registry.has(next) || seen.has(next)) break;
+    seen.add(next);
     p = next;
   }
   return registry.get(p)?.avatar || p;

@@ -12,3 +12,23 @@ describe("image replacement chain", () => {
     expect(resolveImage("https://example.com/a.jpg")).toBe("https://example.com/a.jpg");
   });
 });
+
+describe("avatar crop lookup", () => {
+  it("follows a chain longer than three hops and then uses the avatar crop", async () => {
+    const { avatarPathIn } = await import("@/lib/images");
+    const reg = new Map<string, { replacedBy?: string; avatar?: string }>([
+      ["/a1.jpg", { replacedBy: "/a2.jpg" }],
+      ["/a2.jpg", { replacedBy: "/a3.jpg" }],
+      ["/a3.jpg", { replacedBy: "/a4.jpg" }],
+      ["/a4.jpg", { replacedBy: "/a5.jpg" }],
+      ["/a5.jpg", { avatar: "/a5-face.jpg" }],
+    ]);
+    expect(avatarPathIn(reg, "/a1.jpg")).toBe("/a5-face.jpg");
+  });
+
+  it("never loops on a cycle", async () => {
+    const { avatarPathIn } = await import("@/lib/images");
+    const reg = new Map([["/x.jpg", { replacedBy: "/y.jpg" }], ["/y.jpg", { replacedBy: "/x.jpg" }]]);
+    expect(["/x.jpg", "/y.jpg"]).toContain(avatarPathIn(reg, "/x.jpg"));
+  });
+});
