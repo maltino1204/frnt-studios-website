@@ -2,7 +2,7 @@
  "note": "v4 Profi portraits with variety (Photo Art Director, 2 Nov 2026). Start balance 814.99 credits, budget 90.",
  "startBalance": 814.99,
  "budget": 90,
- "creditsLogged": 58,
+ "creditsLogged": 68,
  "jobs": [
   {
    "id": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
@@ -14,7 +14,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_0c8ec450-03c5-4624-80d5-1001c6048c1a.png",
-   "note": "pilot"
+   "note": "pilot",
+   "status": "pass",
+   "reason": "identity kept; Selin: same person, warm and confident, massage table set up behind her; both arms complete, both hands cradle the towel"
   },
   {
    "id": "323e3138-8416-477b-93eb-48e451b69712",
@@ -26,7 +28,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_323e3138-8416-477b-93eb-48e451b69712.png",
-   "note": "pilot"
+   "note": "pilot",
+   "status": "pass",
+   "reason": "identity kept; own studio, arms crossed (one hand tucked, unambiguous)"
   },
   {
    "id": "e36ba1f0-792a-489b-a7e0-28c3e90f0099",
@@ -38,7 +42,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135302_e36ba1f0-792a-489b-a7e0-28c3e90f0099.png",
-   "note": "pilot"
+   "note": "pilot",
+   "status": "pass",
+   "reason": "identity kept; hotel corridor, arms at the sides, both hands complete"
   },
   {
    "id": "523bf6e2-ffb4-4c86-aea0-59089df49cc8",
@@ -50,7 +56,9 @@
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135300_523bf6e2-ffb4-4c86-aea0-59089df49cc8.png",
-   "note": "pilot"
+   "note": "pilot",
+   "status": "pass",
+   "reason": "identity kept; hotel suite, seated in the armchair, hands on the side table"
   },
   {
    "id": "add40757-3cbc-4a23-905e-702226d1fde8",
@@ -61,7 +69,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_add40757-3cbc-4a23-905e-702226d1fde8.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_add40757-3cbc-4a23-905e-702226d1fde8.png",
+   "status": "pass",
+   "reason": "identity kept; office, arms crossed (one hand tucked, unambiguous)"
   },
   {
    "id": "879e213b-802a-4028-821d-6ebddac8925b",
@@ -72,7 +82,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_879e213b-802a-4028-821d-6ebddac8925b.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_879e213b-802a-4028-821d-6ebddac8925b.png",
+   "status": "pass",
+   "reason": "identity kept; window console with manicure kit, leaning, both hands on the edge"
   },
   {
    "id": "c7045153-dbe2-41d6-bde5-c7f9a239ea9a",
@@ -83,7 +95,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135642_c7045153-dbe2-41d6-bde5-c7f9a239ea9a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135642_c7045153-dbe2-41d6-bde5-c7f9a239ea9a.png",
+   "status": "pass",
+   "reason": "identity kept; hotel suite, natural laugh, brush in one hand, the other on the table"
   },
   {
    "id": "de454fcf-333c-406c-a40f-428b40f0bdb2",
@@ -94,7 +108,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_de454fcf-333c-406c-a40f-428b40f0bdb2.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_de454fcf-333c-406c-a40f-428b40f0bdb2.png",
+   "status": "pass",
+   "reason": "identity kept; client living room, three-quarter, comb and scissors"
   },
   {
    "id": "ba848116-cef8-4696-a5ee-d58b5669ffd6",
@@ -105,7 +121,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_ba848116-cef8-4696-a5ee-d58b5669ffd6.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_ba848116-cef8-4696-a5ee-d58b5669ffd6.png",
+   "status": "pass",
+   "reason": "identity kept; arched window with lash tools, holding a lash case"
   },
   {
    "id": "339659e3-2cf8-4860-88a1-b97e9b3c8adf",
@@ -116,7 +134,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_339659e3-2cf8-4860-88a1-b97e9b3c8adf.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_339659e3-2cf8-4860-88a1-b97e9b3c8adf.png",
+   "status": "fail",
+   "reason": "identity kept, anatomy correct, but dark trousers (light-uniform rule)"
   },
   {
    "id": "6be37581-d38c-4925-bad4-ec657a963764",
@@ -127,7 +147,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_6be37581-d38c-4925-bad4-ec657a963764.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_6be37581-d38c-4925-bad4-ec657a963764.png",
+   "status": "pass",
+   "reason": "identity kept; stairwell arrival, bag strap and waist hand"
   },
   {
    "id": "76d6607a-1071-4749-b6b0-c5bf37b90aa8",
@@ -138,7 +160,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_76d6607a-1071-4749-b6b0-c5bf37b90aa8.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_76d6607a-1071-4749-b6b0-c5bf37b90aa8.png",
+   "status": "fail",
+   "reason": "identity kept, anatomy correct, but dark trousers (light-uniform rule)"
   },
   {
    "id": "30fab80d-c7b7-4e2e-b2bf-73bf2d4c118c",
@@ -149,7 +173,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_30fab80d-c7b7-4e2e-b2bf-73bf2d4c118c.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_30fab80d-c7b7-4e2e-b2bf-73bf2d4c118c.png",
+   "status": "pass",
+   "reason": "identity kept; open-plan office, arms crossed, both hands visible"
   },
   {
    "id": "fc223acf-a888-4c5a-b5e7-96265a3d97ea",
@@ -160,7 +186,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_fc223acf-a888-4c5a-b5e7-96265a3d97ea.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_fc223acf-a888-4c5a-b5e7-96265a3d97ea.png",
+   "status": "pass",
+   "reason": "identity kept; window seat, brush and palette"
   },
   {
    "id": "f791d630-f3fe-44c2-aa3f-03264ce73412",
@@ -171,7 +199,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_f791d630-f3fe-44c2-aa3f-03264ce73412.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_f791d630-f3fe-44c2-aa3f-03264ce73412.png",
+   "status": "pass",
+   "reason": "identity kept; window with hair tools, natural laugh, hands together (braids now worn loose)"
   },
   {
    "id": "4a19eb00-3426-40d0-be60-b90ac6c66e72",
@@ -182,7 +212,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_4a19eb00-3426-40d0-be60-b90ac6c66e72.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_4a19eb00-3426-40d0-be60-b90ac6c66e72.png",
+   "status": "pass",
+   "reason": "identity kept; own nail studio, seated, hands on the table"
   },
   {
    "id": "e7f2e040-524c-4202-abd0-21eaf0670d3a",
@@ -193,7 +225,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_e7f2e040-524c-4202-abd0-21eaf0670d3a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_e7f2e040-524c-4202-abd0-21eaf0670d3a.png",
+   "status": "pass",
+   "reason": "identity kept; hotel corridor, case held in both hands"
   },
   {
    "id": "b6759342-208b-4a76-974b-8fe4dddc7ea6",
@@ -204,7 +238,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_b6759342-208b-4a76-974b-8fe4dddc7ea6.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_b6759342-208b-4a76-974b-8fe4dddc7ea6.png",
+   "status": "pass",
+   "reason": "identity kept; client dining table, seated, hands on the table"
   },
   {
    "id": "d2c062f6-2ac1-418f-ba06-b46fbf3a354a",
@@ -215,7 +251,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_d2c062f6-2ac1-418f-ba06-b46fbf3a354a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_d2c062f6-2ac1-418f-ba06-b46fbf3a354a.png",
+   "status": "pass",
+   "reason": "identity kept; own lash studio, leaning on the counter, both hands on it"
   },
   {
    "id": "d7b3a018-7ead-43d4-96d5-479e65b141d3",
@@ -226,7 +264,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_d7b3a018-7ead-43d4-96d5-479e65b141d3.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_d7b3a018-7ead-43d4-96d5-479e65b141d3.png",
+   "status": "pass",
+   "reason": "identity kept; own studio, seated, hands in the lap"
   },
   {
    "id": "181b2841-7ecd-4998-b934-885927c5b8c4",
@@ -237,7 +277,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_181b2841-7ecd-4998-b934-885927c5b8c4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_181b2841-7ecd-4998-b934-885927c5b8c4.png",
+   "status": "pass",
+   "reason": "identity kept; hotel suite, leaning on the desk, both hands on the edge"
   },
   {
    "id": "c281de20-31d9-46ff-9754-4b794ce35b70",
@@ -248,7 +290,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_c281de20-31d9-46ff-9754-4b794ce35b70.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_c281de20-31d9-46ff-9754-4b794ce35b70.png",
+   "status": "fail",
+   "reason": "identity kept, anatomy correct, but dark trousers (light-uniform rule)"
   },
   {
    "id": "5e40ce2c-2971-4d68-9a4c-22eade66a685",
@@ -259,7 +303,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_5e40ce2c-2971-4d68-9a4c-22eade66a685.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_5e40ce2c-2971-4d68-9a4c-22eade66a685.png",
+   "status": "pass",
+   "reason": "identity kept; bay window, arms crossed, both hands visible"
   },
   {
    "id": "ad993b89-3fb6-4ea7-9d2a-e6e5bed682b3",
@@ -270,7 +316,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_ad993b89-3fb6-4ea7-9d2a-e6e5bed682b3.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_ad993b89-3fb6-4ea7-9d2a-e6e5bed682b3.png",
+   "status": "pass",
+   "reason": "identity kept; client living room with Thai mat, arms at the sides, both hands complete"
   },
   {
    "id": "6cb2058f-3e7d-45ac-8508-120341913d83",
@@ -281,7 +329,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_6cb2058f-3e7d-45ac-8508-120341913d83.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_6cb2058f-3e7d-45ac-8508-120341913d83.png",
+   "status": "pass",
+   "reason": "identity kept; apartment door, tool case in both hands"
   },
   {
    "id": "55643e53-f836-4fc8-85e3-d5f4223f471d",
@@ -292,7 +342,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135737_55643e53-f836-4fc8-85e3-d5f4223f471d.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135737_55643e53-f836-4fc8-85e3-d5f4223f471d.png",
+   "status": "pass",
+   "reason": "identity kept; door arrival, natural laugh, bag strap and waist hand"
   },
   {
    "id": "fff434a3-aba1-4fb6-b17b-748d3038db20",
@@ -303,7 +355,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_fff434a3-aba1-4fb6-b17b-748d3038db20.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_fff434a3-aba1-4fb6-b17b-748d3038db20.png",
+   "status": "pass",
+   "reason": "identity kept; client bedroom, three-quarter, round brush"
   },
   {
    "id": "142a7933-2f6c-443a-be7d-4821c2b4fc62",
@@ -314,7 +368,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135756_142a7933-2f6c-443a-be7d-4821c2b4fc62.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135756_142a7933-2f6c-443a-be7d-4821c2b4fc62.png",
+   "status": "pass",
+   "reason": "identity kept; door arrival, arms at the sides, both hands complete"
   },
   {
    "id": "ac1a8835-16ce-4883-888e-c2c65fbc3537",
@@ -325,7 +381,68 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k + v3 portrait as identity reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135755_ac1a8835-16ce-4883-888e-c2c65fbc3537.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135755_ac1a8835-16ce-4883-888e-c2c65fbc3537.png",
+   "status": "fail",
+   "reason": "identity kept, anatomy correct, but dark trousers (light-uniform rule)"
+  },
+  {
+   "id": "b95b1d4e-8384-49c6-b3c3-a1e8fb87084d",
+   "shot": "R27",
+   "path": "/images/pros/pro-27-v4.jpg",
+   "setting": "A",
+   "pose": "Q",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png"
+  },
+  {
+   "id": "e87ba940-86b0-4934-a5f9-1d9da55c9fbe",
+   "shot": "R08",
+   "path": "/images/pros/pro-08-v4.jpg",
+   "setting": "E",
+   "pose": "R",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_e87ba940-86b0-4934-a5f9-1d9da55c9fbe.png",
+   "note": "attempt 2, light trousers"
+  },
+  {
+   "id": "9c07c329-3e83-47e7-9e92-e419bc46de81",
+   "shot": "R10",
+   "path": "/images/pros/pro-10-v4.jpg",
+   "setting": "E",
+   "pose": "L",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_9c07c329-3e83-47e7-9e92-e419bc46de81.png",
+   "note": "attempt 2, light trousers"
+  },
+  {
+   "id": "6f052ea4-068e-4a1e-969a-dd72df9a5729",
+   "shot": "R18",
+   "path": "/images/pros/pro-18-v4.jpg",
+   "setting": "E",
+   "pose": "G",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140323_6f052ea4-068e-4a1e-969a-dd72df9a5729.png",
+   "note": "attempt 2, light trousers"
+  },
+  {
+   "id": "c98d2f74-1f01-4bcb-8aca-eff946dbd8cd",
+   "shot": "R29",
+   "path": "/images/pros/pro-29-v4.jpg",
+   "setting": "C",
+   "pose": "Q",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_c98d2f74-1f01-4bcb-8aca-eff946dbd8cd.png",
+   "note": "attempt 2, light trousers"
   }
  ],
  "current": {
@@ -334,203 +451,210 @@
    "job": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
    "shot": "R01",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "57% 15%"
   },
   "/images/pros/pro-12-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_323e3138-8416-477b-93eb-48e451b69712.png",
    "job": "323e3138-8416-477b-93eb-48e451b69712",
    "shot": "R12",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "55% 15%"
   },
   "/images/pros/pro-17-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135302_e36ba1f0-792a-489b-a7e0-28c3e90f0099.png",
    "job": "e36ba1f0-792a-489b-a7e0-28c3e90f0099",
    "shot": "R17",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
   },
   "/images/pros/pro-30-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135300_523bf6e2-ffb4-4c86-aea0-59089df49cc8.png",
    "job": "523bf6e2-ffb4-4c86-aea0-59089df49cc8",
    "shot": "R30",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
   },
   "/images/pros/pro-02-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_add40757-3cbc-4a23-905e-702226d1fde8.png",
    "job": "add40757-3cbc-4a23-905e-702226d1fde8",
    "shot": "R02",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-03-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_879e213b-802a-4028-821d-6ebddac8925b.png",
    "job": "879e213b-802a-4028-821d-6ebddac8925b",
    "shot": "R03",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-05-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135642_c7045153-dbe2-41d6-bde5-c7f9a239ea9a.png",
    "job": "c7045153-dbe2-41d6-bde5-c7f9a239ea9a",
    "shot": "R05",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "55% 15%"
   },
   "/images/pros/pro-06-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_de454fcf-333c-406c-a40f-428b40f0bdb2.png",
    "job": "de454fcf-333c-406c-a40f-428b40f0bdb2",
    "shot": "R06",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "55% 15%"
   },
   "/images/pros/pro-07-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_ba848116-cef8-4696-a5ee-d58b5669ffd6.png",
    "job": "ba848116-cef8-4696-a5ee-d58b5669ffd6",
    "shot": "R07",
    "attempt": 1,
-   "focal": "50% 30%"
-  },
-  "/images/pros/pro-08-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_339659e3-2cf8-4860-88a1-b97e9b3c8adf.png",
-   "job": "339659e3-2cf8-4860-88a1-b97e9b3c8adf",
-   "shot": "R08",
-   "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "45% 15%"
   },
   "/images/pros/pro-09-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_6be37581-d38c-4925-bad4-ec657a963764.png",
    "job": "6be37581-d38c-4925-bad4-ec657a963764",
    "shot": "R09",
    "attempt": 1,
-   "focal": "50% 30%"
-  },
-  "/images/pros/pro-10-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_76d6607a-1071-4749-b6b0-c5bf37b90aa8.png",
-   "job": "76d6607a-1071-4749-b6b0-c5bf37b90aa8",
-   "shot": "R10",
-   "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-11-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_30fab80d-c7b7-4e2e-b2bf-73bf2d4c118c.png",
    "job": "30fab80d-c7b7-4e2e-b2bf-73bf2d4c118c",
    "shot": "R11",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-13-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_fc223acf-a888-4c5a-b5e7-96265a3d97ea.png",
    "job": "fc223acf-a888-4c5a-b5e7-96265a3d97ea",
    "shot": "R13",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-14-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_f791d630-f3fe-44c2-aa3f-03264ce73412.png",
    "job": "f791d630-f3fe-44c2-aa3f-03264ce73412",
    "shot": "R14",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-15-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_4a19eb00-3426-40d0-be60-b90ac6c66e72.png",
    "job": "4a19eb00-3426-40d0-be60-b90ac6c66e72",
    "shot": "R15",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
   },
   "/images/pros/pro-19-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_e7f2e040-524c-4202-abd0-21eaf0670d3a.png",
    "job": "e7f2e040-524c-4202-abd0-21eaf0670d3a",
    "shot": "R19",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-20-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_b6759342-208b-4a76-974b-8fe4dddc7ea6.png",
    "job": "b6759342-208b-4a76-974b-8fe4dddc7ea6",
    "shot": "R20",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "55% 10%"
   },
   "/images/pros/pro-25-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_d2c062f6-2ac1-418f-ba06-b46fbf3a354a.png",
    "job": "d2c062f6-2ac1-418f-ba06-b46fbf3a354a",
    "shot": "R25",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "45% 15%"
   },
   "/images/pros/pro-04-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135641_d7b3a018-7ead-43d4-96d5-479e65b141d3.png",
    "job": "d7b3a018-7ead-43d4-96d5-479e65b141d3",
    "shot": "R04",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
   },
   "/images/pros/pro-16-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_181b2841-7ecd-4998-b934-885927c5b8c4.png",
    "job": "181b2841-7ecd-4998-b934-885927c5b8c4",
    "shot": "R16",
    "attempt": 1,
-   "focal": "50% 30%"
-  },
-  "/images/pros/pro-18-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_c281de20-31d9-46ff-9754-4b794ce35b70.png",
-   "job": "c281de20-31d9-46ff-9754-4b794ce35b70",
-   "shot": "R18",
-   "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-21-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_5e40ce2c-2971-4d68-9a4c-22eade66a685.png",
    "job": "5e40ce2c-2971-4d68-9a4c-22eade66a685",
    "shot": "R21",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-22-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135733_ad993b89-3fb6-4ea7-9d2a-e6e5bed682b3.png",
    "job": "ad993b89-3fb6-4ea7-9d2a-e6e5bed682b3",
    "shot": "R22",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
   },
   "/images/pros/pro-23-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_6cb2058f-3e7d-45ac-8508-120341913d83.png",
    "job": "6cb2058f-3e7d-45ac-8508-120341913d83",
    "shot": "R23",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-24-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135737_55643e53-f836-4fc8-85e3-d5f4223f471d.png",
    "job": "55643e53-f836-4fc8-85e3-d5f4223f471d",
    "shot": "R24",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "55% 15%"
   },
   "/images/pros/pro-26-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_fff434a3-aba1-4fb6-b17b-748d3038db20.png",
    "job": "fff434a3-aba1-4fb6-b17b-748d3038db20",
    "shot": "R26",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 15%"
   },
   "/images/pros/pro-28-v4.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135756_142a7933-2f6c-443a-be7d-4821c2b4fc62.png",
    "job": "142a7933-2f6c-443a-be7d-4821c2b4fc62",
    "shot": "R28",
    "attempt": 1,
-   "focal": "50% 30%"
+   "focal": "50% 10%"
+  },
+  "/images/pros/pro-27-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png",
+   "job": "b95b1d4e-8384-49c6-b3c3-a1e8fb87084d",
+   "shot": "R27",
+   "attempt": 1,
+   "focal": "50% 15%"
+  },
+  "/images/pros/pro-08-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_e87ba940-86b0-4934-a5f9-1d9da55c9fbe.png",
+   "job": "e87ba940-86b0-4934-a5f9-1d9da55c9fbe",
+   "shot": "R08",
+   "attempt": 2,
+   "focal": "55% 10%"
+  },
+  "/images/pros/pro-10-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_9c07c329-3e83-47e7-9e92-e419bc46de81.png",
+   "job": "9c07c329-3e83-47e7-9e92-e419bc46de81",
+   "shot": "R10",
+   "attempt": 2,
+   "focal": "50% 15%"
+  },
+  "/images/pros/pro-18-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140323_6f052ea4-068e-4a1e-969a-dd72df9a5729.png",
+   "job": "6f052ea4-068e-4a1e-969a-dd72df9a5729",
+   "shot": "R18",
+   "attempt": 2,
+   "focal": "50% 15%"
   },
   "/images/pros/pro-29-v4.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135755_ac1a8835-16ce-4883-888e-c2c65fbc3537.png",
-   "job": "ac1a8835-16ce-4883-888e-c2c65fbc3537",
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_c98d2f74-1f01-4bcb-8aca-eff946dbd8cd.png",
+   "job": "c98d2f74-1f01-4bcb-8aca-eff946dbd8cd",
    "shot": "R29",
-   "attempt": 1,
-   "focal": "50% 30%"
+   "attempt": 2,
+   "focal": "50% 10%"
   }
  }
 }

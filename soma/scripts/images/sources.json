@@ -3175,7 +3175,8 @@
     "height": 1500,
     "focal": "50% 30%",
     "replaces": "/images/pros/pro-27-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R27"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R27",
+    "replacedBy": "/images/pros/pro-27-v4.jpg"
   },
   {
     "path": "/images/pros/pro-28-v3.jpg",
@@ -4440,7 +4441,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "57% 15%",
     "replaces": "/images/pros/pro-01-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R01"
   },
@@ -4450,7 +4451,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 15%",
     "replaces": "/images/pros/pro-12-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R12"
   },
@@ -4460,7 +4461,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-17-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R17"
   },
@@ -4470,7 +4471,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-30-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R30"
   },
@@ -4480,7 +4481,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-02-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R02"
   },
@@ -4490,7 +4491,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-03-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R03"
   },
@@ -4500,7 +4501,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 15%",
     "replaces": "/images/pros/pro-05-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R05"
   },
@@ -4510,7 +4511,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 15%",
     "replaces": "/images/pros/pro-06-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R06"
   },
@@ -4520,17 +4521,17 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "45% 15%",
     "replaces": "/images/pros/pro-07-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R07"
   },
   {
     "path": "/images/pros/pro-08-v4.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_339659e3-2cf8-4860-88a1-b97e9b3c8adf.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_e87ba940-86b0-4934-a5f9-1d9da55c9fbe.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 10%",
     "replaces": "/images/pros/pro-08-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R08"
   },
@@ -4540,17 +4541,17 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-09-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R09"
   },
   {
     "path": "/images/pros/pro-10-v4.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135640_76d6607a-1071-4749-b6b0-c5bf37b90aa8.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_9c07c329-3e83-47e7-9e92-e419bc46de81.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-10-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R10"
   },
@@ -4560,7 +4561,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-11-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R11"
   },
@@ -4570,7 +4571,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-13-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R13"
   },
@@ -4580,7 +4581,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-14-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R14"
   },
@@ -4590,7 +4591,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-15-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R15"
   },
@@ -4600,7 +4601,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-19-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R19"
   },
@@ -4610,7 +4611,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 10%",
     "replaces": "/images/pros/pro-20-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R20"
   },
@@ -4620,7 +4621,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "45% 15%",
     "replaces": "/images/pros/pro-25-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R25"
   },
@@ -4630,7 +4631,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-04-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R04"
   },
@@ -4640,17 +4641,17 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-16-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R16"
   },
   {
     "path": "/images/pros/pro-18-v4.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135734_c281de20-31d9-46ff-9754-4b794ce35b70.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140323_6f052ea4-068e-4a1e-969a-dd72df9a5729.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-18-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R18"
   },
@@ -4660,7 +4661,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-21-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R21"
   },
@@ -4670,7 +4671,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-22-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R22"
   },
@@ -4680,7 +4681,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-23-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R23"
   },
@@ -4690,7 +4691,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "55% 15%",
     "replaces": "/images/pros/pro-24-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R24"
   },
@@ -4700,7 +4701,7 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 15%",
     "replaces": "/images/pros/pro-26-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R26"
   },
@@ -4710,18 +4711,28 @@
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-28-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R28"
   },
   {
     "path": "/images/pros/pro-29-v4.jpg",
-    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135755_ac1a8835-16ce-4883-888e-c2c65fbc3537.png",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_140321_c98d2f74-1f01-4bcb-8aca-eff946dbd8cd.png",
     "ratio": "4:5",
     "width": 1200,
     "height": 1500,
-    "focal": "50% 30%",
+    "focal": "50% 10%",
     "replaces": "/images/pros/pro-29-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R29"
+  },
+  {
+    "path": "/images/pros/pro-27-v4.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135735_b95b1d4e-8384-49c6-b3c3-a1e8fb87084d.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 15%",
+    "replaces": "/images/pros/pro-27-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R27"
   }
 ]
