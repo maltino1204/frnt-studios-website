@@ -255,7 +255,7 @@ test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier
     await expectLanded(page, id, nn);
   }
   await open(page, "?motion=lite");
-  await page.locator('#bei-dir a[href="#so-funktionierts"]').click();
+  await page.locator('#bei-dir a[href="#so-funktionierts"]:visible').click();
   await expectLanded(page, "so-funktionierts", "04");
 });
 

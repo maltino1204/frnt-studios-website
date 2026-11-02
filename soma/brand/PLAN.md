@@ -100,6 +100,8 @@ Phases with dependencies run in sequence; agents within a phase have disjoint fi
 - **Servers:** dev on :3000 (`npx next dev -p 3000`), production on :3100 (only the Lead or the named agent rebuilds it).
   The container may restart. If so, start Postgres with `pg_ctlcluster 16 main start` and the dev server with `nohup`.
   Kill processes by PID only, never with `pkill -f`.
+  Stop the :3100 server **before** `npm run build`, or delete `.next/server/route-cache` before restarting it: a
+  running old server can write stale ISR HTML there, which the new server then serves.
 - **Playwright:** `require('@playwright/test')` from inside `soma/`, `chromium.launch({ executablePath: '/opt/pw-browsers/chromium' })`.
 - **Demo logins** (password `soma-demo-2026`): `testkunde@soma.test`, `testkunde-b2b@soma.test`, `testadmin@soma.test`.
 - **Blocked hosts:** `theoneagency.de` and the photo CDN are still blocked in this sandbox. The client-approved GitHub

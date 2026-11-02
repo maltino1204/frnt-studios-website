@@ -886,3 +886,18 @@ The 768–1023 visual order puts the entry before the lead and „So funktionier
 - **N-9:** needs a Lead decision on the italic preload (§ 18.7).
 - **768–1023:** focus order differs from visual order between the lead link and the entry (§ 18.6).
 - **The 404** still fetches both roman and both italic URLs (outside the landing).
+
+---
+
+## 19. Lead follow-ups after remediation round 3 (Lead's own notes, not an audit score)
+
+- **768–1023 focus order (round-3 open item):** fixed. The hero renders „So funktioniert’s“ twice in the DOM: after the lead (shown below 768 and from 1024) and after the booking entry (shown only at 768–1023, where the entry sits visually before the lead). The copy that isn't shown has `display: none`, so exactly one is in the focus order and the a11y tree. Tab walk, `?motion=none`:
+  - **768 × 1024:** place switch → PLZ (786) → location button → Was? → Wann? → „Freie Termine finden“ (955) → „So funktioniert’s“ (1201).
+  - **390 × 844 and 1440 × 900:** unchanged (place switch → link → entry).
+  - Landing E2E on the rebuilt :3100: 71 passed, 11 skipped, 0 failed.
+  - Files: `chapters/01-hero.tsx`, `(landing)/landing.css` (§ 5), `tests/e2e/landing-motion.spec.ts` (the jump test clicks the visible link).
+- **Duplicate italic declaration (N-9, P3):** kept, by Lead decision.
+  - Preloading the italic on every route would reverse the font-budget decision of Design-v2 audit A5-9: most routes have no accent above the fold.
+  - Dropping the preload on `/` would let the italic hero tagline swap late.
+  - Net effect of keeping it: the italic downloads twice only on a route that prefetches `/`. This is a documented constraint of `next/font`: the preload flag is part of the file URL.
+- **Measurement gotcha for anyone rebuilding locally:** Next 16.4 writes ISR output to `.next/server/route-cache/`. If the old `next start` is still running when a new build finishes, it can write stale HTML there, and the new server then serves it (`x-nextjs-cache: HIT`). Stop the server before building, or delete `.next/server/route-cache` before restarting. Fresh CI and Netlify builds are not affected. The round-3 numbers in § 18 are not affected: that build ran with the old server stopped.

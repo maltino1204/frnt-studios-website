@@ -338,6 +338,10 @@ html[data-booking-open] .lp-dock {
 .lp-sill {
   margin-top: 12px;
 }
+/* One „So funktioniert’s“ link per width: after the lead, except at 768–1023 where it follows the entry (01-hero.tsx). */
+.lp-hero-how-after {
+  display: none;
+}
 /*
  * The arch's first view below 1024 (audit-2 RT-8 / N-7, RT-12 / I-13): on a viewport tall enough to show the
  * Ortszeile, the arch is capped so that the Ortszeile ends 12 px above the dock (phones) or the booking entry fits
@@ -386,6 +390,7 @@ html:has([data-demo-ribbon]) .lp-hero {
 /*
  * 768–1023 (I-13): the phone's stacked single column, scaled up and centred: text, then the arch, then the booking
  * entry (PLZ field and CTA in the first view at 768 × 1024), then the lead and „So funktioniert’s“. No second column.
+ * The link shown here is the second copy after the entry in the DOM, so the focus order matches the visual order.
  */
 @media (min-width: 768px) and (max-width: 1023px) {
   html:has([data-demo-ribbon]) .lp-hero {
@@ -426,7 +431,11 @@ html:has([data-demo-ribbon]) .lp-hero {
     order: 2;
     margin-top: 32px;
   }
-  .lp-hero-rest > a {
+  .lp-hero-rest > .lp-hero-how {
+    display: none;
+  }
+  .lp-hero-rest > .lp-hero-how-after {
+    display: inline-flex;
     order: 3;
     justify-self: start;
     margin-top: 12px;

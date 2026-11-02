@@ -50,7 +50,7 @@ export function HeroChapter({
           <HeroArch images={images} className="lp-hero-figure" />
           <div className="lp-hero-rest">
             <p className="lp-hero-lead max-w-[40ch] type-lead text-ink-muted">{lead}</p>
-            <a href="#so-funktionierts" className={`${lpLinkClass} -my-1 self-start`}>
+            <a href="#so-funktionierts" className={`lp-hero-how ${lpLinkClass} -my-1 self-start`}>
               <span className={lpLinkText}>So funktioniert’s</span>
             </a>
             {/* Hydrates right after the shell, in its own time-sliced pass (like chapters 02–10); a tap on it before
@@ -58,6 +58,12 @@ export function HeroChapter({
             <Activity mode="visible">
               <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
             </Activity>
+            {/* 768–1023 shows the entry before the lead (landing.css § 5), so the link is rendered a second time after
+                the entry for that range only; `display: none` keeps exactly one in the focus order and the a11y tree,
+                and the focus order follows the visual order at every width. */}
+            <a href="#so-funktionierts" className={`lp-hero-how-after ${lpLinkClass} -my-1 self-start`}>
+              <span className={lpLinkText}>So funktioniert’s</span>
+            </a>
           </div>
         </div>
       </LpContainer>
