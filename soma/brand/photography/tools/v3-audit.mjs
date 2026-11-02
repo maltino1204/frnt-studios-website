@@ -10,7 +10,7 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../.
 const L = JSON.parse(fs.readFileSync(path.join(root, "brand/photography/generation/jobs-v3.json"), "utf8"));
 const S = JSON.parse(fs.readFileSync(path.join(root, "scripts/images/sources.json"), "utf8"));
 const lum = JSON.parse(fs.readFileSync(path.join(root, "brand/photography/v3/luminance.json"), "utf8"));
-const notes = fs.readFileSync(path.join(root, "brand/photography/tools/v3-audit-notes.md"), "utf8");
+const [notes, sheetsSection = ""] = fs.readFileSync(path.join(root, "brand/photography/tools/v3-audit-notes.md"), "utf8").split(/(?=^## 5\. )/m);
 const byPath = new Map(S.map((e) => [e.path, e]));
 const esc = (s) => String(s ?? "").replace(/\|/g, "\\|");
 const short = (p) => p.replace("/images/", "");
@@ -57,14 +57,14 @@ for (const k of [...order, "ALL"]) {
   const b = lum.before[k], a = lum.after[k]; if (!b && !a) continue;
   md += `| ${k === "ALL" ? "**All**" : `\`${k}/\``} | ${b?.n ?? "–"} → ${a?.n ?? "–"} | ${b?.luma ?? "–"} → **${a?.luma ?? "–"}** | ${b?.L ?? "–"} → ${a?.L ?? "–"} | ${b?.dark ?? "–"} % → ${a?.dark ?? "–"} % | ${a?.min ?? "–"} |\n`;
 }
-md += `\n${notes}\n`;
-md += `## 1. Model test (Selin A. portrait and a manicure scene, same prompt)\n\n| Model | Target | Credits | Finding |\n|---|---|---|---|\n`;
+md += `\n## 1. Model test (Selin A. portrait and a manicure scene, same prompt)\n\n| Model | Target | Credits | Finding |\n|---|---|---|---|\n`;
 for (const t of tests) md += `| \`${t.model}\` | ${esc(t.target)} | ${t.credits} | ${esc(t.verdict)} |\n`;
-md += `\nSheet: \`v3/00-model-test.jpg\`.\n\n`;
+md += `\nSheet: \`v3/00-model-test.jpg\`.\n\n${notes}\n`;
 md += `## 3. Skipped by Lead decision (2 Nov 2026)\n\nThe landing chapters 02 (Idee), 05 (Dein Ort, the six-step stage) and 07 (Deine Buchung) are removed. These images were used only there; their \`sources.json\` entries stay as they are (no v3, no \`replacedBy\`):\n\n`;
 for (const k of KEYS.filter((k) => SKIPPED.has(k.id))) md += `- \`${short(k.path.replace("-v3.jpg", ".jpg"))}\` (${k.entity})\n`;
 md += `\n## 4. Every image\n\nVerdict and reason are for the final file; „rejected“ lists every earlier attempt with its reason (attempt number first). Retries = attempts − 1. Job = the Higgsfield job of the final file.\n\n`;
 md += `| v3 file | Entity | Replaces | Verdict | Reason (final) | Rejected attempts | Retries | Job |\n|---|---|---|---|---|---|---|---|\n`;
 for (const r of rows) md += `| \`${short(r.path)}\` | ${esc(r.entity)} | \`${esc(r.replaces)}\` | ${r.verdict} | ${esc(r.reason)} | ${esc(r.rejected) || "–"} | ${r.retries} | \`${r.job.slice(0, 8)}\` |\n`;
+md += `\n${sheetsSection}`;
 fs.writeFileSync(path.join(root, "brand/photography/AUDIT-v3.md"), md);
 console.log(`AUDIT-v3.md: ${rows.length} rows, ${pass} pass, ${rejected} rejected attempts, ${credits.toFixed(2)} credits`);

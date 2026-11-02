@@ -44,7 +44,7 @@ Replaced the v1 development set (131 images, audit in `AUDIT.md`). Its rules on 
 | `generation/shotlist-v3.mjs` | The v3 shot list and prompt system (source) → `generation/jobs-v3.json` (every Higgsfield job, approved and rejected) |
 | `AUDIT.md`, `audit/` | The v1 audit (historical) |
 | `generation/shotlist-v2.mjs`, `jobs-v2.json`, `v2-contact-sheet.jpg`, `v2-previews/` | The v2 record (historical; v2 is no longer the grade reference) |
-| `tools/` | `contact-sheets.mjs`, `recrops.mjs`, `render-audit.mjs`, `add-sources.mjs`; v3: `v3-sheets.mjs`, `v3-luminance.mjs` |
+| `tools/` | `contact-sheets.mjs`, `recrops.mjs`, `render-audit.mjs`, `add-sources.mjs`; v3: `v3-register.mjs` (sources.json from the ledger), `v3-luminance.mjs`, `v3-sheets.mjs`, `v3-audit.mjs` (+ `v3-audit-notes.md`) |
 
 ---
 
@@ -96,7 +96,9 @@ The grade sits *with* the palette, so photography and UI share one temperature o
 | **Contrast** | Soft, clean, fresh. **No film grain, no borders or rebates, no vignettes, no haze filters, no "film look".** |
 | **Brand fit** | The set's dominant colours are the palette's warm neutrals (Bone, Stone, Taupe, light oak, linen). An image must sit calmly on a Bone page and on a Stone card. |
 
-**Consistency check.** Put a new image next to the v3 grade masters (listed in `AUDIT-v3.md` once approved) at thumbnail size on Bone: if it reads darker, colder, greyer or more saturated, it is off.
+**Consistency check.** Put a new image next to the v3 grade masters at thumbnail size on Bone: `landing/hero-home-4x5-v3` (the home hero), `pros/pro-01-v3` (the portrait series), `categories/manikuere-v3`, `editorial/after-v3`. If it reads darker, colder, greyer or more saturated, it is off.
+
+**One deliberate exception:** `editorial/provider-cta-v3` keeps a deep, evenly lit espresso-brown wall in its left 45 % because the landing band (chapter 05, ≥ 1024 px) sets Bone text there (measured 12.2:1). The Profi and the rest of the frame are bright.
 
 ---
 
@@ -182,8 +184,10 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 
 ## 11. Generating development assets (until the shoot)
 
-- **Model.** The choice is made by a side-by-side test on Selin's portrait (`AUDIT-v3.md` § 1) and documented there with the scores. One model for the whole set, so skin, light and grade match.
+- **Model: Higgsfield `nano_banana_pro`, 2k** (2 credits per image), chosen by a side-by-side test of five configurations on Selin's portrait and a manicure scene (`AUDIT-v3.md` § 1, `v3/00-model-test.jpg`): the most photographic skin, correct hands at 100 %, and no stray props. `gpt_image_2_5` added a candle and a skyline print and reads smoother; `seedream_v5_pro` reads plastic and has no 4:5; `flux_3_image` was close but costs 3 credits. One model for the whole set, so skin, light and grade match.
+- **Portrait template (final).** Frontal, shoulders square, framed head to mid-thigh, hands meeting at belt or navel height, plus **`pro-08-v3` as an image reference for pose, framing, light and background only** ("the person is a different individual"). Without the reference the model turned the body (hiding one arm) or let the hands drop out of the frame.
 - **Prompt system** (`generation/shotlist-v3.mjs`): one scene sentence (who, where, what the hands do, the wardrobe, lens, where the calm zone is) + the shared v3 style block, verbatim. The portrait series has its own fixed template (§ 6). Positive wording first; exclusions only in one closing sentence.
+- **Say it positively and concretely.** The model draws a fruit logo on any laptop (leave laptops out or show a leather folder), gloves on cosmeticians (write "bare hands, no gloves"), towel turbans and rolled towels in spa-like rooms (write "hair loose", "bare shelves"), and fine nail work only at macro framing.
 - **Moderation.** Bare backs, legs or feet on a massage table can trip the provider's safety filter; cover the client with linen to the shoulder blades or higher, or dress them. This is also the brand rule.
 - **QA before approval** (every image, contact sheet + 100 % view for every image with people). Reject on:
   - anatomy: missing or extra arms, hands or fingers; fused fingers; wrong joints; broken faces or eyes; extra or merged people;
@@ -200,15 +204,16 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 
 | Group | Paths (under `/images/`) | Replaces (in use) |
 |---|---|---|
-| Profi portraits (30) | `pros/pro-01-v3` … `pro-30-v3` | `pro-NN-v2`, `pro-12`, `pro-17`, `pro-28-v2` |
-| Landing key visuals (12) + hero home crop (1) | `landing/<name>-v3`, `landing/hero-home-4x5-v3` | `landing/<name>`, `landing/hero-home-4x5` |
+| Profi portraits (30) | `pros/pro-01-v3` … `pro-30-v3` (focal 50 % 30 %) | `pro-NN-v2`, `pro-12`, `pro-17`, `pro-28-v2` |
+| Landing key visuals (5) + hero home crop (1) | `landing/{hero-wide,hero-mobile,app-home,app-pro,app-table}-v3`, `landing/hero-home-4x5-v3` | `landing/<name>`, `landing/hero-home-4x5` (now registered as a recrop) |
+| Skipped by Lead decision (7) | — | `landing/philosophy`, `experience-{time,comfort,privacy,quality,choice,flexible}` stay v2 (their chapters are removed) |
 | Hero (1) | `hero/home-v3` | `hero/home-v2` |
 | Editorial (7) + OG (1) | `editorial/<name>-v3`, `og-default-v3` | `editorial/<name>-v2`, `og-default-v2` |
 | Categories (7) | `categories/<slug>-v3` | `categories/<slug>-v2` |
 | Portfolio (85) | `portfolio/<category>-<n>-v3`, same caption | `portfolio/<category>-<n>-v2` |
 | „Entdecken“ covers (6, new) | `explore/vor-dem-event`, `nach-dem-sport`, `im-hotel-ankommen`, `mittagspause`, `sonntag-fuer-dich`, `neu-auf-soma` (4:5, 1200 × 1500) | new |
 
-The final counts, the model, the credits and every job are in `AUDIT-v3.md` and `generation/jobs-v3.json`.
+**Result (2 Nov 2026):** 143 final files (141 generated + 2 derived 4:5 crops of the mobile hero), all passed QA; 199 generations for the set + 10 model tests, 56 rejected in QA; **420.50 credits** of the 500 budget. Mean luma of the replaced set **97.6 → 177.6** / 255 (L\* 40.5 → 72.2), near-black pixels 26 % → 2.6 %. Seven landing images were skipped by Lead decision (chapters 02, 05 and 07 removed). Every job and verdict: `AUDIT-v3.md`, `generation/jobs-v3.json`.
 
 ---
 

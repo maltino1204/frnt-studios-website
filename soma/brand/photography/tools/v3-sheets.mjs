@@ -29,7 +29,7 @@ async function sheet(name, items, cols, cellW, ratio, title) {
   fs.writeFileSync(path.join(out, name + ".jpg"), buf);
   console.log(`${name}.jpg ${items.length} images, ${Math.round(buf.length / 1024)} KB`);
 }
-const short = (p) => p.replace("/images/", "").replace(".jpg", "");
+const short = (p) => p.replace("/images/", "").replace("portfolio/", "").replace(".jpg", "");
 const pair = (list, cols, w, r, base, title) => Promise.all([
   sheet(`${base}-before`, list.filter((e) => e.replaces).map((e) => [short(e.replaces), e.replaces]), cols, w, r, `${title} · before (v2 in use)`),
   sheet(`${base}-after`, list.map((e) => [short(e.path), e.path]), cols, w, r, `${title} · after (v3 Tageslicht)`),

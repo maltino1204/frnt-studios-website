@@ -412,22 +412,23 @@ The spec is in **`brand/assets/iconography/ICONOGRAPHY.md`**, the board in `icon
 
 ## 7. Photography
 
-*Digital Art Director (phase B2). The full direction is in **`brand/photography/PHOTOGRAPHY.md`**; the audit of all 131 v1 images is in **`brand/photography/AUDIT.md`**.*
+*Photo Art Director (v3 „Tageslicht“, 2 Nov 2026). The full direction is in **`brand/photography/PHOTOGRAPHY.md`**; the v3 QA audit is in **`brand/photography/AUDIT-v3.md`** (the v1 audit, `AUDIT.md`, is historical). v3 replaces the v2 light, grade and wardrobe rules after the client's feedback of 2 Nov 2026 ("zu dunkel und unprofessionell").*
 
-**In one sentence:** the place is the hero. A real room at a real time of day, a Profi's hands at work, the customer at ease and covered, warm window light with Espresso shadows, and nothing that says "spa".
+**In one sentence:** the place is the hero, in bright daylight. A sun-filled room, a confident Profi in a light uniform, the customer at ease and covered, fresh linen and clean tools, and nothing that says "spa".
 
 | | Rule |
 |---|---|
-| **Light** | Side window daylight with real shadows; in the evening, blue hour outside and one warm lamp inside. No flash, ring light or high key. |
-| **Grade** | Highlights roll off to Bone `#F3EFE8`, shadows settle in Espresso `#25211F` (lifted about 6 %, never blue), saturation −10 to −15 %, white balance 3800–4300 K. No Oxblood and no staged accent object in the frame. Grade masters: `landing/hero-wide`, `landing/philosophy`, `editorial/after-v2`, `editorial/hotel-v2`. |
+| **Light** | Bright, luminous natural daylight; sun-filled rooms; soft, flattering light. Warm high-key is allowed (warm white, never clinical blue-white). Evening Ortszeilen read as long summer evenings. No blue hour or lamp-only scenes as the default. |
+| **Grade** | Clean, fresh, slightly lifted; natural saturation; healthy glowing skin; warm whites. No film grain, borders, vignettes or muddy shadows. Set average luma ≥ 150 / 255 (v3 set: 177.6). Grade masters: `landing/hero-home-4x5-v3`, `pros/pro-01-v3`, `categories/manikuere-v3`, `editorial/after-v3`. |
+| **Wardrobe** | Profis in crisp ivory, sand or stone tunics or tailored light linen, at most one subtle Oxblood detail, never black T-shirts. Clients in light robes or soft knitwear. No gloves, no logos. |
+| **Portraits** | One consistent series: editorial headshot, frontal, head to mid-thigh, **both arms and hands visible and correct**, bright warm-neutral background, friendly direct gaze. |
 | **Crop** | The arch (4:5 default), the pair (right arch −18 %), the O-oval for portraits. Heads and hands below the springline; ≥ 30 % room; text only on calm zones or a flat 62 % scrim. |
-| **Discretion** | During treatments faces are turned away or eyes closed; linen covers to the shoulder blades or higher; nothing reads as erotic. |
-| **Skin** | Pores, lines, freckles and body hair stay. No smoothing, reshaping or retouching of the treatment result. |
-| **Casting** | Customers 25–70, every body type; Profis 24–60 in plain dark work clothes; men as customers and Profis; diverse origins (cast list in `photography/generation/shotlist-v2.mjs`). |
-| **Places** | Altbau (tilt-turn windows, radiators, herringbone), hotel (real skyline, oak, bouclé), office (concrete, oak, glass, unbranded laptop), threshold (banister, terrazzo, the kit at the door). |
-| **Never** | Candles, orchids or staged flowers, stones, bamboo, cucumbers, petals, rolled towels, spa robes, salon furniture, rose-gold, fake text or logos, film borders, nudity, couples' massage (not offered). |
+| **Discretion** | During treatments faces are turned away or eyes closed; linen to the shoulder blades or higher; nothing reads as erotic. |
+| **Skin** | Pores, lines, freckles and body hair stay; the glow comes from light, not smoothing. No retouching of the treatment result. |
+| **Places** | Bright Altbau (white walls, light oak, linen, plants), premium hotel suites with the skyline in daylight, bright modern offices; tidy, styled, premium unbranded products. |
+| **Never** | Candles, orchids or staged flowers, stones, bamboo, petals, rolled spa towels, towel turbans, salon furniture, rose gold, fake text or logos, film borders, nudity, couples' massage (not offered). |
 | **Ortszeile** | *Ort · Stadtteil · Uhrzeit* under every key image (`type-place`). It matches the light and the city, and is illustrative, never a booking. |
-| **Status** | Every current image is an AI development asset (131 v1 + 109 v2), labelled „Bild KI-generiert“ / „Demo-Profil · Foto KI-generiert“. The audit: **2 keep, 32 recrop, 97 replace**. The v2 replacements are in `scripts/images/sources.json` (`replacedBy`). Before launch every key image is reshot (shot list, rights and releases: `PHOTOGRAPHY.md` § 12). |
+| **Status** | Every image is an AI development asset, labelled „Bild KI-generiert“ / „Demo-Profil · Foto KI-generiert“. The v3 set (143 files) is in `scripts/images/sources.json` (`-v3`, reached through `replacedBy`). Before launch every key image is reshot (shot list, rights and releases: `PHOTOGRAPHY.md` § 13). |
 
 ## 8. Motion
 
