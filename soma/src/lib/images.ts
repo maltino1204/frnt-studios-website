@@ -16,6 +16,8 @@ export type ImageSource = {
   focal: string;
   /** Set by the photo audit (brand/photography/AUDIT.md): the image is retired and served as this replacement. */
   replacedBy?: string;
+  /** Portraits: a head-and-shoulders square crop of this image, for avatars and portraits ≤ 96 px (review R7). */
+  avatar?: string;
 };
 
 const byPath = new Map<string, ImageSource>((sources as ImageSource[]).map((s) => [s.path, s]));
@@ -38,6 +40,32 @@ export function currentImagePath(path: string): string {
     p = next;
   }
   return p;
+}
+
+/**
+ * The crop for small portraits: follow `replacedBy` to the current image, then use its `avatar` (a head-and-shoulders
+ * crop) when the registry has one, else the current image itself. Pure over a registry map, so it is testable.
+ */
+export function avatarPathIn(registry: ReadonlyMap<string, Pick<ImageSource, "replacedBy" | "avatar">>, path: string): string {
+  let p = path;
+  for (let i = 0; i < 3; i++) {
+    const next = registry.get(p)?.replacedBy;
+    if (!next || !registry.has(next)) break;
+    p = next;
+  }
+  return registry.get(p)?.avatar || p;
+}
+
+/** Avatar crop path for a portrait (uploads and remote URLs pass through); null without a photo. */
+export function avatarImagePath(path: string | null | undefined): string | null {
+  if (!path) return null;
+  if (path.startsWith("http") || path.startsWith("/api/media/")) return path;
+  return avatarPathIn(byPath, path);
+}
+
+/** Loadable URL of the avatar crop (falls back to the portrait itself until a crop is registered). */
+export function resolveAvatar(path: string | null | undefined): string | null {
+  return resolveImage(avatarImagePath(path));
 }
 
 /** Resolve a canonical image path (e.g. "/images/pros/pro-01.jpg") to a loadable URL, or null. */

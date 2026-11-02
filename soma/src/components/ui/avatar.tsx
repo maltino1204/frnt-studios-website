@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { AI_PORTRAIT_LABEL, imageFocal, isAiImage, resolveImage } from "@/lib/images";
+import { AI_PORTRAIT_LABEL, avatarImagePath, imageFocal, isAiImage, resolveAvatar, resolveImage } from "@/lib/images";
 import { initials } from "@/lib/initials";
 import { toneKey, toneStyle } from "@/lib/tone";
 
@@ -18,7 +18,9 @@ const OVAL = "332 / 362";
  * over it (640 ms).
  */
 export function Avatar({ src, name, size = 40, className }: { src?: string | null; name: string; size?: 24 | 32 | 40 | 48; className?: string }) {
-  const url = resolveImage(src);
+  // ≤ 48 px: the head-and-shoulders crop when the registry has one (review R7), else the portrait itself.
+  const crop = avatarImagePath(src);
+  const url = resolveAvatar(src);
   const [state, setState] = useState<"loading" | "loaded" | "error">("loading");
   return (
     <span
@@ -39,7 +41,7 @@ export function Avatar({ src, name, size = 40, className }: { src?: string | nul
           onLoad={() => setState("loaded")}
           onError={() => setState("error")}
           className={cn("object-cover transition-opacity duration-calm ease-arrive", state === "loaded" ? "opacity-100" : "opacity-0")}
-          style={{ objectPosition: imageFocal(src, "50% 36%") }}
+          style={{ objectPosition: imageFocal(crop ?? src, "50% 36%") }}
         />
       ) : null}
     </span>
@@ -59,6 +61,7 @@ export function Portrait({
   priority,
   className,
   shape = "tile",
+  crop,
 }: {
   src?: string | null;
   name: string;
@@ -67,8 +70,13 @@ export function Portrait({
   priority?: boolean;
   className?: string;
   shape?: "tile" | "oval" | "arch";
+  /** "avatar": the head-and-shoulders crop; default: the crop when rendered ≤ 96 px (`sizes="80px"`), else the full portrait */
+  crop?: "avatar" | "full";
 }) {
-  const url = resolveImage(src);
+  const px = /^(\d+)px$/.exec(sizes.trim());
+  const small = crop ? crop === "avatar" : shape !== "arch" && !!px && Number(px[1]) <= 96;
+  const cropPath = small ? avatarImagePath(src) : null;
+  const url = small ? resolveAvatar(src) : resolveImage(src);
   const [state, setState] = useState<"loading" | "loaded" | "error">("loading");
   const [w, h] = ratio.split("/").map(Number);
   return (
@@ -102,7 +110,7 @@ export function Portrait({
           onError={() => setState("error")}
           // noscript: without JS onLoad never fires, so the photo shows at once instead of staying at opacity 0.
           className={cn("z-[3] object-cover transition-opacity duration-calm ease-arrive", state === "loaded" ? "opacity-100" : "opacity-0 noscript:opacity-100")}
-          style={{ objectPosition: imageFocal(src, "50% 36%") }}
+          style={{ objectPosition: imageFocal(cropPath ?? src, "50% 36%") }}
         />
       ) : null}
     </div>
