@@ -85,7 +85,7 @@ test("reduced motion shows the final states: nothing hidden, nothing pinned, the
   await scrollToId(page, "soma", "center");
   for (const part of ["o-fill", "s-fill", "wordmark", "line"]) expect(await opacity(page, `[data-seal-part="${part}"]`)).toEqual([1]);
   expect(await opacity(page, '[data-seal-part="tagline"] [data-reveal-order]')).toEqual([1, 1]);
-  for (const id of ["idee", "behandlungen", "so-funktionierts", "fuer-profis"]) {
+  for (const id of ["behandlungen", "so-funktionierts", "profis", "fuer-profis", "fragen"]) {
     expect((await opacity(page, `#${id}-titel [data-reveal-order]`)).every((o) => o === 1), id).toBe(true);
   }
   const loops = await page.evaluate(() => document.getAnimations().filter((a) => a.playState === "running" && a.effect?.getTiming().iterations === Infinity).length);
@@ -102,10 +102,10 @@ test("reveals never hide what is already in view, and arrive once below", async 
   expect(pendingInView).toBe(0);
   await expect(page.locator('#bei-dir [data-reveal-state]')).toHaveCount(0);
   // a headline below the fold arrives when it scrolls in, and ends fully visible
-  await expect(page.locator("#idee-titel")).toHaveAttribute("data-reveal-state", "pending");
-  await scrollToId(page, "idee-titel", "center");
-  await expect(page.locator("#idee-titel")).toHaveAttribute("data-reveal-state", "in");
-  await expect.poll(() => opacity(page, "#idee-titel [data-reveal-order]"), { timeout: 3000 }).toEqual([1, 1]);
+  await expect(page.locator("#behandlungen-titel")).toHaveAttribute("data-reveal-state", "pending");
+  await scrollToId(page, "behandlungen-titel", "center");
+  await expect(page.locator("#behandlungen-titel")).toHaveAttribute("data-reveal-state", "in");
+  await expect.poll(() => opacity(page, "#behandlungen-titel [data-reveal-order]"), { timeout: 3000 }).toEqual([1, 1]);
 });
 
 test("active chapter, header theme and the soma:chapter event follow the reader", async ({ page }, ti) => {
@@ -117,18 +117,29 @@ test("active chapter, header theme and the soma:chapter event follow the reader"
   });
 
   await scrollToId(page, "behandlungen");
-  await expect.poll(() => root(page, "chapterActive")).toBe("03");
+  await expect.poll(() => root(page, "chapterActive")).toBe("02");
   const index = ti.project.name === "desktop" ? page.locator("header").getByRole("button", { name: /^Kapitel/ }) : dock(page).getByRole("button", { name: /^Kapitel/ });
-  await expect(index).toHaveAccessibleName("Kapitel 03 Behandlungen");
+  await expect(index).toHaveAccessibleName("Kapitel 02 Behandlungen");
   expect(await page.evaluate(() => (window as unknown as { __chapters: string[] }).__chapters)).toContain("behandlungen");
   expect(await root(page, "headerTheme")).toBe("light");
 
-  await scrollToId(page, "dein-ort-titel");
+  await scrollToId(page, "so-funktionierts-titel");
+  await expect.poll(() => root(page, "chapterActive")).toBe("03");
+  await expect(index).toHaveAccessibleName("Kapitel 03 So funktioniert’s");
+
+  // 05: from 1024 the photo band under the header is dark; below, the chapter is Bone
+  await page.evaluate(() => window.scrollTo(0, document.getElementById("fuer-profis")!.getBoundingClientRect().top + scrollY + 200));
   await expect.poll(() => root(page, "chapterActive")).toBe("05");
-  await expect.poll(() => root(page, "headerTheme")).toBe("dark");
-  // well inside 06 (right after a jump the header still covers the tail of 05, which is dark)
-  await page.evaluate(() => window.scrollTo(0, document.getElementById("profis")!.getBoundingClientRect().top + scrollY + 300));
+  await expect.poll(() => root(page, "headerTheme")).toBe(ti.project.name === "desktop" ? "dark" : "light");
+  // well inside 06 (right after a jump the header may still cover the tail of 05)
+  await page.evaluate(() => window.scrollTo(0, document.getElementById("fragen")!.getBoundingClientRect().top + scrollY + 300));
+  await expect.poll(() => root(page, "chapterActive")).toBe("06");
   await expect.poll(() => root(page, "headerTheme")).toBe("light");
+  // 07, the Oxblood seal, is dark at every width
+  await page.evaluate(() => window.scrollTo(0, document.getElementById("soma")!.getBoundingClientRect().top + scrollY + 100));
+  await expect.poll(() => root(page, "chapterActive")).toBe("07");
+  await expect.poll(() => root(page, "headerTheme")).toBe("dark");
+  expect(await page.evaluate(() => (window as unknown as { __chapters: string[] }).__chapters)).toEqual(expect.arrayContaining(["behandlungen", "so-funktionierts", "fuer-profis", "fragen", "soma"]));
 });
 
 test("dock rules (< 1024): a booking control is always in view; fields, dialogs and the sheet", async ({ page }, ti) => {
@@ -213,7 +224,7 @@ test("chapter overlay: focus moves in, the current chapter is marked, a jump foc
   test.skip(ti.project.name !== "desktop", "the header chapter index exists from 1024 px");
   await open(page, "?motion=full");
   await scrollToId(page, "behandlungen");
-  await expect.poll(() => root(page, "chapterActive")).toBe("03");
+  await expect.poll(() => root(page, "chapterActive")).toBe("02");
   // keyboard path: focusing the sticky header's index must not scroll the page (landing.css scroll-margin)
   const trigger = page.locator("header").getByRole("button", { name: /^Kapitel/ });
   const y = await page.evaluate(() => scrollY);
@@ -223,7 +234,9 @@ test("chapter overlay: focus moves in, the current chapter is marked, a jump foc
   const overlay = page.getByRole("dialog", { name: "Kapitel und Seiten" });
   await expect(overlay).toBeVisible();
   expect(await overlay.evaluate((d) => d.contains(document.activeElement))).toBe(true);
-  await expect(overlay.locator('a[aria-current="location"]')).toHaveText(/03\s*Behandlungen/);
+  await expect(overlay.locator('a[aria-current="location"]')).toHaveText(/02\s*Behandlungen/);
+  await expect(overlay.locator("ol a")).toHaveCount(7);
+  await expect(overlay.getByRole("link", { name: "Entdecken" })).toHaveAttribute("href", "/entdecken");
   await page.keyboard.press("Escape");
   await expect(overlay).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -232,8 +245,8 @@ test("chapter overlay: focus moves in, the current chapter is marked, a jump foc
   await overlay.getByRole("link", { name: /Fragen/ }).click();
   await expect(overlay).toBeHidden();
   await expect(page.locator("#fragen-titel")).toBeFocused();
-  // …and the jump lands there: 06–09 change height on the way (content-visibility), the scroll is re-targeted
-  await expectLanded(page, "fragen", "09");
+  // …and the jump lands there: 04–06 change height on the way (content-visibility), the scroll is re-targeted
+  await expectLanded(page, "fragen", "06");
 });
 
 test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)", async ({ page }, ti) => {
@@ -242,8 +255,9 @@ test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier
   await page.setViewportSize({ width: 390, height: 844 });
   // a fresh page per jump: every chapter on the way is still laid out at its estimated height (audit 2, N-1)
   for (const [id, nn] of [
-    ["profis", "06"],
-    ["fragen", "09"],
+    ["profis", "04"],
+    ["fragen", "06"],
+    ["soma", "07"],
   ] as const) {
     await open(page, "?motion=lite");
     await dock(page).getByRole("button", { name: /^Kapitel/ }).click();
@@ -256,33 +270,12 @@ test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier
   }
   await open(page, "?motion=lite");
   await page.locator('#bei-dir a[href="#so-funktionierts"]:visible').click();
-  await expectLanded(page, "so-funktionierts", "04");
+  await expectLanded(page, "so-funktionierts", "03");
 });
 
-test("full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)", async ({ page }, ti) => {
-  test.skip(ti.project.name !== "desktop", "the pinned stage is a desktop layout");
-  await open(page, "?motion=full");
-  await runtime(page);
-  const stage = page.locator('[data-scene="stage"]');
-  await expect(stage).toHaveAttribute("data-scene-ready", "");
-  await page.evaluate(() => {
-    const s = document.querySelector<HTMLElement>('[data-scene="stage"]')!;
-    const run = s.offsetHeight - s.querySelector<HTMLElement>("[data-stage]")!.offsetHeight;
-    window.scrollTo(0, s.getBoundingClientRect().top + scrollY + run * (2.5 / 6));
-  });
-  await expect(stage).toHaveAttribute("data-step", "3");
-  // Playwright clicks at the centre only once nothing else would receive the click there (the active item used to)
-  await page.locator('[data-cta="ch05-stage-termin"]').click({ timeout: 5000 });
-  const bar = page.getByRole("dialog", { name: "Termin finden" });
-  await expect(bar).toBeVisible();
-  await expect(bar.locator('input[name="plz"]')).toBeFocused();
-  await page.keyboard.press("Escape");
-  await expect(bar).toBeHidden();
-});
-
-test("full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift", async ({ page }, ti) => {
+test("full tier: the pin upgrades only below the fold, steps follow the scroll, no layout shift", async ({ page }, ti) => {
   test.skip(ti.project.name !== "desktop", "pins are desktop layouts");
-  // The test jumps by script (no user input) across chapters 06–09, which skip their layout until they are near the
+  // The test jumps by script (no user input) across chapters 04–06, which skip their layout until they are near the
   // viewport (content-visibility: auto, now also under automation): lay the whole page out, as automation always did
   // here, so the check stays about the pins and the seal.
   await page.addInitScript(() => document.addEventListener("DOMContentLoaded", () => document.documentElement.setAttribute("data-capture", "full")));
@@ -294,15 +287,17 @@ test("full tier: pins upgrade only below the fold, steps follow the scroll, no l
       }
     }).observe({ type: "layout-shift", buffered: true });
   });
-  // a deep link into 04: that scene is already in view and keeps its lite layout; the scenes below still upgrade
+  // a deep link into 03: that scene is already in view and keeps its lite layout; the scene below still upgrades
   await open(page, "?motion=full#so-funktionierts");
   await runtime(page);
   await expect(page.locator('[data-scene="walkthrough"]')).not.toHaveAttribute("data-scene-ready", "");
-  await expect(page.locator('[data-scene="stage"]')).toHaveAttribute("data-scene-ready", "");
+  await expect(page.locator('[data-scene="seal"]')).toHaveAttribute("data-scene-ready", "");
 
   await open(page, "?motion=full&fresh=1");
   await runtime(page);
-  for (const s of ["doorway", "walkthrough", "dusk", "stage", "dawn", "seal"]) await expect(page.locator(`[data-scene="${s}"]`)).toHaveAttribute("data-scene-ready", "");
+  for (const s of ["walkthrough", "seal"]) await expect(page.locator(`[data-scene="${s}"]`)).toHaveAttribute("data-scene-ready", "");
+  // the hero and the band never upgrade a layout; nothing else is a scene any more (v2)
+  expect(await page.locator("[data-scene-ready]").count()).toBe(2);
 
   const walk = page.locator('[data-scene="walkthrough"]');
   for (const n of [1, 2, 3]) {
@@ -313,17 +308,8 @@ test("full tier: pins upgrade only below the fold, steps follow the scroll, no l
     await expect(walk).toHaveAttribute("data-step", String(n));
   }
 
-  const stage = page.locator('[data-scene="stage"]');
-  await expect(stage).toHaveAttribute("data-scene-state", "idle");
-  for (const n of [1, 3, 6]) {
-    await page.evaluate((k) => {
-      const s = document.querySelector<HTMLElement>('[data-scene="stage"]')!;
-      const run = s.offsetHeight - s.querySelector<HTMLElement>("[data-stage]")!.offsetHeight;
-      window.scrollTo(0, s.getBoundingClientRect().top + scrollY + run * ((k - 0.5) / 6));
-    }, n);
-    await expect(stage).toHaveAttribute("data-step", String(n));
-    await expect(stage).toHaveAttribute("data-scene-state", "active");
-  }
+  // the seal waits below the fold until it is reached
+  await expect(page.locator('[data-scene="seal"]')).toHaveAttribute("data-scene-state", "idle");
 
   // the seal starts once the mask is square (40 % of the band in view): the band never sits empty (audit 1, I-9)
   await page.evaluate(() => {

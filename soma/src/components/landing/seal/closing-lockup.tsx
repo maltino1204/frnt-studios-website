@@ -7,7 +7,7 @@ import { DISPLAY_PATHS, SYMBOL_PATHS } from "@/components/brand/logo";
  * offset); the outlines come from the logo module, so the lockup always follows the current masters.
  */
 /**
- * The stacked lockup for chapter 10 (spec § 4.10, § 11.1 seal/closing-lockup.tsx), proportions and spacing from the
+ * The stacked lockup for chapter 07 (spec § 4.10, § 11.1 seal/closing-lockup.tsx), proportions and spacing from the
  * master. The mark is drawn twice: contour strokes (`data-seal-part="o-trace" | "s-trace"`, pathLength 1, start at
  * the left springline) for "the mark draws on" (MOTION.md § 3.6.2), and the fills (`"o-fill" | "s-fill"`). The
  * wordmark is `"wordmark"`. Static (final frame): fills shown, contours hidden. Never placed inside an arch.

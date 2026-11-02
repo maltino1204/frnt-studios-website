@@ -40,11 +40,14 @@ export function promiseWords(live: ReadonlySet<string>): string[] {
   return PROMISE_WORDS.filter((w) => w.slugs.some((s) => live.has(s))).map((w) => w.word);
 }
 
-/** Hero lead (deck § 01, with its fallback rule). */
+/**
+ * Hero lead (deck § 01, with its fallback rule). v2 (client decision 2026-11-02, landing decluttered): one sentence; the
+ * Endpreis is the trust row's directly under the entry, and „echte freie Termine“ is what the entry's submit finds.
+ */
 export function heroLead(live: ReadonlySet<string>): string {
   const words = promiseWords(live);
-  if (!words.length) return "Geprüfte Profis kommen zu dir – mit Endpreis inklusive Anfahrt.";
-  return `Geprüfte Profis für ${joinGerman(words)} kommen zu dir. Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt.`;
+  if (!words.length) return "Geprüfte Profis kommen zu dir.";
+  return `Geprüfte Profis für ${joinGerman(words)} kommen zu dir.`;
 }
 
 /** "24 Std." (NBSP), or null when the policy has no free cancellation window. */

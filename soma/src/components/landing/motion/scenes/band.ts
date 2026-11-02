@@ -1,7 +1,7 @@
 import { attr, type MotionContext, type Stop } from "../frame";
 
 /**
- * 08 · Für Profis, the photo band (spec § 4.8, ≥ 1024): the band photo settles on entry (scale 1.04 → 1, 900 ms
+ * 05 · Für Profis, the photo band (spec § 4.8, ≥ 1024): the band photo settles on entry (scale 1.04 → 1, 900 ms
  * `ease-settle`), full tier only; the headline clauses arrive through the generic reveals. The band has no mask: it
  * is the one chapter without an arch. Below 1024 the photo sits in an arch and rises like the others.
  */

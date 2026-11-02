@@ -16,18 +16,13 @@ import { ArchMark } from "../primitives/arch-mark";
 import { CHAPTERS } from "./chapters";
 import { jumpToChapter } from "./jump";
 import { CHAPTER_OVERLAY_EVENT } from "./overlay-events";
+import { PAGE_LINKS } from "./pages";
 
-const PAGES = [
-  { href: routes.categories(), label: "Behandlungen" },
-  { href: routes.cities(), label: "Städte" },
-  { href: routes.forPros(), label: "Für Profis" },
-  { href: routes.help(), label: "Hilfe" },
-] as const;
 
 /**
  * Chapter overlay „Kapitel“ (spec § 5.4): a modal `<dialog>` (top layer, focus trap, Esc, page inert, focus back to
  * the trigger) on solid Bone. Chapters on the left (sans, numbered, the current one with `aria-current="location"`
- * and the arch mark), pages on the right, „Termin finden“, the account link and the tagline. A chapter link closes
+ * and the arch mark), pages on the right (Entdecken first), „Termin finden“, the account link and the tagline. A chapter link closes
  * the dialog, jumps and focuses the chapter heading. Motion hooks: `data-overlay-row` (0…n) on the rows.
  */
 /*
@@ -188,7 +183,7 @@ export function ChapterOverlay() {
               <div data-overlay-row={CHAPTERS.length}>
                 <h2 className="type-eyebrow text-ink-muted">Seiten</h2>
                 <ul className="mt-3 flex flex-wrap gap-x-6 lg:mt-4 lg:flex-col lg:gap-0">
-                  {PAGES.map((p) => (
+                  {PAGE_LINKS.map((p) => (
                     <li key={p.href}>
                       <Link href={p.href} prefetch={false} onClick={close} className="inline-flex min-h-touch items-center rounded-control type-heading-m text-ink transition-colors duration-fast focus-ring hover:text-link-hover">
                         {p.label}

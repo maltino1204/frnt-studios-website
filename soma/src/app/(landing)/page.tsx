@@ -14,19 +14,15 @@ import {
 } from "@/components/landing/booking/metadata";
 import type { CategoryItem } from "@/components/landing/behandlungen/types";
 import { HeroChapter } from "@/components/landing/chapters/01-hero";
-import { IdeeChapter } from "@/components/landing/chapters/02-idee";
-import { BehandlungenChapter } from "@/components/landing/chapters/03-behandlungen";
-import { AblaufChapter } from "@/components/landing/chapters/04-ablauf";
-import { DeinOrtChapter } from "@/components/landing/chapters/05-dein-ort";
-import { ProfisChapter } from "@/components/landing/chapters/06-profis";
-import { DeineBuchungChapter } from "@/components/landing/chapters/07-deine-buchung";
-import { FuerProfisChapter } from "@/components/landing/chapters/08-fuer-profis";
-import { FragenChapter } from "@/components/landing/chapters/09-fragen";
-import { SomaChapter } from "@/components/landing/chapters/10-soma";
+import { BehandlungenChapter } from "@/components/landing/chapters/02-behandlungen";
+import { AblaufChapter } from "@/components/landing/chapters/03-ablauf";
+import { ProfisChapter } from "@/components/landing/chapters/04-profis";
+import { FuerProfisChapter } from "@/components/landing/chapters/05-fuer-profis";
+import { FragenChapter } from "@/components/landing/chapters/06-fragen";
+import { SomaChapter } from "@/components/landing/chapters/07-soma";
 import { imageFocal, images } from "@/lib/images";
 import { routes } from "@/lib/routes";
 import { searchProviders } from "@/server/services/search";
-import { getProviderTerms } from "@/server/services/pro-ext";
 import { listCityPostalExamples, listDiscoveryProviders } from "@/server/services/site-ext";
 import type { ProviderSearchResult } from "@/server/dto";
 
@@ -36,10 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return generateLandingMetadata();
 }
 
-/** The launch commission shown on /fuer-profis when no rule is active (spec § 4.8). */
-const DEFAULT_COMMISSION = { rate: 0.2, repeatClientRate: 0.12, ownClientRate: 0.05 };
-
-/** One live search in the first launch city for the 04 vignettes (a hint, never a reason to fail the page). */
+/** One live search in the first launch city for the 03 vignettes (a hint, never a reason to fail the page). */
 async function showcaseResult(postalCode: string): Promise<ProviderSearchResult | null> {
   try {
     const res = await searchProviders({ postalCode, pageSize: 8 }, null, { logDemand: false });
@@ -53,7 +46,7 @@ async function showcaseResult(postalCode: string): Promise<ProviderSearchResult 
 }
 
 /**
- * Chapters 02–10 hydrate after the hero (audit-1 PT-2; performance remediation 2): each sits in a visible
+ * Chapters 02–07 hydrate after the hero (audit-1 PT-2; performance remediation 2): each sits in a visible
  * `<Activity>`, which React server-renders inline (`<!--&-->…<!--/&-->`, never outlined like a Suspense boundary, so
  * the page stays complete without JS) and hydrates as its own low-priority, time-sliced pass after the shell. A tap
  * inside a chapter that has not hydrated yet hydrates that chapter first and replays the event.
@@ -63,20 +56,16 @@ function Later({ children }: { children: ReactNode }) {
 }
 
 /**
- * The SOMA landing page (docs/landing/LANDING_DESIGN_SPEC.md): ten chapters, server-rendered from real data in one
- * Promise.all, complete and usable without any motion JS (the "none" tier). Static with hourly ISR.
+ * The SOMA landing page (docs/landing/LANDING_DESIGN_SPEC.md, v2 structure): seven chapters, server-rendered from real
+ * data in one Promise.all, complete and usable without any motion JS (the "none" tier). Static with hourly ISR.
  */
 export default async function LandingPage() {
-  const [catalog, floors, terms, cities, examples, providerTerms, providersAll, conv] = await Promise.all([
+  const [catalog, floors, terms, cities, examples, providersAll, conv] = await Promise.all([
     loadLandingCatalog(),
     loadLandingPriceFloors(),
     loadLandingTerms(),
     loadLandingCities(),
     listCityPostalExamples(),
-    getProviderTerms().catch((e) => {
-      console.error("[landing] provider terms unavailable", e);
-      return null;
-    }),
     listDiscoveryProviders({ limit: 16 }).catch((e) => {
       console.error("[landing] providers unavailable", e);
       return [];
@@ -125,9 +114,6 @@ export default async function LandingPage() {
         <AccountDeletedToast />
       </Suspense>
       <Later>
-        <IdeeChapter />
-      </Later>
-      <Later>
         <BehandlungenChapter items={categories} />
       </Later>
       <Later>
@@ -142,19 +128,13 @@ export default async function LandingPage() {
         />
       </Later>
       <Later>
-        <DeinOrtChapter />
-      </Later>
-      <Later>
         <ProfisChapter providers={providers} />
       </Later>
       <Later>
-        <DeineBuchungChapter />
+        <FuerProfisChapter />
       </Later>
       <Later>
-        <FuerProfisChapter commission={providerTerms?.commission ?? DEFAULT_COMMISSION} payoutHoldHours={terms.payoutHoldHours ?? null} />
-      </Later>
-      <Later>
-        <FragenChapter items={conv.faq} trust={conv.faqTrust} />
+        <FragenChapter items={conv.faq} />
       </Later>
       <Later>
         <SomaChapter />

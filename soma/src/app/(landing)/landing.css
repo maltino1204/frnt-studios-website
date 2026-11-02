@@ -2,8 +2,8 @@
    SOMA landing page: static layout (Frontend). docs/landing/LANDING_DESIGN_SPEC.md § 2, § 4, § 11.
    Plain CSS on the design tokens (src/styles/tokens.css); unlayered, so it wins over the kit's utilities where a
    landing composition needs it. Every rule here is a STATE or a LAYOUT, never an animation: keyframes, transitions
-   and scroll timelines live in components/landing/motion/landing-motion.css (Motion). The pinned layouts of 04 and
-   05 apply only under html[data-motion="full"] once the motion layer marks the scene [data-scene-ready].
+   and scroll timelines live in components/landing/motion/landing-motion.css (Motion). The pinned layout of 03 applies
+   only under html[data-motion="full"] once the motion layer marks the scene [data-scene-ready].
    Everything is scoped to landing classes or the landing's data attributes.
    ========================================================================== */
 
@@ -57,10 +57,7 @@
 .lp-tone-stone {
   background-color: var(--soma-stone);
 }
-.lp-tone-linen {
-  background-color: var(--soma-linen);
-}
-/* The estimates are the chapters' measured content heights (02–10 at 320–1920 px, fonts loaded; audit-2 RT-1): a
+/* The estimates are the chapters' measured content heights (02–07 at 320–1920 px, fonts loaded; v2 re-measure): a
    chapter that has never rendered is laid out at its estimate, so a long jump only has to correct the difference once
    it ends (lib/scroll-jump.ts). Once rendered, `auto` keeps the real height. */
 .lp-cv {
@@ -85,22 +82,18 @@
 /* Below 1024 px (no pins, no scroll timelines there) every chapter after the hero also renders only near the
    viewport: style and layout of the long page are skipped at load and at the web-font swap (audit-1 PT-2). */
 @media (max-width: 1023px) {
-  .lp-chapter:is([data-chapter="02"], [data-chapter="03"], [data-chapter="04"], [data-chapter="05"], [data-chapter="10"]) {
+  .lp-chapter:is([data-chapter="02"], [data-chapter="03"], [data-chapter="07"]) {
     content-visibility: auto;
-    contain-intrinsic-size: auto 1150px;
+  }
+  /* the rail's cards and the stacked steps grow with the width; the seal band is at least 88svh */
+  .lp-chapter[data-chapter="02"] {
+    contain-intrinsic-size: auto max(905px, calc(534px + 97.6vw));
   }
   .lp-chapter[data-chapter="03"] {
-    contain-intrinsic-size: auto 880px;
+    contain-intrinsic-size: auto max(1170px, calc(887px + 71.4vw));
   }
-  .lp-chapter[data-chapter="04"] {
-    contain-intrinsic-size: auto 910px;
-  }
-  /* the photo essay grows with the width (3,560 px at 320, 4,170 at 430, 5,300 at 600) */
-  .lp-chapter[data-chapter="05"] {
-    contain-intrinsic-size: auto calc(1530px + 620vw);
-  }
-  .lp-chapter[data-chapter="10"] {
-    contain-intrinsic-size: auto 745px;
+  .lp-chapter[data-chapter="07"] {
+    contain-intrinsic-size: auto max(670px, 88svh);
   }
   :root[data-capture="full"] .lp-chapter {
     content-visibility: visible;
@@ -108,19 +101,13 @@
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .lp-chapter[data-chapter="02"] {
-    contain-intrinsic-size: auto calc(480px + 114.5vw);
-  }
-  .lp-chapter[data-chapter="03"] {
     contain-intrinsic-size: auto calc(457px + 50vw);
   }
-  .lp-chapter[data-chapter="04"] {
-    contain-intrinsic-size: auto calc(741px + 52.5vw);
+  .lp-chapter[data-chapter="03"] {
+    contain-intrinsic-size: auto calc(895px + 53vw);
   }
-  .lp-chapter[data-chapter="05"] {
-    contain-intrinsic-size: auto calc(1117px + 575vw);
-  }
-  .lp-chapter[data-chapter="10"] {
-    contain-intrinsic-size: auto 900px;
+  .lp-chapter[data-chapter="07"] {
+    contain-intrinsic-size: auto max(700px, 88svh);
   }
 }
 
@@ -231,10 +218,7 @@ html[data-chapter-active="03"] .lp-chapter-label[data-chapter-label="03"],
 html[data-chapter-active="04"] .lp-chapter-label[data-chapter-label="04"],
 html[data-chapter-active="05"] .lp-chapter-label[data-chapter-label="05"],
 html[data-chapter-active="06"] .lp-chapter-label[data-chapter-label="06"],
-html[data-chapter-active="07"] .lp-chapter-label[data-chapter-label="07"],
-html[data-chapter-active="08"] .lp-chapter-label[data-chapter-label="08"],
-html[data-chapter-active="09"] .lp-chapter-label[data-chapter-label="09"],
-html[data-chapter-active="10"] .lp-chapter-label[data-chapter-label="10"] {
+html[data-chapter-active="07"] .lp-chapter-label[data-chapter-label="07"] {
   display: block;
 }
 
@@ -536,56 +520,7 @@ html[data-booking-open] .lp-dock {
 }
 
 /* --------------------------------------------------------------------------
-   6. 02 Idee (§ 4.2)
-   -------------------------------------------------------------------------- */
-.lp-idee {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-}
-.lp-idee-figure,
-.lp-idee-text {
-  min-width: 0;
-  margin: 40px 0 0;
-}
-@media (min-width: 768px) {
-  .lp-idee {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    column-gap: var(--gap);
-  }
-  .lp-idee-head {
-    grid-column: 1 / -1;
-  }
-  .lp-idee-figure {
-    grid-column: 1 / span 6;
-    margin-top: 48px;
-  }
-  .lp-idee-text {
-    grid-column: 1 / span 7;
-    margin-top: 48px;
-  }
-}
-@media (min-width: 1024px) {
-  .lp-idee {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-  .lp-idee-head {
-    grid-column: 1 / span 10;
-  }
-  .lp-idee-figure {
-    grid-column: 1 / span 6;
-    grid-row: 2;
-    margin-top: 64px;
-  }
-  .lp-idee-text {
-    grid-column: 8 / span 5;
-    grid-row: 2;
-    align-self: end;
-    margin-top: 64px;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   7. 03 Behandlungen (§ 4.3): index + preview with a fine pointer, rail otherwise
+   6. 02 Behandlungen (§ 4.3): index + preview with a fine pointer, rail otherwise
    -------------------------------------------------------------------------- */
 .lp-cat-index {
   display: none;
@@ -616,7 +551,7 @@ html[data-booking-open] .lp-dock {
 }
 
 /* --------------------------------------------------------------------------
-   8. 04 Ablauf (§ 4.4): snap row (lite / none), sticky stage (full)
+   7. 03 So funktioniert’s (§ 4.4): snap row (lite / none), sticky stage (full), the trust row
    -------------------------------------------------------------------------- */
 .lp-walk-stage-col {
   display: none;
@@ -856,195 +791,7 @@ html[data-motion="full"] .lp-walk[data-scene-ready][data-step="3"] .lp-walk-stag
 }
 
 /* --------------------------------------------------------------------------
-   9. 05 Dein Ort (§ 4.5): vertical photo essay (lite / none), stepped stage (full)
-   -------------------------------------------------------------------------- */
-.lp-spacer {
-  height: 0;
-}
-.lp-ort-body {
-  padding-block: var(--space-section);
-}
-.lp-stage-scene {
-  margin-top: 48px;
-}
-.lp-stage-counter,
-.lp-stage-cta {
-  display: none;
-}
-.lp-ort-foot {
-  margin-top: 56px;
-}
-.lp-essay {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-}
-.lp-essay-fig {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-.lp-essay-arch {
-  width: 86%;
-}
-.lp-essay-item:nth-child(even) .lp-essay-arch {
-  margin-left: auto;
-}
-.lp-essay-cap {
-  display: flex;
-  flex-direction: column;
-}
-.lp-essay-place {
-  order: -1;
-  margin: 12px 0 18px;
-}
-.lp-essay-line {
-  max-width: 16ch;
-}
-.lp-essay-item:nth-child(even) .lp-essay-cap {
-  padding-left: 14%;
-}
-@media (min-width: 768px) {
-  .lp-essay-arch {
-    width: 72%;
-  }
-  .lp-essay-item:nth-child(even) .lp-essay-cap {
-    padding-left: 28%;
-  }
-}
-@media (min-width: 1024px) {
-  .lp-essay {
-    gap: 112px;
-  }
-  .lp-essay-fig {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    align-items: center;
-  }
-  .lp-essay-arch,
-  .lp-essay-item:nth-child(even) .lp-essay-arch {
-    width: auto;
-    margin: 0;
-  }
-  .lp-essay-arch {
-    grid-column: 7 / span 5;
-    grid-row: 1;
-  }
-  .lp-essay-cap {
-    grid-column: 1 / span 5;
-    grid-row: 1;
-  }
-  .lp-essay-item:nth-child(even) .lp-essay-arch {
-    grid-column: 2 / span 5;
-  }
-  .lp-essay-item:nth-child(even) .lp-essay-cap {
-    grid-column: 8 / span 5;
-    padding-left: 0;
-  }
-  /* The Ortszeile under the arch, aligned to its left edge. */
-  .lp-essay-place {
-    position: absolute;
-    top: 100%;
-    left: calc(6 * (var(--lp-col) + var(--gap)));
-    margin: 12px 0 0;
-  }
-  .lp-essay-item:nth-child(even) .lp-essay-place {
-    left: calc(var(--lp-col) + var(--gap));
-  }
-}
-
-/* Full tier, once ready: the dusk / dawn spacers and the pinned stepped stage (pin 2). */
-html[data-motion="full"] .lp-spacer[data-scene-ready] {
-  height: 32svh;
-}
-html[data-motion="full"] .lp-spacer-dusk[data-scene-ready] {
-  background-color: var(--soma-stone);
-}
-html[data-motion="full"] .lp-spacer-dawn[data-scene-ready] {
-  background-color: var(--soma-bone);
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] {
-  height: calc(6 * 50svh + 100svh);
-  margin-top: 0;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] [data-stage] {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-inner {
-  position: relative;
-  height: 100%;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay {
-  display: block;
-  position: relative;
-  height: 100%;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item {
-  position: absolute;
-  inset: 0;
-  padding-top: 120px;
-  opacity: 0;
-  pointer-events: none;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-fig {
-  align-items: start;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-arch {
-  grid-column: 7 / span 5;
-  width: min(100%, calc((100svh - 220px) * 0.8));
-  justify-self: start;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-cap {
-  grid-column: 1 / span 5;
-  padding: 0;
-  margin-top: calc(0.545 * min(5 * var(--lp-col) + 4 * var(--gap), (100svh - 220px) * 0.8));
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-essay-item .lp-essay-place {
-  left: calc(6 * (var(--lp-col) + var(--gap)));
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-counter {
-  display: block;
-  position: absolute;
-  top: 120px;
-}
-/* Above the stage items: the active item covers the whole stage (inset 0, z-index 1 in landing-motion.css) and would
-   otherwise take the CTA's clicks (audit-2 N-2). */
-html[data-motion="full"] .lp-stage-scene[data-scene-ready] .lp-stage-cta {
-  display: block;
-  position: absolute;
-  bottom: 64px;
-  z-index: 2;
-}
-.lp-stage-counter > span {
-  display: none;
-}
-.lp-stage-scene:not([data-step]) [data-step-counter="1"],
-.lp-stage-scene[data-step="1"] [data-step-counter="1"],
-.lp-stage-scene[data-step="2"] [data-step-counter="2"],
-.lp-stage-scene[data-step="3"] [data-step-counter="3"],
-.lp-stage-scene[data-step="4"] [data-step-counter="4"],
-.lp-stage-scene[data-step="5"] [data-step-counter="5"],
-.lp-stage-scene[data-step="6"] [data-step-counter="6"] {
-  display: inline;
-}
-html[data-motion="full"] .lp-stage-scene[data-scene-ready]:not([data-step]) [data-step-item="1"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="1"] [data-step-item="1"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="2"] [data-step-item="2"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="3"] [data-step-item="3"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="4"] [data-step-item="4"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="5"] [data-step-item="5"],
-html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-step-item="6"] {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* --------------------------------------------------------------------------
-   10. 06 Profis fallback (§ 4.6)
+   8. 04 Profis fallback (§ 4.6)
    -------------------------------------------------------------------------- */
 .lp-profis-fallback {
   display: grid;
@@ -1072,185 +819,14 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
 }
 
 /* --------------------------------------------------------------------------
-   11. 07 Deine Buchung (§ 4.7): tabs + the floating screen
-   -------------------------------------------------------------------------- */
-.lp-screens {
-  display: flex;
-  flex-direction: column;
-}
-.lp-screens-panel {
-  order: 1;
-  margin: 40px auto 0;
-}
-.lp-screens-tabs {
-  order: 2;
-  display: flex;
-  gap: 8px;
-  margin: 28px calc(-1 * var(--space-gutter)) 0;
-  padding: 2px var(--space-gutter);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--space-gutter);
-  scrollbar-width: none;
-}
-.lp-screens-tabs::-webkit-scrollbar {
-  display: none;
-}
-.lp-screens-tab {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 16px;
-  border: 1px solid var(--color-line-emphasis);
-  border-radius: 9999px;
-  scroll-snap-align: start;
-  text-align: left;
-  cursor: pointer;
-}
-.lp-screens-tab > .type-heading-m {
-  font-size: var(--text-label);
-  font-weight: 560;
-  white-space: nowrap;
-}
-.lp-screens-tab-line {
-  display: none;
-}
-.lp-screens-tab.is-selected {
-  border-color: var(--color-selected);
-  background-color: var(--color-selected);
-}
-.lp-screens-tab.is-selected > span {
-  color: var(--color-ink-inverse);
-}
-.lp-screens-tab:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
-.lp-screens-active-line {
-  order: 3;
-  margin-top: 12px;
-  min-height: 3em;
-}
-
-.lp-screen {
-  --k: calc(280 / var(--screen-w, 390));
-  position: relative;
-  width: 280px;
-  height: 606px;
-  overflow: hidden;
-  border-radius: 40px;
-  background-color: var(--soma-paper);
-  box-shadow: var(--shadow-overlay);
-}
-.lp-screen-track {
-  position: absolute;
-  inset: 0 0 auto;
-  translate: 0 calc(var(--screen-y, 0) * var(--k) * -1px);
-}
-.lp-screen-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  opacity: 0;
-}
-.lp-screen-img[data-state="current"] {
-  opacity: 1;
-}
-.lp-screen-ring {
-  position: absolute;
-  left: max(6px, calc(var(--ring-x, 0) * var(--k) * 1px - 6px));
-  width: min(calc(100% - 12px), calc(var(--ring-w, 390) * var(--k) * 1px + 12px));
-  top: calc(var(--ring-y, 0) * var(--k) * 1px - 6px);
-  height: calc(var(--ring-h, 0) * var(--k) * 1px + 12px);
-  border: 1.5px solid var(--soma-espresso);
-  border-radius: 12px;
-  pointer-events: none;
-}
-
-@media (min-width: 1024px) {
-  .lp-screens {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    grid-template-rows: auto 1fr;
-    column-gap: var(--gap);
-  }
-  .lp-screens-head {
-    grid-column: 1 / span 5;
-    grid-row: 1;
-  }
-  .lp-screens-tabs {
-    grid-column: 1 / span 5;
-    grid-row: 2;
-    flex-direction: column;
-    gap: 4px;
-    margin: 40px 0 0;
-    padding: 0;
-    overflow: visible;
-    align-self: start;
-  }
-  .lp-screens-tab {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    min-height: 0;
-    padding: 14px 20px 14px 22px;
-    border: 0;
-    border-radius: var(--radius-tile);
-    box-shadow: inset 2px 0 0 transparent;
-  }
-  .lp-screens-tab:hover {
-    background-color: rgb(251 249 245 / 0.55);
-  }
-  .lp-screens-tab > .type-heading-m {
-    font-size: var(--text-heading-m);
-    font-weight: 600;
-  }
-  .lp-screens-tab-line {
-    display: block;
-  }
-  .lp-screens-tab.is-selected {
-    background-color: var(--soma-paper);
-    box-shadow: inset 2px 0 0 var(--soma-espresso), var(--shadow-raised);
-  }
-  .lp-screens-tab.is-selected > span {
-    color: inherit;
-  }
-  .lp-screens-tab.is-selected > .type-heading-m {
-    color: var(--color-ink);
-  }
-  .lp-screens-tab.is-selected > .lp-screens-tab-line {
-    color: var(--color-ink-muted);
-  }
-  .lp-screens-active-line {
-    display: none;
-  }
-  .lp-screens-panel {
-    grid-column: 8 / span 4;
-    grid-row: 1 / span 2;
-    margin: 0;
-    justify-self: center;
-  }
-  .lp-screen {
-    --k: calc(360 / var(--screen-w, 390));
-    width: 360px;
-    height: 760px;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   12. 08 Für Profis (§ 4.8): photo band ≥ 1024, arch + Bone below
+   9. 05 Für Profis (§ 4.8, compact since v2): photo band ≥ 1024, arch + Bone below
    -------------------------------------------------------------------------- */
 .lp-band-media,
 .lp-band-place {
   display: none;
 }
 .lp-band-content {
-  padding-top: var(--space-section);
+  padding-block: var(--space-section);
 }
 .lp-band-arch {
   margin: 0 0 40px;
@@ -1261,13 +837,14 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
   }
 }
 @media (min-width: 1024px) {
-  /* Content-sized with a 16:9 / viewport floor (audit-1 I-2): the band grows instead of letting the CTAs collide with
-     the Ortszeile on short or narrow desktops (1024 × 768, 1180 × 820, 1280 × 720). */
+  /* Content-sized over a floor (audit-1 I-2): the band grows instead of letting the CTAs collide with the Ortszeile on
+     short or narrow desktops (1024 × 768, 1180 × 820, 1280 × 720). v2 lowered the floor from the 16:9 band
+     (`max(600px, min(100svh, 56.25vw))`) to about half the former chapter: the band now holds the whole chapter. */
   .lp-band {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: max(600px, min(100svh, 56.25vw));
+    min-height: max(560px, min(72svh, 40vw));
     overflow: hidden;
     background-color: var(--soma-espresso);
   }
@@ -1327,7 +904,7 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
 }
 
 /* --------------------------------------------------------------------------
-   13. 09 Fragen (§ 4.9)
+   10. 06 Fragen (§ 4.9)
    -------------------------------------------------------------------------- */
 .lp-faq {
   display: grid;
@@ -1353,7 +930,7 @@ html[data-motion="full"] .lp-stage-scene[data-scene-ready][data-step="6"] [data-
 }
 
 /* --------------------------------------------------------------------------
-   14. 10 SOMA (§ 4.10): Oxblood band, the stacked lockup
+   11. 07 SOMA (§ 4.10): Oxblood band, the stacked lockup
    -------------------------------------------------------------------------- */
 .lp-seal {
   background-color: var(--soma-bone);

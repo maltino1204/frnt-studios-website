@@ -7,7 +7,7 @@ import { NARROW_QUERY, REDUCED_QUERY, type MotionTier } from "./tier";
  * - `data-chapter-active` (01–10): the chapter under a line at 40 % of the viewport; dispatches `soma:chapter`;
  * - `data-header-theme` (light · dark): the innermost `[data-header-theme]` under the header's middle line;
  * - `data-dock` (shown · hidden): on phones a booking control is always in view (audit 1, I-4): the dock shows
- *   unless the hero entry's submit or chapter 10's search CTA is actually visible, a focused field is in view, or a
+ *   unless the hero entry's submit or chapter 07's search CTA is actually visible, a focused field is in view, or a
  *   non-modal dialog is open (see `dockHidden()`);
  * - `data-header-hidden` (< 1024, lite tier): hide on scroll-down after 400 px, back on any 8 px scroll-up;
  * - `data-header-logo="hidden"`: one logo per view, while the closing lockup is in view and showing.
@@ -132,7 +132,7 @@ export function startNav(tier: MotionTier): () => void {
 
   /* 3. Dock rules (< 1024; harmless above, where the dock is display: none) ---------------------------------------- */
   // The booking controls that stand in for the dock while they are actually visible (≥ 90 % of the control in the
-  // viewport): the hero entry's submit and chapter 10's search CTA, inside the `[data-dock-hide]` zones. Measured
+  // viewport): the hero entry's submit and chapter 07's search CTA, inside the `[data-dock-hide]` zones. Measured
   // from fresh rects on each scroll frame, but only while their chapter is near the viewport, so a component that
   // re-mounts (lazy booking UI) is always the one measured. The footer's zone is not a booking control: the dock
   // stays over it, and the footer's bottom padding keeps the legal row clear of it (spec § 4.10).
@@ -150,13 +150,17 @@ export function startNav(tier: MotionTier): () => void {
     { rootMargin: "50% 0px" },
     [document.getElementById("bei-dir"), document.getElementById("soma")],
   );
-  const measureControls = () => {
+  const measureControls = (headerAway: boolean) => {
     controlInView = false;
     const vh = window.innerHeight;
+    // The sticky header covers the top of the viewport while it shows (below 1024, lite, it slides away on scroll-down:
+    // `headerAway`, the state about to be written, so a running slide does not count): a control under it is not in
+    // view. Since v2 the hero sits right above 02, so a jump to 02 leaves the hero's submit under the header.
+    const top = headerAway ? 0 : Math.max(0, header()?.getBoundingClientRect().bottom ?? 0);
     for (const section of nearSections) {
       for (const el of section.querySelectorAll(CONTROL)) {
         const r = el.getBoundingClientRect();
-        if (r.height > 0 && (Math.min(r.bottom, vh) - Math.max(r.top, 0)) / r.height >= 0.9) controlInView = true;
+        if (r.height > 0 && (Math.min(r.bottom, vh) - Math.max(r.top, top)) / r.height >= 0.9) controlInView = true;
       }
     }
   };
@@ -269,11 +273,12 @@ export function startNav(tier: MotionTier): () => void {
   function apply() {
     frame = 0;
     if (modalOpen) return; // behind a modal dialog (see `dialogs`); applied again when it closes
-    if (nearSections.size) measureControls(); // reads first
+    const headerAway = headerHidden && !focusInHeader && !dialogOpen;
+    if (nearSections.size) measureControls(headerAway); // reads first
     else controlInView = false;
     set("headerTheme", theme());
     set("dock", dockHidden() ? "hidden" : "shown");
-    set("headerHidden", headerHidden && !focusInHeader && !dialogOpen ? "" : null);
+    set("headerHidden", headerAway ? "" : null);
     set("headerLogo", lockupInView && seal?.dataset.sceneState !== "idle" ? "hidden" : null);
   }
 

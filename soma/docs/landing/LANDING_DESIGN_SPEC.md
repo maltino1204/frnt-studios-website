@@ -1,6 +1,36 @@
 # SOMA landing page: design specification (Landing Art Director, phase L1)
 
 *v1.0 · 1 Nov 2026 · Agent 2 (Landing Art Director). This document is binding for Agents 3–5. Change it only through the Lead.*
+*v2.0 · 2 Nov 2026 · structure decluttered (client decision; Lead). The section „v2 structure“ below wins wherever the v1 text disagrees.*
+
+## v2 structure (client decision, 2 Nov 2026)
+
+**Decision.** The client wrote: „die landingpage wirkt etwas überladen, du kannst sie etwas aufräumen.“ The Lead decided seven chapters instead of ten. The aims are fewer elements per screen, shorter copy (cut sentences, never shrink type), more whitespace, less DOM and less JS. There is no new visual language. The brand signature stays: the arch motif, the hero's Ortszeile, the signature pair once (03, step 3), and the seal at the end.
+
+| v2 | id | Nav name | From v1 | What it holds now |
+|---|---|---|---|---|
+| 01 | `bei-dir` (entry `termin`) | Bei dir | 01 | The hero, unchanged in function: place switch, tagline H1, arch and Ortszeile, booking entry on the sill, trust row. The lead is one sentence (§ 4.1.3). |
+| 02 | `behandlungen` | Behandlungen | 03 | Index ↔ preview (fine pointer ≥ 1024), rail otherwise. The foot holds two quiet links: „Alle Behandlungen“ → `/behandlungen` and „Themenwelten entdecken“ → `/entdecken`. |
+| 03 | `so-funktionierts` | So funktioniert’s | 04 | The three steps (pin 1 in the full tier), then one compact row of three trust points (from v1 07): Endpreis · Start-Code · the free cancellation window from `terms.cancellationPolicy` („Kostenlos stornierbar bis {24 Std.} vorher“, else „Stornofrist“). |
+| 04 | `profis` | Profis | 06 | The rail of approved Profis, with one supporting sentence. The „Selbst Profi?“ link is gone: „Weiter: Für Profis“ goes to the same place. |
+| 05 | `fuer-profis` | Für Profis | 08 | Compact, about half the v1 height: one headline, one line, „Profi werden“ and „Konditionen ansehen“. ≥ 1024 it is still the photo band, content-sized over the floor `max(560px, min(72svh, 40vw))`, with the CTAs and the Ortszeile in the flow (the audit-1 I-2 fix holds at 1024–1920). The benefits, the commission strip and the payment line live on `/fuer-profis`. |
+| 06 | `fragen` | Fragen | 09 | The five most important deck questions (1 Wie funktioniert SOMA? · 2 Wo gibt es SOMA? · 3 Wie prüft SOMA die Profis? · 5 Was passiert, wenn ein Termin abgesagt wird? · 6 Wie bezahle ich?), then „Alle Fragen“ → `/hilfe`. The FAQPage JSON-LD holds exactly these five. No trust strip (the hero and 03 carry those facts). |
+| 07 | `soma` | SOMA | 10 | The seal and the stacked lockup, unchanged. |
+
+**Removed:**
+- **v1 02 Idee** (the doorway statement), with the doorway scene and mask.
+- **v1 05 Dein Ort** (the night band, the dusk and dawn tone spacers and the pinned six-step stage, pin 2), with the experience sequence.
+- **v1 07 Deine Buchung** (the app-screen tabs), with the screen captures' data and capture script, and the tabs scene.
+- Their code: `chapters/02-idee.tsx`, `05-dein-ort.tsx`, `07-deine-buchung.tsx`, `dein-ort/`, `digital/`, `motion/scenes/{doorway,stage,tone,screens}.ts`, their CSS in `landing.css` and `landing-motion.css`, `scripts/landing/capture-screens.mjs`. The motion runtime upgrades two scenes now (`walkthrough`, `seal`). The image files stay in `public/images` (the Photo Art Director owns them); the landing no longer references `landing/philosophy.jpg`, `landing/experience-*.jpg` or `landing/screens/*`.
+
+**Consequences for the v1 text below:**
+- D5: one pinned scene (03). D7: no night band; the Oxblood band (07) stays. D11: the signature pair is 03, step 3.
+- The night scope, Linen and the dusk/dawn tones are no longer used on the page. Dark header theme: the 05 band (≥ 1024) and 07.
+- Navigation (§ 5): seven chapters; the header's links from 1280 px are Entdecken · Behandlungen · So funktioniert’s · Für Profis · Hilfe (Entdecken first, as in the site header); the overlay's „Seiten“ and the no-JS static list (`#kapitel`) list Entdecken · Behandlungen · Städte · Für Profis · Hilfe.
+- `content-visibility` estimates were re-measured for v2 (§ 10.4).
+- Copy: `brand/COPY_DECK_LANDING.md` („Kundenentscheidung 2026-11-02: Landing gestrafft“).
+- Booking sources and CTA ids follow the new numbers: `ch03`, `ch04` (Profis fallback), `pro-werden-05`, `pro-werden-07`, `final-search`.
+- § 1.2 and § 1.3 describe the v1 narrative and are kept as the design rationale; their 02, 05 and 07 rows no longer exist.
 
 **Sources (all read in full):**
 - `docs/landing/BRIEF.md` (client brief, binding);
@@ -40,13 +70,13 @@
 | D2 | **Hero H1: copy deck option A.** *Your body. Your place.* and the German sentence form **one `<h1>`**. The tagline is set in Newsreader Display Italic (`lang="en"`), the German line in Instrument Sans 600. | § 4.1. |
 | D3 | **Hero interaction: „Ortswechsel“.** A three-way place switch (*Zu Hause · Im Hotel · Im Büro*). The next room rises into the hero arch. The Ortszeile changes, and the booking entry's *Wo?* field adapts to the place. | It is the brand idea (*Your place.*), it helps the PLZ step, and it works by tap, swipe and keyboard. § 4.1.5. |
 | D4 | **The booking entry is the threshold („Schwelle“).** On desktop the pill sits at the foot of the text column and overlaps the arch's lower-left flank, like a sill under a doorway. | It is part of the composition, not a widget on top of it. |
-| D5 | **Two pinned scenes, desktop "full" tier only:** 04 *Ablauf* (sticky walkthrough) and 05 *Dein Ort* (stepped stage). Everything else scrolls natively. | Brief § 7: no hijacking; at most two pins. |
+| D5 | **Two pinned scenes, desktop "full" tier only:** 04 *Ablauf* (sticky walkthrough) and 05 *Dein Ort* (stepped stage). Everything else scrolls natively. **v2: one pin, 03 So funktioniert’s (Dein Ort is removed).** | Brief § 7: no hijacking; at most two pins. |
 | D6 | **No GSAP in v1.** We use CSS scroll-driven animations (`animation-timeline`) plus a hand-written motion layer of ≤ 12 KB gz, loaded lazily. GSAP + ScrollTrigger is allowed only as a full-tier fallback, with the Lead's approval (§ 10.4). | No scene needs timeline scrubbing beyond clip-path and colour interpolation; "avoid redundant libraries". |
-| D7 | **One night band (05) and one Oxblood band (10).** Oxblood appears at most once per viewport (§ 6.2). | Tokens rule: "night (one deliberate dark band)"; the Oxblood brand moment. |
+| D7 | **One night band (05) and one Oxblood band (10).** Oxblood appears at most once per viewport (§ 6.2). **v2: no night band; the Oxblood band is 07.** | Tokens rule: "night (one deliberate dark band)"; the Oxblood brand moment. |
 | D8 | **The landing gets its own route group: `src/app/(landing)/`**, with its own layout: landing header, dock, `SiteFooter`. `src/app/(site)/page.tsx` moves there. ⚠ The Lead must approve the file move (Frontend owns it). | `SiteHeader` is shared by all site pages; the landing needs the chapter header without forking it. |
 | D9 | **Motion tiers `full` / `lite` / `none`.** Pinned layouts are applied only after the motion layer has upgraded sections that are still below the fold. | No layout shift, no broken pins when JS fails. § 8. |
 | D10 | **The page has no `<em>` accent clauses.** The tagline *Your body. Your place.* is its only italic: it opens the page (hero) and closes it (10). The copy deck's accent clauses stay as words and are set roman. | Guidelines v1.1 § 4.4: "When the tagline appears, it *is* the page's italic moment." ⚠ The tagline appears twice, as a bookend. That is the same moment repeated, with zero `<em>`; the auditor should confirm this reading. |
-| D11 | **The signature pair appears once:** 04, step 3 (arrival 19:25 → after 20:10, "one evening in two moments"). **The arch's last state is the O:** in 10 the mark's O traces from the arch half, and the S settles inside. | Guidelines § 10.2; `MOTION.md` § 3.6.2 (v1.1). |
+| D11 | **The signature pair appears once:** 04, step 3 (arrival 19:25 → after 20:10, "one evening in two moments"); v2: 03, step 3. **The arch's last state is the O:** in 10 (v2: 07) the mark's O traces from the arch half, and the S settles inside. | Guidelines § 10.2; `MOTION.md` § 3.6.2 (v1.1). |
 
 ---
 
@@ -246,7 +276,9 @@ Inside chapters: the booking sill is z 2 above the hero arch; overlapping cards 
 
 ---
 
-## 4. Chapters 01–10
+## 4. Chapters 01–10 (v2: 01–07)
+
+v2 numbers first, the v1 number in brackets. 4.2, 4.5 and 4.7 are removed (see „v2 structure“).
 
 Each chapter is a `<section id data-chapter …>` built on the `Chapter` primitive (§ 11.2). The data comes from the existing services listed per chapter. The copy is quoted from `COPY_DECK_LANDING.md`.
 
@@ -333,7 +365,7 @@ y 808  Lead (4 lines) · So funktioniert’s
 |---|---|---|
 | Place switch | **Zu Hause · Im Hotel · Im Büro** (copy deck toggles); radiogroup label ✎ „Ort“ | — |
 | H1 | `<h1><span lang="en">Your body.</span> <span lang="en">Your place.</span> <span>Beauty & Wellness bei dir zu Hause, im Hotel oder im Büro.</span></h1>` | — |
-| Lead | Geprüfte Profis für {Massage, Nägel, Kosmetik, Haare und Make-up} kommen zu dir. Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt. (Use the deck's fallback rule if the catalogue list cannot be rendered.) | — |
+| Lead | v2: Geprüfte Profis für {Massage, Nägel, Kosmetik, Haare und Make-up} kommen zu dir. (One sentence; the Endpreis is the trust row's. Fallback without a live category: „Geprüfte Profis kommen zu dir.“) | — |
 | Secondary CTA | **So funktioniert’s** (link style) | `#so-funktionierts` |
 | Booking entry | *Wo? · Was? · Wann?* with the deck's labels, placeholders, states and errors | submit → `/suche?plz=&kategorie=&leistung=&datum=&zeit=` |
 | Primary CTA | **Freie Termine finden** (the entry's submit; replaces the brief's "Jetzt entdecken", deck § 01) | as above |
@@ -415,58 +447,14 @@ y 808  Lead (4 lines) · So funktioniert’s
 - **Mobile:** the same interaction, with swipe. The dock is visible until the booking card is ≥ 25 % in view.
 - **Reduced motion:** no settle; the place swap is instant.
 
-### 4.2 · 02 Idee · `#idee`
+### 4.2 · v1 02 Idee · `#idee` (removed in v2)
 
-**Intention:** the editorial statement. Care adapts to life.
+Removed with the doorway scene (client decision 2 Nov 2026). The statement's idea lives on in the hero H1 and the seal's „Du bleibst. Dein Profi kommt.“
 
-**Data:** none.
+### 4.3 · 02 Behandlungen (v1 03) · `#behandlungen` (service exploration)
 
-**Composition at 1440:**
-```
- 02 · DIE IDEE
- Dein Termin richtet sich               display-l, cols 1–10, ≤ 20 ch
- nach deinem Leben.
- Nicht umgekehrt.    (roman: the page's only italic is the tagline)
-                                                       ↓ 64
- ╭───────────── image box: cols 1–6, 628 × 785 (4:5) ─────────────╮
- │   mask start: a narrow arch inside the real doorway               │
- │   (x 37 %–75 %, crown at 9 %): only the lamp-lit room is visible  │
- │   mask end: the full 4:5 arch over the whole image: the hallway,  │
- │   the kit bags at the wall and the real arched doorway appear     │   cols 8–12, bottom-aligned to the image base:
- │                                                                   │   Kein Weg durch die Stadt.      display-m
- │                                                                   │   Kein Parkplatz.
- │                                                                   │   Kein Wartebereich.
- │                                                                   │   Du bleibst, wo du bist. Dein Profi kommt – mit
- ╰───────────────────────────────────────────────────────────────────╯   allem, was die Behandlung braucht.   (lead)
- FLUR · BERLIN-SCHÖNEBERG · 18:40                                        Soma ist das altgriechische Wort für Körper. (small)
-                                                                          ── Weiter: Behandlungen ↓   (chapter foot)
-```
+**v2:** the chapter foot holds „Alle Behandlungen“ → `/behandlungen` and „Themenwelten entdecken“ → `/entdecken` (quiet links, `ArrowRight`), then „Weiter: So funktioniert’s“.
 
-**The story:** the mask opens from the room you stay in to the hallway, where the Profi's kit already stands. That is the closing statement made visible: *Dein Profi kommt – mit allem, was die Behandlung braucht.*
-
-**Image:** `/images/landing/philosophy.jpg` (4:5).
-- `object-position: 50% 50%` (the image is exactly 4:5, no crop).
-- `sizes="(min-width: 1440px) 628px, (min-width: 1024px) 45vw, (min-width: 768px) 69vw, calc(100vw - 40px)"`.
-- Alt ✎: „Blick aus dem Flur durch einen Rundbogen in ein Wohnzimmer mit Stehlampe; an der Wand stehen die Tasche und die zusammengeklappte Liege eines Profis.“
-- End state verified in `crops-*` (philosophy end): the real doorway sits inside our arch, as the art-direction input requires.
-
-**Copy:** deck § 02, verbatim. The chapter foot is ✎ „Weiter: Behandlungen“ → `#behandlungen` (the deck's quiet link „Behandlungen ansehen“ points to the same anchor; use the deck string if ✎ is not approved).
-
-**Motion:**
-- **Full:** the mask is scroll-linked (Appendix A). Start `--arch-l: 37cqw; --arch-r: 25cqw; --arch-t: 9%`; end `0 / 0 / 0`, k = 1.
-  - `animation-timeline: view(); animation-range: entry 30% entry 100%`; linear (scroll-linked).
-  - The three lines arrive one by one when the mask progress crosses 0.35 / 0.65 / 0.95: clause arrival, 10 px and opacity, 640 ms `ease-arrive`. Triggered, so a line never stops halfway.
-  - Without scroll-timeline support (Firefox today) the motion layer writes `--lp-scene` from a passive rAF-throttled scroll listener. If it is not loaded, the end state shows.
-- **Lite:** no widening. The full arch does the arch rise on entry (640 ms, settle 900 ms); the lines arrive with a 90 ms stagger.
-- **None:** the end state, all text visible.
-
-**768:** the image on cols 1–6 (523 × 654); lines, statement and caption below on cols 1–7.
-
-**390:**
-- order: headline → arch (350 × 438) → Ortszeile → three lines (display-m 32) → statement → caption → chapter foot;
-- spacing 24 between the lines, 40 before the statement.
-
-### 4.3 · 03 Behandlungen · `#behandlungen` (service exploration)
 
 **Intention:** the service universe. Every category leads to its discovery route.
 
@@ -522,7 +510,10 @@ y 808  Lead (4 lines) · So funktioniert’s
 
 **Copy:** deck § 03; the number word comes from `numberWord(catalog.length)`.
 
-### 4.4 · 04 Ablauf · `#so-funktionierts` (walkthrough, pin 1)
+### 4.4 · 03 So funktioniert’s (v1 04 Ablauf) · `#so-funktionierts` (walkthrough, pin 1)
+
+**v2:** under the steps and the caption, one compact row of three trust points (`<dl>`, three columns from 768, stacked below; a 1 px rule above; `heading-m` titles, `body-s` lines, deck § 07 strings): **Endpreis** – Inklusive Anfahrt, bevor du buchst. · **Start-Code** – Vier Ziffern, mit denen dein Termin beginnt. · **Kostenlos stornierbar bis {24 Std.} vorher** (from `terms.cancellationPolicy`; „Kostenlos stornierbar bis zum Termin“ with a 0 h window, „Stornofrist“ without one) – Mit Datum und Uhrzeit, nicht im Kleingedruckten. The booking CTA's source is `ch03`.
+
 
 **Intention:** three steps, understood at a glance, shown with real SOMA components and real data.
 
@@ -598,68 +589,14 @@ y 808  Lead (4 lines) · So funktioniert’s
 
 **CTA:** „Freie Termine finden“ → `#termin` (opens booking access, § 5.5).
 
-### 4.5 · 05 Dein Ort · `#dein-ort` (experience sequence, pin 2)
+### 4.5 · v1 05 Dein Ort · `#dein-ort` (removed in v2)
 
-**Intention:** the benefits of being at home, told in pictures. No numbers, no availability promises (deck § 05 truth guard).
+Removed with the dusk and dawn tones and the pinned stage (pin 2). The page has no night band any more.
 
-**Surface:** night scope (`data-theme="night"`). Bone text 13.9:1, muted text `#BFB4A7` 7.8:1, Bone focus ring. **The page's one night band.**
+### 4.6 · 04 Profis (v1 06) · `#profis`
 
-**Structure, full tier:**
-1. **Dusk spacer** („Abend“), 32svh: its `background-color` runs Stone → Espresso, scroll-linked over `entry 0% entry 100%`. The Stone chapter above seems to darken into evening.
-2. **Header in flow:** „05 · Bei dir“ and the headline „Nach der Massage: schon zu Hause.“ (`display-l`, roman, Bone, cols 1–8). Padding-bottom 64.
-3. **Pinned stage:**
-   - wrapper `height: calc(6 * 50svh + 100svh)`; inner `position: sticky; top: 0; height: 100svh`;
-   - the header overlays in its dark variant.
-```
- 1440 × 900 stage
- ┌───────────────────────────────────────────────────────────────────────────────┐
- │                                                 ╭────── arch 519 × 649 ──────╮ │  cols 7–11, crown at y 120
- │  03 / 06          (label, night-muted)          │                            │ │
- │                                                 │   experience image (step)  │ │
- │  Deine Adresse sieht nur dein Profi –           │                            │ │
- │  und erst nach der Bestätigung.  display-s Bone │                            │ │
- │  (cols 1–5, aligned to the arch springline)     ╰────────────────────────────╯ │
- │                                                 ALTBAU, 3. OG · BERLIN-… · 19:30│
- │  [Freie Termine finden]  (primary → Bone fill in the night scope)               │
- └───────────────────────────────────────────────────────────────────────────────┘
-```
-4. **Dawn spacer** („Morgen“), 32svh, Espresso → Bone, into chapter 06.
+**v2:** one supporting sentence („Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben.“); the fallback body is one sentence too. No „Selbst Profi?“ link: the foot's „Weiter: Für Profis“ leads there.
 
-**Sequence (deck § 05, verbatim lines and Ortszeilen):**
-
-| Step | Theme | Image | Crop in the 4:5 arch |
-|---|---|---|---|
-| 1 | Time saved: „Die Stunde gehört der Behandlung. Nicht dem Weg dorthin.“ | `landing/experience-time.jpg` | **78% 50%** (customer and the Profi's hands; at 62 % the Profi is cut) |
-| 2 | Comfort: „Dein Sofa. Deine Decke. Dein Licht.“ | `landing/experience-comfort.jpg` | native 4:5, `45% 55%` |
-| 3 | Privacy: „Deine Adresse sieht nur dein Profi – und erst nach der Bestätigung.“ | `landing/experience-privacy.jpg` | native |
-| 4 | Quality: „Geprüft, bevor es klingelt.“ and the small note | `landing/experience-quality.jpg` | native |
-| 5 | Choice: „Du wählst die Person, nicht nur die Uhrzeit.“ | `landing/experience-choice.jpg` | **88% 50%** (the guest and the Profi setting up). ⚠ The Profi is barefoot (retouch, § 12.3). Do not swap in `hotel-v2`: it is the hero's hotel image. |
-| 6 | Flexible: „Morgens, nachmittags oder abends – du suchst nach deiner Zeit.“ | `landing/experience-flexible.jpg` | **62% 50%** (both people; the marked laptop lid is cropped out) |
-
-All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 519px, (min-width: 1024px) 36vw, 86vw"`.
-
-**Step logic:**
-- `step = clamp(1, 6, floor(p * 6) + 1)`, where `p` is the pin progress (0–1), with ±3 % hysteresis.
-- Changes are **triggered** transitions, never scrubbed:
-  - the new image rises into the arch: `inset(100% 0 0 0) → inset(0)`, 640 ms `ease-arrive`; photo settle 900 ms;
-  - the line: out 160 ms `ease-exit`, in with a 10 px rise, 320 ms `ease-arrive` from 160 ms;
-  - the counter changes instantly;
-  - the Ortszeile crossfades in 220 ms.
-- Nothing queues: a newer step replaces a running one.
-- **Semantics:** the six steps are one `<ol>`. Each `<li>` holds a `<figure>`: the image with alt text, and a `<figcaption>` with the line (`<p>`, the view's one serif statement) and the Ortszeile. The lines are not headings (§ 3.1).
-  - In the pinned layout, inactive items are `opacity: 0; pointer-events: none`, but stay in the accessibility tree in order.
-  - Step 1's line arrives only when the stage becomes pinned (`data-scene-state="active"`). Until then the chapter headline above can still be in view, and two serif lines must not share a view.
-  - The counter is `aria-hidden`.
-
-**Lite and none (and every width < 1024):**
-- no spacers' colour motion (the spacers become 0 px; hard edges);
-- the `<ol>` renders as a vertical photo essay on Espresso;
-- each item: a 4:5 arch at 86 % width, alternately left- and right-aligned (the contrapposto shift in a vertical stack), the Ortszeile under it, the line in `display-s` (28 px) with ≤ 16 ch, 56 px between items;
-- arch rise on entry (lite); static (none).
-
-**End:** the chapter foot „Freie Termine finden“ → `#termin` and ✎ „Weiter: Profis“.
-
-### 4.6 · 06 Profis · `#profis`
 
 **Intention:** the human side, with real data only.
 
@@ -691,63 +628,20 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
 
 **Never:** invented names, testimonials, counts or badges.
 
-**Links:** the deck's „Selbst Profi?“ → `#fuer-profis` and ✎ „Weiter: Deine Buchung“.
+**Links (v1):** the deck's „Selbst Profi?“ → `#fuer-profis` and ✎ „Weiter: Deine Buchung“. **v2:** „Weiter: Für Profis“ only.
 
-### 4.7 · 07 Deine Buchung · `#deine-buchung` (app showcase)
+### 4.7 · v1 07 Deine Buchung · `#deine-buchung` (removed in v2)
 
-**Intention:** the product, shown truthfully. A web app: no store badges, no device brand, no unreleased features (deck § 07 "Do not show").
+Removed with the screen tabs and the captures. Three of its callouts (Endpreis, Start-Code, Stornofrist) are the trust row of 03 now.
 
-**Surface:** Linen (`bg-surface-sunken`).
+### 4.8 · 05 Für Profis (v1 08) · `#fuer-profis`
 
-**Composition at 1440:**
-```
- 07 · DEINE BUCHUNG
- Wer kommt. Wann. Was es kostet.                  ┌ cols 8–11: the floating screen ┐
- Alles an einem Ort.               display-m      │  360 × 760, radius 40,          │
- SOMA läuft im Browser … in deiner Buchung.       │  Paper, 1 px hairline,          │
- ┌ vertical tablist (cols 1–5), 6 rows ┐          │  shadow-overlay;                │
- │ ▌Endpreis                            │          │  real screenshot, translated    │
- │  Inklusive Anfahrt, bevor du buchst. │          │  to the callout's region;       │
- │  Stornofrist                         │          │  1.5 px ink ring (radius 12)    │
- │  Start-Code                          │          │  marks the region                │
- │  Kalender                            │          └──────────────────────────────────┘
- │  Erneut buchen                       │                Live-App · Demo-Daten  (caption)
- │  Favoriten                           │
- └──────────────────────────────────────┘
- [Freie Termine finden]
-```
+**v2 (compact, about half the v1 height; it supersedes the band height, the data and „Under the band“ below):**
+- one headline („Dein Können. Deine Preise. Deine Zeiten.“), one line (the deck's supporting sentence), the two CTAs; no data loaded (the benefits, the commission strip and the payment line are on `/fuer-profis`, behind „Konditionen ansehen“);
+- ≥ 1024: the photo band holds the whole chapter. It is content-sized over the floor `max(560px, min(72svh, 40vw))` (1440 × 900: 682 px; v1 chapter 1,272 px), the text 96 px from the top, the CTAs in one row, the Ortszeile in the flow 40 px under them: nothing can collide at 1024–1920 (audit-1 I-2, re-checked with `band.js` at 7 sizes). The photo's focal point is `68% 30%`, so the wider crop keeps the Profi's head;
+- < 1024: the app-pro arch with its Ortszeile, then the text and the stacked CTAs, on Bone, with the section padding top and bottom (390: 1,048 px; v1 1,908 px);
+- CTA ids `pro-werden-05`; „Konditionen ansehen“ → `/fuer-profis#provision`.
 
-- **The screen is shown without a device frame** ("Bildschirm ohne Gerät"). It is calmer than a phone mockup and avoids imitating any manufacturer's hardware. Screens are straight, never tilted.
-- **Callout → screen → region** (the screens are captured from the live demo app, asset A4, § 12.2):
-
-| Tab (deck § 07) | Line | Screen | Region |
-|---|---|---|---|
-| Endpreis | Inklusive Anfahrt, bevor du buchst. | `screens/suche` | the first result's price |
-| Stornofrist | Mit Datum und Uhrzeit, nicht im Kleingedruckten. | `screens/buchung` | the cancellation line |
-| Start-Code | Vier Ziffern, mit denen dein Termin beginnt. | `screens/buchung` | the Start-Code block |
-| Kalender | Dein Termin mit einem Tipp im Kalender. | `screens/buchung` | „Zum Kalender hinzufügen“ |
-| Erneut buchen | Profi und Behandlung sind schon gewählt – du wählst nur die Uhrzeit. | `screens/termine` | the past booking's „Erneut buchen“ |
-| Favoriten | Deine Profis, gespeichert für das nächste Mal. | `screens/favoriten` | the list |
-
-- **Tabs:**
-  - `role="tablist" aria-orientation="vertical"`; roving `tabindex`; arrows, Home and End; activation on focus.
-  - Each tab: title (`heading-m`) and line (`body-s`).
-  - Selected: Paper fill, a 2 px ink left bar (220 ms), `shadow-raised`.
-  - The tabpanel is the screen figure, `aria-labelledby` the active tab. Its alt text ✎ describes the region, for example „Ausschnitt aus der Buchung: der Start-Code“, never with demo values.
-- **Motion:**
-  - a new screen file crossfades in 220 ms `ease-standard`;
-  - the translate to the region takes 480 ms `ease-arrive`;
-  - the region ring fades in over 160 ms, starting at 320 ms.
-  - Lite: 320 ms translate. None: instant.
-  - No autoplay; the screen is not scrollable by wheel (`overflow: hidden`).
-- **Oxblood:** the screenshots contain the product's own Oxblood buttons. That counts as this view's one Oxblood moment, so the chapter CTA is primary (Espresso).
-- **390:**
-  - screen 280 × 606, centred;
-  - the six tabs become a horizontal tablist (snap chips, 44 px) under it;
-  - the active line under the chips; CTA.
-- **Copy:** deck § 07. The caption ✎ „Live-App · Demo-Daten“ (production: ✎ „Live-App“).
-
-### 4.8 · 08 Für Profis · `#fuer-profis`
 
 **Intention:** win independent Profis, with no income claims.
 
@@ -789,7 +683,10 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
   - **Konditionen ansehen** → `/fuer-profis#provision` (the `id="provision"` exists).
 - **Never:** income figures, "verdiene bis zu …", "Wir bringen die Kundschaft".
 
-### 4.9 · 09 Fragen · `#fragen`
+### 4.9 · 06 Fragen (v1 09) · `#fragen`
+
+**v2 (supersedes the data, the trust strip and the 390 list below):** the five most important deck questions (1, 2, 3, 5, 6; `landingFaq()` in `booking/faq-data.ts`), the same five in the FAQPage JSON-LD; the left column holds the eyebrow and the headline only; under the accordion one quiet link „Alle Fragen“ → `/hilfe`. The other four answers and the guarantee are on `/hilfe`; „Stornierung“ stays in the footer.
+
 
 **Intention:** practical answers that are true to the product.
 
@@ -807,7 +704,10 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
 - **Motion** (`MOTION.md` § 3.5): height and opacity 320 ms `ease-standard` (via `::details-content`, as in today's `FaqList`); the chevron rotates 180° in 220 ms, the system's only rotation. Today's `FaqList` uses a plus that turns 45°; the landing follows `MOTION.md`. Reduced motion: instant.
 - **390:** header, trust strip, accordion (all nine questions; no `mobileLimit`), links.
 
-### 4.10 · 10 SOMA · `#soma` (final brand moment)
+### 4.10 · 07 SOMA (v1 10) · `#soma` (final brand moment)
+
+**v2:** unchanged, except the number (07) and the CTA id `pro-werden-07`.
+
 
 **Surface:** `data-theme="oxblood"` (Bone ink and actions, oxblood-200 secondary text at 6.2:1).
 - `min-height: 100svh` (desktop), `88svh` (mobile); `data-header-theme="dark"`.
@@ -871,18 +771,17 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
 
 ### 5.1 Chapters, names, anchors
 
+v2 (seven chapters):
+
 | N | id | Nav name | `data-tone` | `data-header-theme` |
 |---|---|---|---|---|
 | 01 | `bei-dir` (entry: `termin`) | Bei dir | bone | light |
-| 02 | `idee` | Idee | bone | light |
-| 03 | `behandlungen` | Behandlungen | bone | light |
-| 04 | `so-funktionierts` | Ablauf | stone | light |
-| 05 | `dein-ort` | Dein Ort | night | dark |
-| 06 | `profis` | Profis | bone | light |
-| 07 | `deine-buchung` | Deine Buchung | linen | light |
-| 08 | `fuer-profis` | Für Profis | photo → bone (the band declares dark) | dark / light |
-| 09 | `fragen` | Fragen | bone | light |
-| 10 | `soma` | SOMA | oxblood | dark |
+| 02 | `behandlungen` | Behandlungen | bone | light |
+| 03 | `so-funktionierts` | So funktioniert’s | stone | light |
+| 04 | `profis` | Profis | bone | light |
+| 05 | `fuer-profis` | Für Profis | bone (≥ 1024 the photo band declares dark) | light / dark |
+| 06 | `fragen` | Fragen | bone | light |
+| 07 | `soma` | SOMA | oxblood | dark |
 
 - **URLs:** `/#{id}`. The hash is never rewritten on passive scroll.
   - On explicit jumps (index, chapter foot, header links) `MotionRoot` already pushes the hash and focuses the target.
@@ -893,13 +792,13 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
 ### 5.2 Desktop header (≥ 1024): `LandingHeader`
 
 - **Height** 68 px; `position: sticky; top: 0`; **it never hides on desktop**, because booking access is persistent.
-- **Layout:** [micro wordmark 18 px] · 32 px · [chapter index] ····· [≥ 1280: Behandlungen · So funktioniert’s · Für Profis · Hilfe] · hairline · [Anmelden (ghost)] · [**Termin finden** (primary)].
-  - 1024–1279: the four links move into the overlay, and a „Menü“ button appears.
+- **Layout:** [micro wordmark 18 px] · 32 px · [chapter index] ····· [≥ 1280: Entdecken · Behandlungen · So funktioniert’s · Für Profis · Hilfe (v2: Entdecken first, as in the site header)] · hairline · [Anmelden (ghost)] · [**Termin finden** (primary)].
+  - 1024–1279: the five links move into the overlay, and a „Menü“ button appears. At 1280 the row fits with the longest chapter label („03 So funktioniert’s“).
   - „So funktioniert’s“ → `#so-funktionierts`; the others are routes.
 - **Chapter index button:**
   - a pill, 40 px tall (44 px hit area), hover Linen;
-  - content: `<span class="sr-only">Kapitel</span>`, the index arch (16 × 20), then ten `<span data-chapter-label="NN">NN Name</span>`;
-  - CSS shows only `html[data-chapter-active="NN"] [data-chapter-label="NN"]`. Hidden labels are `display: none`, so the accessible name is always "Kapitel 03 Behandlungen" (label in name, WCAG 2.5.3) and no React state is needed;
+  - content: `<span class="sr-only">Kapitel</span>`, the index arch (16 × 20), then seven (v1: ten) `<span data-chapter-label="NN">NN Name</span>`;
+  - CSS shows only `html[data-chapter-active="NN"] [data-chapter-label="NN"]`. Hidden labels are `display: none`, so the accessible name is always "Kapitel 02 Behandlungen" (label in name, WCAG 2.5.3) and no React state is needed;
   - without JS it reads „Kapitel“;
   - it opens the chapter overlay.
 - **Themes:**
@@ -932,6 +831,7 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
                                    [Termin finden]            Your body. Your place.   (accent italic, muted)
                          Your body. Your place.
 ```
+- **v2:** seven chapter rows; „Seiten“: Entdecken · Behandlungen · Städte · Für Profis · Hilfe (`nav/pages.ts`, shared with the header and the no-JS static list `#kapitel`, which lists the same pages under the chapters).
 - **Chapter links:**
   - `<nav aria-label="Kapitel">` with an `<ol>` of `<a href="#id">`;
   - names in the sans (`type-heading-l`), because navigation is always sans; numbers `type-label num`;
@@ -951,7 +851,7 @@ All crops are verified in `crops-experience.jpg`. `sizes="(min-width: 1440px) 51
 |---|---|---|
 | Desktop | Header „Termin finden“ (`<a href="#termin">`, enhanced) | If the hero entry is ≥ 25 % in view: focus its PLZ field (no scroll, no overlay). Otherwise open the **`BookingBar`**: a dialog under the header, full content width, Paper, `shadow-overlay`, radius 0 0 24 24, padding 24 / 48, holding `BookingEntry` (the pill variant, its own id `termin-leiste`), `RebookRow` when present, and a close button. Backdrop 48 %. Entry: rises 8 px with a fade, 320 ms `ease-arrive`. Exit: 220 ms. Focus goes to PLZ. Esc closes and focus returns to the trigger. |
 | < 1024 | Dock „Termin finden“ | Opens the **`BookingSheet`** (bottom sheet, radius 24 at the top, 480 ms `ease-arrive`, drag to dismiss). It holds the stacked entry. ⚠ *Was?* and *Wann?* expand **inline inside the sheet** (a disclosure), never as a second sheet on top. |
-| In chapters | „Freie Termine finden“ in 04, 05, 06 (fallback), 07 | `href="#termin"`, enhanced to the same `openBooking({ source })` |
+| In chapters | „Freie Termine finden“ in 03 and 04 (fallback) (v1: 04, 05, 06, 07) | `href="#termin"`, enhanced to the same `openBooking({ source })` |
 | Anywhere | `pickInBookingEntry({ categorySlug })` | Preselects the category in whichever entry is open (existing event) |
 | No JS | — | All of these are plain links to `#termin` (the hero entry) |
 
@@ -967,7 +867,7 @@ API (Conversion): `openBooking(detail?: { source: string; categorySlug?: string 
 - **Right half:** **Termin finden** (primary, 48 px) → `BookingSheet`.
 - **Hidden** (`html[data-dock="hidden"]`) while:
   - the hero booking card is ≥ 25 % in view;
-  - chapter 10's CTAs are ≥ 30 % in view;
+  - chapter 07's (v1: 10) CTAs are ≥ 30 % in view;
   - a text input, select or textarea has focus (the virtual keyboard);
   - any dialog or sheet is open.
 - **Show / hide:** show is a 24 px rise with a fade, 320 ms `ease-arrive`; hide is 220 ms `ease-exit`. Reduced motion: 160 ms opacity.
@@ -975,7 +875,7 @@ API (Conversion): `openBooking(detail?: { source: string; categorySlug?: string 
 
 ### 5.7 Chapter foot (hand-off)
 
-- **Where:** at the end of chapters 02–07.
+- **Where:** at the end of chapters 02–04 (v1: 02–07).
 - **Layout:** a 1 px `line` rule, then the contextual CTA from the deck on the left (if any) and ✎ „Weiter: {next name}“ with `ArrowDown` 16 px on the right (→ `#next-id`). Type `type-label`, underlined link style, 44 px target.
 - **390:** stacked, the "Weiter" link full width.
 - **Screen readers:** the link text names the next chapter. No extra live region.
@@ -986,7 +886,7 @@ API (Conversion): `openBooking(detail?: { source: string; categorySlug?: string 
 - „Zum Inhalt springen“ → `#inhalt` (existing);
 - ✎ „Zur Terminsuche springen“ → `#termin`.
 
-**Focus order:** skip links → header → dock (< 1024) → main: hero (radios → link → entry fields → submit) → 02 foot → 03 rows → 04 (step buttons on mobile) → CTAs → 06 cards and arrows → 07 tabs → 08 CTAs → 09 summaries and links → 10 CTAs → footer.
+**Focus order (v2):** skip links → header → dock (< 1024) → main: hero (radios → link → entry fields → submit; 768–1023: the second „So funktioniert’s“ after the entry) → 02 rows and foot links → 03 (step buttons on mobile) → CTA → 04 cards and arrows → 05 CTAs → 06 summaries and „Alle Fragen“ → 07 CTAs → footer.
 
 **Pinned scenes** contain no focus traps and no hidden focusables. Space and Page Down move through them natively.
 
@@ -1212,22 +1112,19 @@ Lighthouse scores for these targets are taken on the visitor tier: `/?motion=lit
 - **Motion runtime** (`motion/runtime.ts`: scenes, reveals, pins, tone fallbacks): ≤ 12 KB gz, `import()` after `requestIdleCallback` (timeout 2 s) or the first scroll, in the full and lite tiers only.
 - **CSS** for the landing ≤ 18 KB gz. Scroll-driven effects first: `@supports (animation-timeline: view())`.
 - **GSAP / ScrollTrigger:** not in v1. The Motion developer may propose it for the full tier only if a scene misses 60 fps or precision on the reference devices. Conditions: dynamic import inside `gsap.matchMedia()`, ≤ 45 KB gz, never in lite or none, and the Lead's approval.
-- **`content-visibility: auto`** on chapters 06–09 at every width (`.lp-cv`, the `cv` prop of `Chapter`), and below 1024 also on 02–05 and 10, which have no pins, sticky elements or scroll timelines there (`landing.css`). Never where those run (01–05 and 10 from 1024, and the hero at every width).
-  - `contain-intrinsic-size: auto <estimate>`, the estimate being the chapter's measured content height (02–10 at 320–1920 px, fonts loaded; audit-2 RT-1). A chapter that has never rendered is laid out at nearly its real height, so a long jump corrects little when it ends (`lib/scroll-jump.ts`); once rendered, `auto` keeps the real height.
+- **`content-visibility: auto`** on chapters 04–06 at every width (`.lp-cv`, the `cv` prop of `Chapter`), and below 1024 also on 02, 03 and 07, which have no pins, sticky elements or scroll timelines there (`landing.css`). Never where those run (01–03 and 07 from 1024, and the hero at every width).
+  - `contain-intrinsic-size: auto <estimate>`, the estimate being the chapter's measured content height (v2 re-measure: 02–07 at 17 sizes from 320 × 640 to 1920 × 1080, fonts loaded, every chapter rendered, padding excluded). A chapter that has never rendered is laid out at nearly its real height, so a long jump corrects little when it ends (`lib/scroll-jump.ts`); once rendered, `auto` keeps the real height.
 
-    | Chapter | ≥ 1024 | 768–1023 | < 768 |
+    | Chapter (v2) | ≥ 1024 | 768–1023 | < 768 |
     |---|---|---|---|
-    | 02 Idee | — | `calc(480px + 114.5vw)` | 1150 |
-    | 03 Behandlungen | — | `calc(457px + 50vw)` | 880 |
-    | 04 Ablauf | — | `calc(741px + 52.5vw)` | 910 |
-    | 05 Dein Ort | — | `calc(1117px + 575vw)` | `calc(1530px + 620vw)` |
-    | 06 Profis | 800 | `calc(384px + 45vw)` | 770 |
-    | 07 Deine Buchung | 970 | 1125 | 1220 |
-    | 08 Für Profis | 1280 | `calc(1098px + 84vw)` | 1920 |
-    | 09 Fragen | 660 | 1085 | 1080 |
-    | 10 SOMA | — | 900 | 745 |
+    | 02 Behandlungen | — | `calc(457px + 50vw)` | `max(905px, calc(534px + 97.6vw))` |
+    | 03 So funktioniert’s | — | `calc(895px + 53vw)` | `max(1170px, calc(887px + 71.4vw))` |
+    | 04 Profis | `min(798px, calc(420px + 26.2vw))` | `calc(357px + 45vw)` | `calc(427px + 65.8vw)` |
+    | 05 Für Profis | 680 | `calc(454px + 105.9vw)` | `calc(650px + 107vw)` |
+    | 06 Fragen | 434 | 600 | 580 |
+    | 07 SOMA | — | `max(700px, 88svh)` | `max(670px, 88svh)` |
 
-    Values in px. Sources: the `cv` props in `chapters/06-profis.tsx` … `09-fragen.tsx`, and `landing.css` for 02–05 and 10. A full-page capture (`html[data-capture="full"]`) renders every chapter.
+    Values in px. Sources: the `cv` props in `chapters/04-profis.tsx` … `06-fragen.tsx`, and `landing.css` for 02, 03 and 07. A full-page capture (`html[data-capture="full"]`) renders every chapter. Measured (content px): 02 904–1283 (< 768), 841–968 (768–1023); 03 1141–1434, 1309–1445; 04 654–932, 703–818, 689–798; 05 999–1474, 1267–1537, 650–768; 06 575–593, 593–607, 434; 07 667–901, 701–1056.
 
 ### 10.5 Fonts (already budgeted; brand § 4.2)
 
@@ -1371,6 +1268,8 @@ Kit components reused unchanged: `Button`, `ButtonLink`, `IconButton`, `Chip`, `
 ## 12. Assets
 
 ### 12.1 Images per chapter (all AI development assets, labelled; paths canonical under `/images`)
+
+v1 numbers. v2: rows 02, 05 and 07 are no longer on the page; 03 → 02, 04 → 03, 06 → 04, 08 → 05 (the band photo's focal is `68% 30%` since the band is wider than 16:9), 10 → 07.
 
 | Ch | Asset | Format | Crop / focal (verified) | Ortszeile |
 |---|---|---|---|---|

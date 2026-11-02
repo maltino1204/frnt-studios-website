@@ -6,7 +6,7 @@ const SEQUENCE_MS = 2300;
 const MASK_RANGE = 0.4;
 
 /**
- * 10 · SOMA, „O-Schluss“ (spec § 4.10, Appendix A).
+ * 07 · SOMA, „O-Schluss“ (spec § 4.10, Appendix A).
  * - Full tier, once ready: an Oxblood arch mask opens from the bottom centre (24cqw, crown at 40 %) to a square full
  *   bleed over `entry 0 % → entry 40 %` (the spec's 60 % left the band empty too long, audit 1, I-9), on the CSS view timeline where it exists, otherwise from `--lp-scene`.
  *   Lite and none: the hard edge.

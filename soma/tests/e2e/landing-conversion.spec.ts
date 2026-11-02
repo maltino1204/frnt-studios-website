@@ -418,9 +418,10 @@ test("T14 every in-page anchor resolves to exactly one target", async ({ page })
   });
   for (const r of result) expect(r.n, `#${r.id}`).toBe(1);
   expect(await page.locator('[id="termin"]').count()).toBe(1);
-  for (const id of ["bei-dir", "idee", "behandlungen", "so-funktionierts", "dein-ort", "profis", "deine-buchung", "fuer-profis", "fragen", "soma"]) {
+  for (const id of ["bei-dir", "behandlungen", "so-funktionierts", "profis", "fuer-profis", "fragen", "soma"]) {
     await expect(page.locator(`section#${id}`), id).toHaveCount(1);
   }
+  await expect(page.locator("main section[data-chapter]")).toHaveCount(7);
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -431,6 +432,8 @@ test("T15 the FAQPage JSON-LD equals the visible FAQ", async ({ page }) => {
   const faqs = (await jsonLdNodes(page)).filter((n) => n["@type"] === "FAQPage");
   expect(faqs, "exactly one FAQPage").toHaveLength(1);
   const ld = (faqs[0].mainEntity as Array<{ name: string; acceptedAnswer: { text: string } }>).map((q) => ({ q: q.name, a: q.acceptedAnswer.text }));
+  // v2: the five most important questions, the rest on /hilfe („Alle Fragen“)
+  expect(ld).toHaveLength(5);
   const visible = await page.locator("#fragen details").evaluateAll((ds) =>
     ds.map((d) => {
       const s = d.querySelector("summary")!;

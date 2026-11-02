@@ -7,7 +7,7 @@ import { jumpToChapter } from "./jump";
 /**
  * In-page link behaviour for the landing, one capture listener (it runs before the global MotionRoot handler):
  * - `#chapter` links outside dialogs jump and focus the chapter's heading (spec § 5.1);
- * - booking CTAs (`<a href="#termin" data-booking-open="ch04">`) open booking access (spec § 5.5).
+ * - booking CTAs (`<a href="#termin" data-booking-open="ch03">`) open booking access (spec § 5.5).
  * Without JS both stay plain anchors.
  */
 export function ChapterLinks() {

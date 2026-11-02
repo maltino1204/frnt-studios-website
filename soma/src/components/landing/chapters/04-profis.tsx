@@ -1,9 +1,7 @@
-import { ArrowDown } from "lucide-react";
-import { Icon } from "@/components/ui/icon";
 import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
 import { nextChapter, titleId } from "../nav/chapters";
 import { ProviderCard } from "../profis/provider-card";
-import { ChapterFoot, lpLinkClass, lpLinkText } from "../primitives/chapter-foot";
+import { ChapterFoot } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
 import { SnapRail } from "../primitives/snap-rail";
@@ -16,27 +14,26 @@ import { Chapter, LpContainer } from "./chapter";
 const MIN_PROVIDERS = 3;
 
 /**
- * 06 · Profis (spec § 4.6): the human side, real data only (`listDiscoveryProviders`, approved Profis, established
+ * 04 · Profis (spec § 4.6): the human side, real data only (`listDiscoveryProviders`, approved Profis, established
  * profiles first). Fallback without faces when fewer than three approved Profis exist. Never invented names,
- * testimonials, counts or badges.
+ * testimonials, counts or badges. v2: one supporting sentence; the foot's „Weiter: Für Profis“ is the way to the
+ * second audience (the former „Selbst Profi?“ link pointed to the same chapter).
  */
 export function ProfisChapter({ providers }: { providers: DiscoveryProviderDTO[] }) {
-  const next = nextChapter(6)!;
+  const next = nextChapter(4)!;
   const enough = providers.length >= MIN_PROVIDERS;
   const header = (
     <div className="max-w-[40rem]">
-      <Eyebrow nn="06">Die Profis</Eyebrow>
+      <Eyebrow nn="04">Die Profis</Eyebrow>
       <Clauses as="h2" id={titleId("profis")} tabIndex={-1} className="mt-4 type-display-m text-ink outline-none" parts={["Wer bei dir klingelt."]} />
       {enough ? (
-        <p className="mt-6 max-w-[48ch] type-body-l text-ink-muted">
-          Selbstständige Profis mit eigener Handschrift. Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben.
-        </p>
+        <p className="mt-6 max-w-[44ch] type-body-l text-ink-muted">Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben.</p>
       ) : null}
     </div>
   );
 
   return (
-    <Chapter n={6} cv={{ desktop: 800, tablet: "calc(384px + 45vw)", mobile: 770 }}>
+    <Chapter n={4} cv={{ desktop: "min(798px, calc(420px + 26.2vw))", tablet: "calc(357px + 45vw)", mobile: "calc(427px + 65.8vw)" }}>
       <LpContainer>
         {enough ? (
           <SnapRail
@@ -68,7 +65,7 @@ export function ProfisChapter({ providers }: { providers: DiscoveryProviderDTO[]
             </figure>
             <div className="lp-profis-fallback-text">
               <p className="max-w-[44ch] type-body-l text-ink">
-                Auf SOMA arbeiten selbstständige Profis – mit eigenen Preisen, eigenen Zeiten und eigenem Stil. Wer buchbar ist, hat Ausweis, Gewerbeanmeldung, Berufshaftpflicht und je nach Kategorie eine Qualifikation nachgewiesen.
+                Wer auf SOMA buchbar ist, hat Ausweis, Gewerbeanmeldung, Berufshaftpflicht und je nach Kategorie eine Qualifikation nachgewiesen.
               </p>
             </div>
           </div>
@@ -76,19 +73,9 @@ export function ProfisChapter({ providers }: { providers: DiscoveryProviderDTO[]
 
         <ChapterFoot
           className="mt-6 lg:mt-10"
-          cta={
-            enough
-              ? { label: "Selbst Profi?", href: "#fuer-profis", kind: "link" }
-              : { label: "Freie Termine finden", href: "#termin", kind: "button", booking: "ch06" }
-          }
+          cta={enough ? null : { label: "Freie Termine finden", href: "#termin", kind: "button", booking: "ch04" }}
           next={{ id: next.id, name: next.name }}
         />
-        {enough ? null : (
-          <a href="#fuer-profis" className={`${lpLinkClass} mt-2`}>
-            <span className={lpLinkText}>Selbst Profi?</span>
-            <Icon icon={ArrowDown} size={16} />
-          </a>
-        )}
       </LpContainer>
     </Chapter>
   );

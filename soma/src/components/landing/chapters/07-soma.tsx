@@ -9,14 +9,14 @@ import { ClosingLockup } from "../seal/closing-lockup";
 import { Chapter } from "./chapter";
 
 /**
- * 10 · SOMA (spec § 4.10): the final brand moment on Oxblood. The seal scene (`data-scene="seal"`): in the full tier
+ * 07 · SOMA (spec § 4.10): the final brand moment on Oxblood. The seal scene (`data-scene="seal"`): in the full tier
  * an Oxblood arch mask (`data-arch-mask="seal"`) opens from the bottom centre to full bleed; then the mark draws on
  * and the lockup reveals (motion layer). Static (and lite / none): the band is Oxblood with a hard edge and the final
  * frame. The <h2> is the visible lockup (role="img", "SOMA") followed by the tagline: "SOMA. Your body. Your place."
  */
 export function SomaChapter() {
   return (
-    <Chapter n={10} padded={false} className="lp-seal">
+    <Chapter n={7} padded={false} className="lp-seal">
       <div data-scene="seal" className="lp-seal-scene">
         <div aria-hidden data-arch="mask" data-arch-mask="seal" className="lp-seal-mask" />
         <div className="lp-seal-content">
@@ -35,7 +35,7 @@ export function SomaChapter() {
               Freie Termine finden
             </SearchLink>
             {/* Prefetched on intent only (RT-9), like the search link. */}
-            <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-10">
+            <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-07">
               Profi werden
             </IntentLink>
           </div>

@@ -4,7 +4,7 @@
  *   const conv = await loadLandingConversion();
  *   <LandingJsonLd description={conv.description} liveCities={conv.liveCities} faq={conv.faq} />
  *
- * One graph: Organization, WebSite, WebPage and FAQPage (exactly the visible chapter-09 questions).
+ * One graph: Organization, WebSite, WebPage and FAQPage (exactly the visible chapter-06 questions).
  * - No `SearchAction`: /suche takes no free-text query (only plz/kategorie/leistung/…), is noindex and robots-disallowed,
  *   and Google retired the sitelinks search box in 2024. Describing a search the site does not have is not added.
  * - No `aggregateRating` on the Organization: reviews rate Profis, not SOMA (self-serving ratings are not eligible).

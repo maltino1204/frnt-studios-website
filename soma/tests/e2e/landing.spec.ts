@@ -1,21 +1,19 @@
 import { expect, test, type Page } from "@playwright/test";
 
 /**
- * Landing page structure (docs/landing/LANDING_DESIGN_SPEC.md § 4, § 5.1, § 9, § 14). Frontend's basic checks; booking,
- * routing params and SEO are covered by landing-conversion.spec.ts.
+ * Landing page structure (docs/landing/LANDING_DESIGN_SPEC.md "v2 structure", § 4, § 5.1, § 9, § 14). Frontend’s
+ * basic checks; booking, routing params and SEO are covered by landing-conversion.spec.ts.
  */
 
+/** v2 (client decision 2026-11-02): seven chapters; Idee, Dein Ort and Deine Buchung are gone. */
 const CHAPTERS = [
   ["01", "bei-dir"],
-  ["02", "idee"],
-  ["03", "behandlungen"],
-  ["04", "so-funktionierts"],
-  ["05", "dein-ort"],
-  ["06", "profis"],
-  ["07", "deine-buchung"],
-  ["08", "fuer-profis"],
-  ["09", "fragen"],
-  ["10", "soma"],
+  ["02", "behandlungen"],
+  ["03", "so-funktionierts"],
+  ["04", "profis"],
+  ["05", "fuer-profis"],
+  ["06", "fragen"],
+  ["07", "soma"],
 ] as const;
 
 async function open(page: Page) {
@@ -23,10 +21,14 @@ async function open(page: Page) {
   await expect(page.locator("main [data-chapter]").first()).toBeAttached();
 }
 
-test("ten chapters render in order, each labelled by its heading", async ({ page }) => {
+test("exactly the seven chapter ids render in order, each labelled by its heading", async ({ page }) => {
   await open(page);
   const sections = page.locator("main section[data-chapter]");
-  await expect(sections).toHaveCount(10);
+  await expect(sections).toHaveCount(7);
+  // nothing else in main carries a chapter id or a removed chapter's markup
+  expect(await page.locator("main [data-chapter]").count()).toBe(7);
+  for (const gone of ["idee", "dein-ort", "deine-buchung"]) await expect(page.locator(`[id="${gone}"], [id="${gone}-titel"]`), gone).toHaveCount(0);
+  await expect(page.locator('[data-scene="doorway"], [data-scene="stage"], [data-scene="dusk"], [data-scene="dawn"], [data-scene="screens"]')).toHaveCount(0);
   const found = await sections.evaluateAll((els) => els.map((el) => [el.getAttribute("data-chapter"), el.id]));
   expect(found).toEqual(CHAPTERS.map(([n, id]) => [n, id]));
 
@@ -70,7 +72,7 @@ test("category links resolve to live category pages", async ({ page, request }) 
 test("„Profi werden“ leads to the provider onboarding", async ({ page, request }) => {
   await open(page);
   const links = page.locator("main").getByRole("link", { name: "Profi werden" });
-  expect(await links.count()).toBeGreaterThanOrEqual(2); // 08 and 10
+  expect(await links.count()).toBeGreaterThanOrEqual(2); // 05 and 07
   for (const href of await links.evaluateAll((els) => els.map((el) => el.getAttribute("href")))) expect(href).toBe("/pro/registrieren");
   expect((await request.get("/pro/registrieren")).status()).toBe(200);
   await expect(page.locator('#fuer-profis a[href="/fuer-profis#provision"]')).toHaveCount(1);
@@ -89,4 +91,66 @@ test("no horizontal overflow at 390 px", async ({ browser }) => {
   const { scroll, client } = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   expect(scroll).toBeLessThanOrEqual(client);
   await context.close();
+});
+
+test("„Entdecken“ is in the landing header: first link from 1280 px, first page in the overlay („Menü“) below", async ({ page }, ti) => {
+  await open(page);
+  const header = page.locator("header.lp-header");
+  if (ti.project.name === "desktop") {
+    const links = header.getByRole("navigation", { name: "Hauptnavigation" }).getByRole("link");
+    await expect(links.first()).toHaveText("Entdecken");
+    await expect(links.first()).toHaveAttribute("href", "/entdecken");
+    await expect(links.first()).toBeVisible();
+    expect(await links.allTextContents()).toEqual(["Entdecken", "Behandlungen", "So funktioniert’s", "Für Profis", "Hilfe"]);
+  } else {
+    await header.getByRole("button", { name: "Menü" }).click();
+    const overlay = page.getByRole("dialog", { name: "Kapitel und Seiten" });
+    await expect(overlay).toBeVisible();
+    const pages = overlay.getByRole("list").filter({ has: page.getByRole("link", { name: "Entdecken" }) }).getByRole("link");
+    await expect(pages.first()).toHaveText("Entdecken");
+    await expect(pages.first()).toHaveAttribute("href", "/entdecken");
+    await expect(overlay.locator("ol a")).toHaveText(CHAPTERS.map(([nn]) => new RegExp(`^${nn}`)));
+    await page.keyboard.press("Escape");
+    await expect(overlay).toBeHidden();
+  }
+});
+
+test("02 links to the Themenwelten, 03 carries the three trust points, 06 shows five questions and „Alle Fragen“", async ({ page }) => {
+  await open(page);
+  const explore = page.locator("#behandlungen").getByRole("link", { name: "Themenwelten entdecken" });
+  await expect(explore).toHaveCount(1);
+  await expect(explore).toHaveAttribute("href", "/entdecken");
+  await expect(page.locator('#behandlungen a[href="/behandlungen"]')).toHaveCount(1);
+
+  const trust = page.locator("#so-funktionierts dl dt");
+  await expect(trust).toHaveCount(3);
+  await expect(trust.nth(0)).toHaveText("Endpreis");
+  await expect(trust.nth(1)).toHaveText("Start-Code");
+  // the free window comes from the platform's cancellation policy, the same value as the hero trust row
+  const heroFree = (await page.locator("#bei-dir li").allTextContents()).map((t) => t.trim()).find((t) => t.startsWith("Kostenlos stornierbar"));
+  if (heroFree) await expect(trust.nth(2)).toHaveText(heroFree);
+  else await expect(trust.nth(2)).toHaveText(/^(Stornofrist|Kostenlos stornierbar bis zum Termin)$/);
+
+  await expect(page.locator("#fragen details")).toHaveCount(5);
+  const all = page.locator("#fragen").getByRole("link", { name: "Alle Fragen" });
+  await expect(all).toHaveCount(1);
+  await expect(all).toHaveAttribute("href", "/hilfe");
+});
+
+test.describe("without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("the whole page renders in order; „Menü“ leads to the static list of the seven chapters and the pages", async ({ page }) => {
+    await page.goto("/");
+    const found = await page.locator("main section[data-chapter]").evaluateAll((els) => els.map((el) => [el.getAttribute("data-chapter"), el.id]));
+    expect(found).toEqual(CHAPTERS.map(([n, id]) => [n, id]));
+    for (const [, id] of CHAPTERS) await expect(page.locator(`#${id}-titel`), id).toBeVisible();
+    const list = page.locator("nav#kapitel");
+    await expect(list).toHaveCount(1);
+    await expect(list.locator("ol a")).toHaveText(CHAPTERS.map(([nn]) => new RegExp(`^${nn}`)));
+    for (const [, id] of CHAPTERS) await expect(list.locator(`ol a[href="#${id}"]`)).toHaveCount(1);
+    await expect(list.locator('ul a[href="/entdecken"]')).toHaveText("Entdecken");
+    const menu = page.locator('header a[href="#kapitel"]:visible');
+    expect(await menu.count()).toBeGreaterThan(0);
+  });
 });

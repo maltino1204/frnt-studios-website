@@ -1,17 +1,13 @@
 import { createContext, isBelow, type Stop } from "./frame";
 import { ease, REVEAL_TARGETS, startReveals } from "./reveal";
-import { startDoorway } from "./scenes/doorway";
 import { startHero } from "./scenes/hero";
-import { startScreens } from "./scenes/screens";
-import { startStage } from "./scenes/stage";
-import { startTone } from "./scenes/tone";
 import { startWalkthrough } from "./scenes/walkthrough";
 import { startBand } from "./scenes/band";
 import { startSeal } from "./scenes/seal";
 import type { MotionTier } from "./tier";
 
 /** Scenes whose full-tier layout or mask changes the page: they upgrade only while still below the viewport. */
-const UPGRADABLE = '[data-scene="doorway"], [data-scene="walkthrough"], [data-scene="dusk"], [data-scene="stage"], [data-scene="dawn"], [data-scene="seal"]';
+const UPGRADABLE = '[data-scene="walkthrough"], [data-scene="seal"]';
 
 /**
  * The motion runtime (spec § 10.4: ≤ 12 KB gz, imported after idle or the first scroll, full and lite tiers only).
@@ -33,7 +29,7 @@ export function startRuntime(tier: MotionTier): Stop {
 
   // 2. Writes: scenes and reveals set their start states; the upgrade attributes go last.
   const ctx = createContext(tier, ready, (el) => below.get(el) ?? isBelow(el));
-  for (const start of [startReveals, startHero, startDoorway, startWalkthrough, startTone, startStage, startScreens, startBand, startSeal]) {
+  for (const start of [startReveals, startHero, startWalkthrough, startBand, startSeal]) {
     ctx.onStop(start(ctx));
   }
   for (const el of ready) el.setAttribute("data-scene-ready", "");

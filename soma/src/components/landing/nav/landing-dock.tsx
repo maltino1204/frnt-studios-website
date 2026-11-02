@@ -12,7 +12,7 @@ import { NoScriptChapterLink } from "./static-chapter-list";
  * Mobile dock „Schnellzugriff“ (spec § 5.6), < 1024 only: fixed 12 px from the edges, 56 px pill, glass. Left: the
  * chapter overlay (index arch + current label); right: „Termin finden“ → booking sheet. In the DOM directly after
  * the header, so keyboard and screen-reader users meet it early. Hidden while `html[data-dock="hidden"]` (motion
- * layer rules: hero entry or chapter 10 CTAs in view, text input focused, a dialog or sheet open).
+ * layer rules: hero entry or chapter 07 CTAs in view, text input focused, a dialog or sheet open).
  */
 export function LandingDock() {
   return (

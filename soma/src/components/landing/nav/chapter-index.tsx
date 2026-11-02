@@ -8,7 +8,7 @@ import { NoScriptChapterLink } from "./static-chapter-list";
 
 /**
  * The chapter index (spec § 5.2): a pill with the index arch and the current chapter's label; it opens the chapter
- * overlay. Accessible name „Kapitel 03 Behandlungen“ (the visible label is part of it). 44 px tall (spec § 9 targets).
+ * overlay. Accessible name „Kapitel 02 Behandlungen“ (the visible label is part of it). 44 px tall (spec § 9 targets).
  * Without JS it is a link „Kapitel“ to the static chapter list above the footer (the overlay never mounts).
  */
 export function ChapterIndex({ className }: { className?: string }) {

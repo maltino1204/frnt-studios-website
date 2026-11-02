@@ -5,11 +5,11 @@
  *
  * <BookingLink source="header" className={buttonClasses()}>Termin finden</BookingLink>
  *   An `<a href="#termin">` (works without JS) that calls `openBooking({ source, categorySlug })` on a plain click.
- *   Use it for the header, the dock, the chapter overlay and the chapter CTAs „Freie Termine finden“ (04, 05, 06, 07).
+ *   Use it for the header, the dock, the chapter overlay and the chapter CTAs „Freie Termine finden“ (03, 04 fallback).
  *   `data-cta` defaults to `{source}-termin` (INTEGRATION.md § 7).
  *
  * <SearchLink className={…}>Freie Termine finden</SearchLink>
- *   Chapter 10's customer CTA: `/suche` in the HTML, upgraded after mount to `/suche?plz={PLZ}` when the draft or the
+ *   Chapter 07's customer CTA: `/suche` in the HTML, upgraded after mount to `/suche?plz={PLZ}` when the draft or the
  *   remembered PLZ holds one. It prefetches `/suche` on intent only (audit-2 RT-9).
  */
 import type Link from "next/link";

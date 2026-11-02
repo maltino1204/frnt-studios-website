@@ -55,7 +55,7 @@ export function HeroChapter({
             <a href="#so-funktionierts" className={`lp-hero-how ${lpLinkClass} -my-1 self-start`}>
               <span className={lpLinkText}>So funktioniert’s</span>
             </a>
-            {/* Hydrates right after the shell, in its own time-sliced pass (like chapters 02–10); a tap on it before
+            {/* Hydrates right after the shell, in its own time-sliced pass (like chapters 02–07); a tap on it before
                 then hydrates it first and replays the event. */}
             <Activity mode="visible">
               <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />

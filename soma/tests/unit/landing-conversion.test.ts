@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import type { CancellationPolicyDTO } from "@/server/dto";
-import { buildLandingFaq, cancellationAnswer, faqTrustStrip, liveCityNames } from "@/components/landing/booking/faq-data";
+import { buildLandingFaq, cancellationAnswer, LANDING_FAQ_PICK, landingFaq, liveCityNames } from "@/components/landing/booking/faq-data";
 import { heroLead, heroTrustItems, joinGerman, landingDescription, liveCategorySlugs } from "@/components/landing/booking/landing-copy";
 import { landingJsonLdGraph } from "@/components/landing/booking/landing-json-ld";
 import { getBookingDraft, resetBookingDraft, setBookingDraft } from "@/components/landing/booking/booking-draft";
@@ -35,8 +35,8 @@ const ALL_LIVE = liveCategorySlugs(
 );
 
 describe("landing copy (deck § 0.3, § 01): only what is true", () => {
-  it("lists the deck's categories when all are live", () => {
-    expect(heroLead(ALL_LIVE)).toBe("Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir. Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt.");
+  it("lists the deck's categories when all are live, in one sentence (v2)", () => {
+    expect(heroLead(ALL_LIVE)).toBe("Geprüfte Profis für Massage, Nägel, Kosmetik, Haare und Make-up kommen zu dir.");
   });
 
   it("drops a word whose categories have no approved Profi, and falls back without any", () => {
@@ -45,8 +45,8 @@ describe("landing copy (deck § 0.3, § 01): only what is true", () => {
       { categorySlug: "haare-styling", providerCount: 0 },
       { categorySlug: "pedikuere", providerCount: 1 },
     ]);
-    expect(heroLead(live)).toBe("Geprüfte Profis für Massage und Nägel kommen zu dir. Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt.");
-    expect(heroLead(new Set())).toBe("Geprüfte Profis kommen zu dir – mit Endpreis inklusive Anfahrt.");
+    expect(heroLead(live)).toBe("Geprüfte Profis für Massage und Nägel kommen zu dir.");
+    expect(heroLead(new Set())).toBe("Geprüfte Profis kommen zu dir.");
   });
 
   it("binds the cancellation window in the trust row and the description, and drops it without a free tier", () => {
@@ -118,21 +118,34 @@ describe("landing FAQ (deck § 09) with real term bindings", () => {
     expect(liveCityNames(cities, [{ citySlug: "berlin", providerCount: 4 }, { citySlug: "koeln", providerCount: 0 }])).toEqual(["Berlin"]);
   });
 
-  it("binds the guarantee window in the trust strip", () => {
-    expect(faqTrustStrip({ disputeWindowHours: 48 })).toContain(`SOMA-Garantie: Problem melden bis 48${NBSP}Std. nach dem Termin`);
-    expect(faqTrustStrip({ disputeWindowHours: 0 })).toHaveLength(3);
+  it("shows the five most important questions on the landing (v2), in deck order, values bound", () => {
+    const all = buildLandingFaq({ terms: TERMS, liveCities: ["Berlin"] });
+    const top = landingFaq({ terms: TERMS, liveCities: ["Berlin"] });
+    expect(top).toHaveLength(5);
+    expect(top).toEqual(LANDING_FAQ_PICK.map((i) => all[i]));
+    expect(top.map((f) => f.q)).toEqual([
+      "Wie funktioniert SOMA?",
+      "Wo gibt es SOMA?",
+      "Wie prüft SOMA die Profis?",
+      "Was passiert, wenn ein Termin abgesagt wird?",
+      "Wie bezahle ich?",
+    ]);
+    expect(top[3].a).toBe(cancellationAnswer(POLICY));
+    expect(top[1].a).toMatch(/^Aktuell in Berlin\. /);
   });
 });
 
 describe("landing JSON-LD", () => {
-  const faq = buildLandingFaq({ terms: TERMS, liveCities: ["Berlin"] });
+  const faq = landingFaq({ terms: TERMS, liveCities: ["Berlin"] });
   const ld = landingJsonLdGraph({ description: "D", liveCities: ["Berlin"], faq });
   const graph = ld["@graph"] as Array<Record<string, unknown>>;
   const byType = (t: string) => graph.find((n) => n["@type"] === t);
 
   it("describes Organization, WebSite, WebPage and the visible FAQ", () => {
     expect(graph.map((n) => n["@type"])).toEqual(["Organization", "WebSite", "WebPage", "FAQPage"]);
-    expect((byType("FAQPage")?.mainEntity as unknown[]).length).toBe(faq.length);
+    const entities = byType("FAQPage")?.mainEntity as Array<{ name: string; acceptedAnswer: { text: string } }>;
+    expect(entities.length).toBe(faq.length);
+    expect(entities.map((e) => ({ q: e.name, a: e.acceptedAnswer.text }))).toEqual(faq);
   });
 
   it("claims no search action and no organisation rating", () => {

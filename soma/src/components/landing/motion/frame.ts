@@ -72,7 +72,7 @@ export const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
 
 /** Below the viewport: the page has not reached it yet (the only place a reveal may hide anything, spec § 8.2). */
 export function isBelow(el: Element, vh = window.innerHeight): boolean {
-  // Measure the chapter while it is far away: inside a content-visibility: auto chapter (06–09) a descendant's box
+  // Measure the chapter while it is far away: inside a content-visibility: auto chapter (04–06) a descendant's box
   // would force that chapter's skipped layout.
   const chapter = el.closest("[data-chapter]");
   if (chapter && chapter.getBoundingClientRect().top >= vh) return true;

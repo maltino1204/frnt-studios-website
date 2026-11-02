@@ -1,5 +1,5 @@
 /**
- * The seven chapters of the landing page (docs/landing/LANDING_DESIGN_SPEC.md § 0.1 v2 structure, § 5.1): the single
+ * The seven chapters of the landing page (docs/landing/LANDING_DESIGN_SPEC.md "v2 structure", § 5.1): the single
  * source of truth for the section ids, the chapter index, the overlay, the static no-JS list, the dock label and the
  * motion layer's chapter events. v2 (client decision 2026-11-02) removed Idee, Dein Ort and Deine Buchung.
  */

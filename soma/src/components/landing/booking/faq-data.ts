@@ -1,10 +1,11 @@
 /**
- * Chapter 09 FAQ and trust strip (brand/COPY_DECK_LANDING.md § 09; LANDING_DESIGN_SPEC.md § 4.9; INTEGRATION.md § 6.2).
+ * Chapter 06 FAQ (brand/COPY_DECK_LANDING.md § 09; LANDING_DESIGN_SPEC.md § 4.9; INTEGRATION.md § 6.2).
  * Owner: Conversion & Integration. Pure and isomorphic.
  *
- * Frontend: render exactly `buildLandingFaq(...)` (all nine, no mobile limit) and the strip from `faqTrustStrip(...)`.
- * The FAQPage JSON-LD is emitted by <LandingJsonLd faq={…}> from the same array, so do NOT use `FaqSection`
- * (it emits a second FAQPage).
+ * `buildLandingFaq(...)` builds the deck's nine questions; the landing shows `landingFaq(...)`, the five most important
+ * of them (v2, client decision 2026-11-02), at every width, and links to `/hilfe` for the rest. Frontend: render exactly
+ * that array. The FAQPage JSON-LD is emitted by <LandingJsonLd faq={…}> from the same array, so do NOT use
+ * `FaqSection` (it emits a second FAQPage).
  *
  * Every policy value comes from `getPublicTerms()`; the cities are those with at least one approved Profi.
  */
@@ -146,12 +147,15 @@ export function buildLandingFaq(input: { terms: LandingFaqTerms; liveCities: rea
   ];
 }
 
-/** Chapter 09 trust strip (deck § 09): facts, no badges. */
-export function faqTrustStrip(terms: Pick<LandingFaqTerms, "disputeWindowHours">): string[] {
-  return [
-    "Verifizierte Profis",
-    "Endpreis inkl. Anfahrt",
-    `Bezahlt nur über ${BRAND_NAME}`,
-    ...(terms.disputeWindowHours > 0 ? [`${BRAND_NAME}-Garantie: Problem melden bis ${terms.disputeWindowHours}${NBSP}Std. nach dem Termin`] : []),
-  ];
+/**
+ * The deck questions the landing shows (v2), by their position in `buildLandingFaq`: how SOMA works, where, how the
+ * Profis are checked, cancellation and payment. The booking flow (deck question 4) is chapter 03 itself; the medical
+ * note, the address and the guarantee are answered on `/hilfe`.
+ */
+export const LANDING_FAQ_PICK = [0, 1, 2, 4, 5] as const;
+
+/** The landing's five questions (chapter 06 and the FAQPage JSON-LD), in deck order. */
+export function landingFaq(input: Parameters<typeof buildLandingFaq>[0]): FaqItem[] {
+  const all = buildLandingFaq(input);
+  return LANDING_FAQ_PICK.map((i) => all[i]);
 }

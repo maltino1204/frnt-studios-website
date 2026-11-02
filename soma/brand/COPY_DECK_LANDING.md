@@ -1,7 +1,22 @@
 # SOMA Landing Page: Copy Deck (DE)
 
 *Brand Strategist · phase B1 · 1 Nov 2026 · v1.0 · for `docs/landing/BRIEF.md` sections 01–10*
+*v2.0 · 2 Nov 2026 · Kundenentscheidung 2026-11-02: Landing gestrafft (seven chapters; see below)*
 *Voice and typography: `brand/BRAND_VOICE.md`. Strategy: `brand/BRAND_STRATEGY.md`.*
+
+> **Kundenentscheidung 2026-11-02: Landing gestrafft.** The client wrote: „die landingpage wirkt etwas überladen, du kannst sie etwas aufräumen.“ The Lead cut the page from ten chapters to seven (`docs/landing/LANDING_DESIGN_SPEC.md`, „v2 structure“). The copy is shorter: sentences are cut, the type is not shrunk.
+>
+> | v2 | Chapter | From v1 | Copy change |
+> |---|---|---|---|
+> | 01 | Bei dir | 01 | The lead is one sentence (§ 01). |
+> | 02 | Behandlungen | 03 | New quiet link **Themenwelten entdecken** → `/entdecken` next to „Alle Behandlungen“. |
+> | 03 | So funktioniert’s | 04 | Nav name „So funktioniert’s“ (was „Ablauf“). New trust row from v1 07's callouts: Endpreis · Start-Code · Kostenlos stornierbar bis {24 Std.} vorher. |
+> | 04 | Profis | 06 | One supporting sentence; „Selbst Profi?“ is gone (the next chapter is Für Profis). |
+> | 05 | Für Profis | 08 | Compact: eyebrow, headline, one line, the two CTAs. Benefits, commission strip and payment line stay on `/fuer-profis`. |
+> | 06 | Fragen | 09 | Five questions (1, 2, 3, 5, 6), then **Alle Fragen** → `/hilfe`. No trust strip. |
+> | 07 | SOMA | 10 | Unchanged. |
+>
+> **Removed from the page:** 02 Idee, 05 Dein Ort, 07 Deine Buchung. Their copy below is marked „entfernt (v2)“; it is not retired and may be reused on other pages with the Strategist's sign-off.
 
 **How to read this deck.**
 - Copy is German, addressed with *du*, and contains real NBSP (U+00A0).
@@ -21,6 +36,7 @@
 | Termin finden (persistent navigation) | `#termin` (the `BookingEntry` default id) | `booking-entry.tsx` |
 | Category | `/behandlungen/{massage · manikuere · pedikuere · kosmetik · haare-styling · brows-lashes · make-up}` | `routes.category`, seed slugs |
 | Alle Behandlungen | `/behandlungen` | `routes.categories` |
+| Entdecken · Themenwelten entdecken (v2) | `/entdecken` | `routes.explore` |
 | Profile | `/profis/{slug}` | `routes.provider` |
 | Städte | `/staedte`, `/staedte/{slug}` | `routes.cities`, `routes.city` |
 | Profi werden | `/pro/registrieren` | `routes.pro.onboarding` |
@@ -31,10 +47,11 @@
 
 ### 0.2 Navigation
 - **Persistent booking CTA** (desktop header and mobile thumb bar): **Termin finden** → `#termin`.
-- **Links:** Behandlungen · So funktioniert’s · Für Profis · Hilfe · Anmelden.
-- **Chapter navigation (01–10):** Bei dir · Idee · Behandlungen · Ablauf · Dein Ort · Profis · Deine Buchung · Für Profis · Fragen · SOMA.
+- **Links (v2):** Entdecken · Behandlungen · So funktioniert’s · Für Profis · Hilfe · Anmelden. „Entdecken“ → `/entdecken` comes first, as in the site header.
+- **Chapter navigation (v2, 01–07):** Bei dir · Behandlungen · So funktioniert’s · Profis · Für Profis · Fragen · SOMA.
   - Accessible name of the nav: „Kapitel“.
-  - Progress text: „Kapitel 3 von 10: Behandlungen“.
+  - Progress text: „Kapitel 2 von 7: Behandlungen“.
+  - *(v1, 01–10: Bei dir · Idee · Behandlungen · Ablauf · Dein Ort · Profis · Deine Buchung · Für Profis · Fragen · SOMA.)*
 
 ### 0.3 Metadata (proposal for Conversion & Integration)
 - `title`: **SOMA – Beauty & Wellness bei dir zu Hause, im Hotel und im Büro**
@@ -52,14 +69,14 @@
 | Eyebrow | Zu Hause · Hotel · Büro |
 | Display line (`lang="en"`) | **Your body. Your place.** |
 | H1 (German, visible) | Beauty & Wellness bei dir zu Hause, im Hotel oder im Büro. |
-| Lead (≤ 2 sentences) | Geprüfte Profis für {Massage, Nägel, Kosmetik, Haare und Make-up} kommen zu dir. Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt. |
+| Lead (v2: one sentence) | Geprüfte Profis für {Massage, Nägel, Kosmetik, Haare und Make-up} kommen zu dir. *(v1 added: „Du siehst echte freie Termine – mit Endpreis inklusive Anfahrt.“ The trust row right under the entry says „Endpreis inkl. Anfahrt“, and the search shows only real free slots.)* |
 | Primary CTA (entry submit) | **Freie Termine finden** → `/suche?…` |
 | Secondary CTA | **So funktioniert’s** → `#so-funktionierts` |
 | Trust row | Verifizierte Profis · Endpreis inkl. Anfahrt · Kostenlos stornierbar bis {24 Std.} vorher |
 
 **Why not the brief's "Jetzt entdecken".** It names no outcome. „Freie Termine finden“ says what happens and is true: search shows only real free slots. "Entdecken" survives as step 01 and in the category CTAs.
 
-**Lead rule.** The category list must match the live catalogue. If Haare & Styling is not live, drop „Haare“. If the list cannot be rendered, use the fallback: „Geprüfte Profis kommen zu dir – mit Endpreis inklusive Anfahrt.“
+**Lead rule.** The category list must match the live catalogue. If Haare & Styling is not live, drop „Haare“. If the list cannot be rendered, use the fallback: „Geprüfte Profis kommen zu dir.“ *(v1: „… – mit Endpreis inklusive Anfahrt.“)*
 
 ### Booking entry microcopy
 **Field order: Wo? · Was? · Wann?** "Your place" comes first. The PLZ is the only required field, it decides availability and the total price, and the order matches the app.
@@ -92,23 +109,12 @@ If the hero interaction switches between places, use these lines. They exist in 
 
 ---
 
-## 02 · Philosophy: Idee
-**Intent:** an editorial statement. Care adapts to life, not the other way round.
-
-| Element | Copy |
-|---|---|
-| Eyebrow | Die Idee |
-| Headline | **Dein Termin richtet sich nach deinem Leben.** *Accent clause:* Nicht umgekehrt. |
-| Three scroll lines | Kein Weg durch die Stadt. · Kein Parkplatz. · Kein Wartebereich. |
-| Closing statement | Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht. |
-| Origin caption (optional, small) | Soma ist das altgriechische Wort für Körper. |
-| Quiet link | Behandlungen ansehen → `#behandlungen` |
-
-No long paragraph and no further copy.
+## v1 02 · Philosophy: Idee · entfernt (v2)
+**Removed from the landing** (Kundenentscheidung 2026-11-02). Its copy, for reuse elsewhere with sign-off: headline „Dein Termin richtet sich nach deinem Leben. Nicht umgekehrt.“ · lines „Kein Weg durch die Stadt. · Kein Parkplatz. · Kein Wartebereich.“ · statement „Du bleibst, wo du bist. Dein Profi kommt – mit allem, was die Behandlung braucht.“ · caption „Soma ist das altgriechische Wort für Körper.“
 
 ---
 
-## 03 · Services: Behandlungen
+## 02 · Services: Behandlungen *(v1 03)*
 **Intent:** the service universe; every tile leads to its discovery route.
 
 | Element | Copy |
@@ -117,6 +123,7 @@ No long paragraph and no further copy.
 | Headline | **{Sieben} Behandlungen.** *Accent clause:* Ein Ort: deiner. *(the number word comes from `catalog.length`)* |
 | Supporting | Von Profis, die mitbringen, was die Behandlung braucht – von der Liege bis zur Lampe. |
 | Section link | **Alle Behandlungen** → `/behandlungen` |
+| Quiet link (v2) | **Themenwelten entdecken** → `/entdecken` |
 
 | Tile | Line | Price chip (data only) | CTA → route |
 |---|---|---|---|
@@ -134,7 +141,7 @@ No long paragraph and no further copy.
 
 ---
 
-## 04 · How it works: Ablauf (`#so-funktionierts`)
+## 03 · How it works: So funktioniert’s (`#so-funktionierts`) *(v1 04 „Ablauf“)*
 **Intent:** three steps, understood at a glance.
 
 | Element | Copy |
@@ -157,11 +164,20 @@ No long paragraph and no further copy.
   - „{54 €} inkl. Anfahrt“
   - „Kostenlos stornierbar bis {Mi., 18:30 Uhr}“
   - „Start-Code {4827}“
+- **Trust row (v2, under the steps; the three callouts of v1 07, verbatim):**
+
+  | Title | Line |
+  |---|---|
+  | Endpreis | Inklusive Anfahrt, bevor du buchst. |
+  | Start-Code | Vier Ziffern, mit denen dein Termin beginnt. |
+  | Kostenlos stornierbar bis {24 Std.} vorher *(from `terms.cancellationPolicy`; „Kostenlos stornierbar bis zum Termin“ with a 0 h window; „Stornofrist“ without a free window)* | Mit Datum und Uhrzeit, nicht im Kleingedruckten. |
 - **CTA:** Freie Termine finden → `#termin`.
 
 ---
 
-## 05 · Experience: Dein Ort
+## v1 05 · Experience: Dein Ort · entfernt (v2)
+**Removed from the landing** (Kundenentscheidung 2026-11-02). The copy below is kept for reference.
+
 **Intent:** the benefits of being at home, told in pictures. No numbers, no availability promises.
 
 | Element | Copy |
@@ -184,28 +200,30 @@ No long paragraph and no further copy.
 
 ---
 
-## 06 · Professionals: Profis
+## 04 · Professionals: Profis *(v1 06)*
 **Intent:** the human side, with real data only.
 
 | Element | Copy |
 |---|---|
 | Eyebrow | Die Profis |
 | Headline | **Wer bei dir klingelt.** |
-| Supporting | Selbstständige Profis mit eigener Handschrift. Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben. |
+| Supporting (v2) | Geprüft, bevor sie buchbar sind – bewertet nur von Menschen, die wirklich gebucht haben. *(v1 began with „Selbstständige Profis mit eigener Handschrift.“)* |
 | Card (data only) | {Anna K.} · {Massage, Kosmetik} · ★ {4,9} ({87}), shown only when reviews exist · „Verifiziert“ only from approved documents · CTA **Profil ansehen** → `/profis/{slug}` |
 | Demo label (`DEMO_MODE`) | Demo-Profil · Foto KI-generiert |
-| Secondary link | Selbst Profi? → `#fuer-profis` |
+| Secondary link | *(v1: Selbst Profi? → `#fuer-profis`; v2: none, the chapter foot's „Weiter: Für Profis“ goes there)* |
 
 **Fallback when no verified Profis are available** (a non-specific presentation without faces):
 - Headline: **Wer bei dir klingelt.**
-- Body: „Auf SOMA arbeiten selbstständige Profis – mit eigenen Preisen, eigenen Zeiten und eigenem Stil. Wer buchbar ist, hat Ausweis, Gewerbeanmeldung, Berufshaftpflicht und je nach Kategorie eine Qualifikation nachgewiesen.“
+- Body (v2): „Wer auf SOMA buchbar ist, hat Ausweis, Gewerbeanmeldung, Berufshaftpflicht und je nach Kategorie eine Qualifikation nachgewiesen.“ *(v1 began with „Auf SOMA arbeiten selbstständige Profis – mit eigenen Preisen, eigenen Zeiten und eigenem Stil.“)*
 - CTA: **Freie Termine finden**.
 
 **Never:** invented names, testimonials, review counts, qualifications or badges.
 
 ---
 
-## 07 · Digital experience: Deine Buchung
+## v1 07 · Digital experience: Deine Buchung · entfernt (v2)
+**Removed from the landing** (Kundenentscheidung 2026-11-02). Endpreis, Stornofrist and Start-Code are the trust row of 03 now. The copy below is kept for reference.
+
 **Intent:** the product, shown truthfully: a web app, with no store badges.
 
 | Element | Copy |
@@ -228,8 +246,10 @@ No long paragraph and no further copy.
 
 ---
 
-## 08 · For professionals: SOMA für Profis (`#fuer-profis`)
+## 05 · For professionals: SOMA für Profis (`#fuer-profis`) *(v1 08)*
 **Intent:** win independent professionals, with no income claims.
+
+**v2 (compact):** on the landing only the eyebrow, the headline, the supporting line and the two CTAs below. The benefits, the commission strip and the payment line are not on the landing any more; they stay true for `/fuer-profis`.
 
 | Element | Copy |
 |---|---|
@@ -255,15 +275,17 @@ No long paragraph and no further copy.
 
 ---
 
-## 09 · FAQ & trust: Fragen
+## 06 · FAQ: Fragen *(v1 09)*
 **Intent:** practical answers that are true to the product. The same strings feed the FAQPage JSON-LD.
+
+**v2:** the landing shows questions **1, 2, 3, 5 and 6** (the booking flow, 4, is chapter 03 itself; 7, 8 and 9 are answered on `/hilfe`), then one link **Alle Fragen** → `/hilfe`. The FAQPage JSON-LD holds exactly these five. No trust strip: the hero's trust row and 03's carry those facts. The texts of all nine stay as below.
 
 | Element | Copy |
 |---|---|
 | Eyebrow | Fragen & Antworten |
 | Headline | **Antworten,** *Accent clause:* bevor du fragst. |
-| Trust strip (facts, no badges) | Verifizierte Profis · Endpreis inkl. Anfahrt · Bezahlt nur über SOMA · SOMA-Garantie: Problem melden bis {48} Std. nach dem Termin |
-| Links | Alle Fragen und Antworten → `/hilfe` · Stornobedingungen → `/stornierung` |
+| Trust strip | *(v1: Verifizierte Profis · Endpreis inkl. Anfahrt · Bezahlt nur über SOMA · SOMA-Garantie: Problem melden bis {48} Std. nach dem Termin; v2: none)* |
+| Link (v2) | **Alle Fragen** → `/hilfe` *(v1: Alle Fragen und Antworten → `/hilfe` · Stornobedingungen → `/stornierung`; „Stornierung“ stays in the footer)* |
 
 **1 · Wie funktioniert SOMA?**
 Du gibst deine Postleitzahl ein und wählst eine Behandlung und einen Zeitraum. Du siehst geprüfte Profis mit echten freien Terminen und dem Endpreis inklusive Anfahrt. Du buchst – und dein Profi kommt zu dir nach Hause, ins Hotel oder ins Büro.
@@ -305,7 +327,7 @@ Stimmt etwas nicht, meldest du es bis {48} Stunden nach dem Termin über deine B
 
 ---
 
-## 10 · Final brand moment: SOMA
+## 07 · Final brand moment: SOMA *(v1 10, unchanged)*
 **Intent:** return to the core message and close with both audiences.
 
 | Element | Copy |

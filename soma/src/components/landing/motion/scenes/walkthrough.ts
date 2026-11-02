@@ -2,7 +2,7 @@ import { ease } from "../reveal";
 import { attr, type MotionContext, type Stop } from "../frame";
 
 /**
- * 04 · Ablauf, pin 1 (spec § 4.4), full tier once the scene is ready (the sticky layout is the Frontend's CSS):
+ * 03 · So funktioniert’s, pin 1 (spec § 4.4), full tier once the scene is ready (the sticky layout is the Frontend's CSS):
  * - the active step is the step block crossing the viewport's centre line (one IntersectionObserver), written as
  *   `data-step` on the scene; the CSS switches vignettes (out 160 ms, in 320 ms with the inner cards on a 60 ms
  *   stagger) and, at step 3, fades the outline and raises the signature pair, its Ortszeilen and the Start-Code;

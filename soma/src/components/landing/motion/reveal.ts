@@ -4,15 +4,14 @@ import { attr, type MotionContext, type Stop } from "./frame";
 const STAGGER = 90;
 const MAX_STEPS = 5;
 
-/** Generic targets: clause headlines and statements, arches (with their Ortszeile and Start-Code), the 02 arch in lite. */
-export const REVEAL_TARGETS = 'main [data-reveal="clause"], main [data-reveal="arch"], main [data-scene="doorway"] [data-arch="frame"]';
+/** Generic targets: clause headlines and statements, arches (with their Ortszeile and Start-Code). */
+export const REVEAL_TARGETS = 'main [data-reveal="clause"], main [data-reveal="arch"]';
 
-/** Elements a scene drives itself: a ready pinned stage (04, 05) or doorway (02), the seal (10); the hero never waits. */
+/** Elements a scene drives itself: the ready pinned stage (03), the seal (07); the hero never waits. */
 function owned(el: Element, ready: Set<Element>): boolean {
   if (el.closest('[data-scene="seal"], #bei-dir')) return true;
   const scene = el.closest("[data-scene]");
-  if (!scene || !ready.has(scene)) return false;
-  return scene.getAttribute("data-scene") === "doorway" ? el.matches('[data-doorway-lines], [data-arch="frame"]') : !!el.closest("[data-stage]");
+  return !!scene && ready.has(scene) && !!el.closest("[data-stage]");
 }
 
 /**
@@ -23,7 +22,7 @@ function owned(el: Element, ready: Set<Element>): boolean {
  *   12 px from 480 ms with its digits on the 90 ms stagger.
  * Trigger: 15 % visible. Only elements below the viewport at start-up are ever hidden (`data-reveal-state="pending"`),
  * so nothing that has been seen disappears, and without this module everything simply shows. Targets in a
- * horizontal rail (03 and 06 cards) reveal together when the rail first shows, with the 90 ms stagger (≤ 6), so a
+ * horizontal rail (02 and 04 cards) reveal together when the rail first shows, with the 90 ms stagger (≤ 6), so a
  * card never waits for a swipe ("first view only").
  */
 export function startReveals(ctx: MotionContext): Stop {
@@ -100,7 +99,7 @@ const eases = new Map<string, string>();
 
 /**
  * The CSS easing tokens (MOTION.md § 2), for the few Web Animations the scenes run. Read once each and kept: a read
- * inside a tap (07 tabs) forced a style recalculation of the page (≈ 13 ms at 4× CPU). The runtime warms them up in
+ * inside a tap (the former 07 tabs) forced a style recalculation of the page (≈ 13 ms at 4× CPU). The runtime warms them up in
  * its start-up read phase.
  */
 export function ease(name: "standard" | "arrive" | "settle" | "exit"): string {

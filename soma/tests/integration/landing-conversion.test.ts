@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { generateLandingMetadata, loadLandingConversion } from "@/components/landing/booking/metadata";
+import { cancellationAnswer } from "@/components/landing/booking/faq-data";
 import { landingJsonLdGraph } from "@/components/landing/booking/landing-json-ld";
 import { PROMISE_WORDS } from "@/components/landing/booking/landing-copy";
 import { freeCancellationHours } from "@/components/site/discovery-copy";
@@ -22,7 +23,7 @@ describe("landing conversion data (INTEGRATION.md § 5, § 6)", () => {
       const claimed = new RegExp(`(für |, | und )${word}( |,)`).test(conv.heroLead);
       expect(claimed, word).toBe(slugs.some((s) => live.has(s)));
     }
-    if (!live.size) expect(conv.heroLead).toBe("Geprüfte Profis kommen zu dir – mit Endpreis inklusive Anfahrt.");
+    if (!live.size) expect(conv.heroLead).toBe("Geprüfte Profis kommen zu dir.");
 
     const liveCitySlugs = new Set(coverage.filter((c) => c.providerCount > 0).map((c) => c.citySlug));
     expect(conv.liveCities).toEqual(cities.filter((c) => liveCitySlugs.has(c.slug)).map((c) => c.name));
@@ -30,13 +31,14 @@ describe("landing conversion data (INTEGRATION.md § 5, § 6)", () => {
     else expect(conv.faq[1].a).not.toContain("Aktuell in");
 
     const free = freeCancellationHours(terms.cancellationPolicy);
-    expect(conv.faq).toHaveLength(9);
+    // v2: the landing shows the five most important deck questions (the other four are answered on /hilfe)
+    expect(conv.faq).toHaveLength(5);
+    expect(conv.faq.map((f) => f.q)).toEqual(["Wie funktioniert SOMA?", "Wo gibt es SOMA?", "Wie prüft SOMA die Profis?", "Was passiert, wenn ein Termin abgesagt wird?", "Wie bezahle ich?"]);
     if (free) {
       expect(conv.description).toContain(`kostenlos stornierbar bis ${free}${NBSP}Std. vorher`);
       expect(conv.heroTrust).toContain(`Kostenlos stornierbar bis ${free}${NBSP}Std. vorher`);
     }
-    expect(conv.faq[8].a).toContain(`bis ${terms.disputeWindowHours}${NBSP}Stunden nach dem Termin`);
-    expect(conv.faqTrust).toContain(`SOMA-Garantie: Problem melden bis ${terms.disputeWindowHours}${NBSP}Std. nach dem Termin`);
+    expect(conv.faq[3].a).toBe(cancellationAnswer(terms.cancellationPolicy));
   });
 
   it("produces the landing metadata without overriding robots", async () => {

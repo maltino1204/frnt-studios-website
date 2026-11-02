@@ -11,50 +11,26 @@ import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
 import { Chapter, LpContainer } from "./chapter";
 
-const NBSP = " ";
-const PLACE = `Treppenhaus, 2.${NBSP}OG · Berlin-Neukölln · 17:40`;
-
-export type Commission = { rate: number; repeatClientRate: number; ownClientRate: number };
-
-/** 0.2 → "20 %", 0.125 → "12,5 %" (NBSP before the sign). */
-function percent(r: number): string {
-  return `${(r * 100).toLocaleString("de-DE", { maximumFractionDigits: 1 })}${NBSP}%`;
-}
+const PLACE = "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40";
 
 /**
- * 08 · Für Profis (spec § 4.8): the second audience. ≥ 1024 the one full-bleed photo band (no arch: the Profi is on
- * the way), the text in the night scope on the image's calm left third (measured contrast), the band declaring
- * `data-header-theme="dark"`. < 1024 the app-pro photo in a full-width arch and the text on Bone. Below, on Bone:
- * the five benefits (no icons), the data-bound commission strip and the payment line. No income claims.
+ * 05 · Für Profis (spec § 4.8): the second audience, compact since v2 (one headline, one line, the two CTAs; the
+ * benefits, the commission strip and the payment line live on `/fuer-profis`, one tap away through „Konditionen
+ * ansehen“). ≥ 1024 the one full-bleed photo band (no arch: the Profi is on the way), the text in the night scope on
+ * the image's calm left third (measured contrast), the band declaring `data-header-theme="dark"`; the band is sized by
+ * its content over a floor, and the CTAs and the Ortszeile stay in the flow under the text (audit-1 I-2: nothing can
+ * collide at 1024–1180). < 1024 the app-pro photo in an arch and the text on Bone. No income claims.
  */
-export function FuerProfisChapter({ commission, payoutHoldHours }: { commission: Commission; payoutHoldHours: number | null }) {
-  const benefits = [
-    { title: "Gefunden werden", line: "Du erscheinst in Suchen in deinem Radius – mit deinem Endpreis inklusive Anfahrt." },
-    { title: "Deine Zeiten", line: "Arbeitszeiten, Puffer, Vorlaufzeit und freie Tage legst du selbst fest." },
-    { title: "Alles in SOMA Pro", line: "Anfragen annehmen oder ablehnen, Kalender, Start-Code und Einnahmen an einem Ort." },
-    { title: "Dein Profil", line: "Portfolio, Leistungen und Bewertungen aus echten Terminen." },
-    {
-      title: "Dein Geschäft",
-      line: `Eigene Preise und dein Einladungslink: Stammkundschaft bucht dich darüber für ${percent(commission.ownClientRate)} Provision.`,
-    },
-  ];
-  const strip = [
-    "Keine Grundgebühr",
-    `${percent(commission.rate)} bei neuer Kundschaft über SOMA`,
-    `${percent(commission.repeatClientRate)} bei Stammkundschaft`,
-    `${percent(commission.ownClientRate)} mit deinem Einladungslink`,
-    `0${NBSP}% auf die Anfahrt`,
-  ];
-
+export function FuerProfisChapter() {
   return (
-    <Chapter n={8} padded={false} cv={{ desktop: 1280, tablet: "calc(1098px + 84vw)", mobile: 1920 }} className="lp-pros">
+    <Chapter n={5} padded={false} cv={{ desktop: 680, tablet: "calc(454px + 105.9vw)", mobile: "calc(650px + 107vw)" }} className="lp-pros">
       <div data-scene="band" className="lp-band">
         <div className="lp-band-media" data-header-theme="dark">
           <LandingImage
             src="/images/editorial/provider-cta-v2.jpg"
             alt="Ein Profi mit Tasche steigt am frühen Abend die Holztreppe eines Berliner Altbaus hinauf."
             sizes="100vw"
-            focal="68% 50%"
+            focal="68% 30%"
             settle
           />
         </div>
@@ -64,7 +40,7 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
               <LandingImage
                 src="/images/landing/app-pro.jpg"
                 alt="Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone."
-                sizes="calc(100vw - 40px)"
+                sizes="(min-width: 768px) 70vw, calc(100vw - 40px)"
                 focal="50% 50%"
               />
             </LandingArch>
@@ -73,7 +49,7 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
             </figcaption>
           </figure>
           <div className="lp-band-text">
-            <Eyebrow nn="08">SOMA für Profis</Eyebrow>
+            <Eyebrow nn="05">SOMA für Profis</Eyebrow>
             <Clauses
               as="h2"
               id={titleId("fuer-profis")}
@@ -86,7 +62,7 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
             </p>
             <div className="lp-band-ctas mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {/* Prefetched on intent only: the onboarding route's prefetch preloads CSS `/` never uses (RT-9). */}
-              <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-08">
+              <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-05">
                 Profi werden
               </IntentLink>
               <ButtonLink href={`${routes.forPros()}#provision`} prefetch={false} variant="secondary" size="l" className="max-sm:w-full" iconRight={<Icon icon={ArrowRight} size={18} />}>
@@ -97,31 +73,6 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
           <Ortszeile text={PLACE} className="lp-band-place" />
         </LpContainer>
       </div>
-
-      <LpContainer className="pt-14 pb-(--space-section) lg:pt-20">
-        <ul className="grid gap-x-6 gap-y-8 md:grid-cols-3 xl:grid-cols-5" aria-label="Was SOMA für Profis übernimmt">
-          {benefits.map((b) => (
-            <li key={b.title} className="border-t border-line pt-5">
-              <h3 className="type-heading-m text-ink">{b.title}</h3>
-              <p className="mt-2 max-w-[32ch] type-body-s text-ink-muted">{b.line}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-12 border-t border-line pt-6 lg:mt-16">
-          <p className="type-label-s text-ink num">
-            {strip.map((s, i) => (
-              <span key={s}>
-                {i > 0 ? `${NBSP}· ` : null}
-                <span className="whitespace-nowrap">{s}</span>
-              </span>
-            ))}
-          </p>
-          <p className="mt-3 type-body-s text-ink-muted">
-            Bezahlt wird über SOMA – nicht an der Tür.
-            {payoutHoldHours != null ? ` Dein Anteil ist ${payoutHoldHours}${NBSP}Stunden nach dem Termin verfügbar.` : null}
-          </p>
-        </div>
-      </LpContainer>
     </Chapter>
   );
 }

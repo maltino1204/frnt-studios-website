@@ -31,6 +31,22 @@ const STEPS = [
   },
 ] as const;
 
+const NBSP = "\u00a0";
+
+/**
+ * The three trust points under the steps (v2; formerly chapter 07's callouts, deck § 07, verbatim): the cancellation
+ * title carries the real free window (`freeHours` from `terms.cancellationPolicy`, as in the hero trust row), the
+ * deck's „Stornofrist“ when there is none.
+ */
+function trustPoints(freeHours: number | null) {
+  const storno = freeHours == null ? "Stornofrist" : freeHours > 0 ? `Kostenlos stornierbar bis ${freeHours}${NBSP}Std. vorher` : "Kostenlos stornierbar bis zum Termin";
+  return [
+    { title: "Endpreis", line: "Inklusive Anfahrt, bevor du buchst." },
+    { title: "Start-Code", line: "Vier Ziffern, mit denen dein Termin beginnt." },
+    { title: storno, line: "Mit Datum und Uhrzeit, nicht im Kleingedruckten." },
+  ];
+}
+
 /** The stage picture of one step: the Espresso outline with the vignette below its springline, or the pair. */
 function StepVisual({ n, data, instance }: { n: 1 | 2 | 3; data: WalkthroughData; instance: string }) {
   if (n === 3) return <VignetteStay />;
@@ -51,21 +67,22 @@ function Decorative({ children, className }: { children: ReactNode; className?: 
 }
 
 /**
- * 04 · Ablauf (spec § 4.4) on Stone. One DOM for every tier:
+ * 03 · So funktioniert’s (spec § 4.4) on Stone. One DOM for every tier:
  * - lite / none (and < 1024): step buttons + a horizontal snap row of three panels (vignette + text);
  * - full (`html[data-motion="full"] [data-scene="walkthrough"][data-scene-ready]`, landing.css): the step blocks
  *   become a vertical column (`data-step-trigger`) and the sticky stage (`data-stage`) shows the active vignette
  *   (`data-step-item`); step 3 is the signature pair.
- * Vignettes are real kit components with real data, `aria-hidden` and `inert` (no fake actions).
+ * Vignettes are real kit components with real data, `aria-hidden` and `inert` (no fake actions). Under the steps, one
+ * compact row of three trust points (v2), then the foot.
  */
 export function AblaufChapter({ data }: { data: WalkthroughData }) {
-  const next = nextChapter(4)!;
+  const next = nextChapter(3)!;
   const caption = DEMO_MODE ? "Vorschau · Demo-Daten" : "Vorschau";
   return (
-    <Chapter n={4}>
+    <Chapter n={3}>
       <LpContainer>
         <div className="max-w-[44rem]">
-          <Eyebrow nn="04">So funktioniert’s</Eyebrow>
+          <Eyebrow nn="03">So funktioniert’s</Eyebrow>
           <Clauses as="h2" id={titleId("so-funktionierts")} tabIndex={-1} className="mt-4 type-display-m text-ink outline-none" parts={["Drei Schritte.", "Kein Weg."]} />
         </div>
 
@@ -113,9 +130,18 @@ export function AblaufChapter({ data }: { data: WalkthroughData }) {
           <p className="lp-walk-caption mt-4 type-caption text-ink-muted">{caption}</p>
         </div>
 
+        <dl className="lp-walk-trust mt-12 grid gap-5 border-t border-line pt-6 md:grid-cols-3 md:gap-6 lg:mt-16">
+          {trustPoints(data.freeHours).map((t) => (
+            <div key={t.title}>
+              <dt className="type-heading-m text-ink">{t.title}</dt>
+              <dd className="mt-1 max-w-[34ch] type-body-s text-ink-muted">{t.line}</dd>
+            </div>
+          ))}
+        </dl>
+
         <ChapterFoot
           className="mt-10 lg:mt-14"
-          cta={{ label: "Freie Termine finden", href: "#termin", kind: "button", booking: "ch04" }}
+          cta={{ label: "Freie Termine finden", href: "#termin", kind: "button", booking: "ch03" }}
           next={{ id: next.id, name: next.name }}
         />
       </LpContainer>

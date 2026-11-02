@@ -18,7 +18,7 @@ import { BRAND_NAME, OG_IMAGE } from "@/lib/brand";
 import { listCatalog, listCities } from "@/server/services/catalog";
 import { getCoverageMatrix, getPriceFloors, getPublicTerms } from "@/server/services/site-ext";
 import type { FaqItem } from "@/components/site/discovery-copy";
-import { buildLandingFaq, faqTrustStrip, liveCityNames } from "./faq-data";
+import { landingFaq, liveCityNames } from "./faq-data";
 import { heroLead, heroTrustItems, LANDING_OG_TITLE, LANDING_TITLE, landingDescription, liveCategorySlugs } from "./landing-copy";
 
 export const loadLandingCatalog = cache(() => listCatalog());
@@ -34,10 +34,8 @@ export type LandingConversionData = {
   heroTrust: string[];
   /** meta description, also Organization.description */
   description: string;
-  /** chapter 09: the nine questions; render all of them, they feed the FAQPage JSON-LD */
+  /** chapter 06: the five questions; render all of them, they feed the FAQPage JSON-LD */
   faq: FaqItem[];
-  /** chapter 09 trust strip */
-  faqTrust: string[];
   /** cities with at least one approved Profi (FAQ 2, areaServed) */
   liveCities: string[];
   liveCitySlugs: string[];
@@ -59,8 +57,7 @@ export const loadLandingConversion = cache(async (): Promise<LandingConversionDa
     heroLead: heroLead(live),
     heroTrust: heroTrustItems(terms?.cancellationPolicy),
     description: landingDescription(live, terms?.cancellationPolicy),
-    faq: terms ? buildLandingFaq({ terms, liveCities, activeCategorySlugs: catalog?.map((c) => c.slug) }) : [],
-    faqTrust: faqTrustStrip({ disputeWindowHours: terms?.disputeWindowHours ?? 0 }),
+    faq: terms ? landingFaq({ terms, liveCities, activeCategorySlugs: catalog?.map((c) => c.slug) }) : [],
     liveCities,
     liveCitySlugs: cities.filter((c) => liveSlugs.has(c.slug)).map((c) => c.slug),
   };

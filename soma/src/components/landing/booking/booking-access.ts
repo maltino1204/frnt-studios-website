@@ -2,7 +2,7 @@
  * Booking access, always one action away (docs/landing/LANDING_DESIGN_SPEC.md § 5.5; INTEGRATION.md C4).
  * Owner: Conversion & Integration. Stable API for the Frontend and Motion developers:
  *
- *   openBooking({ source: "header" | "dock" | "overlay" | "ch04" | …, categorySlug? })
+ *   openBooking({ source: "header" | "dock" | "overlay" | "ch03" | …, categorySlug? })
  *     1. the hero entry (#termin) is ≥ 25 % in view  → focus its PLZ field (no scroll, no overlay);
  *     2. ≥ 1024 px → <BookingBar/>, < 1024 px → <BookingSheet/>:
  *        - mounted: it opens at once;

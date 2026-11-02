@@ -16,6 +16,26 @@
 
 ## 0. Reconciliation with the design spec, and implementation status (v1.1)
 
+**v2 structure (client decision 2 Nov 2026; `LANDING_DESIGN_SPEC.md` „v2 structure“).** Seven chapters: `bei-dir` (01,
+entry `termin`), `behandlungen` (02), `so-funktionierts` (03), `profis` (04), `fuer-profis` (05), `fragen` (06), `soma`
+(07). `idee`, `dein-ort` and `deine-buchung` are gone. What changed here:
+- **FAQ:** `loadLandingConversion().faq` is `landingFaq()`: the five most important deck questions (1, 2, 3, 5, 6), the
+  same array in chapter 06 and in the FAQPage JSON-LD; `buildLandingFaq()` still builds all nine. The trust strip
+  (`faqTrust`, `faqTrustStrip()`) is removed; „Alle Fragen“ → `/hilfe` follows the questions.
+- **Hero lead:** one sentence (`heroLead()`); fallback „Geprüfte Profis kommen zu dir.“
+- **Chapter 05:** no commission data on the landing (`getProviderTerms()` is no longer loaded by `page.tsx`); the two CTAs
+  stay (`pro-werden-05`, „Konditionen ansehen“ → `/fuer-profis#provision`).
+- **Chapter 03:** the trust row binds the free window to `terms.cancellationPolicy` (`freeCancellationHours`), like the
+  hero trust row.
+- **Booking sources and ids:** `ch03` (03), `ch04` (04 fallback); `pro-werden-07`, `final-search` (07). `ch05`, `ch05-stage`,
+  `ch06`, `ch07` and `pro-werden-08` / `-10` no longer exist.
+- **Links:** „Themenwelten entdecken“ → `/entdecken` in 02's foot; „Entdecken“ → `/entdecken` first in the header links
+  (≥ 1280), the overlay's „Seiten“ and the no-JS list.
+- **Dock rule:** a booking control under the shown sticky header does not count as in view (`nav-observer.ts`), since the
+  hero now sits right above 02.
+
+The v1 text below is kept; where it names v1 chapters, read the table in the spec.
+
 The Lead approved v1.0 (C1–C9 to implement). Where `LANDING_DESIGN_SPEC.md` differs, **the spec wins on design and this
 document on routes and data**. The sections below were edited accordingly; this table is the summary.
 
@@ -142,16 +162,16 @@ values (`routes.ts:15-22`; `booking-entry.tsx:539-545`). Example:
 
 ### 1.8 In-page anchor contract (Frontend Engineer implements, tests check)
 
-Chapter ids per spec § 5.1: `#bei-dir` (01), `#idee`, `#behandlungen`, `#so-funktionierts`, `#dein-ort`, `#profis`,
-`#deine-buchung`, `#fuer-profis`, `#fragen`, `#soma` (10).
+Chapter ids per spec § 5.1 (v2): `#bei-dir` (01), `#behandlungen`, `#so-funktionierts`, `#profis`, `#fuer-profis`,
+`#fragen`, `#soma` (07).
 
 | Anchor | Must exist on the landing | Referenced by |
 |---|---|---|
 | `#termin` | the hero `BookingEntry` wrapper (`HeroBookingEntry` sets it) | header, dock, overlay and chapter CTAs (`href="#termin"`, enhanced to `openBooking`), deep links `/?plz=…#termin` |
-| `#so-funktionierts` | chapter 04 | R2, header link |
-| `#behandlungen` | chapter 03 | R4, chapter foot of 02 |
-| `#fuer-profis` | chapter 08 | R9 |
-| `#fragen` | chapter 09 | chapter index |
+| `#so-funktionierts` | chapter 03 | R2, header link, chapter foot of 02 |
+| `#behandlungen` | chapter 02 | chapter index (R4, the v1 Idee link, is removed) |
+| `#fuer-profis` | chapter 05 | chapter foot of 04 |
+| `#fragen` | chapter 06 | chapter index |
 
 Every `href="#…"` on the page must resolve to exactly one `id` (test T14). Only one element carries `id="termin"`; the bar
 and sheet entries use `termin-leiste` and `termin-sheet`, and they exist only while open.

@@ -11,17 +11,12 @@ import { requestBooking } from "./surfaces";
 import { ChapterIndex } from "./chapter-index";
 import { NoScriptChapterLink } from "./static-chapter-list";
 import { openChapterOverlay } from "./overlay-events";
-
-export const HEADER_LINKS = [
-  { href: routes.categories(), label: "Behandlungen" },
-  { href: "#so-funktionierts", label: "So funktioniert’s" },
-  { href: routes.forPros(), label: "Für Profis" },
-  { href: routes.help(), label: "Hilfe" },
-] as const;
+import { HEADER_LINKS } from "./pages";
 
 /**
  * Landing header (spec § 5.2, § 5.3). ≥ 1024: 68 px, sticky, never hides; micro wordmark · chapter index · (≥ 1280)
- * the four links · hairline · Anmelden · „Termin finden“. 1024–1279: the links live in the overlay („Menü“).
+ * the five links (Entdecken first, as in the site header) · hairline · Anmelden · „Termin finden“. 1024–1279: the
+ * links live in the overlay („Menü“).
  * < 1024: 60 / 68 px, the wordmark and „Menü“ (the dock carries booking).
  *
  * Themes are CSS (landing.css): transparent at the top, glass after 8 px (`data-scrolled`, set here), and the dark
