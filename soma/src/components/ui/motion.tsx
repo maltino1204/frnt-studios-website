@@ -13,6 +13,7 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@/lib/cn";
+import { scrollToTarget } from "@/lib/scroll-jump";
 
 /*
  * Motion primitives (brand MOTION.md: motion means arrival; elements settle and stop, nothing loops, numbers never
@@ -50,7 +51,8 @@ export function MotionRoot() {
       const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
+      // Re-targeted once the scroll ends: content-visibility sections change height on the way (lib/scroll-jump.ts).
+      scrollToTarget(target, { smooth: !reducedMotion() });
       if (location.hash !== url.hash) history.pushState(history.state, "", url.hash);
       if (!target.hasAttribute("tabindex") && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(target.tagName)) target.setAttribute("tabindex", "-1");
       target.focus({ preventScroll: true });
