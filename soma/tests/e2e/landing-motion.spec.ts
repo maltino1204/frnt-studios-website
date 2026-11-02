@@ -24,6 +24,42 @@ async function scrollToId(page: Page, id: string, block: ScrollLogicalPosition =
   await page.evaluate(([x, b]) => document.getElementById(x)?.scrollIntoView({ block: b as ScrollLogicalPosition, behavior: "instant" }), [id, block]);
 }
 
+/** Resolves once the page has stopped scrolling (scrollY unchanged for 400 ms): a jump has ended, corrections included. */
+async function scrollSettled(page: Page) {
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((resolve) => {
+        let y = window.scrollY;
+        let still = 0;
+        const t = window.setInterval(() => {
+          if (Math.abs(window.scrollY - y) < 1) still++;
+          else {
+            still = 0;
+            y = window.scrollY;
+          }
+          if (still >= 4) {
+            window.clearInterval(t);
+            resolve(true);
+          }
+        }, 100);
+      }),
+    undefined,
+    { timeout: 10_000 },
+  );
+}
+
+/**
+ * Where a chapter jump ended (audit 2, N-1): the chapter's heading 0–320 px from the top and the chapter active. The
+ * position is read after the scroll has settled, so a smooth scroll that passes the target on its way does not count.
+ */
+async function expectLanded(page: Page, id: string, nn: string) {
+  await scrollSettled(page);
+  const top = await page.evaluate((x) => Math.round(document.getElementById(`${x}-titel`)!.getBoundingClientRect().top), id);
+  expect(top, `#${id}-titel top after the jump`).toBeGreaterThanOrEqual(0);
+  expect(top, `#${id}-titel top after the jump`).toBeLessThanOrEqual(320);
+  await expect.poll(() => root(page, "chapterActive")).toBe(nn);
+}
+
 const opacity = (page: Page, selector: string) =>
   page.locator(selector).evaluateAll((els) => els.map((el) => Number(getComputedStyle(el).opacity)));
 
@@ -196,7 +232,52 @@ test("chapter overlay: focus moves in, the current chapter is marked, a jump foc
   await overlay.getByRole("link", { name: /Fragen/ }).click();
   await expect(overlay).toBeHidden();
   await expect(page.locator("#fragen-titel")).toBeFocused();
-  await expect.poll(() => root(page, "chapterActive")).toBe("09");
+  // …and the jump lands there: 06–09 change height on the way (content-visibility), the scroll is re-targeted
+  await expectLanded(page, "fragen", "09");
+});
+
+test("phones: chapter jumps land on their chapter (overlay, hero link; lite tier, 390 × 844)", async ({ page }, ti) => {
+  test.skip(ti.project.name !== "mobile", "the dock's chapter overlay exists below 1024 px");
+  test.setTimeout(90_000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  // a fresh page per jump: every chapter on the way is still laid out at its estimated height (audit 2, N-1)
+  for (const [id, nn] of [
+    ["profis", "06"],
+    ["fragen", "09"],
+  ] as const) {
+    await open(page, "?motion=lite");
+    await dock(page).getByRole("button", { name: /^Kapitel/ }).click();
+    const overlay = page.getByRole("dialog", { name: "Kapitel und Seiten" });
+    await expect(overlay).toBeVisible();
+    await overlay.locator(`a[href="#${id}"]`).click();
+    await expect(overlay).toBeHidden();
+    await expect(page.locator(`#${id}-titel`)).toBeFocused();
+    await expectLanded(page, id, nn);
+  }
+  await open(page, "?motion=lite");
+  await page.locator('#bei-dir a[href="#so-funktionierts"]').click();
+  await expectLanded(page, "so-funktionierts", "04");
+});
+
+test("full tier: the 05 stage CTA takes a real mouse click (audit 2, N-2)", async ({ page }, ti) => {
+  test.skip(ti.project.name !== "desktop", "the pinned stage is a desktop layout");
+  await open(page, "?motion=full");
+  await runtime(page);
+  const stage = page.locator('[data-scene="stage"]');
+  await expect(stage).toHaveAttribute("data-scene-ready", "");
+  await page.evaluate(() => {
+    const s = document.querySelector<HTMLElement>('[data-scene="stage"]')!;
+    const run = s.offsetHeight - s.querySelector<HTMLElement>("[data-stage]")!.offsetHeight;
+    window.scrollTo(0, s.getBoundingClientRect().top + scrollY + run * (2.5 / 6));
+  });
+  await expect(stage).toHaveAttribute("data-step", "3");
+  // Playwright clicks at the centre only once nothing else would receive the click there (the active item used to)
+  await page.locator('[data-cta="ch05-stage-termin"]').click({ timeout: 5000 });
+  const bar = page.getByRole("dialog", { name: "Termin finden" });
+  await expect(bar).toBeVisible();
+  await expect(bar.locator('input[name="plz"]')).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(bar).toBeHidden();
 });
 
 test("full tier: pins upgrade only below the fold, steps follow the scroll, no layout shift", async ({ page }, ti) => {
