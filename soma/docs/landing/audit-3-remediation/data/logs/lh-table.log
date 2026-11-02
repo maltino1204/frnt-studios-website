@@ -1,0 +1,32 @@
+
+dev-base (http://localhost:3200/?motion=lite, devtools, mobile; motion runtime loaded: true)
+  94 · FCP 2.21 · LCP 2.32 · TBT 138 · SI 2.27 · CLS 0.0011 · bench 1740
+  93 · FCP 2.29 · LCP 2.29 · TBT 179 · SI 2.35 · CLS 0.0011 · bench 2026
+  92 · FCP 2.33 · LCP 2.33 · TBT 195 · SI 2.38 · CLS 0.0011 · bench 1601
+  91 · FCP 2.34 · LCP 2.34 · TBT 226 · SI 2.40 · CLS 0.0011 · bench 1647
+  89 · FCP 2.37 · LCP 2.37 · TBT 287 · SI 2.44 · CLS 0.0011 · bench 1797
+  median: 92 · FCP 2.33 · LCP 2.33 · TBT 195 · CLS 0.0011
+
+dev-lite (http://localhost:3100/?motion=lite, devtools, mobile; motion runtime loaded: true)
+  93 · FCP 2.38 · LCP 2.38 · TBT 173 · SI 2.44 · CLS 0.0011 · bench 1117
+  95 · FCP 2.33 · LCP 2.33 · TBT 103 · SI 2.39 · CLS 0.0011 · bench 1682
+  95 · FCP 2.26 · LCP 2.26 · TBT 132 · SI 2.31 · CLS 0.0011 · bench 1607
+  93 · FCP 2.35 · LCP 2.35 · TBT 174 · SI 2.40 · CLS 0.0011 · bench 1652
+  92 · FCP 2.28 · LCP 2.28 · TBT 218 · SI 2.33 · CLS 0.0011 · bench 1699
+  median: 93 · FCP 2.33 · LCP 2.33 · TBT 173 · CLS 0.0011
+
+dev-new (http://localhost:3100/?motion=lite, devtools, mobile; motion runtime loaded: true)
+  93 · FCP 2.39 · LCP 2.39 · TBT 144 · SI 2.45 · CLS 0.0011 · bench 1698
+  93 · FCP 2.31 · LCP 2.31 · TBT 187 · SI 2.38 · CLS 0.0011 · bench 1403
+  93 · FCP 2.35 · LCP 2.35 · TBT 177 · SI 2.41 · CLS 0.0011 · bench 1626
+  94 · FCP 2.37 · LCP 2.37 · TBT 121 · SI 2.43 · CLS 0.0011 · bench 1512
+  91 · FCP 2.43 · LCP 2.43 · TBT 209 · SI 2.48 · CLS 0.0011 · bench 1941
+  median: 93 · FCP 2.37 · LCP 2.37 · TBT 177 · CLS 0.0011
+
+sim-base (http://localhost:3200/?motion=lite, simulate, mobile; motion runtime loaded: true)
+  88 · FCP 1.54 · LCP 3.79 · TBT 68 · SI 1.54 · CLS 0 · bench 1653
+  median: 88 · FCP 1.54 · LCP 3.79 · TBT 68 · CLS 0
+
+sim-new (http://localhost:3100/?motion=lite, simulate, mobile; motion runtime loaded: true)
+  90 · FCP 1.52 · LCP 3.54 · TBT 58 · SI 1.52 · CLS 0 · bench 1571
+  median: 90 · FCP 1.52 · LCP 3.54 · TBT 58 · CLS 0

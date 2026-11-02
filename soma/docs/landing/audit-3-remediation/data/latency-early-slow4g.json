@@ -6,13 +6,13 @@
   "res": [
    {
     "label": "dock Termin finden (early, cold surfaces)",
-    "inp": 232,
-    "visible": 289
+    "inp": 344,
+    "visible": 421
    },
    {
     "label": "Escape (close sheet)",
-    "inp": 48,
-    "visible": 52
+    "inp": 64,
+    "visible": 67
    }
   ]
  },
@@ -23,13 +23,13 @@
   "res": [
    {
     "label": "dock Termin finden (early, cold surfaces)",
-    "inp": 272,
-    "visible": 309
+    "inp": 232,
+    "visible": 223
    },
    {
     "label": "Escape (close sheet)",
     "inp": 56,
-    "visible": 53
+    "visible": 51
    }
   ]
  },
@@ -40,13 +40,13 @@
   "res": [
    {
     "label": "dock Termin finden (early, cold surfaces)",
-    "inp": 304,
-    "visible": 355
+    "inp": 296,
+    "visible": 322
    },
    {
     "label": "Escape (close sheet)",
-    "inp": 40,
-    "visible": 33
+    "inp": 56,
+    "visible": 51
    }
   ]
  }

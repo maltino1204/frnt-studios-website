@@ -3,79 +3,79 @@
   {
    "path": "/?motion=lite",
    "run": 1,
-   "hydratedAt": 4799,
-   "tapToShell": 948,
-   "tapToPicker": 992,
+   "hydratedAt": 4705,
+   "tapToShell": 900,
+   "tapToPicker": 970,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 265,
-    "shell": 191,
-    "list": 569
+    "tapDispatch": 474,
+    "shell": 168,
+    "list": 332
    }
   },
   {
    "path": "/?motion=lite",
    "run": 2,
-   "hydratedAt": 4522,
-   "tapToShell": 745,
-   "tapToPicker": 781,
+   "hydratedAt": 4679,
+   "tapToShell": 1016,
+   "tapToPicker": 1059,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 210,
-    "shell": 209,
-    "list": 487
+    "tapDispatch": 227,
+    "shell": 169,
+    "list": 706
    }
   },
   {
    "path": "/behandlungen/massage",
    "run": 1,
-   "hydratedAt": 4798,
-   "tapToShell": 1162,
-   "tapToPicker": 1184,
+   "hydratedAt": 4687,
+   "tapToShell": 902,
+   "tapToPicker": 919,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 445,
-    "shell": 363,
-    "list": 630
+    "tapDispatch": 208,
+    "shell": 282,
+    "list": 618
    }
   },
   {
    "path": "/behandlungen/massage",
    "run": 2,
-   "hydratedAt": 4727,
-   "tapToShell": 1171,
-   "tapToPicker": 1209,
+   "hydratedAt": 4614,
+   "tapToShell": 1077,
+   "tapToPicker": 1107,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 275,
-    "shell": 391,
-    "list": 822
+    "tapDispatch": 326,
+    "shell": 249,
+    "list": 706
    }
   },
   {
    "path": "/staedte/berlin",
    "run": 1,
-   "hydratedAt": 4571,
-   "tapToShell": 1356,
-   "tapToPicker": 1415,
+   "hydratedAt": 4836,
+   "tapToShell": 1236,
+   "tapToPicker": 1539,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 421,
-    "shell": 424,
-    "list": 859
+    "tapDispatch": 398,
+    "shell": 410,
+    "list": 645
    }
   },
   {
    "path": "/staedte/berlin",
    "run": 2,
-   "hydratedAt": 4923,
-   "tapToShell": 1362,
-   "tapToPicker": 1401,
+   "hydratedAt": 4680,
+   "tapToShell": 1163,
+   "tapToPicker": 1223,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 430,
-    "shell": 253,
-    "list": 748
+    "tapDispatch": 496,
+    "shell": 249,
+    "list": 458
    }
   }
  ],
@@ -84,8 +84,8 @@
    "phone": true,
    "path": "/behandlungen/massage",
    "chunks": [
-    "01pf5mnbchj-l.js",
-    "03ktgsz5yyoo4.js"
+    "1kqti2eixk-ce.js",
+    "1t1wki7djfsmv.js"
    ],
    "expanded": "true",
    "dialogs": [
@@ -97,8 +97,8 @@
    "phone": false,
    "path": "/behandlungen/massage",
    "chunks": [
-    "01pf5mnbchj-l.js",
-    "03ktgsz5yyoo4.js"
+    "1kqti2eixk-ce.js",
+    "1t1wki7djfsmv.js"
    ],
    "expanded": "true",
    "dialogs": [
@@ -110,8 +110,8 @@
    "phone": false,
    "path": "/?motion=full",
    "chunks": [
-    "01pf5mnbchj-l.js",
-    "03ktgsz5yyoo4.js"
+    "1kqti2eixk-ce.js",
+    "1t1wki7djfsmv.js"
    ],
    "expanded": "true",
    "dialogs": [
@@ -123,8 +123,8 @@
    "phone": true,
    "path": "/?motion=lite",
    "chunks": [
-    "01pf5mnbchj-l.js",
-    "03ktgsz5yyoo4.js"
+    "1kqti2eixk-ce.js",
+    "1t1wki7djfsmv.js"
    ],
    "expanded": "true",
    "dialogs": [

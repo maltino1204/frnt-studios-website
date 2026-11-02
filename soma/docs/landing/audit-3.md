@@ -554,3 +554,112 @@ Unchanged and correct:
 - the framework's share of first-load JS.
 
 *Database: I ran the landing E2E suites once (they create searches and waitlist entries) and logged in once as `testkunde@soma.test`. No `demo:refresh`. `:3100` was left running, not restarted, not rebuilt.*
+
+---
+
+## 17. Remediation after audit 3 (engineer's measurements)
+
+*The remediation engineer's own claims, 2 Nov 2026. **This is not an audit score**: the dimensions stay as scored above until a re-audit. §§ 1–16 are unchanged. Wrapped up early at the Lead's request (the landing is being restructured), so some checks below were not re-run; they are named as such.*
+
+**Final build:** `EBL0wjMMQ7z1zY5mjO0oi` on `:3100`, built from the committed code (route cache cleared, served HTML checked for `lp-hero-ribbon` and the new hero `sizes`). **Evidence:** `docs/landing/audit-3-remediation/` (`scripts/` = the auditor's audit-3 scripts copied with the output path changed, plus `pickers-shell.js` and `remediation-chain.sh`; `data/` = raw JSON). **Before:** the auditor's numbers in § 11, my own batch on the audited build at the start of the session (`data/before-latency-*-batch1.json`), and for Lighthouse an A/B against the audited commit `716e488` built from a worktree and served on `:3200`, runs alternating base/new.
+
+### 17.1 What changed
+
+| PR | Change | Files |
+|---|---|---|
+| PR-1 (M-1) | The kit's dialog choreography gets an opt-in `paintFirst`: the open shows the dialog non-modally (`show()`, `data-opening`: fixed over the page) in the tap's task and calls `close()` + `showModal()` in the task after that first frame, where the booking sheet first skips the off-screen page parts (`beforeModal`). The entry animation's start time is carried over the upgrade (no restart), focus lands on the PLZ in the first frame, Esc works before the upgrade, and focus returns to the opener on close. The motion layer treats `data-opening` as modal (no layout reads inside the tap). The dialogs' modules load in the first idle period (≤ 500 ms) after a first tap or key anywhere. | `ui/sheet.tsx`, `app/globals.css`, `landing/booking/booking-sheet.tsx`, `landing/motion/nav-observer.ts`, `landing/nav/lazy-surfaces.tsx`, `nav/surfaces.ts` |
+| PR-1/2 (found here) | `html:has([data-demo-ribbon]) .lp-hero` made `<html>` a `:has()` anchor: every `:has`-relevant change anywhere (a focus, an inserted picker) restyled the whole rendered page (Was? tap in the sheet: 312 elements → 29 without the rule). Replaced by a server-set class `.lp-hero-ribbon` (same `DEMO_MODE` predicate as the ribbon, same value, no visual change). | `(landing)/landing.css`, `chapters/01-hero.tsx` |
+| PR-2 (M-2, M-4) | The picker thumbnails are built on the server (`entryCatalog()` → `getImageProps()`, 44 px slot, only the 48–256 w candidates a 44 px slot can pick). The pickers' chunk (24–25 KB raw) no longer imports `next/image`, `ui/photo` or the image registry, so the 121 KB image chunk `2l9alz8fskj3l.js` no longer loads after hydration. The inline Was? list in the booking sheet renders hidden in an idle period once the sheet's entry is on screen (unlabelled, `hidden`), so the tap only shows it. Landing and the three discovery page types use the same catalog builder. | `site/entry-catalog.ts` (new), `site/discovery-copy.ts`, `site/booking-entry-pickers.tsx`, `site/booking-entry.tsx`, `(landing)/page.tsx`, `behandlungen/[kategorie]/page.tsx`, `…/[stadt]/page.tsx`, `staedte/[stadt]/page.tsx` |
+| PR-3 (M-3) | A first Was?/Wann? tap opens the popover or sheet at once with a frame of the list's height (`aria-busy`) and fills it when the chunk arrives; the mobile picker sheet uses `paintFirst` and renders its list in one task right after its first frame; the pickers also load when the entry comes into view. The kit `Sheet` is now imported by `booking-entry.tsx` (first load). | `site/booking-entry.tsx`, `site/booking-entry-pickers.tsx` |
+| PR-4 (M-5) | `heroSizes(ribbon)` writes the capped arch of `landing.css` into `sizes` (`min()`, `clamp()`, `svh`), each capped entry followed by the old value as a fallback for browsers that cannot evaluate it. | `hero/places.ts`, `chapters/01-hero.tsx` |
+| PR-5 (M-6) | Esc / „Schließen“ closes the overlay in the key's task (the 160 ms exit fade starts with the next frame); header and dock render again first (focus returns to the trigger), main and the footer in the task after that frame, under the fade. | `nav/chapter-overlay.tsx` |
+| P3 (M-9) | Spec § 10.4 lists the measured `contain-intrinsic-size` estimates (02–10 per width); § 4.1.2 describes the capped hero `sizes`. Doc only. | `LANDING_DESIGN_SPEC.md` |
+
+Not touched: M-7, M-8 (hard-coded head heights), N-11.
+
+### 17.2 A measurement caveat found on the way: `pickers.js`
+
+`audit-3/scripts/pickers.js` waits with `page.waitForFunction(<string>, { polling: 'raf' })`. Under the site's CSP (`script-src 'self' 'unsafe-inline'`, no `'unsafe-eval'`) Playwright's string-predicate polling throws `EvalError`, which the script's `.catch(() => {})` swallows. Its `tapToPicker` is therefore the duration of Playwright's `tap()` (actionability checks plus input dispatch on a busy main thread) plus one evaluate, not the time to the picker. `pickers-shell.js` keeps the original fields and adds in-page timing with the latency.js method (the tap's `pointerdown` → first frame with the shell / the list), plus `tapDispatch` (t0 → Playwright's `pointerdown`: 208–496 ms in the final runs). The PR-3 numbers below use the in-page timing.
+
+### 17.3 PR-1: dock → sheet (`latency.js`, 412 × 823, 4× CPU, Slow 4G, cold)
+
+| | Runs (visible ms) | Result |
+|---|---|---|
+| Warm, before (auditor, 2 × 3) | 148 / 222 / 305 / 170 / 276 / 172 | median 197, 3/6 ≤ 200 |
+| Warm, before (mine, audited build, 1 × 3) | 184 / 165 / 216 | 2/3 ≤ 200 |
+| **Warm, after (2 × 3)** | **113 / 156 / 129 / 208 / 125 / 156** | **median 143, 5/6 ≤ 200: target (6/6) not met, one run at 208** |
+| Early, before (auditor) | 366 / 335 / 633 / 330 / 398 / 485 | median 382 |
+| Early, before (mine) | 445 / 489 / 367 | median 445 |
+| **Early, after (2 × 3)** | **267 / 346 / 322 / 421 / 223 / 322** | **median 322: target (≤ 300) not met** |
+
+INP-like for the warm open: 120 / 152 / 128 / 176 / 128 / 160 (auditor 152–272). The modal upgrade still costs one long task after the first frame (≈ 120–190 ms at 4× CPU, the inert restyle); the sheet animates on the compositor meanwhile (frame probe: no restart, `data/` not kept).
+**Why early misses:** the remaining first-frame work is the dialogs' chunk evaluation, their mount, the first render of the sheet's entry and the first style of its ~50 elements (≈ 0.5 ms per element at 4× CPU; style resolution on this stylesheet with 347 root custom properties and 80 `@property` rules is expensive per element). I did not change PT-1 (no loading before the first interaction). In the lab the dialogs' chunks come from the service worker (~40 ms), so a real first-visit tap also pays the network.
+
+### 17.4 PR-2: Was? list and DevTools TBT
+
+| | Runs | Result |
+|---|---|---|
+| Was? list in the sheet, before (auditor) | 391 / 457 / 365 / 395 / 409 / 345 | median 393 |
+| Was? list, before (mine) | 465 / 649 / 498 | — |
+| **Was? list, after (2 × 3; frame and list in the same frame)** | **129 / 145 / 123 / 81 / 111 / 147** | **median 126: target (≤ 250) met** |
+| DevTools TBT `/?motion=lite`, base `716e488` (A/B) | 138 / 179 / 195 / 226 / 287 | median 195 (scores 94 / 93 / 92 / 91 / 89) |
+| **DevTools TBT, after (A/B)** | **144 / 187 / 177 / 121 / 209** | **median 177** (scores 93 / 93 / 93 / 94 / 91) |
+| DevTools TBT, after (same code, earlier batch `dev-lite-b`) | 196 / 149 / 230 / 167 / 204 | median 196 |
+| DevTools TBT, development batch (before the payload trims) | 173 / 103 / 132 / 174 / 218 | median 173 |
+
+**DevTools TBT target (≤ 150) not met.** The pickers' image chunk (`2l9alz8fskj3l.js`, 78–103 ms tasks) no longer loads, and no task from the pickers or the sheet pre-render falls inside TTI in any run (the pre-render task sits at ≈ 14 s, after TTI). What remains counted is the same as in the base build and in audit 2's runs: react-dom's evaluation and bootstrap microtasks at ≈ 3.4 s (89–231 ms in both builds), the HTML parser compiling the inline RSC payload just after FCP (60–130 ms tasks), Activity hydration passes at ≈ 4 s and the motion runtime's evaluation. With a run-to-run spread of 103–287 ms on this machine, 5 runs cannot separate a 15–20 ms difference reliably. HTML: 516.0 KB raw / 67.2 KB gz (audited build 509.0 / 66.5): the server-built thumbnails and the longer hero `sizes`.
+
+### 17.5 PR-3: first Was? tap right after hydration (`pickers-shell.js`, in-page timing, final build)
+
+| Page | Shell (ms) | List (ms) | pickers.js wall clock `tapToShell` / `tapToPicker` |
+|---|---|---|---|
+| Landing hero | 168 / 169 | 332 / 706 | 900 / 970 · 1016 / 1059 |
+| `/behandlungen/massage` | 282 / 249 | 618 / 706 | 902 / 919 · 1077 / 1107 |
+| `/staedte/berlin` | 410 / 249 | 645 / 458 | 1236 / 1539 · 1163 / 1223 |
+
+Earlier runs on the same picker code (before the payload trims): hero shell 191 / 209, list 569 / 487; massage 363 / 391, list 630 / 822; Berlin 424 / 253, list 859 / 748. Before (auditor, `pickers.js`, see § 17.2): 1,020 / 835, 568 / 463, 881 / 495, with nothing on screen in the mobile layout until the chunk arrived.
+**Targets partly met:** the shell is ≤ 200 ms on the landing hero in 3 of 4 runs (168 / 169 / 191; one at 209), not on the discovery pages (249–424 ms); the hero list ≤ 600 ms in 3 of 4 runs (one at 706). These taps land while hydration still runs (`tapDispatch` 208–496 ms), and the discovery pages render their whole page, so their sheet's first frame and modal upgrade cost more.
+
+### 17.6 PR-4: hero `sizes` (`firstview.js`, final build)
+
+| Viewport | Rendered | Loaded before (§ 4.9) | Loaded after | Bytes (auditor's sizes for that width) |
+|---|---|---|---|---|
+| 390 × 844 | 280 css | 828 w | **640 w** | 29.0 → 19.1 KB |
+| 768 × 1024 | 243 css | 1080 w | **640 w** | 45.6 → 19.1 KB |
+| 820 × 1180 | 364 css | 1280 w | **828 w** | 58.9 → 29.0 KB |
+| 1023 × 768 | 265 css | 828 w | **384 w** | 29.0 → 8.6 KB |
+| 412 × 915 / 430 × 932 / 390 × 664 / 360 / 1024 / 1440 | — | unchanged | unchanged (828 / 828 / 828 / 640 / 384 / 640) | — |
+
+The loaded width is now the auditor's "needed" width everywhere. The literal 1.3 × bound is missed by 8 px at 768 (640 w for 486 device px) and at 1023 (384 w for 265 px), because no smaller optimiser candidate covers the rendered width. The Moto profile (412 × 823, perf.js, Lighthouse) is not capped and still loads 828 w, so the LCP path is unchanged: perf.js LCP 2,240 / 2,360 / 2,264 ms.
+
+### 17.7 PR-5: Esc on the chapter overlay (`latency.js`)
+
+| | Visible (ms) | INP-like (ms) |
+|---|---|---|
+| Before (auditor) | 241 / 262 / 203 / 308 / 223 / 264 | 16–24 |
+| Before (mine) | 365 / 307 / 269 | 24 / 24 / 24 |
+| **After (2 × 3)** | **63 / 96 / 101 / 82 / 53 / 93** | 64 / 96 / 96 / 80 / 56 / 88 |
+
+**Target (≤ 120) met.** Event Timing now includes the close, as it should: in `perf.js` the Esc keydown reads 136 / 184 / 128 (audit: 24–40, when the close was deferred). Overlay open: 114 / 161 / 133 / 162 / 157 / 155 (auditor median 138). E2E focus return on Esc (dock and header) passes.
+
+### 17.8 Other interactions and regression checks
+
+- **latency.js, after (6 runs):** place switch 183 / 253 / 173 / 121 / 173 / 192 (auditor median 206); Esc (sheet) 77 / 46 / 50 / 56 / 63 / 73; FAQ 118 / 88 / 169 / 172 / 133 / 144; 07 tab 105 / 80 / 130 / 101 / 108 / 118.
+- **`MASK=1 node docs/landing/audit-1/scripts/perf.js mobile slow4g 3`:** TBT 98 / 86 / 103, LCP 2,240 / 2,360 / 2,264 ms (the hero `<img>`), CLS 0. Rule (TBT ≤ 200, LCP ≤ 2.5 s) holds.
+- **Visual:** the Was? popover at 1440 is identical to the auditor's `d1440-was-popover.png` (`audit-3-remediation/d1440-was-popover.png`; thumbnails 44 × 44, cover, focal point, 48 w at DPR 1).
+- **First-load JS:** the changed first-load chunks are +6.2 KB raw (the kit `Sheet` with `paintFirst`, now needed for the instant picker shell); weight.js not re-run.
+- **E2E, landing suites, both projects, final build:** 71 passed, 11 skipped, 0 failed (same as § 4.9): chapter jumps land (phones and desktop), the 05 CTA takes a mouse click, the early-typed PLZ is kept (T2a), the no-JS GET form, reduced motion, dock rules and focus return.
+- **tsc:** clean. **vitest:** first run 231 / 232 (one failure, its output not captured), re-run 232 / 232.
+- **Not re-run (wrap-up):** the full E2E suite (only the landing suites), Lighthouse simulate and desktop on the final build (only one simulate run on the base build: 88), `jump.js`, `kb-hero.js` (768–1023 focus order; the hero markup is unchanged), `hydration.js`, `early.js`, `tech.js`, the no-JS walk. The probes used during the work logged no console errors.
+
+### 17.9 Not reached, and why
+
+| Target | Measured | Reason |
+|---|---|---|
+| Warm sheet 6/6 ≤ 200 | 5/6 (one 208), median 143 | One slow run. What is left in the first frame is the entry's re-seed render, the dialog subtree's style and the paint. |
+| Early sheet median ≤ 300 | 322 | Chunk evaluation, mount and the first style of the sheet in the first frame (§ 17.3); no loading before the first interaction (PT-1 kept). |
+| DevTools TBT median ≤ 150 | 177 (A/B base 195) | Pickers and sheet tasks are out of the TBT window. The remaining TBT is framework bootstrap, inline RSC compile and hydration, the same as in the base build (§ 17.4). |
+| First Was? tap shell ≤ 200 on all three pages | hero 168–209 (3/4 ≤ 200); discovery 249–424 | Taps land during hydration; full-page modal upgrade on the discovery pages. |
+| Hero list ≤ 600 | 3 of 4 runs | Same contention; one run at 706. |
+
+*Commits: the Lead's checkpoints `3d2bac2`, `b61101c`, `2570fd4` (most of the code above) and `cd99b6a` (evidence), then mine: `af78d11`, `d6bb2f3`, `6613c78` and the commit with this section and the final evidence. `:3100` runs the final build `EBL0wjMMQ7z1zY5mjO0oi` with a fresh route cache. Database: the latency, picker and E2E runs created searches and waitlist entries; no `demo:refresh`.*
