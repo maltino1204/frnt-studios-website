@@ -1,0 +1,80 @@
+{
+ "early": [
+  {
+   "path": "/?motion=lite",
+   "run": 1,
+   "hydratedAt": 4661,
+   "shell": 202,
+   "list": 504,
+   "pointerdownAt": 5257
+  },
+  {
+   "path": "/?motion=lite",
+   "run": 2,
+   "hydratedAt": 4547,
+   "shell": 294,
+   "list": 587,
+   "pointerdownAt": 4993
+  },
+  {
+   "path": "/?motion=lite",
+   "run": 3,
+   "hydratedAt": 4499,
+   "shell": 123,
+   "list": 361,
+   "pointerdownAt": 5060
+  },
+  {
+   "path": "/behandlungen/massage",
+   "run": 1,
+   "hydratedAt": 4659,
+   "shell": 321,
+   "list": 853,
+   "pointerdownAt": 5235
+  },
+  {
+   "path": "/behandlungen/massage",
+   "run": 2,
+   "hydratedAt": 4680,
+   "shell": 217,
+   "list": 577,
+   "pointerdownAt": 5236
+  },
+  {
+   "path": "/behandlungen/massage",
+   "run": 3,
+   "hydratedAt": 4767,
+   "shell": 188,
+   "list": 514,
+   "pointerdownAt": 5341
+  }
+ ],
+ "blocked": [
+  {
+   "phone": true,
+   "path": "/?motion=lite",
+   "chunks": [
+    "1kqti2eixk-ce.js",
+    "3t-97mndkvk0z.js"
+   ],
+   "expanded": "true",
+   "surfaces": [
+    ":Behandlung wählenAlle BehandlungenAlle verfügbaren Profis in"
+   ],
+   "shot": "pickers-blocked-m412.png"
+  },
+  {
+   "phone": false,
+   "path": "/?motion=full",
+   "chunks": [
+    "1kqti2eixk-ce.js",
+    "3t-97mndkvk0z.js"
+   ],
+   "expanded": "true",
+   "surfaces": [
+    "Behandlung wählen:Alle BehandlungenAlle verfügbaren Profis in deiner NäheMassa"
+   ],
+   "shot": "pickers-blocked-d1440.png"
+  }
+ ]
+}

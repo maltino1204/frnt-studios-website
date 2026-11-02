@@ -1,0 +1,592 @@
+[
+ {
+  "run": 1,
+  "loadMs": 4591,
+  "ttfb": 33,
+  "fcp": 2376,
+  "lcp": 2528,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2376:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2528:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 174,
+  "longTasks": [
+   "3159+218",
+   "3383+56"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 168,
+    "inDelay": 78,
+    "proc": 51,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 88,
+    "inDelay": 31,
+    "proc": 29,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 56,
+    "inDelay": 37,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 200,
+    "inDelay": 31,
+    "proc": 0,
+    "t": "BUTTON Kapitel01 Bei dir02 Behandlung"
+   },
+   {
+    "name": "keydown",
+    "d": 176,
+    "inDelay": 2,
+    "proc": 80,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 56963
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 40013
+   },
+   "Image": {
+    "n": 5,
+    "bytes": 67782
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 18,
+    "bytes": 203850
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "25.7KB /_next/image?url=/images/landing/hero-home-4x5-v3.jpg&w=828&q=75",
+   "20.4KB /_next/image?url=/images/categories/massage-v3.jpg&w=640&q=75",
+   "20.1KB /_next/image?url=/images/categories/manikuere-v3.jpg&w=640&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v3.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v3.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "1.4KB 0vol9jjyvwsj9.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "1.7KB 1vztaanc5ym2w.js",
+   "15.4KB 377dv6fep488b.js",
+   "16.6KB 3l72rp4sm_6jx.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "3.2KB 0ghmpvp36qk1f.js",
+   "3.5KB 1f8ikac5uvmw7.js",
+   "0.0KB 1kqti2eixk-ce.js",
+   "0.0KB 1fpo9rfotdi5z.js",
+   "0.0KB 1z1uxddlpgdmk.js",
+   "0.0KB 1iqclw7wpffdy.js"
+  ]
+ },
+ {
+  "run": 2,
+  "loadMs": 4614,
+  "ttfb": 13,
+  "fcp": 2316,
+  "lcp": 2316,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2316:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 190,
+  "longTasks": [
+   "3275+235",
+   "3574+55"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 112,
+    "inDelay": 59,
+    "proc": 31,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 112,
+    "inDelay": 27,
+    "proc": 34,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 56,
+    "inDelay": 30,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 312,
+    "inDelay": 35,
+    "proc": 2,
+    "t": "BUTTON Kapitel01 Bei dir02 Behandlung"
+   },
+   {
+    "name": "keydown",
+    "d": 192,
+    "inDelay": 2,
+    "proc": 105,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 56963
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 40013
+   },
+   "Image": {
+    "n": 5,
+    "bytes": 67782
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 18,
+    "bytes": 200258
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "25.7KB /_next/image?url=/images/landing/hero-home-4x5-v3.jpg&w=828&q=75",
+   "20.4KB /_next/image?url=/images/categories/massage-v3.jpg&w=640&q=75",
+   "20.1KB /_next/image?url=/images/categories/manikuere-v3.jpg&w=640&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v3.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v3.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "1.4KB 0vol9jjyvwsj9.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "15.4KB 377dv6fep488b.js",
+   "1.7KB 1vztaanc5ym2w.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "16.6KB 3l72rp4sm_6jx.js",
+   "0.0KB 1f8ikac5uvmw7.js",
+   "3.2KB 0ghmpvp36qk1f.js",
+   "0.0KB 1kqti2eixk-ce.js",
+   "0.0KB 1fpo9rfotdi5z.js",
+   "0.0KB 1z1uxddlpgdmk.js",
+   "0.0KB 1iqclw7wpffdy.js"
+  ]
+ },
+ {
+  "run": 3,
+  "loadMs": 4518,
+  "ttfb": 18,
+  "fcp": 2284,
+  "lcp": 2444,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2284:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2444:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 108,
+  "longTasks": [
+   "3113+158"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 176,
+    "inDelay": 71,
+    "proc": 54,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 88,
+    "inDelay": 25,
+    "proc": 25,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 64,
+    "inDelay": 27,
+    "proc": 0,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 248,
+    "inDelay": 68,
+    "proc": 4,
+    "t": "BUTTON Kapitel01 Bei dir02 Behandlung"
+   },
+   {
+    "name": "keydown",
+    "d": 112,
+    "inDelay": 2,
+    "proc": 52,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 56963
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 40013
+   },
+   "Image": {
+    "n": 5,
+    "bytes": 67782
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 18,
+    "bytes": 203850
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "25.7KB /_next/image?url=/images/landing/hero-home-4x5-v3.jpg&w=828&q=75",
+   "20.4KB /_next/image?url=/images/categories/massage-v3.jpg&w=640&q=75",
+   "20.1KB /_next/image?url=/images/categories/manikuere-v3.jpg&w=640&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v3.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v3.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "1.4KB 0vol9jjyvwsj9.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "1.7KB 1vztaanc5ym2w.js",
+   "15.4KB 377dv6fep488b.js",
+   "16.6KB 3l72rp4sm_6jx.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "3.2KB 0ghmpvp36qk1f.js",
+   "3.5KB 1f8ikac5uvmw7.js",
+   "0.0KB 1kqti2eixk-ce.js",
+   "0.0KB 1fpo9rfotdi5z.js",
+   "0.0KB 1z1uxddlpgdmk.js",
+   "0.0KB 1iqclw7wpffdy.js"
+  ]
+ },
+ {
+  "run": 4,
+  "loadMs": 4538,
+  "ttfb": 16,
+  "fcp": 2340,
+  "lcp": 2340,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2340:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 67,
+  "longTasks": [
+   "3275+117"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 96,
+    "inDelay": 43,
+    "proc": 27,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 96,
+    "inDelay": 31,
+    "proc": 28,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 64,
+    "inDelay": 34,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 240,
+    "inDelay": 53,
+    "proc": 1,
+    "t": "BUTTON Kapitel01 Bei dir02 Behandlung"
+   },
+   {
+    "name": "keydown",
+    "d": 224,
+    "inDelay": 2,
+    "proc": 114,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 56959
+   },
+   "Image": {
+    "n": 5,
+    "bytes": 67782
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 40013
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 18,
+    "bytes": 203850
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "25.7KB /_next/image?url=/images/landing/hero-home-4x5-v3.jpg&w=828&q=75",
+   "20.4KB /_next/image?url=/images/categories/massage-v3.jpg&w=640&q=75",
+   "20.1KB /_next/image?url=/images/categories/manikuere-v3.jpg&w=640&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v3.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v3.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "1.4KB 0vol9jjyvwsj9.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "15.4KB 377dv6fep488b.js",
+   "1.7KB 1vztaanc5ym2w.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "16.6KB 3l72rp4sm_6jx.js",
+   "3.2KB 0ghmpvp36qk1f.js",
+   "3.5KB 1f8ikac5uvmw7.js",
+   "0.0KB 1kqti2eixk-ce.js",
+   "0.0KB 1fpo9rfotdi5z.js",
+   "0.0KB 1z1uxddlpgdmk.js",
+   "0.0KB 1iqclw7wpffdy.js"
+  ]
+ },
+ {
+  "run": 5,
+  "loadMs": 4448,
+  "ttfb": 10,
+  "fcp": 2276,
+  "lcp": 2420,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5-v3.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2276:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2420:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 39,
+  "longTasks": [
+   "3066+89"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 104,
+    "inDelay": 39,
+    "proc": 32,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 72,
+    "inDelay": 22,
+    "proc": 23,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 72,
+    "inDelay": 44,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 304,
+    "inDelay": 47,
+    "proc": 0,
+    "t": "BUTTON Kapitel01 Bei dir02 Behandlung"
+   },
+   {
+    "name": "keydown",
+    "d": 176,
+    "inDelay": 3,
+    "proc": 83,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 56959
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 40013
+   },
+   "Image": {
+    "n": 5,
+    "bytes": 67782
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 18,
+    "bytes": 203850
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "25.7KB /_next/image?url=/images/landing/hero-home-4x5-v3.jpg&w=828&q=75",
+   "20.4KB /_next/image?url=/images/categories/massage-v3.jpg&w=640&q=75",
+   "20.1KB /_next/image?url=/images/categories/manikuere-v3.jpg&w=640&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v3.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v3.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "1.4KB 0vol9jjyvwsj9.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "1.7KB 1vztaanc5ym2w.js",
+   "15.4KB 377dv6fep488b.js",
+   "16.6KB 3l72rp4sm_6jx.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "3.2KB 0ghmpvp36qk1f.js",
+   "3.5KB 1f8ikac5uvmw7.js",
+   "0.0KB 1kqti2eixk-ce.js",
+   "0.0KB 1fpo9rfotdi5z.js",
+   "0.0KB 1z1uxddlpgdmk.js",
+   "0.0KB 1iqclw7wpffdy.js"
+  ]
+ }
+]

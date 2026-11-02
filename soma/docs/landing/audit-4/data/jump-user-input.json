@@ -1,0 +1,36 @@
+[
+ {
+  "vp": "m390",
+  "inputAt": 2617,
+  "scrollIntoViewCalls": [
+   {
+    "t": 3599,
+    "id": "fragen",
+    "b": "smooth"
+   }
+  ],
+  "correctionsAfterInput": 1,
+  "yAfterInput": 5286,
+  "y2500msLater": 5394,
+  "drift": 108,
+  "fragenH2Top": 215,
+  "active": "06"
+ },
+ {
+  "vp": "d1440",
+  "inputAt": 4214,
+  "scrollIntoViewCalls": [
+   {
+    "t": 3600,
+    "id": "fragen",
+    "b": "smooth"
+   }
+  ],
+  "correctionsAfterInput": 0,
+  "yAfterInput": 5887,
+  "y2500msLater": 6866,
+  "drift": 979,
+  "fragenH2Top": 334,
+  "active": "06"
+ }
+]

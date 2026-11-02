@@ -1,0 +1,1204 @@
+{
+ "d1920": {
+  "tier": "full",
+  "vw": 1920,
+  "vh": 1080,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 104,
+  "figure": {
+   "top": 133,
+   "bottom": 950,
+   "h": 817,
+   "w": 628,
+   "l": 972
+  },
+  "caption": {
+   "top": 934,
+   "bottom": 950,
+   "h": 16,
+   "w": 628,
+   "l": 972
+  },
+  "card": {
+   "top": 778,
+   "bottom": 850,
+   "h": 72,
+   "w": 860,
+   "l": 320
+  },
+  "submit": {
+   "top": 788,
+   "bottom": 840,
+   "h": 52,
+   "w": 205,
+   "l": 965
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1920,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 628,
+   "cssH": 789,
+   "naturalW": 628,
+   "srcW": "640",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 503,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 114x44",
+   "Entdecken 103x44",
+   "Behandlungen 130x44",
+   "So funktioniert’s 142x44",
+   "Für Profis 95x44",
+   "Hilfe 60x44",
+   "Anmelden 122x48",
+   "Termin finden 148x48"
+  ],
+  "errors": []
+ },
+ "d1440": {
+  "tier": "full",
+  "vw": 1440,
+  "vh": 900,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 104,
+  "figure": {
+   "top": 133,
+   "bottom": 917,
+   "h": 784,
+   "w": 628,
+   "l": 732
+  },
+  "caption": {
+   "top": 901,
+   "bottom": 917,
+   "h": 16,
+   "w": 628,
+   "l": 732
+  },
+  "card": {
+   "top": 745,
+   "bottom": 817,
+   "h": 72,
+   "w": 860,
+   "l": 80
+  },
+  "submit": {
+   "top": 755,
+   "bottom": 807,
+   "h": 52,
+   "w": 205,
+   "l": 725
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1440,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 628,
+   "cssH": 756,
+   "naturalW": 628,
+   "srcW": "640",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 503,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 114x44",
+   "Entdecken 103x44",
+   "Behandlungen 130x44",
+   "So funktioniert’s 142x44",
+   "Für Profis 95x44",
+   "Hilfe 60x44",
+   "Anmelden 122x48",
+   "Termin finden 148x48"
+  ],
+  "errors": []
+ },
+ "d1280": {
+  "tier": "full",
+  "vw": 1280,
+  "vh": 800,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 73.7779,
+  "figure": {
+   "top": 133,
+   "bottom": 817,
+   "h": 684,
+   "w": 580,
+   "l": 652
+  },
+  "caption": {
+   "top": 801,
+   "bottom": 817,
+   "h": 16,
+   "w": 580,
+   "l": 652
+  },
+  "card": {
+   "top": 645,
+   "bottom": 717,
+   "h": 72,
+   "w": 860,
+   "l": 48
+  },
+  "submit": {
+   "top": 655,
+   "bottom": 707,
+   "h": 52,
+   "w": 205,
+   "l": 693
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1280,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 580,
+   "cssH": 656,
+   "naturalW": 576,
+   "srcW": "640",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 445,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 114x44",
+   "Entdecken 103x44",
+   "Behandlungen 129x44",
+   "So funktioniert’s 141x44",
+   "Für Profis 94x44",
+   "Hilfe 60x44",
+   "Anmelden 121x48",
+   "Termin finden 147x48"
+  ],
+  "errors": []
+ },
+ "d1280s": {
+  "tier": "full",
+  "vw": 1280,
+  "vh": 720,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 73.7779,
+  "figure": {
+   "top": 133,
+   "bottom": 771,
+   "h": 638,
+   "w": 580,
+   "l": 652
+  },
+  "caption": {
+   "top": 755,
+   "bottom": 771,
+   "h": 16,
+   "w": 580,
+   "l": 652
+  },
+  "card": {
+   "top": 599,
+   "bottom": 671,
+   "h": 72,
+   "w": 860,
+   "l": 48
+  },
+  "submit": {
+   "top": 609,
+   "bottom": 661,
+   "h": 52,
+   "w": 205,
+   "l": 693
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1280,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 580,
+   "cssH": 610,
+   "naturalW": 576,
+   "srcW": "640",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 445,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 114x44",
+   "Entdecken 103x44",
+   "Behandlungen 129x44",
+   "So funktioniert’s 141x44",
+   "Für Profis 94x44",
+   "Hilfe 60x44",
+   "Anmelden 121x48",
+   "Termin finden 147x48"
+  ],
+  "errors": []
+ },
+ "d1024": {
+  "tier": "full",
+  "vw": 1024,
+  "vh": 768,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 63.8223,
+  "figure": {
+   "top": 133,
+   "bottom": 746,
+   "h": 613,
+   "w": 373,
+   "l": 603
+  },
+  "caption": {
+   "top": 731,
+   "bottom": 746,
+   "h": 16,
+   "w": 373,
+   "l": 603
+  },
+  "card": {
+   "top": 574,
+   "bottom": 646,
+   "h": 72,
+   "w": 769,
+   "l": 48
+  },
+  "submit": {
+   "top": 584,
+   "bottom": 636,
+   "h": 52,
+   "w": 205,
+   "l": 602
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 88,
+  "stretch": "86%",
+  "placeholderAvail": 115,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1024,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 373,
+   "cssH": 586,
+   "naturalW": 378,
+   "srcW": "384",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 423,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 113x44",
+   "Menü 67x44",
+   "Termin finden 145x48"
+  ],
+  "errors": []
+ },
+ "t1024": {
+  "tier": "lite",
+  "vw": 1024,
+  "vh": 768,
+  "motion": "lite",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 63.8223,
+  "figure": {
+   "top": 133,
+   "bottom": 746,
+   "h": 613,
+   "w": 373,
+   "l": 603
+  },
+  "caption": {
+   "top": 731,
+   "bottom": 746,
+   "h": 16,
+   "w": 373,
+   "l": 603
+  },
+  "card": {
+   "top": 574,
+   "bottom": 646,
+   "h": 72,
+   "w": 769,
+   "l": 48
+  },
+  "submit": {
+   "top": 584,
+   "bottom": 636,
+   "h": 52,
+   "w": 205,
+   "l": 602
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 88,
+  "stretch": "86%",
+  "placeholderAvail": 115,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1024,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 373,
+   "cssH": 586,
+   "naturalW": 378,
+   "srcW": "384",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": null,
+  "leadTop": 423,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Be 113x44",
+   "Menü 67x44",
+   "Termin finden 145x48"
+  ],
+  "errors": []
+ },
+ "t1023": {
+  "tier": "lite",
+  "vw": 1023,
+  "vh": 768,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 80.8338,
+  "figure": {
+   "top": 434,
+   "bottom": 793,
+   "h": 359,
+   "w": 265,
+   "l": 379
+  },
+  "caption": {
+   "top": 777,
+   "bottom": 793,
+   "h": 16,
+   "w": 344,
+   "l": 379
+  },
+  "card": {
+   "top": 817,
+   "bottom": 1073,
+   "h": 256,
+   "w": 576,
+   "l": 224
+  },
+  "submit": {
+   "top": 1013,
+   "bottom": 1065,
+   "h": 52,
+   "w": 560,
+   "l": 232
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 504,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1023,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 265,
+   "cssH": 331,
+   "naturalW": 265,
+   "srcW": "384",
+   "dpr": 1,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 700,
+  "leadTop": 1161,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find",
+   "So funktioniert’s"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 67x44"
+  ],
+  "errors": []
+ },
+ "t820": {
+  "tier": "lite",
+  "vw": 820,
+  "vh": 1180,
+  "motion": "lite",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 69.5559,
+  "figure": {
+   "top": 410,
+   "bottom": 892,
+   "h": 482,
+   "w": 364,
+   "l": 228
+  },
+  "caption": {
+   "top": 876,
+   "bottom": 892,
+   "h": 16,
+   "w": 344,
+   "l": 228
+  },
+  "card": {
+   "top": 916,
+   "bottom": 1172,
+   "h": 256,
+   "w": 576,
+   "l": 122
+  },
+  "submit": {
+   "top": 1112,
+   "bottom": 1164,
+   "h": 52,
+   "w": 560,
+   "l": 130
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 504,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 820,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 364,
+   "cssH": 455,
+   "naturalW": 363,
+   "srcW": "828",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 1136,
+  "leadTop": 1260,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find",
+   "So funktioniert’s"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 66x44"
+  ],
+  "errors": []
+ },
+ "t768": {
+  "tier": "lite",
+  "vw": 768,
+  "vh": 1024,
+  "motion": "lite",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 66.667,
+  "figure": {
+   "top": 403,
+   "bottom": 735,
+   "h": 332,
+   "w": 243,
+   "l": 262
+  },
+  "caption": {
+   "top": 720,
+   "bottom": 735,
+   "h": 16,
+   "w": 344,
+   "l": 262
+  },
+  "card": {
+   "top": 759,
+   "bottom": 1015,
+   "h": 256,
+   "w": 576,
+   "l": 96
+  },
+  "submit": {
+   "top": 955,
+   "bottom": 1007,
+   "h": 52,
+   "w": 560,
+   "l": 104
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 504,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 768,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 243,
+   "cssH": 304,
+   "naturalW": 243,
+   "srcW": "640",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 980,
+  "leadTop": 1103,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find",
+   "So funktioniert’s"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 66x44"
+  ],
+  "errors": []
+ },
+ "m430": {
+  "tier": "lite",
+  "vw": 430,
+  "vh": 932,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 47.8891,
+  "figure": {
+   "top": 369,
+   "bottom": 852,
+   "h": 483,
+   "w": 364,
+   "l": 33
+  },
+  "caption": {
+   "top": 836,
+   "bottom": 852,
+   "h": 16,
+   "w": 344,
+   "l": 33
+  },
+  "card": {
+   "top": 1010,
+   "bottom": 1266,
+   "h": 256,
+   "w": 390,
+   "l": 20
+  },
+  "submit": {
+   "top": 1206,
+   "bottom": 1258,
+   "h": 52,
+   "w": 374,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 318,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 430,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 364,
+   "cssH": 455,
+   "naturalW": 364,
+   "srcW": "828",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 864,
+  "leadTop": 876,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m412": {
+  "tier": "lite",
+  "vw": 412,
+  "vh": 915,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 46.8891,
+  "figure": {
+   "top": 367,
+   "bottom": 833,
+   "h": 466,
+   "w": 350,
+   "l": 31
+  },
+  "caption": {
+   "top": 817,
+   "bottom": 833,
+   "h": 16,
+   "w": 344,
+   "l": 31
+  },
+  "card": {
+   "top": 1018,
+   "bottom": 1274,
+   "h": 256,
+   "w": 372,
+   "l": 20
+  },
+  "submit": {
+   "top": 1214,
+   "bottom": 1266,
+   "h": 52,
+   "w": 356,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 300,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 412,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 350,
+   "cssH": 438,
+   "naturalW": 350,
+   "srcW": "828",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 847,
+  "leadTop": 857,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m390": {
+  "tier": "lite",
+  "vw": 390,
+  "vh": 844,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 45.6668,
+  "figure": {
+   "top": 364,
+   "bottom": 758,
+   "h": 393,
+   "w": 280,
+   "l": 55
+  },
+  "caption": {
+   "top": 726,
+   "bottom": 758,
+   "h": 31,
+   "w": 315,
+   "l": 55
+  },
+  "card": {
+   "top": 943,
+   "bottom": 1199,
+   "h": 256,
+   "w": 350,
+   "l": 20
+  },
+  "submit": {
+   "top": 1139,
+   "bottom": 1191,
+   "h": 52,
+   "w": 334,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 278,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 390,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 280,
+   "cssH": 350,
+   "naturalW": 279,
+   "srcW": "640",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 776,
+  "leadTop": 782,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m390s": {
+  "tier": "lite",
+  "vw": 390,
+  "vh": 664,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 45.6668,
+  "figure": {
+   "top": 364,
+   "bottom": 829,
+   "h": 465,
+   "w": 350,
+   "l": 20
+  },
+  "caption": {
+   "top": 814,
+   "bottom": 829,
+   "h": 16,
+   "w": 344,
+   "l": 20
+  },
+  "card": {
+   "top": 1015,
+   "bottom": 1271,
+   "h": 256,
+   "w": 350,
+   "l": 20
+  },
+  "submit": {
+   "top": 1211,
+   "bottom": 1263,
+   "h": 52,
+   "w": 334,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 278,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 390,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 350,
+   "cssH": 438,
+   "naturalW": 350,
+   "srcW": "828",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 596,
+  "leadTop": 853,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m360": {
+  "tier": "lite",
+  "vw": 360,
+  "vh": 740,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 44.0002,
+  "figure": {
+   "top": 361,
+   "bottom": 804,
+   "h": 443,
+   "w": 320,
+   "l": 20
+  },
+  "caption": {
+   "top": 773,
+   "bottom": 804,
+   "h": 31,
+   "w": 320,
+   "l": 20
+  },
+  "card": {
+   "top": 989,
+   "bottom": 1245,
+   "h": 256,
+   "w": 320,
+   "l": 20
+  },
+  "submit": {
+   "top": 1185,
+   "bottom": 1237,
+   "h": 52,
+   "w": 304,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 248,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 360,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 320,
+   "cssH": 400,
+   "naturalW": 320,
+   "srcW": "640",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 672,
+  "leadTop": 828,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m320": {
+  "tier": "lite",
+  "vw": 320,
+  "vh": 640,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 44,
+  "figure": {
+   "top": 378,
+   "bottom": 771,
+   "h": 393,
+   "w": 280,
+   "l": 20
+  },
+  "caption": {
+   "top": 740,
+   "bottom": 771,
+   "h": 31,
+   "w": 280,
+   "l": 20
+  },
+  "card": {
+   "top": 956,
+   "bottom": 1212,
+   "h": 256,
+   "w": 280,
+   "l": 20
+  },
+  "submit": {
+   "top": 1152,
+   "bottom": 1204,
+   "h": 52,
+   "w": 264,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 208,
+  "ribbon": {
+   "top": 0,
+   "bottom": 63,
+   "h": 63,
+   "w": 320,
+   "l": 0
+  },
+  "overflowX": 0,
+  "heroImg": {
+   "cssW": 280,
+   "cssH": 350,
+   "naturalW": 279,
+   "srcW": "640",
+   "dpr": 2,
+   "sizes": "(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px, max(80svh - 8.72vw - 508.8px, max(240px, 80svh - 8.72vw - 260px) - clamp(0px, (100svh - 10.9vw - 936px) * 1000, 99999px))), (min-width: 768px) 68vw, (max-width: 399px) min(100vw - 40px, 80svh - 395.2px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), (max-width: 399px) calc(100vw - 40px), min(100vw - 40px, 80svh - 381.6px + clamp(0px, (125vw + 331px - 100svh) * 1000, 99999px)), calc(100vw - 40px)"
+  },
+  "dockTop": 572,
+  "leadTop": 795,
+  "tabOrderHero": [
+   "Zu Hause",
+   "Im Hotel",
+   "Im Büro",
+   "So funktioniert’s",
+   "PLZ, z. B. 10115",
+   "Standort verwenden",
+   "Was?Alle Behandlun",
+   "Wann?So bald wie m",
+   "Freie Termine find"
+  ],
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ }
+}

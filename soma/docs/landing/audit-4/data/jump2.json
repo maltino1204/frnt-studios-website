@@ -1,0 +1,128 @@
+{
+ "m390 hero „So funktioniert’s“": {
+  "samples": [
+   698,
+   277,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239
+  ],
+  "active": "03",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "m390 foot 02 „Weiter: So funktioniert’s“": {
+  "samples": [
+   246,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239
+  ],
+  "active": "03",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "m390 overlay → Fragen (reduced motion)": {
+  "samples": [
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239
+  ],
+  "active": "06",
+  "hash": "#fragen",
+  "focus": "fragen-titel"
+ },
+ "d1440 header „So funktioniert’s“": {
+  "samples": [
+   1232,
+   419,
+   311,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310
+  ],
+  "active": "03",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "d1440 hero „So funktioniert’s“": {
+  "samples": [
+   1023,
+   425,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310
+  ],
+  "active": "03",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "d1440 overlay → Fragen (reduced motion)": {
+  "samples": [
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311
+  ],
+  "active": "06",
+  "hash": "#fragen",
+  "focus": "fragen-titel"
+ }
+}
