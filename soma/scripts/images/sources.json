@@ -2732,5 +2732,95 @@
     "focal": "50% 45%",
     "caption": "Skin Fade mit gepflegtem Bart",
     "recropOf": "/images/portfolio/haare-styling-2.jpg"
+  },
+  {
+    "path": "/images/_v3-test/selin-gpt-high.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124551_78ea2f9a-2362-4b80-8125-4957f5ac770a.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/selin-nano-pro.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124558_5d7876b9-f71d-499d-b3bd-8bbdd4480f60.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/selin-seedream5pro.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124551_f5632742-da70-47b4-ac0b-66c9404a9e43.png",
+    "ratio": "3:4",
+    "width": 1200,
+    "height": 1600,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/selin-flux3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124548_d9d6d071-2b3d-46bc-b20f-d1f87a55e57f.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/selin-gpt-medium.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124724_d6f1cbbc-fe2c-4dfa-b704-eb5427d3297a.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/mani-gpt-high.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124714_419ae6d3-3bb9-493d-a312-5359bd30f3a4.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/mani-nano-pro.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124731_185c2cf0-8e00-40ce-b8ad-b50ed7e37c9c.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/mani-seedream5pro.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124715_40903a0b-1f1e-4c3c-9e95-3a112d8839df.png",
+    "ratio": "3:4",
+    "width": 1200,
+    "height": 1600,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/mani-flux3.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124715_7f8b7e4e-40de-4e80-964e-058e59d1824d.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
+  },
+  {
+    "path": "/images/_v3-test/mani-gpt-medium.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_124721_e27eaa58-9856-44f6-9a4c-8b9a582a0f92.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "source": "TEMPORARY v3 model test (Photo Art Director, 2 Nov 2026); removed after the model decision"
   }
 ]
