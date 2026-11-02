@@ -19,9 +19,11 @@ export const STYLE =
 const POSE = "Medium shot from the top of the head to mid-thigh. The body faces the camera straight on with both shoulders square to the lens, not turned to the side. Both arms hang relaxed along the sides of the body and bend at the elbows so that the two hands meet in front of the stomach at belt height, one hand lightly holding the other; both complete arms (upper arms, elbows and forearms) and both hands with all five fingers are clearly visible inside the frame, with space below the hands.";
 // Attempt 3 (final for 27 of 30): the same text plus pro-08-v3 (Márcia S., attempt 1, frontal, both arms and hands) as an
 // image reference for pose, framing, light and background only. Prompt-only attempt 3 still turned the body or cut the hands.
+const HANDS_IN_FRAME = new Set(["06", "10", "14", "23"]);
 export const PORTRAIT_REF_JOB = "59cd910e-89cd-4798-ba53-ff3b073d66b1";
 const REF_NOTE = "Use the reference photo only for the pose, the framing, the light and the background; the person is a different individual. ";
-// Attempt 1 template, kept for 04, 08 and 09 (passed QA in attempt 1).
+// Attempt 1 template, kept for 08, the pose reference (04 and 09 passed attempt 1 but were redone with the final
+// template so that the series has one pose, crop and background).
 const POSE_A1 = "Standing with the body turned slightly to camera left and the face to the lens, framed from the top of the head to the waist, both arms fully visible and relaxed, hands lightly clasped in front at waist height, both hands clearly visible with five natural fingers each.";
 const PORTRAIT_TAIL = " Friendly, confident, direct gaze into the lens and a warm natural smile. Background: a bright, softly blurred upscale apartment with white walls, light oak furniture and a green plant, sunlit window light from camera left with soft fill. Warm high-key daylight, clean fresh slightly lifted grade, natural saturation, healthy glowing skin with real texture, warm whites. 85 mm lens at eye level, shallow depth of field, sharp eyes, photorealistic. No text, no logos, no name tag, no border, no film grain, no vignette.";
 const PORTRAIT_A1 = (role, who, wear) => `Professional editorial headshot photograph of a ${role} for a premium beauty and wellness booking platform, one image of a consistent portrait series. ${who}, wearing ${wear}. ${POSE_A1}${PORTRAIT_TAIL}`;
@@ -63,9 +65,11 @@ export const PORTRAITS = [
   ["28", "Nora K. · Kosmetik & brows · Berlin", "cosmetician", "She is a white German woman of about 31 with long straight dark brown hair and natural make-up", TUNIC("ivory", "tunic with three-quarter sleeves and a V-neck")],
   ["29", "Paul A. · hair · Köln", "hairdresser", "He is a white German man of about 36 with short dark-blond hair and a short beard", "a tailored ivory linen shirt"],
   ["30", "Theresa H. · aroma & hot-stone massage · München", "massage therapist", "She is a white German woman of about 39 with a light brown shoulder-length bob tucked behind her ears", TUNIC("stone-coloured")],
-].map(([n, entity, role, who, wear]) => (["04", "08", "09"].includes(n)
+].map(([n, entity, role, who, wear]) => (n === "08"
   ? { id: `R${n}`, path: `/images/pros/pro-${n}-v3.jpg`, entity, focal: "50% 30%", finalAttempt: 1, prompt: PORTRAIT_A1(role, who, wear) }
-  : { id: `R${n}`, path: `/images/pros/pro-${n}-v3.jpg`, entity, focal: "50% 30%", medias: [{ role: "image_references", value: PORTRAIT_REF_JOB }], prompt: PORTRAIT(role, who, wear) }));
+  : { id: `R${n}`, path: `/images/pros/pro-${n}-v3.jpg`, entity, focal: "50% 30%", medias: [{ role: "image_references", value: PORTRAIT_REF_JOB }],
+      // attempt 4 for 06, 10, 14, 23: attempt 3 let the arms hang and cut the hands at the bottom edge
+      prompt: PORTRAIT(role, who, wear).replace(" Friendly, confident", HANDS_IN_FRAME.has(n) ? " Important: the forearms rise across the stomach so that the clasped hands rest at navel height in the lower third of the frame, fully inside the picture and never cut off by the bottom edge. Friendly, confident" : " Friendly, confident") }));
 
 // Recurring Profis in scenes (same descriptions as their portraits)
 const SELIN = "a massage professional, a Turkish-German woman of about 37 with dark brown hair in a neat low bun, in a crisp ivory short-sleeved tunic with a thin oxblood piping at the collar";
