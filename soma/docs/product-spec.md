@@ -57,6 +57,7 @@ Conventions:
 
 ```
 /                                   Home + booking bar (Wo / Was / Wann)
+/entdecken                          Explore / „Für dich“ (§ 17); /entdecken/[slug] one collection
 /behandlungen                       All categories
 /behandlungen/[kategorie]           e.g. /behandlungen/massage
 /behandlungen/[kategorie]/[stadt]   SEO page, e.g. /behandlungen/massage/berlin
@@ -496,3 +497,27 @@ The beauty-pro community talks to each other in du (Selfkea's provider blog addr
 3. **Payments:** authorize at request, capture on confirmation, payout 48 h after completion; `requested` blocks the slot; `expired` carries a reason.
 4. **Commission:** tiered (new, repeat, own client), 0% on travel, no customer fee.
 5. **Routes and copy:** add `/ranking`, `/stornierung`, `/hilfe`, `/agb-profis`; make strings i18n-ready now; English in v1.1.
+
+---
+
+## 17. Entdecken / Für dich (client request 2026-11-02)
+
+> „… für den Endkunden auch eine Art Explore- oder For-you-Page …, so dass man auch featured Behandlungen anbieten könnte.“
+
+**Route `/entdecken`** (header link first, the customer bottom bar's „Entdecken“), static (ISR 15 min). Mobile: horizontal snap rails; from 768 px: grids. Sections, in this order:
+
+| Section | Content | Rules |
+|---|---|---|
+| **Von SOMA ausgewählt** | Admin collections („Themenwelten“): cover, title, one line, items → `/entdecken/[slug]` | Every card and page says „Von SOMA ausgewählt“ + „Eine redaktionelle Auswahl von SOMA. Niemand bezahlt dafür, hier zu erscheinen.“ `is_sponsored` (future) → „Anzeige“ + „Bezahlte Platzierung im Auftrag von …“ (UWG § 5a Abs. 4, DSA Art. 26) ⚖. The demo seeds none. |
+| **Für dich** | Signed-in customers only, loaded after hydration: *Wieder buchen* (regulars + favourites, one-tap rebook), *Passend zu deinen Buchungen* (booked categories, Profis serving the default address's PLZ), *Neu in deiner Nähe* (approved ≤ 60 days, serving that PLZ) | Only the customer's own data. Only here: „Nächster freier Termin“ (availability engine, 7 days) and the Endpreis inkl. Anfahrt. Missing data → a quiet line, never invented content. Guests: one line to log in. „Warum sehe ich das?“ → `/ranking#fuer-dich`. |
+| **Beliebt in <Stadt>** | Top services by confirmed/started/completed bookings made in the last 90 days in one city | City only with ≥ 5 such bookings, service only with ≥ 3 (enforced in the database), never counts. City: the default address's city (if personalisation is on), else a switch over the cities that qualify, Berlin first. |
+| **Neu auf SOMA** | Profis approved in the last 60 days, „Neu“ chip and date | Same verification as everyone. |
+
+**Cards:** category or portfolio image; AI portraits keep „Demo-Profil · Foto KI-generiert“; name, duration, „ab … €“ + „zzgl. Anfahrt“ from real prices (Endpreis only where the PLZ is known); ratings only from 3 published reviews. No invented popularity, badges or reviews.
+
+**Opt-out:** `/konto/profil` › „Persönliche Vorschläge“ (default on). Off: no personal section, and the server computes nothing. Explained on `/ranking#fuer-dich` and `/datenschutz#vorschlaege` (⚖ legal basis).
+
+**Admin `/admin/entdecken`:** list (Entwurf / Geplant / Aktiv / Abgelaufen), create/edit (title, address, line, cover from the image registry or an `/images/…` path, active window in Berlin time, sort, paid placement + sponsor, items: a service optionally pinned to one Profi, or a category with `plz/leistung/datum/zeit`; add, remove, reorder), preview of any state (`/entdecken/vorschau/[id]`), activate/deactivate, delete. Every write is in the audit log.
+
+**Data:** migration `0011_explore_collections.sql` (RLS: the public reads live collections only; no API writes). API: `docs/api.md` § 4.14.
+
