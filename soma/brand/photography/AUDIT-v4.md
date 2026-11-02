@@ -63,10 +63,10 @@ QA: every file at full size; identity checked as v3/v4 face pairs; hands and lim
 
 | | |
 |---|---|
-| Credits | **24** of 35 (balance 742.99 → 718.99) |
-| Generations | **12** (11 fixes + 1 retry) |
+| Credits | **28** of 35 (balance 742.99 → 714.99) |
+| Generations | **14** (12 fixes + 1 retry + 1 second variant of F12, not used) |
 | Rejected in QA | **1** |
-| Final | **11** fixes, all pass |
+| Final | **12** fixes, all pass |
 
 | Review | v5 file | Replaces | Issue | Verdict | Reason (final) | Rejected attempts | Luma before → after | Job |
 |---|---|---|---|---|---|---|---|---|
@@ -81,8 +81,11 @@ QA: every file at full size; identity checked as v3/v4 face pairs; hands and lim
 | R11 | `portfolio/massage-16-v5.jpg` | `portfolio/massage-16-v3.jpg` | an office over Sydney Harbour (Hanna B., Berlin) | **pass** | Berlin: the Spree with stone embankments, trees and light Altbau façades; no harbour, bridge or opera house; chair, hands and room unchanged | – | 183 → 180 | `83c93401` |
 | R11 | `pros/pro-18-v5.jpg` | `pros/pro-18-v4.jpg` | US-style switch and outlet plates (Emre Y., Köln) | **pass** | switch and socket plates gone, plain white walls; Emre, comb, case and kitchen unchanged | – | 186 → 186 | `f29c24e7` |
 | R11 | `categories/manikuere-v5.jpg` | `categories/manikuere-v3.jpg` | the nail professional wears black trousers | **pass** | light sand trousers matching the tunic, no black left; hands, file, polish and client unchanged | – | 166 → 169 | `f687cbbc` |
+| Explore | `portfolio/manikuere-3-v5.jpg` | `portfolio/manikuere-3-v3.jpg` | caption „Micro-French auf kurzen Nägeln“, but at card size the picture reads as two hands holding a cup | **pass** | one hand palm-down on light oak, the nails are the subject: short soft-square nude nails, each with a crisp thin white tip, legible at 260 and 160 px; natural hand (thumb tucked behind), cup and napkin out of focus; no text or logos | – | 186 → 176 | `cd42b0ef` |
 
 **R10, the soft photo on the auth pages.** `/anmelden`, `/registrieren` and `/passwort-vergessen` (and the `/staedte/[stadt]` hero) show `images.editorial.arrival` in a 4:5 arch; that path resolved through `replacedBy` to the 3:2 `arrival-v3`, object-covered into the 384 × 480 arch, so the browser's `w=384` / `w=828` candidates were upscaled about 1.8× and looked soft, and it showed the torn bag of R8. No code change (the review's first option): `editorial/arrival.jpg` now has `replacedBy` → `editorial/arrival-4x5-v5.jpg`, a real 4:5 crop of the fixed arrival-v5 source (1200 × 1500, focal 55% 50%: the Profi with her intact table case, the client's shoulder at the right), which fills the arch without upscaling at 1× and 2×. The landing vignette keeps its own 3:2 chain (arrival-v2 → v3 → v5).
+
+**manikuere-3 (Lead, from the Explore engineer).** `portfolio/manikuere-3-v3` carries the caption „Micro-French auf kurzen Nägeln“ and is the work photo on Mai T.'s „Shellac-Maniküre“ card. At full size the caption is true (nine nails, each with a thin white tip), but the frame is two hands round a cup: at card size (about 260 px) the tips are 2 px and the picture reads as „hands holding a cup“ (review § Für dich, point 2). So the picture, not the text, was wrong: re-captioning it as a cup would have taken it out of the manicure pool. F12 is a new frame (text only, the v3 style block, not an edit) with one hand and its nails as the subject; caption, ratio and focal stay.
 
 **R7, avatars.** 30 square head-and-shoulders crops, one per current portrait, made locally with sharp by `tools/avatars.mjs` (same mechanism as `tools/recrops.mjs`: an entry with `recropOf` and `box`, the file committed, the capture workflow leaves it as it is). Face box per portrait from OpenCV Haar cascades (`avatars.json`); crop side = face width / 0.6, so the face fills **60 %** of the crop width (target 55–65 %), face centre at 50 % across and 50 % down, no crop had to be clamped at an image edge; output 512 × 512 at `/images/pros/pro-NN-v4-face.jpg` (`-v5-face` for 16, 18, 30). Each portrait's **current** registry entry carries `"avatar": "<face path>"`; the code lookup with fallback belongs to the Explore engineer. Checked on `v3/11-avatars.jpg` (each crop as a circle at 64 px and 160 px): every face centred and complete, chin to hair inside the circle.
 
