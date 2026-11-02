@@ -21,12 +21,20 @@ export type ImageSource = {
 const byPath = new Map<string, ImageSource>((sources as ImageSource[]).map((s) => [s.path, s]));
 const localSet = new Set<string>(local as string[]);
 
-/** Follows `replacedBy`, so retired images (and seed/DB rows that still point at them) show their replacement. */
+/** How many `replacedBy` hops are followed (v1 → v2 → v3 → v4 uses 3; room for later photo rounds). */
+export const MAX_REPLACEMENT_HOPS = 8;
+
+/**
+ * Follows `replacedBy`, so retired images (and seed/DB rows that still point at them) show their replacement.
+ * Stops at a missing target, after MAX_REPLACEMENT_HOPS, or on a cycle (never loops).
+ */
 export function currentImagePath(path: string): string {
   let p = path;
-  for (let i = 0; i < 3; i++) {
+  const seen = new Set([p]);
+  for (let i = 0; i < MAX_REPLACEMENT_HOPS; i++) {
     const next = byPath.get(p)?.replacedBy;
-    if (!next || !byPath.has(next)) break;
+    if (!next || !byPath.has(next) || seen.has(next)) break;
+    seen.add(next);
     p = next;
   }
   return p;
