@@ -5,6 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, CircleAlert, LocateFixed, X } f
 import {
   useActionState,
   useCallback,
+  useDeferredValue,
   useEffect,
   useId,
   useLayoutEffect,
@@ -518,7 +519,9 @@ export function BookingEntry({
   const [hint, setHint] = useState(placeHint);
   const [dismissedPanel, setDismissedPanel] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
-  const [, startPicker] = useTransition();
+  // Inline pickers (the landing's booking sheet): the panel and aria-expanded follow the tap at once, the list (with its
+  // photos) renders right after as a deferred render, so the tap paints its frame first (audit-2 N-12 / RT-7).
+  const listOpen = useDeferredValue(open);
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -741,10 +744,7 @@ export function BookingEntry({
   const toggle = (which: "was" | "wann") => {
     if (open === which) return setOpen(null);
     if (desktop && !inline) placePopover((which === "was" ? wasRef : wannRef).current);
-    // Inline pickers (the landing's booking sheet) expand as a transition: the tap paints at once and the list (with
-    // its photos) renders in the next frames, not inside the tap (INP; performance remediation 2).
-    if (inline) startPicker(() => setOpen(which));
-    else setOpen(which);
+    setOpen(which);
   };
 
   // Return focus to the trigger when a picker closes.
@@ -905,8 +905,8 @@ export function BookingEntry({
           ) : null}
         </div>
         {inline && open === "was" ? (
-          <div id={wasPanelId} role="group" aria-label="Behandlung wählen" className="border-b border-line px-5 py-3">
-            {wasPicker}
+          <div id={wasPanelId} role="group" aria-label="Behandlung wählen" aria-busy={listOpen !== "was" || undefined} className="border-b border-line px-5 py-3">
+            {listOpen === "was" ? wasPicker : <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />}
           </div>
         ) : null}
 
@@ -945,8 +945,8 @@ export function BookingEntry({
           ) : null}
         </div>
         {inline && open === "wann" ? (
-          <div id={wannPanelId} role="group" aria-label="Zeitpunkt wählen" className="flex flex-col gap-4 px-5 py-4">
-            {wannPicker}
+          <div id={wannPanelId} role="group" aria-label="Zeitpunkt wählen" aria-busy={listOpen !== "wann" || undefined} className="flex flex-col gap-4 px-5 py-4">
+            {listOpen === "wann" ? wannPicker : <div aria-hidden className="h-[13.5rem]" />}
             <Button size="m" variant="secondary" className="self-start" onClick={closePicker}>
               Fertig
             </Button>
