@@ -671,3 +671,45 @@ The bytes that are left are mostly not the landing's own:
 | `BookingEntry` split (light hero form, heavy entry on intent) | 11–25 KB | landing (risky: E2E T1–T22 contracts) |
 
 Together ≈ 60–70 KB, ≈ 0.3 s of simulated LCP, ≈ 2–3 score points: enough to make ≥ 90 robust. They need the Lead's approval (root layout, shared components).
+
+### 17.5 Lead cross-check (`/?motion=lite`, after the commits above)
+
+*Measured by the Lead, not by me:* `?motion=lite` is the tier real phones get (headless Lighthouse gets `none` through the existing webdriver rule). Simulate 89 / 91 / 89 / 91 / 91, median **91**, TBT 10–60 ms; devtools 94 / 95 / 94, TBT 80–90 ms, LCP 2.3–2.4 s. Tier `none` versus `lite` does not distort the result.
+
+### 17.6 Approved follow-ups (Lead decision, 2 Nov 2026): what was done, kept or dropped
+
+| # | Lever | Result | Status |
+|---|---|---|---|
+| 1 | Newsreader roman not preloaded on `/` (`c341909`): the root declares it without a preload; every other top-level layout (auth, checkout, site, admin, fuer-profis, konto, pro, pro/registrieren, new pass-through layouts for kit and offline) renders in `<DisplayFontScope>`, a preloaded declaration of the same file that the display and accent stacks use. `11d47fe`: on `/` the loader fetches the roman with `document.fonts.load()` in the first idle period after `load`. | `/` loses 22 KB before its LCP. Other routes, mobile Slow 4G 4× and desktop: same preload, roman finished at the same times, CLS unchanged (`/suche`, `/behandlungen` 0; `/behandlungen/massage` 0.0271 before and after; `/anmelden` (also `/pro`, `/admin`), `/fuer-profis` 0; 404 0.0013 / 0.0028). | kept |
+| 2 | Root `not-found.tsx` renders `StaticSiteHeader`, server markup with the same look (`f017194`). Below lg the menu is a native `<details>` that opens the same full-screen Bone layer. | The ≈ 11 KB gz `SiteHeader` chunk leaves every route's first load. The header markup is now part of every route's RSC payload, which is the price: `/` HTML 57.7 → 59.5 KB gz. Net: the good simulate runs went from LCP 3.48 to 3.41 s. 404 checked at 390 (closed and open menu) and 1440; links work. | kept |
+| 3 | Image registry out of the browser | A build with the registry stubbed out (approximation, not shipped) gave simulate LCP 3.40–3.42 s against 3.41–3.43 s with it, so ≤ 0.02 s. The real change needs server-resolved props through `Avatar`/`Portrait`/`Photo`/`AiLabel`, `RebookRow`'s server action and the admin, pro and checkout client callers. | not done (no measurable gain) |
+| 4 | tailwind-merge out of root/shared client components | Not reachable under the rule "keep `cn` where callers pass `className`". `Icon`, `Button`/`ButtonLink` and `IconButton` take caller classes and render in the landing's shell (header, dock), so the chunk and its config build stay in the first load whatever `toast`/`motion` use. Simulate TBT is already 0–30 ms, devtools 84–118 ms. | not done |
+| 5 | `BookingEntry` split | Not triggered: the `/` simulate median is 91 (rule: only if < 91). The upper-bound experiment in § 17.1 (hero entry removed) moved simulate LCP by only 0.05 s. | not done |
+
+**Final numbers** (build `11d47fe`, restarted; simulate run 1 discarded):
+
+| Metric | Runs | Median |
+|---|---|---|
+| LH simulate `/` (score · LCP s) | 87 · 4.03 / 91 · 3.42 / 91 · 3.39 / 91 · 3.41 / 87 · 4.02 (TBT 9–19 ms) | **91** · 3.42 |
+| LH simulate `/` (previous set, same code minus `11d47fe`) | 91 · 3.42 / 91 · 3.41 / 87 · 4.00 / 92 · 3.36 / 91 · 3.41 | 91 |
+| LH simulate `/?motion=lite` | 87 · 4.00 / 87 · 4.00 / 89 · 3.71 / 87 · 4.01 / 88 · 3.85 (TBT 0–31 ms) | **87** · 4.00 |
+| LH simulate `/?motion=lite` (previous set) | 87 · 4.07 / 87 · 4.02 / 87 · 4.00 / 91 · 3.41 / 91 · 3.41 | 87 |
+| LH devtools `/` (runs 2–4; run 1: 95 · TBT 100) | 96 · TBT 84 / 95 · 118 / 95 · 103; LCP 2.24–2.27 s; CLS 0.001 | 95 · **TBT 103** · LCP 2.26 s |
+| `perf.js` (FCP · LCP · TBT · overlay open) | 2,136 · 2,248 · 94 · 184 / 2,156 · 2,320 · 70 · **248** / 2,164 · 2,332 · 118 · **288** | LCP 2,320 · TBT 94 |
+| `perf.js`, a second set right after | LCP 2,244 / 2,260 / 2,232 · TBT 64 / 88 / 76 · overlay 176 / 184 / 184 | LCP 2,244 · TBT 76 |
+| `inp2.js` | 80 / 48 / 40 / 96 / 112 and 120 / 48 / 80 / 80 / 160 | worst 160 |
+
+- **First-load JS (module scripts, gz):** 222.6 → **206.4 KB** in 13 files, and 222.4 KB at the start of this work. HTML 59.5 KB gz.
+- **Main thread, LH devtools:** 2.55–2.92 s total; Style & Layout 0.34–0.39 s.
+- **Tests on this code** (items 1–2 and `11d47fe`): `tsc --noEmit` clean; `vitest run` 232/232. The **full** E2E suite on `:3100` gave 192 passed, 10 skipped, 0 failed (run before `11d47fe`). The landing E2E after `11d47fe` gave 67 passed, 9 skipped, 0 failed.
+
+**Where it stands.**
+- **Simulate:** `/` holds a median of 91, but every set is bimodal, at LCP 3.4 s (score 91–92) or 4.0 s (score 87).
+  - The 4.0 s runs are the ones where the React boot task starts before the observed first paint. Lantern then counts the React chunk's 71 KB and the boot CPU.
+  - Which way it goes is a localhost race. Removing the roman preload made the other first-load requests finish earlier, so the boot now wins it more often on `?motion=lite`: 3–4 of 5 runs at ≈ 4.0 s, median 87, against the Lead's 91 before items 1–2.
+  - I found no lever in the page that decides this race without delaying the JS for real visitors.
+- **TBT:** met; devtools 103 ms, `perf.js` 76–94 ms.
+- **LCP:** met; `perf.js` 2.24–2.32 s, devtools 2.26 s.
+- **CLS:** met; 0–0.001.
+- **Worst interaction:** at the line. The chapter overlay opens in 144–288 ms at 4× across the last four `perf.js` sets, median ≈ 185. One batch in the same period doubled even the place switch (72 → 168 ms), so part of the spread is the shared host.
+  - An A/B with the roman preload restored gave overlay opens of 136–184 ms. That is inside the noise, and the overlay uses no roman.
