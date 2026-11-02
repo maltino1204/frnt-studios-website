@@ -4,12 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { AI_PORTRAIT_LABEL, imageFocal, isAiImage, resolveImage } from "@/lib/images";
+import { initials } from "@/lib/initials";
 import { toneKey, toneStyle } from "@/lib/tone";
 
-export function initials(name: string): string {
-  const parts = name.replace(/[^\p{L}\s.-]/gu, "").split(/[\s.-]+/).filter(Boolean);
-  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase() || "·";
-}
+export { initials };
 
 /** The O-oval of the wordmark (332 : 362) for portraits. */
 const OVAL = "332 / 362";

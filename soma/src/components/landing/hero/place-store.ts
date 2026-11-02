@@ -1,9 +1,8 @@
 "use client";
 
-import { getImageProps } from "next/image";
 import { useSyncExternalStore } from "react";
-import { resolveImage } from "@/lib/images";
-import { HERO_SIZES, PLACES, type Place, type PlaceId } from "./places";
+import type { LandingImgAttrs } from "../primitives/landing-img";
+import { PLACES, type Place, type PlaceId } from "./places";
 
 /*
  * The hero's „Ortswechsel“ state (spec § 4.1.5) as a tiny external store. The place switch, the arch and the booking
@@ -35,18 +34,24 @@ export function usePlace(): Place {
 }
 
 let fetched = false;
+/** The places' <img> attributes, built on the server (chapters/01-hero.tsx) and registered by the hero arch. */
+let placeImages: Partial<Record<PlaceId, LandingImgAttrs>> = {};
+
+export function registerPlaceImages(images: Partial<Record<PlaceId, LandingImgAttrs>>): void {
+  placeImages = images;
+}
 
 /** Fetch the other places' images once (first intent on the switch or the arch, or idle 2 s after load). */
 export function prefetchPlaces(): void {
   if (fetched || typeof window === "undefined") return;
   fetched = true;
   for (const p of PLACES) {
-    if (p.id === "zuhause") continue;
-    const { props } = getImageProps({ src: resolveImage(p.src) ?? p.src, alt: "", fill: true, sizes: HERO_SIZES });
+    const attrs = placeImages[p.id];
+    if (p.id === "zuhause" || !attrs) continue;
     const img = new window.Image();
     img.decoding = "async";
-    if (props.sizes) img.sizes = props.sizes;
-    if (props.srcSet) img.srcset = props.srcSet;
-    img.src = props.src;
+    if (attrs.sizes) img.sizes = attrs.sizes;
+    if (attrs.srcSet) img.srcset = attrs.srcSet;
+    img.src = attrs.src;
   }
 }

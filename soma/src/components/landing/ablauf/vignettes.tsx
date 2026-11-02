@@ -1,6 +1,5 @@
 import { Check, MapPin } from "lucide-react";
 import { AiLabel } from "@/components/ui/ai-label";
-import { Portrait } from "@/components/ui/avatar";
 import { Icon } from "@/components/ui/icon";
 import { SegmentedControl } from "@/components/ui/segmented";
 import { cn } from "@/lib/cn";
@@ -8,6 +7,7 @@ import { formatDayShort, formatPrice, formatTime } from "@/lib/format";
 import type { ProviderSearchResult } from "@/server/dto";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImage } from "../primitives/landing-image";
+import { LandingPortrait } from "../primitives/landing-portrait";
 import { Ortszeile } from "../primitives/ortszeile";
 
 /** Everything the three vignettes show, from real data (spec § 4.4); null fields drop their element. */
@@ -72,7 +72,7 @@ export function VignetteDiscover({ data }: { data: WalkthroughData }) {
           </div>
           <div className={cn(card, "relative flex flex-col gap-3 p-3.5")}>
             <div className="flex items-start gap-3">
-              <Portrait src={r.avatarUrl} name={r.displayName} shape="oval" sizes="56px" className="w-14 shrink-0" />
+              <LandingPortrait src={r.avatarUrl} name={r.displayName} sizes="56px" className="w-14 shrink-0" />
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <span className="truncate type-title-serif text-[1.375rem] text-ink">{r.displayName}</span>
                 <AiLabel src={r.avatarUrl} />

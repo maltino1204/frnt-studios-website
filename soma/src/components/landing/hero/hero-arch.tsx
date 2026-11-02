@@ -2,10 +2,10 @@
 
 import { useRef, type PointerEvent } from "react";
 import { LandingArch } from "../primitives/landing-arch";
-import { LandingImage } from "../primitives/landing-image";
+import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
 import { Ortszeile } from "../primitives/ortszeile";
-import { HERO_SIZES, PLACES } from "./places";
-import { prefetchPlaces, setPlace, usePlace } from "./place-store";
+import { PLACES, type PlaceId } from "./places";
+import { prefetchPlaces, registerPlaceImages, setPlace, usePlace } from "./place-store";
 import { SwapLayer } from "./swap-layer";
 import { useLayerSwap } from "./use-layer-swap";
 
@@ -15,9 +15,11 @@ export const HERO_FIGURE_ID = "hero-ort";
  * The hero arch, „Fenster“ (spec § 4.1.2, § 4.1.5): stacked place layers `[data-place-layer][data-state]` inside one
  * arch, the Ortszeile under it. The first layer is the LCP image: preloaded, `data-lcp`, painted at opacity 1 (only
  * the motion layer's settle may run on it). A horizontal swipe (> 40 px, < 30°) changes the place; `touch-action:
- * pan-y`, so vertical scrolling is never captured.
+ * pan-y`, so vertical scrolling is never captured. The photos' attributes come from the server (`images`, built with
+ * `getImageProps()` in chapters/01-hero.tsx), so this island loads neither `next/image` nor the image registry.
  */
-export function HeroArch({ className }: { className?: string }) {
+export function HeroArch({ images, className }: { images: Record<PlaceId, LandingImgAttrs>; className?: string }) {
+  registerPlaceImages(images);
   const place = usePlace();
   const places = PLACES;
   const prefetch = prefetchPlaces;
@@ -50,7 +52,12 @@ export function HeroArch({ className }: { className?: string }) {
             const lcp = l.n === 0 && p.id === "zuhause";
             return (
               <SwapLayer key={l.n} attr="data-place-layer" state={l.state} n={l.n} onSettle={settle}>
-                <LandingImage src={p.src} alt={l.state === "leaving" ? "" : p.alt} sizes={HERO_SIZES} focal={p.focal} lcp={lcp} />
+                <LandingImg
+                  img={lcp ? images[p.id] : { ...images[p.id], fetchPriority: undefined }}
+                  alt={l.state === "leaving" ? "" : p.alt}
+                  data-lcp={lcp ? "" : undefined}
+                  className="object-cover"
+                />
               </SwapLayer>
             );
           })}

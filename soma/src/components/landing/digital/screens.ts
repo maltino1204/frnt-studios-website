@@ -20,6 +20,9 @@ export type Callout = {
   alt: string;
 };
 
+/** The screens' `sizes` (360 px from 1024, 280 px below; spec § 4.7). */
+export const SCREEN_SIZES = "(min-width: 1024px) 360px, 280px";
+
 export const SCREENS = generated as unknown as Partial<Record<ScreenId, ScreenFile>>;
 
 export const CALLOUTS: readonly Callout[] = [

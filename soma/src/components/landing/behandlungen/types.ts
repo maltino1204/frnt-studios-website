@@ -13,3 +13,6 @@ export type CategoryItem = {
   image: string;
   focal: string;
 };
+
+/** The 03 preview arch's `sizes` (desktop index, spec § 4.3); also used to prefetch the other previews. */
+export const PREVIEW_SIZES = "(min-width: 1440px) 519px, 36vw";

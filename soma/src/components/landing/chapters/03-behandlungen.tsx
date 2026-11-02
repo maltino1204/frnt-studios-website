@@ -2,11 +2,12 @@ import { capitalize, numberWord } from "@/components/site/discovery-copy";
 import { routes } from "@/lib/routes";
 import { CategoryCard } from "../behandlungen/category-card";
 import { IndexList } from "../behandlungen/index-list";
-import type { CategoryItem } from "../behandlungen/types";
+import { PREVIEW_SIZES, type CategoryItem } from "../behandlungen/types";
 import { nextChapter, titleId } from "../nav/chapters";
 import { ChapterFoot } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
+import { landingImgAttrs } from "../primitives/landing-image";
 import { SnapRail } from "../primitives/snap-rail";
 import { Chapter, LpContainer } from "./chapter";
 
@@ -18,6 +19,8 @@ import { Chapter, LpContainer } from "./chapter";
  */
 export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
   const next = nextChapter(3)!;
+  // The desktop preview's photos, built here (getImageProps on the server) for the index island.
+  const previews = Object.fromEntries(items.map((it) => [it.slug, landingImgAttrs(it.image, { sizes: PREVIEW_SIZES, focal: it.focal })]));
   return (
     <Chapter n={3}>
       <LpContainer>
@@ -34,7 +37,7 @@ export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
         </div>
 
         <div className="mt-10 md:mt-12 lg:mt-12">
-          <IndexList items={items} />
+          <IndexList items={items} previews={previews} />
           <div className="lp-cat-rail">
             <SnapRail id="behandlungen-rail" label="Behandlungen" perView={3} itemClassName="w-[78%] md:w-[calc((100%-2*1.25rem)/2.4)] lg:w-[calc((100%-3*1.5rem)/3.4)]">
               {items.map((it) => (

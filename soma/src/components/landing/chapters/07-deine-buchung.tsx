@@ -1,10 +1,12 @@
 import { DEMO_MODE } from "@/lib/brand";
 import { ScreenTabs } from "../digital/screen-tabs";
-import { availableCallouts, CALLOUTS } from "../digital/screens";
+import { availableCallouts, CALLOUTS, SCREEN_SIZES, type ScreenId } from "../digital/screens";
 import { nextChapter, titleId } from "../nav/chapters";
 import { ChapterFoot } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
+import { landingImgAttrs } from "../primitives/landing-image";
+import type { LandingImgAttrs } from "../primitives/landing-img";
 import { Chapter, LpContainer } from "./chapter";
 
 /**
@@ -16,6 +18,9 @@ import { Chapter, LpContainer } from "./chapter";
 export function DeineBuchungChapter() {
   const next = nextChapter(7)!;
   const items = availableCallouts();
+  // The captures' <img> attributes (getImageProps on the server, intrinsic size), one per screen file.
+  const images: Partial<Record<ScreenId, LandingImgAttrs>> = {};
+  for (const it of items) images[it.file.id] ??= landingImgAttrs(it.file.src, { sizes: SCREEN_SIZES, width: it.file.width, height: it.file.height });
   const caption = DEMO_MODE ? "Live-App · Demo-Daten" : "Live-App";
   const head = (
     <>
@@ -36,7 +41,7 @@ export function DeineBuchungChapter() {
     <Chapter n={7} cv={{ desktop: 970, tablet: 1125, mobile: 1220 }}>
       <LpContainer>
         {items.length ? (
-          <ScreenTabs head={head} items={items} caption={caption} />
+          <ScreenTabs head={head} items={items} images={images} caption={caption} />
         ) : (
           <div>
             {head}

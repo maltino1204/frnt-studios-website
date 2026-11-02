@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { AiLabel } from "@/components/ui/ai-label";
-import { Portrait } from "@/components/ui/avatar";
 import { surfaceClasses } from "@/components/ui/surface";
 import { Rating, VerifiedBadge } from "@/components/ui/trust";
 import { routes } from "@/lib/routes";
 import type { DiscoveryProviderDTO } from "@/server/services/site-ext";
+import { LandingPortrait } from "../primitives/landing-portrait";
 
 /**
  * 06 provider card (spec § 4.6), one link to `/profis/{slug}`: the O-oval portrait, the name as identity (serif) with
@@ -17,7 +17,7 @@ export function ProviderCard({ provider }: { provider: DiscoveryProviderDTO }) {
   return (
     <Link href={routes.provider(provider.slug)} prefetch={false} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-4 p-3 pb-5" })}>
       <span data-reveal="arch" className="block">
-        <Portrait src={provider.avatarUrl} name={provider.displayName} shape="oval" sizes="(min-width: 1024px) 22vw, 64vw" className="w-full" />
+        <LandingPortrait src={provider.avatarUrl} name={provider.displayName} sizes="(min-width: 1024px) 22vw, 64vw" className="w-full" />
       </span>
       <span className="flex flex-col gap-1.5 px-1">
         <span className="flex min-w-0 items-center gap-1.5">

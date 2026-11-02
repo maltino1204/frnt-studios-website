@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { getImageProps } from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
-import { resolveImage } from "@/lib/images";
 import { SwapLayer } from "../hero/swap-layer";
 import { useLayerSwap } from "../hero/use-layer-swap";
 import { LandingArch } from "../primitives/landing-arch";
-import { LandingImage } from "../primitives/landing-image";
+import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
 import type { CategoryItem } from "./types";
-
-const PREVIEW_SIZES = "(min-width: 1440px) 519px, 36vw";
 /** Intent delay, so rows crossed by the pointer do not flicker (spec § 4.3). */
 const INTENT_MS = 80;
 
@@ -20,9 +16,10 @@ const INTENT_MS = 80;
  * 03 on desktop with a fine pointer (spec § 4.3): the editorial index (one link per row, sans list titles) and a
  * sticky preview arch that mirrors the row under the pointer or focus (keyboard parity). The preview is
  * `aria-hidden`; its image layers swap like the hero (`[data-preview-layer][data-state]`), the caption is keyed
- * (`data-preview-caption`, `data-state="entering"` after a swap).
+ * (`data-preview-caption`, `data-state="entering"` after a swap). The preview photos' attributes come from the server
+ * (`previews`, `getImageProps()` in chapters/03-behandlungen.tsx), so this island loads no `next/image`.
  */
-export function IndexList({ items }: { items: CategoryItem[] }) {
+export function IndexList({ items, previews }: { items: CategoryItem[]; previews: Record<string, LandingImgAttrs> }) {
   const [active, setActive] = useState(items[0]?.slug ?? "");
   const { layers, settle, swapped } = useLayerSwap(active);
   const timer = useRef(0);
@@ -38,11 +35,12 @@ export function IndexList({ items }: { items: CategoryItem[] }) {
     if (fetched.current) return;
     fetched.current = true;
     for (const it of items.slice(1)) {
-      const { props } = getImageProps({ src: resolveImage(it.image) ?? it.image, alt: "", fill: true, sizes: PREVIEW_SIZES });
+      const attrs = previews[it.slug];
+      if (!attrs) continue;
       const img = new window.Image();
-      if (props.sizes) img.sizes = props.sizes;
-      if (props.srcSet) img.srcset = props.srcSet;
-      img.src = props.src;
+      if (attrs.sizes) img.sizes = attrs.sizes;
+      if (attrs.srcSet) img.srcset = attrs.srcSet;
+      img.src = attrs.src;
     }
   };
 
@@ -90,7 +88,7 @@ export function IndexList({ items }: { items: CategoryItem[] }) {
             const it = items.find((x) => x.slug === l.key) ?? current;
             return (
               <SwapLayer key={l.n} attr="data-preview-layer" state={l.state} n={l.n} onSettle={settle}>
-                <LandingImage src={it.image} alt="" sizes={PREVIEW_SIZES} focal={it.focal} />
+                {previews[it.slug] ? <LandingImg img={previews[it.slug]} alt="" className="object-cover" /> : null}
               </SwapLayer>
             );
           })}

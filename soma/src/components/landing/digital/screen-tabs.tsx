@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useId, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import type { Callout, Region, ScreenFile } from "./screens";
+import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
+import type { Callout, Region, ScreenFile, ScreenId } from "./screens";
 
 type Item = Callout & { file: ScreenFile; region: Region };
 
@@ -21,9 +21,20 @@ function offsetFor(file: ScreenFile, region: Region): number {
  * 07 tabs and the floating screen (spec § 4.7): a tablist (vertical from 1024, snap chips below; roving tabindex,
  * arrows / Home / End, activation on focus) and one tabpanel, the screen without a device frame. The screen shows a
  * real capture of the live demo app, moved to the callout's region (`--screen-y`), with a 1.5 px ink ring around it
- * (`data-screen-ring`). Static positions only: the motion layer adds the crossfade and the move.
+ * (`data-screen-ring`). Static positions only: the motion layer adds the crossfade and the move. The captures'
+ * attributes come from the server (`images`, `getImageProps()` in chapters/07-deine-buchung.tsx).
  */
-export function ScreenTabs({ head, items, caption }: { head: ReactNode; items: Item[]; caption: string }) {
+export function ScreenTabs({
+  head,
+  items,
+  images,
+  caption,
+}: {
+  head: ReactNode;
+  items: Item[];
+  images: Partial<Record<ScreenId, LandingImgAttrs>>;
+  caption: string;
+}) {
   const uid = useId();
   const [active, setActive] = useState(0);
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -91,15 +102,14 @@ export function ScreenTabs({ head, items, caption }: { head: ReactNode; items: I
           <div className="lp-screen-track">
             {files.map((f) => {
               const on = f.id === cur.file.id;
+              const img = images[f.id];
+              if (!img) return null;
               return (
-                <Image
+                <LandingImg
                   key={f.id}
-                  src={f.src}
+                  img={img}
                   alt={on ? cur.alt : ""}
                   aria-hidden={on ? undefined : true}
-                  width={f.width}
-                  height={f.height}
-                  sizes="(min-width: 1024px) 360px, 280px"
                   data-screen-file={f.id}
                   data-state={on ? "current" : "idle"}
                   className="lp-screen-img"
