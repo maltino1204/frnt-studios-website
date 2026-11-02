@@ -2,7 +2,7 @@
  "note": "v6 fixes after landing audit 4 (Photo Art Director, 2 Nov 2026; docs/landing/audit-4.md N4-3, N4-5, N4-6). Every attempt has its own file name. Start balance 714.99, budget 20.",
  "startBalance": 714.99,
  "budget": 20,
- "creditsLogged": 8,
+ "creditsLogged": 10,
  "jobs": [
   {
    "id": "7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5",
@@ -14,7 +14,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163907_7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163907_7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5.png",
+   "status": "fail",
+   "reason": "the hands moved up to the shoulders, but the sheet still starts at mid-back: bare back at hero scale"
   },
   {
    "id": "7b29990f-d51f-416f-9235-07fbc430bb06",
@@ -26,7 +28,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163904_7b29990f-d51f-416f-9235-07fbc430bb06.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163904_7b29990f-d51f-416f-9235-07fbc430bb06.png",
+   "status": "pass",
+   "reason": "sheet drawn up to the shoulder blades, only shoulders and the top of the back bare; both hands on the shoulders above the edge; room, Profi and light unchanged"
   },
   {
    "id": "8632289e-cfe0-4036-9180-b432f5d03662",
@@ -38,7 +42,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163905_8632289e-cfe0-4036-9180-b432f5d03662.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163905_8632289e-cfe0-4036-9180-b432f5d03662.png",
+   "status": "pass",
+   "reason": "the Profi wears plain light sand leather slip-ons, the client stays barefoot; hands, file, towel and room unchanged"
   },
   {
    "id": "18a27447-e286-4b0b-a8c5-820f04fa85ee",
@@ -50,15 +56,29 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use + the arrival photo as the client reference",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163906_18a27447-e286-4b0b-a8c5-820f04fa85ee.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163906_18a27447-e286-4b0b-a8c5-820f04fa85ee.png",
+   "status": "pass",
+   "reason": "the client on the sofa is the man from the door: short dark-brown hair, light stubble, the cream waffle-knit jumper, sand trousers, grey socks; both hands round the cup, legs plausible; the red-haired Profi, room and light unchanged; he sits inside the right arch at focal 12 %"
+  },
+  {
+   "id": "08f58c88-a43c-4b00-8360-c766e77e711b",
+   "shot": "G01",
+   "review": "N4-5",
+   "path": "/images/editorial/hotel-v6b.jpg",
+   "replaces": "/images/editorial/hotel-v3.jpg",
+   "issue": "landing hero „Im Hotel“: the guest's back is bare from the neck to mid-back (discretion rule: linen to the shoulder blades or higher); AUDIT-v3 said „sheet at the shoulder blades“",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_164322_08f58c88-a43c-4b00-8360-c766e77e711b.png"
   }
  ],
  "current": {
-  "/images/editorial/hotel-v6.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163907_7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5.png",
-   "job": "7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5",
+  "/images/editorial/hotel-v6b.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_164322_08f58c88-a43c-4b00-8360-c766e77e711b.png",
+   "job": "08f58c88-a43c-4b00-8360-c766e77e711b",
    "shot": "G01",
-   "attempt": 1
+   "attempt": 2
   },
   "/images/categories/massage-v6.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163904_7b29990f-d51f-416f-9235-07fbc430bb06.png",

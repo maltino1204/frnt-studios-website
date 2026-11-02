@@ -3335,7 +3335,7 @@
     "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
     "replaces": "/images/editorial/hotel-v2.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E04",
-    "replacedBy": "/images/editorial/hotel-v6.jpg"
+    "replacedBy": "/images/editorial/hotel-v6b.jpg"
   },
   {
     "path": "/images/editorial/office-v3.jpg",
@@ -5419,7 +5419,8 @@
     "focal": "62% 50%",
     "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
     "replaces": "/images/editorial/hotel-v3.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of hotel-v3.jpg), SOMA photography v6 fix G01 (landing audit 4, N4-5), attempt 1"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of hotel-v3.jpg), SOMA photography v6 fix G01 (landing audit 4, N4-5), attempt 1",
+    "replacedBy": "/images/editorial/hotel-v6b.jpg"
   },
   {
     "path": "/images/categories/massage-v6.jpg",
@@ -5637,5 +5638,16 @@
     "replaces": "/images/pros/pro-30-v5.jpg",
     "avatar": "/images/pros/pro-30-v5-face.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of pro-30-v4.jpg), SOMA photography v5 post-review fix F06 (R11) · fresh file name for the approved attempt (landing audit 4, R4-2: the old name had carried rejected attempts)"
+  },
+  {
+    "path": "/images/editorial/hotel-v6b.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_164322_08f58c88-a43c-4b00-8360-c766e77e711b.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "62% 50%",
+    "place": "Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30",
+    "replaces": "/images/editorial/hotel-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of hotel-v3.jpg), SOMA photography v6 fix G01 (landing audit 4, N4-5), attempt 2"
   }
 ]

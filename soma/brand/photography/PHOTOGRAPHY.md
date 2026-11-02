@@ -1,9 +1,13 @@
 # SOMA: Photography direction
 
-*Photo Art Director · v3.0 „Tageslicht“ · 2 Nov 2026*
+*Photo Art Director · v3.2 „Tageslicht“ · 2 Nov 2026*
 *Linked from `brand/BRAND_GUIDELINES.md` § 7. The motif and crop geometry stay as fixed in guidelines § 5.1 and § 5.3. v3 replaces the light, grade, wardrobe and portrait rules of v2 (1 Nov 2026); everything else from v2 that still applies is carried over below.*
 
 ## Change log
+
+### v3.2 · 2 Nov 2026: fresh file names, discretion and continuity fixes (landing audit 4)
+
+Landing audit 4 (`docs/landing/audit-4.md` N4-3) found the image optimiser serving QA-rejected attempts: retries had been written over the same file name, and caches keyed by URL kept the old picture. **New rule (§ 11, "Fresh names"): every fetched attempt gets its own, never-used file name**; the 17 approved files whose names had carried earlier attempts were re-registered under fresh `-v6` names, and `tools/fresh-check.mjs` is part of the QA sign-off. The hotel hero and the massage tile now keep linen to the shoulder blades (N4-5), the pedicure Profi wears shoes, and the signature pair shows the same client at the door and on the sofa (N4-6). § 10 and § 13.2 now use the daytime Ortszeilen. Audit: `AUDIT-v4.md`, "Post-audit-4 fixes".
 
 ### v3.1 · 2 Nov 2026: the Profi portraits get variety (v4 files)
 
@@ -80,7 +84,7 @@ Replaced the v1 development set (131 images, audit in `AUDIT.md`). Its rules on 
 | **Key** | **Bright natural daylight** from large windows: sun-filled rooms, soft and flattering on skin. A soft sun patch on the floor or a wall is welcome; faces sit in open, even light, never in hard shadow. |
 | **High-key** | **Warm high-key is allowed** and is the default for portraits and treatments: warm white, never clinical or blue-white. |
 | **Fill** | Shadows are open and luminous (bounced daylight off white walls and linen). Nothing important sits in a dark area. |
-| **Time of day** | Morning to late afternoon by default. Scenes whose Ortszeile names an evening time (17:40–21:10, hard-coded in the landing) are read as **long German summer evenings**: bright, warm low sun streaming in, the room still fully lit. |
+| **Time of day** | Morning to late afternoon. The landing's Ortszeilen are daytime since 2 Nov 2026 (10:30–16:10, § 10); the warm low sun of some frames reads as morning or afternoon sun, the room always fully lit. |
 | **Offices** | Bright daylight through floor-to-ceiling glass; no downlights or LED panels as the visible source. |
 | **Never as a default** | Blue hour, lamp-only rooms, night windows, candlelight, flash look, ring-light catchlights, coloured gels, cold blue-white "clinic" light. |
 
@@ -182,11 +186,11 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 ## 10. The Ortszeile (*Ort · Stadtteil · Uhrzeit*) — unchanged from v2
 
 - Format: `type-place` (Instrument Sans 600, caps, +0.12em, tabular figures), left-aligned to the image edge, under or inside the bottom-left of key images.
-- Examples: *Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30* · *Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10* · *Besprechungsraum · Hamburg-HafenCity · 13:00*.
-- The line must match the picture: the light (§ 2: evening times are bright summer evenings in v3), the city skyline and the room type. Each key image in `sources.json` carries its `place`.
+- Examples (the landing's daytime lines, 2 Nov 2026): *Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30* · *Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30* · *Besprechungsraum · Hamburg-HafenCity · 13:00*.
+- The line must match the picture: the light (the v3 set is daylight, so daytime times), the city skyline and the room type. Each key image in `sources.json` carries its `place`.
 - Ortszeilen are illustrative scenes, never bookings. No street names, house numbers or real hotel names.
 - In the product the Ortszeile appears only on editorial surfaces (home, landing, empty states), never on a real booking.
-- *Recommendation for the landing owner:* the hard-coded lines in `src/components/site/discovery-copy.ts` and the landing chapters still name 17:40–21:10. They are consistent with v3 read as summer evenings; a later copy pass may move them to daytime (e.g. *· 10:30*).
+- The landing and the discovery surfaces moved to daytime lines on 2 Nov 2026 (`docs/landing/LANDING_DESIGN_SPEC.md`, "Ortszeilen in daylight"); the evening examples of v2 are superseded.
 
 ## 11. Generating development assets (until the shoot)
 
@@ -204,6 +208,7 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
   - crops that do not work at the entry's ratio and focal point;
   - identity mismatch with the seed (gender, age, heritage).
   Every rejection is logged with its reason and retry count in `AUDIT-v3.md` and `generation/jobs-v3.json`.
+- **Fresh names (since v3.2, landing audit 4 R4-2).** **Never write a file name twice.** Image optimisers and CDNs (`.next/cache/images`, the Netlify Image CDN) cache each URL × width × format and do not look at the file's content, so a name that ever carried a rejected attempt can keep serving it. Every attempt that is fetched gets its own, never-used name (`<base>-v6.jpg`, a retry `<base>-v6b.jpg`, `-v6c` …); the registry points at the approved one with `replacedBy`, and rejected attempts stay as dead entries pointing forward. Do not `git rm` a file to re-fetch a new picture under the same name. Sign-off for every round: `node brand/photography/tools/fresh-check.mjs` must report 0 reused names, 0 files fetched from an older remote and 0 files that are not the ledger's approved job (it needs the full git history). On a host that already served old variants, also purge its optimiser cache.
 - **Registration.** Each v3 image is a new `-v3` entry in `scripts/images/sources.json` (`remote`, `ratio`, `width`, `height`, `focal`, `place`, `caption` for portfolio, `replaces`, `source`). The entry that was in use gets `replacedBy` → the v3 path; `src/lib/images.ts` follows the chain (v1 → v2 → v3 is two hops), so no code reference changes. The capture workflow (`.github/workflows/soma-capture.yml`) downloads and crops the files.
 
 ## 12. The v3 set
@@ -226,26 +231,26 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 ## 13. Before launch: real photography
 
 ### 13.1 Shoot plan
-Two shoot days per city block (Berlin day 1–2, Frankfurt hotel day 3, Hamburg office day 4), one photographer + assistant, a digital tech for on-set grading against the v3 LUT (bright, warm-neutral, lifted; built from the v3 grade masters), a casting/production coordinator, a set stylist (props and wardrobe lists § 8–9), a hair and make-up artist for grooming continuity (natural; no beauty make-up on customers). **Shoot in daylight** (09:00–17:00, with large bounce and diffusion; evening scenes in summer sun or with daylight-balanced soft light that reads as late sun). Wardrobe: ivory, sand and stone tunics in two cuts per size, ironed on set.
+Two shoot days per city block (Berlin day 1–2, Frankfurt hotel day 3, Hamburg office day 4), one photographer + assistant, a digital tech for on-set grading against the v3 LUT (bright, warm-neutral, lifted; built from the v3 grade masters), a casting/production coordinator, a set stylist (props and wardrobe lists § 8–9), a hair and make-up artist for grooming continuity (natural; no beauty make-up on customers). **Shoot in daylight** (09:00–17:00, with large bounce and diffusion); the Ortszeilen are daytime (§ 10), so no evening scenes. Wardrobe: ivory, sand and stone tunics in two cuts per size, ironed on set.
 
 ### 13.2 Shot list (minimum 34 finals)
 | # | Shot | Format | Place | Ortszeile | Priority |
 |---|---|---|---|---|---|
-| 1–2 | Hero: the Profi's palms on fresh white linen, sun-filled Altbau, calm half | 16:9 + 9:16 (shoot both) | Altbau, Berlin | Altbau, 3. OG · Berlin-Prenzlauer Berg · 19:30 (summer evening) | P0 |
-| 3 | The arched doorway into a sunlit room, kit set down | 4:5 | Altbau hallway | Flur · Berlin-Schöneberg · 18:40 | P0 |
-| 4 | Arrival at the door (customer seen from behind) | 3:2 | Altbau | Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 19:25 | P0 |
+| 1–2 | Hero: the Profi's palms on fresh white linen, sun-filled Altbau, calm half | 16:9 + 9:16 (shoot both) | Altbau, Berlin | Altbau, 3. OG · Berlin-Prenzlauer Berg · 10:30 | P0 |
+| 3 | The arched doorway into a sunlit room, kit set down | 4:5 | Altbau hallway | Flur · Berlin-Schöneberg · 11:10 | P0 |
+| 4 | Arrival at the door (customer seen from behind) | 3:2 | Altbau | Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 15:25 | P0 |
 | 5 | Unfolding the table, hands only | 3:2 | Altbau | — | P1 |
-| 6 | After: on her own sofa, tea, Profi folding linen | 3:2 + 4:5 | Altbau | Sofa, danach · Berlin-Prenzlauer Berg · 20:10 | P0 |
-| 7 | Hotel massage, skyline in daylight, linen to the shoulder blades | 3:2 | Hotel, Frankfurt (location release) | Hotelsuite, 6. Stock · Frankfurt-Westend · 21:10 | P0 |
+| 6 | After: the same client (as in 4) on their own sofa, tea, Profi folding linen | 3:2 + 4:5 | Altbau | Sofa, danach · Berlin-Prenzlauer Berg · 16:10 | P0 |
+| 7 | Hotel massage, skyline in daylight, linen to the shoulder blades | 3:2 | Hotel, Frankfurt (location release) | Hotelsuite, 6. Stock · Frankfurt-Westend · 15:30 | P0 |
 | 8 | Hotel set-up while the guest takes off her shoes | 3:2 | Hotel | same | P1 |
 | 9 | Office massage chair, harbour window | 3:2 | Office, HafenCity | Besprechungsraum · Hamburg-HafenCity · 13:00 | P0 |
-| 10 | Make-up Profi at the door, case in hand | 4:5 | Stairwell, Köln | Wohnungstür, 2. OG · Köln-Ehrenfeld · 18:55 | P0 |
-| 11 | Nails after work, shoes kicked off | 3:2 | Altbau, Hamburg | Wohnzimmer · Hamburg-Eimsbüttel · 19:05 | P0 |
-| 12 | Resting under a light throw after a massage | 4:5 | Flat, München | Sofa, danach · München-Schwabing · 20:20 | P1 |
+| 10 | Make-up Profi at the door, case in hand | 4:5 | Stairwell, Köln | Wohnungstür, 2. OG · Köln-Ehrenfeld · 11:15 | P0 |
+| 11 | Nails at home on a day off, shoes kicked off | 3:2 | Altbau, Hamburg | Wohnzimmer · Hamburg-Eimsbüttel · 11:40 | P0 |
+| 12 | Resting under a light throw after a massage | 4:5 | Flat, München | Sofa, danach · München-Schwabing · 14:20 | P1 |
 | 13 | Room through a half-open door (privacy) | 4:5 | Altbau bedroom | — | P1 |
 | 14–20 | Seven category tiles (as v3 C01–C07, real Profis with consent) | 4:5 | mixed | — | P0 |
 | 21 | Tools still life on ivory linen (top-down, the only one) | 1:1 | Studio table | — | P1 |
-| 22 | Profi on the stairs (SOMA Pro band) | 16:9 | Stairwell, Berlin | Treppenhaus, 2. OG · Berlin-Neukölln · 17:40 | P0 |
+| 22 | Profi on the stairs (SOMA Pro band) | 16:9 | Stairwell, Berlin | Treppenhaus, 2. OG · Berlin-Neukölln · 11:40 | P0 |
 | 23–24 | Phone in hand, customer and Profi (screens off, for comps) | 4:5 | Kitchen, stairwell | — | P1 |
 | 25 | Empty light-oak table for device flat-lays | 3:2 | Studio | — | P2 |
 | 26–31 | The six „Entdecken“ covers (before the event, after the run, arriving at the hotel, lunch break, Sunday, new on SOMA) | 4:5 | mixed | — | P1 |
