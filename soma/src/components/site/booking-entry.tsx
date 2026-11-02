@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { flushSync } from "react-dom";
 import { ChevronDown, CircleAlert, LocateFixed, X } from "lucide-react";
 import {
   startTransition as startIdleRender,
@@ -323,6 +324,8 @@ export function BookingEntry({
   // The inline Was? list renders in advance, hidden, in an idle period once the entry is on screen (the sheet has
   // opened): a tap then only shows it, no render of the list inside the tap (audit-3 M-2).
   const [wasReady, setWasReady] = useState(false);
+  // The mobile picker sheet's list: rendered in one task right after the sheet's first frame (see `toggle`).
+  const [sheetList, setSheetList] = useState<null | "was" | "wann">(null);
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -594,6 +597,12 @@ export function BookingEntry({
     // the list's height and fills when the chunk arrives (audit-3 M-3).
     setOpen(which);
     preloadPickers();
+    if (!desktop && !inline) {
+      // The mobile sheet paints its first frame with that frame, then renders the list in the next task, in one go and
+      // ahead of the sheet turning modal (this frame callback is queued before the sheet's own).
+      setSheetList(null);
+      requestAnimationFrame(() => window.setTimeout(() => flushSync(() => setSheetList(which)), 0));
+    }
   };
 
   // Return focus to the trigger when a picker closes.
@@ -654,8 +663,8 @@ export function BookingEntry({
       : { "aria-haspopup": "dialog" as const, "aria-expanded": open === which };
 
   // Until the pickers' chunk is there (a picker opened at once, or a failed load), a frame of the list's height. The
-  // mobile sheets show it for their first frame too and render the list right after (`listOpen`, deferred), so the
-  // tap paints the sheet without styling the whole list first.
+  // mobile sheets show it for their first frame too and render the list right after (`sheetList`), so the tap paints
+  // the sheet without styling the whole list first.
   const wasFrame = <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />;
   const wannFrame = <div aria-hidden className="h-[13.5rem]" />;
   const wasPicker = P ? <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} /> : wasFrame;
@@ -898,7 +907,7 @@ export function BookingEntry({
           frame paints before the page turns inert (`paintFirst`). */}
       {!desktop && !inline && open === "was" ? (
         <Sheet open onClose={closePicker} title="Behandlung wählen" paintFirst>
-          <div aria-busy={!(P && listOpen === "was") || undefined}>{listOpen === "was" ? wasPicker : wasFrame}</div>
+          <div aria-busy={!(P && sheetList === "was") || undefined}>{sheetList === "was" ? wasPicker : wasFrame}</div>
         </Sheet>
       ) : null}
       {!desktop && !inline && open === "wann" ? (
@@ -913,7 +922,7 @@ export function BookingEntry({
             </Button>
           }
         >
-          <div aria-busy={!(P && listOpen === "wann") || undefined}>{listOpen === "wann" ? wannPicker : wannFrame}</div>
+          <div aria-busy={!(P && sheetList === "wann") || undefined}>{sheetList === "wann" ? wannPicker : wannFrame}</div>
         </Sheet>
       ) : null}
     </div>
