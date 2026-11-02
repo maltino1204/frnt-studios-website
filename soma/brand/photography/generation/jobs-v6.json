@@ -1,0 +1,152 @@
+{
+ "note": "v6 fixes after landing audit 4 (Photo Art Director, 2 Nov 2026; docs/landing/audit-4.md N4-3, N4-5, N4-6). Every attempt has its own file name. Start balance 714.99, budget 20.",
+ "startBalance": 714.99,
+ "budget": 20,
+ "creditsLogged": 8,
+ "jobs": [
+  {
+   "id": "7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5",
+   "shot": "G01",
+   "review": "N4-5",
+   "path": "/images/editorial/hotel-v6.jpg",
+   "replaces": "/images/editorial/hotel-v3.jpg",
+   "issue": "landing hero „Im Hotel“: the guest's back is bare from the neck to mid-back (discretion rule: linen to the shoulder blades or higher); AUDIT-v3 said „sheet at the shoulder blades“",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163907_7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5.png"
+  },
+  {
+   "id": "7b29990f-d51f-416f-9235-07fbc430bb06",
+   "shot": "G02",
+   "review": "N4-5",
+   "path": "/images/categories/massage-v6.jpg",
+   "replaces": "/images/categories/massage-v3.jpg",
+   "issue": "category tile Massage: the same bare back to mid-back, at tile scale (audit 4 § 8, Discretion)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163904_7b29990f-d51f-416f-9235-07fbc430bb06.png"
+  },
+  {
+   "id": "8632289e-cfe0-4036-9180-b432f5d03662",
+   "shot": "G03",
+   "review": "N4-6",
+   "path": "/images/categories/pedikuere-v6.jpg",
+   "replaces": "/images/categories/pedikuere-v3.jpg",
+   "issue": "category tile Pediküre: the pedicure Profi works barefoot (audit 4 P3, as audit 1 A6)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163905_8632289e-cfe0-4036-9180-b432f5d03662.png"
+  },
+  {
+   "id": "18a27447-e286-4b0b-a8c5-820f04fa85ee",
+   "shot": "G04",
+   "review": "N4-6",
+   "path": "/images/editorial/after-v6.jpg",
+   "replaces": "/images/editorial/after-v3.jpg",
+   "issue": "the landing's signature pair (03, „one afternoon in two moments“): a younger man opens the door, an older woman sits on the sofa",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use + the arrival photo as the client reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163906_18a27447-e286-4b0b-a8c5-820f04fa85ee.png"
+  }
+ ],
+ "current": {
+  "/images/editorial/hotel-v6.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163907_7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5.png",
+   "job": "7c82e0ce-7a1e-47b2-bff6-f9534a66bfd5",
+   "shot": "G01",
+   "attempt": 1
+  },
+  "/images/categories/massage-v6.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163904_7b29990f-d51f-416f-9235-07fbc430bb06.png",
+   "job": "7b29990f-d51f-416f-9235-07fbc430bb06",
+   "shot": "G02",
+   "attempt": 1
+  },
+  "/images/categories/pedikuere-v6.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163905_8632289e-cfe0-4036-9180-b432f5d03662.png",
+   "job": "8632289e-cfe0-4036-9180-b432f5d03662",
+   "shot": "G03",
+   "attempt": 1
+  },
+  "/images/editorial/after-v6.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_163906_18a27447-e286-4b0b-a8c5-820f04fa85ee.png",
+   "job": "18a27447-e286-4b0b-a8c5-820f04fa85ee",
+   "shot": "G04",
+   "attempt": 1
+  }
+ },
+ "renamed": [
+  {
+   "from": "/images/landing/app-pro-v3.jpg",
+   "to": "/images/landing/app-pro-v6.jpg"
+  },
+  {
+   "from": "/images/explore/nach-dem-sport.jpg",
+   "to": "/images/explore/nach-dem-sport-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/brows-lashes-4-v3.jpg",
+   "to": "/images/portfolio/brows-lashes-4-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/haare-styling-17-v3.jpg",
+   "to": "/images/portfolio/haare-styling-17-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/kosmetik-8-v3.jpg",
+   "to": "/images/portfolio/kosmetik-8-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/kosmetik-13-v3.jpg",
+   "to": "/images/portfolio/kosmetik-13-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/make-up-8-v3.jpg",
+   "to": "/images/portfolio/make-up-8-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/manikuere-1-v3.jpg",
+   "to": "/images/portfolio/manikuere-1-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/manikuere-4-v3.jpg",
+   "to": "/images/portfolio/manikuere-4-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/manikuere-7-v3.jpg",
+   "to": "/images/portfolio/manikuere-7-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/massage-6-v3.jpg",
+   "to": "/images/portfolio/massage-6-v6.jpg"
+  },
+  {
+   "from": "/images/portfolio/massage-18-v3.jpg",
+   "to": "/images/portfolio/massage-18-v6.jpg"
+  },
+  {
+   "from": "/images/pros/pro-08-v4.jpg",
+   "to": "/images/pros/pro-08-v6.jpg"
+  },
+  {
+   "from": "/images/pros/pro-10-v4.jpg",
+   "to": "/images/pros/pro-10-v6.jpg"
+  },
+  {
+   "from": "/images/pros/pro-27-v4.jpg",
+   "to": "/images/pros/pro-27-v6.jpg"
+  },
+  {
+   "from": "/images/pros/pro-29-v4.jpg",
+   "to": "/images/pros/pro-29-v6.jpg"
+  },
+  {
+   "from": "/images/pros/pro-30-v5.jpg",
+   "to": "/images/pros/pro-30-v6.jpg"
+  }
+ ]
+}
