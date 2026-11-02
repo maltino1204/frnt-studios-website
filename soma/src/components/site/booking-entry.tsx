@@ -55,6 +55,8 @@ type Loc =
   | { status: "error"; message: string };
 
 const STORAGE_KEY = "soma:last-plz";
+/** The middle dot with a no-break space on both sides (brand § 4.4: Instrument Sans sets "·" tight). */
+const DOT = "\u00a0·\u00a0";
 const PICK_EVENT = "soma:booking-entry:set";
 const HORIZON_DAYS = 60;
 
@@ -74,7 +76,7 @@ function whenLabel(w: When): string {
   const day =
     w.mode === "asap" ? "So bald wie möglich" : w.mode === "today" ? "Heute" : w.mode === "tomorrow" ? "Morgen" : w.date ? formatDayShort(`${w.date}T12:00:00Z`) : "Datum wählen";
   const win = w.window ? WINDOWS.find((x) => x.value === w.window)?.label : null;
-  return win ? `${day} · ${win}` : day;
+  return win ? `${day}${DOT}${win}` : day;
 }
 
 function whenDate(w: When): string | undefined {
@@ -306,7 +308,7 @@ function WasPicker({
 
 function serviceMeta(s: EntryService): string {
   const p = fromPrice(s.fromCents);
-  return [durationsLabel(s.durations), p].filter(Boolean).join(" · ");
+  return [durationsLabel(s.durations), p].filter(Boolean).join(DOT);
 }
 
 function PickRow({ selected, onClick, title, meta }: { selected: boolean; onClick: () => void; title: string; meta?: string }) {
@@ -786,6 +788,7 @@ export function BookingEntry({
   );
   const divider = bar ? "lg:before:absolute lg:before:inset-y-5 lg:before:left-0 lg:before:w-px lg:before:bg-line lg:before:content-['']" : "";
   const caption = "type-caption text-ink-muted";
+  const cityHint = "-ml-[calc(0.6ch+0.25rem)] min-w-0 flex-1 truncate text-body text-ink-muted";
   const value = cn("block truncate text-body leading-snug text-ink", sill && "lg:condensed xl:[font-stretch:100%]");
   const trigger = (which: "was" | "wann") =>
     cn(
@@ -833,7 +836,7 @@ export function BookingEntry({
         <div className={cn(segment, "rounded-t-card pr-1 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-focus", bar && "lg:rounded-full lg:pr-2")}>
           <label htmlFor={`${uid}-plz`} className={caption}>
             Wo?
-            {hint?.context ? <span aria-hidden data-place-context="">{` · ${hint.context}`}</span> : null}
+            {hint?.context ? <span aria-hidden data-place-context="">{`${DOT}${hint.context}`}</span> : null}
             <span className="sr-only"> {srLabel}</span>
           </label>
           <div className="flex items-center gap-1">
@@ -858,10 +861,11 @@ export function BookingEntry({
               )}
             />
             {loc.status === "ok" ? (
-              // text-body, not type-body: its `text-wrap: pretty` would cancel truncate's nowrap.
-              <span className="min-w-0 flex-1 truncate text-body text-ink-muted">· {loc.data.cityName}</span>
+              // text-body, not type-body: its `text-wrap: pretty` would cancel truncate's nowrap. The negative margin takes
+              // back the field's spare 0.6ch and the 4 px gap, so the dot has one no-break space on each side.
+              <span className={cityHint}>{`${DOT}${loc.data.cityName}`}</span>
             ) : loc.status === "outside" ? (
-              <span className="min-w-0 flex-1 truncate text-body text-ink-muted">· noch nicht verfügbar</span>
+              <span className={cityHint}>{`${DOT}noch nicht verfügbar`}</span>
             ) : loc.status === "checking" ? (
               <span className="flex flex-1 items-center text-ink-muted">
                 <Spinner size={16} />
