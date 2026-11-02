@@ -1,6 +1,7 @@
 "use client";
 
 import { lazy, Suspense, useEffect } from "react";
+import { setBookingSurfaceLoader } from "../booking/booking-access";
 import { loadBookingBar, loadBookingSheet, loadOverlay, mountSurfaces, preloadSurfaces, surfacesReady, useSurfacesMounted } from "./surfaces";
 
 const ChapterOverlay = lazy(() => loadOverlay().then((m) => ({ default: m.ChapterOverlay })));
@@ -26,6 +27,9 @@ export function LazySurfaces() {
   const on = useSurfacesMounted();
 
   useEffect(() => {
+    // A bare `openBooking()` (or a raw `soma:booking:open` event) before the dialogs exist mounts them and is queued
+    // by booking-access until the bar or sheet registers.
+    setBookingSurfaceLoader(mountSurfaces);
     const win = window as IdleWindow;
     const handles: number[] = [];
     let started = false;
@@ -61,6 +65,7 @@ export function LazySurfaces() {
         else window.clearTimeout(h);
       }
       for (const t of ["pointerdown", "pointerover", "focusin", "keydown"]) document.removeEventListener(t, onIntent, opts);
+      setBookingSurfaceLoader(null);
     };
   }, []);
 
