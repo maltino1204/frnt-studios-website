@@ -126,6 +126,8 @@ export function WasPicker({
         </li>
       ))}
     </ul>
+    {/* One disclosure for the list's photos (review R2): the flag comes from the server, so this chunk stays free of the image registry. */}
+    {catalog.some((c) => c.thumb?.ai) ? <p className="mt-2 type-caption text-ink-muted">Bilder KI-generiert</p> : null}
     </div>
   );
 }

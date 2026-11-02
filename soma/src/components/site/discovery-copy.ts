@@ -59,6 +59,8 @@ export type EntryThumb = {
   decoding?: "async" | "auto" | "sync";
   /** object-position (the registry's focal point) */
   position: string;
+  /** an AI development image: the picker shows one „Bilder KI-generiert“ note under the list (review R2) */
+  ai?: boolean;
 };
 export type EntryCategory = {
   slug: string;

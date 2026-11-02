@@ -1,6 +1,6 @@
 import "server-only";
 import { getImageProps } from "next/image";
-import { imageFocal, images, resolveImage, toneFor } from "@/lib/images";
+import { imageFocal, images, isAiImage, resolveImage, toneFor } from "@/lib/images";
 import type { CategoryWithServicesDTO } from "@/server/dto";
 import { toEntryCatalog, type EntryCategory, type EntryThumb } from "./discovery-copy";
 
@@ -33,6 +33,7 @@ export function entryThumb(slug: string, imagePath: string | null): EntryThumb |
     loading: props.loading as EntryThumb["loading"],
     decoding: props.decoding as EntryThumb["decoding"],
     position: imageFocal(path),
+    ai: isAiImage(path),
   };
 }
 
