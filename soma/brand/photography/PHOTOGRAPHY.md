@@ -5,6 +5,10 @@
 
 ## Change log
 
+### v3.1 · 2 Nov 2026: the Profi portraits get variety (v4 files)
+
+Client, after seeing v3: „mach ruhig mit etwas mehr Abwechslung!“ — all 30 portraits shared one backdrop, one pose and one framing and read stock-like. The 30 portraits are regenerated as `pros/pro-NN-v4` with the same light, grade and wardrobe and **each Profi's v3 portrait as the identity reference**. § 6 is updated; the audit is `AUDIT-v4.md`, the sheets `v3/08-pros-v4.jpg` and `v3/09-pros-v3-vs-v4.jpg`.
+
 ### v3.0 · 2 Nov 2026: „Tageslicht“ (client rejection of the v2 imagery)
 
 **Client feedback, 2026-11-02 (verbatim):**
@@ -132,17 +136,19 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 
 | | Rule |
 |---|---|
-| **Framing** | Editorial headshot, **head to waist**, the person centred, a little headroom, 4:5. In the O-oval and the 3:4 header the face sits in the upper third. |
+| **Framing** | Editorial portrait, 4:5, **head to waist for most**; seated frames and arms-at-the-sides frames to mid-thigh so that the hands stay inside. The face sits in the upper third, clear and sharp; `focal` per file keeps it inside the circle avatar (y 15 %, 10 % for the wider frames). |
+| **Setting (v3.1)** | Fitted to the craft and persona, six kinds, **at most 5 each**: own small bright studio · a client's bright living room next to the kit · a doorway arrival with the bag · a hotel corridor or suite (hotel specialists) · a bright office (office specialists) · at a window with tools. No plant/furniture combination twice. |
+| **Pose (v3.1)** | Seven kinds, 4–5 each: arms relaxed at the sides · lightly crossed · holding a tool or towel · leaning on a counter · seated · a natural laugh · a slight three-quarter turn. Every visible arm complete; a hand may tuck under a crossed arm, but no hand hidden by a towel, in a pocket or behind the back. |
 | **Arms and hands** | **Both arms and both hands visible and anatomically correct**: arms relaxed and loosely folded, or hands lightly clasped at the waist. Five fingers each, no hands hidden behind the back, no cropped forearms. |
 | **Gaze** | Friendly, direct gaze into the lens; a natural closed- or open-mouth smile. Shoulders square or a slight three-quarter turn. |
 | **Wardrobe** | A crisp light work tunic (ivory, sand or stone) with a short stand collar or V-neck and short or three-quarter sleeves, or a tailored light linen shirt or jacket over an ivory tee. At most one subtle Oxblood detail (thin piping, a hair tie). Clean, pressed, unbranded, no name tags. |
 | **Grooming** | Well-groomed: hair neat (tied back for hands-on work), minimal natural make-up, minimal jewellery. |
-| **Background** | The same bright warm-neutral background for all 30: a softly blurred bright interior (white wall, light oak, window light), or a plain light wall. No props in focus. |
+| **Background** | Bright, warm-neutral and softly blurred in every frame (white walls, light oak, linen, daylight); the props belong to the craft (the massage table, the manicure kit, the kit bag). |
 | **Light** | The same soft window daylight from camera left with gentle fill; even, flattering, warm high-key. |
 | **Camera** | 85 mm look, eye level, shallow depth of field, sharp eyes. |
-| **Consistency** | One prompt template for all 30 (`generation/shotlist-v3.mjs`); only the person, their age and their tunic tone change. The series is checked as one contact sheet before any single portrait is approved. |
+| **Consistency** | One family, not one backdrop: the same light, grade, lens look and light wardrobe (light trousers too, never dark), and the same person as in their reference portrait. Prompt system: `generation/shotlist-v4.mjs` (v3 template: `shotlist-v3.mjs`). The series is checked as one contact sheet before any single portrait is approved. |
 | **Identity** | Each portrait matches its provider in `scripts/db/lib/demo-data.ts`: gender, approximate age (from the years of experience) and heritage from name and bio. |
-| **Selin A.** (`pros/pro-01`, massage, Berlin, the B2B demo persona) | **Must be flawless**: both arms and hands, correct anatomy, warm confident expression, ivory tunic. She is the first image QA'd at 100 % and the series reference. |
+| **Selin A.** (`pros/pro-01`, massage, Berlin, the B2B demo persona) | **Must be flawless**: both arms and hands, correct anatomy, warm confident expression, ivory tunic. v4: a bright Altbau living room with her massage table set up behind her, holding a folded towel. |
 
 ## 7. Casting and diversity
 
@@ -204,7 +210,7 @@ The 30 Profi portraits are **one series**. They must read as trustworthy profess
 
 | Group | Paths (under `/images/`) | Replaces (in use) |
 |---|---|---|
-| Profi portraits (30) | `pros/pro-01-v3` … `pro-30-v3` (focal 50 % 30 %) | `pro-NN-v2`, `pro-12`, `pro-17`, `pro-28-v2` |
+| Profi portraits (30) | `pros/pro-01-v3` … `pro-30-v3` (focal 50 % 30 %), **superseded by `pro-NN-v4`** (v3.1, `AUDIT-v4.md`) | `pro-NN-v2`, `pro-12`, `pro-17`, `pro-28-v2` |
 | Landing key visuals (5) + hero home crop (1) | `landing/{hero-wide,hero-mobile,app-home,app-pro,app-table}-v3`, `landing/hero-home-4x5-v3` | `landing/<name>`, `landing/hero-home-4x5` (now registered as a recrop) |
 | Skipped by Lead decision (7) | — | `landing/philosophy`, `experience-{time,comfort,privacy,quality,choice,flexible}` stay v2 (their chapters are removed) |
 | Hero (1) | `hero/home-v3` | `hero/home-v2` |

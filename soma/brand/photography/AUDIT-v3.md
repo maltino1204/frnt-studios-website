@@ -66,6 +66,8 @@ Every downloaded file was looked at: contact sheets per group, then every image 
 
 ## Notes for the Lead and the landing owner
 
+- **Portraits v4.** After the client asked for more variety, the 30 Profi portraits were regenerated as `pros/pro-NN-v4` (v3 → `replacedBy` v4): see **`AUDIT-v4.md`**. The v3 rows for `pros/` below remain the record of the v3 round.
+
 - **Ortszeilen.** The landing hard-codes evening times (17:40–21:10). v3 reads them as long summer evenings (warm low sun, rooms fully lit), so image and line agree; a later copy pass may move them to daytime (`PHOTOGRAPHY.md` § 10).
 - **`landing/hero-home-4x5.jpg`** (the home hero's „Zu Hause“ place) was a derived file outside the registry, so `replacedBy` could not reach it. It is now registered as a recrop of `landing/hero-mobile.jpg` with `replacedBy` → `landing/hero-home-4x5-v3.jpg` (the same 4:5 crop of the v3 mobile hero, focal 50 % 45 %, as `scripts/landing/derive-hero.mjs` does). No code changed. `hero/home-v3` is the 4:5 crop at 50 % 62 %, as in v2.
 - **Widths.** `nano_banana_pro` 2k delivers 2731 × 1536 px at 16:9 and 1843 × 2304 px at 4:5. `landing/hero-wide-v3` and `editorial/provider-cta-v3` (registry 2880 wide) and the 2000-wide landing 4:5 entries are therefore served at the source width (the fetch never enlarges). All other groups meet their registry size.
