@@ -8,6 +8,9 @@ type Access = typeof import("@/components/landing/booking/booking-access");
 let access: Access;
 let desktop = true;
 const focused: string[] = [];
+/** The hero entry's box (far below the viewport unless a test moves it) and the sticky header's bottom (none: no header). */
+let heroRect = { top: 2000, bottom: 2100, height: 100 };
+let headerBottom: number | null = null;
 
 beforeAll(async () => {
   const win = new EventTarget() as EventTarget & Record<string, unknown>;
@@ -18,7 +21,7 @@ beforeAll(async () => {
     clearTimeout: globalThis.clearTimeout.bind(globalThis),
   });
   const hero = {
-    getBoundingClientRect: () => ({ top: 2000, bottom: 2100, height: 100 }), // far below the viewport
+    getBoundingClientRect: () => heroRect,
     scrollIntoView: () => focused.push("scroll"),
     querySelector: () => ({ focus: () => focused.push("hero-plz") }),
   };
@@ -30,7 +33,11 @@ beforeAll(async () => {
       this.detail = init?.detail;
     }
   });
-  vi.stubGlobal("document", { getElementById: (id: string) => (id === "termin" ? hero : null), documentElement: { dataset: {} } });
+  vi.stubGlobal("document", {
+    getElementById: (id: string) => (id === "termin" ? hero : null),
+    querySelector: (sel: string) => (sel === ".lp-header" && headerBottom !== null ? { getBoundingClientRect: () => ({ bottom: headerBottom }) } : null),
+    documentElement: { dataset: {} },
+  });
   access = await import("@/components/landing/booking/booking-access");
 });
 
@@ -38,6 +45,8 @@ afterEach(() => {
   access.resetBookingAccess();
   focused.length = 0;
   desktop = true;
+  heroRect = { top: 2000, bottom: 2100, height: 100 };
+  headerBottom = null;
   vi.useRealTimers();
 });
 
@@ -82,5 +91,19 @@ describe("openBooking with lazy surfaces", () => {
   it("without a loader or surface, falls back at once", () => {
     access.openBooking({ source: "overlay" });
     expect(focused).toEqual(["scroll", "hero-plz"]);
+  });
+
+  it("focuses the hero entry when it is in view, but not the part under the sticky header (v2: the hero sits right above 02)", () => {
+    const bar = vi.fn();
+    const off = access.registerBookingSurface("bar", bar);
+    heroRect = { top: -40, bottom: 60, height: 100 }; // 60 % in the viewport
+    access.openBooking({ source: "header" });
+    expect(focused).toEqual(["hero-plz"]);
+    expect(bar).not.toHaveBeenCalled();
+    headerBottom = 68; // the header covers what is left of it
+    access.openBooking({ source: "header" });
+    expect(bar).toHaveBeenCalledWith({ source: "header" });
+    expect(focused).toEqual(["hero-plz"]);
+    off();
   });
 });
