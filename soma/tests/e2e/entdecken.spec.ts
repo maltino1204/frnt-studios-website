@@ -103,6 +103,44 @@ test.describe("public /entdecken", () => {
     }
     await expect(page.getByText("Anzeige", { exact: true })).toHaveCount(0);
     await expect(page.getByText(/Nächster freier Termin/)).toHaveCount(0);
+    // review R1: no static slot claims in editorial copy
+    await expect(page.getByText(/Freie Termine/)).toHaveCount(0);
+  });
+
+  test("every AI photo carries its label, no rail repeats a photo, and the counts link to their rules (review R2, R4, R5)", async ({ page }) => {
+    for (const path of ["/entdecken", "/entdecken/im-hotel-ankommen", "/behandlungen", "/staedte/frankfurt"]) {
+      await page.goto(path);
+      const unlabelled = await page.evaluate(() =>
+        [...document.querySelectorAll("main img")]
+          .filter((img) => /%2Fimages%2F|\/images\//.test(img.getAttribute("src") ?? ""))
+          .filter((img) => {
+            let el: Element | null = img;
+            for (let i = 0; i < 8 && el; i += 1, el = el.parentElement) if (/KI-generiert/.test(el.textContent ?? "")) return false;
+            return true;
+          })
+          .map((img) => img.getAttribute("src")),
+      );
+      expect(unlabelled, `unlabelled AI images on ${path}`).toEqual([]);
+    }
+    await page.goto("/entdecken");
+    const repeats = await page.evaluate(() =>
+      [...document.querySelectorAll("ul[aria-label]")].flatMap((ul) => {
+        const srcs = [...ul.querySelectorAll("li img")].map((img) => img.getAttribute("src") ?? "").filter((x) => !x.includes("%2Fpros%2F"));
+        return srcs.filter((x, i) => srcs.indexOf(x) !== i).map((x) => `${ul.getAttribute("aria-label")}: ${x}`);
+      }),
+    );
+    expect(repeats).toEqual([]);
+    const count = page.getByRole("link", { name: "So zählen wir" });
+    await expect(count).toHaveCount(2);
+    for (const l of await count.all()) await expect(l).toHaveAttribute("href", "/ranking#entdecken");
+  });
+
+  test("four-card rails are two columns at 768 px (review R6)", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "viewport test");
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await page.goto("/entdecken");
+    const columns = await page.getByRole("list", { name: "Neu auf SOMA" }).evaluate((ul) => getComputedStyle(ul).gridTemplateColumns.split(" ").length);
+    expect(columns).toBe(2);
   });
 });
 
@@ -134,6 +172,19 @@ test.describe("signed in", () => {
     await rebook.getByRole("button", { name: "Wieder bei Selin buchen" }).click();
     await expect(page.getByRole("dialog", { name: /Wieder bei Selin A\./ })).toBeVisible({ timeout: 15_000 });
     expect(errors).toEqual([]);
+  });
+
+  test("signed-in Profis and admins get no login invite and no personal section (review R3)", async ({ page }) => {
+    for (const who of [USERS.provider, USERS.admin]) {
+      await page.context().clearCookies();
+      await login(page, who);
+      await page.goto("/entdecken");
+      await expect(page.getByRole("heading", { name: "Von SOMA ausgewählt" })).toBeVisible();
+      await page.waitForLoadState("networkidle");
+      await expect(page.getByRole("status", { name: "Für dich wird geladen" })).toHaveCount(0);
+      await expect(page.getByText(/Melde dich an, dann siehst du/)).toHaveCount(0);
+      await expect(forYou(page)).toHaveCount(0);
+    }
   });
 
   test("„Entdecken“ in the account navigation opens /entdecken and stays active there", async ({ page }, testInfo) => {
