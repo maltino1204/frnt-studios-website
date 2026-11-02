@@ -87,7 +87,7 @@ export function CollectionView({ collection: c, notice }: { collection: ExploreC
             ))}
           </ul>
           <p className="mt-10 type-body-s text-ink-muted md:mt-14">
-            Freie Termine und den Endpreis inklusive Anfahrt siehst du im Profil oder in der Suche, sobald du deine Postleitzahl eingibst.
+            Uhrzeiten und den Endpreis inklusive Anfahrt siehst du im Profil oder in der Suche, sobald du deine Postleitzahl eingibst.
           </p>
           <Link href={routes.explore()} className={`${accentLinkClass} mt-4`}>
             <Icon icon={ArrowLeft} size={16} />

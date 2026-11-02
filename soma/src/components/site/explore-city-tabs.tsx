@@ -17,11 +17,14 @@ export function ExploreCityTabs({
   defaultSlug,
   headingId,
   lead,
+  aside,
 }: {
   cities: Array<{ slug: string; name: string; panel: ReactNode }>;
   defaultSlug: string;
   headingId: string;
   lead: ReactNode;
+  /** e.g. the „So zählen wir“ link */
+  aside?: ReactNode;
 }) {
   const base = useId();
   const personal = usePersonalCity();
@@ -46,10 +49,13 @@ export function ExploreCityTabs({
   return (
     <div className="flex flex-col gap-6 md:gap-8">
       <div className="flex flex-col gap-5">
-        <div className="flex max-w-reading flex-col gap-2.5">
-          <p className="type-eyebrow text-ink-muted">Beliebt</p>
-          <h2 id={headingId} className="type-heading-l text-ink">{`Beliebt in ${active.name}`}</h2>
-          <p className="type-body-s text-pretty text-ink-muted">{lead}</p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+          <div className="flex max-w-reading flex-col gap-2.5">
+            <p className="type-eyebrow text-ink-muted">Beliebt</p>
+            <h2 id={headingId} className="type-heading-l text-ink">{`Beliebt in ${active.name}`}</h2>
+            <p className="type-body-s text-pretty text-ink-muted">{lead}</p>
+          </div>
+          {aside ? <div className="min-w-0 shrink-0">{aside}</div> : null}
         </div>
         {cities.length > 1 ? (
           <div role="tablist" aria-label="Stadt wählen" className="-mx-(--space-gutter) flex gap-2 overflow-x-auto px-(--space-gutter) py-1.5 scrollbar-none md:mx-0 md:flex-wrap md:px-0">

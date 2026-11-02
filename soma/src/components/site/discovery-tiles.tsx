@@ -34,18 +34,21 @@ export function CategoryTile({
 }) {
   return (
     <Link href={href ?? routes.category(category.slug)} className={surfaceClasses({ interactive: true, className: "group flex h-full flex-col gap-3.5 p-3 pb-5" })}>
-      <Photo
-        src={category.imagePath ?? images.category(category.slug)}
-        alt=""
-        tone={category.slug}
-        word={category.name}
-        wordSize="s"
-        sizes={sizes}
-        priority={priority}
-        shape="arch"
-        ratio="4/5"
-        className="w-full"
-      />
+      <span className="flex flex-col gap-2">
+        <Photo
+          src={category.imagePath ?? images.category(category.slug)}
+          alt=""
+          tone={category.slug}
+          word={category.name}
+          wordSize="s"
+          sizes={sizes}
+          priority={priority}
+          shape="arch"
+          ratio="4/5"
+          className="w-full"
+        />
+        <AiLabel src={category.imagePath ?? images.category(category.slug)} kind="image" className="px-1" />
+      </span>
       <span className="flex flex-col gap-1.5 px-1">
         <span className="flex items-center justify-between gap-2">
           <span className="inline-flex min-w-0 items-center gap-2">

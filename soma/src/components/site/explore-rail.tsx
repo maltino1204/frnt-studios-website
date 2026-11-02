@@ -16,7 +16,7 @@ export function ExploreRail({
   /** accessible name of the list, e.g. „Von SOMA ausgewählt“ */
   label: string;
   children: ReactNode;
-  /** grid columns from lg (md shows two or three) */
+  /** grid columns from lg (md shows two) */
   columns?: 3 | 4;
   className?: string;
 }) {
@@ -27,7 +27,8 @@ export function ExploreRail({
       className={cn(
         "-mx-(--space-gutter) -my-3 flex snap-x snap-mandatory scroll-px-(--space-gutter) gap-3 overflow-x-auto px-(--space-gutter) py-3 scrollbar-none",
         "md:mx-0 md:my-0 md:grid md:gap-5 md:overflow-visible md:px-0 md:py-0 lg:gap-6",
-        columns === 3 ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-4",
+        // two columns from md: four cards make 2 + 2 there, never 3 + 1 (review R6)
+        columns === 3 ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2 lg:grid-cols-4",
         className,
       )}
     >

@@ -6,7 +6,7 @@ import { breadcrumbLd, JsonLd } from "@/components/site/discovery-json-ld";
 import { ExploreAccountBar } from "@/components/site/explore-account-bar";
 import { CollectionCard, ExploreCard, ExploreProviderCard } from "@/components/site/explore-cards";
 import { ExploreCityTabs } from "@/components/site/explore-city-tabs";
-import { collectionLabel, EDITORIAL_LABEL, SELECTION_WHY_HREF } from "@/components/site/explore-copy";
+import { collectionLabel, COUNT_WHY_HREF, EDITORIAL_LABEL, SELECTION_WHY_HREF } from "@/components/site/explore-copy";
 import { ForYouSlot } from "@/components/site/explore-for-you";
 import { ExploreRail, ExploreSectionHeader } from "@/components/site/explore-rail";
 import { Icon } from "@/components/ui/icon";
@@ -39,6 +39,12 @@ export default async function EntdeckenPage() {
   const [collections, popular, fresh] = await Promise.all([listExploreCollections(), listPopularByCity(), listNewProviders({ limit: 8 })]);
   const sponsoredOnPage = collections.some((c) => c.isSponsored);
   const editorialInfo = collectionLabel({ isSponsored: false, sponsorName: null }).info;
+  const countLink = (
+    <Link href={COUNT_WHY_HREF} className={`${accentLinkClass} -my-2`}>
+      <Icon icon={Info} size={16} />
+      So zählen wir
+    </Link>
+  );
 
   return (
     <>
@@ -85,7 +91,8 @@ export default async function EntdeckenPage() {
             <ExploreCityTabs
               headingId="beliebt-titel"
               defaultSlug="berlin"
-              lead={`Am häufigsten gebucht in den letzten ${POPULAR_WINDOW_DAYS}\u00a0Tagen. Freie Termine und den Endpreis zeigt dir die Suche.`}
+              lead={`Am häufigsten gebucht in den letzten ${POPULAR_WINDOW_DAYS}\u00a0Tagen. Uhrzeiten und Endpreis zeigt dir die Suche.`}
+              aside={countLink}
               cities={popular.map((city) => ({
                 slug: city.citySlug,
                 name: city.cityName,
@@ -110,6 +117,7 @@ export default async function EntdeckenPage() {
               overline="Neu"
               title={`Neu auf ${BRAND_NAME}`}
               lead={`Profis, die in den letzten ${EXPLORE_NEW_DAYS}\u00a0Tagen freigeschaltet wurden – geprüft wie alle anderen.`}
+              aside={countLink}
             />
             <ExploreRail label={`Neu auf ${BRAND_NAME}`}>
               {fresh.map((p) => (

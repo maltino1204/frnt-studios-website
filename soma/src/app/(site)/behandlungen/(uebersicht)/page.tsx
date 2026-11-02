@@ -8,6 +8,7 @@ import { accentLinkClass } from "@/components/site/discovery-styles";
 import { Icon } from "@/components/ui/icon";
 import { Container, Overline } from "@/components/ui/layout";
 import { Photo } from "@/components/ui/photo";
+import { AiLabel } from "@/components/ui/ai-label";
 import { Breadcrumbs } from "@/components/site/discovery-breadcrumbs";
 import { capitalize, floorsById, fromPrice, numberWord } from "@/components/site/discovery-copy";
 import { breadcrumbLd, JsonLd } from "@/components/site/discovery-json-ld";
@@ -79,21 +80,25 @@ export default async function BehandlungenPage() {
             <Container>
               <Reveal className="grid gap-8 lg:grid-cols-12 lg:gap-6">
                 <div className="lg:col-span-4">
-                  <Link
-                    href={routes.category(c.slug)}
-                    tabIndex={-1}
-                    aria-hidden
-                    className="block overflow-hidden rounded-panel shadow-raised transition-[translate,box-shadow] duration-base ease-settle hover:-translate-y-0.5 hover:shadow-float lg:sticky lg:top-[calc(var(--header-height)+5.5rem)]"
-                  >
-                    <Photo
-                      src={c.imagePath ?? images.category(c.slug)}
-                      alt=""
-                      tone={c.slug}
-                      word={c.name}
-                      sizes="(min-width: 1024px) 30vw, 100vw"
-                      className="aspect-[2/1] w-full sm:aspect-[5/2] lg:aspect-[4/5]"
-                    />
-                  </Link>
+                  {/* The AI label sits under the photo, outside the decorative (aria-hidden) link, so it is read. */}
+                  <div className="flex flex-col gap-2 lg:sticky lg:top-[calc(var(--header-height)+5.5rem)]">
+                    <Link
+                      href={routes.category(c.slug)}
+                      tabIndex={-1}
+                      aria-hidden
+                      className="block overflow-hidden rounded-panel shadow-raised transition-[translate,box-shadow] duration-base ease-settle hover:-translate-y-0.5 hover:shadow-float"
+                    >
+                      <Photo
+                        src={c.imagePath ?? images.category(c.slug)}
+                        alt=""
+                        tone={c.slug}
+                        word={c.name}
+                        sizes="(min-width: 1024px) 30vw, 100vw"
+                        className="aspect-[2/1] w-full sm:aspect-[5/2] lg:aspect-[4/5]"
+                      />
+                    </Link>
+                    <AiLabel src={c.imagePath ?? images.category(c.slug)} kind="image" />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-8 lg:col-span-7 lg:col-start-6">
                   <div className="flex flex-col gap-4">

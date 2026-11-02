@@ -76,13 +76,16 @@ export function ExploreCard({ card, sizes = CARD_SIZES, headingLevel }: { card: 
       href={card.href}
       className={surfaceClasses({ interactive: true, className: cn("group flex w-full flex-col gap-3.5 p-3 pb-4", !card.price && card.endPriceCents == null && "opacity-90") })}
     >
-      <Photo src={card.imagePath} alt="" tone={card.categorySlug} word={card.eyebrow} wordSize="s" sizes={sizes} shape="arch" ratio="4/3" className="w-full" />
+      <span className="flex flex-col gap-2">
+        <Photo src={card.imagePath} alt="" tone={card.categorySlug} word={card.eyebrow} wordSize="s" sizes={sizes} shape="arch" ratio="4/3" className="w-full" />
+        <AiLabel src={card.imagePath} kind="image" className="px-1" />
+      </span>
       <span className="flex flex-col gap-2 px-1">
         <span className="inline-flex items-center gap-1.5 type-caption text-ink-muted">
           <CategoryIcon slug={card.categorySlug} size={16} className="shrink-0" />
           {card.eyebrow}
         </span>
-        <T className="type-heading-m text-balance text-ink">{card.title}</T>
+        <T lang="de" className="type-heading-m text-balance text-ink hyphens-auto">{card.title}</T>
         {card.note ? <span className="line-clamp-2 type-body-s text-ink-muted">{card.note}</span> : null}
         {card.provider ? (
           <span className="flex items-center gap-2.5 pt-0.5">
@@ -115,14 +118,28 @@ export function ExploreCard({ card, sizes = CARD_SIZES, headingLevel }: { card: 
 }
 
 /** Collection card: the cover in a 4:5 arch, the label (editorial or „Anzeige“), title, one line, item count. */
-export function CollectionCard({ collection: c, sizes = "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 78vw", priority }: { collection: ExploreCollectionCardDTO; sizes?: string; priority?: boolean }) {
+export function CollectionCard({
+  collection: c,
+  sizes = "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 78vw",
+  priority,
+  prefetch,
+}: {
+  collection: ExploreCollectionCardDTO;
+  sizes?: string;
+  priority?: boolean;
+  /** false for previews of unsaved collections (their page does not exist yet) */
+  prefetch?: boolean;
+}) {
   const label = collectionLabel(c);
   return (
-    <Link href={routes.exploreCollection(c.slug)} className={surfaceClasses({ interactive: true, className: "group flex w-full flex-col gap-4 p-3 pb-5" })}>
-      <Photo src={c.coverImage} alt="" tone={c.tone} sizes={sizes} priority={priority} shape="arch" ratio="4/5" className="w-full" />
+    <Link href={routes.exploreCollection(c.slug)} prefetch={prefetch} className={surfaceClasses({ interactive: true, className: "group flex w-full flex-col gap-4 p-3 pb-5" })}>
+      <span className="flex flex-col gap-2">
+        <Photo src={c.coverImage} alt="" tone={c.tone} sizes={sizes} priority={priority} shape="arch" ratio="4/5" className="w-full" />
+        <AiLabel src={c.coverImage} kind="image" className="px-1" />
+      </span>
       <span className="flex flex-1 flex-col gap-2 px-1">
         <CollectionLabelTag label={label} />
-        <span className="type-title-serif text-ink">{c.title}</span>
+        <span lang="de" className="type-title-serif text-ink hyphens-auto">{c.title}</span>
         {label.kind === "sponsored" ? <span className="type-caption text-ink-muted">{label.info}</span> : null}
         {c.subline ? <span className="line-clamp-2 type-body-s text-ink-muted">{c.subline}</span> : null}
         <span className="mt-auto flex items-center justify-between gap-3 pt-1">

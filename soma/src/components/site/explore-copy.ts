@@ -72,3 +72,4 @@ export function sinceText(iso: string): string {
 
 export const FOR_YOU_WHY_HREF = "/ranking#fuer-dich";
 export const SELECTION_WHY_HREF = "/ranking#auswahl";
+export const COUNT_WHY_HREF = "/ranking#entdecken";
