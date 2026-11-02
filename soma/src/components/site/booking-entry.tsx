@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { ChevronDown, CircleAlert, LocateFixed, X } from "lucide-react";
 import {
+  startTransition as startIdleRender,
   useCallback,
   useDeferredValue,
   useEffect,
@@ -319,6 +320,9 @@ export function BookingEntry({
   // Inline pickers (the landing's booking sheet): the panel and aria-expanded follow the tap at once, the list (with its
   // photos) renders right after as a deferred render, so the tap paints its frame first (audit-2 N-12 / RT-7).
   const listOpen = useDeferredValue(open);
+  // The inline Was? list renders in advance, hidden, in an idle period once the entry is on screen (the sheet has
+  // opened): a tap then only shows it, no render of the list inside the tap (audit-3 M-2).
+  const [wasReady, setWasReady] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -431,6 +435,24 @@ export function BookingEntry({
       io?.disconnect();
     };
   }, []);
+  useEffect(() => {
+    const form = formRef.current;
+    if (!inline || !form || typeof IntersectionObserver === "undefined") return;
+    const win = window as IdleWindow;
+    let idle = 0;
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      const prepare = () => startIdleRender(() => setWasReady(true));
+      idle = win.requestIdleCallback ? win.requestIdleCallback(prepare, { timeout: 2000 }) : window.setTimeout(prepare, 300);
+    });
+    io.observe(form);
+    return () => {
+      io.disconnect();
+      if (win.cancelIdleCallback) win.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+    };
+  }, [inline]);
   const preloadPickers = () => {
     if (!pickersModule) void loadBookingPickers().catch(() => undefined);
   };
@@ -746,9 +768,21 @@ export function BookingEntry({
             </Popover>
           ) : null}
         </div>
-        {inline && open === "was" ? (
-          <div id={wasPanelId} role="group" aria-label="Behandlung wählen" aria-busy={listOpen !== "was" || undefined} className="border-b border-line px-5 py-3">
-            {listOpen === "was" && P ? wasPicker : <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />}
+        {inline && (open === "was" || (wasReady && P)) ? (
+          // Rendered in advance (`wasReady`), it stays hidden and unlabelled until Was? opens it.
+          <div
+            id={wasPanelId}
+            role={open === "was" ? "group" : undefined}
+            aria-label={open === "was" ? "Behandlung wählen" : undefined}
+            aria-busy={(open === "was" && !(P && (wasReady || listOpen === "was"))) || undefined}
+            hidden={open !== "was"}
+            className="border-b border-line px-5 py-3"
+          >
+            {P && (wasReady || listOpen === "was") ? (
+              <P.WasPicker catalog={catalog} categorySlug={categorySlug} serviceId={serviceId} onPick={pick} active={open === "was"} />
+            ) : (
+              <div aria-hidden style={{ height: 56 + catalog.length * 64 }} />
+            )}
           </div>
         ) : null}
 

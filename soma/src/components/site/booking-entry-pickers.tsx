@@ -34,16 +34,28 @@ export function WasPicker({
   categorySlug,
   serviceId,
   onPick,
+  active,
 }: {
   catalog: EntryCategory[];
   categorySlug: string | null;
   serviceId: string | null;
   onPick: (categorySlug: string | null, serviceId: string | null) => void;
+  /**
+   * Only for a picker that stays mounted between opens (the inline panel, rendered in advance): false while it is
+   * hidden. Each open then starts at the current choice, as a freshly mounted picker does.
+   */
+  active?: boolean;
 }) {
   const [view, setView] = useState<string | null>(categorySlug);
   const current = catalog.find((c) => c.slug === view) ?? null;
   const rootRef = useRef<HTMLDivElement>(null);
   const prevView = useRef(view);
+
+  useEffect(() => {
+    if (active !== false) return;
+    prevView.current = categorySlug; // a reset, not the visitor drilling in or out: focus stays where it is
+    setView(categorySlug);
+  }, [active, categorySlug]);
 
   // Drilling in or out unmounts the focused button: keep keyboard focus inside the picker (the selected or first
   // option inside a category, the category you came from on the way back), or the popover would close on next Tab.
