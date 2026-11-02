@@ -2,6 +2,8 @@
 
 import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroBookingEntry } from "../booking/hero-booking-entry";
+// The landing dialogs' loaders, in the page's chunk group (nav/surface-loader.ts).
+import "../nav/surface-loader";
 import { usePlace } from "./place-store";
 
 /**

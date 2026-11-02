@@ -33,18 +33,29 @@ function subscribe(l: () => void) {
   return () => listeners.delete(l);
 }
 
-export const loadOverlay = () => import("./chapter-overlay");
-export const loadBookingBar = () => import("../booking/booking-bar");
-export const loadBookingSheet = () => import("../booking/booking-sheet");
+/*
+ * The dialogs' `import()`s live in the page's chunk group (surface-loader.ts, imported by the hero's booking slot), not
+ * here: a dynamic import is chunked against the modules its importer's chunk group already has, and this module
+ * belongs to the layout, which cannot assume the page's modules (the booking entry, the kit sheet, the form field,
+ * the draft, the icons). Imported from the page, the dialogs' chunks hold only their own code (audit-2 RT-4/RT-5).
+ */
+let loader: (() => Promise<SurfaceModules>) | null = null;
+let markLoader: (fn: () => Promise<SurfaceModules>) => void = () => {};
+const loaderSet = new Promise<() => Promise<SurfaceModules>>((resolve) => {
+  markLoader = resolve;
+});
+
+/** Called once by the page's surface-loader.ts (at module evaluation, before hydration). */
+export function registerSurfaceLoader(fn: () => Promise<SurfaceModules>): void {
+  if (loader) return;
+  loader = fn;
+  markLoader(fn);
+}
 
 let loading: Promise<SurfaceModules> | null = null;
 /** Fetch and evaluate the dialogs' modules without rendering them. */
 export function preloadSurfaces(): Promise<SurfaceModules> {
-  loading ??= Promise.all([loadOverlay(), loadBookingBar(), loadBookingSheet()]).then(([o, b, s]) => ({
-    ChapterOverlay: o.ChapterOverlay,
-    BookingBar: b.BookingBar,
-    BookingSheet: s.BookingSheet,
-  }));
+  loading ??= (loader ? Promise.resolve(loader) : loaderSet).then((fn) => fn());
   return loading;
 }
 
