@@ -325,7 +325,7 @@ y 808  Lead (4 lines) · So funktioniert’s
 - **next/image:**
   - `preload` (the Next 16 replacement for `priority`);
   - `quality` from the `images.qualities` allowlist (default 75);
-  - `sizes="(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) 68vw, calc(100vw - 40px)"`.
+  - `sizes`: from 1024 `(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw`. Below 1024 the arch is capped to the first view (`landing.css`, "The arch’s first view below 1024"), so its width depends on the viewport height too: `heroSizes()` in `hero/places.ts` writes that cap into `sizes` with `min()`, `clamp()` and `svh` (demo ribbon included when shown), each entry followed by the uncapped width for the same range (`68vw` at 768–1023, `calc(100vw - 40px)` below), which a browser that cannot evaluate those functions in `sizes` falls back to. The fetched width then matches the arch shown (390 × 844: 640 w, 768 × 1024: 640 w, 820 × 1180: 828 w, 1023 × 768: 384 w; audit-3 M-5).
 
 #### 4.1.3 Copy slots and CTAs
 
@@ -1212,7 +1212,22 @@ Lighthouse scores for these targets are taken on the visitor tier: `/?motion=lit
 - **Motion runtime** (`motion/runtime.ts`: scenes, reveals, pins, tone fallbacks): ≤ 12 KB gz, `import()` after `requestIdleCallback` (timeout 2 s) or the first scroll, in the full and lite tiers only.
 - **CSS** for the landing ≤ 18 KB gz. Scroll-driven effects first: `@supports (animation-timeline: view())`.
 - **GSAP / ScrollTrigger:** not in v1. The Motion developer may propose it for the full tier only if a scene misses 60 fps or precision on the reference devices. Conditions: dynamic import inside `gsap.matchMedia()`, ≤ 45 KB gz, never in lite or none, and the Lead's approval.
-- **`content-visibility: auto`** (`cv-auto`) on chapters 06–09 with `contain-intrinsic-size: auto` of 1000 / 1150 / 1600 / 1300 px (desktop) and 1200 / 1500 / 2100 / 2200 px (mobile). Never on chapters with pins, sticky elements or scroll timelines (01–05, 10).
+- **`content-visibility: auto`** on chapters 06–09 at every width (`.lp-cv`, the `cv` prop of `Chapter`), and below 1024 also on 02–05 and 10, which have no pins, sticky elements or scroll timelines there (`landing.css`). Never where those run (01–05 and 10 from 1024, and the hero at every width).
+  - `contain-intrinsic-size: auto <estimate>`, the estimate being the chapter's measured content height (02–10 at 320–1920 px, fonts loaded; audit-2 RT-1). A chapter that has never rendered is laid out at nearly its real height, so a long jump corrects little when it ends (`lib/scroll-jump.ts`); once rendered, `auto` keeps the real height.
+
+    | Chapter | ≥ 1024 | 768–1023 | < 768 |
+    |---|---|---|---|
+    | 02 Idee | — | `calc(480px + 114.5vw)` | 1150 |
+    | 03 Behandlungen | — | `calc(457px + 50vw)` | 880 |
+    | 04 Ablauf | — | `calc(741px + 52.5vw)` | 910 |
+    | 05 Dein Ort | — | `calc(1117px + 575vw)` | `calc(1530px + 620vw)` |
+    | 06 Profis | 800 | `calc(384px + 45vw)` | 770 |
+    | 07 Deine Buchung | 970 | 1125 | 1220 |
+    | 08 Für Profis | 1280 | `calc(1098px + 84vw)` | 1920 |
+    | 09 Fragen | 660 | 1085 | 1080 |
+    | 10 SOMA | — | 900 | 745 |
+
+    Values in px. Sources: the `cv` props in `chapters/06-profis.tsx` … `09-fragen.tsx`, and `landing.css` for 02–05 and 10. A full-page capture (`html[data-capture="full"]`) renders every chapter.
 
 ### 10.5 Fonts (already budgeted; brand § 4.2)
 
