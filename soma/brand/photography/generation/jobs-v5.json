@@ -1,0 +1,208 @@
+{
+ "note": "v5 post-review fixes (Photo Art Director, 2 Nov 2026; docs/qa/review-entdecken-photos.md R8, R10, R11). Start balance 742.99, budget 35.",
+ "startBalance": 742.99,
+ "budget": 35,
+ "creditsLogged": 22,
+ "jobs": [
+  {
+   "id": "afaf1d48-1524-4263-ba5f-dafc3992e657",
+   "shot": "F01",
+   "review": "R8",
+   "path": "/images/portfolio/brows-lashes-5-v5.jpg",
+   "replaces": "/images/portfolio/brows-lashes-5-v3.jpg",
+   "issue": "a third hand at the right edge holds the thread",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155621_afaf1d48-1524-4263-ba5f-dafc3992e657.png"
+  },
+  {
+   "id": "360752f5-bfd2-463e-99bf-75d596204477",
+   "shot": "F02",
+   "review": "R8",
+   "path": "/images/editorial/arrival-v5.jpg",
+   "replaces": "/images/editorial/arrival-v3.jpg",
+   "issue": "a torn black hole in the side of the table bag",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png"
+  },
+  {
+   "id": "c8840c53-751a-457f-bdf3-3d9c1ac9c0d6",
+   "shot": "F03",
+   "review": "R8",
+   "path": "/images/editorial/setup-v5.jpg",
+   "replaces": "/images/editorial/setup-v3.jpg",
+   "issue": "the portable massage table is a bare wooden frame without its padded top",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_c8840c53-751a-457f-bdf3-3d9c1ac9c0d6.png"
+  },
+  {
+   "id": "3b35132a-0ae1-4733-8200-f68ec8c07f74",
+   "shot": "F04",
+   "review": "R8",
+   "path": "/images/portfolio/massage-4-v5.jpg",
+   "replaces": "/images/portfolio/massage-4-v3.jpg",
+   "issue": "the back is bare almost to the waist",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_3b35132a-0ae1-4733-8200-f68ec8c07f74.png"
+  },
+  {
+   "id": "0af1432e-2c96-4c19-a9b9-e6997654a832",
+   "shot": "F05",
+   "review": "R11",
+   "path": "/images/pros/pro-16-v5.jpg",
+   "replaces": "/images/pros/pro-16-v4.jpg",
+   "issue": "Manhattan-like skyline (Yasmin K., Frankfurt)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_0af1432e-2c96-4c19-a9b9-e6997654a832.png"
+  },
+  {
+   "id": "bd58b16b-eeca-4190-8aac-dc3a80d48f23",
+   "shot": "F06",
+   "review": "R11",
+   "path": "/images/pros/pro-30-v5.jpg",
+   "replaces": "/images/pros/pro-30-v4.jpg",
+   "issue": "Manhattan-like skyline (Theresa H., München)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png"
+  },
+  {
+   "id": "f13f416f-0d8f-45c2-84ac-d6239a77f3a4",
+   "shot": "F07",
+   "review": "R11",
+   "path": "/images/explore/im-hotel-ankommen-v5.jpg",
+   "replaces": "/images/explore/im-hotel-ankommen.jpg",
+   "issue": "Manhattan/Asian skyline",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png"
+  },
+  {
+   "id": "03380d29-8309-4f9e-a946-37dbb2dd1160",
+   "shot": "F08",
+   "review": "R11",
+   "path": "/images/portfolio/make-up-9-v5.jpg",
+   "replaces": "/images/portfolio/make-up-9-v3.jpg",
+   "issue": "Manhattan-like skyline in the office window (Charlotte J., Hamburg)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_03380d29-8309-4f9e-a946-37dbb2dd1160.png"
+  },
+  {
+   "id": "83c93401-1585-41cf-9066-aebdebb8e894",
+   "shot": "F09",
+   "review": "R11",
+   "path": "/images/portfolio/massage-16-v5.jpg",
+   "replaces": "/images/portfolio/massage-16-v3.jpg",
+   "issue": "an office over Sydney Harbour (Hanna B., Berlin)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155620_83c93401-1585-41cf-9066-aebdebb8e894.png"
+  },
+  {
+   "id": "f29c24e7-cda7-4475-a3ec-8e957c4e3281",
+   "shot": "F10",
+   "review": "R11",
+   "path": "/images/pros/pro-18-v5.jpg",
+   "replaces": "/images/pros/pro-18-v4.jpg",
+   "issue": "US-style switch and outlet plates (Emre Y., Köln)",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_f29c24e7-cda7-4475-a3ec-8e957c4e3281.png"
+  },
+  {
+   "id": "f687cbbc-908a-40d5-990a-61583d4f59b4",
+   "shot": "F11",
+   "review": "R11",
+   "path": "/images/categories/manikuere-v5.jpg",
+   "replaces": "/images/categories/manikuere-v3.jpg",
+   "issue": "the nail professional wears black trousers",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f687cbbc-908a-40d5-990a-61583d4f59b4.png"
+  }
+ ],
+ "current": {
+  "/images/portfolio/brows-lashes-5-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155621_afaf1d48-1524-4263-ba5f-dafc3992e657.png",
+   "job": "afaf1d48-1524-4263-ba5f-dafc3992e657",
+   "shot": "F01",
+   "attempt": 1
+  },
+  "/images/editorial/arrival-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png",
+   "job": "360752f5-bfd2-463e-99bf-75d596204477",
+   "shot": "F02",
+   "attempt": 1
+  },
+  "/images/editorial/setup-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_c8840c53-751a-457f-bdf3-3d9c1ac9c0d6.png",
+   "job": "c8840c53-751a-457f-bdf3-3d9c1ac9c0d6",
+   "shot": "F03",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-4-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_3b35132a-0ae1-4733-8200-f68ec8c07f74.png",
+   "job": "3b35132a-0ae1-4733-8200-f68ec8c07f74",
+   "shot": "F04",
+   "attempt": 1
+  },
+  "/images/pros/pro-16-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_0af1432e-2c96-4c19-a9b9-e6997654a832.png",
+   "job": "0af1432e-2c96-4c19-a9b9-e6997654a832",
+   "shot": "F05",
+   "attempt": 1
+  },
+  "/images/pros/pro-30-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png",
+   "job": "bd58b16b-eeca-4190-8aac-dc3a80d48f23",
+   "shot": "F06",
+   "attempt": 1
+  },
+  "/images/explore/im-hotel-ankommen-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png",
+   "job": "f13f416f-0d8f-45c2-84ac-d6239a77f3a4",
+   "shot": "F07",
+   "attempt": 1
+  },
+  "/images/portfolio/make-up-9-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_03380d29-8309-4f9e-a946-37dbb2dd1160.png",
+   "job": "03380d29-8309-4f9e-a946-37dbb2dd1160",
+   "shot": "F08",
+   "attempt": 1
+  },
+  "/images/portfolio/massage-16-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155620_83c93401-1585-41cf-9066-aebdebb8e894.png",
+   "job": "83c93401-1585-41cf-9066-aebdebb8e894",
+   "shot": "F09",
+   "attempt": 1
+  },
+  "/images/pros/pro-18-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_f29c24e7-cda7-4475-a3ec-8e957c4e3281.png",
+   "job": "f29c24e7-cda7-4475-a3ec-8e957c4e3281",
+   "shot": "F10",
+   "attempt": 1
+  },
+  "/images/categories/manikuere-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f687cbbc-908a-40d5-990a-61583d4f59b4.png",
+   "job": "f687cbbc-908a-40d5-990a-61583d4f59b4",
+   "shot": "F11",
+   "attempt": 1
+  }
+ }
+}

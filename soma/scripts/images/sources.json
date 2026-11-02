@@ -60,7 +60,7 @@
     "width": 2400,
     "height": 1600,
     "focal": "58% 50%",
-    "replacedBy": "/images/editorial/arrival-v2.jpg"
+    "replacedBy": "/images/editorial/arrival-4x5-v5.jpg"
   },
   {
     "path": "/images/editorial/setup.jpg",
@@ -3275,7 +3275,8 @@
     "focal": "58% 50%",
     "place": "Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 11:15",
     "replaces": "/images/editorial/arrival-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E01"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E01",
+    "replacedBy": "/images/editorial/arrival-v5.jpg"
   },
   {
     "path": "/images/hero/home-v3.jpg",
@@ -3308,7 +3309,8 @@
     "focal": "45% 60%",
     "place": "Wohnzimmer · Berlin-Prenzlauer Berg · 11:40",
     "replaces": "/images/editorial/setup-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E02"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E02",
+    "replacedBy": "/images/editorial/setup-v5.jpg"
   },
   {
     "path": "/images/editorial/after-v3.jpg",
@@ -3383,7 +3385,8 @@
     "height": 1500,
     "focal": "50% 55%",
     "replaces": "/images/categories/manikuere-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C02"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot C02",
+    "replacedBy": "/images/categories/manikuere-v5.jpg"
   },
   {
     "path": "/images/categories/pedikuere-v3.jpg",
@@ -3460,7 +3463,8 @@
     "width": 1200,
     "height": 1500,
     "focal": "50% 50%",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X03"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot X03",
+    "replacedBy": "/images/explore/im-hotel-ankommen-v5.jpg"
   },
   {
     "path": "/images/explore/mittagspause.jpg",
@@ -3531,7 +3535,8 @@
     "focal": "50% 50%",
     "caption": "Unterarmtechnik entlang des oberen Rückens",
     "replaces": "/images/portfolio/massage-4-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-4"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-4",
+    "replacedBy": "/images/portfolio/massage-4-v5.jpg"
   },
   {
     "path": "/images/portfolio/massage-5-v3.jpg",
@@ -3663,7 +3668,8 @@
     "focal": "50% 50%",
     "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
     "replaces": "/images/portfolio/massage-16-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-16"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-massage-16",
+    "replacedBy": "/images/portfolio/massage-16-v5.jpg"
   },
   {
     "path": "/images/portfolio/massage-17-v3.jpg",
@@ -4136,7 +4142,8 @@
     "focal": "50% 50%",
     "caption": "Make-up für das Business-Fotoshooting",
     "replaces": "/images/portfolio/make-up-9-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-9"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-make-up-9",
+    "replacedBy": "/images/portfolio/make-up-9-v5.jpg"
   },
   {
     "path": "/images/portfolio/make-up-10-v3.jpg",
@@ -4389,7 +4396,8 @@
     "focal": "50% 45%",
     "caption": "Brow Mapping vor dem Formen",
     "replaces": "/images/portfolio/brows-lashes-5-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-5"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot P-brows-lashes-5",
+    "replacedBy": "/images/portfolio/brows-lashes-5-v5.jpg"
   },
   {
     "path": "/images/portfolio/brows-lashes-6-v3.jpg",
@@ -4473,7 +4481,8 @@
     "height": 1500,
     "focal": "50% 10%",
     "replaces": "/images/pros/pro-30-v3.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R30"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R30",
+    "replacedBy": "/images/pros/pro-30-v5.jpg"
   },
   {
     "path": "/images/pros/pro-02-v4.jpg",
@@ -4643,7 +4652,8 @@
     "height": 1500,
     "focal": "50% 15%",
     "replaces": "/images/pros/pro-16-v3.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R16"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R16",
+    "replacedBy": "/images/pros/pro-16-v5.jpg"
   },
   {
     "path": "/images/pros/pro-18-v4.jpg",
@@ -4653,7 +4663,8 @@
     "height": 1500,
     "focal": "50% 15%",
     "replaces": "/images/pros/pro-18-v3.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R18"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R18",
+    "replacedBy": "/images/pros/pro-18-v5.jpg"
   },
   {
     "path": "/images/pros/pro-21-v4.jpg",
@@ -4734,5 +4745,131 @@
     "focal": "50% 15%",
     "replaces": "/images/pros/pro-27-v3.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R27"
+  },
+  {
+    "path": "/images/portfolio/brows-lashes-5-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155621_afaf1d48-1524-4263-ba5f-dafc3992e657.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 45%",
+    "caption": "Brow Mapping vor dem Formen",
+    "replaces": "/images/portfolio/brows-lashes-5-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of brows-lashes-5-v3.jpg), SOMA photography v5 post-review fix F01 (R8)"
+  },
+  {
+    "path": "/images/editorial/arrival-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "58% 50%",
+    "place": "Wohnungstür, 4. OG · Berlin-Prenzlauer Berg · 11:15",
+    "replaces": "/images/editorial/arrival-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of arrival-v3.jpg), SOMA photography v5 post-review fix F02 (R8)"
+  },
+  {
+    "path": "/images/editorial/setup-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_c8840c53-751a-457f-bdf3-3d9c1ac9c0d6.png",
+    "ratio": "3:2",
+    "width": 2400,
+    "height": 1600,
+    "focal": "45% 60%",
+    "place": "Wohnzimmer · Berlin-Prenzlauer Berg · 11:40",
+    "replaces": "/images/editorial/setup-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of setup-v3.jpg), SOMA photography v5 post-review fix F03 (R8)"
+  },
+  {
+    "path": "/images/portfolio/massage-4-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_3b35132a-0ae1-4733-8200-f68ec8c07f74.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Unterarmtechnik entlang des oberen Rückens",
+    "replaces": "/images/portfolio/massage-4-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of massage-4-v3.jpg), SOMA photography v5 post-review fix F04 (R8)"
+  },
+  {
+    "path": "/images/pros/pro-16-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_0af1432e-2c96-4c19-a9b9-e6997654a832.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 15%",
+    "replaces": "/images/pros/pro-16-v4.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of pro-16-v4.jpg), SOMA photography v5 post-review fix F05 (R11)"
+  },
+  {
+    "path": "/images/pros/pro-30-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 10%",
+    "replaces": "/images/pros/pro-30-v4.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of pro-30-v4.jpg), SOMA photography v5 post-review fix F06 (R11)"
+  },
+  {
+    "path": "/images/explore/im-hotel-ankommen-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 50%",
+    "replaces": "/images/explore/im-hotel-ankommen.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of im-hotel-ankommen.jpg), SOMA photography v5 post-review fix F07 (R11)"
+  },
+  {
+    "path": "/images/portfolio/make-up-9-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_03380d29-8309-4f9e-a946-37dbb2dd1160.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Make-up für das Business-Fotoshooting",
+    "replaces": "/images/portfolio/make-up-9-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of make-up-9-v3.jpg), SOMA photography v5 post-review fix F08 (R11)"
+  },
+  {
+    "path": "/images/portfolio/massage-16-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155620_83c93401-1585-41cf-9066-aebdebb8e894.png",
+    "ratio": "1:1",
+    "width": 1600,
+    "height": 1600,
+    "focal": "50% 50%",
+    "caption": "Massagestuhl im Büro, bereit für die Mittagspause",
+    "replaces": "/images/portfolio/massage-16-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of massage-16-v3.jpg), SOMA photography v5 post-review fix F09 (R11)"
+  },
+  {
+    "path": "/images/pros/pro-18-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_f29c24e7-cda7-4475-a3ec-8e957c4e3281.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 15%",
+    "replaces": "/images/pros/pro-18-v4.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of pro-18-v4.jpg), SOMA photography v5 post-review fix F10 (R11)"
+  },
+  {
+    "path": "/images/categories/manikuere-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f687cbbc-908a-40d5-990a-61583d4f59b4.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 55%",
+    "replaces": "/images/categories/manikuere-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, edit of manikuere-v3.jpg), SOMA photography v5 post-review fix F11 (R11)"
+  },
+  {
+    "path": "/images/editorial/arrival-4x5-v5.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "55% 50%",
+    "replaces": "/images/editorial/arrival.jpg",
+    "source": "4:5 crop of editorial/arrival-v5 (fix F02) for the 4:5 arches of /anmelden and /staedte/[stadt] (review R10)"
   }
 ]
