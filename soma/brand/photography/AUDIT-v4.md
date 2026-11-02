@@ -16,7 +16,7 @@
 | Poses (7) | holding a tool or towel 5 · lightly crossed 4 · leaning on a counter 5 · seated 4 · natural laugh 4 · slight three-quarter turn 4 · arms relaxed at the sides 4 |
 | Framing | head to waist for most; seated and arms-at-the-sides frames to mid-thigh so the hands stay inside |
 | Set dressing | a different plant/furniture combination in every frame; 15 frames without plants |
-| Registry | `pros/pro-NN-v4.jpg`, 4:5, 1200 × 1500, own focal point (face column; y 15 %, 10 % for the wider frames); `pro-NN-v3` → `replacedBy` v4. The chain pro-NN → v2 → v3 → v4 is exactly the three hops `src/lib/images.ts` follows: a v5 would need the hop limit raised (code, not done). |
+| Registry | `pros/pro-NN-v4.jpg`, 4:5, 1200 × 1500, own focal point (face column; y 15 %, 10 % for the wider frames); `pro-NN-v3` → `replacedBy` v4. The chain pro-NN → v2 → v3 → v4 is three hops; `src/lib/images.ts` now follows up to 8, and after the product review pro-16, pro-18 and pro-30 went on to v5 (see *Post-review fixes*). |
 
 QA: every file at full size; identity checked as v3/v4 face pairs; hands and limbs cropped at 150 %. Wardrobe rule from `PHOTOGRAPHY.md` § 8 (light uniform, never black) applied to the trousers that v4's wider frames now show.
 
@@ -54,3 +54,36 @@ QA: every file at full size; identity checked as v3/v4 face pairs; hands and lim
 | `pros/pro-30-v4.jpg` | Theresa H. · aroma & hot-stone massage · München | hotel | seated | **pass** | identity kept; hotel suite, seated in the armchair, hands on the side table | – | 0 | `523bf6e2` |
 
 **Sheets:** `v3/08-pros-v4.jpg` (the 30 v4 portraits), `v3/09-pros-v3-vs-v4.jpg` (each Profi, v3 next to v4), `v3/10-product-v4-*.jpg` (product check).
+
+## Post-review fixes (v5 and avatars)
+
+*Photo Art Director · 2 Nov 2026, after the independent product review `docs/qa/review-entdecken-photos.md` (R7, R8, R10, R11). Generated from `generation/jobs-v5.json`, `generation/shotlist-v5.mjs` and `avatars.json`.*
+
+**How.** Every fix is an *edit* of the file in use: its Higgsfield job is the image reference and the prompt changes only the defect ("keep everything else exactly as it is … change only this: …"), so role, composition, ratio and focal point stay; the new file is registered as `-v5` with the same ratio, size and focal, and the replaced entry gets `replacedBy` (the hop limit in `src/lib/images.ts` is now 8). Fetched and cropped by the capture workflow, then QA'd at full size against the file it replaces (hands, limbs, identity, new artefacts, the defect itself).
+
+| | |
+|---|---|
+| Credits | **24** of 35 (balance 742.99 → 718.99) |
+| Generations | **12** (11 fixes + 1 retry) |
+| Rejected in QA | **1** |
+| Final | **11** fixes, all pass |
+
+| Review | v5 file | Replaces | Issue | Verdict | Reason (final) | Rejected attempts | Luma before → after | Job |
+|---|---|---|---|---|---|---|---|---|
+| R8 | `portfolio/brows-lashes-5-v5.jpg` | `portfolio/brows-lashes-5-v3.jpg` | a third hand at the right edge holds the thread | **pass** | third hand and thread gone; exactly two hands, both the professional’s: one on the forehead, one with the white brow pencil at the arch; face, light and framing unchanged | – | 168 → 168 | `afaf1d48` |
+| R8 | `editorial/arrival-v5.jpg` | `editorial/arrival-v3.jpg` | a torn black hole in the side of the table bag | **pass** | table case intact: smooth sand canvas, zip, side handle, no holes; both people, faces, hands and the hallway unchanged | – | 174 → 174 | `360752f5` |
+| R8 | `editorial/setup-v5.jpg` | `editorial/setup-v3.jpg` | the portable massage table is a bare wooden frame without its padded top | **pass** | complete portable table: two cream padded top halves on the wooden legs, held by both hands; sofa, light and bag unchanged | – | 169 → 169 | `c8840c53` |
+| R8 | `portfolio/massage-4-v5.jpg` | `portfolio/massage-4-v3.jpg` | the back is bare almost to the waist | **pass** | linen drawn up to the shoulder blades, only shoulders, upper shoulder blades and neck bare; the professional’s hand rests on the sheet at the upper back | – | 178 → 184 | `3b35132a` |
+| R11 | `pros/pro-16-v5.jpg` | `pros/pro-16-v4.jpg` | Manhattan-like skyline (Yasmin K., Frankfurt) | **pass** | Frankfurt-Westend view: Gründerzeit façades with dormers and tiled roofs over green tree tops, no towers; Yasmin unchanged | – | 165 → 156 | `0af1432e` |
+| R11 | `pros/pro-30-v5.jpg` | `pros/pro-30-v4.jpg` | Manhattan-like skyline (Theresa H., München) | **pass** | transom ghost gone, clear glass between the two white mullions; Munich view (red roofs, green-domed towers, trees) and Theresa unchanged | 1: Munich view right (red roofs, green-domed towers, trees), Theresa unchanged, but a half-transparent grey transom ghost floats across the glass between the mullions | 179 → 172 | `b0bd4f98` |
+| R11 | `explore/im-hotel-ankommen-v5.jpg` | `explore/im-hotel-ankommen.jpg` | Manhattan/Asian skyline | **pass** | German old town through the hotel window: red roofs, light façades, trees, a Gothic spire, no towers; treatment, people and room unchanged | – | 169 → 166 | `f13f416f` |
+| R11 | `portfolio/make-up-9-v5.jpg` | `portfolio/make-up-9-v3.jpg` | Manhattan-like skyline in the office window (Charlotte J., Hamburg) | **pass** | Hamburg Speicherstadt: red-brick warehouses on a canal with trees, no towers; both people, hands and brush unchanged | – | 180 → 164 | `03380d29` |
+| R11 | `portfolio/massage-16-v5.jpg` | `portfolio/massage-16-v3.jpg` | an office over Sydney Harbour (Hanna B., Berlin) | **pass** | Berlin: the Spree with stone embankments, trees and light Altbau façades; no harbour, bridge or opera house; chair, hands and room unchanged | – | 183 → 180 | `83c93401` |
+| R11 | `pros/pro-18-v5.jpg` | `pros/pro-18-v4.jpg` | US-style switch and outlet plates (Emre Y., Köln) | **pass** | switch and socket plates gone, plain white walls; Emre, comb, case and kitchen unchanged | – | 186 → 186 | `f29c24e7` |
+| R11 | `categories/manikuere-v5.jpg` | `categories/manikuere-v3.jpg` | the nail professional wears black trousers | **pass** | light sand trousers matching the tunic, no black left; hands, file, polish and client unchanged | – | 166 → 169 | `f687cbbc` |
+
+**R10, the soft photo on the auth pages.** `/anmelden`, `/registrieren` and `/passwort-vergessen` (and the `/staedte/[stadt]` hero) show `images.editorial.arrival` in a 4:5 arch; that path resolved through `replacedBy` to the 3:2 `arrival-v3`, object-covered into the 384 × 480 arch, so the browser's `w=384` / `w=828` candidates were upscaled about 1.8× and looked soft, and it showed the torn bag of R8. No code change (the review's first option): `editorial/arrival.jpg` now has `replacedBy` → `editorial/arrival-4x5-v5.jpg`, a real 4:5 crop of the fixed arrival-v5 source (1200 × 1500, focal 55% 50%: the Profi with her intact table case, the client's shoulder at the right), which fills the arch without upscaling at 1× and 2×. The landing vignette keeps its own 3:2 chain (arrival-v2 → v3 → v5).
+
+**R7, avatars.** 30 square head-and-shoulders crops, one per current portrait, made locally with sharp by `tools/avatars.mjs` (same mechanism as `tools/recrops.mjs`: an entry with `recropOf` and `box`, the file committed, the capture workflow leaves it as it is). Face box per portrait from OpenCV Haar cascades (`avatars.json`); crop side = face width / 0.6, so the face fills **60 %** of the crop width (target 55–65 %), face centre at 50 % across and 50 % down, no crop had to be clamped at an image edge; output 512 × 512 at `/images/pros/pro-NN-v4-face.jpg` (`-v5-face` for 16, 18, 30). Each portrait's **current** registry entry carries `"avatar": "<face path>"`; the code lookup with fallback belongs to the Explore engineer. Checked on `v3/11-avatars.jpg` (each crop as a circle at 64 px and 160 px): every face centred and complete, chin to hair inside the circle.
+
+**Sheets:** `v3/11-avatars.jpg` (the 30 avatar crops at 64 and 160 px), `v3/12-v5-fixes.jpg` (each fix, before left, after right).
