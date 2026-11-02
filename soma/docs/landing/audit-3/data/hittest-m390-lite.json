@@ -1,0 +1,117 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "button \"Standort verwenden\" hero-search-submit-locate",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "button \"Freie Termine finden\" hero-search-submit",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "a \"MassageKlassisch, Aromaöl, Hot S\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"Weiter: Ablauf\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"SASelin A.Massage · Berlin4,9(29\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "06",
+   "n": 1
+  },
+  {
+   "label": "a \"YKYasmin K.Make-up · Frankfurt a\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "06",
+   "n": 1
+  },
+  {
+   "label": "button \"EndpreisInklusive Anfahrt, bevor\" ",
+   "hit": "span.num",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "button \"StornofristMit Datum und Uhrzeit\" ",
+   "hit": "span.lp-chapter-label",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "button \"Start-CodeVier Ziffern, mit dene\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Freie Termine finden\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "07",
+   "n": 1
+  },
+  {
+   "label": "a \"Konditionen ansehen\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "08",
+   "n": 1
+  },
+  {
+   "label": "summary \"Was passiert, wenn ein Termin ab\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "a \"Freie Termine finden\" final-search",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  },
+  {
+   "label": "a \"SOMA für Profis\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  },
+  {
+   "label": "a \"Stornierung\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  },
+  {
+   "label": "a \"AGB für Profis\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  }
+ ]
+}

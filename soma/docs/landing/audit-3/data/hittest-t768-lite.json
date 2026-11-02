@@ -1,0 +1,47 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "a \"SASelin A.Massage · Berlin4,9(29\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "a \"YKYasmin K.Make-up · Frankfurt a\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "a \"ERElena R.Maniküre, Pediküre · M\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie prüft SOMA die Profis?\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wer sieht meine Adresse?\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "a \"Cookie-Einstellungen\" ",
+   "hit": "button.lp-js",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  }
+ ]
+}

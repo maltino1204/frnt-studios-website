@@ -1,0 +1,43 @@
+
+desk-full (http://localhost:3100/?motion=full, simulate, desktop; motion runtime loaded: true)
+  100 · FCP 0.42 · LCP 0.73 · TBT 0 · SI 0.59 · CLS 0 · bench 1679
+  100 · FCP 0.42 · LCP 0.81 · TBT 0 · SI 0.55 · CLS 0 · bench 1818
+  100 · FCP 0.42 · LCP 0.65 · TBT 0 · SI 0.52 · CLS 0 · bench 1559
+  median: 100 · FCP 0.42 · LCP 0.73 · TBT 0 · CLS 0
+
+dev-lite (http://localhost:3100/?motion=lite, devtools, mobile; motion runtime loaded: true)
+  93 · FCP 2.35 · LCP 2.35 · TBT 152 · SI 2.41 · CLS 0.0011 · bench 1871
+  93 · FCP 2.40 · LCP 2.40 · TBT 133 · SI 2.46 · CLS 0.0011 · bench 1670
+  90 · FCP 2.40 · LCP 2.40 · TBT 245 · SI 2.46 · CLS 0.0011 · bench 1445
+  92 · FCP 2.35 · LCP 2.35 · TBT 199 · SI 2.40 · CLS 0.0011 · bench 1580
+  90 · FCP 2.32 · LCP 2.32 · TBT 274 · SI 2.37 · CLS 0.0011 · bench 1366
+  median: 92 · FCP 2.35 · LCP 2.35 · TBT 199 · CLS 0.0011
+
+sim-lite (http://localhost:3100/?motion=lite, simulate, mobile; motion runtime loaded: true)
+  92 · FCP 1.53 · LCP 3.25 · TBT 56 · SI 1.53 · CLS 0 · bench 1522
+  92 · FCP 1.53 · LCP 3.26 · TBT 27 · SI 1.53 · CLS 0 · bench 1509
+  92 · FCP 1.53 · LCP 3.26 · TBT 37 · SI 1.53 · CLS 0 · bench 1866
+  85 · FCP 1.52 · LCP 4.16 · TBT 25 · SI 3.06 · CLS 0 · bench 1261
+  90 · FCP 1.53 · LCP 3.48 · TBT 88 · SI 1.53 · CLS 0 · bench 997
+  85 · FCP 1.53 · LCP 4.18 · TBT 25 · SI 3.02 · CLS 0 · bench 1707
+  92 · FCP 1.52 · LCP 3.25 · TBT 77 · SI 1.52 · CLS 0 · bench 1721
+  92 · FCP 1.53 · LCP 3.26 · TBT 29 · SI 1.53 · CLS 0 · bench 1408
+  92 · FCP 1.53 · LCP 3.26 · TBT 78 · SI 1.53 · CLS 0 · bench 1826
+  median: 92 · FCP 1.53 · LCP 3.26 · TBT 37 · CLS 0
+
+sim-massage (http://localhost:3100/behandlungen/massage, simulate, mobile; motion runtime loaded: false)
+  95 · FCP 1.37 · LCP 2.82 · TBT 37 · SI 1.37 · CLS 0.0271 · bench 2050
+  80 · FCP 1.37 · LCP 5.07 · TBT 110 · SI 1.49 · CLS 0 · bench 1646
+  83 · FCP 1.38 · LCP 4.64 · TBT 80 · SI 2.64 · CLS 0 · bench 1647
+  81 · FCP 1.37 · LCP 4.99 · TBT 121 · SI 1.88 · CLS 0 · bench 1671
+  93 · FCP 1.37 · LCP 3.10 · TBT 17 · SI 1.37 · CLS 0.0271 · bench 1839
+  80 · FCP 1.38 · LCP 5.02 · TBT 135 · SI 1.72 · CLS 0 · bench 1746
+  median: 82 · FCP 1.37 · LCP 4.82 · TBT 95 · CLS 0
+
+sim-root (http://localhost:3100/, simulate, mobile; motion runtime loaded: false)
+  92 · FCP 1.54 · LCP 3.26 · TBT 43 · SI 1.54 · CLS 0 · bench 1631
+  89 · FCP 1.53 · LCP 3.78 · TBT 16 · SI 1.53 · CLS 0 · bench 1640
+  92 · FCP 1.53 · LCP 3.26 · TBT 26 · SI 1.53 · CLS 0 · bench 1821
+  94 · FCP 1.53 · LCP 2.96 · TBT 26 · SI 1.53 · CLS 0 · bench 1411
+  85 · FCP 1.53 · LCP 4.20 · TBT 23 · SI 2.90 · CLS 0 · bench 1721
+  median: 92 · FCP 1.53 · LCP 3.26 · TBT 26 · CLS 0

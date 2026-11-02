@@ -1,0 +1,9 @@
+{
+  text: 'Zum Inhalt springen',
+  bg: 'rgb(37, 33, 31)',
+  color: 'rgb(243, 239, 232)',
+  pad: '12px 20px',
+  pos: 'fixed',
+  z: '70',
+  rect: [ 8, 8, 179, 44 ]
+}

@@ -1,0 +1,128 @@
+{
+ "m390 hero „So funktioniert’s“": {
+  "samples": [
+   1572,
+   481,
+   247,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238
+  ],
+  "active": "04",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "m390 foot 02 „Weiter: Behandlungen“": {
+  "samples": [
+   251,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239,
+   239
+  ],
+  "active": "03",
+  "hash": "#behandlungen",
+  "focus": "behandlungen-titel"
+ },
+ "m390 overlay → Fragen (reduced motion)": {
+  "samples": [
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238,
+   238
+  ],
+  "active": "09",
+  "hash": "#fragen",
+  "focus": "fragen-titel"
+ },
+ "d1440 header „So funktioniert’s“": {
+  "samples": [
+   2190,
+   757,
+   387,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310
+  ],
+  "active": "04",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "d1440 hero „So funktioniert’s“": {
+  "samples": [
+   1992,
+   717,
+   375,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310,
+   310
+  ],
+  "active": "04",
+  "hash": "#so-funktionierts",
+  "focus": "so-funktionierts-titel"
+ },
+ "d1440 overlay → Fragen (reduced motion)": {
+  "samples": [
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311,
+   311
+  ],
+  "active": "09",
+  "hash": "#fragen",
+  "focus": "fragen-titel"
+ }
+}

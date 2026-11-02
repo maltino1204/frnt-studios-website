@@ -1,0 +1,15 @@
+216iyidhmrh3u.js  224  70.1  true
+34goyxc2anvlg.js  159  44.0  true
+0l6umruhfzgwh.js  42  14.4  true
+1b-li-eaqwmx2.js  37  14.2  true
+18rszs3d2u5li.js  29  9.0  true
+1-nqmp1rl8kqt.js  33  8.5  true
+3vvh_lqnbxumd.js  26  8.0  true
+turbopack-2c3mg3r-05n1w.js  11  4.3  true
+2aky1es-eaw2a.js  6  2.2  true
+1ckvzn7sfprko.js  5  2.0  true
+1d4jmtpbvktk9.js  1  0.3  true
+1lz4-cu59tl94.js  0  0.2  true
+module scripts 12 raw KB 573 gz KB 177.2
+css files 3 gz KB 37.5
+html raw KB 496 gz KB 65.0

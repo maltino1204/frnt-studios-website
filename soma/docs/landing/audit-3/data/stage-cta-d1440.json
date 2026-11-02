@@ -1,0 +1,157 @@
+[
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 915.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": null,
+    "afterClick": "no dialog, scrollY 7050"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 465.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   },
+   {
+    "x": 163.90625,
+    "y": 654.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "SPAN.underline decoration-line-stro"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 15.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "NAV.flex min-w-0 flex-1 items-cent",
+    "afterClick": "no dialog, scrollY 10650"
+   },
+   {
+    "x": 163.90625,
+    "y": 204.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "SPAN.underline decoration-line-stro"
+   }
+  ]
+ },
+ {
+  "active": "06",
+  "ctas": []
+ }
+]

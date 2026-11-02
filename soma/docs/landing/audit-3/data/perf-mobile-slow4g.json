@@ -1,0 +1,596 @@
+[
+ {
+  "run": 1,
+  "loadMs": 4603,
+  "ttfb": 22,
+  "fcp": 2300,
+  "lcp": 2300,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2300:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 106,
+  "longTasks": [
+   "3320+155",
+   "3504+50",
+   "4823+51"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 160,
+    "inDelay": 54,
+    "proc": 70,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 120,
+    "inDelay": 34,
+    "proc": 57,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 72,
+    "inDelay": 47,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 200,
+    "inDelay": 31,
+    "proc": 1,
+    "t": "BUTTON Kapitel01 Bei dir02 Idee03 Beh"
+   },
+   {
+    "name": "keydown",
+    "d": 40,
+    "inDelay": 2,
+    "proc": 6,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 67812
+   },
+   "Image": {
+    "n": 4,
+    "bytes": 52079
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 41713
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 19,
+    "bytes": 199036
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "29.0KB /_next/image?url=/images/landing/hero-home-4x5.jpg&w=828&q=75",
+   "21.8KB /_next/image?url=/images/landing/philosophy.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v2.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v2.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "1.4KB 1lz4-cu59tl94.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "15.3KB 1b-li-eaqwmx2.js",
+   "1.7KB 1d4jmtpbvktk9.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "15.6KB 0l6umruhfzgwh.js",
+   "0.0KB 2xft1ev-e_tln.js",
+   "3.2KB 1uvhbv9q0ld7v.js",
+   "0.0KB 3tefe6haqtfe1.js",
+   "0.0KB 2l9alz8fskj3l.js",
+   "0.0KB 2rvshn7dh-xmf.js",
+   "0.0KB 26gshoikgqp92.js",
+   "0.0KB 1hunqfehmnn6e.js"
+  ]
+ },
+ {
+  "run": 2,
+  "loadMs": 4414,
+  "ttfb": 15,
+  "fcp": 2220,
+  "lcp": 2364,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2220:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2364:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 189,
+  "longTasks": [
+   "3102+231",
+   "3339+53",
+   "3468+55"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 128,
+    "inDelay": 37,
+    "proc": 54,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 96,
+    "inDelay": 22,
+    "proc": 52,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 48,
+    "inDelay": 24,
+    "proc": 0,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 264,
+    "inDelay": 44,
+    "proc": 1,
+    "t": "BUTTON Kapitel01 Bei dir02 Idee03 Beh"
+   },
+   {
+    "name": "keydown",
+    "d": 32,
+    "inDelay": 1,
+    "proc": 5,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 67812
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 41713
+   },
+   "Image": {
+    "n": 4,
+    "bytes": 52079
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 19,
+    "bytes": 199036
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "29.0KB /_next/image?url=/images/landing/hero-home-4x5.jpg&w=828&q=75",
+   "21.8KB /_next/image?url=/images/landing/philosophy.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v2.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v2.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "1.4KB 1lz4-cu59tl94.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "1.7KB 1d4jmtpbvktk9.js",
+   "15.3KB 1b-li-eaqwmx2.js",
+   "15.6KB 0l6umruhfzgwh.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "0.0KB 2xft1ev-e_tln.js",
+   "3.2KB 1uvhbv9q0ld7v.js",
+   "0.0KB 3tefe6haqtfe1.js",
+   "0.0KB 2l9alz8fskj3l.js",
+   "0.0KB 2rvshn7dh-xmf.js",
+   "0.0KB 26gshoikgqp92.js",
+   "0.0KB 1hunqfehmnn6e.js"
+  ]
+ },
+ {
+  "run": 3,
+  "loadMs": 4571,
+  "ttfb": 19,
+  "fcp": 2244,
+  "lcp": 2244,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2244:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 103,
+  "longTasks": [
+   "3317+137",
+   "5080+66"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 144,
+    "inDelay": 57,
+    "proc": 60,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 128,
+    "inDelay": 58,
+    "proc": 61,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 48,
+    "inDelay": 34,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 296,
+    "inDelay": 37,
+    "proc": 2,
+    "t": "BUTTON Kapitel01 Bei dir02 Idee03 Beh"
+   },
+   {
+    "name": "keydown",
+    "d": 40,
+    "inDelay": 2,
+    "proc": 6,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 67812
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 41713
+   },
+   "Image": {
+    "n": 4,
+    "bytes": 52079
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 19,
+    "bytes": 199036
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "29.0KB /_next/image?url=/images/landing/hero-home-4x5.jpg&w=828&q=75",
+   "21.8KB /_next/image?url=/images/landing/philosophy.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v2.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v2.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "1.4KB 1lz4-cu59tl94.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "15.3KB 1b-li-eaqwmx2.js",
+   "1.7KB 1d4jmtpbvktk9.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "15.6KB 0l6umruhfzgwh.js",
+   "0.0KB 2xft1ev-e_tln.js",
+   "3.2KB 1uvhbv9q0ld7v.js",
+   "0.0KB 3tefe6haqtfe1.js",
+   "0.0KB 2l9alz8fskj3l.js",
+   "0.0KB 2rvshn7dh-xmf.js",
+   "0.0KB 26gshoikgqp92.js",
+   "0.0KB 1hunqfehmnn6e.js"
+  ]
+ },
+ {
+  "run": 4,
+  "loadMs": 4359,
+  "ttfb": 16,
+  "fcp": 2184,
+  "lcp": 2348,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2184:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2348:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 92,
+  "longTasks": [
+   "932+52",
+   "3064+142"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 144,
+    "inDelay": 46,
+    "proc": 67,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 112,
+    "inDelay": 38,
+    "proc": 53,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 64,
+    "inDelay": 34,
+    "proc": 1,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 184,
+    "inDelay": 33,
+    "proc": 0,
+    "t": "BUTTON Kapitel01 Bei dir02 Idee03 Beh"
+   },
+   {
+    "name": "keydown",
+    "d": 24,
+    "inDelay": 1,
+    "proc": 4,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 67812
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 41713
+   },
+   "Image": {
+    "n": 4,
+    "bytes": 52079
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 19,
+    "bytes": 199036
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "29.0KB /_next/image?url=/images/landing/hero-home-4x5.jpg&w=828&q=75",
+   "21.8KB /_next/image?url=/images/landing/philosophy.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v2.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v2.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "1.4KB 1lz4-cu59tl94.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "1.7KB 1d4jmtpbvktk9.js",
+   "15.3KB 1b-li-eaqwmx2.js",
+   "15.6KB 0l6umruhfzgwh.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "0.0KB 2xft1ev-e_tln.js",
+   "3.2KB 1uvhbv9q0ld7v.js",
+   "0.0KB 2l9alz8fskj3l.js",
+   "0.0KB 3tefe6haqtfe1.js",
+   "0.0KB 2rvshn7dh-xmf.js",
+   "0.0KB 26gshoikgqp92.js",
+   "0.0KB 1hunqfehmnn6e.js"
+  ]
+ },
+ {
+  "run": 5,
+  "loadMs": 4574,
+  "ttfb": 12,
+  "fcp": 2132,
+  "lcp": 2280,
+  "lcpEl": "IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=2048&q=75",
+  "lcpCandidates": [
+   "2132:SPAN Beauty & Wellness bei dir zu Hause, im Hotel ",
+   "2280:IMG /_next/image?url=%2Fimages%2Flanding%2Fhero-ho"
+  ],
+  "cls": 0,
+  "clsEntries": [],
+  "tbt": 116,
+  "longTasks": [
+   "3201+166"
+  ],
+  "interactions": [
+   {
+    "name": "click",
+    "d": 120,
+    "inDelay": 42,
+    "proc": 50,
+    "t": "BUTTON Im Hotel"
+   },
+   {
+    "name": "click",
+    "d": 72,
+    "inDelay": 20,
+    "proc": 36,
+    "t": "BUTTON Im Büro"
+   },
+   {
+    "name": "click",
+    "d": 48,
+    "inDelay": 27,
+    "proc": 0,
+    "t": "H3 Wie funktioniert SOMA?"
+   },
+   {
+    "name": "click",
+    "d": 184,
+    "inDelay": 31,
+    "proc": 0,
+    "t": "BUTTON Kapitel01 Bei dir02 Idee03 Beh"
+   },
+   {
+    "name": "keydown",
+    "d": 24,
+    "inDelay": 1,
+    "proc": 4,
+    "t": "BUTTON Schließen"
+   }
+  ],
+  "inter": [],
+  "byType": {
+   "Document": {
+    "n": 1,
+    "bytes": 67812
+   },
+   "Stylesheet": {
+    "n": 3,
+    "bytes": 41713
+   },
+   "Image": {
+    "n": 4,
+    "bytes": 52079
+   },
+   "Font": {
+    "n": 3,
+    "bytes": 105027
+   },
+   "Script": {
+    "n": 19,
+    "bytes": 199036
+   },
+   "Fetch": {
+    "n": 4,
+    "bytes": 5088
+   },
+   "Other": {
+    "n": 1,
+    "bytes": 2599
+   }
+  },
+  "images": [
+   "29.0KB /_next/image?url=/images/landing/hero-home-4x5.jpg&w=828&q=75",
+   "21.8KB /_next/image?url=/images/landing/philosophy.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/hotel-v2.jpg&w=828&q=75",
+   "0.0KB /_next/image?url=/images/editorial/office-v2.jpg&w=828&q=75"
+  ],
+  "fonts": [
+   "23.3KB newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+   "57.0KB instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+   "22.2KB newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+  ],
+  "scripts": [
+   "3.1KB 1ckvzn7sfprko.js",
+   "9.6KB 1-nqmp1rl8kqt.js",
+   "5.4KB turbopack-2c3mg3r-05n1w.js",
+   "9.1KB 3vvh_lqnbxumd.js",
+   "10.1KB 18rszs3d2u5li.js",
+   "1.4KB 1lz4-cu59tl94.js",
+   "45.2KB 34goyxc2anvlg.js",
+   "71.4KB 216iyidhmrh3u.js",
+   "15.3KB 1b-li-eaqwmx2.js",
+   "1.7KB 1d4jmtpbvktk9.js",
+   "3.3KB 2aky1es-eaw2a.js",
+   "15.6KB 0l6umruhfzgwh.js",
+   "0.0KB 2xft1ev-e_tln.js",
+   "3.2KB 1uvhbv9q0ld7v.js",
+   "0.0KB 3tefe6haqtfe1.js",
+   "0.0KB 2l9alz8fskj3l.js",
+   "0.0KB 2rvshn7dh-xmf.js",
+   "0.0KB 26gshoikgqp92.js",
+   "0.0KB 1hunqfehmnn6e.js"
+  ]
+ }
+]

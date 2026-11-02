@@ -1,0 +1,4 @@
+violations: 
+incomplete: color-contrast x18
+headings 40 of 43 | em in h1/h2: 0 | italic leaves: ["Your body.","Your place."]
+small targets 31

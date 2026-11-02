@@ -1,0 +1,119 @@
+[
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 678,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 678,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 678,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 678,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 678,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 609.96875,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 150.546875,
+    "y": 159.96875,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "A.relative isolate inline-flex s",
+    "afterClick": "dialog open: Termin finden"
+   },
+   {
+    "x": 130.03125,
+    "y": 348.96875,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "SPAN.underline decoration-line-stro"
+   }
+  ]
+ },
+ {
+  "active": "06",
+  "ctas": []
+ }
+]

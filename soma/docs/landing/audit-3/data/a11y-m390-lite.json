@@ -1,0 +1,387 @@
+{
+ "res": {
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 19,
+    "nodes": [
+     {
+      "t": ".type-place[data-state=\"current\"][data-ortszeile=\"\"]",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .type-numeric",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .mt-3.type-heading-l",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .type-lead.mt-2",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-2 > .lp-walk-text > .max-w-\\[38ch\\].type-body.mt-3",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     },
+     {
+      "t": "#schritt-3 > .lp-walk-text > .type-numeric",
+      "s": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+     }
+    ]
+   }
+  ]
+ },
+ "sem": {
+  "hs": [
+   "H1 Your body. Your place. Beauty & Wellness bei dir zu Hause, im Hotel od",
+   "H2 Dein Termin richtet sich nach deinem Leben. Nicht umgekehrt.",
+   "H2 Sieben Behandlungen. Ein Ort: deiner.",
+   "H2 Drei Schritte. Kein Weg.",
+   "H3 Entdecken",
+   "H3 Buchen",
+   "H3 Bleiben",
+   "H2 Nach der Massage: schon zu Hause.",
+   "H2 Wer bei dir klingelt.",
+   "H3 Selin A.",
+   "H3 Yasmin K.",
+   "H3 Elena R.",
+   "H3 Emre Y.",
+   "H3 Natalja W.",
+   "H3 Chidi O.",
+   "H3 Hanna B.",
+   "H3 Charlotte J.",
+   "H2 Wer kommt. Wann. Was es kostet. Alles an einem Ort.",
+   "H2 Dein Können. Deine Preise. Deine Zeiten.",
+   "H3 Gefunden werden",
+   "H3 Deine Zeiten",
+   "H3 Alles in SOMA Pro",
+   "H3 Dein Profil",
+   "H3 Dein Geschäft",
+   "H2 Antworten, bevor du fragst.",
+   "H3 Wie funktioniert SOMA?",
+   "H3 Wo gibt es SOMA?",
+   "H3 Wie prüft SOMA die Profis?",
+   "H3 Wie läuft die Buchung ab?",
+   "H3 Was passiert, wenn ein Termin abgesagt wird?",
+   "H3 Wie bezahle ich?",
+   "H3 Ist eine Massage auf SOMA eine medizinische Behandlung?",
+   "H3 Wer sieht meine Adresse?",
+   "H3 Was ist die SOMA-Garantie?",
+   "H2 Your body. Your place.",
+   "H2 Behandlungen",
+   "H2 Städte",
+   "H2 Für Profis",
+   "H2 Hilfe",
+   "H2 Rechtliches"
+  ],
+  "allHs": 43,
+  "lm": [
+   "div[region] \"Hinweis zur Demo-Umgebung\"",
+   "header \"\"",
+   "nav \"Hauptnavigation\"",
+   "nav \"Schnellzugriff\"",
+   "main \"\"",
+   "section \"Your body. Your place. Beauty & Wellness\"",
+   "section \"Dein Termin richtet sich nach deinem Leb\"",
+   "section \"Sieben Behandlungen. Ein Ort: deiner.\"",
+   "section \"Drei Schritte. Kein Weg.\"",
+   "div[region] \"Drei Schritte\"",
+   "section \"Nach der Massage: schon zu Hause.\"",
+   "section \"Wer bei dir klingelt.\"",
+   "section \"Wer kommt. Wann. Was es kostet. Alles an\"",
+   "section \"Dein Können. Deine Preise. Deine Zeiten.\"",
+   "section \"Antworten, bevor du fragst.\"",
+   "section \"Your body. Your place.\"",
+   "footer \"\"",
+   "nav \"Fußzeile\"",
+   "nav \"Kapitel\"",
+   "header \"\""
+  ],
+  "ems": 0,
+  "italic": [
+   "Your body.",
+   "Your place."
+  ],
+  "imgCount": 36,
+  "noAlt": [],
+  "imgs": [
+   {
+    "alt": "Ein Profi massiert am Abend den Rücken einer Person auf einer Massageliege, in einem Berliner Altbauzimmer mit hohen Fenstern.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fhero-home-4x5.jpg&w=828&q=75",
+    "w": 350,
+    "rw": 280,
+    "hid": false
+   },
+   {
+    "alt": "Blick aus dem Flur durch einen Rundbogen in ein Wohnzimmer mit Stehlampe; an der Wand stehen die Tasche und die zusammengeklappte Liege eines Profis.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fphilosophy.jpg&w=828&q=75",
+    "w": 350,
+    "rw": 350,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmassage-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmassage-v2.jpg&w=640&q=75",
+    "w": 304,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmanikuere-v2.jpg&w=640&q=75",
+    "w": 304,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fpedikuere-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fkosmetik-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fmake-up-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fhaare-styling-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Fcategories%2Fbrows-lashes-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 249,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Mai T. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-25-v2.jpg&w=128&q=75",
+    "w": 55,
+    "rw": 56,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Farrival-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 169,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fafter-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 169,
+    "hid": true
+   },
+   {
+    "alt": "Porträt von Mai T. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-25-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Farrival-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fafter-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": true
+   },
+   {
+    "alt": "Am Abend im eigenen Wohnzimmer: Eine Frau sitzt barfuß im Sessel, ein Profi arbeitet an einem kleinen Holztisch an ihren Händen.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-time.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Ein Mann ist nach der Behandlung unter einer Decke auf seinem Sofa eingeschlafen; im Hintergrund packt der Profi die Liege zusammen.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-comfort.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Blick durch eine halb geöffnete Tür in ein ruhiges Zimmer, in dem ein Profi eine Massageliege vorbereitet.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-privacy.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Ein Profi mit Koffer klingelt im Treppenhaus eines Altbaus an einer hohen Wohnungstür.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-quality.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Ein Gast streift im Sessel die Schuhe ab, während der Profi dahinter die Massageliege aufbaut.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-choice.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Ein Profi massiert in einem Besprechungsraum den Nacken eines Mannes auf einem Massagestuhl; draußen liegt der Hafen.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fexperience-flexible.jpg&w=828&q=75",
+    "w": 335,
+    "rw": 301,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Selin A. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-01-v2.jpg&w=640&q=75",
+    "w": 249,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Yasmin K. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-16-v2.jpg&w=640&q=75",
+    "w": 249,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Elena R. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-20-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Emre Y. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-18-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Natalja W. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-15-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Chidi O. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-10-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Hanna B. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-22-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Porträt von Charlotte J. (Demo-Profil · Foto KI-generiert)",
+    "src": "/_next/image?url=%2Fimages%2Fpros%2Fpro-19-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 200,
+    "hid": false
+   },
+   {
+    "alt": "Ausschnitt aus der Suche: der Endpreis eines Profis inklusive Anfahrt",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fscreens%2Fsuche.png&w=640&q=75",
+    "w": 279,
+    "rw": 280,
+    "hid": false
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fscreens%2Fbuchung.png&w=640&q=75",
+    "w": 279,
+    "rw": 280,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fscreens%2Ftermine.png&w=640&q=75",
+    "w": 279,
+    "rw": 280,
+    "hid": true
+   },
+   {
+    "alt": "",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fscreens%2Ffavoriten.png&w=640&q=75",
+    "w": 279,
+    "rw": 280,
+    "hid": true
+   },
+   {
+    "alt": "Ein Profi mit Tasche steigt am frühen Abend die Holztreppe eines Berliner Altbaus hinauf.",
+    "src": "/_next/image?url=%2Fimages%2Feditorial%2Fprovider-cta-v2.jpg&w=2048&q=75",
+    "w": 0,
+    "rw": 0,
+    "hid": false
+   },
+   {
+    "alt": "Ein Profi steht im Treppenhaus eines Altbaus am Fenster und schaut auf das Smartphone.",
+    "src": "/_next/image?url=%2Fimages%2Flanding%2Fapp-pro.jpg&w=828&q=75",
+    "w": 350,
+    "rw": 350,
+    "hid": false
+   }
+  ],
+  "small": [
+   "a \"Zum Inhalt springen\" 1x1 ",
+   "a \"Zur Terminsuche springen\" 1x1 ",
+   "input \"\" 278x28 ",
+   "a \"Berlin\" 37x44 (footer)",
+   "a \"Köln\" 29x44 (footer)",
+   "a \"AGB\" 29x44 (footer)"
+  ],
+  "live": [
+   "span status live=null \"\"",
+   "div  live=polite \"\"",
+   "span status live=null \"\"",
+   "div  live=polite \"\""
+  ],
+  "skip": [
+   "Zum Inhalt springen -> #inhalt",
+   "Zur Terminsuche springen -> #termin",
+   " -> /"
+  ],
+  "lang": "de"
+ }
+}

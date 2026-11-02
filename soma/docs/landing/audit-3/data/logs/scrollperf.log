@@ -1,0 +1,8 @@
+d1440 full cpu1 scroll 10608ms frames 537 p50 16.7 p95 33.4 p99 49.9 max 67 >33ms 14 >50ms 1 longtasks 0 (max 0) scrollCLS 0.0073
+  shift 0.0073 SECTION.lp-chapter lp-tone-stone py-(--space-section)|DIV.flex flex-col gap-4 border-t border-line pt-5 md:f
+d1440 full cpu4 scroll 15878ms frames 504 p50 16.8 p95 66.7 p99 133.2 max 267 >33ms 117 >50ms 45 longtasks 26 (max 172) scrollCLS 0.0109
+  shift 0.0012 DIV.flex flex-col gap-4 border-t border-line pt-5 md:f
+  shift 0.0040 SECTION.lp-chapter lp-tone-stone py-(--space-section)|DIV.flex flex-col gap-4 border-t border-line pt-5 md:f
+  shift 0.0056 SECTION.lp-chapter lp-tone-stone py-(--space-section)|DIV.flex flex-col gap-4 border-t border-line pt-5 md:f
+m390 lite cpu4 scroll 11936ms frames 629 p50 16.7 p95 33.3 p99 50.1 max 83 >33ms 16 >50ms 8 longtasks 6 (max 89) scrollCLS 0.0000
+m390 lite cpu1 scroll 7020ms frames 420 p50 16.7 p95 16.7 p99 16.8 max 17 >33ms 0 >50ms 0 longtasks 0 (max 0) scrollCLS 0.0000

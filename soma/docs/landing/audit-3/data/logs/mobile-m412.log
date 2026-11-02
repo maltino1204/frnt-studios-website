@@ -1,0 +1,24 @@
+{
+ "noBookingControlAt": [],
+ "headerHiddenAfterDown": true,
+ "headerBackAfterUp": true,
+ "dockState": "shown",
+ "dockBtnBox": {
+  "x": 258.71875,
+  "y": 851,
+  "width": 137.28125,
+  "height": 48
+ },
+ "sheetOpen": true,
+ "sheetFocus": "INPUT PLZ, z. B. 10115",
+ "dialogsOpen": 1,
+ "afterSheetSubmit": "/suche?plz=10115&kategorie=massage",
+ "placeAfterSwipe": "IM HOTEL",
+ "dockChapLabel": "Kapitel 03 Behandlungen",
+ "afterOverlayJump": {
+  "hash": "#fragen",
+  "focus": "H2 Antworten, bevor du fragst.",
+  "top": 231
+ },
+ "dockAtFooter": "shown"
+}

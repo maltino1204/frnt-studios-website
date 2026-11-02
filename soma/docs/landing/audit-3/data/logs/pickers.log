@@ -1,0 +1,10 @@
+early {"path":"/?motion=lite","run":1,"hydratedAt":4665,"tapToPicker":1020,"pickerShown":true}
+early {"path":"/?motion=lite","run":2,"hydratedAt":4613,"tapToPicker":835,"pickerShown":true}
+early {"path":"/behandlungen/massage","run":1,"hydratedAt":4643,"tapToPicker":568,"pickerShown":true}
+early {"path":"/behandlungen/massage","run":2,"hydratedAt":4594,"tapToPicker":463,"pickerShown":true}
+early {"path":"/staedte/berlin","run":1,"hydratedAt":4603,"tapToPicker":881,"pickerShown":true}
+early {"path":"/staedte/berlin","run":2,"hydratedAt":4493,"tapToPicker":495,"pickerShown":true}
+blocked {"phone":true,"path":"/behandlungen/massage","chunks":["2y8fs-iby51z5.js","3tefe6haqtfe1.js"],"expanded":"true","dialogs":[":Behandlung wählenAlle Behandlu"],"shot":"blocked-pickers-m412-behandlungenmassage.png"}
+blocked {"phone":false,"path":"/behandlungen/massage","chunks":["2y8fs-iby51z5.js","3tefe6haqtfe1.js"],"expanded":"true","dialogs":["Behandlung wählen:Alle BehandlungenMassage: alle"],"shot":"blocked-pickers-d1440-behandlungenmassage.png"}
+blocked {"phone":false,"path":"/?motion=full","chunks":["2y8fs-iby51z5.js","3tefe6haqtfe1.js"],"expanded":"true","dialogs":["Behandlung wählen:Alle BehandlungenAlle verfügba"],"shot":"blocked-pickers-d1440-motionfull.png"}
+blocked {"phone":true,"path":"/?motion=lite","chunks":["2y8fs-iby51z5.js","3tefe6haqtfe1.js"],"expanded":"true","dialogs":[":Behandlung wählenAlle Behandlu"],"shot":"blocked-pickers-m412-motionlite.png"}

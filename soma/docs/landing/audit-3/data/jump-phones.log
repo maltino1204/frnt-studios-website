@@ -1,0 +1,56 @@
+m390 behandlungen final h2 top 239 section top 136 inView true active 03 samples 1140,398,241,239,239,239,239,239,239,239,239,239,239,239,239,239
+m390 dein-ort final h2 top 239 section top 136 inView true active 05 samples 3136,942,383,232,239,239,239,239,239,239,239,239,239,239,239,239
+m390 profis final h2 top 239 section top 136 inView true active 06 samples 7518,2970,1244,566,274,239,239,239,239,239,239,239,239,239,239,239
+m390 deine-buchung final h2 top 238 section top 136 inView true active 07 samples 8541,3268,1430,604,282,238,238,238,238,238,238,238,238,238,238,238
+m390 fragen final h2 top 238 section top 136 inView true active 09 samples 11132,4336,1744,729,293,238,238,238,238,238,238,238,238,238,238,238
+m390 soma final h2 top 269 section top 136 inView true active 10 samples 11802,4476,1724,721,303,269,269,269,269,269,269,269,269,269,269,269
+m412 behandlungen final h2 top 238 section top 136 inView true active 03 samples 1319,436,245,238,238,238,238,238,238,238,238,238,238,238,238,238
+m412 dein-ort final h2 top 238 section top 136 inView true active 05 samples 3244,1055,437,261,238,238,238,238,238,238,238,238,238,238,238,238
+m412 profis final h2 top 246 section top 144 inView true active 06 samples 7723,3076,1376,612,314,246,246,246,246,246,246,246,246,246,246,246
+m412 deine-buchung final h2 top 236 section top 134 inView true active 07 samples 8751,3582,1485,675,311,236,236,236,236,236,236,236,236,236,236,236
+m412 fragen final h2 top 239 section top 136 inView true active 09 samples 11339,4175,1626,697,309,239,239,239,239,239,239,239,239,239,239,239
+m412 soma final h2 top 303 section top 140 inView true active 10 samples 12033,4352,1922,804,396,303,303,303,303,303,303,303,303,303,303,303
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+locator.tap: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.lp-dock button').first()[22m
+[2m    - locator resolved to <button type="button" aria-haspopup="dialog" class="lp-js relative flex h-12 min-w-0 flex-1 items-center gap-2.5 rounded-full pr-2 pl-4 text-left type-label text-ink pressable focus-ring">…</button>[22m
+[2m  - attempting tap action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying tap action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying tap action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying tap action[22m
+[2m       - waiting 500ms[22m
+
+    at /home/user/frnt-studios-website/soma/docs/landing/audit-3/scripts/jump.js:19:30 {
+  log: [
+    "  - waiting for locator('.lp-dock button').first()",
+    '    - locator resolved to <button type="button" aria-haspopup="dialog" class="lp-js relative flex h-12 min-w-0 flex-1 items-center gap-2.5 rounded-full pr-2 pl-4 text-left type-label text-ink pressable focus-ring">…</button>',
+    '  - attempting tap action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying tap action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying tap action',
+    '      - waiting 100ms',
+    '    58 × waiting for element to be visible, enabled and stable',
+    '       - element is not visible',
+    '     - retrying tap action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.0

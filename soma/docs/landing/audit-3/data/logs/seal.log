@@ -1,0 +1,13 @@
+[{"share":0.1,"sealState":"idle","sceneReady":true,"visibleShare":0.1,"bandShare":0.1,"headerLogo":null,"scene":"","markOpacity":"1"},{"share":0.2,"sealState":"idle","sceneReady":true,"visibleShare":0.2,"bandShare":0.2,"headerLogo":null,"scene":"","markOpacity":"1"},{"share":0.3,"sealState":"idle","sceneReady":true,"visibleShare":0.3,"bandShare":0.3,"headerLogo":null,"scene":"","markOpacity":"1"},{"share":0.4,"sealState":"idle","sceneReady":true,"visibleShare":0.4,"bandShare":0.4,"headerLogo":null,"scene":"","markOpacity":"1"},{"share":0.5,"sealState":"active","sceneReady":true,"visibleShare":0.5,"bandShare":0.5,"headerLogo":"hidden","scene":"","markOpacity":"1"},{"share":0.6,"sealState":"active","sceneReady":true,"visibleShare":0.6,"bandShare":0.6,"headerLogo":"hidden","scene":"","markOpacity":"1"},{"share":0.8,"sealState":"done","sceneReady":true,"visibleShare":0.8,"bandShare":0.8,"headerLogo":"hidden","scene":"","markOpacity":"1"}] 
+final done
+0.2 Dein Termin richtet si:0 | Nicht umgekehrt.:0(off) | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.3 Dein Termin richtet si:1 | Nicht umgekehrt.:1(off) | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.4 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.5 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.6 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.7 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.8 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0(off) | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+0.9 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:0 | Kein Parkplatz.:0(off) | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+1 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:1 | Kein Parkplatz.:0 | Kein Wartebereich.:0(off) | Du bleibst, wo du bist:0(off)
+1.1 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:1 | Kein Parkplatz.:0 | Kein Wartebereich.:0 | Du bleibst, wo du bist:0(off)
+1.2 Dein Termin richtet si:1 | Nicht umgekehrt.:1 | Kein Weg durch die Sta:1 | Kein Parkplatz.:1 | Kein Wartebereich.:0 | Du bleibst, wo du bist:0
