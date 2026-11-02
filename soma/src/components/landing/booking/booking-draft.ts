@@ -38,12 +38,28 @@ export function useBookingDraft(): DraftState {
   return useSyncExternalStore(subscribe, getBookingDraft, () => EMPTY);
 }
 
+const entryListeners = new Set<() => void>();
+
 export function registerEntryData(data: { catalog: EntryCategory[]; postalExample: string }): void {
   entryData = data;
+  for (const l of entryListeners) l();
 }
 
 export function getEntryData(): { catalog: EntryCategory[]; postalExample: string } | null {
   return entryData;
+}
+
+function subscribeEntryData(listener: () => void): () => void {
+  entryListeners.add(listener);
+  return () => entryListeners.delete(listener);
+}
+
+/**
+ * The hero entry's catalogue for the bar and sheet. It hydrates after the page's shell (chapters/01-hero.tsx), so a
+ * surface opened before that renders its entry as soon as the data registers.
+ */
+export function useEntryData(): { catalog: EntryCategory[]; postalExample: string } | null {
+  return useSyncExternalStore(subscribeEntryData, getEntryData, () => null);
 }
 
 /** A valid 5-digit PLZ from the draft, else the remembered one; null when neither exists. */

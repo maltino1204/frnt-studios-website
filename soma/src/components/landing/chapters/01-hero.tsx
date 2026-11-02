@@ -1,3 +1,4 @@
+import { Activity } from "react";
 import type { EntryCategory } from "@/components/site/discovery-copy";
 import { HeroArch } from "../hero/hero-arch";
 import { HeroBookingSlot } from "../hero/hero-booking-slot";
@@ -45,7 +46,11 @@ export function HeroChapter({
             <a href="#so-funktionierts" className={`${lpLinkClass} -my-1 self-start`}>
               <span className={lpLinkText}>So funktioniert’s</span>
             </a>
-            <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
+            {/* Hydrates right after the shell, in its own time-sliced pass (like chapters 02–10); a tap on it before
+                then hydrates it first and replays the event. */}
+            <Activity mode="visible">
+              <HeroBookingSlot catalog={catalog} postalExample={postalExample} postalExamples={postalExamples} trustItems={trustItems} />
+            </Activity>
           </div>
         </div>
       </LpContainer>

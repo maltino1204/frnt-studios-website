@@ -26,7 +26,7 @@ import { Icon } from "@/components/ui/icon";
 import { Container } from "@/components/ui/layout";
 import { useDialogMotion } from "@/components/ui/sheet";
 import { BAR_ENTRY_ID, DESKTOP_QUERY, registerBookingSurface, setBookingOpenFlag, type BookingOpenDetail } from "./booking-access";
-import { getBookingDraft, getEntryData, setBookingDraft } from "./booking-draft";
+import { getBookingDraft, setBookingDraft, useEntryData } from "./booking-draft";
 
 /**
  * One open = one session. The entry stays mounted after the first open (audit-1 PT-1): a later open only seeds the
@@ -78,7 +78,8 @@ export function BookingBar({ catalog, postalExample }: { catalog?: EntryCategory
     return () => mq.removeEventListener("change", on);
   }, []);
 
-  const data = catalog ? { catalog, postalExample: postalExample ?? "10115" } : getEntryData();
+  const registered = useEntryData();
+  const data = catalog ? { catalog, postalExample: postalExample ?? "10115" } : registered;
 
   return (
     <dialog

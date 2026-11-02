@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import { Activity, Suspense, type ReactNode } from "react";
 import { AccountDeletedToast } from "@/components/site/account-deleted-toast";
 import { floorsById, freeCancellationHours, fromPrice, toEntryCatalog } from "@/components/site/discovery-copy";
 import { LandingJsonLd } from "@/components/landing/booking/landing-json-ld";
@@ -49,6 +49,16 @@ async function showcaseResult(postalCode: string): Promise<ProviderSearchResult 
     console.error("[landing] showcase search unavailable", e);
     return null;
   }
+}
+
+/**
+ * Chapters 02–10 hydrate after the hero (audit-1 PT-2; performance remediation 2): each sits in a visible
+ * `<Activity>`, which React server-renders inline (`<!--&-->…<!--/&-->`, never outlined like a Suspense boundary, so
+ * the page stays complete without JS) and hydrates as its own low-priority, time-sliced pass after the shell. A tap
+ * inside a chapter that has not hydrated yet hydrates that chapter first and replays the event.
+ */
+function Later({ children }: { children: ReactNode }) {
+  return <Activity mode="visible">{children}</Activity>;
 }
 
 /**
@@ -113,23 +123,41 @@ export default async function LandingPage() {
       <Suspense fallback={null}>
         <AccountDeletedToast />
       </Suspense>
-      <IdeeChapter />
-      <BehandlungenChapter items={categories} />
-      <AblaufChapter
-        data={{
-          plz: examplePlz,
-          city: firstCity?.name ?? null,
-          categoryName: result?.offering.categoryName ?? catalog[0]?.name ?? null,
-          result,
-          freeHours: freeCancellationHours(terms.cancellationPolicy),
-        }}
-      />
-      <DeinOrtChapter />
-      <ProfisChapter providers={providers} />
-      <DeineBuchungChapter />
-      <FuerProfisChapter commission={providerTerms?.commission ?? DEFAULT_COMMISSION} payoutHoldHours={terms.payoutHoldHours ?? null} />
-      <FragenChapter items={conv.faq} trust={conv.faqTrust} />
-      <SomaChapter />
+      <Later>
+        <IdeeChapter />
+      </Later>
+      <Later>
+        <BehandlungenChapter items={categories} />
+      </Later>
+      <Later>
+        <AblaufChapter
+          data={{
+            plz: examplePlz,
+            city: firstCity?.name ?? null,
+            categoryName: result?.offering.categoryName ?? catalog[0]?.name ?? null,
+            result,
+            freeHours: freeCancellationHours(terms.cancellationPolicy),
+          }}
+        />
+      </Later>
+      <Later>
+        <DeinOrtChapter />
+      </Later>
+      <Later>
+        <ProfisChapter providers={providers} />
+      </Later>
+      <Later>
+        <DeineBuchungChapter />
+      </Later>
+      <Later>
+        <FuerProfisChapter commission={providerTerms?.commission ?? DEFAULT_COMMISSION} payoutHoldHours={terms.payoutHoldHours ?? null} />
+      </Later>
+      <Later>
+        <FragenChapter items={conv.faq} trust={conv.faqTrust} />
+      </Later>
+      <Later>
+        <SomaChapter />
+      </Later>
     </>
   );
 }

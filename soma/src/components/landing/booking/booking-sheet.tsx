@@ -22,7 +22,7 @@ import { RebookRow } from "@/components/site/discovery-rebook";
 import { Sheet } from "@/components/ui/sheet";
 import { DESKTOP_QUERY, registerBookingSurface, setBookingOpenFlag, SHEET_ENTRY_ID } from "./booking-access";
 import { seedFor } from "./booking-bar";
-import { getEntryData, knownPlz, setBookingDraft } from "./booking-draft";
+import { knownPlz, setBookingDraft, useEntryData } from "./booking-draft";
 
 /**
  * One open = one session. The entry stays mounted after the first open (audit-1 PT-1): a later open only seeds the
@@ -68,7 +68,8 @@ export function BookingSheet({ catalog, postalExample }: { catalog?: EntryCatego
     return () => mq.removeEventListener("change", on);
   }, []);
 
-  const data = catalog ? { catalog, postalExample: postalExample ?? "10115" } : getEntryData();
+  const registered = useEntryData();
+  const data = catalog ? { catalog, postalExample: postalExample ?? "10115" } : registered;
 
   return (
     <Sheet open={open} onClose={close} title="Termin finden" initialFocus={session?.focusPlz ? 'input[name="plz"]' : "auto"}>

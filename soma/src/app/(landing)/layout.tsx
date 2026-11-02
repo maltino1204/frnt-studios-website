@@ -5,9 +5,10 @@ import { LandingDock } from "@/components/landing/nav/landing-dock";
 import { LandingHeader } from "@/components/landing/nav/landing-header";
 import { LazySurfaces } from "@/components/landing/nav/lazy-surfaces";
 import { MotionLoader } from "@/components/landing/motion/loader";
+import { TIER_BOOT_SCRIPT } from "@/components/landing/motion/tier";
 import { SkipLinks } from "@/components/landing/nav/skip-links";
 import localFont from "next/font/local";
-import type { CSSProperties } from "react";
+import { Activity, type CSSProperties } from "react";
 import "./landing.css";
 
 /*
@@ -45,13 +46,22 @@ export default function LandingLayout({ children }: LayoutProps<"/">) {
         {children}
       </RouteTransition>
       {/* The dock hides while any part of the footer is in view (spec § 5.6; INTEGRATION § 3.7: no legal links covered). */}
-      <div data-dock-hide="0" className="lp-footer-wrap">
-        <SiteFooter tagline={false} note="Bilder: KI-generierte Entwicklungsassets" />
-      </div>
+      {/* Hydrates after the page's shell, like chapters 02–10 (page.tsx `Later`). */}
+      <Activity mode="visible">
+        <div data-dock-hide="0" className="lp-footer-wrap">
+          <SiteFooter tagline={false} note="Bilder: KI-generierte Entwicklungsassets" />
+        </div>
+      </Activity>
       <ChapterLinks />
       {/* The chapter overlay, the booking bar and the booking sheet load on idle or on first intent (nav/surfaces.ts). */}
       <LazySurfaces />
       <MotionLoader />
+      {/*
+        The motion tier on <html> before the first style pass (motion/tier.ts); the loader takes over after hydration.
+        Last in the markup on purpose: an inline script waits for the stylesheets, so placed earlier it would split the
+        first render (a partial first paint, then the rest of the initial layout as a long task after it).
+      */}
+      <script dangerouslySetInnerHTML={{ __html: TIER_BOOT_SCRIPT }} />
     </div>
   );
 }
