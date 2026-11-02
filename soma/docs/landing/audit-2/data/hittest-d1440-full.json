@@ -1,0 +1,19 @@
+{
+ "covered": [
+  {
+   "label": "a \"Freie Termine finden\" ch05-stage-termin",
+   "hit": "li.lp-essay-item",
+   "chrome": false,
+   "ch": "05",
+   "n": 19
+  },
+  {
+   "label": "button \"Zurück\" ",
+   "hit": "div.hidden",
+   "chrome": false,
+   "ch": "05",
+   "n": 5
+  }
+ ],
+ "underChrome": []
+}

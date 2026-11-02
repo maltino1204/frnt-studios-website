@@ -1,0 +1,238 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 17552,
+   "motion": "full",
+   "ch": "01",
+   "dock": "hidden",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 720,
+   "H": 17552,
+   "motion": "full",
+   "ch": "02",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 1440,
+   "H": 17552,
+   "motion": "full",
+   "ch": "02",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 2160,
+   "H": 17552,
+   "motion": "full",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 2880,
+   "H": 17552,
+   "motion": "full",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 3600,
+   "H": 17552,
+   "motion": "full",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 4320,
+   "H": 17552,
+   "motion": "full",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 5040,
+   "H": 17552,
+   "motion": "full",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 5760,
+   "H": 17552,
+   "motion": "full",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 9,
+   "y": 6480,
+   "H": 17552,
+   "motion": "full",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 10,
+   "y": 7200,
+   "H": 17552,
+   "motion": "full",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 11,
+   "y": 7920,
+   "H": 17552,
+   "motion": "full",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 12,
+   "y": 8640,
+   "H": 17346,
+   "motion": "full",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 13,
+   "y": 9360,
+   "H": 17346,
+   "motion": "full",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 14,
+   "y": 10080,
+   "H": 17170,
+   "motion": "full",
+   "ch": "06",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 15,
+   "y": 10800,
+   "H": 16773,
+   "motion": "full",
+   "ch": "06",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 16,
+   "y": 11520,
+   "H": 16773,
+   "motion": "full",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 17,
+   "y": 12240,
+   "H": 16131,
+   "motion": "full",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 18,
+   "y": 12960,
+   "H": 16131,
+   "motion": "full",
+   "ch": "08",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 19,
+   "y": 13680,
+   "H": 16131,
+   "motion": "full",
+   "ch": "09",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 20,
+   "y": 14400,
+   "H": 16131,
+   "motion": "full",
+   "ch": "09",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 21,
+   "y": 15120,
+   "H": 16131,
+   "motion": "full",
+   "ch": "10",
+   "dock": "hidden",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 22,
+   "y": 15331,
+   "H": 16131,
+   "motion": "full",
+   "ch": "10",
+   "dock": "hidden",
+   "hdr": "dark",
+   "overflowX": false
+  }
+ ],
+ "errors": [
+  "d1280 warning: The resource http://localhost:3100/_next/static/chunks/11sda7nbphjp0.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+  "d1280 warning: The resource http://localhost:3100/_next/static/chunks/11sda7nbphjp0.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}

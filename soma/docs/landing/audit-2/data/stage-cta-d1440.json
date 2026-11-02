@@ -1,0 +1,157 @@
+[
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 915.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": null,
+    "afterClick": "no dialog, scrollY 7050"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#1",
+    "afterClick": "no dialog, scrollY 7500"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#2",
+    "afterClick": "no dialog, scrollY 7950"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#3",
+    "afterClick": "no dialog, scrollY 8400"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#4",
+    "afterClick": "no dialog, scrollY 8850"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#5",
+    "afterClick": "no dialog, scrollY 9300"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 810,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#6",
+    "afterClick": "no dialog, scrollY 9750"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 465.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "LI.lp-essay-item in li#6",
+    "afterClick": "no dialog, scrollY 10200"
+   },
+   {
+    "x": 163.90625,
+    "y": 654.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "SPAN.underline decoration-line-stro"
+   }
+  ]
+ },
+ {
+  "active": "05",
+  "ctas": [
+   {
+    "cta": "ch05-stage-termin",
+    "x": 182.546875,
+    "y": 15.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": false,
+    "hit": "NAV.flex min-w-0 flex-1 items-cent",
+    "afterClick": "no dialog, scrollY 10650"
+   },
+   {
+    "x": 163.90625,
+    "y": 204.734375,
+    "vis": true,
+    "o": 1,
+    "hitIsCta": true,
+    "hit": "SPAN.underline decoration-line-stro"
+   }
+  ]
+ },
+ {
+  "active": "06",
+  "ctas": []
+ }
+]

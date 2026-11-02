@@ -1,0 +1,82 @@
+{
+ "seal": [
+  {
+   "share": 0.1,
+   "sealState": "active",
+   "sceneReady": true,
+   "visibleShare": 0.1,
+   "bandShare": 0.1,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.2,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.2,
+   "bandShare": 0.2,
+   "headerLogo": null,
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.3,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.3,
+   "bandShare": 0.3,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.4,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.4,
+   "bandShare": 0.4,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.5,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.5,
+   "bandShare": 0.5,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.6,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.6,
+   "bandShare": 0.6,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  },
+  {
+   "share": 0.8,
+   "sealState": "done",
+   "sceneReady": true,
+   "visibleShare": 0.8,
+   "bandShare": 0.8,
+   "headerLogo": "hidden",
+   "scene": "",
+   "markOpacity": "1"
+  }
+ ],
+ "doorway": [],
+ "somaGeom": {
+  "n": "10",
+  "id": "soma",
+  "top": 15757,
+  "h": 900
+ },
+ "finalState": "done"
+}

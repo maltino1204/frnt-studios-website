@@ -1,0 +1,38 @@
+[
+ {
+  "run": 1,
+  "tVisible": 2318,
+  "tTyped": 3109,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "",
+   "hint": null,
+   "focused": true
+  },
+  "submitted": "no navigation: page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===="
+ },
+ {
+  "run": 2,
+  "tVisible": 2431,
+  "tTyped": 3505,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "",
+   "hint": null,
+   "focused": true
+  },
+  "submitted": "no navigation: page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===="
+ },
+ {
+  "run": 3,
+  "tVisible": 2328,
+  "tTyped": 3172,
+  "valueRightAfter": "10115",
+  "after": {
+   "value": "",
+   "hint": null,
+   "focused": true
+  },
+  "submitted": "no navigation: page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===="
+ }
+]

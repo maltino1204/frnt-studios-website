@@ -1,0 +1,712 @@
+{
+ "d1920": {
+  "tier": "full",
+  "vw": 1920,
+  "vh": 1080,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 104,
+  "figure": {
+   "top": 133,
+   "bottom": 950,
+   "h": 817,
+   "w": 628,
+   "l": 972
+  },
+  "caption": {
+   "top": 934,
+   "bottom": 950,
+   "h": 16,
+   "w": 628,
+   "l": 972
+  },
+  "card": {
+   "top": 778,
+   "bottom": 850,
+   "h": 72,
+   "w": 860,
+   "l": 320
+  },
+  "submit": {
+   "top": 788,
+   "bottom": 840,
+   "h": 52,
+   "w": 205,
+   "l": 965
+  },
+  "submitInView": true,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1920,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Id 114x40",
+   "Behandlungen 130x40",
+   "So funktioniert’s 142x40",
+   "Für Profis 95x40",
+   "Hilfe 60x40",
+   "Anmelden 122x48",
+   "Termin finden 148x48"
+  ],
+  "errors": []
+ },
+ "d1440": {
+  "tier": "full",
+  "vw": 1440,
+  "vh": 900,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 104,
+  "figure": {
+   "top": 133,
+   "bottom": 917,
+   "h": 784,
+   "w": 628,
+   "l": 732
+  },
+  "caption": {
+   "top": 901,
+   "bottom": 917,
+   "h": 16,
+   "w": 628,
+   "l": 732
+  },
+  "card": {
+   "top": 745,
+   "bottom": 817,
+   "h": 72,
+   "w": 860,
+   "l": 80
+  },
+  "submit": {
+   "top": 755,
+   "bottom": 807,
+   "h": 52,
+   "w": 205,
+   "l": 725
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1440,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Id 114x40",
+   "Behandlungen 130x40",
+   "So funktioniert’s 142x40",
+   "Für Profis 95x40",
+   "Hilfe 60x40",
+   "Anmelden 122x48",
+   "Termin finden 148x48"
+  ],
+  "errors": []
+ },
+ "d1280": {
+  "tier": "full",
+  "vw": 1280,
+  "vh": 800,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 73.7779,
+  "figure": {
+   "top": 133,
+   "bottom": 817,
+   "h": 684,
+   "w": 580,
+   "l": 652
+  },
+  "caption": {
+   "top": 801,
+   "bottom": 817,
+   "h": 16,
+   "w": 580,
+   "l": 652
+  },
+  "card": {
+   "top": 645,
+   "bottom": 717,
+   "h": 72,
+   "w": 860,
+   "l": 48
+  },
+  "submit": {
+   "top": 655,
+   "bottom": 707,
+   "h": 52,
+   "w": 205,
+   "l": 693
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1280,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Id 114x40",
+   "Behandlungen 129x40",
+   "So funktioniert’s 141x40",
+   "Für Profis 94x40",
+   "Hilfe 60x40",
+   "Anmelden 121x48",
+   "Termin finden 147x48"
+  ],
+  "errors": []
+ },
+ "d1280s": {
+  "tier": "full",
+  "vw": 1280,
+  "vh": 720,
+  "motion": "full",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 73.7779,
+  "figure": {
+   "top": 133,
+   "bottom": 802,
+   "h": 669,
+   "w": 580,
+   "l": 652
+  },
+  "caption": {
+   "top": 786,
+   "bottom": 802,
+   "h": 16,
+   "w": 580,
+   "l": 652
+  },
+  "card": {
+   "top": 630,
+   "bottom": 702,
+   "h": 72,
+   "w": 860,
+   "l": 48
+  },
+  "submit": {
+   "top": 640,
+   "bottom": 692,
+   "h": 52,
+   "w": 205,
+   "l": 693
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 105,
+  "stretch": "100%",
+  "placeholderAvail": 122,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1280,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Id 114x40",
+   "Behandlungen 129x40",
+   "So funktioniert’s 141x40",
+   "Für Profis 94x40",
+   "Hilfe 60x40",
+   "Anmelden 121x48",
+   "Termin finden 147x48"
+  ],
+  "errors": []
+ },
+ "t1024": {
+  "tier": "lite",
+  "vw": 1024,
+  "vh": 768,
+  "motion": "lite",
+  "dock": "hidden",
+  "taglineLines": 2,
+  "taglinePx": 63.8223,
+  "figure": {
+   "top": 133,
+   "bottom": 806,
+   "h": 673,
+   "w": 373,
+   "l": 603
+  },
+  "caption": {
+   "top": 790,
+   "bottom": 806,
+   "h": 16,
+   "w": 373,
+   "l": 603
+  },
+  "card": {
+   "top": 634,
+   "bottom": 706,
+   "h": 72,
+   "w": 769,
+   "l": 48
+  },
+  "submit": {
+   "top": 644,
+   "bottom": 696,
+   "h": 52,
+   "w": 205,
+   "l": 602
+  },
+  "submitInView": true,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 88,
+  "stretch": "86%",
+  "placeholderAvail": 115,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 1024,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 88x44",
+   "Kapitel01 Bei dir02 Id 113x40",
+   "Menü 67x44",
+   "Termin finden 145x48"
+  ],
+  "errors": []
+ },
+ "t768": {
+  "tier": "lite",
+  "vw": 768,
+  "vh": 1024,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 66.667,
+  "figure": {
+   "top": 403,
+   "bottom": 1085,
+   "h": 681,
+   "w": 523,
+   "l": 123
+  },
+  "caption": {
+   "top": 1069,
+   "bottom": 1085,
+   "h": 16,
+   "w": 523,
+   "l": 123
+  },
+  "card": {
+   "top": 1275,
+   "bottom": 1531,
+   "h": 256,
+   "w": 523,
+   "l": 32
+  },
+  "submit": {
+   "top": 1471,
+   "bottom": 1523,
+   "h": 52,
+   "w": 507,
+   "l": 40
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 451,
+  "ribbon": {
+   "top": 0,
+   "bottom": 33,
+   "h": 33,
+   "w": 768,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 66x44"
+  ],
+  "errors": []
+ },
+ "m430": {
+  "tier": "lite",
+  "vw": 430,
+  "vh": 932,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 47.8891,
+  "figure": {
+   "top": 369,
+   "bottom": 884,
+   "h": 515,
+   "w": 390,
+   "l": 20
+  },
+  "caption": {
+   "top": 869,
+   "bottom": 884,
+   "h": 16,
+   "w": 390,
+   "l": 20
+  },
+  "card": {
+   "top": 1097,
+   "bottom": 1353,
+   "h": 256,
+   "w": 390,
+   "l": 20
+  },
+  "submit": {
+   "top": 1293,
+   "bottom": 1345,
+   "h": 52,
+   "w": 374,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 318,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 430,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m412": {
+  "tier": "lite",
+  "vw": 412,
+  "vh": 915,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 46.8891,
+  "figure": {
+   "top": 367,
+   "bottom": 860,
+   "h": 493,
+   "w": 372,
+   "l": 20
+  },
+  "caption": {
+   "top": 844,
+   "bottom": 860,
+   "h": 16,
+   "w": 372,
+   "l": 20
+  },
+  "card": {
+   "top": 1072,
+   "bottom": 1328,
+   "h": 256,
+   "w": 372,
+   "l": 20
+  },
+  "submit": {
+   "top": 1268,
+   "bottom": 1320,
+   "h": 52,
+   "w": 356,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 300,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 412,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m390": {
+  "tier": "lite",
+  "vw": 390,
+  "vh": 844,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 45.6668,
+  "figure": {
+   "top": 364,
+   "bottom": 829,
+   "h": 465,
+   "w": 350,
+   "l": 20
+  },
+  "caption": {
+   "top": 814,
+   "bottom": 829,
+   "h": 16,
+   "w": 350,
+   "l": 20
+  },
+  "card": {
+   "top": 1042,
+   "bottom": 1298,
+   "h": 256,
+   "w": 350,
+   "l": 20
+  },
+  "submit": {
+   "top": 1238,
+   "bottom": 1290,
+   "h": 52,
+   "w": 334,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": true,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 278,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 390,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m390s": {
+  "tier": "lite",
+  "vw": 390,
+  "vh": 664,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 45.6668,
+  "figure": {
+   "top": 364,
+   "bottom": 829,
+   "h": 465,
+   "w": 350,
+   "l": 20
+  },
+  "caption": {
+   "top": 814,
+   "bottom": 829,
+   "h": 16,
+   "w": 350,
+   "l": 20
+  },
+  "card": {
+   "top": 1042,
+   "bottom": 1298,
+   "h": 256,
+   "w": 350,
+   "l": 20
+  },
+  "submit": {
+   "top": 1238,
+   "bottom": 1290,
+   "h": 52,
+   "w": 334,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 278,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 390,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m360": {
+  "tier": "lite",
+  "vw": 360,
+  "vh": 740,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 44.0002,
+  "figure": {
+   "top": 361,
+   "bottom": 804,
+   "h": 443,
+   "w": 320,
+   "l": 20
+  },
+  "caption": {
+   "top": 773,
+   "bottom": 804,
+   "h": 31,
+   "w": 320,
+   "l": 20
+  },
+  "card": {
+   "top": 1043,
+   "bottom": 1299,
+   "h": 256,
+   "w": 320,
+   "l": 20
+  },
+  "submit": {
+   "top": 1239,
+   "bottom": 1291,
+   "h": 52,
+   "w": 304,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 248,
+  "ribbon": {
+   "top": 0,
+   "bottom": 47,
+   "h": 47,
+   "w": 360,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ },
+ "m320": {
+  "tier": "lite",
+  "vw": 320,
+  "vh": 640,
+  "motion": "lite",
+  "dock": "shown",
+  "taglineLines": 2,
+  "taglinePx": 44,
+  "figure": {
+   "top": 378,
+   "bottom": 771,
+   "h": 393,
+   "w": 280,
+   "l": 20
+  },
+  "caption": {
+   "top": 740,
+   "bottom": 771,
+   "h": 31,
+   "w": 280,
+   "l": 20
+  },
+  "card": {
+   "top": 1010,
+   "bottom": 1266,
+   "h": 256,
+   "w": 280,
+   "l": 20
+  },
+  "submit": {
+   "top": 1206,
+   "bottom": 1258,
+   "h": 52,
+   "w": 264,
+   "l": 28
+  },
+  "submitInView": false,
+  "captionInView": false,
+  "placeholder": "PLZ, z. B. 10115",
+  "placeholderFits": true,
+  "placeholderNeed": 106,
+  "stretch": "100%",
+  "placeholderAvail": 208,
+  "ribbon": {
+   "top": 0,
+   "bottom": 63,
+   "h": 63,
+   "w": 320,
+   "l": 0
+  },
+  "overflowX": 0,
+  "hdrTargets": [
+   "SOMA, zur Startseite 76x44",
+   "Menü 65x44"
+  ],
+  "errors": []
+ }
+}

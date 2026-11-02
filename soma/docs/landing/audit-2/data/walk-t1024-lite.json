@@ -1,0 +1,217 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "01",
+   "dock": "hidden",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 691,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "02",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 1382,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "02",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 2073,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 2764,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "03",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 3455,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "04",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 4146,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 4837,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 5528,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 9,
+   "y": 6219,
+   "H": 15490,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 10,
+   "y": 6910,
+   "H": 15206,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 11,
+   "y": 7601,
+   "H": 15107,
+   "motion": "lite",
+   "ch": "05",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 12,
+   "y": 8292,
+   "H": 15107,
+   "motion": "lite",
+   "ch": "06",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 13,
+   "y": 8983,
+   "H": 14810,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 14,
+   "y": 9674,
+   "H": 14810,
+   "motion": "lite",
+   "ch": "07",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 15,
+   "y": 10365,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "08",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 16,
+   "y": 11056,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "08",
+   "dock": "shown",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 17,
+   "y": 11747,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "09",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 18,
+   "y": 12438,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "09",
+   "dock": "shown",
+   "hdr": "light",
+   "overflowX": false
+  },
+  {
+   "i": 19,
+   "y": 13129,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "10",
+   "dock": "hidden",
+   "hdr": "dark",
+   "overflowX": false
+  },
+  {
+   "i": 20,
+   "y": 13408,
+   "H": 14176,
+   "motion": "lite",
+   "ch": "10",
+   "dock": "hidden",
+   "hdr": "dark",
+   "overflowX": false
+  }
+ ],
+ "errors": [
+  "t1024 warning: The resource http://localhost:3100/_next/static/chunks/11sda7nbphjp0.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+ ]
+}

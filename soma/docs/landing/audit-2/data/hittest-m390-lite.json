@@ -1,0 +1,96 @@
+{
+ "covered": [],
+ "underChrome": [
+  {
+   "label": "a \"So funktioniert’s\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "button \"Was?Alle Behandlungen\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "01",
+   "n": 1
+  },
+  {
+   "label": "a \"Alle Behandlungen\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "03",
+   "n": 1
+  },
+  {
+   "label": "a \"Freie Termine finden\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "04",
+   "n": 1
+  },
+  {
+   "label": "a \"Weiter: Profis\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "05",
+   "n": 1
+  },
+  {
+   "label": "a \"Weiter: Deine Buchung\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "06",
+   "n": 1
+  },
+  {
+   "label": "a \"Alle Fragen und Antworten\" ",
+   "hit": "span.lp-chapter-label",
+   "chrome": true,
+   "ch": "08",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wo gibt es SOMA?\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "summary \"Wie läuft die Buchung ab?\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "summary \"Was ist die SOMA-Garantie?\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "09",
+   "n": 1
+  },
+  {
+   "label": "a \"hallo@soma.example\" ",
+   "hit": "a.relative",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  },
+  {
+   "label": "a \"Datenschutz\" ",
+   "hit": "nav.lp-dock",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  },
+  {
+   "label": "a \"AGB\" ",
+   "hit": "button.relative",
+   "chrome": true,
+   "ch": "10",
+   "n": 1
+  }
+ ]
+}

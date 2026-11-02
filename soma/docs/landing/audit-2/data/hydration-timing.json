@@ -1,0 +1,29 @@
+[
+ {
+  "plzInDom": 709,
+  "headerCta": 3496,
+  "placeSwitch": 4102,
+  "heroForm": 4802,
+  "ch03Link": 4802,
+  "footer": 5050,
+  "fcp": 2196
+ },
+ {
+  "plzInDom": 716,
+  "headerCta": 3615,
+  "placeSwitch": 4153,
+  "heroForm": 4894,
+  "ch03Link": 4954,
+  "footer": 5031,
+  "fcp": 2288
+ },
+ {
+  "plzInDom": 704,
+  "headerCta": 3578,
+  "placeSwitch": 4037,
+  "heroForm": 4860,
+  "ch03Link": 4860,
+  "footer": 5041,
+  "fcp": 2224
+ }
+]

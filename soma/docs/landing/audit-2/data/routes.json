@@ -1,0 +1,252 @@
+{
+ "routes": {
+  "/": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+    "newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "somaSans",
+   "displayLoaded": [
+    "somaDisplay:loaded",
+    "somaDisplay Fallback:error"
+   ],
+   "console": []
+  },
+  "/suche?plz=10115": {
+   "status": 200,
+   "fontPreloads": [],
+   "fontsFetched": [
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/behandlungen": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/behandlungen/massage": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/staedte": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/fuer-profis": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:error"
+   ],
+   "console": []
+  },
+  "/anmelden": {
+   "status": 200,
+   "fontPreloads": [],
+   "fontsFetched": [
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/pro/registrieren": {
+   "status": 200,
+   "fontPreloads": [],
+   "fontsFetched": [
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/hilfe": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/impressum": {
+   "status": 200,
+   "fontPreloads": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "display",
+   "displayLoaded": [
+    "somaDisplay:unloaded",
+    "somaDisplay Fallback:unloaded",
+    "display:loaded",
+    "display Fallback:unloaded"
+   ],
+   "console": []
+  },
+  "/gibt-es-nicht": {
+   "status": 404,
+   "fontPreloads": [],
+   "fontsFetched": [
+    "instrument_sans_variable_latin-s.p.09r36lua6-1z2.woff2",
+    "newsreader_display_roman_latin-s.1kx2mdfq4euef.woff2",
+    "newsreader_display_italic-s.0qbz8iiasq0j5.woff2",
+    "newsreader_display_italic-s.p.0qbz8iiasq0j5.woff2",
+    "newsreader_display_roman_latin-s.p.1kx2mdfq4euef.woff2"
+   ],
+   "cls": 0,
+   "h1Font": "somaDisplay",
+   "displayLoaded": [
+    "somaDisplay:loaded",
+    "somaDisplay Fallback:error"
+   ],
+   "console": [
+    "/gibt-es-nicht error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+   ]
+  }
+ },
+ "notFoundMenu": {
+  "open": true,
+  "w": 390,
+  "h": 844,
+  "links": [
+   "/",
+   "/behandlungen",
+   "/staedte",
+   "/fuer-profis",
+   "/hilfe",
+   "/#termin",
+   "/anmelden"
+  ]
+ },
+ "notFoundMenuEscCloses": false,
+ "notFoundDesktopLinks": [
+  "SOMA, zur Startseite -> /",
+  "Behandlungen -> /behandlungen",
+  "Städte -> /staedte",
+  "Für Profis -> /fuer-profis",
+  "Anmelden -> /anmelden",
+  "Termin finden -> /#termin"
+ ]
+}

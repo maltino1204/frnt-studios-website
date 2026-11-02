@@ -1,0 +1,7 @@
+# node docs/landing/audit-2/scripts/dock-focus.js <variant>   (412 × 823, 4× CPU after load unless "cold", ?motion=lite)
+# first open: Event Timing entries of the dock tap (pointerdown / pointerup / click: duration, input delay, processing)
+a     first open: pointerdown 40 (22/8) · pointerup 40 · click 464 (73/3); long task 267 ms after the tap   second open: click 224
+b     first open: pointerdown 32 · pointerup 32 · click 312 (64/3); long task 152 ms                        second open: click 200
+cold  first open: pointerdown 16 · pointerup 16 · click 248 (36/1); long task 119 ms                        second open: click 184
+c     (after tapping „Buchen“, focus on that button) first open: pointerup 24 · click 48 (41/0); long task 109 ms   second open: click 192
+# inp2.js (audit 1's script, same sequence as c): dock „Termin finden“ click 56 ms and 32 ms

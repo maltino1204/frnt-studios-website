@@ -1,0 +1,50 @@
+{
+ "deepLink": {
+  "plz": "10435",
+  "entry": "Wo? Postleitzahl · Berlin Was? Entspannungsmassage (klassisch) Wann? Di., 10. Nov. · Abends Freie Termine finden"
+ },
+ "deepLinkSubmit": "/suche?plz=10435&kategorie=massage&leistung=entspannungsmassage&datum=2026-11-10&zeit=abends",
+ "deepLinkH1": "Entspannungsmassage (klassisch) in 10435 Berlin",
+ "finalCtaBefore": "/suche",
+ "finalCtaAfter": "/suche?plz=20095",
+ "chapterCtas": [
+  "so-funktionierts: Freie Termine finden -> #termin",
+  "dein-ort: Freie Termine finden -> #termin",
+  "dein-ort: Freie Termine finden -> #termin",
+  "deine-buchung: Freie Termine finden -> #termin",
+  "soma: Freie Termine finden -> /suche?plz=20095"
+ ],
+ "ch05Cta": {
+  "open": true,
+  "plz": "20095",
+  "focus": "plz"
+ },
+ "ch05CtaFocusBack": "Freie Termine finden",
+ "categoryRows": [
+  "/behandlungen/massage",
+  "/behandlungen/manikuere",
+  "/behandlungen/pedikuere",
+  "/behandlungen/kosmetik",
+  "/behandlungen/make-up",
+  "/behandlungen/haare-styling",
+  "/behandlungen/brows-lashes",
+  "/behandlungen"
+ ],
+ "proCtas": [
+  "profis: Selbst Profi? -> #fuer-profis",
+  "fuer-profis: Profi werden -> /pro/registrieren",
+  "fuer-profis: Konditionen ansehen -> /fuer-profis#provision",
+  "soma: Profi werden -> /pro/registrieren",
+  "FOOTER: Profi werden -> /pro/registrieren"
+ ],
+ "proStatus": 200,
+ "provisionAnchor": true,
+ "sheetPlzHint": "Termin finden Wo? Postleitzahl · Köln Was? Alle Behandlungen Wann? So bald wie möglich Freie Termine finden",
+ "dialogsOpen": 1,
+ "sheetSubmit": "/suche?plz=50667&kategorie=manikuere&datum=2026-11-03&zeit=mittags",
+ "sheetSubmitH1": "Maniküre in 50667 Köln",
+ "unservedPlz": [
+  "noch nicht verfügbar Was?",
+  "gibt es noch keine Profis auf SOMA."
+ ]
+}

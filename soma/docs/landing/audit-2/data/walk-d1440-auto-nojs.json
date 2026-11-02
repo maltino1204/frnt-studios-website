@@ -1,0 +1,113 @@
+{
+ "log": [
+  {
+   "i": 0,
+   "y": 0,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 1,
+   "y": 900,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 2,
+   "y": 1800,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 3,
+   "y": 2700,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 4,
+   "y": 3600,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 5,
+   "y": 4500,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 6,
+   "y": 5400,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 7,
+   "y": 6300,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 8,
+   "y": 7200,
+   "H": 17580,
+   "overflowX": false
+  },
+  {
+   "i": 9,
+   "y": 8100,
+   "H": 17405,
+   "overflowX": false
+  },
+  {
+   "i": 10,
+   "y": 9000,
+   "H": 17196,
+   "overflowX": false
+  },
+  {
+   "i": 11,
+   "y": 9900,
+   "H": 17196,
+   "overflowX": false
+  },
+  {
+   "i": 12,
+   "y": 10800,
+   "H": 16868,
+   "overflowX": false
+  },
+  {
+   "i": 13,
+   "y": 11700,
+   "H": 16226,
+   "overflowX": false
+  },
+  {
+   "i": 14,
+   "y": 12600,
+   "H": 16226,
+   "overflowX": false
+  },
+  {
+   "i": 15,
+   "y": 13500,
+   "H": 16094,
+   "overflowX": false
+  },
+  {
+   "i": 16,
+   "y": 14400,
+   "H": 16094,
+   "overflowX": false
+  },
+  {
+   "i": 17,
+   "y": 15194,
+   "H": 16094,
+   "overflowX": false
+  }
+ ],
+ "errors": []
+}
