@@ -19,6 +19,7 @@ export default function DatenschutzPage() {
     { id: "gesundheit", title: "Angaben zur Behandlung" },
     { id: "zahlung", title: "Zahlung" },
     { id: "bewertungen", title: "Bewertungen" },
+    { id: "vorschlaege", title: "Persönliche Vorschläge" },
     { id: "cookies", title: "Cookies und Speicher" },
     { id: "speicherdauer", title: "Speicherdauer" },
     { id: "rechte", title: "Rechte der Betroffenen" },
@@ -77,6 +78,19 @@ export default function DatenschutzPage() {
       </ContentSection>
       <ContentSection id="bewertungen" title="Bewertungen">
         <p>Bewertungen erscheinen mit Vornamen und dem ersten Buchstaben des Nachnamens. Bewerten kann nur, wer den Termin tatsächlich wahrgenommen hat.</p>
+      </ContentSection>
+      {/* ⚖ Personalised suggestions on /entdecken (2026-11-02): legal basis, balancing test and retention are the lawyer's. */}
+      <ContentSection id="vorschlaege" title="Persönliche Vorschläge">
+        <p>
+          Angemeldeten Kundinnen und Kunden zeigt {BRAND_NAME} auf der Seite <Link href={routes.explore()}>Entdecken</Link> unter „Für dich“ Vorschläge. Sie entstehen
+          ausschließlich aus den eigenen Daten des Kontos: gebuchte Behandlungen und ihre Kategorien, die Profis dieser Buchungen, die Favoriten und die Postleitzahl der
+          Standardadresse. Daten anderer Kundinnen und Kunden, Daten von anderen Websites oder von Werbepartnern werden dafür nicht verwendet.
+        </p>
+        <p>
+          Die Vorschläge werden bei jedem Aufruf neu berechnet und nicht als Profil gespeichert. Die Funktion lässt sich jederzeit unter Konto › Profil &amp; Sicherheit ›
+          „Persönliche Vorschläge“ ausschalten; dann werden keine Vorschläge berechnet, und es erscheint nur die allgemeine Auswahl. Die Einstellung ist Teil des Datenexports.
+        </p>
+        <p>[⚖ Anwaltlich zu prüfen: Rechtsgrundlage (Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse, mit Widerspruchsmöglichkeit nach Art. 21 DSGVO, oder lit. b), Abwägung und Hinweis im Konto.]</p>
       </ContentSection>
       <ContentSection id="cookies" title="Cookies und Speicher">
         <p>Wir setzen nur technisch notwendige Speichertechnologien ein und verzichten auf Werbe- und Analyse-Cookies. Eine Einwilligung ist dafür nicht erforderlich (§ 25 Abs. 2 TDDDG).</p>

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { DEMO_MODE, SITE_URL } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 import { listCategories, listCities } from "@/server/services/catalog";
+import { listExploreCollectionSlugs } from "@/server/services/explore";
 import { getCoverageMatrix, listPublicProviderSlugs } from "@/server/services/site-ext";
 
 export const revalidate = 3600;
@@ -15,11 +16,12 @@ const url = (path: string) => new URL(path, SITE_URL).toString();
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (DEMO_MODE) return [];
-  const [categories, cities, coverage, providers] = await Promise.all([
+  const [categories, cities, coverage, providers, collections] = await Promise.all([
     listCategories(),
     listCities(),
     getCoverageMatrix(),
     listPublicProviderSlugs(),
+    listExploreCollectionSlugs(),
   ]);
   const now = new Date();
   const page = (path: string, priority: number, changeFrequency: "daily" | "weekly" | "monthly" | "yearly" = "weekly") => ({
@@ -31,6 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     page(routes.home(), 1, "daily"),
+    page(routes.explore(), 0.8, "daily"),
+    ...collections.map((slug) => page(routes.exploreCollection(slug), 0.6)),
     page(routes.categories(), 0.9),
     ...categories.map((c) => page(routes.category(c.slug), 0.9)),
     page("/staedte", 0.7),

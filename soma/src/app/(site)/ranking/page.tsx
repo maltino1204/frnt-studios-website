@@ -6,6 +6,15 @@ import { BRAND_NAME } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 import { RATING_PRIOR_MEAN, RATING_PRIOR_WEIGHT, WEIGHTS } from "@/server/domain/ranking";
 import { getPublicTerms } from "@/server/services/site-ext";
+import {
+  EXPLORE_NEW_DAYS,
+  FOR_YOU_SLOT_DAYS,
+  MIN_RATING_COUNT,
+  POPULAR_MIN_CITY_BOOKINGS,
+  POPULAR_MIN_SERVICE_BOOKINGS,
+  POPULAR_WINDOW_DAYS,
+} from "@/server/domain/explore";
+import { listExploreCollections } from "@/server/services/explore";
 
 export const revalidate = 3600;
 
@@ -24,15 +33,19 @@ const dec = (n: number) => n.toLocaleString("de-DE", { maximumFractionDigits: 1 
  * from src/server/domain/ranking.ts, so this page always describes the code that sorts.
  */
 export default async function RankingPage() {
-  const terms = await getPublicTerms();
+  const [terms, collections] = await Promise.all([getPublicTerms(), listExploreCollections()]);
+  const sponsored = collections.filter((c) => c.isSponsored);
   const sections = [
     { id: "wer", title: "Wer in der Suche erscheint" },
     { id: "empfohlen", title: "Die Sortierung „Empfohlen“" },
     { id: "andere", title: "Andere Sortierungen und Filter" },
     { id: "unabhaengig", title: "Was keine Rolle spielt" },
     { id: "bewertungen", title: "Wie Bewertungen entstehen" },
-    { id: "auswahl", title: "Auswahl auf Start- und Stadtseiten" },
-  ];
+    { id: "uebersichten", title: "Auswahl auf Start- und Stadtseiten" },
+    { id: "auswahl", title: "„Von SOMA ausgewählt“ und „Anzeige“" },
+    { id: "entdecken", title: "Beliebt und neu auf Entdecken" },
+    { id: "fuer-dich", title: "Vorschläge „Für dich“" },
+  ].map((x) => ({ ...x, title: x.title.replace("SOMA", BRAND_NAME) }));
 
   const factors = [
     {
@@ -159,13 +172,76 @@ export default async function RankingPage() {
         <p>Profile mit weniger als drei Bewertungen tragen den Hinweis „Neu auf {BRAND_NAME}“.</p>
       </ContentSection>
 
-      <ContentSection id="auswahl" title={sections[5].title}>
+      <ContentSection id="uebersichten" title={sections[5].title}>
         <p>
           Auf der Startseite und auf den Seiten für Behandlungen und Städte zeigen wir eine Auswahl ohne Terminbezug. Die Reihenfolge folgt dem ausgeglichenen Bewertungsdurchschnitt,
           bei Gleichstand der Zahl abgeschlossener Termine. Buchbare Zeiten siehst du in der <Link href={routes.search()}>Suche</Link>.
         </p>
         <p>
           Mehr zu Rolle und Pflichten von {BRAND_NAME} steht in den <Link href={routes.terms()}>AGB</Link>.
+        </p>
+      </ContentSection>
+
+      <ContentSection id="auswahl" title={sections[6].title}>
+        <p>
+          Die Themen auf <Link href={routes.explore()}>Entdecken</Link>, etwa „Massage im Hotel“, stellt das {BRAND_NAME}-Team redaktionell zusammen. Sie tragen den Hinweis
+          „Von {BRAND_NAME} ausgewählt“. Für die Aufnahme zahlt niemand, und wie viel {BRAND_NAME} an einer Buchung verdient, spielt für die Auswahl keine Rolle.
+        </p>
+        <p>
+          Ein Thema enthält Behandlungen, Kategorien oder einzelne Profis. Die Preise sind die echten Preise der Profis, ohne Anfahrt. Freie Termine und den Endpreis inklusive
+          Anfahrt siehst du im Profil oder in der Suche, sobald du deine Postleitzahl eingibst.
+        </p>
+        <p>
+          Sollte eine Platzierung künftig bezahlt sein, steht daran deutlich „Anzeige“ – auf der Karte und auf der Seite des Themas –, zusammen mit dem Namen dessen, in dessen
+          Auftrag sie erscheint (§ 5a Abs. 4 UWG, Art. 26 DSA).{" "}
+          {sponsored.length
+            ? `Derzeit als Anzeige gekennzeichnet: ${sponsored.map((c) => `„${c.title}“ im Auftrag von ${c.sponsorName}`).join(", ")}.`
+            : "Derzeit gibt es keine bezahlten Platzierungen."}
+        </p>
+      </ContentSection>
+
+      <ContentSection id="entdecken" title={sections[7].title}>
+        <ul>
+          <li>
+            <strong>Beliebt in deiner Stadt:</strong> Wir zählen bestätigte, begonnene und abgeschlossene Buchungen der letzten {POPULAR_WINDOW_DAYS}
+            {NBSP}Tage, deren Adresse in der Stadt liegt. Eine Stadt erscheint erst ab {POPULAR_MIN_CITY_BOOKINGS} solcher Buchungen, eine Behandlung erst ab{" "}
+            {POPULAR_MIN_SERVICE_BOOKINGS}. Wir zeigen nur die Reihenfolge, keine Zahlen, und nur Behandlungen, die in der Stadt jemand anbietet. Der „ab“-Preis ist das günstigste
+            Angebot dort, ohne Anfahrt.
+          </li>
+          <li>
+            <strong>Neu auf {BRAND_NAME}:</strong> Profis, die in den letzten {EXPLORE_NEW_DAYS}
+            {NBSP}Tagen freigeschaltet wurden, die neuesten zuerst. Sie sind geprüft wie alle anderen.
+          </li>
+          <li>
+            <strong>Bewertungen</strong> erscheinen auf den Karten ab {MIN_RATING_COUNT} veröffentlichten Bewertungen.
+          </li>
+        </ul>
+      </ContentSection>
+
+      <ContentSection id="fuer-dich" title={sections[8].title}>
+        <p>Angemeldet siehst du auf Entdecken Vorschläge, die nur aus deinen eigenen Daten bei {BRAND_NAME} entstehen:</p>
+        <ul>
+          <li>
+            <strong>Wieder buchen:</strong> Profis, bei denen du schon einen Termin abgeschlossen hast, und deine Favoriten.
+          </li>
+          <li>
+            <strong>Passend zu deinen Buchungen:</strong> Behandlungen aus den Kategorien, die du gebucht hast, von Profis, deren Einsatzgebiet die Postleitzahl deiner
+            Standardadresse abdeckt. Pro Behandlung zeigen wir einen Profi mit einem freien Termin in den nächsten {FOR_YOU_SLOT_DAYS}
+            {NBSP}Tagen: zuerst nach dem ausgeglichenen Bewertungsdurchschnitt, dann nach dem früheren Termin. Was du bei einem Profi schon gebucht hast, steht unter „Wieder
+            buchen“.
+          </li>
+          <li>
+            <strong>Neu in deiner Nähe:</strong> Profis, die in den letzten {EXPLORE_NEW_DAYS}
+            {NBSP}Tagen freigeschaltet wurden und zu deiner Postleitzahl kommen.
+          </li>
+        </ul>
+        <p>
+          „Nächster freier Termin“ und der Endpreis inklusive Anfahrt werden beim Aufruf aus den echten Arbeitszeiten und Buchungen der Profis berechnet. Daten anderer
+          Kundinnen und Kunden fließen nicht ein, und wir speichern aus den Vorschlägen kein Profil.
+        </p>
+        <p>
+          Du kannst die Vorschläge jederzeit unter <Link href={`${routes.account.profile()}#vorschlaege`}>Konto › Profil &amp; Sicherheit › Persönliche Vorschläge</Link>{" "}
+          ausschalten. Dann berechnen wir nichts für dich und zeigen nur die allgemeine Auswahl. Mehr dazu in der <Link href={`${routes.privacy()}#vorschlaege`}>Datenschutzerklärung</Link>.
         </p>
       </ContentSection>
     </ContentPage>

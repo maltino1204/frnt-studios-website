@@ -41,6 +41,7 @@ function revalidateExplore(): void {
   revalidatePath("/entdecken");
   revalidatePath("/entdecken/[slug]", "page");
   revalidatePath("/admin/entdecken", "layout");
+  revalidatePath("/ranking"); // names live sponsored placements
   revalidatePath("/sitemap.xml");
 }
 
