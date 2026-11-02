@@ -32,11 +32,12 @@ export function splitHeadline(title: string): [string, string | null] {
 /* before each "·" keeps a separator from starting a line.                  */
 /* ------------------------------------------------------------------------ */
 export const PLACE_LINES = {
-  home: "Altbau, 3.\u00a0OG · Berlin-Prenzlauer Berg · 19:30",
+  // home, hotel, office: the landing hero's places, daytime as the v3 „Tageslicht“ photos (PHOTOGRAPHY.md § 2, § 10).
+  home: "Altbau, 3.\u00a0OG · Berlin-Prenzlauer Berg · 10:30",
   arrival: "Wohnungstür, 2.\u00a0OG · Köln-Ehrenfeld · 18:55",
   setup: "Wohnzimmer · Hamburg-Eimsbüttel · 19:05",
   after: "Sofa, danach · München-Schwabing · 20:20",
-  hotel: "Hotelsuite, 6.\u00a0Stock · Frankfurt-Westend · 21:10",
+  hotel: "Hotelsuite, 6.\u00a0Stock · Frankfurt-Westend · 15:30",
   office: "Besprechungsraum · Hamburg-HafenCity · 13:00",
   pros: "Treppenhaus, Altbau · Berlin-Neukölln · 17:40",
 } as const;

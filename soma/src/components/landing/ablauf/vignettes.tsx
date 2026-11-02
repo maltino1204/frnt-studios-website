@@ -178,7 +178,8 @@ export function VignetteBook({ data, instance }: { data: WalkthroughData; instan
 /**
  * 3 · Bleiben: the signature, used once on the page (guidelines § 10.2): two equal 4:5 arches, the right one dropped
  * by 18 % of its width, one Ortszeile under each (two places), and the Start-Code card overlapping the right arch's
- * lower part (the only overlap the signature allows). One evening in two moments: 19:25 at the door, 20:10 after.
+ * lower part (the only overlap the signature allows). One afternoon in two moments: 15:25 at the door, 16:10 after
+ * (daytime, as the v3 „Tageslicht“ photos are; PHOTOGRAPHY.md § 10: the time matches the light).
  */
 export function VignetteStay({ className }: { className?: string }) {
   return (
@@ -187,7 +188,7 @@ export function VignetteStay({ className }: { className?: string }) {
         <LandingArch tone="massage" reveal="arch">
           <LandingImage src="/images/editorial/arrival-v2.jpg" alt="" sizes="(min-width: 1024px) 296px, 42vw" focal="58% 50%" />
         </LandingArch>
-        <Ortszeile text={`Wohnungstür, 4.${NBSP}OG · Berlin-Prenzlauer Berg · 19:25`} className="mt-3" />
+        <Ortszeile text={`Wohnungstür, 4.${NBSP}OG · Berlin-Prenzlauer Berg · 15:25`} className="mt-3" />
       </figure>
       <figure className="lp-pair-right min-w-0">
         <div className="relative">
@@ -205,7 +206,7 @@ export function VignetteStay({ className }: { className?: string }) {
             </span>
           </div>
         </div>
-        <Ortszeile text="Sofa, danach · Berlin-Prenzlauer Berg · 20:10" className="mt-3" />
+        <Ortszeile text="Sofa, danach · Berlin-Prenzlauer Berg · 16:10" className="mt-3" />
       </figure>
     </div>
   );

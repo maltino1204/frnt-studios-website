@@ -27,7 +27,7 @@ export const PLACES: readonly Place[] = [
     // A1: the 4:5 crop of hero-mobile.jpg with the 50% 45% focal baked in (scripts/landing/derive-hero.mjs).
     src: "/images/landing/hero-home-4x5.jpg",
     focal: "50% 50%",
-    alt: "Ein Profi massiert am Abend den Rücken einer Person auf einer Massageliege, in einem Berliner Altbauzimmer mit hohen Fenstern.",
+    alt: "Ein Profi massiert am Vormittag den Rücken einer Person auf einer Massageliege, in einem sonnigen Berliner Altbauzimmer mit hohen Fenstern.",
     place: PLACE_LINES.home,
     citySlug: "berlin",
   },
@@ -36,7 +36,7 @@ export const PLACES: readonly Place[] = [
     label: "Im Hotel",
     src: "/images/editorial/hotel-v2.jpg",
     focal: "72% 50%",
-    alt: "Ein Profi massiert am späten Abend einen Gast in einer Hotelsuite; hinter dem Fenster die beleuchtete Frankfurter Skyline.",
+    alt: "Ein Profi massiert am Nachmittag einen Gast in einer Hotelsuite; hinter dem Fenster die Frankfurter Skyline.",
     place: PLACE_LINES.hotel,
     citySlug: "frankfurt",
   },

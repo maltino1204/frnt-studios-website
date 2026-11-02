@@ -11,7 +11,8 @@ import { LandingImage } from "../primitives/landing-image";
 import { Ortszeile } from "../primitives/ortszeile";
 import { Chapter, LpContainer } from "./chapter";
 
-const PLACE = "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40";
+/** Daytime, as the v3 „Tageslicht“ photos are (PHOTOGRAPHY.md § 10: the time matches the light). */
+const PLACE = "Treppenhaus, 2. OG · Berlin-Neukölln · 11:40";
 
 /**
  * 05 · Für Profis (spec § 4.8): the second audience, compact since v2 (one headline, one line, the two CTAs; the
@@ -28,7 +29,7 @@ export function FuerProfisChapter() {
         <div className="lp-band-media" data-header-theme="dark">
           <LandingImage
             src="/images/editorial/provider-cta-v2.jpg"
-            alt="Ein Profi mit Tasche steigt am frühen Abend die Holztreppe eines Berliner Altbaus hinauf."
+            alt="Ein Profi mit Tasche auf der Holztreppe eines hellen Berliner Altbaus, am Vormittag."
             sizes="100vw"
             focal="68% 30%"
             settle
