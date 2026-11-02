@@ -31,22 +31,30 @@ const PAGES = [
  * the dialog, jumps and focuses the chapter heading. Motion hooks: `data-overlay-row` (0…n) on the rows.
  */
 /*
- * While the opaque overlay is open, the page behind it is not rendered (`content-visibility: hidden` on main, its box
- * kept at its size, so the scroll position stays): showModal() then makes the page inert without a style recalc of the
- * whole document, which cost 80+ ms per open on a throttled phone (audit-1 PT-1: dialog open ≤ 200 ms).
+ * While the opaque overlay is open, the page behind it is not rendered: `content-visibility: hidden` on main, the
+ * header, the dock and the footer, each box kept at its size (the scroll position stays). showModal() then makes the
+ * page inert without restyling it, which cost 80+ ms per open on a throttled phone (audit-1 PT-1: dialog ≤ 200 ms).
  */
+const PAGE_PARTS = ["#inhalt", ".lp-header", ".lp-dock", ".lp-footer-wrap"];
+function pageParts(): HTMLElement[] {
+  return PAGE_PARTS.map((s) => document.querySelector<HTMLElement>(s)).filter((el): el is HTMLElement => el !== null);
+}
 function hidePage() {
-  const main = document.getElementById("inhalt");
-  if (!main) return;
-  const r = main.getBoundingClientRect();
-  main.style.containIntrinsicSize = `${Math.round(r.width)}px ${Math.round(r.height)}px`;
-  main.style.contentVisibility = "hidden";
+  const parts = pageParts();
+  const rects = parts.map((el) => el.getBoundingClientRect());
+  parts.forEach((el, i) => {
+    el.style.containIntrinsicSize = `${Math.round(rects[i].width)}px ${Math.round(rects[i].height)}px`;
+    el.style.contentVisibility = "hidden";
+  });
+  // Apply it now (the parts' own styles only), so showModal()'s inert recalc already skips their subtrees.
+  void parts[0]?.offsetHeight;
 }
 function showPage() {
-  const main = document.getElementById("inhalt");
-  if (!main || !main.style.contentVisibility) return;
-  main.style.contentVisibility = "";
-  main.style.containIntrinsicSize = "";
+  for (const el of pageParts()) {
+    if (!el.style.contentVisibility) continue;
+    el.style.contentVisibility = "";
+    el.style.containIntrinsicSize = "";
+  }
 }
 
 export function ChapterOverlay() {
