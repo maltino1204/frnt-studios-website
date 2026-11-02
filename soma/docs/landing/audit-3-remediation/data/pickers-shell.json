@@ -1,0 +1,106 @@
+{
+ "early": [
+  {
+   "path": "/?motion=lite",
+   "run": 1,
+   "hydratedAt": 4867,
+   "tapToShell": 807,
+   "tapToPicker": 882,
+   "pickerShown": true
+  },
+  {
+   "path": "/?motion=lite",
+   "run": 2,
+   "hydratedAt": 4694,
+   "tapToShell": 742,
+   "tapToPicker": 887,
+   "pickerShown": true
+  },
+  {
+   "path": "/behandlungen/massage",
+   "run": 1,
+   "hydratedAt": 4562,
+   "tapToShell": 831,
+   "tapToPicker": 851,
+   "pickerShown": true
+  },
+  {
+   "path": "/behandlungen/massage",
+   "run": 2,
+   "hydratedAt": 4605,
+   "tapToShell": 629,
+   "tapToPicker": 677,
+   "pickerShown": true
+  },
+  {
+   "path": "/staedte/berlin",
+   "run": 1,
+   "hydratedAt": 4596,
+   "tapToShell": 1039,
+   "tapToPicker": 1118,
+   "pickerShown": true
+  },
+  {
+   "path": "/staedte/berlin",
+   "run": 2,
+   "hydratedAt": 4677,
+   "tapToShell": 1106,
+   "tapToPicker": 1184,
+   "pickerShown": true
+  }
+ ],
+ "blocked": [
+  {
+   "phone": true,
+   "path": "/behandlungen/massage",
+   "chunks": [
+    "01pf5mnbchj-l.js",
+    "03ktgsz5yyoo4.js"
+   ],
+   "expanded": "true",
+   "dialogs": [
+    ":Behandlung wählenAlle Behandlu"
+   ],
+   "shot": "blocked-pickers-m412-behandlungenmassage.png"
+  },
+  {
+   "phone": false,
+   "path": "/behandlungen/massage",
+   "chunks": [
+    "01pf5mnbchj-l.js",
+    "03ktgsz5yyoo4.js"
+   ],
+   "expanded": "true",
+   "dialogs": [
+    "Behandlung wählen:Alle BehandlungenMassage: alle"
+   ],
+   "shot": "blocked-pickers-d1440-behandlungenmassage.png"
+  },
+  {
+   "phone": false,
+   "path": "/?motion=full",
+   "chunks": [
+    "01pf5mnbchj-l.js",
+    "03ktgsz5yyoo4.js"
+   ],
+   "expanded": "true",
+   "dialogs": [
+    "Behandlung wählen:Alle BehandlungenAlle verfügba"
+   ],
+   "shot": "blocked-pickers-d1440-motionfull.png"
+  },
+  {
+   "phone": true,
+   "path": "/?motion=lite",
+   "chunks": [
+    "01pf5mnbchj-l.js",
+    "03ktgsz5yyoo4.js"
+   ],
+   "expanded": "true",
+   "dialogs": [
+    ":Behandlung wählenAlle Behandlu"
+   ],
+   "shot": "blocked-pickers-m412-motionlite.png"
+  }
+ ]
+}

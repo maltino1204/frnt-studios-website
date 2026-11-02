@@ -202,7 +202,9 @@ export function startNav(tier: MotionTier): () => void {
   let dialogOpen = !!document.querySelector(OTHER_DIALOG);
   const dialogs = new MutationObserver(() => {
     dialogOpen = !!document.querySelector(OTHER_DIALOG);
-    const modal = !!document.querySelector("dialog:modal");
+    // A dialog that paints its first frame before it turns modal (ui/sheet.tsx `paintFirst`, the booking sheet:
+    // `data-opening`) counts as modal from that first frame.
+    const modal = !!document.querySelector("dialog:modal, dialog[open][data-opening]");
     const opened = modal && !modalOpen;
     modalOpen = modal;
     // While a modal opens, measuring the page would force the style and layout of everything behind it inside the
