@@ -4,10 +4,13 @@ import { z } from "zod";
 import { withAnon, withUser, type Queryable } from "../db/client";
 import { firstSlot } from "../domain/availability";
 import {
+  assignDistinct,
   EXPLORE_NEW_DAYS,
   FOR_YOU_LIMIT,
   FOR_YOU_SLOT_DAYS,
+  imageCandidates,
   interleave,
+  type PortfolioCandidate,
   POPULAR_LIMIT,
   POPULAR_MIN_CITY_BOOKINGS,
   POPULAR_MIN_SERVICE_BOOKINGS,
@@ -135,7 +138,10 @@ export interface ForYouPlaceDTO {
 }
 
 export type ForYouDTO =
+  /** nobody signed in: the slot shows one line inviting to log in */
   | { state: "guest" }
+  /** signed in with another role (Profi, admin): „Für dich“ is for customers, nothing is shown */
+  | { state: "other" }
   | { state: "off" }
   | {
       state: "on";
@@ -174,16 +180,41 @@ async function serviceRatings(tx: Queryable, serviceIds: string[], citySlug: str
   return out;
 }
 
-/** First portfolio image of each provider in a category (public for approved providers). */
-async function portfolioImages(tx: Queryable, pairs: Array<{ providerId: string; categoryId: string }>): Promise<Map<string, string>> {
-  if (pairs.length === 0) return new Map();
-  const rows = await tx<{ providerId: string; categoryId: string; storagePath: string }[]>`
-    select distinct on (pp.provider_id, pp.category_id) pp.provider_id, pp.category_id, pp.storage_path
+/**
+ * Work photos of approved Profis in the given categories, with their captions (to match photos to services,
+ * review R5), best-reviewed Profis first. Grouped by category id.
+ */
+async function portfolioPool(tx: Queryable, categoryIds: string[], providerIds?: string[]): Promise<Map<string, PortfolioCandidate[]>> {
+  const out = new Map<string, PortfolioCandidate[]>();
+  if (categoryIds.length === 0 || (providerIds && providerIds.length === 0)) return out;
+  const rows = await tx<{ providerId: string; categoryId: string; storagePath: string; caption: string | null }[]>`
+    select pp.provider_id, pp.category_id, pp.storage_path, pp.caption
     from public.provider_portfolio pp
     join public.providers p on p.id = pp.provider_id and p.status = 'approved'
-    where pp.provider_id = any(${pairs.map((p) => p.providerId)}::uuid[]) and pp.category_id = any(${pairs.map((p) => p.categoryId)}::uuid[])
-    order by pp.provider_id, pp.category_id, pp.sort_order, pp.created_at`;
-  return new Map(rows.map((r) => [`${r.providerId}:${r.categoryId}`, mediaUrl(r.storagePath) ?? r.storagePath]));
+    where pp.category_id = any(${categoryIds}::uuid[])
+      ${providerIds ? tx`and pp.provider_id = any(${providerIds}::uuid[])` : tx``}
+    order by p.rating_count desc, p.slug, pp.sort_order, pp.created_at
+    limit 600`;
+  for (const r of rows) {
+    const list = out.get(r.categoryId) ?? [];
+    list.push({ providerId: r.providerId, path: mediaUrl(r.storagePath) ?? r.storagePath, caption: r.caption });
+    out.set(r.categoryId, list);
+  }
+  return out;
+}
+
+/** Approved Profis with an active offering per service (most reviews first), optionally only those serving a city. */
+async function offeringProviders(tx: Queryable, serviceIds: string[], citySlug?: string): Promise<Map<string, string[]>> {
+  if (serviceIds.length === 0) return new Map();
+  const rows = await tx<{ serviceId: string; providerIds: string[] }[]>`
+    select ps.service_id, array_agg(p.id order by p.rating_count desc, p.slug) as provider_ids
+    from public.provider_services ps
+    join public.providers p on p.id = ps.provider_id and p.status = 'approved'
+    ${citySlug ? tx`join public.cities tc on tc.slug = ${citySlug} left join public.postal_codes bpc on bpc.postal_code = p.base_postal_code` : tx``}
+    where ps.is_active and ps.service_id = any(${serviceIds}::uuid[])
+      ${citySlug ? tx`and p.base_lat is not null and (bpc.city_slug = tc.slug or public.haversine_km(p.base_lat, p.base_lng, tc.lat, tc.lng) <= p.service_radius_km)` : tx``}
+    group by ps.service_id`;
+  return new Map(rows.map((r) => [r.serviceId, [...new Set(r.providerIds)]]));
 }
 
 // ---------------------------------------------------------------------------
@@ -295,10 +326,24 @@ async function itemCards(tx: Queryable, items: ItemRow[]): Promise<Map<string, E
             and service_id = any(${pinned.map((i) => i.serviceId as string)}::uuid[])`
       : Promise.resolve([]),
     serviceRatings(tx, serviceIds),
-    portfolioImages(tx, pinned.map((i) => ({ providerId: i.providerId as string, categoryId: i.categoryId }))),
+    portfolioPool(tx, [...new Set(items.map((i) => i.categoryId))]),
   ]);
+  const offering = await offeringProviders(tx, serviceIds);
   const floorBy = new Map(floors.map((f) => [f.serviceId, f.fromCents]));
   const catFloorBy = new Map(catFloors.map((f) => [f.categoryId, f.fromCents]));
+  // R5: a photo that fits the service, and none twice in this collection
+  const pictures = assignDistinct(
+    items.map((i) => {
+      const f = i.kind === "category" ? zFilters.parse(i.filters ?? {}) : null;
+      return imageCandidates({
+        serviceSlug: i.kind === "category" ? f?.leistung ?? null : i.serviceSlug,
+        categoryImage: categoryImage(i.categorySlug, i.categoryImage),
+        pool: images.get(i.categoryId) ?? [],
+        providerIds: i.kind === "category" ? undefined : i.providerId ? [i.providerId] : offering.get(i.serviceId ?? "") ?? [],
+      });
+    }),
+  );
+  const pictureOf = new Map(items.map((i, n) => [i.id, pictures[n]]));
 
   for (const i of items) {
     const base = { key: i.id, eyebrow: i.categoryName, categorySlug: i.categorySlug, note: i.note };
@@ -309,7 +354,7 @@ async function itemCards(tx: Queryable, items: ItemRow[]): Promise<Map<string, E
         ...base,
         href: exploreSearch(i.categorySlug, f),
         title: i.title?.trim() || i.categoryName,
-        imagePath: categoryImage(i.categorySlug, i.categoryImage),
+        imagePath: pictureOf.get(i.id) ?? categoryImage(i.categorySlug, i.categoryImage),
         durations: [],
         price: from != null ? { cents: from, from: true } : null,
         rating: null,
@@ -323,7 +368,7 @@ async function itemCards(tx: Queryable, items: ItemRow[]): Promise<Map<string, E
         ...base,
         href: routes.provider(i.providerSlug, { leistung: i.serviceSlug ?? undefined }),
         title: i.title?.trim() || (i.serviceName ?? i.categoryName),
-        imagePath: images.get(`${i.providerId}:${i.categoryId}`) ?? categoryImage(i.categorySlug, i.categoryImage),
+        imagePath: pictureOf.get(i.id) ?? categoryImage(i.categorySlug, i.categoryImage),
         durations: [...new Set(offers.map((o) => o.durationMinutes))].sort((a, b) => a - b),
         price: priceFrom(offers.map((o) => o.priceCents)),
         rating: visibleRating(i.providerRatingAvg, i.providerRatingCount),
@@ -336,7 +381,7 @@ async function itemCards(tx: Queryable, items: ItemRow[]): Promise<Map<string, E
       ...base,
       href: exploreSearch(i.categorySlug, { leistung: i.serviceSlug ?? undefined }),
       title: i.title?.trim() || (i.serviceName ?? i.categoryName),
-      imagePath: categoryImage(i.categorySlug, i.categoryImage),
+      imagePath: pictureOf.get(i.id) ?? categoryImage(i.categorySlug, i.categoryImage),
       durations: [...(i.durations ?? [])].sort((a, b) => a - b),
       price: from != null ? { cents: from, from: true } : null,
       rating: i.serviceId ? ratings.get(i.serviceId) ?? null : null,
@@ -421,12 +466,13 @@ export async function listPopularByCity(): Promise<ExploreCityPopularDTO[]> {
     for (const city of cities) {
       const top = await tx<{ serviceId: string }[]>`
         select service_id from public.explore_popular_services(
-          ${city.slug}, ${POPULAR_WINDOW_DAYS}, ${POPULAR_MIN_CITY_BOOKINGS}, ${POPULAR_MIN_SERVICE_BOOKINGS}, ${POPULAR_LIMIT * 2})`;
+          ${city.slug}, ${POPULAR_WINDOW_DAYS}, ${POPULAR_MIN_CITY_BOOKINGS}, ${POPULAR_MIN_SERVICE_BOOKINGS}, ${POPULAR_LIMIT * 2})
+        order by rank`;
       if (top.length === 0) continue;
       const ids = top.map((t) => t.serviceId);
       const [services, floors, ratings] = await Promise.all([
-        tx<{ id: string; slug: string; name: string; durations: number[]; categorySlug: string; categoryName: string; categoryImage: string | null }[]>`
-          select s.id, s.slug, s.name, s.durations, c.slug as category_slug, c.name as category_name, c.image_path as category_image
+        tx<{ id: string; slug: string; name: string; durations: number[]; categoryId: string; categorySlug: string; categoryName: string; categoryImage: string | null }[]>`
+          select s.id, s.slug, s.name, s.durations, c.id as category_id, c.slug as category_slug, c.name as category_name, c.image_path as category_image
           from public.services s join public.categories c on c.id = s.category_id and c.is_active
           where s.id = any(${ids}::uuid[]) and s.is_active`,
         tx<{ serviceId: string; fromCents: number }[]>`
@@ -439,6 +485,10 @@ export async function listPopularByCity(): Promise<ExploreCityPopularDTO[]> {
             and (bpc.city_slug = tc.slug or public.haversine_km(p.base_lat, p.base_lng, tc.lat, tc.lng) <= p.service_radius_km)
           group by ps.service_id`,
         serviceRatings(tx, ids, city.slug),
+      ]);
+      const [offering, pool] = await Promise.all([
+        offeringProviders(tx, ids, city.slug),
+        portfolioPool(tx, [...new Set(services.map((x) => x.categoryId))]),
       ]);
       const svc = new Map(services.map((s) => [s.id, s]));
       const floor = new Map(floors.map((f) => [f.serviceId, f.fromCents]));
@@ -462,6 +512,18 @@ export async function listPopularByCity(): Promise<ExploreCityPopularDTO[]> {
         });
         if (cards.length >= POPULAR_LIMIT) break;
       }
+      // R5: photos that fit the service (from Profis serving the city), none twice in this city's row
+      const pictures = assignDistinct(
+        cards.map((card) => {
+          const s = svc.get(card.key.slice(city.slug.length + 1));
+          return s
+            ? imageCandidates({ serviceSlug: s.slug, categoryImage: categoryImage(s.categorySlug, s.categoryImage), pool: pool.get(s.categoryId) ?? [], providerIds: offering.get(s.id) ?? [] })
+            : [card.imagePath ?? ""];
+        }),
+      );
+      cards.forEach((card, n) => {
+        if (pictures[n]) card.imagePath = pictures[n];
+      });
       if (cards.length) out.push({ citySlug: city.slug, cityName: city.name, cards });
     }
     return out;
@@ -739,15 +801,21 @@ export async function getForYou(session: Session, opts: { now?: Date } = {}): Pr
       [...bestByService.values()].filter((v) => v.row.categoryId === cat).sort((a, b) => b.score - a.score || a.slot.localeCompare(b.slot)),
     );
     const picked = interleave(groups, FOR_YOU_LIMIT);
-    const pics = await portfolioImages(tx, picked.map((p) => ({ providerId: p.row.id, categoryId: p.row.categoryId })));
-    const matching: ExploreCardDTO[] = picked.map(({ row: c, slot }) => ({
+    const pool = await portfolioPool(tx, [...new Set(picked.map((p) => p.row.categoryId))], [...new Set(picked.map((p) => p.row.id))]);
+    // R5: the Profi's own photo of that service, else the category photo, never twice in the rail
+    const pictures = assignDistinct(
+      picked.map(({ row: c }) =>
+        imageCandidates({ serviceSlug: c.serviceSlug, categoryImage: categoryImage(c.categorySlug, c.categoryImage), pool: pool.get(c.categoryId) ?? [], providerIds: [c.id] }),
+      ),
+    );
+    const matching: ExploreCardDTO[] = picked.map(({ row: c, slot }, n) => ({
       key: `match:${c.providerServiceId}`,
       href: routes.provider(c.slug, { leistung: c.serviceSlug, dauer: c.durationMinutes, plz: addr?.postalCode }),
       title: c.serviceName,
       eyebrow: c.categoryName,
       categorySlug: c.categorySlug,
       note: null,
-      imagePath: pics.get(`${c.id}:${c.categoryId}`) ?? categoryImage(c.categorySlug, c.categoryImage),
+      imagePath: pictures[n] || categoryImage(c.categorySlug, c.categoryImage),
       durations: [c.durationMinutes],
       price: { cents: c.priceCents, from: false },
       rating: visibleRating(c.ratingAvg, c.ratingCount),

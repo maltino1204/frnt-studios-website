@@ -83,3 +83,100 @@ export function priceFrom(prices: number[]): { cents: number; from: boolean } | 
   if (valid.length === 0) return null;
   return { cents: Math.min(...valid), from: new Set(valid).size > 1 };
 }
+
+/**
+ * Editorial texts must not promise availability (review R1): only the availability engine may say a slot is free,
+ * and on /entdecken only „Für dich“ shows one. Matches „freie Termine“, „noch frei“, „sofort verfügbar“,
+ * „heute frei“, „kurzfristig buchbar“ and similar. Returns the matched phrase or null.
+ */
+const SLOT_PROMISES: RegExp[] = [
+  /\bfreie?[nrs]?\s+(Termin|Zeit|Slot|Platz|Plätze)/i,
+  /\b(noch|wieder|immer|garantiert)\s+(frei|verfügbar|buchbar)\b/i,
+  /\b(sofort|heute|morgen|kurzfristig|jederzeit|spontan)\s+(noch\s+)?(frei|verfügbar|buchbar)\b/i,
+  /\b(frei|verfügbar|buchbar)\s+(ab|um|heute|morgen|noch)\b/i,
+  /\bTermine?\s+(frei|verfügbar|garantiert)\b/i,
+  /\bTermingarantie\b/i,
+];
+
+export function findSlotPromise(text: string | null | undefined): string | null {
+  if (!text) return null;
+  for (const re of SLOT_PROMISES) {
+    const m = re.exec(text);
+    if (m) return m[0];
+  }
+  return null;
+}
+
+export const SLOT_PROMISE_MESSAGE = "Bitte keine Aussagen zu freien Terminen: Ob und wann ein Termin frei ist, zeigt nur die Suche.";
+
+// ---------------------------------------------------------------------------
+// Images per card (review R5): the photo must fit the service, and a list never shows the same photo twice.
+// ---------------------------------------------------------------------------
+/**
+ * Portfolio captions that show one particular service (the same table the demo seed uses to hand out portfolio
+ * images). A caption matching a rule fits only those services; any other caption is neutral for its category.
+ */
+const CAPTION_SERVICES: Array<[RegExp, string[]]> = [
+  [/Sportmassage/i, ["sportmassage"]],
+  [/Massagestuhl|im Büro|im Sitzen/i, ["ruecken-nacken-massage"]],
+  [/Hot.?Stone|Steine/i, ["hot-stone-massage"]],
+  [/Thai/i, ["thai-massage"]],
+  [/Herrenmaniküre/i, ["herrenmanikuere"]],
+  [/Gel\b|Gel,/i, ["gelnaegel-neumodellage", "gelnaegel-auffuellen", "shellac-manikuere"]],
+  [/Shellac/i, ["shellac-manikuere", "pedikuere-shellac"]],
+  [/Fade|Bart|Seitenscheitel/i, ["herrenhaarschnitt"]],
+  [/Brautdutt|Hochzeit|Hochsteck|Pferdeschwanz|Box Braids/i, ["hochsteckfrisur"]],
+  [/Föhn|Wellen|Volumen/i, ["foehnen-styling"]],
+  [/Pixie|Bob\b|Lockenschnitt|Spitzen schneiden|Kurzhaarschnitt/i, ["damenhaarschnitt", "herrenhaarschnitt"]],
+  [/Braut-Make-up/i, ["braut-make-up", "braut-make-up-probe"]],
+  [/Abend|Smokey|Editorial|Fotoshooting/i, ["event-make-up", "braut-make-up"]],
+  [/Tages-Make-up/i, ["tages-make-up"]],
+  [/Lash Lift|Wimpern färben|Wimpernlifting/i, ["wimpernlifting"]],
+  [/Wimpernverlängerung/i, ["wimpernverlaengerung-neuset", "wimpernverlaengerung-auffuellen"]],
+  [/Brow Lamination/i, ["brow-lamination"]],
+  [/Brauen (färben|mit dem Faden)|Brow Mapping|zupfen/i, ["brauen-zupfen-faerben", "brow-lamination"]],
+  [/Waxing/i, ["waxing-beine"]],
+];
+
+/** 2 = the caption shows this service, 1 = neutral for the category, 0 = it shows another service. */
+export function captionFit(caption: string | null | undefined, serviceSlug: string | null | undefined): 0 | 1 | 2 {
+  const rule = caption ? CAPTION_SERVICES.find(([re]) => re.test(caption)) : undefined;
+  if (!rule) return 1;
+  return serviceSlug && rule[1].includes(serviceSlug) ? 2 : 0;
+}
+
+export interface PortfolioCandidate {
+  providerId: string;
+  path: string;
+  caption: string | null;
+}
+
+/**
+ * The photos a card may show, best first: work photos whose caption names the service, then the category photo,
+ * then neutral work photos. Photos that show another service are left out. `providerIds` limits the work photos
+ * (the pinned Profi, or the Profis offering the service), in their order.
+ */
+export function imageCandidates(opts: { serviceSlug: string | null; categoryImage: string; pool: PortfolioCandidate[]; providerIds?: string[] }): string[] {
+  const order = opts.providerIds ? new Map(opts.providerIds.map((id, i) => [id, i])) : null;
+  const own = opts.pool
+    .filter((p) => !order || order.has(p.providerId))
+    .map((p, i) => ({ p, i, fit: captionFit(p.caption, opts.serviceSlug), rank: order?.get(p.providerId) ?? 0 }))
+    .sort((a, b) => a.rank - b.rank || a.i - b.i);
+  return [
+    ...new Set([
+      ...own.filter((x) => x.fit === 2).map((x) => x.p.path),
+      opts.categoryImage,
+      ...own.filter((x) => x.fit === 1).map((x) => x.p.path),
+    ]),
+  ];
+}
+
+/** One photo per card, never twice in one list: each card takes its best candidate not used above it. */
+export function assignDistinct(candidates: string[][]): string[] {
+  const used = new Set<string>();
+  return candidates.map((list) => {
+    const pick = list.find((p) => !used.has(p)) ?? list[0] ?? "";
+    used.add(pick);
+    return pick;
+  });
+}

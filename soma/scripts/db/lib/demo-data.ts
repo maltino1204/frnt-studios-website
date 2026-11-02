@@ -381,7 +381,8 @@ export interface DemoCollection {
 
 /**
  * Six editorial collections, none sponsored. Covers are in public/images/explore/ (until they exist, the card shows
- * the category wash). Wellness wording only, no claims about availability: the slots come from the search.
+ * the category wash). Wellness wording only, and no availability claims (the admin save refuses them, review R1):
+ * notes name the search filter, the free slots come from the search.
  */
 export const EXPLORE_COLLECTIONS: DemoCollection[] = [
   {
@@ -394,7 +395,7 @@ export const EXPLORE_COLLECTIONS: DemoCollection[] = [
       { service: "foehnen-styling", note: "Glatt, mit Wellen oder mit Volumen." },
       { service: "event-make-up", provider: "abena" },
       { service: "hochsteckfrisur", provider: "kiran" },
-      { category: "make-up", filters: { zeit: "mittags" }, title: "Make-up am Nachmittag", note: "Freie Termine zwischen 12 und 17 Uhr." },
+      { category: "make-up", filters: { zeit: "mittags" }, title: "Make-up am Nachmittag", note: "Sucht nach Terminen zwischen 12 und 17 Uhr." },
     ],
   },
   {
@@ -407,7 +408,7 @@ export const EXPLORE_COLLECTIONS: DemoCollection[] = [
       { service: "sportmassage", provider: "thomas" },
       { service: "sportmassage", provider: "luca" },
       { service: "ruecken-nacken-massage", note: "Kurz, wenn der Abend schon verplant ist." },
-      { category: "massage", filters: { zeit: "abends" }, title: "Massage am Abend", note: "Freie Termine zwischen 17 und 22 Uhr." },
+      { category: "massage", filters: { zeit: "abends" }, title: "Massage am Abend", note: "Sucht nach Terminen zwischen 17 und 22 Uhr." },
     ],
   },
   {
@@ -420,7 +421,7 @@ export const EXPLORE_COLLECTIONS: DemoCollection[] = [
       { service: "entspannungsmassage", provider: "bernd" },
       { service: "aromaoelmassage", provider: "marcia" },
       { service: "hot-stone-massage" },
-      { category: "massage", filters: { zeit: "abends" }, title: "Am Abend der Anreise", note: "Freie Termine zwischen 17 und 22 Uhr." },
+      { category: "massage", filters: { zeit: "abends" }, title: "Am Abend der Anreise", note: "Sucht nach Terminen zwischen 17 und 22 Uhr." },
     ],
   },
   {
@@ -433,7 +434,7 @@ export const EXPLORE_COLLECTIONS: DemoCollection[] = [
       { service: "klassische-manikuere", provider: "linh" },
       { service: "shellac-manikuere", provider: "natalja" },
       { service: "herrenmanikuere", provider: "chidi" },
-      { category: "manikuere", filters: { zeit: "mittags" }, title: "Maniküre ab 12 Uhr", note: "Freie Termine zwischen 12 und 17 Uhr." },
+      { category: "manikuere", filters: { zeit: "mittags" }, title: "Maniküre ab 12 Uhr", note: "Sucht nach Terminen zwischen 12 und 17 Uhr." },
     ],
   },
   {

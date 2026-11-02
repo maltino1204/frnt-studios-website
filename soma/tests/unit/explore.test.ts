@@ -96,3 +96,42 @@ describe("slot wording", () => {
     expect(slotText("2026-11-05T08:00:00.000Z", now).replace(/\u00a0/g, " ")).toBe("Do., 5. Nov., 09:00");
   });
 });
+
+describe("no slot promises in editorial copy (review R1)", () => {
+  it("finds availability claims", async () => {
+    const { findSlotPromise } = await import("@/server/domain/explore");
+    for (const t of ["Freie Termine zwischen 17 und 22 Uhr.", "Heute noch frei", "Sofort verfügbar.", "Termine frei ab 18 Uhr", "Noch buchbar", "kurzfristig buchbar", "Mit Termingarantie", "freier Slot am Abend"]) {
+      expect(findSlotPromise(t), t).not.toBeNull();
+    }
+  });
+  it("lets filter descriptions and plain copy pass", async () => {
+    const { findSlotPromise } = await import("@/server/domain/explore");
+    for (const t of ["Sucht nach Terminen zwischen 17 und 22 Uhr.", "Liege, Öl und Tücher kommen mit.", "Nach der Anreise eine Massage im Zimmer.", "Glatt, mit Wellen oder mit Volumen.", null, ""]) {
+      expect(findSlotPromise(t), String(t)).toBeNull();
+    }
+  });
+});
+
+describe("card photos (review R5)", () => {
+  it("matches work photos to the service and never repeats one in a list", async () => {
+    const { assignDistinct, captionFit, imageCandidates } = await import("@/server/domain/explore");
+    expect(captionFit("Massagestuhl im Büro, bereit für die Mittagspause", "thai-massage")).toBe(0);
+    expect(captionFit("Massagestuhl im Büro, bereit für die Mittagspause", "ruecken-nacken-massage")).toBe(2);
+    expect(captionFit("Nach der Behandlung: noch einen Moment liegen bleiben", "thai-massage")).toBe(1);
+    const pool = [
+      { providerId: "hanna", path: "/p/chair.jpg", caption: "Massagestuhl im Büro, bereit für die Mittagspause" },
+      { providerId: "hanna", path: "/p/rest.jpg", caption: "Nach der Behandlung: noch einen Moment liegen bleiben" },
+      { providerId: "selin", path: "/p/sport.jpg", caption: "Sportmassage am Schulterblatt" },
+    ];
+    // Thai at Hanna's: never the chair photo; the category photo first, then her neutral work photo
+    expect(imageCandidates({ serviceSlug: "thai-massage", categoryImage: "/c/massage.jpg", pool, providerIds: ["hanna"] })).toEqual(["/c/massage.jpg", "/p/rest.jpg"]);
+    // a photo that names the service leads
+    expect(imageCandidates({ serviceSlug: "sportmassage", categoryImage: "/c/massage.jpg", pool, providerIds: ["selin", "hanna"] })[0]).toBe("/p/sport.jpg");
+    // two massages in one rail get two different photos
+    const a = imageCandidates({ serviceSlug: "entspannungsmassage", categoryImage: "/c/massage.jpg", pool, providerIds: ["hanna"] });
+    const b = imageCandidates({ serviceSlug: "ruecken-nacken-massage", categoryImage: "/c/massage.jpg", pool, providerIds: ["hanna"] });
+    const [pa, pb] = assignDistinct([a, a.concat(b)]);
+    expect(pa).not.toBe(pb);
+    expect(assignDistinct([["/x.jpg"], ["/x.jpg"]])).toEqual(["/x.jpg", "/x.jpg"]); // nothing else to show: keep it
+  });
+});

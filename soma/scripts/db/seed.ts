@@ -31,6 +31,7 @@ import {
   type DemoCustomer, type DemoProvider, type ReviewTemplate,
 } from "./lib/demo-data";
 import { expireDocumentsInTx } from "../../src/server/services/verification";
+import { findSlotPromise } from "../../src/server/domain/explore";
 import { ROOT } from "./lib/migrate";
 
 const DEMO_PASSWORD = "soma-demo-2026";
@@ -1069,6 +1070,9 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
 
       // --- /entdecken: „Von SOMA ausgewählt“ (six editorial collections, none sponsored) ------------
       for (const [ci, col] of EXPLORE_COLLECTIONS.entries()) {
+        // Same rule as the admin save (review R1): editorial copy never promises free slots.
+        const promise = [col.title, col.subline, ...col.items.flatMap((it) => [it.title, it.note])].map((t) => findSlotPromise(t)).find(Boolean);
+        if (promise) throw new Error(`Entdecken „${col.slug}“: Terminversprechen „${promise}“`);
         const at = ago(30 - ci * 3);
         const [row] = await tx<{ id: string }[]>`
           insert into public.explore_collections (slug, title, subline, cover_image, is_published, sort_order, is_sponsored, created_by, updated_by, created_at, updated_at)

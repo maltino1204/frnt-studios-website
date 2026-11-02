@@ -6,8 +6,10 @@ import { rethrowDb } from "../db/errors";
 import {
   collectionStatus,
   COLLECTION_SLUG,
+  findSlotPromise,
   MAX_COLLECTION_ITEMS,
   RESERVED_COLLECTION_SLUGS,
+  SLOT_PROMISE_MESSAGE,
   type CollectionStatus,
 } from "../domain/explore";
 import type { Session } from "../dto";
@@ -164,7 +166,14 @@ const CollectionSchema = z
     if (v.isPublished && v.items.length === 0) {
       ctx.addIssue({ code: "custom", path: ["items"], message: "Eine aktive Sammlung braucht mindestens einen Eintrag." });
     }
+    // R1: editorial copy never promises availability (only the engine decides what is free).
+    for (const field of ["title", "subline"] as const) {
+      if (findSlotPromise(v[field])) ctx.addIssue({ code: "custom", path: [field], message: SLOT_PROMISE_MESSAGE });
+    }
     v.items.forEach((it, i) => {
+      for (const field of ["title", "note"] as const) {
+        if (findSlotPromise(it[field])) ctx.addIssue({ code: "custom", path: ["items", i, field], message: SLOT_PROMISE_MESSAGE });
+      }
       if (it.kind === "service" && !it.serviceId) ctx.addIssue({ code: "custom", path: ["items", i, "serviceId"], message: "Bitte eine Leistung wählen." });
       if (it.kind === "category" && !it.categoryId) ctx.addIssue({ code: "custom", path: ["items", i, "categoryId"], message: "Bitte eine Kategorie wählen." });
     });

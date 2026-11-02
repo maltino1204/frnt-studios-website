@@ -21,7 +21,7 @@ import { useMutation } from "./use-mutation";
 type Item = AdminExploreItemDTO & { key: string };
 
 /** Words the brand voice excludes for collections (BRAND_VOICE § 6.2/6.3, HWG). Soft check only. */
-const FLAGGED = ["kuratiert", "handverlesen", "Luxus", "exklusiv", "verwöhnen", "Auszeit", "Erlebnis", "heilt", "lindert", "Schmerzen", "!"];
+const FLAGGED = ["kuratiert", "handverlesen", "Luxus", "exklusiv", "verwöhnen", "Auszeit", "Erlebnis", "heilt", "lindert", "Schmerzen", "!", "freie Termine", "noch frei", "verfügbar"];
 const CUSTOM = "__custom";
 
 // ---------------------------------------------------------------------------
@@ -380,6 +380,7 @@ export function ExploreEditor({ initial, options, covers }: { initial: AdminExpl
                 sponsorName: f.sponsorName || null,
               }}
               sizes="288px"
+              prefetch={false}
             />
           </div>
           {initial ? (
@@ -393,7 +394,7 @@ export function ExploreEditor({ initial, options, covers }: { initial: AdminExpl
 
         {flagged.length ? (
           <Notice kind="warning" title="Bitte Formulierung prüfen">
-            Gefunden: {flagged.map((w) => `„${w}“`).join(", ")}. SOMA verzichtet auf Superlative, Ausrufezeichen und Heilversprechen.
+            Gefunden: {flagged.map((w) => `„${w}“`).join(", ")}. SOMA verzichtet auf Superlative, Ausrufezeichen, Heilversprechen und Aussagen zu freien Terminen (die zeigt nur die Suche).
           </Notice>
         ) : null}
         {save.error ? <Notice kind="danger">{save.error}</Notice> : null}

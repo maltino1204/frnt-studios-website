@@ -197,6 +197,14 @@ describe("explore collections: only admins write", () => {
     await expect(saveExploreCollection(admin, { slug: `t-v2-${tag}`, title: "Falscher Profi", items: [{ kind: "service", serviceId: svc.id, providerId: pro.providerId }] })).rejects.toMatchObject({
       fieldErrors: { "items.0.providerId": expect.any(String) },
     });
+    // R1: no availability promises in titles, sublines or notes
+    const [cat] = await sql()<{ id: string }[]>`select id from public.categories where slug = 'massage'`;
+    await expect(
+      saveExploreCollection(admin, { slug: `t-v4-${tag}`, title: "Abends", subline: "Heute noch frei.", items: [{ kind: "category", categoryId: cat.id, note: "Freie Termine zwischen 17 und 22 Uhr." }] }),
+    ).rejects.toMatchObject({
+      code: "validation",
+      fieldErrors: { subline: expect.stringMatching(/keine Aussagen zu freien Terminen/), "items.0.note": expect.stringMatching(/zeigt nur die Suche/) },
+    });
     await saveExploreCollection(admin, { slug: `t-v3-${tag}`, title: "Einmal", items: [] });
     await expect(saveExploreCollection(admin, { slug: `t-v3-${tag}`, title: "Zweimal", items: [] })).rejects.toMatchObject({ fieldErrors: { slug: expect.any(String) } });
   });
@@ -311,8 +319,14 @@ describe("„Beliebt in <Stadt>“ thresholds", () => {
     expect(five?.cards.map((x) => x.title)).toEqual(["Entspannungsmassage (klassisch)"]);
     expect(five?.cards[0]).toMatchObject({ price: { cents: 8700, from: true }, href: "/suche?kategorie=massage&leistung=entspannungsmassage" });
     expect(Object.keys(five?.cards[0] ?? {})).not.toContain("bookingCount");
-    const rawFive = await withAnon((tx) => tx<{ bookingCount: number }[]>`select * from public.explore_popular_services('duesseldorf', 90, 1, 1, 12)`);
-    expect(rawFive.map((r) => r.bookingCount)).toEqual([3]);
+    // anon gets the order only, never a count (review R9, migration 0012)
+    const rawFive = await withAnon((tx) => tx<Record<string, unknown>[]>`select * from public.explore_popular_services('duesseldorf', 90, 1, 1, 12)`);
+    expect(rawFive).toHaveLength(1);
+    expect(Object.keys(rawFive[0]).sort()).toEqual(["rank", "serviceId"]);
+    expect(rawFive[0].rank).toBe(1);
+    const columns = await sql()<{ name: string }[]>`
+      select unnest(p.proargnames[p.pronargs + 1:]) as name from pg_proc p where p.proname = 'explore_popular_services'`;
+    expect(columns.map((c) => c.name)).toEqual(["service_id", "rank"]);
 
     await booking(pro, c, "sportmassage", { startDays: -9, createdDays: 12, ...duesseldorf });
     await booking(pro, c, "sportmassage", { status: "confirmed", startDays: 3, createdDays: 1, ...duesseldorf });
