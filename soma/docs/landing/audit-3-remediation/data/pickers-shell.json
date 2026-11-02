@@ -3,79 +3,79 @@
   {
    "path": "/?motion=lite",
    "run": 1,
-   "hydratedAt": 4812,
-   "tapToShell": 946,
-   "tapToPicker": 1045,
-   "pickerShown": false,
+   "hydratedAt": 4799,
+   "tapToShell": 948,
+   "tapToPicker": 992,
+   "pickerShown": true,
    "inPage": {
-    "tapDispatch": 483,
-    "shell": 219,
-    "list": 791
+    "tapDispatch": 265,
+    "shell": 191,
+    "list": 569
    }
   },
   {
    "path": "/?motion=lite",
    "run": 2,
-   "hydratedAt": 4650,
-   "tapToShell": 838,
-   "tapToPicker": 909,
-   "pickerShown": false,
+   "hydratedAt": 4522,
+   "tapToShell": 745,
+   "tapToPicker": 781,
+   "pickerShown": true,
    "inPage": {
-    "tapDispatch": 353,
-    "shell": 247,
-    "list": 695
+    "tapDispatch": 210,
+    "shell": 209,
+    "list": 487
    }
   },
   {
    "path": "/behandlungen/massage",
    "run": 1,
-   "hydratedAt": 4635,
-   "tapToShell": 888,
-   "tapToPicker": 1025,
+   "hydratedAt": 4798,
+   "tapToShell": 1162,
+   "tapToPicker": 1184,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 145,
-    "shell": 225,
-    "list": 867
+    "tapDispatch": 445,
+    "shell": 363,
+    "list": 630
    }
   },
   {
    "path": "/behandlungen/massage",
    "run": 2,
-   "hydratedAt": 4592,
-   "tapToShell": 873,
-   "tapToPicker": 965,
+   "hydratedAt": 4727,
+   "tapToShell": 1171,
+   "tapToPicker": 1209,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 306,
-    "shell": 360,
-    "list": 649
+    "tapDispatch": 275,
+    "shell": 391,
+    "list": 822
    }
   },
   {
    "path": "/staedte/berlin",
    "run": 1,
-   "hydratedAt": 4544,
-   "tapToShell": 955,
-   "tapToPicker": 1113,
+   "hydratedAt": 4571,
+   "tapToShell": 1356,
+   "tapToPicker": 1415,
    "pickerShown": true,
    "inPage": {
-    "tapDispatch": 455,
-    "shell": 152,
-    "list": 659
+    "tapDispatch": 421,
+    "shell": 424,
+    "list": 859
    }
   },
   {
    "path": "/staedte/berlin",
    "run": 2,
-   "hydratedAt": 4488,
-   "tapToShell": 726,
-   "tapToPicker": 954,
-   "pickerShown": false,
+   "hydratedAt": 4923,
+   "tapToShell": 1362,
+   "tapToPicker": 1401,
+   "pickerShown": true,
    "inPage": {
-    "tapDispatch": 334,
-    "shell": 219,
-    "list": 884
+    "tapDispatch": 430,
+    "shell": 253,
+    "list": 748
    }
   }
  ],
