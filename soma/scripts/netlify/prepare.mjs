@@ -36,6 +36,17 @@ if (["localhost", "127.0.0.1", "::1", "[::1]"].includes(host)) {
     "Verwenden Sie die Verbindungs-URL einer gehosteten PostgreSQL-Datenbank (z. B. Neon, „Pooled connection“).",
   ]);
 }
+// Supabase's direct connection (db.<ref>.supabase.co:5432) is IPv6-only; Netlify's build and functions have no IPv6
+// route, so it fails with ENETUNREACH. The pooler (…pooler.supabase.com) is reachable over IPv4.
+if (/^db\.[a-z0-9]+\.supabase\.co$/i.test(host)) {
+  fail([
+    "DATABASE_URL ist Supabases „Direct connection“ (db.….supabase.co:5432). Sie ist nur über IPv6 erreichbar,",
+    "Netlify hat kein IPv6 (Fehler ENETUNREACH).",
+    "Supabase → Connect → Connection String → Method „Transaction pooler“ (Shared pooler, IPv4, Port 6543) wählen.",
+    "Die URL sieht so aus: postgresql://postgres.<projekt-ref>:<passwort>@aws-…pooler.supabase.com:6543/postgres",
+    "Anleitung: DEMO.md → „Online-Demo auf Netlify“.",
+  ]);
+}
 
 const run = (script) => {
   console.log(`[netlify:prepare] npm run ${script}`);
