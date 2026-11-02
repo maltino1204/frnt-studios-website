@@ -2,7 +2,7 @@
  "note": "Every Higgsfield job of the v3 'Tageslicht' set (Photo Art Director, 2 Nov 2026). Start balance 1235.49 credits, budget 500. `current` = the file registered per path.",
  "startBalance": 1235.49,
  "budget": 500,
- "creditsLogged": 310.5,
+ "creditsLogged": 400.5,
  "model": "nano_banana_pro 2k (2 credits per image)",
  "skippedByLead": [
   "L03",
@@ -1240,7 +1240,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131202_3afa0406-6cfa-4976-9cd8-69ad244ac659.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131202_3afa0406-6cfa-4976-9cd8-69ad244ac659.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "607eb130-2998-4926-9d0d-504ddbef9b20",
@@ -1250,7 +1252,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_607eb130-2998-4926-9d0d-504ddbef9b20.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_607eb130-2998-4926-9d0d-504ddbef9b20.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "5cecf050-fa55-4313-b795-c6a47caddf46",
@@ -1260,7 +1264,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_5cecf050-fa55-4313-b795-c6a47caddf46.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_5cecf050-fa55-4313-b795-c6a47caddf46.png",
+   "status": "pass",
+   "reason": "gel eye pads visible; the towel roll is a functional neck support"
   },
   {
    "id": "8323fdf6-e81b-4109-b673-d49778320000",
@@ -1270,7 +1276,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8323fdf6-e81b-4109-b673-d49778320000.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8323fdf6-e81b-4109-b673-d49778320000.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "5c07e070-8740-4c81-8312-efe7d5d397dd",
@@ -1280,7 +1288,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131200_5c07e070-8740-4c81-8312-efe7d5d397dd.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131200_5c07e070-8740-4c81-8312-efe7d5d397dd.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "57e0ebc9-58f4-45e7-b79c-3801eba45b12",
@@ -1290,7 +1300,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_57e0ebc9-58f4-45e7-b79c-3801eba45b12.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_57e0ebc9-58f4-45e7-b79c-3801eba45b12.png",
+   "status": "fail",
+   "reason": "latex glove on the cosmetician; decorative rolled towels on the shelf"
   },
   {
    "id": "16e30408-8185-47fd-91d6-5603f49cdc7e",
@@ -1300,7 +1312,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_16e30408-8185-47fd-91d6-5603f49cdc7e.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_16e30408-8185-47fd-91d6-5603f49cdc7e.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "662d74d2-f76a-48b6-a2d4-9bc7fe6ce37b",
@@ -1310,7 +1324,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_662d74d2-f76a-48b6-a2d4-9bc7fe6ce37b.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_662d74d2-f76a-48b6-a2d4-9bc7fe6ce37b.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "907f372f-7f94-42eb-b400-6b1ec438aa82",
@@ -1320,7 +1336,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_907f372f-7f94-42eb-b400-6b1ec438aa82.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_907f372f-7f94-42eb-b400-6b1ec438aa82.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "8a4234d8-d820-4e6b-8182-e19f046eff45",
@@ -1330,7 +1348,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8a4234d8-d820-4e6b-8182-e19f046eff45.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8a4234d8-d820-4e6b-8182-e19f046eff45.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "63c14cb8-8130-4d64-ab99-9c6474811772",
@@ -1340,7 +1360,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_63c14cb8-8130-4d64-ab99-9c6474811772.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_63c14cb8-8130-4d64-ab99-9c6474811772.png",
+   "status": "fail",
+   "reason": "latex glove on the hand with the tweezers"
   },
   {
    "id": "1126a340-78e7-4292-b476-e27ed952c5b5",
@@ -1350,7 +1372,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131405_1126a340-78e7-4292-b476-e27ed952c5b5.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131405_1126a340-78e7-4292-b476-e27ed952c5b5.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "6feb2b2c-f279-439c-a2ee-4c3552b19125",
@@ -1360,7 +1384,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_6feb2b2c-f279-439c-a2ee-4c3552b19125.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_6feb2b2c-f279-439c-a2ee-4c3552b19125.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "57463a3b-5b92-438f-afb7-7cd2968e5192",
@@ -1370,7 +1396,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_57463a3b-5b92-438f-afb7-7cd2968e5192.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_57463a3b-5b92-438f-afb7-7cd2968e5192.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "ce0a09be-f862-4d73-9e2c-21b1b027a8d0",
@@ -1380,7 +1408,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_ce0a09be-f862-4d73-9e2c-21b1b027a8d0.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_ce0a09be-f862-4d73-9e2c-21b1b027a8d0.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "71a0c6ea-af22-4529-8a19-8796462aee76",
@@ -1390,7 +1420,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_71a0c6ea-af22-4529-8a19-8796462aee76.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_71a0c6ea-af22-4529-8a19-8796462aee76.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "df3cdfd1-133e-4db4-89a9-87ae8af7c940",
@@ -1400,7 +1432,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_df3cdfd1-133e-4db4-89a9-87ae8af7c940.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_df3cdfd1-133e-4db4-89a9-87ae8af7c940.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "3afdae48-83c6-4c4c-a741-c0356da909d4",
@@ -1410,7 +1444,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_3afdae48-83c6-4c4c-a741-c0356da909d4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_3afdae48-83c6-4c4c-a741-c0356da909d4.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "5687c6f2-2ffc-4804-aa43-b44047da40ac",
@@ -1420,7 +1456,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_5687c6f2-2ffc-4804-aa43-b44047da40ac.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_5687c6f2-2ffc-4804-aa43-b44047da40ac.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "4e5541d4-920c-45e1-8713-455c9bc50f64",
@@ -1430,7 +1468,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_4e5541d4-920c-45e1-8713-455c9bc50f64.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_4e5541d4-920c-45e1-8713-455c9bc50f64.png",
+   "status": "fail",
+   "reason": "no clothing visible, the client reads unclothed above the chest"
   },
   {
    "id": "eea81831-04aa-4587-8fd4-df400e356c7f",
@@ -1440,7 +1480,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_eea81831-04aa-4587-8fd4-df400e356c7f.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_eea81831-04aa-4587-8fd4-df400e356c7f.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "cdc2e140-60c2-4142-ae9a-2dcde66b1f66",
@@ -1450,7 +1492,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_cdc2e140-60c2-4142-ae9a-2dcde66b1f66.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_cdc2e140-60c2-4142-ae9a-2dcde66b1f66.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "368f0185-f7b7-4fcd-b247-690d967824e0",
@@ -1460,7 +1504,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_368f0185-f7b7-4fcd-b247-690d967824e0.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_368f0185-f7b7-4fcd-b247-690d967824e0.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "93c34524-4324-4094-9c7d-4b5b2d31acd8",
@@ -1470,7 +1516,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_93c34524-4324-4094-9c7d-4b5b2d31acd8.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_93c34524-4324-4094-9c7d-4b5b2d31acd8.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "be958ec0-31ee-4d37-9f1c-da8b82714b30",
@@ -1480,7 +1528,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131508_be958ec0-31ee-4d37-9f1c-da8b82714b30.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131508_be958ec0-31ee-4d37-9f1c-da8b82714b30.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "13e09968-ffd2-43c0-ac22-046d765f811f",
@@ -1490,7 +1540,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_13e09968-ffd2-43c0-ac22-046d765f811f.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_13e09968-ffd2-43c0-ac22-046d765f811f.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "6c07f548-7c00-44ce-9513-dfd0963aa737",
@@ -1500,7 +1552,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_6c07f548-7c00-44ce-9513-dfd0963aa737.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_6c07f548-7c00-44ce-9513-dfd0963aa737.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "3964ffa5-1cf2-427e-8fd1-5b200aa468a5",
@@ -1510,7 +1564,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_3964ffa5-1cf2-427e-8fd1-5b200aa468a5.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_3964ffa5-1cf2-427e-8fd1-5b200aa468a5.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "24db8a50-c860-4677-a0b7-4174e1f8c807",
@@ -1520,7 +1576,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_24db8a50-c860-4677-a0b7-4174e1f8c807.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_24db8a50-c860-4677-a0b7-4174e1f8c807.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "79fd0026-2901-462c-86f0-8345350b99aa",
@@ -1530,7 +1588,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_79fd0026-2901-462c-86f0-8345350b99aa.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_79fd0026-2901-462c-86f0-8345350b99aa.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "0433722b-7bb6-47c7-9256-7acd73f0fddf",
@@ -1540,7 +1600,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131510_0433722b-7bb6-47c7-9256-7acd73f0fddf.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131510_0433722b-7bb6-47c7-9256-7acd73f0fddf.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "af54cbaf-ac70-45aa-b781-d5f4b8ad2aad",
@@ -1550,7 +1612,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_af54cbaf-ac70-45aa-b781-d5f4b8ad2aad.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131507_af54cbaf-ac70-45aa-b781-d5f4b8ad2aad.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "5e0ce111-2688-46ba-addf-8e7d79e4a1dd",
@@ -1560,7 +1624,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_5e0ce111-2688-46ba-addf-8e7d79e4a1dd.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_5e0ce111-2688-46ba-addf-8e7d79e4a1dd.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "ab6c8cec-7191-445d-8a47-f147e9854a30",
@@ -1570,7 +1636,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_ab6c8cec-7191-445d-8a47-f147e9854a30.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131506_ab6c8cec-7191-445d-8a47-f147e9854a30.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "25348226-88ec-4423-9ff6-a37fe2bab9a6",
@@ -1580,7 +1648,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_25348226-88ec-4423-9ff6-a37fe2bab9a6.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_25348226-88ec-4423-9ff6-a37fe2bab9a6.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "964ae294-4d88-4ce2-923f-1b31c755e120",
@@ -1590,7 +1660,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_964ae294-4d88-4ce2-923f-1b31c755e120.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_964ae294-4d88-4ce2-923f-1b31c755e120.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "bd924680-cce3-4748-a3a6-dc36e17e818a",
@@ -1600,7 +1672,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_bd924680-cce3-4748-a3a6-dc36e17e818a.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_bd924680-cce3-4748-a3a6-dc36e17e818a.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "b02b78b6-5e10-4cef-bccb-0ab9171edda6",
@@ -1610,7 +1684,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_b02b78b6-5e10-4cef-bccb-0ab9171edda6.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_b02b78b6-5e10-4cef-bccb-0ab9171edda6.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "869f5d6f-7306-4609-aa67-bf59d5766ffa",
@@ -1620,7 +1696,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_869f5d6f-7306-4609-aa67-bf59d5766ffa.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_869f5d6f-7306-4609-aa67-bf59d5766ffa.png",
+   "status": "fail",
+   "reason": "braids hang from a half-up bun; caption says a low bun"
   },
   {
    "id": "9cb0ac31-454d-49ac-a377-a2fe7ce87afd",
@@ -1630,7 +1708,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_9cb0ac31-454d-49ac-a377-a2fe7ce87afd.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_9cb0ac31-454d-49ac-a377-a2fe7ce87afd.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "d3c109d9-4367-41b9-a275-0bc718380e03",
@@ -1640,7 +1720,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_d3c109d9-4367-41b9-a275-0bc718380e03.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_d3c109d9-4367-41b9-a275-0bc718380e03.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "956ec2da-209a-445a-af52-37ad36ed4aa9",
@@ -1650,7 +1732,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_956ec2da-209a-445a-af52-37ad36ed4aa9.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_956ec2da-209a-445a-af52-37ad36ed4aa9.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43",
@@ -1660,7 +1744,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43.png",
+   "status": "fail",
+   "reason": "latex-gloved hand with an odd tool"
   },
   {
    "id": "8210790f-f16c-4ab0-b34a-d144133b22b4",
@@ -1670,7 +1756,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_8210790f-f16c-4ab0-b34a-d144133b22b4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_8210790f-f16c-4ab0-b34a-d144133b22b4.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "814a715b-5a4c-493c-88c7-62468c27bade",
@@ -1680,7 +1768,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_814a715b-5a4c-493c-88c7-62468c27bade.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_814a715b-5a4c-493c-88c7-62468c27bade.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "6096ae0d-2693-4960-b3b3-09f1ecf13348",
@@ -1690,7 +1780,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_6096ae0d-2693-4960-b3b3-09f1ecf13348.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_6096ae0d-2693-4960-b3b3-09f1ecf13348.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "ad3d56aa-8b89-45f1-a250-ba0dcd69320b",
@@ -1700,7 +1792,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131905_ad3d56aa-8b89-45f1-a250-ba0dcd69320b.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131905_ad3d56aa-8b89-45f1-a250-ba0dcd69320b.png",
+   "status": "pass",
+   "reason": "bright, anatomy correct, matches the caption"
   },
   {
    "id": "09593da6-cff6-4b12-8e47-3e40cb8cecb0",
@@ -1711,7 +1805,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_09593da6-cff6-4b12-8e47-3e40cb8cecb0.png",
-   "note": "frontal pose test"
+   "note": "frontal pose test",
+   "status": "fail",
+   "reason": "attempt 2: still turned, the left arm hidden; three-quarter sleeves instead of short"
   },
   {
    "id": "eb34b5a0-8a9c-422f-b65c-5bac78963873",
@@ -1722,7 +1818,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_eb34b5a0-8a9c-422f-b65c-5bac78963873.png",
-   "note": "frontal pose test"
+   "note": "frontal pose test",
+   "status": "fail",
+   "reason": "attempt 2: frontal, but both hands fall below the frame edge"
   },
   {
    "id": "0880e35c-6e3c-4aac-9423-15e93e73b05d",
@@ -1733,7 +1831,496 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_0880e35c-6e3c-4aac-9423-15e93e73b05d.png",
-   "note": "deep calm zone for the band text"
+   "note": "deep calm zone for the band text",
+   "status": "pass",
+   "reason": "deep espresso calm zone left (Bone text 12.2:1 left of 31 %, 10.0:1 to 43 %); Profi bright, hands correct"
+  },
+  {
+   "id": "f0081e78-cd43-41e6-bb3d-52696c8df315",
+   "group": "v3-retry",
+   "shot": "R01",
+   "path": "/images/pros/pro-01-v3.jpg",
+   "attempt": 3,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_f0081e78-cd43-41e6-bb3d-52696c8df315.png",
+   "note": "attempt 3a prompt-only",
+   "status": "fail",
+   "reason": "attempt 3a (prompt only): still turned, one arm partly hidden"
+  },
+  {
+   "id": "bc1c2887-358c-4c55-8953-9954c5b2b50f",
+   "group": "v3-retry",
+   "shot": "R01",
+   "path": "/images/pros/pro-01-v3.jpg",
+   "attempt": 4,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_bc1c2887-358c-4c55-8953-9954c5b2b50f.png",
+   "note": "attempt 3b with pose reference (pro-08-v3)",
+   "status": "pass",
+   "reason": "frontal, both arms and both hands visible and correct at 200 %; warm confident expression; ivory tunic with oxblood piping"
+  },
+  {
+   "id": "f3a14d29-cd82-4b81-aec6-931486de9465",
+   "group": "v3-retry",
+   "shot": "R02",
+   "path": "/images/pros/pro-02-v3.jpg",
+   "attempt": 3,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_f3a14d29-cd82-4b81-aec6-931486de9465.png",
+   "note": "attempt 3a prompt-only",
+   "status": "fail",
+   "reason": "attempt 3a (prompt only): hands cut by the frame edge"
+  },
+  {
+   "id": "c9b3e098-6a66-4017-8fc9-dbb44767ca62",
+   "group": "v3-retry",
+   "shot": "R02",
+   "path": "/images/pros/pro-02-v3.jpg",
+   "attempt": 4,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_c9b3e098-6a66-4017-8fc9-dbb44767ca62.png",
+   "note": "attempt 3b with pose reference (pro-08-v3)",
+   "status": "pass",
+   "reason": "frontal, both arms and hands visible and correct"
+  },
+  {
+   "id": "18184e68-e0eb-41f0-b52b-fd86cce1e8e8",
+   "group": "v3-retry",
+   "shot": "E04",
+   "path": "/images/editorial/hotel-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_18184e68-e0eb-41f0-b52b-fd86cce1e8e8.png"
+  },
+  {
+   "id": "178e4898-5a9c-4ec2-9706-b627d828466d",
+   "group": "v3-retry",
+   "shot": "X03",
+   "path": "/images/explore/im-hotel-ankommen.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132242_178e4898-5a9c-4ec2-9706-b627d828466d.png"
+  },
+  {
+   "id": "1e56e587-f0ca-4e9d-a7d4-31951c38aab3",
+   "group": "v3-retry",
+   "shot": "X02",
+   "path": "/images/explore/nach-dem-sport.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_1e56e587-f0ca-4e9d-a7d4-31951c38aab3.png"
+  },
+  {
+   "id": "a70ded80-d393-44ab-9de6-b8fd74de4e78",
+   "group": "v3-retry",
+   "shot": "L11",
+   "path": "/images/landing/app-pro-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_a70ded80-d393-44ab-9de6-b8fd74de4e78.png"
+  },
+  {
+   "id": "d6628d35-dc83-4a41-8d0a-f08a5fdac552",
+   "group": "v3-retry",
+   "shot": "P-massage-4",
+   "path": "/images/portfolio/massage-4-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_d6628d35-dc83-4a41-8d0a-f08a5fdac552.png"
+  },
+  {
+   "id": "d27a5c94-2745-4d9f-947f-8215d503f475",
+   "group": "v3-retry",
+   "shot": "P-massage-6",
+   "path": "/images/portfolio/massage-6-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_d27a5c94-2745-4d9f-947f-8215d503f475.png"
+  },
+  {
+   "id": "92363cb6-3ad1-47e4-a5c3-3a59fa6806e2",
+   "group": "v3-retry",
+   "shot": "P-massage-18",
+   "path": "/images/portfolio/massage-18-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_92363cb6-3ad1-47e4-a5c3-3a59fa6806e2.png"
+  },
+  {
+   "id": "bc4eab61-2c60-4e1f-9078-b35254a624db",
+   "group": "v3-retry",
+   "shot": "P-manikuere-1",
+   "path": "/images/portfolio/manikuere-1-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_bc4eab61-2c60-4e1f-9078-b35254a624db.png"
+  },
+  {
+   "id": "5856b29a-e58d-44c7-afb8-26fd00f67c9f",
+   "group": "v3-retry",
+   "shot": "P-manikuere-3",
+   "path": "/images/portfolio/manikuere-3-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_5856b29a-e58d-44c7-afb8-26fd00f67c9f.png"
+  },
+  {
+   "id": "aff510e8-c421-4413-8219-e9bafdeb93fc",
+   "group": "v3-retry",
+   "shot": "P-manikuere-4",
+   "path": "/images/portfolio/manikuere-4-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_aff510e8-c421-4413-8219-e9bafdeb93fc.png"
+  },
+  {
+   "id": "ed84c511-3411-4043-a14b-31a8dd116c0d",
+   "group": "v3-retry",
+   "shot": "P-manikuere-7",
+   "path": "/images/portfolio/manikuere-7-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_ed84c511-3411-4043-a14b-31a8dd116c0d.png"
+  },
+  {
+   "id": "f3709750-46ce-4891-ade7-6dc2bc6e3575",
+   "group": "v3-retry",
+   "shot": "P-kosmetik-13",
+   "path": "/images/portfolio/kosmetik-13-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_f3709750-46ce-4891-ade7-6dc2bc6e3575.png"
+  },
+  {
+   "id": "8c108f1a-eddf-4091-85d3-a98a94648c93",
+   "group": "v3-retry",
+   "shot": "R03",
+   "path": "/images/pros/pro-03-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_8c108f1a-eddf-4091-85d3-a98a94648c93.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "3607603f-5e3b-4630-92a4-9c2ef39f685a",
+   "group": "v3-retry",
+   "shot": "R05",
+   "path": "/images/pros/pro-05-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132758_3607603f-5e3b-4630-92a4-9c2ef39f685a.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "ffe45f2e-9897-4665-b4b1-487650ebe143",
+   "group": "v3-retry",
+   "shot": "R06",
+   "path": "/images/pros/pro-06-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_ffe45f2e-9897-4665-b4b1-487650ebe143.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "9a1b33ef-a04a-470b-96fb-aa15e3fb12cd",
+   "group": "v3-retry",
+   "shot": "R07",
+   "path": "/images/pros/pro-07-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_9a1b33ef-a04a-470b-96fb-aa15e3fb12cd.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "a01e6a9b-ba64-4495-91db-732d1116fa52",
+   "group": "v3-retry",
+   "shot": "R10",
+   "path": "/images/pros/pro-10-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_a01e6a9b-ba64-4495-91db-732d1116fa52.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "2ab22d83-cb6e-4517-afb3-175341a34886",
+   "group": "v3-retry",
+   "shot": "R11",
+   "path": "/images/pros/pro-11-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_2ab22d83-cb6e-4517-afb3-175341a34886.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "47e11f6a-15d5-40e0-991c-5f3e00bfb640",
+   "group": "v3-retry",
+   "shot": "R12",
+   "path": "/images/pros/pro-12-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_47e11f6a-15d5-40e0-991c-5f3e00bfb640.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "3821eca3-7e7c-45da-9ec5-31e0a8870852",
+   "group": "v3-retry",
+   "shot": "R13",
+   "path": "/images/pros/pro-13-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132800_3821eca3-7e7c-45da-9ec5-31e0a8870852.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "720a2bf4-56ac-425c-abb1-02d0bc69db68",
+   "group": "v3-retry",
+   "shot": "R14",
+   "path": "/images/pros/pro-14-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132800_720a2bf4-56ac-425c-abb1-02d0bc69db68.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "0802ee4b-151a-4129-a414-12a234169114",
+   "group": "v3-retry",
+   "shot": "R15",
+   "path": "/images/pros/pro-15-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132801_0802ee4b-151a-4129-a414-12a234169114.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "ac323fcf-6577-41a8-bdc4-287a097eeedc",
+   "group": "v3-retry",
+   "shot": "R16",
+   "path": "/images/pros/pro-16-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132801_ac323fcf-6577-41a8-bdc4-287a097eeedc.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "4d2cf51f-3591-4c25-90e7-e8ee9cc63535",
+   "group": "v3-retry",
+   "shot": "R17",
+   "path": "/images/pros/pro-17-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_4d2cf51f-3591-4c25-90e7-e8ee9cc63535.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "aca44ef9-041d-4697-941c-6038b067ced2",
+   "group": "v3-retry",
+   "shot": "R18",
+   "path": "/images/pros/pro-18-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_aca44ef9-041d-4697-941c-6038b067ced2.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "8a7652c2-9ba5-40cf-bf2c-3dcc1030ad13",
+   "group": "v3-retry",
+   "shot": "R19",
+   "path": "/images/pros/pro-19-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_8a7652c2-9ba5-40cf-bf2c-3dcc1030ad13.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "06270eb8-4b89-4e31-924d-b47fb38d77c8",
+   "group": "v3-retry",
+   "shot": "R20",
+   "path": "/images/pros/pro-20-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_06270eb8-4b89-4e31-924d-b47fb38d77c8.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "2432cbac-3c68-42bc-a943-3db4a0715318",
+   "group": "v3-retry",
+   "shot": "R21",
+   "path": "/images/pros/pro-21-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_2432cbac-3c68-42bc-a943-3db4a0715318.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "2790a793-1175-4fcc-8bc7-7c121a762732",
+   "group": "v3-retry",
+   "shot": "R22",
+   "path": "/images/pros/pro-22-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_2790a793-1175-4fcc-8bc7-7c121a762732.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "0843876a-fbff-4c90-aa16-3a1531829778",
+   "group": "v3-retry",
+   "shot": "R23",
+   "path": "/images/pros/pro-23-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_0843876a-fbff-4c90-aa16-3a1531829778.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "1109952e-cef5-4ae0-bc51-d05abcab028d",
+   "group": "v3-retry",
+   "shot": "R24",
+   "path": "/images/pros/pro-24-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_1109952e-cef5-4ae0-bc51-d05abcab028d.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "09c5f6ef-2722-4a09-9e44-5e1444277efd",
+   "group": "v3-retry",
+   "shot": "R25",
+   "path": "/images/pros/pro-25-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_09c5f6ef-2722-4a09-9e44-5e1444277efd.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "7d7ce569-0d0f-42a4-abe5-3258fa565d6f",
+   "group": "v3-retry",
+   "shot": "R26",
+   "path": "/images/pros/pro-26-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_7d7ce569-0d0f-42a4-abe5-3258fa565d6f.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "dfe0601d-9d23-47ca-90de-1a6384e73e02",
+   "group": "v3-retry",
+   "shot": "R27",
+   "path": "/images/pros/pro-27-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132901_dfe0601d-9d23-47ca-90de-1a6384e73e02.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "2d16a866-e978-4c9c-bbba-15067e416bc1",
+   "group": "v3-retry",
+   "shot": "R28",
+   "path": "/images/pros/pro-28-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132902_2d16a866-e978-4c9c-bbba-15067e416bc1.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "0f1f319d-55ea-40f1-bb52-b22e09cf1b94",
+   "group": "v3-retry",
+   "shot": "R29",
+   "path": "/images/pros/pro-29-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_0f1f319d-55ea-40f1-bb52-b22e09cf1b94.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "caf5591f-f73f-4bcb-b664-9a0cdb304c84",
+   "group": "v3-retry",
+   "shot": "R30",
+   "path": "/images/pros/pro-30-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132914_caf5591f-f73f-4bcb-b664-9a0cdb304c84.png",
+   "note": "attempt 3 with pose reference"
+  },
+  {
+   "id": "fa60ce99-bf39-4a84-937e-9e78e4a6e926",
+   "group": "v3-retry",
+   "shot": "P-kosmetik-8",
+   "path": "/images/portfolio/kosmetik-8-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_fa60ce99-bf39-4a84-937e-9e78e4a6e926.png"
+  },
+  {
+   "id": "6e3dfe43-dda2-4594-bfb3-44342abdda43",
+   "group": "v3-retry",
+   "shot": "P-make-up-8",
+   "path": "/images/portfolio/make-up-8-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_6e3dfe43-dda2-4594-bfb3-44342abdda43.png"
+  },
+  {
+   "id": "c6091220-bf39-4dc8-b56c-d07d414cab8c",
+   "group": "v3-retry",
+   "shot": "P-haare-styling-17",
+   "path": "/images/portfolio/haare-styling-17-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_c6091220-bf39-4dc8-b56c-d07d414cab8c.png"
+  },
+  {
+   "id": "c8548b51-8fc6-4785-bfcc-895184ff017e",
+   "group": "v3-retry",
+   "shot": "P-brows-lashes-4",
+   "path": "/images/portfolio/brows-lashes-4-v3.jpg",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_c8548b51-8fc6-4785-bfcc-895184ff017e.png"
   }
  ],
  "current": {
@@ -2097,12 +2684,6 @@
    "shot": "P-kosmetik-7",
    "attempt": 1
   },
-  "/images/portfolio/kosmetik-8-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_57e0ebc9-58f4-45e7-b79c-3801eba45b12.png",
-   "job": "57e0ebc9-58f4-45e7-b79c-3801eba45b12",
-   "shot": "P-kosmetik-8",
-   "attempt": 1
-  },
   "/images/portfolio/kosmetik-9-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_16e30408-8185-47fd-91d6-5603f49cdc7e.png",
    "job": "16e30408-8185-47fd-91d6-5603f49cdc7e",
@@ -2125,12 +2706,6 @@
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_8a4234d8-d820-4e6b-8182-e19f046eff45.png",
    "job": "8a4234d8-d820-4e6b-8182-e19f046eff45",
    "shot": "P-kosmetik-12",
-   "attempt": 1
-  },
-  "/images/portfolio/kosmetik-13-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_63c14cb8-8130-4d64-ab99-9c6474811772.png",
-   "job": "63c14cb8-8130-4d64-ab99-9c6474811772",
-   "shot": "P-kosmetik-13",
    "attempt": 1
   },
   "/images/portfolio/kosmetik-14-v3.jpg": {
@@ -2179,12 +2754,6 @@
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131403_5687c6f2-2ffc-4804-aa43-b44047da40ac.png",
    "job": "5687c6f2-2ffc-4804-aa43-b44047da40ac",
    "shot": "P-make-up-7",
-   "attempt": 1
-  },
-  "/images/portfolio/make-up-8-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131404_4e5541d4-920c-45e1-8713-455c9bc50f64.png",
-   "job": "4e5541d4-920c-45e1-8713-455c9bc50f64",
-   "shot": "P-make-up-8",
    "attempt": 1
   },
   "/images/portfolio/make-up-9-v3.jpg": {
@@ -2295,12 +2864,6 @@
    "shot": "P-haare-styling-16",
    "attempt": 1
   },
-  "/images/portfolio/haare-styling-17-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_869f5d6f-7306-4609-aa67-bf59d5766ffa.png",
-   "job": "869f5d6f-7306-4609-aa67-bf59d5766ffa",
-   "shot": "P-haare-styling-17",
-   "attempt": 1
-  },
   "/images/portfolio/brows-lashes-1-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131547_9cb0ac31-454d-49ac-a377-a2fe7ce87afd.png",
    "job": "9cb0ac31-454d-49ac-a377-a2fe7ce87afd",
@@ -2317,12 +2880,6 @@
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_956ec2da-209a-445a-af52-37ad36ed4aa9.png",
    "job": "956ec2da-209a-445a-af52-37ad36ed4aa9",
    "shot": "P-brows-lashes-3",
-   "attempt": 1
-  },
-  "/images/portfolio/brows-lashes-4-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131546_be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43.png",
-   "job": "be6b7e1b-1b0d-49b5-a1bb-e97f9bc99a43",
-   "shot": "P-brows-lashes-4",
    "attempt": 1
   },
   "/images/portfolio/brows-lashes-5-v3.jpg": {
@@ -2349,22 +2906,268 @@
    "shot": "P-brows-lashes-8",
    "attempt": 1
   },
-  "/images/pros/pro-01-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_09593da6-cff6-4b12-8e47-3e40cb8cecb0.png",
-   "job": "09593da6-cff6-4b12-8e47-3e40cb8cecb0",
-   "shot": "R01",
-   "attempt": 2
-  },
-  "/images/pros/pro-02-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_130953_eb34b5a0-8a9c-422f-b65c-5bac78963873.png",
-   "job": "eb34b5a0-8a9c-422f-b65c-5bac78963873",
-   "shot": "R02",
-   "attempt": 2
-  },
   "/images/editorial/provider-cta-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131159_0880e35c-6e3c-4aac-9423-15e93e73b05d.png",
    "job": "0880e35c-6e3c-4aac-9423-15e93e73b05d",
    "shot": "E07",
+   "attempt": 2
+  },
+  "/images/pros/pro-01-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_bc1c2887-358c-4c55-8953-9954c5b2b50f.png",
+   "job": "bc1c2887-358c-4c55-8953-9954c5b2b50f",
+   "shot": "R01",
+   "attempt": 4
+  },
+  "/images/pros/pro-02-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_131906_c9b3e098-6a66-4017-8fc9-dbb44767ca62.png",
+   "job": "c9b3e098-6a66-4017-8fc9-dbb44767ca62",
+   "shot": "R02",
+   "attempt": 4
+  },
+  "/images/editorial/hotel-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_18184e68-e0eb-41f0-b52b-fd86cce1e8e8.png",
+   "job": "18184e68-e0eb-41f0-b52b-fd86cce1e8e8",
+   "shot": "E04",
+   "attempt": 2
+  },
+  "/images/explore/im-hotel-ankommen.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132242_178e4898-5a9c-4ec2-9706-b627d828466d.png",
+   "job": "178e4898-5a9c-4ec2-9706-b627d828466d",
+   "shot": "X03",
+   "attempt": 2
+  },
+  "/images/explore/nach-dem-sport.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_1e56e587-f0ca-4e9d-a7d4-31951c38aab3.png",
+   "job": "1e56e587-f0ca-4e9d-a7d4-31951c38aab3",
+   "shot": "X02",
+   "attempt": 2
+  },
+  "/images/landing/app-pro-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_a70ded80-d393-44ab-9de6-b8fd74de4e78.png",
+   "job": "a70ded80-d393-44ab-9de6-b8fd74de4e78",
+   "shot": "L11",
+   "attempt": 2
+  },
+  "/images/portfolio/massage-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_d6628d35-dc83-4a41-8d0a-f08a5fdac552.png",
+   "job": "d6628d35-dc83-4a41-8d0a-f08a5fdac552",
+   "shot": "P-massage-4",
+   "attempt": 2
+  },
+  "/images/portfolio/massage-6-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_d27a5c94-2745-4d9f-947f-8215d503f475.png",
+   "job": "d27a5c94-2745-4d9f-947f-8215d503f475",
+   "shot": "P-massage-6",
+   "attempt": 2
+  },
+  "/images/portfolio/massage-18-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_92363cb6-3ad1-47e4-a5c3-3a59fa6806e2.png",
+   "job": "92363cb6-3ad1-47e4-a5c3-3a59fa6806e2",
+   "shot": "P-massage-18",
+   "attempt": 2
+  },
+  "/images/portfolio/manikuere-1-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_bc4eab61-2c60-4e1f-9078-b35254a624db.png",
+   "job": "bc4eab61-2c60-4e1f-9078-b35254a624db",
+   "shot": "P-manikuere-1",
+   "attempt": 2
+  },
+  "/images/portfolio/manikuere-3-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_5856b29a-e58d-44c7-afb8-26fd00f67c9f.png",
+   "job": "5856b29a-e58d-44c7-afb8-26fd00f67c9f",
+   "shot": "P-manikuere-3",
+   "attempt": 2
+  },
+  "/images/portfolio/manikuere-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_aff510e8-c421-4413-8219-e9bafdeb93fc.png",
+   "job": "aff510e8-c421-4413-8219-e9bafdeb93fc",
+   "shot": "P-manikuere-4",
+   "attempt": 2
+  },
+  "/images/portfolio/manikuere-7-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132241_ed84c511-3411-4043-a14b-31a8dd116c0d.png",
+   "job": "ed84c511-3411-4043-a14b-31a8dd116c0d",
+   "shot": "P-manikuere-7",
+   "attempt": 2
+  },
+  "/images/portfolio/kosmetik-13-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_f3709750-46ce-4891-ade7-6dc2bc6e3575.png",
+   "job": "f3709750-46ce-4891-ade7-6dc2bc6e3575",
+   "shot": "P-kosmetik-13",
+   "attempt": 2
+  },
+  "/images/pros/pro-03-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_8c108f1a-eddf-4091-85d3-a98a94648c93.png",
+   "job": "8c108f1a-eddf-4091-85d3-a98a94648c93",
+   "shot": "R03",
+   "attempt": 2
+  },
+  "/images/pros/pro-05-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132758_3607603f-5e3b-4630-92a4-9c2ef39f685a.png",
+   "job": "3607603f-5e3b-4630-92a4-9c2ef39f685a",
+   "shot": "R05",
+   "attempt": 2
+  },
+  "/images/pros/pro-06-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_ffe45f2e-9897-4665-b4b1-487650ebe143.png",
+   "job": "ffe45f2e-9897-4665-b4b1-487650ebe143",
+   "shot": "R06",
+   "attempt": 2
+  },
+  "/images/pros/pro-07-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_9a1b33ef-a04a-470b-96fb-aa15e3fb12cd.png",
+   "job": "9a1b33ef-a04a-470b-96fb-aa15e3fb12cd",
+   "shot": "R07",
+   "attempt": 2
+  },
+  "/images/pros/pro-10-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_a01e6a9b-ba64-4495-91db-732d1116fa52.png",
+   "job": "a01e6a9b-ba64-4495-91db-732d1116fa52",
+   "shot": "R10",
+   "attempt": 2
+  },
+  "/images/pros/pro-11-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_2ab22d83-cb6e-4517-afb3-175341a34886.png",
+   "job": "2ab22d83-cb6e-4517-afb3-175341a34886",
+   "shot": "R11",
+   "attempt": 2
+  },
+  "/images/pros/pro-12-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_47e11f6a-15d5-40e0-991c-5f3e00bfb640.png",
+   "job": "47e11f6a-15d5-40e0-991c-5f3e00bfb640",
+   "shot": "R12",
+   "attempt": 2
+  },
+  "/images/pros/pro-13-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132800_3821eca3-7e7c-45da-9ec5-31e0a8870852.png",
+   "job": "3821eca3-7e7c-45da-9ec5-31e0a8870852",
+   "shot": "R13",
+   "attempt": 2
+  },
+  "/images/pros/pro-14-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132800_720a2bf4-56ac-425c-abb1-02d0bc69db68.png",
+   "job": "720a2bf4-56ac-425c-abb1-02d0bc69db68",
+   "shot": "R14",
+   "attempt": 2
+  },
+  "/images/pros/pro-15-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132801_0802ee4b-151a-4129-a414-12a234169114.png",
+   "job": "0802ee4b-151a-4129-a414-12a234169114",
+   "shot": "R15",
+   "attempt": 2
+  },
+  "/images/pros/pro-16-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132801_ac323fcf-6577-41a8-bdc4-287a097eeedc.png",
+   "job": "ac323fcf-6577-41a8-bdc4-287a097eeedc",
+   "shot": "R16",
+   "attempt": 2
+  },
+  "/images/pros/pro-17-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132759_4d2cf51f-3591-4c25-90e7-e8ee9cc63535.png",
+   "job": "4d2cf51f-3591-4c25-90e7-e8ee9cc63535",
+   "shot": "R17",
+   "attempt": 2
+  },
+  "/images/pros/pro-18-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_aca44ef9-041d-4697-941c-6038b067ced2.png",
+   "job": "aca44ef9-041d-4697-941c-6038b067ced2",
+   "shot": "R18",
+   "attempt": 2
+  },
+  "/images/pros/pro-19-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_8a7652c2-9ba5-40cf-bf2c-3dcc1030ad13.png",
+   "job": "8a7652c2-9ba5-40cf-bf2c-3dcc1030ad13",
+   "shot": "R19",
+   "attempt": 2
+  },
+  "/images/pros/pro-20-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_06270eb8-4b89-4e31-924d-b47fb38d77c8.png",
+   "job": "06270eb8-4b89-4e31-924d-b47fb38d77c8",
+   "shot": "R20",
+   "attempt": 2
+  },
+  "/images/pros/pro-21-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_2432cbac-3c68-42bc-a943-3db4a0715318.png",
+   "job": "2432cbac-3c68-42bc-a943-3db4a0715318",
+   "shot": "R21",
+   "attempt": 2
+  },
+  "/images/pros/pro-22-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_2790a793-1175-4fcc-8bc7-7c121a762732.png",
+   "job": "2790a793-1175-4fcc-8bc7-7c121a762732",
+   "shot": "R22",
+   "attempt": 2
+  },
+  "/images/pros/pro-23-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_0843876a-fbff-4c90-aa16-3a1531829778.png",
+   "job": "0843876a-fbff-4c90-aa16-3a1531829778",
+   "shot": "R23",
+   "attempt": 2
+  },
+  "/images/pros/pro-24-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_1109952e-cef5-4ae0-bc51-d05abcab028d.png",
+   "job": "1109952e-cef5-4ae0-bc51-d05abcab028d",
+   "shot": "R24",
+   "attempt": 2
+  },
+  "/images/pros/pro-25-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_09c5f6ef-2722-4a09-9e44-5e1444277efd.png",
+   "job": "09c5f6ef-2722-4a09-9e44-5e1444277efd",
+   "shot": "R25",
+   "attempt": 2
+  },
+  "/images/pros/pro-26-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132858_7d7ce569-0d0f-42a4-abe5-3258fa565d6f.png",
+   "job": "7d7ce569-0d0f-42a4-abe5-3258fa565d6f",
+   "shot": "R26",
+   "attempt": 2
+  },
+  "/images/pros/pro-27-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132901_dfe0601d-9d23-47ca-90de-1a6384e73e02.png",
+   "job": "dfe0601d-9d23-47ca-90de-1a6384e73e02",
+   "shot": "R27",
+   "attempt": 2
+  },
+  "/images/pros/pro-28-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132902_2d16a866-e978-4c9c-bbba-15067e416bc1.png",
+   "job": "2d16a866-e978-4c9c-bbba-15067e416bc1",
+   "shot": "R28",
+   "attempt": 2
+  },
+  "/images/pros/pro-29-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132859_0f1f319d-55ea-40f1-bb52-b22e09cf1b94.png",
+   "job": "0f1f319d-55ea-40f1-bb52-b22e09cf1b94",
+   "shot": "R29",
+   "attempt": 2
+  },
+  "/images/pros/pro-30-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_132914_caf5591f-f73f-4bcb-b664-9a0cdb304c84.png",
+   "job": "caf5591f-f73f-4bcb-b664-9a0cdb304c84",
+   "shot": "R30",
+   "attempt": 2
+  },
+  "/images/portfolio/kosmetik-8-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_fa60ce99-bf39-4a84-937e-9e78e4a6e926.png",
+   "job": "fa60ce99-bf39-4a84-937e-9e78e4a6e926",
+   "shot": "P-kosmetik-8",
+   "attempt": 2
+  },
+  "/images/portfolio/make-up-8-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_6e3dfe43-dda2-4594-bfb3-44342abdda43.png",
+   "job": "6e3dfe43-dda2-4594-bfb3-44342abdda43",
+   "shot": "P-make-up-8",
+   "attempt": 2
+  },
+  "/images/portfolio/haare-styling-17-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_c6091220-bf39-4dc8-b56c-d07d414cab8c.png",
+   "job": "c6091220-bf39-4dc8-b56c-d07d414cab8c",
+   "shot": "P-haare-styling-17",
+   "attempt": 2
+  },
+  "/images/portfolio/brows-lashes-4-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133130_c8548b51-8fc6-4785-bfcc-895184ff017e.png",
+   "job": "c8548b51-8fc6-4785-bfcc-895184ff017e",
+   "shot": "P-brows-lashes-4",
    "attempt": 2
   }
  }
