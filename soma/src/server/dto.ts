@@ -1078,6 +1078,8 @@ export interface UserDataExportDTO {
     phone: string | null;
     referralCode: string;
     marketingOptIn: boolean;
+    /** „Persönliche Vorschläge“ on /entdecken (migration 0011) */
+    personalizedSuggestions: boolean;
     createdAt: string;
     blockedAt: string | null;
     anonymizedAt: string | null;

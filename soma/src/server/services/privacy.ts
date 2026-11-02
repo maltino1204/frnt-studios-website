@@ -46,9 +46,10 @@ export const ANONYMIZED_ADDRESS_LINE = "Anonymisiert";
 export async function buildUserExport(tx: Queryable, userId: string): Promise<UserDataExportDTO> {
   const [p] = await tx<Array<{
     id: string; email: string; role: AppRole; firstName: string | null; lastName: string | null; phone: string | null; referralCode: string;
-    marketingOptIn: boolean; createdAt: Date; blockedAt: Date | null; anonymizedAt: Date | null;
+    marketingOptIn: boolean; personalizedSuggestions: boolean; createdAt: Date; blockedAt: Date | null; anonymizedAt: Date | null;
   }>>`
-    select p.id, u.email, p.role, p.first_name, p.last_name, p.phone, p.referral_code, p.marketing_opt_in, p.created_at, p.blocked_at, p.anonymized_at
+    select p.id, u.email, p.role, p.first_name, p.last_name, p.phone, p.referral_code, p.marketing_opt_in, p.personalized_suggestions,
+           p.created_at, p.blocked_at, p.anonymized_at
     from public.profiles p join auth.users u on u.id = p.id where p.id = ${userId}`;
   if (!p) throw new ServiceError("not_found", "Nutzer nicht gefunden.");
 
@@ -113,7 +114,7 @@ export async function buildUserExport(tx: Queryable, userId: string): Promise<Us
     format: "soma-user-export/v1",
     profile: {
       userId: p.id, email: p.email, role: p.role, firstName: p.firstName, lastName: p.lastName, phone: p.phone, referralCode: p.referralCode,
-      marketingOptIn: p.marketingOptIn, createdAt: isoReq(p.createdAt), blockedAt: iso(p.blockedAt), anonymizedAt: iso(p.anonymizedAt),
+      marketingOptIn: p.marketingOptIn, personalizedSuggestions: p.personalizedSuggestions, createdAt: isoReq(p.createdAt), blockedAt: iso(p.blockedAt), anonymizedAt: iso(p.anonymizedAt),
     },
     notificationPreferences: prefs ?? null,
     addresses,
