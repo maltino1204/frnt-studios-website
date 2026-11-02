@@ -2889,7 +2889,8 @@
     "height": 1500,
     "focal": "50% 30%",
     "replaces": "/images/pros/pro-01-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R01"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R01",
+    "replacedBy": "/images/pros/pro-01-v4.jpg"
   },
   {
     "path": "/images/pros/pro-02-v3.jpg",
@@ -2999,7 +3000,8 @@
     "height": 1500,
     "focal": "50% 30%",
     "replaces": "/images/pros/pro-12.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R12"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R12",
+    "replacedBy": "/images/pros/pro-12-v4.jpg"
   },
   {
     "path": "/images/pros/pro-13-v3.jpg",
@@ -3049,7 +3051,8 @@
     "height": 1500,
     "focal": "50% 30%",
     "replaces": "/images/pros/pro-17.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R17"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R17",
+    "replacedBy": "/images/pros/pro-17-v4.jpg"
   },
   {
     "path": "/images/pros/pro-18-v3.jpg",
@@ -3179,7 +3182,8 @@
     "height": 1500,
     "focal": "50% 30%",
     "replaces": "/images/pros/pro-30-v2.jpg",
-    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R30"
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot R30",
+    "replacedBy": "/images/pros/pro-30-v4.jpg"
   },
   {
     "path": "/images/landing/hero-wide-v3.jpg",
@@ -4404,5 +4408,45 @@
     "place": "Treppenhaus, 2. OG · Berlin-Neukölln · 17:40",
     "replaces": "/images/editorial/provider-cta-v2.jpg",
     "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k), SOMA photography v3 „Tageslicht“, shot E07"
+  },
+  {
+    "path": "/images/pros/pro-01-v4.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_0c8ec450-03c5-4624-80d5-1001c6048c1a.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 30%",
+    "replaces": "/images/pros/pro-01-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R01"
+  },
+  {
+    "path": "/images/pros/pro-12-v4.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_323e3138-8416-477b-93eb-48e451b69712.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 30%",
+    "replaces": "/images/pros/pro-12-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R12"
+  },
+  {
+    "path": "/images/pros/pro-17-v4.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135302_e36ba1f0-792a-489b-a7e0-28c3e90f0099.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 30%",
+    "replaces": "/images/pros/pro-17-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R17"
+  },
+  {
+    "path": "/images/pros/pro-30-v4.jpg",
+    "remote": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135300_523bf6e2-ffb4-4c86-aea0-59089df49cc8.png",
+    "ratio": "4:5",
+    "width": 1200,
+    "height": 1500,
+    "focal": "50% 30%",
+    "replaces": "/images/pros/pro-30-v3.jpg",
+    "source": "AI-generated development asset (Higgsfield nano_banana_pro 2k, v3 portrait as identity reference), SOMA photography v4 portraits, shot R30"
   }
 ]

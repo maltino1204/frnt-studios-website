@@ -1,0 +1,86 @@
+{
+ "note": "v4 Profi portraits with variety (Photo Art Director, 2 Nov 2026). Start balance 814.99 credits, budget 90.",
+ "startBalance": 814.99,
+ "budget": 90,
+ "creditsLogged": 8,
+ "jobs": [
+  {
+   "id": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
+   "shot": "R01",
+   "path": "/images/pros/pro-01-v4.jpg",
+   "setting": "B",
+   "pose": "T",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_0c8ec450-03c5-4624-80d5-1001c6048c1a.png",
+   "note": "pilot"
+  },
+  {
+   "id": "323e3138-8416-477b-93eb-48e451b69712",
+   "shot": "R12",
+   "path": "/images/pros/pro-12-v4.jpg",
+   "setting": "A",
+   "pose": "X",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_323e3138-8416-477b-93eb-48e451b69712.png",
+   "note": "pilot"
+  },
+  {
+   "id": "e36ba1f0-792a-489b-a7e0-28c3e90f0099",
+   "shot": "R17",
+   "path": "/images/pros/pro-17-v4.jpg",
+   "setting": "D",
+   "pose": "R",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135302_e36ba1f0-792a-489b-a7e0-28c3e90f0099.png",
+   "note": "pilot"
+  },
+  {
+   "id": "523bf6e2-ffb4-4c86-aea0-59089df49cc8",
+   "shot": "R30",
+   "path": "/images/pros/pro-30-v4.jpg",
+   "setting": "D",
+   "pose": "S",
+   "attempt": 1,
+   "model": "nano_banana_pro 2k + v3 portrait as identity reference",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135300_523bf6e2-ffb4-4c86-aea0-59089df49cc8.png",
+   "note": "pilot"
+  }
+ ],
+ "current": {
+  "/images/pros/pro-01-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_0c8ec450-03c5-4624-80d5-1001c6048c1a.png",
+   "job": "0c8ec450-03c5-4624-80d5-1001c6048c1a",
+   "shot": "R01",
+   "attempt": 1,
+   "focal": "50% 30%"
+  },
+  "/images/pros/pro-12-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135259_323e3138-8416-477b-93eb-48e451b69712.png",
+   "job": "323e3138-8416-477b-93eb-48e451b69712",
+   "shot": "R12",
+   "attempt": 1,
+   "focal": "50% 30%"
+  },
+  "/images/pros/pro-17-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135302_e36ba1f0-792a-489b-a7e0-28c3e90f0099.png",
+   "job": "e36ba1f0-792a-489b-a7e0-28c3e90f0099",
+   "shot": "R17",
+   "attempt": 1,
+   "focal": "50% 30%"
+  },
+  "/images/pros/pro-30-v4.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_135300_523bf6e2-ffb4-4c86-aea0-59089df49cc8.png",
+   "job": "523bf6e2-ffb4-4c86-aea0-59089df49cc8",
+   "shot": "R30",
+   "attempt": 1,
+   "focal": "50% 30%"
+  }
+ }
+}
