@@ -25,6 +25,7 @@ const ENTITY: Record<string, string> = {
   payout: "Auszahlung",
   dispute: "Streitfall",
   content_block: "Inhalt",
+  explore_collection: "Entdecken",
   platform_setting: "Einstellung",
   profile: "Konto",
   review: "Bewertung",
@@ -53,6 +54,11 @@ const ACTION: Record<string, string> = {
   "payout.batch": "Auszahlungslauf erstellt",
   "payout.paid": "Auszahlung bezahlt",
   "content.upsert": "Inhalt gespeichert",
+  "explore.create": "Sammlung angelegt",
+  "explore.update": "Sammlung geändert",
+  "explore.publish": "Sammlung aktiviert",
+  "explore.unpublish": "Sammlung deaktiviert",
+  "explore.delete": "Sammlung gelöscht",
   "setting.update": "Einstellung geändert",
   "user.block": "Konto gesperrt",
   "user.unblock": "Konto entsperrt",
@@ -70,6 +76,7 @@ function entityHref(entity: string, id: string | null): string | null {
   if (entity === "provider") return routes.admin.provider(id);
   if (entity === "dispute") return `${routes.admin.disputes()}?fall=${id}`;
   if (entity === "content_block") return `${routes.admin.content()}?block=${encodeURIComponent(id)}`;
+  if (entity === "explore_collection") return routes.admin.exploreCollection(id);
   if (entity === "commission_rule") return `${routes.admin.commissions()}?verlauf=1`;
   if (entity === "platform_setting") return `${routes.admin.commissions()}#settings`;
   return null;

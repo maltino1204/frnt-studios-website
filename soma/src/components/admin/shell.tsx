@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import {
   CalendarRange,
+  Compass,
   CreditCard,
   FileText,
   History,
@@ -68,6 +69,7 @@ export const ADMIN_NAV: NavGroup[] = [
     label: "System",
     items: [
       { href: routes.admin.content(), label: "Inhalte", icon: FileText },
+      { href: routes.admin.explore(), label: "Entdecken", icon: Compass },
       { href: routes.admin.audit(), label: "Protokoll", icon: History },
     ],
   },
