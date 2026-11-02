@@ -14,9 +14,12 @@ import "./landing.css";
 
 /*
  * Fonts on / (spec § 10.5): the hero's first line is the italic tagline, so the landing preloads Newsreader Display
- * Italic next to the root's Instrument Sans and Newsreader roman (3 files, 102 KB, within the 150 KB budget) without
- * touching the root layout, which keeps the italic on demand for every other route. The landing's accent family is
- * this preloaded face (same file, metric-matched Times fallback, so no layout shift when it swaps in).
+ * Italic next to the root's Instrument Sans: 2 preloaded files, ≈ 80 KB, within the 150 KB budget. The Newsreader
+ * roman is not preloaded on `/` (it is not above the fold; the root declares it without a preload, every other
+ * top-level layout preloads it through <DisplayFontScope>): the motion loader fetches it once, in the first idle
+ * period after `load` (motion/loader.tsx). The italic stays on demand for every other route, since only this layout
+ * declares the preloaded copy. The landing's accent family is this preloaded face (same file, metric-matched Times
+ * fallback, so no layout shift when it swaps in).
  */
 const accent = localFont({
   src: "../../styles/fonts/newsreader-display-italic.woff2",
