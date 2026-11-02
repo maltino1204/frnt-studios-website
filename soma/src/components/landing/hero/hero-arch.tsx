@@ -3,9 +3,11 @@
 import { useRef, type PointerEvent } from "react";
 import { LandingArch } from "../primitives/landing-arch";
 import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { Ortszeile } from "../primitives/ortszeile";
 import { HERO_FIGURE_ID, PLACES, type PlaceId } from "./places";
 import { prefetchPlaces, registerPlaceImages, setPlace, usePlace } from "./place-store";
+import { StaticHeroFigure } from "./static-hero-figure";
 import { SwapLayer } from "./swap-layer";
 import { placeLayerAnimates, useLayerSwap } from "./use-layer-swap";
 
@@ -65,5 +67,17 @@ export function HeroArch({ images, className }: { images: Record<PlaceId, Landin
         <Ortszeile key={place.id} text={place.place} data-state={swapped ? "entering" : "current"} />
       </figcaption>
     </figure>
+  );
+}
+
+/**
+ * The arch island inside its error boundary (audit-4 R4-1): if it fails, the static „Zu Hause“ figure takes its place.
+ * The fallback is built here, on the client, from the same `images`, so the page's payload carries them once.
+ */
+export function HeroArchIsland(props: { images: Record<PlaceId, LandingImgAttrs>; className?: string }) {
+  return (
+    <IslandBoundary name="hero arch" fallback={<StaticHeroFigure image={props.images.zuhause} className={props.className} />}>
+      <HeroArch {...props} />
+    </IslandBoundary>
   );
 }

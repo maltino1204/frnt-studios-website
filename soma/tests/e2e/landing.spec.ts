@@ -168,7 +168,11 @@ test("the hero photo is fetched once per viewport: the preload and the <img> pic
     { width: 1440, height: 900, dpr: 1 },
   ]) {
     const mobile = vp.width < 1024;
-    const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: vp.dpr, isMobile: mobile, hasTouch: mobile, locale: "de-DE" });
+    // A phone's or tablet's screen is taller than its viewport (status bar, browser chrome): Chromium's preload scanner
+    // evaluates viewport heights against the screen, the <img> against the viewport, so this is the case that matters.
+    const size = { width: vp.width, height: vp.height };
+    const screen = mobile ? { width: vp.width, height: vp.height + 120 } : size;
+    const context = await browser.newContext({ viewport: size, screen, deviceScaleFactor: vp.dpr, isMobile: mobile, hasTouch: mobile, locale: "de-DE" });
     const page = await context.newPage();
     const hero: string[] = [];
     const warnings: string[] = [];

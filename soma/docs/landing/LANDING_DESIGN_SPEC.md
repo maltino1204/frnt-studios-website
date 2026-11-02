@@ -370,6 +370,7 @@ y 808  Lead (4 lines) · So funktioniert’s
 - **next/image:**
   - `preload` (the Next 16 replacement for `priority`);
   - `quality` from the `images.qualities` allowlist (default 75);
+  - **v2, audit-4 N4-2:** `sizes` is width-only: `(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw, (min-width: 768px) min(100vw - 64px, 576px), calc(100vw - 40px)`. Chromium's preload scanner evaluates `vh`/`svh` and height media queries against the screen height, the DOM against the viewport, so the capped `sizes` below (audit-3 M-5) fetched the photo twice on phones. The text below is the v1 rationale.
   - `sizes`: from 1024 `(min-width: 1440px) 628px, (min-width: 1280px) 45vw, (min-width: 1024px) 37vw`. Below 1024 the arch is capped to the first view (`landing.css`, "The arch’s first view below 1024"), so its width depends on the viewport height too: `heroSizes()` in `hero/places.ts` writes that cap into `sizes` with `min()`, `clamp()` and `svh` (demo ribbon included when shown), each entry followed by the uncapped width for the same range (`68vw` at 768–1023, `calc(100vw - 40px)` below), which a browser that cannot evaluate those functions in `sizes` falls back to. The fetched width then matches the arch shown (390 × 844: 640 w, 768 × 1024: 640 w, 820 × 1180: 828 w, 1023 × 768: 384 w; audit-3 M-5).
 
 #### 4.1.3 Copy slots and CTAs

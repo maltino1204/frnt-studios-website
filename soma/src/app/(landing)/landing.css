@@ -333,7 +333,8 @@ html[data-booking-open] .lp-dock {
  * changes. `--lp-hero-arch-top` is where the arch starts at load (header, the hero's head, the 28 px figure margin,
  * plus the demo ribbon when it is shown), `--lp-hero-under` what has to fit under it in the first view.
  * Without sign() support (older browsers) the declaration is dropped and the arch keeps its natural size.
- * The hero's `sizes` repeat this cap (hero/places.ts `heroSizes`): keep them in step.
+ * The hero's `sizes` do not repeat this cap (hero/places.ts `heroSizes`, audit-4 N4-2): a height in `sizes` makes the
+ * preload scanner and the <img> pick different widths on phones, so they name the uncapped width.
  * `.lp-hero-ribbon` is set by the server with the demo ribbon (DEMO_MODE, 01-hero.tsx). Not `html:has([data-demo-ribbon])`:
  * a :has() anchored on <html> made every :has-relevant change anywhere (a focus, an inserted picker) restyle the whole
  * rendered page (audit-3 M-1 / M-2).

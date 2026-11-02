@@ -446,7 +446,7 @@ test("phones and tablets: a jump to 05 shows its heading above the dock (audit-4
     { width: 768, height: 1024 },
     { width: 820, height: 1180 },
   ]) {
-    const context = await browser.newContext({ viewport: vp, isMobile: true, hasTouch: true, locale: "de-DE" });
+    const context = await browser.newContext({ viewport: vp, screen: vp, isMobile: true, hasTouch: true, locale: "de-DE" });
     const page = await context.newPage();
     await open(page, "?motion=lite");
     await page.evaluate(() => (document.querySelector('a[href="#fuer-profis"]') as HTMLAnchorElement | null)?.click());
@@ -462,4 +462,37 @@ test("phones and tablets: a jump to 05 shows its heading above the dock (audit-4
     if (r.dock === "shown") expect(r.bottom, `${vp.width}: the h2 clear of the dock`).toBeLessThanOrEqual(r.dockTop);
     await context.close();
   }
+});
+
+test("an island that throws falls back to its static content; the page keeps its seven chapters (audit-4 R4-1)", async ({ page }, ti) => {
+  test.skip(ti.project.name !== "desktop", "the rail arrows exist from 1024 px");
+  const failed: string[] = [];
+  const pageErrors: string[] = [];
+  page.on("console", (m) => {
+    const t = m.text();
+    if (m.type() === "error" && t.startsWith("[landing] the ")) failed.push(t.split(";")[0]);
+  });
+  page.on("pageerror", (e) => pageErrors.push(e.message));
+  // Fault injection: the observers of the rail arrows (no options) and the step buttons (threshold 0.6) throw.
+  await page.addInitScript(() => {
+    const Real = window.IntersectionObserver;
+    const Faulty = function (this: unknown, cb: IntersectionObserverCallback, o?: IntersectionObserverInit) {
+      if (!o || o.threshold === 0.6) throw new Error("injected island failure");
+      return new Real(cb, o);
+    } as unknown as typeof IntersectionObserver;
+    Faulty.prototype = Real.prototype;
+    window.IntersectionObserver = Faulty;
+  });
+  await open(page, "?motion=lite");
+  await expect.poll(() => failed.length, { timeout: 10_000 }).toBeGreaterThan(0);
+  await expect(page.locator("main section[data-chapter]")).toHaveCount(7);
+  await expect(page.getByText("Das hat nicht geklappt.")).toHaveCount(0);
+  expect(failed).toEqual(expect.arrayContaining(["[landing] the Profis auf SOMA arrows failed", "[landing] the 03 step buttons failed"]));
+  // the arrows are gone, the rail and its cards are still there; the steps still read and scroll natively
+  await expect(page.locator('#profis button[aria-label="Weiter"]')).toHaveCount(0);
+  expect(await page.locator("#profis-rail li").count()).toBeGreaterThan(2);
+  await expect(page.locator("#so-funktionierts ol#ablauf-schritte > li")).toHaveCount(3);
+  // every island that did not fail is untouched, and nothing reached the page's own error handler
+  await expect(page.locator('#behandlungen [data-scene="index-preview"]')).toBeVisible();
+  expect(pageErrors).toEqual([]);
 });

@@ -1,14 +1,12 @@
 import { capitalize, numberWord } from "@/components/site/discovery-copy";
 import { routes } from "@/lib/routes";
 import { CategoryCard } from "../behandlungen/category-card";
-import { IndexList } from "../behandlungen/index-list";
-import { StaticIndex } from "../behandlungen/index-row";
+import { IndexListIsland } from "../behandlungen/index-list";
 import { PREVIEW_SIZES, type CategoryItem } from "../behandlungen/types";
 import { nextChapter, titleId } from "../nav/chapters";
 import { ChapterFoot } from "../primitives/chapter-foot";
 import { Clauses } from "../primitives/clauses";
 import { Eyebrow } from "../primitives/eyebrow";
-import { IslandBoundary } from "../primitives/island-boundary";
 import { landingImgAttrs } from "../primitives/landing-image";
 import { SnapRail } from "../primitives/snap-rail";
 import { Chapter, LpContainer } from "./chapter";
@@ -40,9 +38,8 @@ export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
         </div>
 
         <div className="mt-10 md:mt-12 lg:mt-12">
-          <IslandBoundary name="02 index" fallback={<StaticIndex items={items} />}>
-            <IndexList items={items} previews={previews} />
-          </IslandBoundary>
+          {/* inside its error boundary, with the static rows as the fallback (audit-4 R4-1) */}
+          <IndexListIsland items={items} previews={previews} />
           <div className="lp-cat-rail">
             <SnapRail id="behandlungen-rail" label="Behandlungen" perView={3} itemClassName="w-[78%] md:w-[calc((100%-2*1.25rem)/2.4)] lg:w-[calc((100%-3*1.5rem)/3.4)]">
               {items.map((it) => (

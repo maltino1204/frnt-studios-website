@@ -1,9 +1,8 @@
 import { Activity } from "react";
 import type { EntryCategory } from "@/components/site/discovery-copy";
-import { HeroArch } from "../hero/hero-arch";
+import { HeroArchIsland } from "../hero/hero-arch";
 import { HeroBookingSlot } from "../hero/hero-booking-slot";
 import { PlaceSwitch } from "../hero/place-switch";
-import { StaticHeroFigure } from "../hero/static-hero-figure";
 import { buttonClasses } from "@/components/ui/button";
 import { routes } from "@/lib/routes";
 import { IslandBoundary } from "../primitives/island-boundary";
@@ -49,7 +48,7 @@ export function HeroChapter({
   lead: string;
   trustItems: string[];
 }) {
-  const sizes = heroSizes(DEMO_MODE);
+  const sizes = heroSizes();
   const images = Object.fromEntries(
     PLACES.map((p) => [p.id, landingImgAttrs(p.src, { sizes, focal: p.focal, lcp: p.id === "zuhause" })]),
   ) as Record<PlaceId, LandingImgAttrs>;
@@ -68,9 +67,8 @@ export function HeroChapter({
               <span className="mt-5 block max-w-[30ch] type-heading-l text-ink lg:mt-7">Beauty &amp; Wellness bei dir zu Hause, im Hotel oder im Büro.</span>
             </h1>
           </div>
-          <IslandBoundary name="hero arch" fallback={<StaticHeroFigure image={images.zuhause} className="lp-hero-figure" />}>
-            <HeroArch images={images} className="lp-hero-figure" />
-          </IslandBoundary>
+          {/* inside its error boundary, with the static „Zu Hause“ figure as the fallback (audit-4 R4-1) */}
+          <HeroArchIsland images={images} className="lp-hero-figure" />
           <div className="lp-hero-rest">
             <p className="lp-hero-lead max-w-[40ch] type-lead text-ink-muted">{lead}</p>
             <a href="#so-funktionierts" className={`lp-hero-how ${lpLinkClass} -my-1 self-start`}>

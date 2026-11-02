@@ -4,8 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { SwapLayer } from "../hero/swap-layer";
 import { previewLayerAnimates, useLayerSwap } from "../hero/use-layer-swap";
 import { LandingArch } from "../primitives/landing-arch";
+import { IslandBoundary } from "../primitives/island-boundary";
 import { LandingImg, type LandingImgAttrs } from "../primitives/landing-img";
-import { IndexRow } from "./index-row";
+import { IndexRow, StaticIndex } from "./index-row";
 import type { CategoryItem } from "./types";
 /** Intent delay, so rows crossed by the pointer do not flicker (spec § 4.3). */
 const INTENT_MS = 80;
@@ -75,5 +76,17 @@ export function IndexList({ items, previews }: { items: CategoryItem[]; previews
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * The index island inside its error boundary (audit-4 R4-1): if it fails, the static rows (links, no preview) take
+ * its place. Built here, on the client, from the same `items`, so the page's payload carries them once.
+ */
+export function IndexListIsland(props: { items: CategoryItem[]; previews: Record<string, LandingImgAttrs> }) {
+  return (
+    <IslandBoundary name="02 index" fallback={<StaticIndex items={props.items} />}>
+      <IndexList {...props} />
+    </IslandBoundary>
   );
 }
