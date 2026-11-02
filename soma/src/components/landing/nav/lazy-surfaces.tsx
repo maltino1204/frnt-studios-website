@@ -1,14 +1,10 @@
 "use client";
 
-import { lazy, Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { setBookingSurfaceLoader } from "../booking/booking-access";
-import { loadBookingBar, loadBookingSheet, loadOverlay, mountSurfaces, preloadSurfaces, surfacesReady, useSurfacesMounted } from "./surfaces";
+import { mountSurfaces, preloadSurfaces, surfacesReady, useSurfaceModules } from "./surfaces";
 
-const ChapterOverlay = lazy(() => loadOverlay().then((m) => ({ default: m.ChapterOverlay })));
-const BookingBar = lazy(() => loadBookingBar().then((m) => ({ default: m.BookingBar })));
-const BookingSheet = lazy(() => loadBookingSheet().then((m) => ({ default: m.BookingSheet })));
-
-/** Commits with the dialogs (same Suspense boundary), after their effects have registered them. */
+/** Commits with the dialogs, after their effects have registered them (it is their last sibling). */
 function Ready() {
   useEffect(() => surfacesReady(), []);
   return null;
@@ -21,10 +17,11 @@ const TRIGGER = '[aria-haspopup="dialog"], a[href="#termin"], [data-booking-open
 
 /**
  * Mounts the chapter overlay, the booking bar and the booking sheet off the critical path (PT-1): after the first
- * scroll or tap (or 10 s after load), in idle periods, or at once on intent on a trigger, whichever comes first.
+ * scroll or tap (or 10 s after load), in idle periods, or at once on intent on a trigger, whichever comes first. They
+ * render once their modules have loaded (nav/surfaces.ts), never as a suspended lazy component.
  */
 export function LazySurfaces() {
-  const on = useSurfacesMounted();
+  const surfaces = useSurfaceModules();
 
   useEffect(() => {
     // A bare `openBooking()` (or a raw `soma:booking:open` event) before the dialogs exist mounts them and is queued
@@ -44,7 +41,7 @@ export function LazySurfaces() {
         else handles.push(window.setTimeout(cb, 300));
       };
       idle(() => {
-        preloadSurfaces();
+        void preloadSurfaces().catch(() => undefined);
         idle(() => void mountSurfaces());
       });
     };
@@ -69,13 +66,14 @@ export function LazySurfaces() {
     };
   }, []);
 
-  if (!on) return null;
+  if (!surfaces) return null;
+  const { ChapterOverlay, BookingBar, BookingSheet } = surfaces;
   return (
-    <Suspense fallback={null}>
+    <>
       <ChapterOverlay />
       <BookingBar />
       <BookingSheet />
       <Ready />
-    </Suspense>
+    </>
   );
 }
