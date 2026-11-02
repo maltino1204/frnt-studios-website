@@ -33,7 +33,7 @@ export function DeineBuchungChapter() {
     </>
   );
   return (
-    <Chapter n={7} cv={{ desktop: 1150, mobile: 1500 }}>
+    <Chapter n={7} cv={{ desktop: 970, tablet: 1125, mobile: 1220 }}>
       <LpContainer>
         {items.length ? (
           <ScreenTabs head={head} items={items} caption={caption} />

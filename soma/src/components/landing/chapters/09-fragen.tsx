@@ -17,7 +17,7 @@ import { Chapter, LpContainer } from "./chapter";
  */
 export function FragenChapter({ items, trust }: { items: FaqItem[]; trust: string[] }) {
   return (
-    <Chapter n={9} cv={{ desktop: 1300, mobile: 2200 }}>
+    <Chapter n={9} cv={{ desktop: 660, tablet: 1085, mobile: 1080 }}>
       <LpContainer className="lp-faq">
         <div className="lp-faq-aside">
           <Eyebrow nn="09">Fragen &amp; Antworten</Eyebrow>

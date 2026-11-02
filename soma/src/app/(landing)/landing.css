@@ -60,9 +60,17 @@
 .lp-tone-linen {
   background-color: var(--soma-linen);
 }
+/* The estimates are the chapters' measured content heights (02–10 at 320–1920 px, fonts loaded; audit-2 RT-1): a
+   chapter that has never rendered is laid out at its estimate, so a long jump only has to correct the difference once
+   it ends (lib/scroll-jump.ts). Once rendered, `auto` keeps the real height. */
 .lp-cv {
   content-visibility: auto;
   contain-intrinsic-size: auto var(--cv-m, 1200px);
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .lp-cv {
+    contain-intrinsic-size: auto var(--cv-t, var(--cv-m, 1200px));
+  }
 }
 @media (min-width: 1024px) {
   .lp-cv {
@@ -79,19 +87,40 @@
 @media (max-width: 1023px) {
   .lp-chapter:is([data-chapter="02"], [data-chapter="03"], [data-chapter="04"], [data-chapter="05"], [data-chapter="10"]) {
     content-visibility: auto;
-    contain-intrinsic-size: auto 1450px;
+    contain-intrinsic-size: auto 1150px;
   }
   .lp-chapter[data-chapter="03"] {
-    contain-intrinsic-size: auto 1350px;
+    contain-intrinsic-size: auto 880px;
   }
+  .lp-chapter[data-chapter="04"] {
+    contain-intrinsic-size: auto 910px;
+  }
+  /* the photo essay grows with the width (3,560 px at 320, 4,170 at 430, 5,300 at 600) */
   .lp-chapter[data-chapter="05"] {
-    contain-intrinsic-size: auto 4200px;
+    contain-intrinsic-size: auto calc(1530px + 620vw);
   }
   .lp-chapter[data-chapter="10"] {
-    contain-intrinsic-size: auto 760px;
+    contain-intrinsic-size: auto 745px;
   }
   :root[data-capture="full"] .lp-chapter {
     content-visibility: visible;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .lp-chapter[data-chapter="02"] {
+    contain-intrinsic-size: auto calc(480px + 114.5vw);
+  }
+  .lp-chapter[data-chapter="03"] {
+    contain-intrinsic-size: auto calc(457px + 50vw);
+  }
+  .lp-chapter[data-chapter="04"] {
+    contain-intrinsic-size: auto calc(741px + 52.5vw);
+  }
+  .lp-chapter[data-chapter="05"] {
+    contain-intrinsic-size: auto calc(1117px + 575vw);
+  }
+  .lp-chapter[data-chapter="10"] {
+    contain-intrinsic-size: auto 900px;
   }
 }
 

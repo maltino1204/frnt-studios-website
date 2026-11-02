@@ -36,7 +36,7 @@ export function ProfisChapter({ providers }: { providers: DiscoveryProviderDTO[]
   );
 
   return (
-    <Chapter n={6} cv={{ desktop: 1000, mobile: 1200 }}>
+    <Chapter n={6} cv={{ desktop: 800, tablet: "calc(384px + 45vw)", mobile: 770 }}>
       <LpContainer>
         {enough ? (
           <SnapRail
