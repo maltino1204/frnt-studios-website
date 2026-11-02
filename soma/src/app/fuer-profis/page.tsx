@@ -334,7 +334,7 @@ export default async function ForProsPage() {
                 <Photo
                   src={images.editorial.providerCta}
                   alt="Ein Profi mit Arbeitstasche auf der Altbautreppe, unterwegs zum nächsten Termin"
-                  tone="nacht"
+                  tone="massage"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   ratio="16/10"
                   className="rounded-card"
@@ -344,7 +344,7 @@ export default async function ForProsPage() {
                   <span className="type-label-s num">{`Dein Einladungslink · ${formatPercent(c.ownClientRate)}`}</span>
                 </div>
                 <figcaption className="flex flex-col gap-1">
-                  <span className="type-place text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 17:40</span>
+                  <span className="type-place text-ink-muted">Treppenhaus, 2. OG · Berlin-Neukölln · 10:20</span>
                   <AiLabel src={images.editorial.providerCta} kind="image" />
                 </figcaption>
               </figure>
