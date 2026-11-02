@@ -58,9 +58,11 @@ export function mountSurfaces(): Promise<void> {
         for (const l of listeners) l();
       },
       () => {
-        // A chunk failed: nothing mounts, a booking request falls back to the hero entry (booking-access.ts).
+        // A chunk failed: nothing mounts. Waiting triggers go on (a booking request is then queued by booking-access,
+        // which retries the mount through its loader and falls back to the hero entry after SURFACE_WAIT_MS).
         requested = false;
         loading = null;
+        markReady();
       },
     );
   }
