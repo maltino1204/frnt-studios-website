@@ -352,6 +352,117 @@ export const REGULAR_VAT_PROVIDERS = new Set([
   "selin", "abena", "jonas", "friederike", "thomas", "gabriele", "marcia", "senait", "luca", "bernd", "katrin", "natalja",
 ]);
 
+/**
+ * „Neu auf SOMA“ (/entdecken): Profis approved this many days before the seed (< 60). Their sign-up, review and
+ * approval follow from it, and their booking history starts only after the approval. Hanna B. serves testkunde's
+ * home PLZ 10435, so „Neu in deiner Nähe“ has a real entry.
+ */
+export const RECENTLY_APPROVED: Readonly<Record<string, number>> = { zuzanna: 12, hanna: 21, jiwoo: 34, chidi: 47 };
+
+// ---------------------------------------------------------------------------- „Von SOMA ausgewählt“ (/entdecken)
+export interface DemoCollectionItem {
+  /** service slug; with `provider` the item is pinned to that Profi (who must offer it) */
+  service?: string;
+  provider?: string;
+  /** category slug with /suche filters */
+  category?: string;
+  filters?: { zeit?: "morgens" | "mittags" | "abends"; leistung?: string };
+  title?: string;
+  note?: string;
+}
+
+export interface DemoCollection {
+  slug: string;
+  title: string;
+  subline: string;
+  cover: string;
+  items: DemoCollectionItem[];
+}
+
+/**
+ * Six editorial collections, none sponsored. Covers are in public/images/explore/ (until they exist, the card shows
+ * the category wash). Wellness wording only, no claims about availability: the slots come from the search.
+ */
+export const EXPLORE_COLLECTIONS: DemoCollection[] = [
+  {
+    slug: "vor-dem-event",
+    title: "Make-up & Haare vor dem Event",
+    subline: "Make-up und Styling, bevor der Abend beginnt – zu Hause oder im Hotel.",
+    cover: "/images/explore/vor-dem-event.jpg",
+    items: [
+      { service: "event-make-up", note: "Für Abende, an denen alles sitzen soll." },
+      { service: "foehnen-styling", note: "Glatt, mit Wellen oder mit Volumen." },
+      { service: "event-make-up", provider: "abena" },
+      { service: "hochsteckfrisur", provider: "kiran" },
+      { category: "make-up", filters: { zeit: "mittags" }, title: "Make-up am Nachmittag", note: "Freie Termine zwischen 12 und 17 Uhr." },
+    ],
+  },
+  {
+    slug: "nach-dem-sport",
+    title: "Sportmassage",
+    subline: "Nach dem Training zu Hause: Sportmassage oder Rücken und Nacken.",
+    cover: "/images/explore/nach-dem-sport.jpg",
+    items: [
+      { service: "sportmassage", note: "Kräftige Griffe für ein gutes Körpergefühl nach dem Sport." },
+      { service: "sportmassage", provider: "thomas" },
+      { service: "sportmassage", provider: "luca" },
+      { service: "ruecken-nacken-massage", note: "Kurz, wenn der Abend schon verplant ist." },
+      { category: "massage", filters: { zeit: "abends" }, title: "Massage am Abend", note: "Freie Termine zwischen 17 und 22 Uhr." },
+    ],
+  },
+  {
+    slug: "im-hotel-ankommen",
+    title: "Massage im Hotel",
+    subline: "Nach der Anreise eine Massage im Zimmer. Hotel und Zimmernummer genügen.",
+    cover: "/images/explore/im-hotel-ankommen.jpg",
+    items: [
+      { service: "entspannungsmassage", note: "Liege, Öl und Tücher kommen mit." },
+      { service: "entspannungsmassage", provider: "bernd" },
+      { service: "aromaoelmassage", provider: "marcia" },
+      { service: "hot-stone-massage" },
+      { category: "massage", filters: { zeit: "abends" }, title: "Am Abend der Anreise", note: "Freie Termine zwischen 17 und 22 Uhr." },
+    ],
+  },
+  {
+    slug: "mittagspause",
+    title: "Express-Maniküre im Büro",
+    subline: "Gepflegte Hände in der Mittagspause. Ein Tisch mit gutem Licht genügt.",
+    cover: "/images/explore/mittagspause.jpg",
+    items: [
+      { service: "klassische-manikuere", note: "Nägel in Form, Lack in deiner Farbe." },
+      { service: "klassische-manikuere", provider: "linh" },
+      { service: "shellac-manikuere", provider: "natalja" },
+      { service: "herrenmanikuere", provider: "chidi" },
+      { category: "manikuere", filters: { zeit: "mittags" }, title: "Maniküre ab 12 Uhr", note: "Freie Termine zwischen 12 und 17 Uhr." },
+    ],
+  },
+  {
+    slug: "sonntag-fuer-dich",
+    title: "Kosmetik zu Hause",
+    subline: "Gesichtsbehandlungen an einem ruhigen Platz bei dir.",
+    cover: "/images/explore/sonntag-fuer-dich.jpg",
+    items: [
+      { service: "klassische-gesichtsbehandlung", note: "Reinigung, Peeling, Maske und Pflege." },
+      { service: "feuchtigkeitspflege", provider: "friederike" },
+      { service: "klassische-gesichtsbehandlung", provider: "katrin" },
+      { service: "express-gesichtsbehandlung" },
+      { service: "waxing-beine", provider: "merle" },
+    ],
+  },
+  {
+    slug: "neu-auf-soma",
+    title: "Neue Profis",
+    subline: "Seit Kurzem auf SOMA, geprüft und buchbar.",
+    cover: "/images/explore/neu-auf-soma.jpg",
+    items: [
+      { service: "entspannungsmassage", provider: "hanna" },
+      { service: "wimpernverlaengerung-neuset", provider: "zuzanna" },
+      { service: "wimpernlifting", provider: "jiwoo" },
+      { service: "klassische-gesichtsbehandlung", provider: "chidi" },
+    ],
+  },
+];
+
 export interface DemoCustomer {
   key: string;
   email: string;

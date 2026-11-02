@@ -27,7 +27,7 @@ import { DEMO_PLACEHOLDER_PDF } from "../../src/server/storage/demo-placeholder"
 import { addDays, isoWeekdayOf, localDateOf, parseTimeOfDay, toWallClock, wallTimeToInstant } from "../../src/server/domain/tz";
 import { DEFAULT_CANCELLATION_POLICY, PLATFORM_SETTINGS } from "./lib/base-seed-data";
 import {
-  CUSTOMERS, PROVIDERS, REGULAR_VAT_PROVIDERS, REVIEWS, reviewFits, SEARCH_POSTAL_CODES, SELIN_REVIEWS,
+  CUSTOMERS, EXPLORE_COLLECTIONS, PROVIDERS, RECENTLY_APPROVED, REGULAR_VAT_PROVIDERS, REVIEWS, reviewFits, SEARCH_POSTAL_CODES, SELIN_REVIEWS,
   type DemoCustomer, type DemoProvider, type ReviewTemplate,
 } from "./lib/demo-data";
 import { expireDocumentsInTx } from "../../src/server/services/verification";
@@ -135,6 +135,8 @@ async function cleanup(tx: postgres.TransactionSql): Promise<void> {
   // Seed rows carry no marker any more (audit-3 F8): they are recognised by a demo actor or a demo entity.
   // "demo" = 'true' still removes rows of older seeds.
   await tx`delete from public.audit_log where data ->> 'demo' = 'true' or actor_id in ${demo} or entity_id in (select id::text from auth.users where email like '%soma.test')`;
+  // /entdecken: the seeded collections and any a demo login created (e.g. the E2E admin journey)
+  await tx`delete from public.explore_collections where slug = any(${EXPLORE_COLLECTIONS.map((c) => c.slug)}) or created_by in ${demo}`;
   await tx`delete from auth.users where email like '%soma.test'`;
   await tx`delete from public.search_events`;
   await tx`delete from public.waitlist_signups where email::text like '%@beispiel.de'`;
@@ -517,7 +519,10 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
       for (const p of PROVIDERS) {
         pi += 1;
         const email = p.email ?? `${p.key}@profis.soma.test`;
-        const createdAt = ago(p.status ? int(3, 10) : int(60, 400));
+        const sampledAt = ago(p.status ? int(3, 10) : int(60, 400));
+        // „Neu auf SOMA“: a fixed recent sign-up (approval 3 days later), without touching the random sequence.
+        const recentDays = p.status ? undefined : RECENTLY_APPROVED[p.key];
+        const createdAt = recentDays != null ? wallTimeToInstant(addDays(localDateOf(now), -(recentDays + 3)), 10 * 60 + 15).instant : sampledAt;
         const termsAt = daytime(later(createdAt, DAY), "forward");
         const submittedAt = p.status
           ? stampBetween(maxDate(later(termsAt, HOUR), later(now, -3 * DAY)), later(now, -20 * HOUR))
@@ -774,8 +779,10 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
       const approved = PROVIDERS.filter((p) => !p.status);
       for (const p of approved) {
         // testkunde-b2b gets six months of history (25+ reviews), the others about four months.
-        const count = (p.key === "selin" ? 28 : 3) + int(1, 3);
-        const maxDaysAgo = p.key === "selin" ? 180 : 120;
+        // Recently approved Profis (/entdecken „Neu auf SOMA“) have a short history that starts after their approval.
+        const recent = RECENTLY_APPROVED[p.key];
+        const count = (p.key === "selin" ? 28 : recent != null ? 1 : 3) + int(1, 3);
+        const maxDaysAgo = p.key === "selin" ? 180 : recent != null ? Math.max(5, recent - 2) : 120;
         const base = ctx.plz.get(p.basePostalCode);
         const cityCustomers = CUSTOMERS.filter((c) => {
           const pt = ctx.plz.get(c.postalCode);
@@ -1058,6 +1065,36 @@ export async function runDemoSeed(): Promise<{ demoAppointmentAt: Date | null }>
       for (const n of notes) {
         await tx`insert into public.notifications (user_id, type, title, body, href, read_at, created_at)
                  values (${julia.id}, ${n.type}, ${n.title}, ${n.body}, ${n.href}, ${n.read ? readAfter(n.at) : null}, ${n.at})`;
+      }
+
+      // --- /entdecken: „Von SOMA ausgewählt“ (six editorial collections, none sponsored) ------------
+      for (const [ci, col] of EXPLORE_COLLECTIONS.entries()) {
+        const at = ago(30 - ci * 3);
+        const [row] = await tx<{ id: string }[]>`
+          insert into public.explore_collections (slug, title, subline, cover_image, is_published, sort_order, is_sponsored, created_by, updated_by, created_at, updated_at)
+          values (${col.slug}, ${col.title}, ${col.subline}, ${col.cover}, true, ${(ci + 1) * 10}, false, ${ctx.adminId}, ${ctx.adminId}, ${at}, ${at})
+          returning id`;
+        for (const [position, it] of col.items.entries()) {
+          const svc = it.service ? ctx.services.get(it.service) : undefined;
+          if (it.service && !svc) throw new Error(`Entdecken „${col.slug}“: unbekannte Leistung ${it.service}`);
+          const prov = it.provider ? ctx.providers.get(it.provider) : undefined;
+          if (it.provider && (!prov || prov.p.status || !prov.offerings.some((o) => o.serviceSlug === it.service))) {
+            throw new Error(`Entdecken „${col.slug}“: ${it.provider} bietet ${it.service} nicht an`);
+          }
+          const categoryId = it.category ? ctx.categories.get(it.category) : undefined;
+          if (it.category && !categoryId) throw new Error(`Entdecken „${col.slug}“: unbekannte Kategorie ${it.category}`);
+          await tx`
+            insert into public.explore_collection_items (collection_id, position, kind, service_id, provider_id, category_id, filters, title, note, created_at)
+            values (${row.id}, ${position}, ${svc ? "service" : "category"}, ${svc?.id ?? null}, ${prov?.id ?? null}, ${categoryId ?? null},
+                    ${tx.json((it.filters ?? {}) as postgres.JSONValue)}, ${it.title ?? null}, ${it.note ?? null}, ${at})`;
+        }
+        await tx`insert into public.audit_log (actor_id, action, entity, entity_id, data, created_at)
+                 values (${ctx.adminId}, 'explore.create', 'explore_collection', ${row.id}, ${tx.json({ slug: col.slug, title: col.title, published: true, items: col.items.length })}, ${at})`;
+      }
+      // „Neue Profis“ must stay true: every pinned Profi was approved within the last 60 days.
+      for (const it of EXPLORE_COLLECTIONS.find((c) => c.slug === "neu-auf-soma")?.items ?? []) {
+        const at = it.provider ? ctx.providers.get(it.provider)?.approvedAt : null;
+        if (!at || now.getTime() - at.getTime() >= 60 * DAY) throw new Error(`Entdecken „neu-auf-soma“: ${it.provider} ist nicht neu`);
       }
 
       // --- demand analytics ---------------------------------------------------
