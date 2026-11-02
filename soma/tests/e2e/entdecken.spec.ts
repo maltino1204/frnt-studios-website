@@ -21,6 +21,19 @@ const hydrationErrors = (page: Page) => {
 
 const forYou = (page: Page) => page.locator("section#fuer-dich");
 
+/**
+ * Flips a kit <Switch> the way a person does: a click on its visible label row (the input itself is a 1 px
+ * sr-only element). No `force`: Playwright waits until the row receives pointer events, i.e. until a route view
+ * transition (≈ 260 ms after a client navigation, during which Chrome does not hit-test the transitioning page) is
+ * over. Then the state must have changed.
+ */
+async function setSwitch(page: Page, name: RegExp, on: boolean): Promise<void> {
+  const sw = page.getByRole("switch", { name });
+  await expect(sw).toBeChecked({ checked: !on });
+  await page.locator("label", { has: sw }).click();
+  await expect(sw).toBeChecked({ checked: on });
+}
+
 test.describe("public /entdecken", () => {
   test("shows the editorial collections with their label, the city switch and new Profis, and no slot claims", async ({ page }, testInfo) => {
     const errors = hydrationErrors(page);
@@ -146,8 +159,7 @@ test.describe("signed in", () => {
     await page.goto("/konto/profil");
     const toggle = page.getByRole("switch", { name: /Persönliche Vorschläge/ });
     try {
-      await expect(toggle).toBeChecked();
-      await toggle.uncheck({ force: true });
+      await setSwitch(page, /Persönliche Vorschläge/, false);
       await expect(page.getByText("Persönliche Vorschläge sind aus.")).toBeVisible();
       await expect(toggle).not.toBeChecked();
       await page.goto("/entdecken");
@@ -160,8 +172,9 @@ test.describe("signed in", () => {
     } finally {
       await page.goto("/konto/profil");
       const again = page.getByRole("switch", { name: /Persönliche Vorschläge/ });
+      await again.waitFor({ state: "attached" });
       if (!(await again.isChecked())) {
-        await again.check({ force: true });
+        await setSwitch(page, /Persönliche Vorschläge/, true);
         await expect(page.getByText("Persönliche Vorschläge sind an.")).toBeVisible();
       }
     }
@@ -189,7 +202,7 @@ test.describe("admin", () => {
       // a draft is not public yet
       expect((await page.request.get(`/entdecken/${slug}`)).status()).toBe(404);
 
-      await page.getByRole("switch", { name: /^Aktiv/ }).check({ force: true });
+      await setSwitch(page, /^Aktiv/, true);
       await page.getByRole("button", { name: "Speichern" }).click();
       await expect(page.getByText("Sammlung gespeichert.")).toBeVisible();
       await expect(page.getByText("Aktiv", { exact: true }).first()).toBeVisible();
@@ -202,7 +215,7 @@ test.describe("admin", () => {
 
       // sponsored → „Anzeige“ with the sponsor, on the card and on the page
       await page.goto(editUrl);
-      await page.getByRole("switch", { name: /Bezahlte Platzierung/ }).check({ force: true });
+      await setSwitch(page, /Bezahlte Platzierung/, true);
       await page.getByRole("textbox", { name: "Auftraggeber" }).fill("Beispiel GmbH");
       await page.getByRole("button", { name: "Speichern" }).click();
       await expect(page.getByText("Sammlung gespeichert.")).toBeVisible();
