@@ -18,14 +18,31 @@ async function firstUpcomingBooking(page: Page): Promise<string> {
   return idFromPath(href!);
 }
 
+const CANCEL_ACTION = /Termin stornieren|Anfrage zurückziehen/;
+
+/**
+ * The first booking on /konto/termine that still offers the cancel action. The first upcoming one can already have
+ * started (the demo appointment sits at 09:00 when demo:refresh ran outside working hours), so the test must not
+ * depend on the time of day.
+ */
+async function firstCancellableBooking(page: Page): Promise<string> {
+  await page.goto("/konto/termine");
+  const hrefs = [...new Set(await page.locator('a[href^="/buchung/"]').evaluateAll((as) => as.map((a) => a.getAttribute("href") ?? "")))];
+  for (const href of hrefs) {
+    await page.goto(href);
+    if (await page.getByRole("button", { name: CANCEL_ACTION }).count()) return idFromPath(href);
+  }
+  throw new Error("no booking of the demo customer offers the cancel action; run `npm run demo:refresh`");
+}
+
 // ---------------------------------------------------------------------------
 // A5-1: the customer cancel dialog is unmounted instead of closed, so focus falls back to <body>.
 // ---------------------------------------------------------------------------
 test("the cancel dialog opens on the safe action and returns focus to its trigger (A5-1)", async ({ page }) => {
   await login(page, USERS.customer);
-  const id = await firstUpcomingBooking(page);
+  const id = await firstCancellableBooking(page);
   await page.goto(`/buchung/${id}`);
-  const trigger = page.getByRole("button", { name: /Termin stornieren|Anfrage zurückziehen/ }).first();
+  const trigger = page.getByRole("button", { name: CANCEL_ACTION }).first();
   await trigger.focus();
   await page.keyboard.press("Enter");
   const dialog = page.getByRole("dialog");
