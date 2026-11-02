@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import { ButtonLink } from "@/components/ui/button";
+import { buttonClasses, ButtonLink } from "@/components/ui/button";
+import { IntentLink } from "@/components/ui/intent-link";
 import { Icon } from "@/components/ui/icon";
 import { routes } from "@/lib/routes";
 import { titleId } from "../nav/chapters";
@@ -84,9 +85,10 @@ export function FuerProfisChapter({ commission, payoutHoldHours }: { commission:
               SOMA macht dich für Kundschaft in deinem Einsatzgebiet sichtbar und kümmert sich um Buchung, Zahlung und Stornofristen.
             </p>
             <div className="lp-band-ctas mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ButtonLink href={routes.pro.onboarding()} size="l" className="max-sm:w-full" data-cta="pro-werden-08">
+              {/* Prefetched on intent only: the onboarding route's prefetch preloads CSS `/` never uses (RT-9). */}
+              <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-08">
                 Profi werden
-              </ButtonLink>
+              </IntentLink>
               <ButtonLink href={`${routes.forPros()}#provision`} prefetch={false} variant="secondary" size="l" className="max-sm:w-full" iconRight={<Icon icon={ArrowRight} size={18} />}>
                 Konditionen ansehen
               </ButtonLink>

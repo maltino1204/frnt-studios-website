@@ -1,4 +1,5 @@
-import { buttonClasses, ButtonLink } from "@/components/ui/button";
+import { buttonClasses } from "@/components/ui/button";
+import { IntentLink } from "@/components/ui/intent-link";
 import { BRAND_SIGNATURE } from "@/lib/brand";
 import { routes } from "@/lib/routes";
 import { SearchLink } from "../booking/booking-link";
@@ -33,9 +34,10 @@ export function SomaChapter() {
             <SearchLink className={buttonClasses({ variant: "accent", size: "l", className: "max-sm:w-full" })} data-cta="final-search">
               Freie Termine finden
             </SearchLink>
-            <ButtonLink href={routes.pro.onboarding()} variant="secondary" size="l" className="max-sm:w-full" data-cta="pro-werden-10">
+            {/* Prefetched on intent only (RT-9), like the search link. */}
+            <IntentLink href={routes.pro.onboarding()} className={buttonClasses({ variant: "secondary", size: "l", className: "max-sm:w-full" })} data-cta="pro-werden-10">
               Profi werden
-            </ButtonLink>
+            </IntentLink>
           </div>
         </div>
       </div>

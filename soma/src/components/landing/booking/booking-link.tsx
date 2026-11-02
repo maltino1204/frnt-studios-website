@@ -10,10 +10,11 @@
  *
  * <SearchLink className={…}>Freie Termine finden</SearchLink>
  *   Chapter 10's customer CTA: `/suche` in the HTML, upgraded after mount to `/suche?plz={PLZ}` when the draft or the
- *   remembered PLZ holds one.
+ *   remembered PLZ holds one. It prefetches `/suche` on intent only (audit-2 RT-9).
  */
-import Link from "next/link";
+import type Link from "next/link";
 import { useEffect, useState, type ComponentProps, type MouseEvent } from "react";
+import { IntentLink } from "@/components/ui/intent-link";
 import { routes } from "@/lib/routes";
 import { HERO_ENTRY_ID, openBooking } from "./booking-access";
 import { knownPlz, useBookingDraft } from "./booking-draft";
@@ -34,7 +35,7 @@ export function BookingLink({ source, categorySlug, onClick, children, ...rest }
   );
 }
 
-export function SearchLink({ children, ...rest }: Omit<ComponentProps<typeof Link>, "href"> & { "data-cta"?: string }) {
+export function SearchLink({ children, ...rest }: Omit<ComponentProps<typeof Link>, "href" | "prefetch"> & { "data-cta"?: string }) {
   const draft = useBookingDraft();
   const [href, setHref] = useState<string>(routes.search());
   useEffect(() => {
@@ -42,8 +43,8 @@ export function SearchLink({ children, ...rest }: Omit<ComponentProps<typeof Lin
     setHref(routes.search(plz ? { plz } : {}));
   }, [draft.version]);
   return (
-    <Link href={href} data-cta={rest["data-cta"] ?? "final-search"} {...rest}>
+    <IntentLink href={href} data-cta={rest["data-cta"] ?? "final-search"} {...rest}>
       {children}
-    </Link>
+    </IntentLink>
   );
 }
