@@ -67,15 +67,30 @@ export function LandingHeader() {
               </li>
             ))}
           </ul>
+          {/* Below 1280 the account link sits next to „Menü“ (client feedback 2026-11-02: login was only inside the
+              overlay). Reserved width, faded in once the session is known (no shift, no wrong label); without JS it shows
+              „Anmelden“ at once. */}
+          <Link
+            href={account?.href ?? routes.login()}
+            prefetch={false}
+            className={cn(
+              "ml-auto inline-flex min-h-touch min-w-[6.25rem] items-center justify-center rounded-full px-3 type-label text-ink pressable focus-ring transition-opacity duration-fast hover:bg-surface-sunken xl:hidden",
+              account ? "opacity-100" : "pointer-events-none opacity-0 noscript:pointer-events-auto noscript:opacity-100",
+            )}
+            aria-hidden={account ? undefined : true}
+            tabIndex={account ? undefined : -1}
+          >
+            {account?.label ?? "Anmelden"}
+          </Link>
           <button
             type="button"
             aria-haspopup="dialog"
             onClick={openChapterOverlay}
-            className="lp-js ml-auto inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken xl:hidden"
+            className="lp-js inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink pressable focus-ring hover:bg-surface-sunken xl:hidden"
           >
             Menü
           </button>
-          <NoScriptChapterLink className="ml-auto inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink focus-ring hover:bg-surface-sunken xl:hidden">
+          <NoScriptChapterLink className="inline-flex min-h-touch items-center rounded-full px-3.5 type-label text-ink focus-ring hover:bg-surface-sunken xl:hidden">
             Menü
           </NoScriptChapterLink>
         </nav>

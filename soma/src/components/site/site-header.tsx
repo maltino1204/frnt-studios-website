@@ -92,11 +92,23 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <MobileMenu
-          className="lg:hidden"
-          links={[...links, { href: routes.help(), label: "Hilfe", active: isIn(routes.help()) }]}
-          account={account}
-        />
+        <div className="flex items-center gap-1 lg:hidden">
+          {/* The account link stays in the bar on phones too (client feedback 2026-11-02: login was hidden in the menu).
+              Reserved width, faded in once the session is known: no layout shift, no flash of the wrong label. */}
+          <Link
+            href={account?.href ?? routes.login()}
+            prefetch={false}
+            className={cn(
+              "inline-flex min-h-touch min-w-[6.25rem] items-center justify-center rounded-full px-3 type-label text-ink pressable focus-ring transition-opacity duration-fast hover:bg-surface-sunken",
+              account ? "opacity-100" : "pointer-events-none opacity-0",
+            )}
+            aria-hidden={account ? undefined : true}
+            tabIndex={account ? undefined : -1}
+          >
+            {account?.label ?? "Anmelden"}
+          </Link>
+          <MobileMenu links={[...links, { href: routes.help(), label: "Hilfe", active: isIn(routes.help()) }]} account={account} />
+        </div>
       </Container>
     </header>
   );
