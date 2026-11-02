@@ -2,7 +2,7 @@
  "note": "Every Higgsfield job of the v3 'Tageslicht' set (Photo Art Director, 2 Nov 2026). Start balance 1235.49 credits, budget 500. `current` = the file registered per path.",
  "startBalance": 1235.49,
  "budget": 500,
- "creditsLogged": 418.5,
+ "creditsLogged": 420.5,
  "model": "nano_banana_pro 2k (2 credits per image)",
  "skippedByLead": [
   "L03",
@@ -2413,7 +2413,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133631_34dc4bf8-ce75-4d30-95ea-555ac558b30a.png",
-   "note": "attempt 4, final template for series consistency"
+   "note": "attempt 4, final template for series consistency",
+   "status": "pass",
+   "reason": "final template: frontal, both arms and hands correct"
   },
   {
    "id": "2b656b33-c59f-4006-afad-9d2a56e213f3",
@@ -2424,7 +2426,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133630_2b656b33-c59f-4006-afad-9d2a56e213f3.png",
-   "note": "attempt 4, final template for series consistency"
+   "note": "attempt 4, final template for series consistency",
+   "status": "pass",
+   "reason": "final template: androgynous, both arms and hands correct"
   },
   {
    "id": "7c8718c6-c887-485d-8fe6-9d321a12e8da",
@@ -2435,7 +2439,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133629_7c8718c6-c887-485d-8fe6-9d321a12e8da.png",
-   "note": "attempt 4, hands at navel height"
+   "note": "attempt 4, hands at navel height",
+   "status": "pass",
+   "reason": "hands at navel height, both arms and hands correct"
   },
   {
    "id": "af6d3e14-4042-49f5-bcdc-5f055185b819",
@@ -2446,7 +2452,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133629_af6d3e14-4042-49f5-bcdc-5f055185b819.png",
-   "note": "attempt 4, hands at navel height"
+   "note": "attempt 4, hands at navel height",
+   "status": "pass",
+   "reason": "hands at navel height, both arms and hands correct"
   },
   {
    "id": "5b6d118e-0798-4468-98cc-934ad548e23f",
@@ -2457,7 +2465,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133629_5b6d118e-0798-4468-98cc-934ad548e23f.png",
-   "note": "attempt 4, hands at navel height"
+   "note": "attempt 4, hands at navel height",
+   "status": "pass",
+   "reason": "hands at navel height, both arms and hands correct"
   },
   {
    "id": "893a2de5-7670-42c1-a3c1-76a2d7564be7",
@@ -2468,7 +2478,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133628_893a2de5-7670-42c1-a3c1-76a2d7564be7.png",
-   "note": "attempt 4, hands at navel height"
+   "note": "attempt 4, hands at navel height",
+   "status": "pass",
+   "reason": "hands at navel height, both arms and hands correct"
   },
   {
    "id": "2c3cd137-ef68-48ee-8723-94e6b7451997",
@@ -2479,7 +2491,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133808_2c3cd137-ef68-48ee-8723-94e6b7451997.png",
-   "note": "attempt 3, plain tunic"
+   "note": "attempt 3, plain tunic",
+   "status": "fail",
+   "reason": "attempt 3: an apple logo on the laptop lid again"
   },
   {
    "id": "07eaeb20-e539-45fe-9e5f-99d34b03cde9",
@@ -2490,7 +2504,9 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133808_07eaeb20-e539-45fe-9e5f-99d34b03cde9.png",
-   "note": "attempt 3, empty sill"
+   "note": "attempt 3, empty sill",
+   "status": "pass",
+   "reason": "looks down at the phone (matches the alt text), screen black, sill empty, bright"
   },
   {
    "id": "c80c6502-5fac-4436-b8f0-89d103c30963",
@@ -2501,7 +2517,20 @@
    "model": "nano_banana_pro 2k",
    "credits": 2,
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133809_c80c6502-5fac-4436-b8f0-89d103c30963.png",
-   "note": "attempt 3, ivory sleeve"
+   "note": "attempt 3, ivory sleeve",
+   "status": "pass",
+   "reason": "high-necked knit, ivory sleeve on the Profi, blush visible"
+  },
+  {
+   "id": "f75be53e-05a5-4f8a-8013-4d46dec7bcbd",
+   "group": "v3-retry",
+   "shot": "E04",
+   "path": "/images/editorial/hotel-v3.jpg",
+   "attempt": 4,
+   "model": "nano_banana_pro 2k",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_134108_f75be53e-05a5-4f8a-8013-4d46dec7bcbd.png",
+   "note": "attempt 4, no laptop"
   }
  ],
  "current": {
@@ -3333,12 +3362,6 @@
    "shot": "R23",
    "attempt": 3
   },
-  "/images/editorial/hotel-v3.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133808_2c3cd137-ef68-48ee-8723-94e6b7451997.png",
-   "job": "2c3cd137-ef68-48ee-8723-94e6b7451997",
-   "shot": "E04",
-   "attempt": 3
-  },
   "/images/landing/app-pro-v3.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_133808_07eaeb20-e539-45fe-9e5f-99d34b03cde9.png",
    "job": "07eaeb20-e539-45fe-9e5f-99d34b03cde9",
@@ -3350,6 +3373,12 @@
    "job": "c80c6502-5fac-4436-b8f0-89d103c30963",
    "shot": "P-make-up-8",
    "attempt": 3
+  },
+  "/images/editorial/hotel-v3.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_134108_f75be53e-05a5-4f8a-8013-4d46dec7bcbd.png",
+   "job": "f75be53e-05a5-4f8a-8013-4d46dec7bcbd",
+   "shot": "E04",
+   "attempt": 4
   }
  }
 }
