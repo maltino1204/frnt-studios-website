@@ -18,11 +18,15 @@ import type { ActionResult } from "./types";
  * getForYouAction after hydration. Customer voice: du. Admin voice: neutral.
  */
 
-/** „Für dich“: `guest` for visitors and non-customer roles, `off` when the customer opted out (nothing computed). */
+/**
+ * „Für dich“: `guest` only without a session (the slot invites to log in), `other` for signed-in Profis and admins
+ * (nothing is shown: an invite to log in would be wrong), `off` when the customer opted out (nothing computed).
+ */
 export async function getForYouAction(): Promise<ActionResult<ForYouDTO>> {
   return publicAction(async () => {
     const session = await getSession();
-    if (!session || session.role !== "customer") return { state: "guest" } as const;
+    if (!session) return { state: "guest" } as const;
+    if (session.role !== "customer") return { state: "other" } as const;
     return getForYou(session);
   });
 }

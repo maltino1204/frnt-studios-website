@@ -21,8 +21,8 @@ type State = { kind: "loading" } | { kind: "guest" } | { kind: "hidden" } | { ki
 
 /**
  * „Für dich“ on the static /entdecken page: fetched after hydration (the (site) layout never reads cookies).
- * Loading keeps its space with a skeleton in the final shape; guests get one quiet line; opted-out customers (and
- * other roles) get nothing, and the server computed nothing for them.
+ * Loading keeps its space with a skeleton in the final shape; guests (no session) get one quiet line; opted-out
+ * customers and signed-in Profis or admins get nothing, and the server computed nothing for them.
  */
 export function ForYouSlot() {
   const [state, setState] = useState<State>({ kind: "loading" });
@@ -39,6 +39,7 @@ export function ForYouSlot() {
         const d = res.data;
         if (d.state !== "on") {
           setPersonalCity(null);
+          // Only a visitor without a session is invited to log in; Profis, admins and opted-out customers see nothing.
           setState({ kind: d.state === "guest" ? "guest" : "hidden" });
           return;
         }
