@@ -25,7 +25,9 @@ export const V5 = [
     prompt: EDIT("the view through the window shows Frankfurt-Westend: green tree tops and light Gründerzeit apartment façades with tiled roofs across the street, no high-rise towers.") },
   { id: "F06", review: "R11", path: "/images/pros/pro-30-v5.jpg", replaces: "/images/pros/pro-30-v4.jpg", ref: "523bf6e2-ffb4-4c86-aea0-59089df49cc8", aspect: "4:5",
     issue: "Manhattan-like skyline (Theresa H., München)",
-    prompt: EDIT("the view through the floor-to-ceiling window shows Munich: low, light old-town façades and red tiled roofs, green tree tops and two distant church towers with green domes, no high-rise towers.") },
+    prompt: EDIT("the view through the floor-to-ceiling window shows Munich: low, light old-town façades and red tiled roofs, green tree tops and two distant church towers with green domes, no high-rise towers."),
+    // attempt 2 edits attempt 1 (its job as the reference): the view was right, a transom ghost was left on the glass
+    retry: "remove the semi-transparent grey horizontal bar that floats across the window glass between the two white vertical window frames, so the glass there is perfectly clear and shows the city view continuously; the two white vertical frames stay." },
   { id: "F07", review: "R11", path: "/images/explore/im-hotel-ankommen-v5.jpg", replaces: "/images/explore/im-hotel-ankommen.jpg", ref: "178e4898-5a9c-4ec2-9706-b627d828466d", aspect: "4:5",
     issue: "Manhattan/Asian skyline",
     prompt: EDIT("the view through the window shows a German city centre in daylight: light old-town façades, red tiled roofs, green tree tops and a distant church spire, no high-rise towers.") },

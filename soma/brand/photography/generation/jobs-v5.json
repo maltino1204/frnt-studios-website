@@ -2,7 +2,7 @@
  "note": "v5 post-review fixes (Photo Art Director, 2 Nov 2026; docs/qa/review-entdecken-photos.md R8, R10, R11). Start balance 742.99, budget 35.",
  "startBalance": 742.99,
  "budget": 35,
- "creditsLogged": 22,
+ "creditsLogged": 24,
  "jobs": [
   {
    "id": "afaf1d48-1524-4263-ba5f-dafc3992e657",
@@ -14,7 +14,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155621_afaf1d48-1524-4263-ba5f-dafc3992e657.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155621_afaf1d48-1524-4263-ba5f-dafc3992e657.png",
+   "status": "pass",
+   "reason": "third hand and thread gone; exactly two hands, both the professional’s: one on the forehead, one with the white brow pencil at the arch; face, light and framing unchanged"
   },
   {
    "id": "360752f5-bfd2-463e-99bf-75d596204477",
@@ -26,7 +28,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_360752f5-bfd2-463e-99bf-75d596204477.png",
+   "status": "pass",
+   "reason": "table case intact: smooth sand canvas, zip, side handle, no holes; both people, faces, hands and the hallway unchanged"
   },
   {
    "id": "c8840c53-751a-457f-bdf3-3d9c1ac9c0d6",
@@ -38,7 +42,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_c8840c53-751a-457f-bdf3-3d9c1ac9c0d6.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_c8840c53-751a-457f-bdf3-3d9c1ac9c0d6.png",
+   "status": "pass",
+   "reason": "complete portable table: two cream padded top halves on the wooden legs, held by both hands; sofa, light and bag unchanged"
   },
   {
    "id": "3b35132a-0ae1-4733-8200-f68ec8c07f74",
@@ -50,7 +56,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_3b35132a-0ae1-4733-8200-f68ec8c07f74.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_3b35132a-0ae1-4733-8200-f68ec8c07f74.png",
+   "status": "pass",
+   "reason": "linen drawn up to the shoulder blades, only shoulders, upper shoulder blades and neck bare; the professional’s hand rests on the sheet at the upper back"
   },
   {
    "id": "0af1432e-2c96-4c19-a9b9-e6997654a832",
@@ -62,7 +70,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_0af1432e-2c96-4c19-a9b9-e6997654a832.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_0af1432e-2c96-4c19-a9b9-e6997654a832.png",
+   "status": "pass",
+   "reason": "Frankfurt-Westend view: Gründerzeit façades with dormers and tiled roofs over green tree tops, no towers; Yasmin unchanged"
   },
   {
    "id": "bd58b16b-eeca-4190-8aac-dc3a80d48f23",
@@ -74,7 +84,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png",
+   "status": "fail",
+   "reason": "Munich view right (red roofs, green-domed towers, trees), Theresa unchanged, but a half-transparent grey transom ghost floats across the glass between the mullions"
   },
   {
    "id": "f13f416f-0d8f-45c2-84ac-d6239a77f3a4",
@@ -86,7 +98,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png",
+   "status": "pass",
+   "reason": "German old town through the hotel window: red roofs, light façades, trees, a Gothic spire, no towers; treatment, people and room unchanged"
   },
   {
    "id": "03380d29-8309-4f9e-a946-37dbb2dd1160",
@@ -98,7 +112,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_03380d29-8309-4f9e-a946-37dbb2dd1160.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_03380d29-8309-4f9e-a946-37dbb2dd1160.png",
+   "status": "pass",
+   "reason": "Hamburg Speicherstadt: red-brick warehouses on a canal with trees, no towers; both people, hands and brush unchanged"
   },
   {
    "id": "83c93401-1585-41cf-9066-aebdebb8e894",
@@ -110,7 +126,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155620_83c93401-1585-41cf-9066-aebdebb8e894.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155620_83c93401-1585-41cf-9066-aebdebb8e894.png",
+   "status": "pass",
+   "reason": "Berlin: the Spree with stone embankments, trees and light Altbau façades; no harbour, bridge or opera house; chair, hands and room unchanged"
   },
   {
    "id": "f29c24e7-cda7-4475-a3ec-8e957c4e3281",
@@ -122,7 +140,9 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_f29c24e7-cda7-4475-a3ec-8e957c4e3281.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155618_f29c24e7-cda7-4475-a3ec-8e957c4e3281.png",
+   "status": "pass",
+   "reason": "switch and socket plates gone, plain white walls; Emre, comb, case and kitchen unchanged"
   },
   {
    "id": "f687cbbc-908a-40d5-990a-61583d4f59b4",
@@ -134,7 +154,23 @@
    "attempt": 1,
    "model": "nano_banana_pro 2k, edit of the file in use",
    "credits": 2,
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f687cbbc-908a-40d5-990a-61583d4f59b4.png"
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f687cbbc-908a-40d5-990a-61583d4f59b4.png",
+   "status": "pass",
+   "reason": "light sand trousers matching the tunic, no black left; hands, file, polish and client unchanged"
+  },
+  {
+   "id": "b0bd4f98-8375-4e37-9c4a-4f4dde5cba60",
+   "shot": "F06",
+   "review": "R11",
+   "path": "/images/pros/pro-30-v5.jpg",
+   "replaces": "/images/pros/pro-30-v4.jpg",
+   "issue": "Manhattan-like skyline (Theresa H., München)",
+   "attempt": 2,
+   "model": "nano_banana_pro 2k, edit of the file in use",
+   "credits": 2,
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_160440_b0bd4f98-8375-4e37-9c4a-4f4dde5cba60.png",
+   "ref": "F06 attempt 1 (bd58b16b)",
+   "note": "retry: remove the transom ghost"
   }
  ],
  "current": {
@@ -168,12 +204,6 @@
    "shot": "F05",
    "attempt": 1
   },
-  "/images/pros/pro-30-v5.jpg": {
-   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_bd58b16b-eeca-4190-8aac-dc3a80d48f23.png",
-   "job": "bd58b16b-eeca-4190-8aac-dc3a80d48f23",
-   "shot": "F06",
-   "attempt": 1
-  },
   "/images/explore/im-hotel-ankommen-v5.jpg": {
    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_155619_f13f416f-0d8f-45c2-84ac-d6239a77f3a4.png",
    "job": "f13f416f-0d8f-45c2-84ac-d6239a77f3a4",
@@ -203,6 +233,12 @@
    "job": "f687cbbc-908a-40d5-990a-61583d4f59b4",
    "shot": "F11",
    "attempt": 1
+  },
+  "/images/pros/pro-30-v5.jpg": {
+   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BLgL9zIBBkH931se5bWbkXZwpv/hf_20261102_160440_b0bd4f98-8375-4e37-9c4a-4f4dde5cba60.png",
+   "job": "b0bd4f98-8375-4e37-9c4a-4f4dde5cba60",
+   "shot": "F06",
+   "attempt": 2
   }
  }
 }
