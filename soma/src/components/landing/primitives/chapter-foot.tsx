@@ -51,13 +51,24 @@ function CtaLink({ cta }: { cta: FootCta }) {
 }
 
 /**
- * Chapter foot (spec § 5.7): a 1 px rule, the chapter's contextual CTA on the left and „Weiter: {Kapitel}“ on the
- * right (→ #next). Stacked at 390, the "Weiter" link full width.
+ * Chapter foot (spec § 5.7): a 1 px rule, the chapter's contextual CTA on the left (or a group of quiet links, 02) and
+ * „Weiter: {Kapitel}“ on the right (→ #next). Stacked at 390, the "Weiter" link full width.
  */
-export function ChapterFoot({ cta, next, className }: { cta?: FootCta | null; next?: { id: string; name: string } | null; className?: string }) {
+export function ChapterFoot({ cta, next, className }: { cta?: FootCta | FootCta[] | null; next?: { id: string; name: string } | null; className?: string }) {
+  const ctas = cta ? (Array.isArray(cta) ? cta : [cta]) : [];
   return (
     <div className={cn("flex flex-col gap-4 border-t border-line pt-5 md:flex-row md:items-center md:justify-between md:gap-6", className)}>
-      {cta ? <CtaLink cta={cta} /> : <span aria-hidden className="hidden md:block" />}
+      {ctas.length > 1 ? (
+        <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-8">
+          {ctas.map((c) => (
+            <CtaLink key={c.href} cta={c} />
+          ))}
+        </div>
+      ) : ctas.length ? (
+        <CtaLink cta={ctas[0]} />
+      ) : (
+        <span aria-hidden className="hidden md:block" />
+      )}
       {next ? (
         <a href={`#${next.id}`} className={cn(lpLinkClass, "max-md:w-full md:ml-auto")}>
           <span className={lpLinkText}>Weiter: {next.name}</span>

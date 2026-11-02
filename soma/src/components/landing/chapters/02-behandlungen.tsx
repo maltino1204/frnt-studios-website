@@ -12,20 +12,21 @@ import { SnapRail } from "../primitives/snap-rail";
 import { Chapter, LpContainer } from "./chapter";
 
 /**
- * 03 · Behandlungen (spec § 4.3). Two server-rendered presentations of the same catalogue, switched by CSS so there
+ * 02 · Behandlungen (spec § 4.3). Two server-rendered presentations of the same catalogue, switched by CSS so there
  * is no hydration mismatch and no shift: the editorial index with a preview arch (≥ 1024 with hover and a fine
  * pointer), otherwise the snap rail of cards (78 % at 390, about 2.4 per view at 768). Every category is one link
- * to `/behandlungen/{slug}`; prices are real floors („ab“, without travel) or absent.
+ * to `/behandlungen/{slug}`; prices are real floors („ab“, without travel) or absent. The foot holds two quiet links:
+ * „Alle Behandlungen“ and „Themenwelten entdecken“ (`/entdecken`, v2).
  */
 export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
-  const next = nextChapter(3)!;
+  const next = nextChapter(2)!;
   // The desktop preview's photos, built here (getImageProps on the server) for the index island.
   const previews = Object.fromEntries(items.map((it) => [it.slug, landingImgAttrs(it.image, { sizes: PREVIEW_SIZES, focal: it.focal })]));
   return (
-    <Chapter n={3}>
+    <Chapter n={2}>
       <LpContainer>
         <div className="lp-cat-head">
-          <Eyebrow nn="03">Behandlungen</Eyebrow>
+          <Eyebrow nn="02">Behandlungen</Eyebrow>
           <Clauses
             as="h2"
             id={titleId("behandlungen")}
@@ -49,7 +50,10 @@ export function BehandlungenChapter({ items }: { items: CategoryItem[] }) {
 
         <ChapterFoot
           className="mt-4 lg:mt-12"
-          cta={{ label: "Alle Behandlungen", href: routes.categories(), kind: "link" }}
+          cta={[
+            { label: "Alle Behandlungen", href: routes.categories(), kind: "link" },
+            { label: "Themenwelten entdecken", href: routes.explore(), kind: "link" },
+          ]}
           next={{ id: next.id, name: next.name }}
         />
       </LpContainer>

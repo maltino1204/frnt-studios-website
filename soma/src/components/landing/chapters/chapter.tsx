@@ -5,9 +5,9 @@ import { chapterByN, titleId } from "../nav/chapters";
 /**
  * A landing chapter (spec § 4, § 11.2): `<section id data-chapter …>` labelled by its heading. Writes the static
  * contract attributes the motion layer reads (data-chapter, -name, -tone, -header-theme) and the colour scope
- * (night / oxblood). `cv` turns on content-visibility with the chapter's intrinsic sizes (§ 10.4; 06–09 only): the
- * measured content heights at ≥ 1024 (desktop), 768–1023 (tablet, defaults to mobile; a CSS length where it grows with
- * the width) and below (mobile).
+ * (oxblood). `cv` turns on content-visibility with the chapter's intrinsic sizes (§ 10.4; 04–06 only): the measured
+ * content heights at ≥ 1024 (desktop), 768–1023 (tablet, defaults to mobile; a CSS length where it grows with the
+ * width) and below (mobile).
  */
 const px = (v: number | string) => (typeof v === "number" ? `${v}px` : v);
 
@@ -28,7 +28,7 @@ export function Chapter({
   children: ReactNode;
 }) {
   const c = chapterByN(n);
-  const theme = c.tone === "night" ? "night" : c.tone === "oxblood" ? "oxblood" : undefined;
+  const theme = c.tone === "oxblood" ? "oxblood" : undefined;
   return (
     <section
       id={c.id}

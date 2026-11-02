@@ -63,5 +63,12 @@ export function slotText(iso: string): string {
   return `${formatDayShort(iso)}, ${formatTime(iso)}`;
 }
 
+const sinceFmt = { v: null as Intl.DateTimeFormat | null };
+/** "21. Okt." (the approval date of a new Profi; Europe/Berlin, non-breaking space). */
+export function sinceText(iso: string): string {
+  sinceFmt.v ??= new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", day: "numeric", month: "short" });
+  return sinceFmt.v.format(new Date(iso)).replace(/ /g, NBSP);
+}
+
 export const FOR_YOU_WHY_HREF = "/ranking#fuer-dich";
 export const SELECTION_WHY_HREF = "/ranking#auswahl";

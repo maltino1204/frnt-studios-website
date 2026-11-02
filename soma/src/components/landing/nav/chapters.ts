@@ -1,13 +1,14 @@
 /**
- * The ten chapters of the landing page (docs/landing/LANDING_DESIGN_SPEC.md § 5.1): the single source of truth for
- * the section ids, the chapter index, the overlay, the dock label and the motion layer's chapter events.
+ * The seven chapters of the landing page (docs/landing/LANDING_DESIGN_SPEC.md § 0.1 v2 structure, § 5.1): the single
+ * source of truth for the section ids, the chapter index, the overlay, the static no-JS list, the dock label and the
+ * motion layer's chapter events. v2 (client decision 2026-11-02) removed Idee, Dein Ort and Deine Buchung.
  */
-export type ChapterTone = "bone" | "stone" | "night" | "linen" | "oxblood";
+export type ChapterTone = "bone" | "stone" | "oxblood";
 export type HeaderTheme = "light" | "dark";
 
 export type ChapterDef = {
   n: number;
-  /** "01" … "10" (data-chapter, data-chapter-label, html[data-chapter-active]) */
+  /** "01" … "07" (data-chapter, data-chapter-label, html[data-chapter-active]) */
   nn: string;
   id: string;
   /** navigation name (copy deck § 0.2) */
@@ -20,16 +21,13 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 const DEFS: Array<Omit<ChapterDef, "nn">> = [
   { n: 1, id: "bei-dir", name: "Bei dir", tone: "bone", headerTheme: "light" },
-  { n: 2, id: "idee", name: "Idee", tone: "bone", headerTheme: "light" },
-  { n: 3, id: "behandlungen", name: "Behandlungen", tone: "bone", headerTheme: "light" },
-  { n: 4, id: "so-funktionierts", name: "Ablauf", tone: "stone", headerTheme: "light" },
-  { n: 5, id: "dein-ort", name: "Dein Ort", tone: "night", headerTheme: "dark" },
-  { n: 6, id: "profis", name: "Profis", tone: "bone", headerTheme: "light" },
-  { n: 7, id: "deine-buchung", name: "Deine Buchung", tone: "linen", headerTheme: "light" },
-  // The photo band inside 08 declares its own data-header-theme="dark"; the chapter itself ends on Bone.
-  { n: 8, id: "fuer-profis", name: "Für Profis", tone: "bone", headerTheme: "light" },
-  { n: 9, id: "fragen", name: "Fragen", tone: "bone", headerTheme: "light" },
-  { n: 10, id: "soma", name: "SOMA", tone: "oxblood", headerTheme: "dark" },
+  { n: 2, id: "behandlungen", name: "Behandlungen", tone: "bone", headerTheme: "light" },
+  { n: 3, id: "so-funktionierts", name: "So funktioniert’s", tone: "stone", headerTheme: "light" },
+  { n: 4, id: "profis", name: "Profis", tone: "bone", headerTheme: "light" },
+  // From 1024 the photo band inside 05 declares its own data-header-theme="dark"; below, the chapter is Bone.
+  { n: 5, id: "fuer-profis", name: "Für Profis", tone: "bone", headerTheme: "light" },
+  { n: 6, id: "fragen", name: "Fragen", tone: "bone", headerTheme: "light" },
+  { n: 7, id: "soma", name: "SOMA", tone: "oxblood", headerTheme: "dark" },
 ];
 
 export const CHAPTERS: readonly ChapterDef[] = DEFS.map((c) => ({ ...c, nn: pad(c.n) }));
